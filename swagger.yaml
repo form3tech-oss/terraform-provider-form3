@@ -1,0 +1,990 @@
+swagger: '2.0'
+info:
+  version: "0.0.1"
+  title: Form3 Corelib data structures.
+host: api.form3.tech
+schemes:
+  - https
+basePath: /v1
+paths:
+
+  /organisations:
+
+    post:
+      summary: Create organisation
+      tags:
+       - Organisations
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: Organisation creation request
+          in: body
+          schema:
+            $ref: "#/definitions/OrganisationCreation"
+
+      responses:
+        201:
+          description: Organisation creation response
+          schema:
+            $ref: "#/definitions/OrganisationCreationResponse"
+
+
+    get:
+      summary: List all organisations
+      tags:
+        - Organisations
+      parameters:
+        - name: filter[child_organisation_id]
+          in: query
+          description: Child org id
+          required: false
+          type: string
+          format: uuid
+
+      responses:
+        200:
+          description: List of organisation details
+          schema:
+            $ref: "#/definitions/OrganisationDetailsListResponse"
+
+
+  /organisations/{id}:
+
+    get:
+      summary: Fetch organisation
+      tags:
+        - Organisations
+      parameters:
+        - name: id
+          in: path
+          description: Organisation Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Organisation details
+          schema:
+            $ref: "#/definitions/OrganisationDetailsResponse"
+
+    patch:
+      summary: Update organisation
+      tags:
+        - Organisations
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Organisation Id
+          required: true
+          type: string
+          format: uuid
+        - name: Organisation update request
+          in: body
+          schema:
+            $ref: "#/definitions/OrganisationUpdate"
+      responses:
+        200:
+          description: Organisation details
+          schema:
+            $ref: "#/definitions/OrganisationDetailsResponse"
+
+  /users:
+
+    post:
+      summary: Create user
+      tags:
+       - Users
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: User creation request
+          in: body
+          schema:
+            $ref: "#/definitions/UserCreation"
+
+      responses:
+        201:
+          description: User creation response
+          schema:
+            $ref: "#/definitions/UserCreationResponse"
+
+
+    get:
+      summary: List all users
+      tags:
+        - Users
+      parameters:
+        - name: page[number]
+          in: query
+          description: Which page to select
+          required: false
+          type: integer
+          minimum: 0
+        - name: page[size]
+          in: query
+          description: Number of items to select
+          required: false
+          type: integer
+          minimum: 0
+          maximum: 1000
+
+
+      responses:
+        200:
+          description: List of user details
+          schema:
+            $ref: "#/definitions/UserDetailsListResponse"
+
+
+  /users/{user_id}:
+
+    get:
+      summary: Fetch user
+      tags:
+        - Users
+      parameters:
+        - name: user_id
+          in: path
+          description: User Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: User details
+          schema:
+            $ref: "#/definitions/UserDetailsResponse"
+
+    patch:
+      summary: Edit user details
+      tags:
+        - Users
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: user_id
+          in: path
+          description: User Id
+          required: true
+          type: string
+          format: uuid
+        - name: User update request
+          in: body
+          schema:
+            $ref: "#/definitions/UserCreation"
+
+      responses:
+        200:
+          description: User details
+          schema:
+            $ref: "#/definitions/UserDetailsResponse"
+
+    delete:
+      summary: Delete user
+      tags:
+        - Users
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: user_id
+          in: path
+          description: User Id
+          required: true
+          type: string
+          format: uuid
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+      responses:
+        200:
+          description: User deleted
+
+
+  /users/{user_id}/aces:
+
+    get:
+      summary: Get access control list for user
+      tags:
+        - Users
+      parameters:
+        - name: user_id
+          in: path
+          description: User Id
+          required: true
+          type: string
+          format: uuid
+        - name: filter[record_type]
+          in: query
+          description: Record type
+          required: false
+          type: string
+          pattern: ^[A-Za-z]*$
+        - name: filter[action]
+          in: query
+          description: Access action
+          required: false
+          type: string
+          pattern: ^[A-Za-z]*$
+
+      responses:
+        200:
+          description: List of access control entries for this user
+          schema:
+            $ref: "#/definitions/AceDetailsListResponse"
+
+  /users/{user_id}/roles:
+
+    get:
+      summary: Get all roles for user
+      tags:
+        - Users
+      parameters:
+        - name: user_id
+          in: path
+          description: User Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: List of roles for user
+          schema:
+            $ref: "#/definitions/UserRoleListResponse"
+
+  /users/{user_id}/credentials:
+
+    get:
+      summary: Get all credentials for user
+      tags:
+        - Users
+      parameters:
+        - name: user_id
+          in: path
+          description: User Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: List of credentials for user
+          schema:
+            $ref: "#/definitions/UserCredentialListResponse"
+
+    post:
+      summary: Add credentials to user
+      tags:
+        - Users
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: user_id
+          in: path
+          description: User Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        201:
+          description: Credential creation response
+          schema:
+            $ref: "#/definitions/CredentialCreationResponse"
+
+  /users/{user_id}/credentials/{client_id}:
+
+    delete:
+      summary: Delete credential for user
+      tags:
+        - Users
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: user_id
+          in: path
+          description: User Id
+          required: true
+          type: string
+          format: uuid
+        - name: client_id
+          in: path
+          description: client id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Credential deleted
+
+  /users/{user_id}/roles/{role_id}:
+
+    post:
+      summary: Add role to user
+      tags:
+        - Users
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: user_id
+          in: path
+          description: User Id
+          required: true
+          type: string
+          format: uuid
+        - name: role_id
+          in: path
+          description: Role Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        201:
+          description: Role set OK
+
+    delete:
+      summary: Remove role from user
+      tags:
+        - Users
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: user_id
+          in: path
+          description: User Id
+          required: true
+          type: string
+          format: uuid
+        - name: role_id
+          in: path
+          description: Role Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: User role deleted OK
+
+  /roles:
+
+    post:
+      summary: Create role
+      tags:
+       - Roles
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: Role creation request
+          in: body
+          schema:
+            $ref: "#/definitions/RoleCreation"
+
+      responses:
+        201:
+          description: Role creation response
+          schema:
+            $ref: "#/definitions/RoleCreationResponse"
+
+
+    get:
+      summary: List all roles
+      tags:
+        - Roles
+      parameters:
+        - name: page[number]
+          in: query
+          description: Which page to select
+          required: false
+          type: integer
+          minimum: 0
+        - name: page[size]
+          in: query
+          description: Number of items to select
+          required: false
+          type: integer
+          minimum: 0
+          maximum: 1000
+
+      responses:
+        200:
+          description: List of role details
+          schema:
+            $ref: "#/definitions/RoleDetailsListResponse"
+
+
+  /roles/{role_id}:
+
+    get:
+      summary: Fetch role
+      tags:
+        - Roles
+      parameters:
+        - name: role_id
+          in: path
+          description: Role Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Role details
+          schema:
+            $ref: "#/definitions/RoleDetailsResponse"
+
+
+
+  /roles/{role_id}/aces:
+
+    post:
+      summary: Create Access Control Entry
+      tags:
+       - Ace
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: role_id
+          in: path
+          description: Role Id
+          required: true
+          type: string
+          format: uuid
+        - name: Ace creation request
+          in: body
+          schema:
+            $ref: "#/definitions/AceCreation"
+
+      responses:
+        201:
+          description: Ace creation response
+          schema:
+            $ref: "#/definitions/AceCreationResponse"
+
+
+    get:
+      summary: List all Access Controls for role
+      tags:
+        - Ace
+      parameters:
+        - name: role_id
+          in: path
+          description: Role Id
+          required: true
+          type: string
+          format: uuid
+
+      responses:
+        200:
+          description: List of Ace details
+          schema:
+            $ref: "#/definitions/AceDetailsListResponse"
+
+
+  /roles/{role_id}/aces/{ace_id}:
+
+    get:
+      summary: Fetch Access Control Entry
+      tags:
+        - Ace
+      parameters:
+        - name: role_id
+          in: path
+          description: Role Id
+          required: true
+          type: string
+          format: uuid
+        - name: ace_id
+          in: path
+          description: Ace Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Ace details
+          schema:
+            $ref: "#/definitions/AceDetailsResponse"
+
+    delete:
+      summary: Delete Access Control Entry
+      tags:
+        - Ace
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: role_id
+          in: path
+          description: Role Id
+          required: true
+          type: string
+          format: uuid
+        - name: ace_id
+          in: path
+          description: Ace Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Ace deleted OK
+
+definitions:
+
+  ApiError:
+    type: object
+    properties:
+      error_message:
+        type: string
+      error_code:
+        type: string
+        format: uuid
+
+  Links:
+    type: object
+    properties:
+      self:
+        type: string
+      first:
+        type: string
+      prev:
+        type: string
+      next:
+        type: string
+      last:
+        type: string
+
+  #Ace
+  Ace:
+    type: object
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          role_id:
+            type: string
+            format: uuid
+          action:
+            type: string
+            pattern: ^[A-Za-z]*$
+          record_type:
+            type: string
+            pattern: ^[A-Za-z]*$
+          filter:
+            type: string
+
+  AceDetailsListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Ace'
+      links:
+        $ref: '#/definitions/Links'
+
+  #Versioning, Audit and Approval
+  #===
+
+  ApprovalRequest:
+    type: object
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          record_type:
+            type: string
+            pattern: ^[A-Za-z]*$
+          record_id:
+            type: string
+            format: uuid
+          record_orgid:
+            type: string
+            format: uuid
+          record_version:
+            type: integer
+            minimum: 0
+          action:
+            type: string
+            pattern: ^[A-Za-z]*$
+          status:
+            type: string
+            pattern: ^[A-Za-z]*$
+          actioned_by:
+            type: string
+            format: uuid
+          action_time:
+            type: string
+            format: 'date-time'
+          before_data:
+            type: object
+          after_data:
+            type: object
+
+  ApprovalDetailsListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/ApprovalRequest'
+      links:
+        $ref: '#/definitions/Links'
+
+
+  AuditEntry:
+    type: object
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          record_type:
+            type: string
+            pattern: ^[A-Za-z]*$
+          record_id:
+            type: string
+            format: uuid
+          actioned_by:
+            type: string
+            format: uuid
+          action_time:
+            type: string
+            format: 'date-time'
+          description:
+            type: string
+            pattern: ^[A-Za-z0-9 .,@:]*$
+          before_data:
+            type: object
+          after_data:
+            type: object
+
+  SubscriptionAttributes:
+    type: object
+    required:
+      - callback_uri
+      - callback_transport
+      - record_type
+      - event_type
+    properties:
+      callback_uri:
+        type: string
+        pattern: ^[A-Za-z0-9 .,@:\/-_]*$
+      callback_transport:
+        type: string
+        enum:
+          - http
+          - email
+          - queue
+      user_id:
+        type: string
+        format: uuid
+        readOnly: true
+      record_type:
+        type: string
+        pattern: ^[A-Za-z_-]*$
+      event_type:
+        type: string
+        pattern: ^[A-Za-z_-]*$
+
+  #Organisation records
+  #===
+  #These reflect Form³, customers on the platform, and their subentities
+  Organisation:
+    type: object
+    properties:
+      type:
+        type: string
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        $ref: "#/definitions/OrganisationAttributes"
+
+  OrganisationAttributes:
+    type: object
+    properties:
+      name:
+        type: string
+
+  OrganisationCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/Organisation'
+
+  OrganisationUpdate:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/Organisation'
+
+  OrganisationCreationResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/Organisation'
+      links:
+        $ref: '#/definitions/Links'
+
+  OrganisationDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/Organisation'
+      links:
+        $ref: '#/definitions/Links'
+
+  OrganisationDetailsListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Organisation'
+      links:
+        $ref: '#/definitions/Links'
+
+  #Security info
+  #===
+  #User, role and security entries for individual users on the platform
+
+  #User records
+  User:
+    type: object
+    properties:
+      type:
+        type: string
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          username:
+            type: string
+            pattern: ^[A-Za-z0-9-+@.]*$
+          email:
+            type: string
+            pattern: ^[A-Za-z0-9-+@.]*$
+          role_ids:
+            type: array
+            items:
+              type: string
+              format: uuid
+
+  UserCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/User'
+
+  UserCreationResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/User'
+      links:
+        $ref: '#/definitions/Links'
+
+  UserDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/User'
+      links:
+        $ref: '#/definitions/Links'
+
+  UserDetailsListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/User'
+      links:
+        $ref: '#/definitions/Links'
+
+
+  #Roles
+  Role:
+    type: object
+    properties:
+      type:
+        type: string
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        $ref: "#/definitions/RoleAttributes"
+
+  RoleAttributes:
+    type: object
+    properties:
+      name:
+        type: string
+
+  RoleCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/Role'
+
+  RoleCreationResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/Role'
+      links:
+        $ref: '#/definitions/Links'
+
+  RoleDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/Role'
+      links:
+        $ref: '#/definitions/Links'
+
+  RoleDetailsListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Role'
+      links:
+        $ref: '#/definitions/Links'
+
+  #Credential
+  Credential:
+    type: object
+    properties:
+      client_id:
+        type: string
+        format: uuid
+
+  CredentialSecret:
+    type: object
+    properties:
+      client_id:
+        type: string
+        format: uuid
+      client_secret:
+        type: string
+
+  CredentialCreationResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/CredentialSecret'
+      links:
+        $ref: '#/definitions/Links'
+
+  UserCredentialListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Credential'
+      links:
+        $ref: '#/definitions/Links'
+
+  #Ace
+  AceCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/Ace'
+
+  AceCreationResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/Ace'
+      links:
+        $ref: '#/definitions/Links'
+
+  AceDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/Ace'
+      links:
+        $ref: '#/definitions/Links'
+
+  UserRoleListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Role'
+      links:
+        $ref: '#/definitions/Links'
