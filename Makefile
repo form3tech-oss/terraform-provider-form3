@@ -1,7 +1,9 @@
+.DEFAULT_GOAL := default
+
 TEST?=$$(go list ./... |grep -v 'vendor')
 GOFMT_FILES?=$$(find . -name '*.go' |grep -v vendor)
 
-default: build
+default: build test testacc
 
 build: fmtcheck vet
 	go install

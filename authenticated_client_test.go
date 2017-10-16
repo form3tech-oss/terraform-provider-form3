@@ -1,7 +1,6 @@
 package form3
 
 import (
-	"fmt"
 	"github.com/ewilde/go-form3/client"
 	"github.com/ewilde/go-form3/client/users"
 	"os"
