@@ -1,11 +1,11 @@
 package form3
 
 import (
-	"testing"
-	"os"
 	"fmt"
-	"github.com/ewilde/go-form3/client/users"
 	"github.com/ewilde/go-form3/client"
+	"github.com/ewilde/go-form3/client/users"
+	"os"
+	"testing"
 )
 
 func TestAccLogin(t *testing.T) {

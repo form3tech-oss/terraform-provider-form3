@@ -1,30 +1,29 @@
 package form3
 
 import (
-	"encoding/base64"
-	"net/http"
 	"bytes"
-	"mime/multipart"
+	"encoding/base64"
 	"encoding/json"
-	"io/ioutil"
-	"path"
+	"fmt"
+	"github.com/ewilde/go-form3/client"
+	"github.com/go-openapi/runtime"
 	rc "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 	"golang.org/x/net/context"
-	"fmt"
-	"github.com/go-openapi/runtime"
-	"github.com/ewilde/go-form3/client"
+	"io/ioutil"
+	"mime/multipart"
+	"net/http"
+	"path"
 )
 
 type AuthenticatedClient struct {
-	Config 			*client.TransportConfig
-	AccessToken		string
-	ApiClients		*client.Form3CorelibDataStructures
-	HttpClient		*http.Client
+	Config      *client.TransportConfig
+	AccessToken string
+	ApiClients  *client.Form3CorelibDataStructures
+	HttpClient  *http.Client
 }
 
 type AuthenticatedClientCheckRedirect struct {
-
 }
 
 func (r *AuthenticatedClientCheckRedirect) CheckRedirect(req *http.Request, via []*http.Request) error {
@@ -35,7 +34,7 @@ func (r *AuthenticatedClientCheckRedirect) CheckRedirect(req *http.Request, via 
 func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient {
 	a := &AuthenticatedClientCheckRedirect{}
 	h := &http.Client{
-		Transport: http.DefaultTransport,
+		Transport:     http.DefaultTransport,
 		CheckRedirect: a.CheckRedirect,
 	}
 
@@ -43,7 +42,7 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 	authClient := &AuthenticatedClient{
 		ApiClients: client.New(rt, strfmt.Default),
 		HttpClient: h,
-		Config: config,
+		Config:     config,
 	}
 
 	rt.Consumers["application/vnd.api+json;charset=UTF-8"] = runtime.JSONConsumer()
@@ -90,8 +89,6 @@ func (r *AuthenticatedClient) Authenticate(clientId string, clientSecret string)
 	return nil
 }
 
-
-
 func (r *AuthenticatedClient) Do(ctx context.Context, client *http.Client, req *http.Request) (*http.Response, error) {
 	if client == nil {
 		client = r.HttpClient
@@ -121,8 +118,7 @@ func getLoginResponse(body []byte) (*LoginResponse, error) {
 }
 
 type LoginResponse struct {
-	TokenType string `json:"token_type,omitempty"`
+	TokenType   string `json:"token_type,omitempty"`
 	AccessToken string `json:"access_token"`
-	ExpiresIn int `json:"expires_in"`
+	ExpiresIn   int    `json:"expires_in"`
 }
-
