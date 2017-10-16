@@ -51,7 +51,7 @@ type PostUsersCreated struct {
 }
 
 func (o *PostUsersCreated) Error() string {
-	return fmt.Sprintf("[POST /users][%d] postUsersCreated  %+v", 201, o.Payload)
+	return fmt.Sprintf("[POST /security/users][%d] postUsersCreated  %+v", 201, o.Payload)
 }
 
 func (o *PostUsersCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

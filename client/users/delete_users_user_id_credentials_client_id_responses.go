@@ -47,7 +47,7 @@ type DeleteUsersUserIDCredentialsClientIDOK struct {
 }
 
 func (o *DeleteUsersUserIDCredentialsClientIDOK) Error() string {
-	return fmt.Sprintf("[DELETE /users/{user_id}/credentials/{client_id}][%d] deleteUsersUserIdCredentialsClientIdOK ", 200)
+	return fmt.Sprintf("[DELETE /security/users/{user_id}/credentials/{client_id}][%d] deleteUsersUserIdCredentialsClientIdOK ", 200)
 }
 
 func (o *DeleteUsersUserIDCredentialsClientIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

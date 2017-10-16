@@ -51,7 +51,7 @@ type PostUsersUserIDCredentialsCreated struct {
 }
 
 func (o *PostUsersUserIDCredentialsCreated) Error() string {
-	return fmt.Sprintf("[POST /users/{user_id}/credentials][%d] postUsersUserIdCredentialsCreated  %+v", 201, o.Payload)
+	return fmt.Sprintf("[POST /security/users/{user_id}/credentials][%d] postUsersUserIdCredentialsCreated  %+v", 201, o.Payload)
 }
 
 func (o *PostUsersUserIDCredentialsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
