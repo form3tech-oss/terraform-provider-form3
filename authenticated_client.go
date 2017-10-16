@@ -17,10 +17,11 @@ import (
 )
 
 type AuthenticatedClient struct {
-	Config      *client.TransportConfig
-	AccessToken string
-	ApiClients  *client.Form3CorelibDataStructures
-	HttpClient  *http.Client
+	AccessToken    string
+	ApiClients     *client.Form3CorelibDataStructures
+	Config         *client.TransportConfig
+	HttpClient     *http.Client
+	OrganisationId string
 }
 
 type AuthenticatedClientCheckRedirect struct {
