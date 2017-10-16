@@ -18,7 +18,7 @@ func TestAccLogin(t *testing.T) {
 	}
 
 	if len(auth.AccessToken) < 32 {
-		fmt.Errorf("expected access token to be set, found %s", auth.AccessToken)
+		t.Errorf("expected access token to be set, found %s", auth.AccessToken)
 	}
 }
 
