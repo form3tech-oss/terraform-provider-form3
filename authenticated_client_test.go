@@ -5,6 +5,8 @@ import (
 	"github.com/ewilde/go-form3/client/users"
 	"os"
 	"testing"
+	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
 )
 
 func TestAccLogin(t *testing.T) {
@@ -37,6 +39,29 @@ func TestAccGetUsers(t *testing.T) {
 
 	if len(response.Payload.Data) == 0 {
 		t.Error("Expected at least one user")
+	}
+}
+
+func TestAccGetUserWithIdNotFound(t *testing.T) {
+	config := testPreCheck(t)
+	auth := NewAuthenticatedClient(config)
+	err := auth.Authenticate(os.Getenv("FORM3_CLIENT_ID"), os.Getenv("FORM3_CLIENT_SECRET"))
+	if err != nil {
+		t.Error(err)
+	}
+
+	_, err = auth.ApiClients.Users.GetUsersUserID(users.NewGetUsersUserIDParams().WithUserID(strfmt.UUID("700e7327-3834-4fe1-95f6-7eea7773bf0f")))
+	if err == nil {
+		t.Error("Expected error to occur")
+	}
+
+	apiError := err.(*runtime.APIError)
+	if apiError == nil {
+		t.Errorf("Expected API Error not %+v", err)
+	}
+
+	if apiError.Code != 404 {
+		t.Errorf("Expected 404 Not Found not %v", apiError.Code)
 	}
 }
 
