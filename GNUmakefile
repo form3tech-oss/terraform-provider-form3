@@ -5,6 +5,7 @@ default: build test testacc
 
 build: fmtcheck
 	@go install
+	@mkdir -p ~/.terraform.d/plugins/
 	@cp $(GOPATH)/bin/terraform-provider-form3 ~/.terraform.d/plugins/
 	@echo "Build succeeded"
 
