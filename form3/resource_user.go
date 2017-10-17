@@ -6,6 +6,7 @@ import (
 	"github.com/ewilde/go-form3/client/users"
 	"github.com/ewilde/go-form3/models"
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/schema"
 	"log"
 )
@@ -94,13 +95,14 @@ func resourceUserRead(d *schema.ResourceData, meta interface{}) error {
 
 func resourceUserUpdate(d *schema.ResourceData, meta interface{}) error {
 	d.Partial(false)
-	userFromResource, err := createUserFromResourceData(d)
-	if err != nil {
-		return fmt.Errorf("error updating user: %s", err)
-	}
 
-	if d.HasChange("description") {
+	if d.HasChange("email") {
 		client := meta.(*form3.AuthenticatedClient)
+		userFromResource, err := createUserFromResourceDataWithVersion(d, client)
+		if err != nil {
+			return fmt.Errorf("error updating user: %s", err)
+		}
+
 		_, err = client.ApiClients.Users.PatchUsersUserID(users.NewPatchUsersUserIDParams().
 			WithUserID(userFromResource.ID).
 			WithUserUpdateRequest(&models.UserCreation{Data: userFromResource}))
@@ -116,17 +118,34 @@ func resourceUserUpdate(d *schema.ResourceData, meta interface{}) error {
 func resourceUserDelete(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
 
-	key := d.Id()
-	userId, _ := GetUUIDOK(d, "user_id")
-	userName := d.Get("user_name").(string)
-	log.Printf("[INFO] Deleting user for id: %s username: %s", key, userName)
+	userFromResource, err := createUserFromResourceDataWithVersion(d, client)
+	if err != nil {
+		return fmt.Errorf("error deleting user: %s", err)
+	}
 
-	_, err := client.ApiClients.Users.DeleteUsersUserID(users.NewDeleteUsersUserIDParams().WithUserID(userId))
+	log.Printf("[INFO] Deleting user for id: %s username: %s", userFromResource.ID, userFromResource.Attributes.Username)
+
+	_, err = client.ApiClients.Users.DeleteUsersUserID(users.NewDeleteUsersUserIDParams().
+		WithUserID(userFromResource.ID).
+		WithVersion(*userFromResource.Version))
+
 	if err != nil {
 		return fmt.Errorf("error deleting user: %s", err)
 	}
 
 	return nil
+}
+
+func createUserFromResourceDataWithVersion(d *schema.ResourceData, client *form3.AuthenticatedClient) (*models.User, error) {
+	user, err := createUserFromResourceData(d)
+	version, err := getVersion(client, user.ID)
+	if err != nil {
+		return nil, err
+	}
+
+	user.Version = &version
+
+	return user, nil
 }
 
 func createUserFromResourceData(d *schema.ResourceData) (*models.User, error) {
@@ -149,4 +168,15 @@ func createUserFromResourceData(d *schema.ResourceData) (*models.User, error) {
 	}
 
 	return &user, nil
+}
+
+func getVersion(client *form3.AuthenticatedClient, userId strfmt.UUID) (int64, error) {
+	user, err := client.ApiClients.Users.GetUsersUserID(users.NewGetUsersUserIDParams().WithUserID(userId))
+	if err != nil {
+		if err != nil {
+			return -1, fmt.Errorf("error reading user: %s", err)
+		}
+	}
+
+	return *user.Payload.Data.Version, nil
 }

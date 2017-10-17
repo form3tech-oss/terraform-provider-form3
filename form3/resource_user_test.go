@@ -30,6 +30,14 @@ func TestAccUser_basic(t *testing.T) {
 						"form3_user.user", "email", "terraform-user@form3.tech"),
 				),
 			},
+			{
+				Config: fmt.Sprintf(testForm3UserConfigAUpdate, organisationId),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckUserExists("form3_user.user", &userResponse),
+					resource.TestCheckResourceAttr(
+						"form3_user.user", "email", "dude@form3.tech"),
+				),
+			},
 		},
 	})
 }
@@ -88,4 +96,12 @@ resource "form3_user" "user" {
 	user_id = "44247ebb-fe01-44ab-887d-7f344481712f"
 	user_name = "terraform-user"
   	email = "terraform-user@form3.tech"
+}`
+
+const testForm3UserConfigAUpdate = `
+resource "form3_user" "user" {
+	organisation_id = "%s"
+	user_id = "44247ebb-fe01-44ab-887d-7f344481712f"
+	user_name = "terraform-user"
+  	email = "dude@form3.tech"
 }`

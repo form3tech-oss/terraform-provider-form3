@@ -84,3 +84,7 @@ func GetUUIDOK(d *schema.ResourceData, key string) (strfmt.UUID, bool) {
 
 	return "", false
 }
+
+func createInt64(x int64) *int64 {
+	return &x
+}
