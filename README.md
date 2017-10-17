@@ -1,4 +1,5 @@
-# Terraform Runscope Provider
+[![Build Status](https://travis-ci.org/ewilde/terraform-provider-form3.svg?branch=master)](https://travis-ci.org/ewilde/terraform-provider-form3)
+# Terraform Form3 Provider
 
 - Website: https://www.terraform.io
 - [![Gitter chat](https://badges.gitter.im/hashicorp-terraform/Lobby.png)](https://gitter.im/hashicorp-terraform/Lobby)
@@ -6,8 +7,8 @@
 
 <img src="https://cdn.rawgit.com/hashicorp/terraform-website/master/content/source/assets/images/logo-hashicorp.svg" width="600px">
 
-The Runscope provider is used to create and manage Runscope tests using
-the official [Runscope API](https://www.runscope.com/docs/api)
+The Form3 provider is used to create and manage Form3 resources using
+the official [Form3 API](http://api-docs.form3.tech)
 
 ## Requirements
 
@@ -16,17 +17,12 @@ the official [Runscope API](https://www.runscope.com/docs/api)
 
 ## Building The Provider
 
-Clone repository to: `$GOPATH/src/github.com/terraform-providers/terraform-provider-runscope`
-
-```sh
-$ mkdir -p $GOPATH/src/github.com/terraform-providers; cd $GOPATH/src/github.com/terraform-providers
-$ git clone git@github.com:terraform-providers/terraform-provider-runscope
-```
+Clone repository to: `$GOPATH/src/github.com/ewilde/terraform-provider-form3`
 
 Enter the provider directory and build the provider
 
 ```sh
-$ cd $GOPATH/src/github.com/terraform-providers/terraform-provider-runscope
+$ cd $GOPATH/src/github.com/ewilde/terraform-provider-form3
 $ make build
 ```
 
@@ -34,7 +30,7 @@ $ make build
 
 See [examples](examples/)
 
-See [runscope providers documentation](https://www.terraform.io/docs/providers/runscope/index.html)
+See [form3 providers documentation](website/docs)
 
 ## Developing the Provider
 
@@ -45,7 +41,7 @@ To compile the provider, run `make build`. This will build the provider and put 
 ```sh
 $ make build
 ...
-$ $GOPATH/bin/terraform-provider-runscope
+$ $GOPATH/bin/terraform-provider-form3
 ...
 ```
 
