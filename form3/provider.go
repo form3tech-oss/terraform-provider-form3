@@ -29,12 +29,6 @@ func Provider() terraform.ResourceProvider {
 				DefaultFunc: envDefaultFuncWithDefault("FORM3_HOST", "api.form3.tech"),
 				Description: "A form3 api host i.e. api.form3.tech.",
 			},
-			"organisation_id": &schema.Schema{
-				Type:        schema.TypeString,
-				Required:    true,
-				DefaultFunc: envDefaultFunc("FORM3_ORGANISATION_ID"),
-				Description: "A form3 organisation id.",
-			},
 		},
 
 		ResourcesMap: map[string]*schema.Resource{
@@ -75,10 +69,9 @@ func envDefaultFuncWithDefault(key string, defaultValue string) schema.SchemaDef
 
 func providerConfigure(d *schema.ResourceData) (interface{}, error) {
 	config := Config{
-		ApiHost:        d.Get("api_host").(string),
-		ClientId:       d.Get("client_id").(string),
-		ClientSecret:   d.Get("client_secret").(string),
-		OrganisationId: d.Get("organisation_id").(string),
+		ApiHost:      d.Get("api_host").(string),
+		ClientId:     d.Get("client_id").(string),
+		ClientSecret: d.Get("client_secret").(string),
 	}
 	return config.Client()
 }

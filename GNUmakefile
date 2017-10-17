@@ -4,7 +4,9 @@ GOFMT_FILES?=$$(find . -name '*.go' |grep -v vendor)
 default: build test testacc
 
 build: fmtcheck
-	go install
+	@go install
+	@cp $(GOPATH)/bin/terraform-provider-form3 ~/.terraform.d/plugins/
+	@echo "Build succeeded"
 
 test: fmtcheck
 	go test -i $(TEST) || exit 1
