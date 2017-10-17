@@ -1,0 +1,7 @@
+terraform.tfvars
+.idea
+*.tfstate
+*.tfstate.backup
+terraform-provider-form3
+pkg
+.terraform

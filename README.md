@@ -1,0 +1,64 @@
+# Terraform Runscope Provider
+
+- Website: https://www.terraform.io
+- [![Gitter chat](https://badges.gitter.im/hashicorp-terraform/Lobby.png)](https://gitter.im/hashicorp-terraform/Lobby)
+- Mailing list: [Google Groups](http://groups.google.com/group/terraform-tool)
+
+<img src="https://cdn.rawgit.com/hashicorp/terraform-website/master/content/source/assets/images/logo-hashicorp.svg" width="600px">
+
+The Runscope provider is used to create and manage Runscope tests using
+the official [Runscope API](https://www.runscope.com/docs/api)
+
+## Requirements
+
+-	[Terraform](https://www.terraform.io/downloads.html) 0.10.x
+-	[Go](https://golang.org/doc/install) 1.9 (to build the provider plugin)
+
+## Building The Provider
+
+Clone repository to: `$GOPATH/src/github.com/terraform-providers/terraform-provider-runscope`
+
+```sh
+$ mkdir -p $GOPATH/src/github.com/terraform-providers; cd $GOPATH/src/github.com/terraform-providers
+$ git clone git@github.com:terraform-providers/terraform-provider-runscope
+```
+
+Enter the provider directory and build the provider
+
+```sh
+$ cd $GOPATH/src/github.com/terraform-providers/terraform-provider-runscope
+$ make build
+```
+
+## Using the provider
+
+See [examples](examples/)
+
+See [runscope providers documentation](https://www.terraform.io/docs/providers/runscope/index.html)
+
+## Developing the Provider
+
+If you wish to work on the provider, you'll first need [Go](http://www.golang.org) installed on your machine (version 1.9+ is *required*). You'll also need to correctly setup a [GOPATH](http://golang.org/doc/code.html#GOPATH), as well as adding `$GOPATH/bin` to your `$PATH`.
+
+To compile the provider, run `make build`. This will build the provider and put the provider binary in the `$GOPATH/bin` directory.
+
+```sh
+$ make build
+...
+$ $GOPATH/bin/terraform-provider-runscope
+...
+```
+
+In order to test the provider, you can simply run `make test`.
+
+```sh
+$ make test
+```
+
+In order to run the full suite of Acceptance tests, run `make testacc`.
+
+*Note:* Acceptance tests create real resources, and often cost money to run.
+
+```sh
+$ env FORM3_CLIENT_ID={your_client_id} FORM3_CLIENT_SECRET={your_client_secret} FORM3_HOST={some_env_host} FORM3_ORGANISATION_ID={your_organisation_id} make testacc
+```
