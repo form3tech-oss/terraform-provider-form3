@@ -22,7 +22,7 @@ type DeleteUsersUserIDReader struct {
 func (o *DeleteUsersUserIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
+	case 204:
 		result := NewDeleteUsersUserIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err

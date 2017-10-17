@@ -291,7 +291,6 @@ func (r *Runtime) Submit(operation *runtime.ClientOperation) (interface{}, error
 		r.Do = ctxhttp.Do
 	}
 
-	res, err := r.Do(ctx, client, req) // make requests, by default follows 10 redirects before failing
 	if r.Debug {
 		b, err2 := httputil.DumpRequestOut(req, true)
 		if err2 != nil {
@@ -299,6 +298,9 @@ func (r *Runtime) Submit(operation *runtime.ClientOperation) (interface{}, error
 		}
 		fmt.Fprintln(os.Stderr, string(b))
 	}
+
+	res, err := r.Do(ctx, client, req) // make requests, by default follows 10 redirects before failing
+
 
 	if err != nil {
 		return nil, err
