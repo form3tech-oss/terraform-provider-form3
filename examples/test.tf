@@ -15,4 +15,5 @@ resource "form3_user" "admin_user" {
   user_id = "44247ebb-fe01-44ab-887d-7f344481712f"
   user_name = "terraform-user"
   email = "terraform-user@form3.tech"
+  roles = ["ad538853-4db0-44e3-9369-17eaae4aa3b7"]
 }

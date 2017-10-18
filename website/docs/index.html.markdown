@@ -18,31 +18,37 @@ Use the navigation to the left to read about the available resources.
 
 ```hcl
 # Configure the Form3 provider
-provider "runscope" {
-  access_token = "${var.access_token}"
+variable "api_host" {}
+variable "client_id" {}
+variable "client_secret" {}
+variable "organisation_id" {}
+
+provider "form3" {
+  api_host      = "${var.api_host}"
+  client_id     = "${var.client_id}"
+  client_secret = "${var.client_secret}"
 }
 
-# Create a bucket
-resource "runscope_bucket" "main" {
-  name         = "terraform-ftw"
-  team_uuid    = "870ed937-bc6e-4d8b-a9a5-d7f9f2412fa3"
-}
 
-# Create a test in the bucket
-resource "runscope_test" "api" {
-  name         = "api-test"
-  description  = "checks the api is up and running"
-  bucket_id    = "${runscope_bucket.main}"
+resource "form3_user" "admin_user" {
+  organisation_id = "${var.organisation_id}"
+  user_id = "44247ebb-fe01-44ab-887d-7f344481712f"
+  user_name = "terraform-user"
+  email = "terraform-user@form3.tech"
+  roles = ["ad538853-4db0-44e3-9369-17eaae4aa3b7"]
 }
 ```
 
 ## Argument Reference
 
-The following arguments are supported:
+The following provider arguments are supported:
 
-* `access_token` - (Required) The Form3 access token.
-  This can also be specified with the `RUNSCOPE_ACCESS_TOKEN` shell
+* `api_host` - (Optional) The Form3 api host, this defaults to `api.form3.tech`.
+This can also be specified with the `FORM3_HOST` shell
   environment variable.
-* `api_url` - (Optional) If set, specifies the Form3 api url, this
-   defaults to `"https://api.runscope.com`. This can also be specified
-   with the `RUNSCOPE_API_URL` shell environment variable.
+* `client_id` - (Required) The Form3 client id used to access the api.
+  This can also be specified with the `FORM3_CLIENT_ID` shell
+  environment variable.
+* `client_secret` - (Required) The Form3 client secret used to access the api.
+  This can also be specified with the `FORM3_CLIENT_SECRET` shell
+  environment variable.

@@ -14,9 +14,12 @@ A [user](http://api-docs.form3.tech/#user-resource) resource.
 
 ```hcl
 # Add a user to your form3 account
-resource "form3_user" "main" {
-  name      = "a-user"
-  team_uuid = "870ed937-bc6e-4d8b-a9a5-d7f9f2412fa3"
+resource "form3_user" "admin_user" {
+  organisation_id = "${var.organisation_id}"
+  user_id = "44247ebb-fe01-44ab-887d-7f344481712f"
+  user_name = "terraform-user"
+  email = "terraform-user@form3.tech"
+  roles = ["ad538853-4db0-44e3-9369-17eaae4aa3b7"]
 }
 ```
 
@@ -24,13 +27,14 @@ resource "form3_user" "main" {
 
 The following arguments are supported:
 
-* `name` - (String, Required) The name of this user.
-* `team_uuid` - (String, Required) Unique identifier for the team this user
-  is being created for.
+* `organisation_id` - (String, Required) The origanisation id to create this user in.
+* `user_id` - (String, Required) Unique identifier for this user.
+* `user_name` - (String, Required) User name for this user.
+* `email` - (String, Required) User's email address.
+* `roles` - (List) A list of roles id's that should be assigned to this user.
+
 
 ## Attributes Reference
-
 The following attributes are exported:
 
-* `name` - The name of this user.
-* `team_uuid` - Unique identifier for the team this user belongs to.
+* `id` - The ID of the user.
