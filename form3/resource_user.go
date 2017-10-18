@@ -38,6 +38,11 @@ func resourceForm3User() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 			},
+			"roles": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+			},
 		},
 	}
 }
@@ -90,13 +95,14 @@ func resourceUserRead(d *schema.ResourceData, meta interface{}) error {
 	d.Set("user_name", user.Payload.Data.Attributes.Username)
 	d.Set("email", user.Payload.Data.Attributes.Email)
 	d.Set("organisation_id", user.Payload.Data.OrganisationID.String())
+	d.Set("roles", readRoles(user.Payload.Data.Attributes.RoleIds))
 	return nil
 }
 
 func resourceUserUpdate(d *schema.ResourceData, meta interface{}) error {
 	d.Partial(false)
 
-	if d.HasChange("email") {
+	if d.HasChange("email") || d.HasChange("roles") {
 		client := meta.(*form3.AuthenticatedClient)
 		userFromResource, err := createUserFromResourceDataWithVersion(d, client)
 		if err != nil {
@@ -167,6 +173,21 @@ func createUserFromResourceData(d *schema.ResourceData) (*models.User, error) {
 		user.OrganisationID = attr
 	}
 
+	if attr, ok := GetUUIDOK(d, "organisation_id"); ok {
+		user.OrganisationID = attr
+	}
+
+	if attr, ok := d.GetOk("roles"); ok {
+		roles := []strfmt.UUID{}
+		items := attr.([]interface{})
+		for _, x := range items {
+			item := x.(string)
+			roles = append(roles, strfmt.UUID(item))
+		}
+
+		user.Attributes.RoleIds = roles
+	}
+
 	return &user, nil
 }
 
@@ -179,4 +200,13 @@ func getVersion(client *form3.AuthenticatedClient, userId strfmt.UUID) (int64, e
 	}
 
 	return *user.Payload.Data.Version, nil
+}
+
+func readRoles(roles []strfmt.UUID) []string {
+	result := make([]string, 0, len(roles))
+	for _, role := range roles {
+		result = append(result, role.String())
+	}
+
+	return result
 }

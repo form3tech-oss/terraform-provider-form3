@@ -58,3 +58,6 @@ In order to run the full suite of Acceptance tests, run `make testacc`.
 ```sh
 $ env FORM3_CLIENT_ID={your_client_id} FORM3_CLIENT_SECRET={your_client_secret} FORM3_HOST={some_env_host} FORM3_ORGANISATION_ID={your_organisation_id} make testacc
 ```
+
+### Updating packages
+*

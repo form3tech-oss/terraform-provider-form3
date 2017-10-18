@@ -28,6 +28,8 @@ func TestAccUser_basic(t *testing.T) {
 						"form3_user.user", "user_name", "terraform-user"),
 					resource.TestCheckResourceAttr(
 						"form3_user.user", "email", "terraform-user@form3.tech"),
+					resource.TestCheckResourceAttr(
+						"form3_user.user", "roles.0", "32881d6b-a000-4258-b779-56c59970590f"),
 				),
 			},
 			{
@@ -36,6 +38,8 @@ func TestAccUser_basic(t *testing.T) {
 					testAccCheckUserExists("form3_user.user", &userResponse),
 					resource.TestCheckResourceAttr(
 						"form3_user.user", "email", "dude@form3.tech"),
+					resource.TestCheckResourceAttr(
+						"form3_user.user", "roles.0", "ad538853-4db0-44e3-9369-17eaae4aa3b7"),
 				),
 			},
 		},
@@ -93,15 +97,17 @@ func testAccCheckUserExists(resourceKey string, user *users.GetUsersUserIDOK) re
 const testForm3UserConfigA = `
 resource "form3_user" "user" {
 	organisation_id = "%s"
-	user_id = "44247ebb-fe01-44ab-887d-7f344481712f"
-	user_name = "terraform-user"
-  	email = "terraform-user@form3.tech"
+	user_id 		= "44247ebb-fe01-44ab-887d-7f344481712f"
+	user_name 		= "terraform-user"
+  	email 			= "terraform-user@form3.tech"
+	roles 			= ["32881d6b-a000-4258-b779-56c59970590f"]
 }`
 
 const testForm3UserConfigAUpdate = `
 resource "form3_user" "user" {
 	organisation_id = "%s"
-	user_id = "44247ebb-fe01-44ab-887d-7f344481712f"
-	user_name = "terraform-user"
-  	email = "dude@form3.tech"
+	user_id 		= "44247ebb-fe01-44ab-887d-7f344481712f"
+	user_name 		= "terraform-user"
+  	email			= "dude@form3.tech"
+	roles 			= ["ad538853-4db0-44e3-9369-17eaae4aa3b7"]
 }`
