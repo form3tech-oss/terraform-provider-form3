@@ -47,7 +47,7 @@ type PostUsersUserIDRolesRoleIDCreated struct {
 }
 
 func (o *PostUsersUserIDRolesRoleIDCreated) Error() string {
-	return fmt.Sprintf("[POST /security/users/{user_id}/roles/{role_id}][%d] postUsersUserIdRolesRoleIdCreated ", 201)
+	return fmt.Sprintf("[POST /users/{user_id}/roles/{role_id}][%d] postUsersUserIdRolesRoleIdCreated ", 201)
 }
 
 func (o *PostUsersUserIDRolesRoleIDCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

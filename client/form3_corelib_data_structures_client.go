@@ -14,6 +14,7 @@ import (
 	"github.com/ewilde/go-form3/client/ace"
 	"github.com/ewilde/go-form3/client/organisations"
 	"github.com/ewilde/go-form3/client/roles"
+	"github.com/ewilde/go-form3/client/subscriptions"
 	"github.com/ewilde/go-form3/client/users"
 )
 
@@ -63,6 +64,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Form3Corel
 	cli.Organisations = organisations.New(transport, formats)
 
 	cli.Roles = roles.New(transport, formats)
+
+	cli.Subscriptions = subscriptions.New(transport, formats)
 
 	cli.Users = users.New(transport, formats)
 
@@ -116,6 +119,8 @@ type Form3CorelibDataStructures struct {
 
 	Roles *roles.Client
 
+	Subscriptions *subscriptions.Client
+
 	Users *users.Client
 
 	Transport runtime.ClientTransport
@@ -130,6 +135,8 @@ func (c *Form3CorelibDataStructures) SetTransport(transport runtime.ClientTransp
 	c.Organisations.SetTransport(transport)
 
 	c.Roles.SetTransport(transport)
+
+	c.Subscriptions.SetTransport(transport)
 
 	c.Users.SetTransport(transport)
 

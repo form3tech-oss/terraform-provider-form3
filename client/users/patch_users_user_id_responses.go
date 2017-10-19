@@ -51,7 +51,7 @@ type PatchUsersUserIDOK struct {
 }
 
 func (o *PatchUsersUserIDOK) Error() string {
-	return fmt.Sprintf("[PATCH /security/users/{user_id}][%d] patchUsersUserIdOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[PATCH /users/{user_id}][%d] patchUsersUserIdOK  %+v", 200, o.Payload)
 }
 
 func (o *PatchUsersUserIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

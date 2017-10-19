@@ -51,7 +51,7 @@ type GetUsersUserIDOK struct {
 }
 
 func (o *GetUsersUserIDOK) Error() string {
-	return fmt.Sprintf("[GET /security/users/{user_id}][%d] getUsersUserIdOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /users/{user_id}][%d] getUsersUserIdOK  %+v", 200, o.Payload)
 }
 
 func (o *GetUsersUserIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

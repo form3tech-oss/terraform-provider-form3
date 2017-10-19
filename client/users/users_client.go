@@ -27,7 +27,7 @@ type Client struct {
 /*
 DeleteUsersUserID deletes user
 */
-func (a *Client) DeleteUsersUserID(params *DeleteUsersUserIDParams) (*DeleteUsersUserIDOK, error) {
+func (a *Client) DeleteUsersUserID(params *DeleteUsersUserIDParams) (*DeleteUsersUserIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteUsersUserIDParams()
@@ -36,7 +36,7 @@ func (a *Client) DeleteUsersUserID(params *DeleteUsersUserIDParams) (*DeleteUser
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteUsersUserID",
 		Method:             "DELETE",
-		PathPattern:        "/security/users/{user_id}",
+		PathPattern:        "/users/{user_id}",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
@@ -48,14 +48,14 @@ func (a *Client) DeleteUsersUserID(params *DeleteUsersUserIDParams) (*DeleteUser
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteUsersUserIDOK), nil
+	return result.(*DeleteUsersUserIDNoContent), nil
 
 }
 
 /*
 DeleteUsersUserIDCredentialsClientID deletes credential for user
 */
-func (a *Client) DeleteUsersUserIDCredentialsClientID(params *DeleteUsersUserIDCredentialsClientIDParams) (*DeleteUsersUserIDCredentialsClientIDOK, error) {
+func (a *Client) DeleteUsersUserIDCredentialsClientID(params *DeleteUsersUserIDCredentialsClientIDParams) (*DeleteUsersUserIDCredentialsClientIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteUsersUserIDCredentialsClientIDParams()
@@ -64,7 +64,7 @@ func (a *Client) DeleteUsersUserIDCredentialsClientID(params *DeleteUsersUserIDC
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteUsersUserIDCredentialsClientID",
 		Method:             "DELETE",
-		PathPattern:        "/security/users/{user_id}/credentials/{client_id}",
+		PathPattern:        "/users/{user_id}/credentials/{client_id}",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
@@ -76,7 +76,7 @@ func (a *Client) DeleteUsersUserIDCredentialsClientID(params *DeleteUsersUserIDC
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteUsersUserIDCredentialsClientIDOK), nil
+	return result.(*DeleteUsersUserIDCredentialsClientIDNoContent), nil
 
 }
 
@@ -92,7 +92,7 @@ func (a *Client) DeleteUsersUserIDRolesRoleID(params *DeleteUsersUserIDRolesRole
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteUsersUserIDRolesRoleID",
 		Method:             "DELETE",
-		PathPattern:        "/security/users/{user_id}/roles/{role_id}",
+		PathPattern:        "/users/{user_id}/roles/{role_id}",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
@@ -120,7 +120,7 @@ func (a *Client) GetUsers(params *GetUsersParams) (*GetUsersOK, error) {
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetUsers",
 		Method:             "GET",
-		PathPattern:        "/security/users",
+		PathPattern:        "/users",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
@@ -148,7 +148,7 @@ func (a *Client) GetUsersUserID(params *GetUsersUserIDParams) (*GetUsersUserIDOK
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetUsersUserID",
 		Method:             "GET",
-		PathPattern:        "/security/users/{user_id}",
+		PathPattern:        "/users/{user_id}",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
@@ -176,7 +176,7 @@ func (a *Client) GetUsersUserIDAces(params *GetUsersUserIDAcesParams) (*GetUsers
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetUsersUserIDAces",
 		Method:             "GET",
-		PathPattern:        "/security/users/{user_id}/aces",
+		PathPattern:        "/users/{user_id}/aces",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
@@ -204,7 +204,7 @@ func (a *Client) GetUsersUserIDCredentials(params *GetUsersUserIDCredentialsPara
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetUsersUserIDCredentials",
 		Method:             "GET",
-		PathPattern:        "/security/users/{user_id}/credentials",
+		PathPattern:        "/users/{user_id}/credentials",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
@@ -232,7 +232,7 @@ func (a *Client) GetUsersUserIDRoles(params *GetUsersUserIDRolesParams) (*GetUse
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetUsersUserIDRoles",
 		Method:             "GET",
-		PathPattern:        "/security/users/{user_id}/roles",
+		PathPattern:        "/users/{user_id}/roles",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
@@ -260,7 +260,7 @@ func (a *Client) PatchUsersUserID(params *PatchUsersUserIDParams) (*PatchUsersUs
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PatchUsersUserID",
 		Method:             "PATCH",
-		PathPattern:        "/security/users/{user_id}",
+		PathPattern:        "/users/{user_id}",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
@@ -288,7 +288,7 @@ func (a *Client) PostUsers(params *PostUsersParams) (*PostUsersCreated, error) {
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PostUsers",
 		Method:             "POST",
-		PathPattern:        "/security/users",
+		PathPattern:        "/users",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
@@ -316,7 +316,7 @@ func (a *Client) PostUsersUserIDCredentials(params *PostUsersUserIDCredentialsPa
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PostUsersUserIDCredentials",
 		Method:             "POST",
-		PathPattern:        "/security/users/{user_id}/credentials",
+		PathPattern:        "/users/{user_id}/credentials",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
@@ -344,7 +344,7 @@ func (a *Client) PostUsersUserIDRolesRoleID(params *PostUsersUserIDRolesRoleIDPa
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PostUsersUserIDRolesRoleID",
 		Method:             "POST",
-		PathPattern:        "/security/users/{user_id}/roles/{role_id}",
+		PathPattern:        "/users/{user_id}/roles/{role_id}",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
