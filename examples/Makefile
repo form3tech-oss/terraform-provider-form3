@@ -7,4 +7,6 @@ plan:
 apply:
 	terraform apply "plan"
 
-.PHONY: plan apply
+destroy:
+	terraform destroy
+.PHONY: plan apply init destroy
