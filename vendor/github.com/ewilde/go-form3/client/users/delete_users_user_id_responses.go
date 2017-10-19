@@ -23,7 +23,7 @@ func (o *DeleteUsersUserIDReader) ReadResponse(response runtime.ClientResponse, 
 	switch response.Code() {
 
 	case 204:
-		result := NewDeleteUsersUserIDOK()
+		result := NewDeleteUsersUserIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -34,23 +34,23 @@ func (o *DeleteUsersUserIDReader) ReadResponse(response runtime.ClientResponse, 
 	}
 }
 
-// NewDeleteUsersUserIDOK creates a DeleteUsersUserIDOK with default headers values
-func NewDeleteUsersUserIDOK() *DeleteUsersUserIDOK {
-	return &DeleteUsersUserIDOK{}
+// NewDeleteUsersUserIDNoContent creates a DeleteUsersUserIDNoContent with default headers values
+func NewDeleteUsersUserIDNoContent() *DeleteUsersUserIDNoContent {
+	return &DeleteUsersUserIDNoContent{}
 }
 
-/*DeleteUsersUserIDOK handles this case with default header values.
+/*DeleteUsersUserIDNoContent handles this case with default header values.
 
 User deleted
 */
-type DeleteUsersUserIDOK struct {
+type DeleteUsersUserIDNoContent struct {
 }
 
-func (o *DeleteUsersUserIDOK) Error() string {
-	return fmt.Sprintf("[DELETE /security/users/{user_id}][%d] deleteUsersUserIdOK ", 200)
+func (o *DeleteUsersUserIDNoContent) Error() string {
+	return fmt.Sprintf("[DELETE /users/{user_id}][%d] deleteUsersUserIdNoContent ", 204)
 }
 
-func (o *DeleteUsersUserIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *DeleteUsersUserIDNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }

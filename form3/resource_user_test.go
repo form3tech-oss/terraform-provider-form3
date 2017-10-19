@@ -54,7 +54,7 @@ func testAccCheckUserDestroy(state *terraform.State) error {
 			continue
 		}
 
-		response, err := client.ApiClients.Users.GetUsersUserID(users.NewGetUsersUserIDParams().WithUserID(strfmt.UUID(rs.Primary.ID)))
+		response, err := client.SecurityClient.Users.GetUsersUserID(users.NewGetUsersUserIDParams().WithUserID(strfmt.UUID(rs.Primary.ID)))
 
 		if err == nil {
 			return fmt.Errorf("record %s still exists, %+v", rs.Primary.ID, response)
@@ -78,7 +78,7 @@ func testAccCheckUserExists(resourceKey string, user *users.GetUsersUserIDOK) re
 
 		client := testAccProvider.Meta().(*form3.AuthenticatedClient)
 
-		foundRecord, err := client.ApiClients.Users.GetUsersUserID(users.NewGetUsersUserIDParams().WithUserID(strfmt.UUID(rs.Primary.ID)))
+		foundRecord, err := client.SecurityClient.Users.GetUsersUserID(users.NewGetUsersUserIDParams().WithUserID(strfmt.UUID(rs.Primary.ID)))
 
 		if err != nil {
 			return err

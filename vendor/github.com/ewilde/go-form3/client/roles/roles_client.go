@@ -25,6 +25,34 @@ type Client struct {
 }
 
 /*
+DeleteRolesRoleID deletes role
+*/
+func (a *Client) DeleteRolesRoleID(params *DeleteRolesRoleIDParams) (*DeleteRolesRoleIDNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteRolesRoleIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteRolesRoleID",
+		Method:             "DELETE",
+		PathPattern:        "/roles/{role_id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteRolesRoleIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteRolesRoleIDNoContent), nil
+
+}
+
+/*
 GetRoles lists all roles
 */
 func (a *Client) GetRoles(params *GetRolesParams) (*GetRolesOK, error) {

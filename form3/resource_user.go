@@ -59,7 +59,7 @@ func resourceUserCreate(d *schema.ResourceData, meta interface{}) error {
 	}
 	log.Printf("[DEBUG] user create: %#v", user)
 
-	createdUser, err := client.ApiClients.Users.PostUsers(users.NewPostUsersParams().
+	createdUser, err := client.SecurityClient.Users.PostUsers(users.NewPostUsersParams().
 		WithUserCreationRequest(&models.UserCreation{Data: user}))
 
 	if err != nil {
@@ -80,7 +80,7 @@ func resourceUserRead(d *schema.ResourceData, meta interface{}) error {
 	userName := d.Get("user_name").(string)
 	log.Printf("[INFO] Reading user for id: %s username: %s", key, userName)
 
-	user, err := client.ApiClients.Users.GetUsersUserID(users.NewGetUsersUserIDParams().WithUserID(userId))
+	user, err := client.SecurityClient.Users.GetUsersUserID(users.NewGetUsersUserIDParams().WithUserID(userId))
 	if err != nil {
 		apiError := err.(*runtime.APIError)
 		if apiError.Code == 404 {
@@ -109,7 +109,7 @@ func resourceUserUpdate(d *schema.ResourceData, meta interface{}) error {
 			return fmt.Errorf("error updating user: %s", err)
 		}
 
-		_, err = client.ApiClients.Users.PatchUsersUserID(users.NewPatchUsersUserIDParams().
+		_, err = client.SecurityClient.Users.PatchUsersUserID(users.NewPatchUsersUserIDParams().
 			WithUserID(userFromResource.ID).
 			WithUserUpdateRequest(&models.UserCreation{Data: userFromResource}))
 
@@ -131,7 +131,7 @@ func resourceUserDelete(d *schema.ResourceData, meta interface{}) error {
 
 	log.Printf("[INFO] Deleting user for id: %s username: %s", userFromResource.ID, userFromResource.Attributes.Username)
 
-	_, err = client.ApiClients.Users.DeleteUsersUserID(users.NewDeleteUsersUserIDParams().
+	_, err = client.SecurityClient.Users.DeleteUsersUserID(users.NewDeleteUsersUserIDParams().
 		WithUserID(userFromResource.ID).
 		WithVersion(*userFromResource.Version))
 
@@ -157,6 +157,7 @@ func createUserFromResourceDataWithVersion(d *schema.ResourceData, client *form3
 func createUserFromResourceData(d *schema.ResourceData) (*models.User, error) {
 
 	user := models.User{Attributes: &models.UserAttributes{}}
+	user.Type = "users"
 	if attr, ok := GetUUIDOK(d, "user_id"); ok {
 		user.ID = attr
 	}
@@ -167,10 +168,6 @@ func createUserFromResourceData(d *schema.ResourceData) (*models.User, error) {
 
 	if attr, ok := d.GetOk("email"); ok {
 		user.Attributes.Email = attr.(string)
-	}
-
-	if attr, ok := GetUUIDOK(d, "organisation_id"); ok {
-		user.OrganisationID = attr
 	}
 
 	if attr, ok := GetUUIDOK(d, "organisation_id"); ok {
@@ -192,7 +189,7 @@ func createUserFromResourceData(d *schema.ResourceData) (*models.User, error) {
 }
 
 func getUserVersion(client *form3.AuthenticatedClient, userId strfmt.UUID) (int64, error) {
-	user, err := client.ApiClients.Users.GetUsersUserID(users.NewGetUsersUserIDParams().WithUserID(userId))
+	user, err := client.SecurityClient.Users.GetUsersUserID(users.NewGetUsersUserIDParams().WithUserID(userId))
 	if err != nil {
 		if err != nil {
 			return -1, fmt.Errorf("error reading user: %s", err)

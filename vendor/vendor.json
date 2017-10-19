@@ -244,46 +244,52 @@
 			"revisionTime": "2017-09-19T17:24:43Z"
 		},
 		{
-			"checksumSHA1": "eTumYy3Z+4VD+ec3HPebgeKnL/E=",
+			"checksumSHA1": "vR8a7p4lsqVWjMM4v1lOZKj5aNk=",
 			"path": "github.com/ewilde/go-form3",
-			"revision": "58fdf32feb31f9e9a1f89ed113d6a7f0934d6227",
-			"revisionTime": "2017-10-17T17:54:46Z"
+			"revision": "00d538b1b71f55551a7251fb54131267cb6fa703",
+			"revisionTime": "2017-10-19T20:19:41Z"
 		},
 		{
-			"checksumSHA1": "LemQv7nIVh+RlAGkLXndJN4gy6Q=",
+			"checksumSHA1": "uUDVuhEjnlRSeyedUKeJgwVSIc4=",
 			"path": "github.com/ewilde/go-form3/client",
-			"revision": "58fdf32feb31f9e9a1f89ed113d6a7f0934d6227",
-			"revisionTime": "2017-10-17T17:54:46Z"
+			"revision": "00d538b1b71f55551a7251fb54131267cb6fa703",
+			"revisionTime": "2017-10-19T20:19:41Z"
 		},
 		{
 			"checksumSHA1": "fUXnY5WaUgJ1yQFIcj7K02q2L7c=",
 			"path": "github.com/ewilde/go-form3/client/ace",
-			"revision": "58fdf32feb31f9e9a1f89ed113d6a7f0934d6227",
-			"revisionTime": "2017-10-17T17:54:46Z"
+			"revision": "00d538b1b71f55551a7251fb54131267cb6fa703",
+			"revisionTime": "2017-10-19T20:19:41Z"
 		},
 		{
 			"checksumSHA1": "mSm4nwn9qDy+y4g5RZkA/z3FLKk=",
 			"path": "github.com/ewilde/go-form3/client/organisations",
-			"revision": "58fdf32feb31f9e9a1f89ed113d6a7f0934d6227",
-			"revisionTime": "2017-10-17T17:54:46Z"
+			"revision": "00d538b1b71f55551a7251fb54131267cb6fa703",
+			"revisionTime": "2017-10-19T20:19:41Z"
 		},
 		{
-			"checksumSHA1": "nPFLGwLkMF07uStzCCzo/U5ZD4U=",
+			"checksumSHA1": "gHprK+K5Hs6uEgNTHgF7QycRzhU=",
 			"path": "github.com/ewilde/go-form3/client/roles",
-			"revision": "58fdf32feb31f9e9a1f89ed113d6a7f0934d6227",
-			"revisionTime": "2017-10-17T17:54:46Z"
+			"revision": "00d538b1b71f55551a7251fb54131267cb6fa703",
+			"revisionTime": "2017-10-19T20:19:41Z"
 		},
 		{
-			"checksumSHA1": "atG+QMA3i1/BzSetNr6wWUliQuI=",
+			"checksumSHA1": "s8UZ4YahjV5HIXuCZcQldJ22ZZw=",
+			"path": "github.com/ewilde/go-form3/client/subscriptions",
+			"revision": "00d538b1b71f55551a7251fb54131267cb6fa703",
+			"revisionTime": "2017-10-19T20:19:41Z"
+		},
+		{
+			"checksumSHA1": "D7ftwgZTMNedDB8M+YrhwDMd3cs=",
 			"path": "github.com/ewilde/go-form3/client/users",
-			"revision": "58fdf32feb31f9e9a1f89ed113d6a7f0934d6227",
-			"revisionTime": "2017-10-17T17:54:46Z"
+			"revision": "00d538b1b71f55551a7251fb54131267cb6fa703",
+			"revisionTime": "2017-10-19T20:19:41Z"
 		},
 		{
-			"checksumSHA1": "2BHlz14kyDWVkYD9ahjBK+/OgzI=",
+			"checksumSHA1": "dMkmjw1ARMdmqHPNDLw+Q0Zdc0g=",
 			"path": "github.com/ewilde/go-form3/models",
-			"revision": "58fdf32feb31f9e9a1f89ed113d6a7f0934d6227",
-			"revisionTime": "2017-10-17T17:54:46Z"
+			"revision": "00d538b1b71f55551a7251fb54131267cb6fa703",
+			"revisionTime": "2017-10-19T20:19:41Z"
 		},
 		{
 			"path": "github.com/ewilde/go-form3^",

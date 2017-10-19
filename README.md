@@ -60,4 +60,4 @@ $ env FORM3_CLIENT_ID={your_client_id} FORM3_CLIENT_SECRET={your_client_secret} 
 ```
 
 ### Updating packages
-*
+* govendor fetch github.com/ewilde/go-form3/...

@@ -15,7 +15,6 @@ func resourceForm3Role() *schema.Resource {
 	return &schema.Resource{
 		Create: resourceRoleCreate,
 		Read:   resourceRoleRead,
-		Update: resourceRoleUpdate,
 		Delete: resourceRoleDelete,
 
 		Schema: map[string]*schema.Schema{
@@ -33,7 +32,7 @@ func resourceForm3Role() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
-			}
+			},
 		},
 	}
 }
@@ -50,8 +49,10 @@ func resourceRoleCreate(d *schema.ResourceData, meta interface{}) error {
 	}
 	log.Printf("[DEBUG] role create: %#v", role)
 
-	createdRole, err := client.ApiClients.Roles.PostRoles(roles.NewPostRolesParams().
-		WithRoleCreationRequest(&models.RoleCreation{Data: role}))
+	createdRole, err := client.SecurityClient.Roles.PostRoles(roles.NewPostRolesParams().
+		WithRoleCreationRequest(&models.RoleCreation{
+			Data: role,
+		}))
 
 	if err != nil {
 		return fmt.Errorf("failed to create role: %s", err)
@@ -71,7 +72,7 @@ func resourceRoleRead(d *schema.ResourceData, meta interface{}) error {
 	roleName := d.Get("name").(string)
 	log.Printf("[INFO] Reading role for id: %s rolename: %s", key, roleName)
 
-	role, err := client.ApiClients.Roles.GetRolesRoleID(roles.NewGetRolesRoleIDParams().WithRoleID(roleId))
+	role, err := client.SecurityClient.Roles.GetRolesRoleID(roles.NewGetRolesRoleIDParams().WithRoleID(roleId))
 	if err != nil {
 		apiError := err.(*runtime.APIError)
 		if apiError.Code == 404 {
@@ -83,32 +84,7 @@ func resourceRoleRead(d *schema.ResourceData, meta interface{}) error {
 	}
 
 	d.Set("role_id", role.Payload.Data.ID.String())
-	d.Set("name", role.Payload.Data.Attributes.Rolename)
-	d.Set("email", role.Payload.Data.Attributes.Email)
-	d.Set("organisation_id", role.Payload.Data.OrganisationID.String())
-	d.Set("roles", readRoles(role.Payload.Data.Attributes.RoleIds))
-	return nil
-}
-
-func resourceRoleUpdate(d *schema.ResourceData, meta interface{}) error {
-	d.Partial(false)
-
-	if d.HasChange("email") || d.HasChange("roles") {
-		client := meta.(*form3.AuthenticatedClient)
-		roleFromResource, err := createRoleFromResourceDataWithVersion(d, client)
-		if err != nil {
-			return fmt.Errorf("error updating role: %s", err)
-		}
-
-		_, err = client.ApiClients.Roles.PatchRolesRoleID(roles.NewPatchRolesRoleIDParams().
-			WithRoleID(roleFromResource.ID).
-			WithRoleUpdateRequest(&models.RoleCreation{Data: roleFromResource}))
-
-		if err != nil {
-			return fmt.Errorf("error updating role: %s", err)
-		}
-	}
-
+	d.Set("name", role.Payload.Data.Attributes.Name)
 	return nil
 }
 
@@ -120,9 +96,9 @@ func resourceRoleDelete(d *schema.ResourceData, meta interface{}) error {
 		return fmt.Errorf("error deleting role: %s", err)
 	}
 
-	log.Printf("[INFO] Deleting role for id: %s rolename: %s", roleFromResource.ID, roleFromResource.Attributes.Rolename)
+	log.Printf("[INFO] Deleting role for id: %s rolename: %s", roleFromResource.ID, roleFromResource.Attributes.Name)
 
-	_, err = client.ApiClients.Roles.DeleteRolesRoleID(roles.NewDeleteRolesRoleIDParams().
+	_, err = client.SecurityClient.Roles.DeleteRolesRoleID(roles.NewDeleteRolesRoleIDParams().
 		WithRoleID(roleFromResource.ID).
 		WithVersion(*roleFromResource.Version))
 
@@ -148,6 +124,7 @@ func createRoleFromResourceDataWithVersion(d *schema.ResourceData, client *form3
 func createRoleFromResourceData(d *schema.ResourceData) (*models.Role, error) {
 
 	role := models.Role{Attributes: &models.RoleAttributes{}}
+	role.Type = "roles"
 	if attr, ok := GetUUIDOK(d, "role_id"); ok {
 		role.ID = attr
 	}
@@ -156,11 +133,15 @@ func createRoleFromResourceData(d *schema.ResourceData) (*models.Role, error) {
 		role.Attributes.Name = attr.(string)
 	}
 
+	if attr, ok := GetUUIDOK(d, "organisation_id"); ok {
+		role.OrganisationID = attr
+	}
+
 	return &role, nil
 }
 
 func getRoleVersion(client *form3.AuthenticatedClient, roleId strfmt.UUID) (int64, error) {
-	role, err := client.ApiClients.Roles.GetRolesRoleID(roles.NewGetRolesRoleIDParams().WithRoleID(roleId))
+	role, err := client.SecurityClient.Roles.GetRolesRoleID(roles.NewGetRolesRoleIDParams().WithRoleID(roleId))
 	if err != nil {
 		if err != nil {
 			return -1, fmt.Errorf("error reading role: %s", err)

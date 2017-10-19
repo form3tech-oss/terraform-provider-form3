@@ -17,11 +17,12 @@ import (
 )
 
 type AuthenticatedClient struct {
-	AccessToken    string
-	ApiClients     *client.Form3CorelibDataStructures
-	Config         *client.TransportConfig
-	HttpClient     *http.Client
-	OrganisationId string
+	AccessToken        string
+	SecurityClient     *client.Form3CorelibDataStructures
+	NotificationClient *client.Form3CorelibDataStructures
+	Config             *client.TransportConfig
+	HttpClient         *http.Client
+	OrganisationId     string
 }
 
 type AuthenticatedClientCheckRedirect struct {
@@ -39,18 +40,30 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 		CheckRedirect: a.CheckRedirect,
 	}
 
-	rt := rc.NewWithClient(config.Host, config.BasePath, config.Schemes, h)
+	config.WithBasePath("/v1/security")
+	rt1 := rc.NewWithClient(config.Host, config.BasePath, config.Schemes, h)
+	securityClient := client.New(rt1, strfmt.Default)
+
+	config.WithBasePath("/v1/notification")
+	rt2 := rc.NewWithClient(config.Host, config.BasePath, config.Schemes, h)
+	notificationClient := client.New(rt2, strfmt.Default)
+
 	authClient := &AuthenticatedClient{
-		ApiClients: client.New(rt, strfmt.Default),
-		HttpClient: h,
-		Config:     config,
+		SecurityClient:     securityClient,
+		NotificationClient: notificationClient,
+		HttpClient:         h,
+		Config:             config,
 	}
 
+	configureRuntime(rt1, authClient)
+	configureRuntime(rt2, authClient)
+
+	return authClient
+}
+func configureRuntime(rt *rc.Runtime, authClient *AuthenticatedClient) {
 	rt.Consumers["application/vnd.api+json;charset=UTF-8"] = runtime.JSONConsumer()
 	rt.Consumers["application/vnd.api+json"] = runtime.JSONConsumer()
 	rt.Do = authClient.Do
-
-	return authClient
 }
 
 func (r *AuthenticatedClient) Authenticate(clientId string, clientSecret string) error {

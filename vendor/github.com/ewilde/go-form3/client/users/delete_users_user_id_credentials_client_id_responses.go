@@ -22,8 +22,8 @@ type DeleteUsersUserIDCredentialsClientIDReader struct {
 func (o *DeleteUsersUserIDCredentialsClientIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
-		result := NewDeleteUsersUserIDCredentialsClientIDOK()
+	case 204:
+		result := NewDeleteUsersUserIDCredentialsClientIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -34,23 +34,23 @@ func (o *DeleteUsersUserIDCredentialsClientIDReader) ReadResponse(response runti
 	}
 }
 
-// NewDeleteUsersUserIDCredentialsClientIDOK creates a DeleteUsersUserIDCredentialsClientIDOK with default headers values
-func NewDeleteUsersUserIDCredentialsClientIDOK() *DeleteUsersUserIDCredentialsClientIDOK {
-	return &DeleteUsersUserIDCredentialsClientIDOK{}
+// NewDeleteUsersUserIDCredentialsClientIDNoContent creates a DeleteUsersUserIDCredentialsClientIDNoContent with default headers values
+func NewDeleteUsersUserIDCredentialsClientIDNoContent() *DeleteUsersUserIDCredentialsClientIDNoContent {
+	return &DeleteUsersUserIDCredentialsClientIDNoContent{}
 }
 
-/*DeleteUsersUserIDCredentialsClientIDOK handles this case with default header values.
+/*DeleteUsersUserIDCredentialsClientIDNoContent handles this case with default header values.
 
 Credential deleted
 */
-type DeleteUsersUserIDCredentialsClientIDOK struct {
+type DeleteUsersUserIDCredentialsClientIDNoContent struct {
 }
 
-func (o *DeleteUsersUserIDCredentialsClientIDOK) Error() string {
-	return fmt.Sprintf("[DELETE /security/users/{user_id}/credentials/{client_id}][%d] deleteUsersUserIdCredentialsClientIdOK ", 200)
+func (o *DeleteUsersUserIDCredentialsClientIDNoContent) Error() string {
+	return fmt.Sprintf("[DELETE /users/{user_id}/credentials/{client_id}][%d] deleteUsersUserIdCredentialsClientIdNoContent ", 204)
 }
 
-func (o *DeleteUsersUserIDCredentialsClientIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *DeleteUsersUserIDCredentialsClientIDNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }

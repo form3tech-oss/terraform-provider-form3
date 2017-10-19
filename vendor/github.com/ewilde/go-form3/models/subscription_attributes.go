@@ -21,23 +21,19 @@ import (
 type SubscriptionAttributes struct {
 
 	// callback transport
-	// Required: true
-	CallbackTransport *string `json:"callback_transport"`
+	CallbackTransport string `json:"callback_transport,omitempty"`
 
 	// callback uri
-	// Required: true
 	// Pattern: ^[A-Za-z0-9 .,@:\/-_]*$
-	CallbackURI *string `json:"callback_uri"`
+	CallbackURI string `json:"callback_uri,omitempty"`
 
 	// event type
-	// Required: true
 	// Pattern: ^[A-Za-z_-]*$
-	EventType *string `json:"event_type"`
+	EventType string `json:"event_type,omitempty"`
 
 	// record type
-	// Required: true
 	// Pattern: ^[A-Za-z_-]*$
-	RecordType *string `json:"record_type"`
+	RecordType string `json:"record_type,omitempty"`
 
 	// user id
 	// Read Only: true
@@ -115,12 +111,12 @@ func (m *SubscriptionAttributes) validateCallbackTransportEnum(path, location st
 
 func (m *SubscriptionAttributes) validateCallbackTransport(formats strfmt.Registry) error {
 
-	if err := validate.Required("callback_transport", "body", m.CallbackTransport); err != nil {
-		return err
+	if swag.IsZero(m.CallbackTransport) { // not required
+		return nil
 	}
 
 	// value enum
-	if err := m.validateCallbackTransportEnum("callback_transport", "body", *m.CallbackTransport); err != nil {
+	if err := m.validateCallbackTransportEnum("callback_transport", "body", m.CallbackTransport); err != nil {
 		return err
 	}
 
@@ -129,11 +125,11 @@ func (m *SubscriptionAttributes) validateCallbackTransport(formats strfmt.Regist
 
 func (m *SubscriptionAttributes) validateCallbackURI(formats strfmt.Registry) error {
 
-	if err := validate.Required("callback_uri", "body", m.CallbackURI); err != nil {
-		return err
+	if swag.IsZero(m.CallbackURI) { // not required
+		return nil
 	}
 
-	if err := validate.Pattern("callback_uri", "body", string(*m.CallbackURI), `^[A-Za-z0-9 .,@:\/-_]*$`); err != nil {
+	if err := validate.Pattern("callback_uri", "body", string(m.CallbackURI), `^[A-Za-z0-9 .,@:\/-_]*$`); err != nil {
 		return err
 	}
 
@@ -142,11 +138,11 @@ func (m *SubscriptionAttributes) validateCallbackURI(formats strfmt.Registry) er
 
 func (m *SubscriptionAttributes) validateEventType(formats strfmt.Registry) error {
 
-	if err := validate.Required("event_type", "body", m.EventType); err != nil {
-		return err
+	if swag.IsZero(m.EventType) { // not required
+		return nil
 	}
 
-	if err := validate.Pattern("event_type", "body", string(*m.EventType), `^[A-Za-z_-]*$`); err != nil {
+	if err := validate.Pattern("event_type", "body", string(m.EventType), `^[A-Za-z_-]*$`); err != nil {
 		return err
 	}
 
@@ -155,11 +151,11 @@ func (m *SubscriptionAttributes) validateEventType(formats strfmt.Registry) erro
 
 func (m *SubscriptionAttributes) validateRecordType(formats strfmt.Registry) error {
 
-	if err := validate.Required("record_type", "body", m.RecordType); err != nil {
-		return err
+	if swag.IsZero(m.RecordType) { // not required
+		return nil
 	}
 
-	if err := validate.Pattern("record_type", "body", string(*m.RecordType), `^[A-Za-z_-]*$`); err != nil {
+	if err := validate.Pattern("record_type", "body", string(m.RecordType), `^[A-Za-z_-]*$`); err != nil {
 		return err
 	}
 
