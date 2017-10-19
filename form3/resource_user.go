@@ -95,7 +95,7 @@ func resourceUserRead(d *schema.ResourceData, meta interface{}) error {
 	d.Set("user_name", user.Payload.Data.Attributes.Username)
 	d.Set("email", user.Payload.Data.Attributes.Email)
 	d.Set("organisation_id", user.Payload.Data.OrganisationID.String())
-	d.Set("roles", readRoles(user.Payload.Data.Attributes.RoleIds))
+	d.Set("roles", readUserRoles(user.Payload.Data.Attributes.RoleIds))
 	return nil
 }
 
@@ -144,7 +144,7 @@ func resourceUserDelete(d *schema.ResourceData, meta interface{}) error {
 
 func createUserFromResourceDataWithVersion(d *schema.ResourceData, client *form3.AuthenticatedClient) (*models.User, error) {
 	user, err := createUserFromResourceData(d)
-	version, err := getVersion(client, user.ID)
+	version, err := getUserVersion(client, user.ID)
 	if err != nil {
 		return nil, err
 	}
@@ -191,7 +191,7 @@ func createUserFromResourceData(d *schema.ResourceData) (*models.User, error) {
 	return &user, nil
 }
 
-func getVersion(client *form3.AuthenticatedClient, userId strfmt.UUID) (int64, error) {
+func getUserVersion(client *form3.AuthenticatedClient, userId strfmt.UUID) (int64, error) {
 	user, err := client.ApiClients.Users.GetUsersUserID(users.NewGetUsersUserIDParams().WithUserID(userId))
 	if err != nil {
 		if err != nil {
@@ -202,7 +202,7 @@ func getVersion(client *form3.AuthenticatedClient, userId strfmt.UUID) (int64, e
 	return *user.Payload.Data.Version, nil
 }
 
-func readRoles(roles []strfmt.UUID) []string {
+func readUserRoles(roles []strfmt.UUID) []string {
 	result := make([]string, 0, len(roles))
 	for _, role := range roles {
 		result = append(result, role.String())
