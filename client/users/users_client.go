@@ -83,7 +83,7 @@ func (a *Client) DeleteUsersUserIDCredentialsClientID(params *DeleteUsersUserIDC
 /*
 DeleteUsersUserIDRolesRoleID removes role from user
 */
-func (a *Client) DeleteUsersUserIDRolesRoleID(params *DeleteUsersUserIDRolesRoleIDParams) (*DeleteUsersUserIDRolesRoleIDOK, error) {
+func (a *Client) DeleteUsersUserIDRolesRoleID(params *DeleteUsersUserIDRolesRoleIDParams) (*DeleteUsersUserIDRolesRoleIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteUsersUserIDRolesRoleIDParams()
@@ -104,7 +104,7 @@ func (a *Client) DeleteUsersUserIDRolesRoleID(params *DeleteUsersUserIDRolesRole
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteUsersUserIDRolesRoleIDOK), nil
+	return result.(*DeleteUsersUserIDRolesRoleIDNoContent), nil
 
 }
 

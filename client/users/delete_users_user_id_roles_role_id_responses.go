@@ -22,8 +22,8 @@ type DeleteUsersUserIDRolesRoleIDReader struct {
 func (o *DeleteUsersUserIDRolesRoleIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
-		result := NewDeleteUsersUserIDRolesRoleIDOK()
+	case 204:
+		result := NewDeleteUsersUserIDRolesRoleIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -34,23 +34,23 @@ func (o *DeleteUsersUserIDRolesRoleIDReader) ReadResponse(response runtime.Clien
 	}
 }
 
-// NewDeleteUsersUserIDRolesRoleIDOK creates a DeleteUsersUserIDRolesRoleIDOK with default headers values
-func NewDeleteUsersUserIDRolesRoleIDOK() *DeleteUsersUserIDRolesRoleIDOK {
-	return &DeleteUsersUserIDRolesRoleIDOK{}
+// NewDeleteUsersUserIDRolesRoleIDNoContent creates a DeleteUsersUserIDRolesRoleIDNoContent with default headers values
+func NewDeleteUsersUserIDRolesRoleIDNoContent() *DeleteUsersUserIDRolesRoleIDNoContent {
+	return &DeleteUsersUserIDRolesRoleIDNoContent{}
 }
 
-/*DeleteUsersUserIDRolesRoleIDOK handles this case with default header values.
+/*DeleteUsersUserIDRolesRoleIDNoContent handles this case with default header values.
 
 User role deleted OK
 */
-type DeleteUsersUserIDRolesRoleIDOK struct {
+type DeleteUsersUserIDRolesRoleIDNoContent struct {
 }
 
-func (o *DeleteUsersUserIDRolesRoleIDOK) Error() string {
-	return fmt.Sprintf("[DELETE /users/{user_id}/roles/{role_id}][%d] deleteUsersUserIdRolesRoleIdOK ", 200)
+func (o *DeleteUsersUserIDRolesRoleIDNoContent) Error() string {
+	return fmt.Sprintf("[DELETE /users/{user_id}/roles/{role_id}][%d] deleteUsersUserIdRolesRoleIdNoContent ", 204)
 }
 
-func (o *DeleteUsersUserIDRolesRoleIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *DeleteUsersUserIDRolesRoleIDNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	return nil
 }

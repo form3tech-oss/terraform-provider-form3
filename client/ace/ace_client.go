@@ -27,7 +27,7 @@ type Client struct {
 /*
 DeleteRolesRoleIDAcesAceID deletes access control entry
 */
-func (a *Client) DeleteRolesRoleIDAcesAceID(params *DeleteRolesRoleIDAcesAceIDParams) (*DeleteRolesRoleIDAcesAceIDOK, error) {
+func (a *Client) DeleteRolesRoleIDAcesAceID(params *DeleteRolesRoleIDAcesAceIDParams) (*DeleteRolesRoleIDAcesAceIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteRolesRoleIDAcesAceIDParams()
@@ -48,7 +48,7 @@ func (a *Client) DeleteRolesRoleIDAcesAceID(params *DeleteRolesRoleIDAcesAceIDPa
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteRolesRoleIDAcesAceIDOK), nil
+	return result.(*DeleteRolesRoleIDAcesAceIDNoContent), nil
 
 }
 
