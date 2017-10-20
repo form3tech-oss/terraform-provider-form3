@@ -373,7 +373,7 @@ paths:
           type: string
           format: uuid
       responses:
-        200:
+        204:
           description: User role deleted OK
 
   /roles:
@@ -557,7 +557,7 @@ paths:
           type: string
           format: uuid
       responses:
-        200:
+        204:
           description: Ace deleted OK
   /subscriptions:
 
