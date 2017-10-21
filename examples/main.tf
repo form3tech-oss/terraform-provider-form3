@@ -55,8 +55,8 @@ module "subscriptions-created" {
   organisation_id    = "${form3_organisation.oganisation.organisation_id}"
   callback_transport = "queue"
   callback_uri       = "https://sqs.eu-west-1.amazonaws.com/984234431138/terraform-test"
-  event_type         = "Created"
-  record_types       = ["PaymentAdmission", "ReturnAdmission", "ReversalAdmission"]
+  event_type         = "created"
+  record_types       = ["payment_admissions", "return_admissions", "reversal_admissions"]
 }
 
 module "subscriptions-updated" {
@@ -64,6 +64,6 @@ module "subscriptions-updated" {
   organisation_id    = "${form3_organisation.oganisation.organisation_id}"
   callback_transport = "queue"
   callback_uri       = "https://sqs.eu-west-1.amazonaws.com/984234431138/terraform-test"
-  event_type         = "Updated"
-  record_types       = ["PaymentSubmission", "ReturnSubmission"]
+  event_type         = "updated"
+  record_types       = ["payment_submissions", "return_submissions"]
 }
