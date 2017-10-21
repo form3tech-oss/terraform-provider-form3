@@ -25,6 +25,34 @@ type Client struct {
 }
 
 /*
+DeleteOrganisationsID deletes organisation
+*/
+func (a *Client) DeleteOrganisationsID(params *DeleteOrganisationsIDParams) (*DeleteOrganisationsIDNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteOrganisationsIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteOrganisationsID",
+		Method:             "DELETE",
+		PathPattern:        "/organisations/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteOrganisationsIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteOrganisationsIDNoContent), nil
+
+}
+
+/*
 GetOrganisations lists all organisations
 */
 func (a *Client) GetOrganisations(params *GetOrganisationsParams) (*GetOrganisationsOK, error) {
