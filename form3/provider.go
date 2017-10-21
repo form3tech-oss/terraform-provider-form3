@@ -35,6 +35,7 @@ func Provider() terraform.ResourceProvider {
 			"form3_ace":          resourceForm3Ace(),
 			"form3_organisation": resourceForm3Organisation(),
 			"form3_role":         resourceForm3Role(),
+			"form3_subscription": resourceForm3Subscription(),
 			"form3_user":         resourceForm3User(),
 		},
 
