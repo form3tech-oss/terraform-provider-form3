@@ -16,17 +16,17 @@ import (
 	"github.com/ewilde/go-form3/models"
 )
 
-// PostOrganisationsReader is a Reader for the PostOrganisations structure.
-type PostOrganisationsReader struct {
+// PostUnitsReader is a Reader for the PostUnits structure.
+type PostUnitsReader struct {
 	formats strfmt.Registry
 }
 
 // ReadResponse reads a server response into the received o.
-func (o *PostOrganisationsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+func (o *PostUnitsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 201:
-		result := NewPostOrganisationsCreated()
+		result := NewPostUnitsCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -37,24 +37,24 @@ func (o *PostOrganisationsReader) ReadResponse(response runtime.ClientResponse, 
 	}
 }
 
-// NewPostOrganisationsCreated creates a PostOrganisationsCreated with default headers values
-func NewPostOrganisationsCreated() *PostOrganisationsCreated {
-	return &PostOrganisationsCreated{}
+// NewPostUnitsCreated creates a PostUnitsCreated with default headers values
+func NewPostUnitsCreated() *PostUnitsCreated {
+	return &PostUnitsCreated{}
 }
 
-/*PostOrganisationsCreated handles this case with default header values.
+/*PostUnitsCreated handles this case with default header values.
 
 Organisation creation response
 */
-type PostOrganisationsCreated struct {
+type PostUnitsCreated struct {
 	Payload *models.OrganisationCreationResponse
 }
 
-func (o *PostOrganisationsCreated) Error() string {
-	return fmt.Sprintf("[POST /organisations][%d] postOrganisationsCreated  %+v", 201, o.Payload)
+func (o *PostUnitsCreated) Error() string {
+	return fmt.Sprintf("[POST /units][%d] postUnitsCreated  %+v", 201, o.Payload)
 }
 
-func (o *PostOrganisationsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *PostUnitsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.OrganisationCreationResponse)
 

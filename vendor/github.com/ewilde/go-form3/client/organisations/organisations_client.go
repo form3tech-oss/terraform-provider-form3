@@ -25,114 +25,142 @@ type Client struct {
 }
 
 /*
-GetOrganisations lists all organisations
+DeleteUnitsID deletes organisation
 */
-func (a *Client) GetOrganisations(params *GetOrganisationsParams) (*GetOrganisationsOK, error) {
+func (a *Client) DeleteUnitsID(params *DeleteUnitsIDParams) (*DeleteUnitsIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetOrganisationsParams()
+		params = NewDeleteUnitsIDParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "GetOrganisations",
-		Method:             "GET",
-		PathPattern:        "/organisations",
+		ID:                 "DeleteUnitsID",
+		Method:             "DELETE",
+		PathPattern:        "/units/{id}",
 		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &GetOrganisationsReader{formats: a.formats},
+		Reader:             &DeleteUnitsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetOrganisationsOK), nil
+	return result.(*DeleteUnitsIDNoContent), nil
 
 }
 
 /*
-GetOrganisationsID fetches organisation
+GetUnits lists all organisations
 */
-func (a *Client) GetOrganisationsID(params *GetOrganisationsIDParams) (*GetOrganisationsIDOK, error) {
+func (a *Client) GetUnits(params *GetUnitsParams) (*GetUnitsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetOrganisationsIDParams()
+		params = NewGetUnitsParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "GetOrganisationsID",
+		ID:                 "GetUnits",
 		Method:             "GET",
-		PathPattern:        "/organisations/{id}",
+		PathPattern:        "/units",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &GetOrganisationsIDReader{formats: a.formats},
+		Reader:             &GetUnitsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetOrganisationsIDOK), nil
+	return result.(*GetUnitsOK), nil
 
 }
 
 /*
-PatchOrganisationsID updates organisation
+GetUnitsID fetches organisation
 */
-func (a *Client) PatchOrganisationsID(params *PatchOrganisationsIDParams) (*PatchOrganisationsIDOK, error) {
+func (a *Client) GetUnitsID(params *GetUnitsIDParams) (*GetUnitsIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewPatchOrganisationsIDParams()
+		params = NewGetUnitsIDParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "PatchOrganisationsID",
+		ID:                 "GetUnitsID",
+		Method:             "GET",
+		PathPattern:        "/units/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetUnitsIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetUnitsIDOK), nil
+
+}
+
+/*
+PatchUnitsID updates organisation
+*/
+func (a *Client) PatchUnitsID(params *PatchUnitsIDParams) (*PatchUnitsIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPatchUnitsIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PatchUnitsID",
 		Method:             "PATCH",
-		PathPattern:        "/organisations/{id}",
+		PathPattern:        "/units/{id}",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &PatchOrganisationsIDReader{formats: a.formats},
+		Reader:             &PatchUnitsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PatchOrganisationsIDOK), nil
+	return result.(*PatchUnitsIDOK), nil
 
 }
 
 /*
-PostOrganisations creates organisation
+PostUnits creates organisation
 */
-func (a *Client) PostOrganisations(params *PostOrganisationsParams) (*PostOrganisationsCreated, error) {
+func (a *Client) PostUnits(params *PostUnitsParams) (*PostUnitsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewPostOrganisationsParams()
+		params = NewPostUnitsParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "PostOrganisations",
+		ID:                 "PostUnits",
 		Method:             "POST",
-		PathPattern:        "/organisations",
+		PathPattern:        "/units",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &PostOrganisationsReader{formats: a.formats},
+		Reader:             &PostUnitsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostOrganisationsCreated), nil
+	return result.(*PostUnitsCreated), nil
 
 }
 

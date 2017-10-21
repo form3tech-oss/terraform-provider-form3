@@ -8,7 +8,7 @@ schemes:
 basePath: /v1
 paths:
 
-  /organisations:
+  /units:
 
     post:
       summary: Create organisation
@@ -49,7 +49,7 @@ paths:
             $ref: "#/definitions/OrganisationDetailsListResponse"
 
 
-  /organisations/{id}:
+  /units/{id}:
 
     get:
       summary: Fetch organisation
@@ -67,6 +67,30 @@ paths:
           description: Organisation details
           schema:
             $ref: "#/definitions/OrganisationDetailsResponse"
+
+    delete:
+      summary: Delete organisation
+      tags:
+        - Organisations
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Organisation Id
+          required: true
+          type: string
+          format: uuid
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+      responses:
+        204:
+          description: Organisation deleted
 
     patch:
       summary: Update organisation

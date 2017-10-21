@@ -23,6 +23,7 @@ type AuthenticatedClient struct {
 	Config             *client.TransportConfig
 	HttpClient         *http.Client
 	OrganisationId     string
+	OrganisationClient *client.Form3CorelibDataStructures
 }
 
 type AuthenticatedClientCheckRedirect struct {
@@ -48,15 +49,21 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 	rt2 := rc.NewWithClient(config.Host, config.BasePath, config.Schemes, h)
 	notificationClient := client.New(rt2, strfmt.Default)
 
+	config.WithBasePath("/v1/organisation")
+	rt3 := rc.NewWithClient(config.Host, config.BasePath, config.Schemes, h)
+	organisationClient := client.New(rt3, strfmt.Default)
+
 	authClient := &AuthenticatedClient{
 		SecurityClient:     securityClient,
 		NotificationClient: notificationClient,
+		OrganisationClient: organisationClient,
 		HttpClient:         h,
 		Config:             config,
 	}
 
 	configureRuntime(rt1, authClient)
 	configureRuntime(rt2, authClient)
+	configureRuntime(rt3, authClient)
 
 	return authClient
 }

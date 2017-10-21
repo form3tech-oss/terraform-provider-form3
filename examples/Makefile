@@ -1,7 +1,10 @@
 
+.terraform:
+	terraform get -update=true
+
 init:
 	terraform init
-plan:
+plan: .terraform
 	terraform plan -out plan
 
 apply:
@@ -9,4 +12,4 @@ apply:
 
 destroy:
 	terraform destroy
-.PHONY: plan apply init destroy
+.PHONY: plan apply init destroy .terraform

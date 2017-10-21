@@ -16,17 +16,17 @@ import (
 	"github.com/ewilde/go-form3/models"
 )
 
-// GetOrganisationsReader is a Reader for the GetOrganisations structure.
-type GetOrganisationsReader struct {
+// GetUnitsReader is a Reader for the GetUnits structure.
+type GetUnitsReader struct {
 	formats strfmt.Registry
 }
 
 // ReadResponse reads a server response into the received o.
-func (o *GetOrganisationsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+func (o *GetUnitsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
-		result := NewGetOrganisationsOK()
+		result := NewGetUnitsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -37,24 +37,24 @@ func (o *GetOrganisationsReader) ReadResponse(response runtime.ClientResponse, c
 	}
 }
 
-// NewGetOrganisationsOK creates a GetOrganisationsOK with default headers values
-func NewGetOrganisationsOK() *GetOrganisationsOK {
-	return &GetOrganisationsOK{}
+// NewGetUnitsOK creates a GetUnitsOK with default headers values
+func NewGetUnitsOK() *GetUnitsOK {
+	return &GetUnitsOK{}
 }
 
-/*GetOrganisationsOK handles this case with default header values.
+/*GetUnitsOK handles this case with default header values.
 
 List of organisation details
 */
-type GetOrganisationsOK struct {
+type GetUnitsOK struct {
 	Payload *models.OrganisationDetailsListResponse
 }
 
-func (o *GetOrganisationsOK) Error() string {
-	return fmt.Sprintf("[GET /organisations][%d] getOrganisationsOK  %+v", 200, o.Payload)
+func (o *GetUnitsOK) Error() string {
+	return fmt.Sprintf("[GET /units][%d] getUnitsOK  %+v", 200, o.Payload)
 }
 
-func (o *GetOrganisationsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *GetUnitsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.OrganisationDetailsListResponse)
 

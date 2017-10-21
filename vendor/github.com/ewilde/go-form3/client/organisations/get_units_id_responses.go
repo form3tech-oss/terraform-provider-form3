@@ -16,17 +16,17 @@ import (
 	"github.com/ewilde/go-form3/models"
 )
 
-// GetOrganisationsIDReader is a Reader for the GetOrganisationsID structure.
-type GetOrganisationsIDReader struct {
+// GetUnitsIDReader is a Reader for the GetUnitsID structure.
+type GetUnitsIDReader struct {
 	formats strfmt.Registry
 }
 
 // ReadResponse reads a server response into the received o.
-func (o *GetOrganisationsIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+func (o *GetUnitsIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
-		result := NewGetOrganisationsIDOK()
+		result := NewGetUnitsIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -37,24 +37,24 @@ func (o *GetOrganisationsIDReader) ReadResponse(response runtime.ClientResponse,
 	}
 }
 
-// NewGetOrganisationsIDOK creates a GetOrganisationsIDOK with default headers values
-func NewGetOrganisationsIDOK() *GetOrganisationsIDOK {
-	return &GetOrganisationsIDOK{}
+// NewGetUnitsIDOK creates a GetUnitsIDOK with default headers values
+func NewGetUnitsIDOK() *GetUnitsIDOK {
+	return &GetUnitsIDOK{}
 }
 
-/*GetOrganisationsIDOK handles this case with default header values.
+/*GetUnitsIDOK handles this case with default header values.
 
 Organisation details
 */
-type GetOrganisationsIDOK struct {
+type GetUnitsIDOK struct {
 	Payload *models.OrganisationDetailsResponse
 }
 
-func (o *GetOrganisationsIDOK) Error() string {
-	return fmt.Sprintf("[GET /organisations/{id}][%d] getOrganisationsIdOK  %+v", 200, o.Payload)
+func (o *GetUnitsIDOK) Error() string {
+	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdOK  %+v", 200, o.Payload)
 }
 
-func (o *GetOrganisationsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *GetUnitsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.OrganisationDetailsResponse)
 
