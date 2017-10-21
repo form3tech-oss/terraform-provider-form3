@@ -1,40 +1,38 @@
 package form3
 
 import (
-	"github.com/ewilde/go-form3/client/organisations"
-	"github.com/ewilde/go-form3/models"
-	"github.com/go-openapi/strfmt"
 	"testing"
+	"github.com/ewilde/go-form3/client/organisations"
+	"github.com/go-openapi/strfmt"
+	"github.com/ewilde/go-form3/models"
 )
 
 func TestAccDeleteOrganisation(t *testing.T) {
 	testPreCheck(t)
 	ensureAuthenticated()
 
-	auth.SecurityClient.Organisations.PostOrganisations(organisations.NewPostOrganisationsParams().
+	createResponse, err := auth.OrganisationClient.Organisations.PostUnits(organisations.NewPostUnitsParams().
 		WithOrganisationCreationRequest(&models.OrganisationCreation{
-			Data: &models.Organisation{
-				OrganisationID: organisationId,
-				Type:           "organisations",
-				ID:             strfmt.UUID("f6679900-10d2-44a1-9a46-2d972f4bf457"),
-				Attributes: &models.OrganisationAttributes{
-					Name: "TestOrganisation",
-				},
+		Data: &models.Organisation{
+			OrganisationID: organisationId,
+			Type:           "organisations",
+			ID:             strfmt.UUID("58a78c22-efa6-4f67-b2ec-30c53fd9a437"),
+			Attributes: &models.OrganisationAttributes{
+				Name: "TestOrganisation",
 			},
-		}))
+		},
+	}))
 
-	/*
-		assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(err, t)
 
-		_, err = auth.SecurityClient.Organisations.DeleteOrganisationsID(organisations.NewDeleteOrganisationsIDParams().
-			WithID(createResponse.Payload.Data.ID),
-		)
+	_, err = auth.OrganisationClient.Organisations.DeleteUnitsID(organisations.NewDeleteUnitsIDParams().
+		WithID(createResponse.Payload.Data.ID),
+	)
 
-		assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(err, t)
 
-		_, err = auth.SecurityClient.Organisations.GetOrganisationsID(organisations.NewGetOrganisationsIDParams().
-			WithID(createResponse.Payload.Data.ID))
+	_, err = auth.OrganisationClient.Organisations.GetUnitsID(organisations.NewGetUnitsIDParams().
+		WithID(createResponse.Payload.Data.ID))
 
-		assertStatusCode(err, t, 404)
-	*/
+	assertStatusCode(err, t, 404)
 }

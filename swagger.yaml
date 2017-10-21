@@ -8,7 +8,7 @@ schemes:
 basePath: /v1
 paths:
 
-  /organisations:
+  /units:
 
     post:
       summary: Create organisation
@@ -49,7 +49,7 @@ paths:
             $ref: "#/definitions/OrganisationDetailsListResponse"
 
 
-  /organisations/{id}:
+  /units/{id}:
 
     get:
       summary: Fetch organisation
