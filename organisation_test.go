@@ -1,10 +1,10 @@
 package form3
 
 import (
-	"testing"
 	"github.com/ewilde/go-form3/client/organisations"
-	"github.com/go-openapi/strfmt"
 	"github.com/ewilde/go-form3/models"
+	"github.com/go-openapi/strfmt"
+	"testing"
 )
 
 func TestAccDeleteOrganisation(t *testing.T) {
@@ -13,15 +13,15 @@ func TestAccDeleteOrganisation(t *testing.T) {
 
 	createResponse, err := auth.OrganisationClient.Organisations.PostUnits(organisations.NewPostUnitsParams().
 		WithOrganisationCreationRequest(&models.OrganisationCreation{
-		Data: &models.Organisation{
-			OrganisationID: organisationId,
-			Type:           "organisations",
-			ID:             strfmt.UUID("58a78c22-efa6-4f67-b2ec-30c53fd9a437"),
-			Attributes: &models.OrganisationAttributes{
-				Name: "TestOrganisation",
+			Data: &models.Organisation{
+				OrganisationID: organisationId,
+				Type:           "organisations",
+				ID:             strfmt.UUID("58a78c22-efa6-4f67-b2ec-30c53fd9a437"),
+				Attributes: &models.OrganisationAttributes{
+					Name: "TestOrganisation",
+				},
 			},
-		},
-	}))
+		}))
 
 	assertNoErrorOccurred(err, t)
 
