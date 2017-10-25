@@ -56,11 +56,11 @@ build-release: build-release-deps fmtcheck vet
 release: build-release
 	@test "${VERSION}" || (echo 'VERSION name required' && exit 1)
 	rm -f pkg/darwin_amd64/terraform-provider-form3_${VERSION}_darwin_amd64.zip
-	zip pkg/darwin_amd64/terraform-provider-form3_${VERSION}_darwin_amd64.zip pkg/darwin_amd64/terraform-provider-form3
+	zip pkg/darwin_amd64/terraform-provider-form3_${VERSION}_darwin_amd64.zip pkg/darwin_amd64/terraform-provider-form3 -j
 	rm -f pkg/linux_amd64/terraform-provider-form3_${VERSION}_linux_amd64.zip
-	zip pkg/linux_amd64/terraform-provider-form3_${VERSION}_linux_amd64.zip pkg/linux_amd64/terraform-provider-form3
+	zip pkg/linux_amd64/terraform-provider-form3_${VERSION}_linux_amd64.zip pkg/linux_amd64/terraform-provider-form3 -j
 	rm -f pkg/windows_amd64/terraform-provider-form3_${VERSION}_windows_amd64.zip
-	zip pkg/windows_amd64/terraform-provider-form3_${VERSION}_windows_amd64.zip pkg/windows_amd64/terraform-provider-form3.exe
+	zip pkg/windows_amd64/terraform-provider-form3_${VERSION}_windows_amd64.zip pkg/windows_amd64/terraform-provider-form3.exe -j
 
 .PHONY: build test testacc vet fmt fmtcheck errcheck vendor-status test-compile release build-release build-release-deps
 
