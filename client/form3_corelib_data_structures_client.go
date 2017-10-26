@@ -12,6 +12,7 @@ import (
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/ewilde/go-form3/client/ace"
+	"github.com/ewilde/go-form3/client/associations"
 	"github.com/ewilde/go-form3/client/organisations"
 	"github.com/ewilde/go-form3/client/roles"
 	"github.com/ewilde/go-form3/client/subscriptions"
@@ -60,6 +61,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Form3Corel
 	cli.Transport = transport
 
 	cli.Ace = ace.New(transport, formats)
+
+	cli.Associations = associations.New(transport, formats)
 
 	cli.Organisations = organisations.New(transport, formats)
 
@@ -115,6 +118,8 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 type Form3CorelibDataStructures struct {
 	Ace *ace.Client
 
+	Associations *associations.Client
+
 	Organisations *organisations.Client
 
 	Roles *roles.Client
@@ -131,6 +136,8 @@ func (c *Form3CorelibDataStructures) SetTransport(transport runtime.ClientTransp
 	c.Transport = transport
 
 	c.Ace.SetTransport(transport)
+
+	c.Associations.SetTransport(transport)
 
 	c.Organisations.SetTransport(transport)
 
