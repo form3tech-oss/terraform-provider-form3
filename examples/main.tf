@@ -23,6 +23,10 @@ resource "form3_user" "admin_user" {
   roles           = ["${form3_role.role.role_id}"]
 }
 
+resource "form3_credential" "admin_user_credentials" {
+  user_id 		    = "${form3_user.admin_user.user_id}"
+}
+
 resource "form3_role" "role" {
   organisation_id = "${form3_organisation.organisation.organisation_id}"
   role_id         = "81bc779a-620f-4e8c-9915-b8c6c90a5f17"

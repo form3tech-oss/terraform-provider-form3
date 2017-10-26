@@ -33,6 +33,7 @@ func Provider() terraform.ResourceProvider {
 
 		ResourcesMap: map[string]*schema.Resource{
 			"form3_ace":          resourceForm3Ace(),
+			"form3_credential":   resourceForm3Credential(),
 			"form3_organisation": resourceForm3Organisation(),
 			"form3_role":         resourceForm3Role(),
 			"form3_subscription": resourceForm3Subscription(),
@@ -87,8 +88,4 @@ func GetUUIDOK(d *schema.ResourceData, key string) (strfmt.UUID, bool) {
 	}
 
 	return "", false
-}
-
-func createInt64(x int64) *int64 {
-	return &x
 }
