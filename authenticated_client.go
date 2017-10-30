@@ -24,7 +24,8 @@ type AuthenticatedClient struct {
 	HttpClient         *http.Client
 	OrganisationId     string
 	OrganisationClient *client.Form3CorelibDataStructures
-	AssociationClient *client.Form3CorelibDataStructures
+	AssociationClient  *client.Form3CorelibDataStructures
+	AccountClient *client.Form3CorelibDataStructures
 }
 
 type AuthenticatedClientCheckRedirect struct {
@@ -55,15 +56,22 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 	rt3 := rc.NewWithClient(config.Host, config.BasePath, config.Schemes, h)
 	organisationClient := client.New(rt3, strfmt.Default)
 
-	config.WithBasePath("/v1/organisation/units")
+	config.WithBasePath("/v1/organisation/units/associations")
 	rt4 := rc.NewWithClient(config.Host, config.BasePath, config.Schemes, h)
 	associationsClient := client.New(rt4, strfmt.Default)
+
+
+
+	config.WithBasePath("/v1/organisation")
+	rt5 := rc.NewWithClient(config.Host, config.BasePath, config.Schemes, h)
+	accountClient := client.New(rt5, strfmt.Default)
 
 	authClient := &AuthenticatedClient{
 		AssociationClient:  associationsClient,
 		SecurityClient:     securityClient,
 		NotificationClient: notificationClient,
 		OrganisationClient: organisationClient,
+		AccountClient:      accountClient,
 		HttpClient:         h,
 		Config:             config,
 	}
@@ -72,6 +80,7 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 	configureRuntime(rt2, authClient)
 	configureRuntime(rt3, authClient)
 	configureRuntime(rt4, authClient)
+	configureRuntime(rt5, authClient)
 
 	return authClient
 }

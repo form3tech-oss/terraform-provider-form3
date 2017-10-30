@@ -25,114 +25,114 @@ type Client struct {
 }
 
 /*
-DeleteAssociationsID deletes organisation association
+DeleteStarlingID deletes organisation association
 */
-func (a *Client) DeleteAssociationsID(params *DeleteAssociationsIDParams) (*DeleteAssociationsIDNoContent, error) {
+func (a *Client) DeleteStarlingID(params *DeleteStarlingIDParams) (*DeleteStarlingIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewDeleteAssociationsIDParams()
+		params = NewDeleteStarlingIDParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "DeleteAssociationsID",
+		ID:                 "DeleteStarlingID",
 		Method:             "DELETE",
-		PathPattern:        "/associations/{id}",
+		PathPattern:        "/starling/{id}",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &DeleteAssociationsIDReader{formats: a.formats},
+		Reader:             &DeleteStarlingIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteAssociationsIDNoContent), nil
+	return result.(*DeleteStarlingIDNoContent), nil
 
 }
 
 /*
-GetAssociations lists all organisation associations
+GetStarling lists all organisation associations
 */
-func (a *Client) GetAssociations(params *GetAssociationsParams) (*GetAssociationsOK, error) {
+func (a *Client) GetStarling(params *GetStarlingParams) (*GetStarlingOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetAssociationsParams()
+		params = NewGetStarlingParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "GetAssociations",
+		ID:                 "GetStarling",
 		Method:             "GET",
-		PathPattern:        "/associations",
+		PathPattern:        "/starling",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &GetAssociationsReader{formats: a.formats},
+		Reader:             &GetStarlingReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetAssociationsOK), nil
+	return result.(*GetStarlingOK), nil
 
 }
 
 /*
-GetAssociationsID fetches organisation association
+GetStarlingID fetches organisation association
 */
-func (a *Client) GetAssociationsID(params *GetAssociationsIDParams) (*GetAssociationsIDOK, error) {
+func (a *Client) GetStarlingID(params *GetStarlingIDParams) (*GetStarlingIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetAssociationsIDParams()
+		params = NewGetStarlingIDParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "GetAssociationsID",
+		ID:                 "GetStarlingID",
 		Method:             "GET",
-		PathPattern:        "/associations/{id}",
+		PathPattern:        "/starling/{id}",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &GetAssociationsIDReader{formats: a.formats},
+		Reader:             &GetStarlingIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetAssociationsIDOK), nil
+	return result.(*GetStarlingIDOK), nil
 
 }
 
 /*
-PostAssociations creates organisation association
+PostStarling creates organisation association
 */
-func (a *Client) PostAssociations(params *PostAssociationsParams) (*PostAssociationsCreated, error) {
+func (a *Client) PostStarling(params *PostStarlingParams) (*PostStarlingCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewPostAssociationsParams()
+		params = NewPostStarlingParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "PostAssociations",
+		ID:                 "PostStarling",
 		Method:             "POST",
-		PathPattern:        "/associations",
+		PathPattern:        "/starling",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &PostAssociationsReader{formats: a.formats},
+		Reader:             &PostStarlingReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostAssociationsCreated), nil
+	return result.(*PostStarlingCreated), nil
 
 }
 

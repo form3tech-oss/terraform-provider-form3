@@ -1,11 +1,12 @@
 package form3
 
 import (
+	"github.com/ewilde/go-form3/client/associations"
 	"github.com/ewilde/go-form3/client/organisations"
 	"github.com/ewilde/go-form3/models"
 	"github.com/go-openapi/strfmt"
 	"testing"
-	"github.com/ewilde/go-form3/client/associations"
+	"github.com/ewilde/go-form3/client/accounts"
 )
 
 func TestAccDeleteOrganisation(t *testing.T) {
@@ -38,18 +39,17 @@ func TestAccDeleteOrganisation(t *testing.T) {
 	assertStatusCode(err, t, 404)
 }
 
-
 func TestAccDeleteOrganisationAssociation(t *testing.T) {
 	testPreCheck(t)
 	ensureAuthenticated()
 
-	createResponse, err := auth.AssociationClient.Associations.PostAssociations(associations.NewPostAssociationsParams().
+	createResponse, err := auth.AssociationClient.Associations.PostStarling(associations.NewPostStarlingParams().
 		WithCreationRequest(&models.AssociationCreation{
-			Data: &models.Association{
+			Data: &models.NewAssociation{
 				OrganisationID: organisationId,
-				Type:           "organisation_associations",
+				Type:           "starling_associations",
 				ID:             strfmt.UUID("7c0763f6-4192-4e65-8f5d-fac1fc57eb21"),
-				Attributes: &models.AssociationAttributes{
+				Attributes: &models.NewAssociationAttributes{
 					StarlingAccountName: "TestStarlingAccountName",
 				},
 			},
@@ -57,13 +57,106 @@ func TestAccDeleteOrganisationAssociation(t *testing.T) {
 
 	assertNoErrorOccurred(err, t)
 
-	_, err = auth.AssociationClient.Associations.DeleteAssociationsID(associations.NewDeleteAssociationsIDParams().
+	_, err = auth.AssociationClient.Associations.DeleteStarlingID(associations.NewDeleteStarlingIDParams().
 		WithID(createResponse.Payload.Data.ID),
 	)
 
 	assertNoErrorOccurred(err, t)
 
-	_, err = auth.AssociationClient.Associations.GetAssociationsID(associations.NewGetAssociationsIDParams().
+	_, err = auth.AssociationClient.Associations.GetStarlingID(associations.NewGetStarlingIDParams().
+		WithID(createResponse.Payload.Data.ID))
+
+	assertStatusCode(err, t, 404)
+}
+
+
+func TestAccDeleteBankids(t *testing.T) {
+	testPreCheck(t)
+	ensureAuthenticated()
+
+	createResponse, err := auth.AccountClient.Accounts.PostBankids(accounts.NewPostBankidsParams().
+		WithBankIDCreationRequest(&models.BankIDCreation{
+		Data: &models.BankID{
+			OrganisationID: organisationId,
+			Type:           "bankids",
+			ID:             strfmt.UUID("8a2f6b61-ac5a-4f8e-b578-e4da08a36dc6"),
+			Attributes: &models.BankIDAttributes{
+				BankID: "400301",
+				BankIDCode: "GBDSC",
+				Country: "GB",
+			},
+		},
+	}))
+
+	assertNoErrorOccurred(err, t)
+
+	_, err = auth.AccountClient.Accounts.DeleteBankidsID(accounts.NewDeleteBankidsIDParams().
+		WithID(createResponse.Payload.Data.ID),
+	)
+
+	assertNoErrorOccurred(err, t)
+
+	_, err = auth.AccountClient.Accounts.GetBankidsID(accounts.NewGetBankidsIDParams().
+		WithID(createResponse.Payload.Data.ID))
+
+	assertStatusCode(err, t, 404)
+}
+
+func TestAccDeleteBics(t *testing.T) {
+	testPreCheck(t)
+	ensureAuthenticated()
+
+	createResponse, err := auth.AccountClient.Accounts.PostBics(accounts.NewPostBicsParams().
+		WithBicCreationRequest(&models.BicCreation{
+		Data: &models.Bic{
+			OrganisationID: organisationId,
+			Type:           "bics",
+			ID:             strfmt.UUID("2f8f3856-a318-4d49-8162-d65a337a74fd"),
+			Attributes: &models.BicAttributes{
+				Bic: "NWBKGB41",
+			},
+		},
+	}))
+
+	assertNoErrorOccurred(err, t)
+
+	_, err = auth.AccountClient.Accounts.DeleteBicsID(accounts.NewDeleteBicsIDParams().
+		WithID(createResponse.Payload.Data.ID),
+	)
+
+	assertNoErrorOccurred(err, t)
+
+	_, err = auth.AccountClient.Accounts.GetBicsID(accounts.NewGetBicsIDParams().
+		WithID(createResponse.Payload.Data.ID))
+
+	assertStatusCode(err, t, 404)
+}
+
+func TestAccDeleteAccountConfigurations(t *testing.T) {
+	testPreCheck(t)
+	ensureAuthenticated()
+
+	createResponse, err := auth.AccountClient.Accounts.PostAccountconfigurations(accounts.NewPostAccountconfigurationsParams().
+		WithAccountConfigurationCreationRequest(&models.AccountConfigurationCreation{
+		Data: &models.AccountConfiguration{
+			OrganisationID: organisationId,
+			Type:           "accountconfigurations",
+			ID:             strfmt.UUID("a883905a-da5d-4694-8d81-aada675be6a2"),
+			Attributes: &models.AccountConfigurationAttributes{
+				AccountGenerationEnabled: true,
+			},
+		},
+	}))
+
+	assertNoErrorOccurred(err, t)
+
+	_, err = auth.AccountClient.Accounts.DeleteAccountconfigurationsID(accounts.NewDeleteAccountconfigurationsIDParams().
+		WithID(createResponse.Payload.Data.ID),
+	)
+
+	assertNoErrorOccurred(err, t)
+
+	_, err = auth.AccountClient.Accounts.GetAccountconfigurationsID(accounts.NewGetAccountconfigurationsIDParams().
 		WithID(createResponse.Payload.Data.ID))
 
 	assertStatusCode(err, t, 404)

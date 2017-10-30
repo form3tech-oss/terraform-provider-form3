@@ -11,6 +11,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/ewilde/go-form3/client/accounts"
 	"github.com/ewilde/go-form3/client/ace"
 	"github.com/ewilde/go-form3/client/associations"
 	"github.com/ewilde/go-form3/client/organisations"
@@ -59,6 +60,8 @@ func NewHTTPClientWithConfig(formats strfmt.Registry, cfg *TransportConfig) *For
 func New(transport runtime.ClientTransport, formats strfmt.Registry) *Form3CorelibDataStructures {
 	cli := new(Form3CorelibDataStructures)
 	cli.Transport = transport
+
+	cli.Accounts = accounts.New(transport, formats)
 
 	cli.Ace = ace.New(transport, formats)
 
@@ -116,6 +119,8 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 
 // Form3CorelibDataStructures is a client for form3 corelib data structures
 type Form3CorelibDataStructures struct {
+	Accounts *accounts.Client
+
 	Ace *ace.Client
 
 	Associations *associations.Client
@@ -134,6 +139,8 @@ type Form3CorelibDataStructures struct {
 // SetTransport changes the transport on the client and all its subresources
 func (c *Form3CorelibDataStructures) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
+
+	c.Accounts.SetTransport(transport)
 
 	c.Ace.SetTransport(transport)
 

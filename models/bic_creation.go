@@ -12,19 +12,19 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// AssociationCreation association creation
-// swagger:model AssociationCreation
+// BicCreation bic creation
+// swagger:model BicCreation
 
-type AssociationCreation struct {
+type BicCreation struct {
 
 	// data
-	Data *NewAssociation `json:"data,omitempty"`
+	Data *Bic `json:"data,omitempty"`
 }
 
-/* polymorph AssociationCreation data false */
+/* polymorph BicCreation data false */
 
-// Validate validates this association creation
-func (m *AssociationCreation) Validate(formats strfmt.Registry) error {
+// Validate validates this bic creation
+func (m *BicCreation) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateData(formats); err != nil {
@@ -38,7 +38,7 @@ func (m *AssociationCreation) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *AssociationCreation) validateData(formats strfmt.Registry) error {
+func (m *BicCreation) validateData(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Data) { // not required
 		return nil
@@ -58,7 +58,7 @@ func (m *AssociationCreation) validateData(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *AssociationCreation) MarshalBinary() ([]byte, error) {
+func (m *BicCreation) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -66,8 +66,8 @@ func (m *AssociationCreation) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *AssociationCreation) UnmarshalBinary(b []byte) error {
-	var res AssociationCreation
+func (m *BicCreation) UnmarshalBinary(b []byte) error {
+	var res BicCreation
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
