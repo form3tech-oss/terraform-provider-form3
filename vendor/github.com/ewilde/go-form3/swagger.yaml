@@ -781,7 +781,6 @@ paths:
          - name: version
            in: query
            description: Version
-           required: true
            type: integer
            minimum: 0
        responses:
