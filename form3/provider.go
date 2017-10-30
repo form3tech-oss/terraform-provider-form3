@@ -32,12 +32,13 @@ func Provider() terraform.ResourceProvider {
 		},
 
 		ResourcesMap: map[string]*schema.Resource{
-			"form3_ace":          resourceForm3Ace(),
-			"form3_credential":   resourceForm3Credential(),
-			"form3_organisation": resourceForm3Organisation(),
-			"form3_role":         resourceForm3Role(),
-			"form3_subscription": resourceForm3Subscription(),
-			"form3_user":         resourceForm3User(),
+			"form3_ace":                  resourceForm3Ace(),
+			"form3_credential":           resourceForm3Credential(),
+			"form3_organisation":         resourceForm3Organisation(),
+			"form3_role":                 resourceForm3Role(),
+			"form3_starling_association": resourceForm3StarlingAssociation(),
+			"form3_subscription":         resourceForm3Subscription(),
+			"form3_user":                 resourceForm3User(),
 		},
 
 		ConfigureFunc: providerConfigure,

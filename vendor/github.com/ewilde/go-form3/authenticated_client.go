@@ -24,6 +24,8 @@ type AuthenticatedClient struct {
 	HttpClient         *http.Client
 	OrganisationId     string
 	OrganisationClient *client.Form3CorelibDataStructures
+	AssociationClient  *client.Form3CorelibDataStructures
+	AccountClient *client.Form3CorelibDataStructures
 }
 
 type AuthenticatedClientCheckRedirect struct {
@@ -31,6 +33,7 @@ type AuthenticatedClientCheckRedirect struct {
 
 func (r *AuthenticatedClientCheckRedirect) CheckRedirect(req *http.Request, via []*http.Request) error {
 	req.Header.Add("Authorization", via[0].Header.Get("Authorization"))
+	fmt.Printf("Authorization:%s\n", req.Header.Get("Authorization"))
 	return nil
 }
 
@@ -53,10 +56,22 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 	rt3 := rc.NewWithClient(config.Host, config.BasePath, config.Schemes, h)
 	organisationClient := client.New(rt3, strfmt.Default)
 
+	config.WithBasePath("/v1/organisation/units/associations")
+	rt4 := rc.NewWithClient(config.Host, config.BasePath, config.Schemes, h)
+	associationsClient := client.New(rt4, strfmt.Default)
+
+
+
+	config.WithBasePath("/v1/organisation")
+	rt5 := rc.NewWithClient(config.Host, config.BasePath, config.Schemes, h)
+	accountClient := client.New(rt5, strfmt.Default)
+
 	authClient := &AuthenticatedClient{
+		AssociationClient:  associationsClient,
 		SecurityClient:     securityClient,
 		NotificationClient: notificationClient,
 		OrganisationClient: organisationClient,
+		AccountClient:      accountClient,
 		HttpClient:         h,
 		Config:             config,
 	}
@@ -64,6 +79,8 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 	configureRuntime(rt1, authClient)
 	configureRuntime(rt2, authClient)
 	configureRuntime(rt3, authClient)
+	configureRuntime(rt4, authClient)
+	configureRuntime(rt5, authClient)
 
 	return authClient
 }
@@ -117,6 +134,7 @@ func (r *AuthenticatedClient) Do(ctx context.Context, client *http.Client, req *
 
 	if len(r.AccessToken) > 0 {
 		req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", r.AccessToken))
+		fmt.Printf("Authorization:%s\n", req.Header.Get("Authorization"))
 	}
 
 	resp, err := client.Do(req.WithContext(ctx))
