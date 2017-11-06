@@ -166,10 +166,6 @@ func createNewAssociationFromResourceData(d *schema.ResourceData) (*models.NewAs
 		association.OrganisationID = attr
 	}
 
-	if attr, ok := GetUUIDOK(d, "organisation_id"); ok {
-		association.OrganisationID = attr
-	}
-
 	if attr, ok := d.GetOk("starling_account_name"); ok {
 		association.Attributes.StarlingAccountName = attr.(string)
 	}
