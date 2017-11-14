@@ -15,7 +15,7 @@ func TestAccDeleteSubscription(t *testing.T) {
 	createResponse, err := auth.NotificationClient.Subscriptions.PostSubscriptions(subscriptions.NewPostSubscriptionsParams().
 		WithSubscriptionCreationRequest(&models.SubscriptionCreation{
 			Data: &models.Subscription{
-				OrganisationID: organisationId,
+				OrganisationID: testOrganisationId,
 				Type:           "subscriptions",
 				ID:             strfmt.UUID("5e950680-1ea2-4898-ba0f-632214f51946"),
 				Attributes: &models.SubscriptionAttributes{

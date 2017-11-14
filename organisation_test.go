@@ -46,7 +46,7 @@ func TestAccDeleteOrganisationAssociation(t *testing.T) {
 	createResponse, err := auth.AssociationClient.Associations.PostStarling(associations.NewPostStarlingParams().
 		WithCreationRequest(&models.AssociationCreation{
 			Data: &models.NewAssociation{
-				OrganisationID: organisationId,
+				OrganisationID: testOrganisationId,
 				Type:           "starling_associations",
 				ID:             strfmt.UUID("7c0763f6-4192-4e65-8f5d-fac1fc57eb21"),
 				Attributes: &models.NewAssociationAttributes{
@@ -76,7 +76,7 @@ func TestAccDeleteBankids(t *testing.T) {
 	createResponse, err := auth.AccountClient.Accounts.PostBankids(accounts.NewPostBankidsParams().
 		WithBankIDCreationRequest(&models.BankIDCreation{
 			Data: &models.BankID{
-				OrganisationID: organisationId,
+				OrganisationID: testOrganisationId,
 				Type:           "bankids",
 				ID:             strfmt.UUID("8a2f6b61-ac5a-4f8e-b578-e4da08a36dc6"),
 				Attributes: &models.BankIDAttributes{
@@ -108,7 +108,7 @@ func TestAccDeleteBics(t *testing.T) {
 	createResponse, err := auth.AccountClient.Accounts.PostBics(accounts.NewPostBicsParams().
 		WithBicCreationRequest(&models.BicCreation{
 			Data: &models.Bic{
-				OrganisationID: organisationId,
+				OrganisationID: testOrganisationId,
 				Type:           "bics",
 				ID:             strfmt.UUID("2f8f3856-a318-4d49-8162-d65a337a74fd"),
 				Attributes: &models.BicAttributes{
@@ -138,7 +138,7 @@ func TestAccDeleteAccountConfigurations(t *testing.T) {
 	createResponse, err := auth.AccountClient.Accounts.PostAccountconfigurations(accounts.NewPostAccountconfigurationsParams().
 		WithAccountConfigurationCreationRequest(&models.AccountConfigurationCreation{
 			Data: &models.AccountConfiguration{
-				OrganisationID: organisationId,
+				OrganisationID: testOrganisationId,
 				Type:           "accountconfigurations",
 				ID:             strfmt.UUID("a883905a-da5d-4694-8d81-aada675be6a2"),
 				Attributes: &models.AccountConfigurationAttributes{
