@@ -7,7 +7,7 @@
 
 ## Running tests
 To run the integration test you need to export 3 environment variables
-`env FORM3_CLIENT_ID=xxx FORM3_CLIENT_SECRET=xxx FORM3_HOST=api.tabla.env.form3.tech make`
+`env FORM3_CLIENT_ID=xxx FORM3_CLIENT_SECRET=xxx FORM3_HOST=api.tabla.env.form3.tech FORM3_ORGANISATION_ID=xxx make`
 
 
 # Swagger

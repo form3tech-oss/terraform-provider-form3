@@ -72,7 +72,7 @@ type DeleteStarlingIDParams struct {
 	  Version
 
 	*/
-	Version int64
+	Version *int64
 
 	timeout    time.Duration
 	Context    context.Context
@@ -124,13 +124,13 @@ func (o *DeleteStarlingIDParams) SetID(id strfmt.UUID) {
 }
 
 // WithVersion adds the version to the delete starling ID params
-func (o *DeleteStarlingIDParams) WithVersion(version int64) *DeleteStarlingIDParams {
+func (o *DeleteStarlingIDParams) WithVersion(version *int64) *DeleteStarlingIDParams {
 	o.SetVersion(version)
 	return o
 }
 
 // SetVersion adds the version to the delete starling ID params
-func (o *DeleteStarlingIDParams) SetVersion(version int64) {
+func (o *DeleteStarlingIDParams) SetVersion(version *int64) {
 	o.Version = version
 }
 
@@ -147,13 +147,20 @@ func (o *DeleteStarlingIDParams) WriteToRequest(r runtime.ClientRequest, reg str
 		return err
 	}
 
-	// query param version
-	qrVersion := o.Version
-	qVersion := swag.FormatInt64(qrVersion)
-	if qVersion != "" {
-		if err := r.SetQueryParam("version", qVersion); err != nil {
-			return err
+	if o.Version != nil {
+
+		// query param version
+		var qrVersion int64
+		if o.Version != nil {
+			qrVersion = *o.Version
 		}
+		qVersion := swag.FormatInt64(qrVersion)
+		if qVersion != "" {
+			if err := r.SetQueryParam("version", qVersion); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	if len(res) > 0 {

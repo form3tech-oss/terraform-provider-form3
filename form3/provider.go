@@ -38,6 +38,7 @@ func Provider() terraform.ResourceProvider {
 			"form3_bic":                   resourceForm3Bic(),
 			"form3_credential":            resourceForm3Credential(),
 			"form3_organisation":          resourceForm3Organisation(),
+			"form3_payport_association":   resourceForm3PayportAssociation(),
 			"form3_role":                  resourceForm3Role(),
 			"form3_starling_association":  resourceForm3StarlingAssociation(),
 			"form3_subscription":          resourceForm3Subscription(),
