@@ -25,6 +25,34 @@ type Client struct {
 }
 
 /*
+DeletePayportID deletes service association
+*/
+func (a *Client) DeletePayportID(params *DeletePayportIDParams) (*DeletePayportIDNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeletePayportIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeletePayportID",
+		Method:             "DELETE",
+		PathPattern:        "/payport/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeletePayportIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeletePayportIDNoContent), nil
+
+}
+
+/*
 DeleteStarlingID deletes organisation association
 */
 func (a *Client) DeleteStarlingID(params *DeleteStarlingIDParams) (*DeleteStarlingIDNoContent, error) {
@@ -49,6 +77,62 @@ func (a *Client) DeleteStarlingID(params *DeleteStarlingIDParams) (*DeleteStarli
 		return nil, err
 	}
 	return result.(*DeleteStarlingIDNoContent), nil
+
+}
+
+/*
+GetPayport lists all organisation associations
+*/
+func (a *Client) GetPayport(params *GetPayportParams) (*GetPayportOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetPayportParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetPayport",
+		Method:             "GET",
+		PathPattern:        "/payport",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetPayportReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetPayportOK), nil
+
+}
+
+/*
+GetPayportID fetches service association
+*/
+func (a *Client) GetPayportID(params *GetPayportIDParams) (*GetPayportIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetPayportIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetPayportID",
+		Method:             "GET",
+		PathPattern:        "/payport/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetPayportIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetPayportIDOK), nil
 
 }
 
@@ -105,6 +189,34 @@ func (a *Client) GetStarlingID(params *GetStarlingIDParams) (*GetStarlingIDOK, e
 		return nil, err
 	}
 	return result.(*GetStarlingIDOK), nil
+
+}
+
+/*
+PostPayport creates payport service association
+*/
+func (a *Client) PostPayport(params *PostPayportParams) (*PostPayportCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostPayportParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostPayport",
+		Method:             "POST",
+		PathPattern:        "/payport",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PostPayportReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PostPayportCreated), nil
 
 }
 
