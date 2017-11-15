@@ -9,8 +9,6 @@ import (
 )
 
 func TestAccDeleteSubscription(t *testing.T) {
-	testPreCheck(t)
-	ensureAuthenticated()
 
 	createResponse, err := auth.NotificationClient.Subscriptions.PostSubscriptions(subscriptions.NewPostSubscriptionsParams().
 		WithSubscriptionCreationRequest(&models.SubscriptionCreation{

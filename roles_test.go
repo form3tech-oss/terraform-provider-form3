@@ -9,8 +9,6 @@ import (
 )
 
 func TestAccDeleteRole(t *testing.T) {
-	testPreCheck(t)
-	ensureAuthenticated()
 
 	createResponse, err := auth.SecurityClient.Roles.PostRoles(roles.NewPostRolesParams().
 		WithRoleCreationRequest(&models.RoleCreation{
@@ -41,8 +39,6 @@ func TestAccDeleteRole(t *testing.T) {
 }
 
 func TestAccDeleteRoleAce(t *testing.T) {
-	testPreCheck(t)
-	ensureAuthenticated()
 
 	createRoleResponse, err := auth.SecurityClient.Roles.PostRoles(roles.NewPostRolesParams().
 		WithRoleCreationRequest(&models.RoleCreation{

@@ -9,8 +9,6 @@ import (
 )
 
 func TestAccGetUsers(t *testing.T) {
-	testPreCheck(t)
-	ensureAuthenticated()
 
 	response, err := auth.SecurityClient.Users.GetUsers(users.NewGetUsersParams())
 	assertNoErrorOccurred(err, t)
@@ -21,8 +19,6 @@ func TestAccGetUsers(t *testing.T) {
 }
 
 func TestAccDeleteUser(t *testing.T) {
-	testPreCheck(t)
-	ensureAuthenticated()
 
 	createResponse, err := auth.SecurityClient.Users.PostUsers(users.NewPostUsersParams().
 		WithUserCreationRequest(&models.UserCreation{
@@ -55,8 +51,6 @@ func TestAccDeleteUser(t *testing.T) {
 }
 
 func TestAccGetUserWithIdNotFound(t *testing.T) {
-	testPreCheck(t)
-	ensureAuthenticated()
 
 	_, err := auth.SecurityClient.Users.GetUsersUserID(users.NewGetUsersUserIDParams().WithUserID(strfmt.UUID("700e7327-3834-4fe1-95f6-7eea7773bf0f")))
 	if err == nil {
