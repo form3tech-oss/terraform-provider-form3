@@ -6,19 +6,18 @@ import (
 	"github.com/ewilde/go-form3/client/organisations"
 	"github.com/ewilde/go-form3/models"
 	"github.com/go-openapi/strfmt"
+	"github.com/nu7hatch/gouuid"
 	"testing"
 )
 
 func TestAccDeleteOrganisation(t *testing.T) {
-	testPreCheck(t)
-	ensureAuthenticated()
 
 	createResponse, err := auth.OrganisationClient.Organisations.PostUnits(organisations.NewPostUnitsParams().
 		WithOrganisationCreationRequest(&models.OrganisationCreation{
 			Data: &models.Organisation{
 				OrganisationID: organisationId,
 				Type:           "organisations",
-				ID:             strfmt.UUID("58a78c22-efa6-4f67-b2ec-30c53fd9a437"),
+				ID:             strfmt.UUID("58a78c22-efa6-4f67-b2ec-30c53fd9a438"),
 				Attributes: &models.OrganisationAttributes{
 					Name: "TestOrganisation",
 				},
@@ -40,15 +39,13 @@ func TestAccDeleteOrganisation(t *testing.T) {
 }
 
 func TestAccDeleteOrganisationAssociation(t *testing.T) {
-	testPreCheck(t)
-	ensureAuthenticated()
-
+	assocId, _ := uuid.NewV4()
 	createResponse, err := auth.AssociationClient.Associations.PostStarling(associations.NewPostStarlingParams().
 		WithCreationRequest(&models.AssociationCreation{
 			Data: &models.NewAssociation{
-				OrganisationID: organisationId,
+				OrganisationID: testOrganisationId,
 				Type:           "starling_associations",
-				ID:             strfmt.UUID("7c0763f6-4192-4e65-8f5d-fac1fc57eb21"),
+				ID:             strfmt.UUID(assocId.String()),
 				Attributes: &models.NewAssociationAttributes{
 					StarlingAccountName: "TestStarlingAccountName",
 				},
@@ -58,7 +55,8 @@ func TestAccDeleteOrganisationAssociation(t *testing.T) {
 	assertNoErrorOccurred(err, t)
 
 	_, err = auth.AssociationClient.Associations.DeleteStarlingID(associations.NewDeleteStarlingIDParams().
-		WithID(createResponse.Payload.Data.ID),
+		WithID(createResponse.Payload.Data.ID).
+		WithVersion(createResponse.Payload.Data.Version),
 	)
 
 	assertNoErrorOccurred(err, t)
@@ -70,13 +68,11 @@ func TestAccDeleteOrganisationAssociation(t *testing.T) {
 }
 
 func TestAccDeleteBankids(t *testing.T) {
-	testPreCheck(t)
-	ensureAuthenticated()
 
 	createResponse, err := auth.AccountClient.Accounts.PostBankids(accounts.NewPostBankidsParams().
 		WithBankIDCreationRequest(&models.BankIDCreation{
 			Data: &models.BankID{
-				OrganisationID: organisationId,
+				OrganisationID: testOrganisationId,
 				Type:           "bankids",
 				ID:             strfmt.UUID("8a2f6b61-ac5a-4f8e-b578-e4da08a36dc6"),
 				Attributes: &models.BankIDAttributes{
@@ -102,13 +98,11 @@ func TestAccDeleteBankids(t *testing.T) {
 }
 
 func TestAccDeleteBics(t *testing.T) {
-	testPreCheck(t)
-	ensureAuthenticated()
 
 	createResponse, err := auth.AccountClient.Accounts.PostBics(accounts.NewPostBicsParams().
 		WithBicCreationRequest(&models.BicCreation{
 			Data: &models.Bic{
-				OrganisationID: organisationId,
+				OrganisationID: testOrganisationId,
 				Type:           "bics",
 				ID:             strfmt.UUID("2f8f3856-a318-4d49-8162-d65a337a74fd"),
 				Attributes: &models.BicAttributes{
@@ -132,15 +126,13 @@ func TestAccDeleteBics(t *testing.T) {
 }
 
 func TestAccDeleteAccountConfigurations(t *testing.T) {
-	testPreCheck(t)
-	ensureAuthenticated()
 
 	createResponse, err := auth.AccountClient.Accounts.PostAccountconfigurations(accounts.NewPostAccountconfigurationsParams().
 		WithAccountConfigurationCreationRequest(&models.AccountConfigurationCreation{
 			Data: &models.AccountConfiguration{
-				OrganisationID: organisationId,
+				OrganisationID: testOrganisationId,
 				Type:           "accountconfigurations",
-				ID:             strfmt.UUID("a883905a-da5d-4694-8d81-aada675be6a2"),
+				ID:             strfmt.UUID("a883905a-da5d-4694-8d81-aada675be6a4"),
 				Attributes: &models.AccountConfigurationAttributes{
 					AccountGenerationEnabled: true,
 				},
