@@ -35,18 +35,18 @@ func resourceForm3PayportAssociation() *schema.Resource {
 			},
 			"customer_sending_fps_institution": &schema.Schema{
 				Type:     schema.TypeString,
-        Required: true,
-        ForceNew: true,
+				Required: true,
+				ForceNew: true,
 			},
 			"sponsor_bank_id": &schema.Schema{
 				Type:     schema.TypeString,
-        Required: true,
-        ForceNew: true,
+				Required: true,
+				ForceNew: true,
 			},
 			"sponsor_account_number": &schema.Schema{
 				Type:     schema.TypeString,
-        Required: true,
-        ForceNew: true,
+				Required: true,
+				ForceNew: true,
 			},
 		},
 	}
