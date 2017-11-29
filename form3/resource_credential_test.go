@@ -100,8 +100,13 @@ resource "form3_credential" "credential" {
 
 resource "form3_user" "user" {
 	organisation_id = "%s"
-	user_id 		= "f3dae7bd-a4ee-4f1c-b320-0fe30ba87113"
+	user_id 		= "${uuid()}"
 	user_name 	= "terraform-user"
   email 			= "terraform-user@form3.tech"
 	roles 			= ["32881d6b-a000-4258-b779-56c59970590f"]
+
+  lifecycle {
+    ignore_changes = ["user_id"]
+  }
+
 }`
