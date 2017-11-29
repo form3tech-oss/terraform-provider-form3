@@ -13,7 +13,6 @@ import (
 	"io/ioutil"
 	"mime/multipart"
 	"net/http"
-	"path"
 )
 
 type AuthenticatedClient struct {
@@ -93,9 +92,8 @@ func (r *AuthenticatedClient) Authenticate(clientId string, clientSecret string)
 	writer := multipart.NewWriter(mpbody)
 	_ = writer.WriteField("grant_type", "client_credentials")
 	writer.Close()
-	req, _ := http.NewRequest("POST", "/oauth2/token", mpbody)
+	req, _ := http.NewRequest("POST", "/v1/oauth2/token", mpbody)
 	req.URL.Host = r.Config.Host
-	req.URL.Path = path.Join(r.Config.BasePath, req.URL.Path)
 	req.URL.Scheme = r.Config.Schemes[0]
 
 	req.Header.Set("Content-Type", writer.FormDataContentType())
