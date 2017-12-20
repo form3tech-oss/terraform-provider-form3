@@ -11,7 +11,6 @@ import (
 	"github.com/go-openapi/strfmt"
 	"golang.org/x/net/context"
 	"io/ioutil"
-	"mime/multipart"
 	"net/http"
 )
 
@@ -88,17 +87,12 @@ func configureRuntime(rt *rc.Runtime, authClient *AuthenticatedClient) {
 
 func (r *AuthenticatedClient) Authenticate(clientId string, clientSecret string) error {
 
-	mpbody := bytes.NewBuffer(nil)
-	writer := multipart.NewWriter(mpbody)
-	_ = writer.WriteField("grant_type", "client_credentials")
-	writer.Close()
-	req, _ := http.NewRequest("POST", "/v1/oauth2/token", mpbody)
+	req, _ := http.NewRequest("POST", "/v1/oauth2/token", bytes.NewBufferString("grant_type=client_credentials"))
 	req.URL.Host = r.Config.Host
 	req.URL.Scheme = r.Config.Schemes[0]
 
-	req.Header.Set("Content-Type", writer.FormDataContentType())
-	encoded := base64.StdEncoding.EncodeToString([]byte(clientId + ":" + clientSecret))
-	req.Header.Set("Authorization", "Basic "+encoded)
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Set("Authorization", "Basic "+ base64.StdEncoding.EncodeToString([]byte(clientId + ":" + clientSecret)))
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
