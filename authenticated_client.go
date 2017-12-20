@@ -92,7 +92,7 @@ func (r *AuthenticatedClient) Authenticate(clientId string, clientSecret string)
 	req.URL.Scheme = r.Config.Schemes[0]
 
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	req.Header.Set("Authorization", "Basic "+ base64.StdEncoding.EncodeToString([]byte(clientId + ":" + clientSecret)))
+	req.Header.Set("Authorization", "Basic "+base64.StdEncoding.EncodeToString([]byte(clientId+":"+clientSecret)))
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
