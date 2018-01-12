@@ -53,14 +53,9 @@ build-release: build-release-deps fmtcheck vet
 	gox -osarch="linux/amd64 windows/amd64 darwin/amd64" \
 	-output="pkg/{{.OS}}_{{.Arch}}/terraform-provider-form3" .
 
-release: build-release
-	@test "${VERSION}" || (echo 'VERSION name required' && exit 1)
-	rm -f pkg/darwin_amd64/terraform-provider-form3_${VERSION}_darwin_amd64.zip
-	zip pkg/darwin_amd64/terraform-provider-form3_${VERSION}_darwin_amd64.zip pkg/darwin_amd64/terraform-provider-form3 -j
-	rm -f pkg/linux_amd64/terraform-provider-form3_${VERSION}_linux_amd64.zip
-	zip pkg/linux_amd64/terraform-provider-form3_${VERSION}_linux_amd64.zip pkg/linux_amd64/terraform-provider-form3 -j
-	rm -f pkg/windows_amd64/terraform-provider-form3_${VERSION}_windows_amd64.zip
-	zip pkg/windows_amd64/terraform-provider-form3_${VERSION}_windows_amd64.zip pkg/windows_amd64/terraform-provider-form3.exe -j
+release:
+	go get github.com/goreleaser/goreleaser; \
+  goreleaser;
 
 .PHONY: build test testacc vet fmt fmtcheck errcheck vendor-status test-compile release build-release build-release-deps
 
