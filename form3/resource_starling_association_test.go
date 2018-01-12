@@ -83,8 +83,18 @@ func testAccCheckStarlingAssociationExists(resourceKey string, association *asso
 }
 
 const testForm3StarlingAssociationConfigA = `
+resource "form3_organisation" "organisation" {
+	organisation_id        = "${uuid()}"
+	parent_organisation_id = "%s"
+	name 		               = "terraform-organisation"
+
+  lifecycle {
+    ignore_changes = ["organisation_id"]
+  }
+}
+
 resource "form3_starling_association" "association" {
-	organisation_id       = "%s"
+	organisation_id       = "${form3_organisation.organisation.organisation_id}"
 	association_id        = "0b2fc31e-b778-448b-977d-1e7f828a81eb"
 	starling_account_name	= "account-1"
 }`
