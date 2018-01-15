@@ -7,7 +7,6 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
-	"github.com/zimmski/tavor/log"
 	"os"
 	"testing"
 )
@@ -29,8 +28,6 @@ func TestAccStarlingAssociation_basic(t *testing.T) {
 				),
 			},
 		}
-	} else {
-		log.Info("Starling not configured for environment skipping test, to run test set FORM3_STARLING_CONFIGURED=1")
 	}
 
 	resource.Test(t, resource.TestCase{
