@@ -1,5 +1,5 @@
 builds:
-  - binary: terraform-provider-form3_{{ .Version }}
+  - binary: terraform-provider-form3
     goos:
       - darwin
       - linux
