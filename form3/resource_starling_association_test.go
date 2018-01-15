@@ -9,26 +9,35 @@ import (
 	"github.com/hashicorp/terraform/terraform"
 	"os"
 	"testing"
+  "github.com/zimmski/tavor/log"
 )
 
 func TestAccStarlingAssociation_basic(t *testing.T) {
 	var starlingResponse associations.GetStarlingIDOK
 	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
 
-	resource.Test(t, resource.TestCase{
+  var steps []resource.TestStep
+
+  if os.Getenv("FORM3_STARLING_CONFIGURED") == "1" {
+    steps = []resource.TestStep{
+      {
+        Config: fmt.Sprintf(testForm3StarlingAssociationConfigA, organisationId),
+        Check: resource.ComposeTestCheckFunc(
+          testAccCheckStarlingAssociationExists("form3_starling_association.association", &starlingResponse),
+          resource.TestCheckResourceAttr(
+            "form3_starling_association.association", "starling_account_name", "account-1"),
+        ),
+      },
+    }
+  }else {
+    log.Info("Starling not configured for environment skipping test, to run test set FORM3_STARLING_CONFIGURED=1")
+  }
+
+  resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
 		Providers:    testAccProviders,
 		CheckDestroy: testAccCheckStarlingAssociationDestroy,
-		Steps: []resource.TestStep{
-			{
-				Config: fmt.Sprintf(testForm3StarlingAssociationConfigA, organisationId),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckStarlingAssociationExists("form3_starling_association.association", &starlingResponse),
-					resource.TestCheckResourceAttr(
-						"form3_starling_association.association", "starling_account_name", "account-1"),
-				),
-			},
-		},
+		Steps:        steps,
 	})
 }
 
