@@ -50,7 +50,7 @@ func TestAccAce_importBasic(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
 		Providers:    testAccProviders,
-		CheckDestroy: testAccCheckOrganisationDestroy,
+		CheckDestroy: testAccCheckAceDestroy,
 		Steps: []resource.TestStep{
 			resource.TestStep{
 				Config: fmt.Sprintf(testForm3AceConfigA, aceId, organisationId, roleId),

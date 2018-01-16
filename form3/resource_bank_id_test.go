@@ -50,7 +50,7 @@ func TestAccBankID_importBasic(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
 		Providers:    testAccProviders,
-		CheckDestroy: testAccCheckOrganisationDestroy,
+		CheckDestroy: testAccCheckBankIDDestroy,
 		Steps: []resource.TestStep{
 			resource.TestStep{
 				Config: fmt.Sprintf(testForm3BankIDConfigA, organisationId, parentOrganisationId, bankResourceId),

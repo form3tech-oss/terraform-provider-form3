@@ -7,13 +7,18 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
+	"github.com/satori/go.uuid"
+	"math/rand"
 	"os"
 	"testing"
+	"time"
 )
 
 func TestAccBic_basic(t *testing.T) {
 	var bicResponse accounts.GetBicsIDOK
 	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	bicId := uuid.NewV4().String()
+	bic := generateTestBic()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -21,15 +26,58 @@ func TestAccBic_basic(t *testing.T) {
 		CheckDestroy: testAccCheckBicDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3BicConfigA, organisationId),
+				Config: fmt.Sprintf(testForm3BicConfigA, organisationId, bicId, bic),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBicExists("form3_bic.bic", &bicResponse),
 					resource.TestCheckResourceAttr(
-						"form3_bic.bic", "bic", "NWBKGB09"),
+						"form3_bic.bic", "bic", bic),
 				),
 			},
 		},
 	})
+}
+
+func TestAccBic_importBasic(t *testing.T) {
+
+	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	bicId := uuid.NewV4().String()
+	bic := generateTestBic()
+
+	resourceName := "form3_bic.bic"
+
+	resource.Test(t, resource.TestCase{
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
+		CheckDestroy: testAccCheckBicDestroy,
+		Steps: []resource.TestStep{
+			resource.TestStep{
+				Config: fmt.Sprintf(testForm3BicConfigA, organisationId, bicId, bic),
+			},
+
+			resource.TestStep{
+				ResourceName:      resourceName,
+				ImportState:       true,
+				ImportStateVerify: true,
+			},
+		},
+	})
+}
+
+func generateTestBic() string {
+	rand.Seed(time.Now().UTC().UnixNano())
+	var characters = []rune("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+	b := make([]rune, 6)
+	for i := range b {
+		b[i] = characters[rand.Intn(len(characters))]
+	}
+
+	characters = []rune("0123456789")
+	c := make([]rune, 2)
+	for i := range c {
+		c[i] = characters[rand.Intn(len(characters))]
+	}
+
+	return string(b) + string(c)
 }
 
 func testAccCheckBicDestroy(state *terraform.State) error {
@@ -85,7 +133,7 @@ func testAccCheckBicExists(resourceKey string, bicResponse *accounts.GetBicsIDOK
 const testForm3BicConfigA = `
 resource "form3_bic" "bic" {
 	organisation_id = "%s"
-  bic_id          = "8fe21b3a-f113-4318-abf1-2201882a5ee8"
-	bic       	    = "NWBKGB09"
+  bic_id          = "%s"
+	bic       	    = "%s"
 }
 `

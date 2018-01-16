@@ -45,7 +45,7 @@ func TestAccAccountConfigurationimportBasic(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
 		Providers:    testAccProviders,
-		CheckDestroy: testAccCheckOrganisationDestroy,
+		CheckDestroy: testAccCheckAccountConfigurationDestroy,
 		Steps: []resource.TestStep{
 			resource.TestStep{
 				Config: fmt.Sprintf(testForm3AccountConfigurationConfigA, organisationId, parentOrganisationId, accountConfigurationId),

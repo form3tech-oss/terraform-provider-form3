@@ -16,6 +16,9 @@ func resourceForm3Bic() *schema.Resource {
 		Create: resourceBicCreate,
 		Read:   resourceBicRead,
 		Delete: resourceBicDelete,
+		Importer: &schema.ResourceImporter{
+			State: schema.ImportStatePassthrough,
+		},
 
 		Schema: map[string]*schema.Schema{
 			"bic_id": &schema.Schema{
@@ -71,7 +74,12 @@ func resourceBicRead(d *schema.ResourceData, meta interface{}) error {
 
 	bicID, _ := GetUUIDOK(d, "bic_id")
 
-	log.Printf("[INFO] Reading bic with resource id: %s.", bicID)
+	if bicID == "" {
+		bicID = strfmt.UUID(d.Id())
+		log.Printf("[INFO] Importing bic with resource id: %s.", bicID)
+	} else {
+		log.Printf("[INFO] Reading bic with resource id: %s.", bicID)
+	}
 
 	bicResponse, err := client.AccountClient.Accounts.GetBicsID(accounts.NewGetBicsIDParams().
 		WithID(bicID))
