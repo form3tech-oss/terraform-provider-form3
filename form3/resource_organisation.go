@@ -17,6 +17,9 @@ func resourceForm3Organisation() *schema.Resource {
 		Read:   resourceOrganisationRead,
 		Update: resourceOrganisationUpdate,
 		Delete: resourceOrganisationDelete,
+		Importer: &schema.ResourceImporter{
+			State: schema.ImportStatePassthrough,
+		},
 
 		Schema: map[string]*schema.Schema{
 			"organisation_id": &schema.Schema{
@@ -67,15 +70,21 @@ func resourceOrganisationRead(d *schema.ResourceData, meta interface{}) error {
 
 	key := d.Id()
 	organisationId, _ := GetUUIDOK(d, "organisation_id")
-	organisationName := d.Get("name").(string)
-	log.Printf("[INFO] Reading organisation for id: %s name: %s", key, organisationName)
+
+	if organisationId == "" {
+		organisationId = strfmt.UUID(key)
+		log.Printf("[INFO] Importing organisation id: %s ", key)
+	} else {
+		log.Printf("[INFO] Reading organisation for id: %s name: %s", key, d.Get("name").(string))
+	}
 
 	organisation, err := client.OrganisationClient.Organisations.GetUnitsID(
 		organisations.NewGetUnitsIDParams().WithID(organisationId))
 
 	if err != nil {
-		apiError := err.(*runtime.APIError)
-		if apiError.Code == 404 {
+
+		apiError, ok := err.(*runtime.APIError)
+		if ok && apiError.Code == 404 {
 			d.SetId("")
 			return nil
 		}

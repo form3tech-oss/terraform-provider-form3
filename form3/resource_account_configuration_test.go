@@ -7,13 +7,16 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
+	"github.com/satori/go.uuid"
 	"os"
 	"testing"
 )
 
 func TestAccAccountConfiguration_basic(t *testing.T) {
 	var accountResponse accounts.GetAccountconfigurationsIDOK
-	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationId := uuid.NewV4().String()
+	accountConfigurationId := uuid.NewV4().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -21,12 +24,37 @@ func TestAccAccountConfiguration_basic(t *testing.T) {
 		CheckDestroy: testAccCheckAccountConfigurationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3AccountConfigurationConfigA, organisationId),
+				Config: fmt.Sprintf(testForm3AccountConfigurationConfigA, organisationId, parentOrganisationId, accountConfigurationId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckAccountConfigurationExists("form3_account_configuration.configuration", &accountResponse),
 					resource.TestCheckResourceAttr(
 						"form3_account_configuration.configuration", "account_generation_enabled", "true"),
 				),
+			},
+		},
+	})
+}
+
+func TestAccAccountConfigurationimportBasic(t *testing.T) {
+
+	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationId := uuid.NewV4().String()
+	accountConfigurationId := uuid.NewV4().String()
+	resourceName := "form3_account_configuration.configuration"
+
+	resource.Test(t, resource.TestCase{
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
+		CheckDestroy: testAccCheckOrganisationDestroy,
+		Steps: []resource.TestStep{
+			resource.TestStep{
+				Config: fmt.Sprintf(testForm3AccountConfigurationConfigA, organisationId, parentOrganisationId, accountConfigurationId),
+			},
+
+			resource.TestStep{
+				ResourceName:      resourceName,
+				ImportState:       true,
+				ImportStateVerify: true,
 			},
 		},
 	})
@@ -83,8 +111,15 @@ func testAccCheckAccountConfigurationExists(resourceKey string, configuration *a
 }
 
 const testForm3AccountConfigurationConfigA = `
+resource "form3_organisation" "organisation" {
+	organisation_id        = "%s"
+	parent_organisation_id = "%s"
+	name 		               = "terraform-organisation"
+}
+
 resource "form3_account_configuration" "configuration" {
-	organisation_id            = "%s"
-	account_configuration_id   = "0b2fc31e-b778-448b-977d-1e7f828a81eb"
+	organisation_id            = "${form3_organisation.organisation.organisation_id}"
+	account_configuration_id   = "%s"
 	account_generation_enabled = true
+   
 }`

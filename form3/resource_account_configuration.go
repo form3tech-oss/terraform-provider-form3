@@ -16,6 +16,9 @@ func resourceForm3AccountConfiguration() *schema.Resource {
 		Create: resourceAccountConfigurationCreate,
 		Read:   resourceAccountConfigurationRead,
 		Delete: resourceAccountConfigurationDelete,
+		Importer: &schema.ResourceImporter{
+			State: schema.ImportStatePassthrough,
+		},
 
 		Schema: map[string]*schema.Schema{
 			"account_configuration_id": &schema.Schema{
@@ -70,6 +73,13 @@ func resourceAccountConfigurationRead(d *schema.ResourceData, meta interface{}) 
 	configurationId, _ := GetUUIDOK(d, "account_configuration_id")
 	log.Printf("[INFO] Reading account configuration for id: %s", key)
 
+	if configurationId == "" {
+		configurationId = strfmt.UUID(key)
+		log.Printf("[INFO] Importing account configuration id: %s ", key)
+	} else {
+		log.Printf("[INFO] Reading account configuration for id: %s", configurationId)
+	}
+
 	configuration, err := client.AccountClient.Accounts.GetAccountconfigurationsID(accounts.NewGetAccountconfigurationsIDParams().
 		WithID(configurationId))
 
@@ -83,6 +93,7 @@ func resourceAccountConfigurationRead(d *schema.ResourceData, meta interface{}) 
 		return fmt.Errorf("couldn't find account configuration: %s", err)
 	}
 
+	d.Set("organisation_id", configuration.Payload.Data.OrganisationID.String())
 	d.Set("account_configuration_id", configuration.Payload.Data.ID.String())
 	d.Set("account_generation_enabled", configuration.Payload.Data.Attributes.AccountGenerationEnabled)
 	return nil
