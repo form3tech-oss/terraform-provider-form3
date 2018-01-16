@@ -7,6 +7,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
+	"github.com/satori/go.uuid"
 	"os"
 	"testing"
 )
@@ -14,6 +15,7 @@ import (
 func TestAccUser_basic(t *testing.T) {
 	var userResponse users.GetUsersUserIDOK
 	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	userId := uuid.NewV4().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -21,7 +23,7 @@ func TestAccUser_basic(t *testing.T) {
 		CheckDestroy: testAccCheckUserDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3UserConfigA, organisationId),
+				Config: fmt.Sprintf(testForm3UserConfigA, organisationId, userId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckUserExists("form3_user.user", &userResponse),
 					resource.TestCheckResourceAttr(
@@ -33,7 +35,7 @@ func TestAccUser_basic(t *testing.T) {
 				),
 			},
 			{
-				Config: fmt.Sprintf(testForm3UserConfigAUpdate, organisationId),
+				Config: fmt.Sprintf(testForm3UserConfigAUpdate, organisationId, userId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckUserExists("form3_user.user", &userResponse),
 					resource.TestCheckResourceAttr(
@@ -41,6 +43,31 @@ func TestAccUser_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(
 						"form3_user.user", "roles.0", "ad538853-4db0-44e3-9369-17eaae4aa3b7"),
 				),
+			},
+		},
+	})
+}
+
+func TestAccUser_importBasic(t *testing.T) {
+
+	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	userId := uuid.NewV4().String()
+
+	resourceName := "form3_user.user"
+
+	resource.Test(t, resource.TestCase{
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
+		CheckDestroy: testAccCheckUserDestroy,
+		Steps: []resource.TestStep{
+			resource.TestStep{
+				Config: fmt.Sprintf(testForm3UserConfigA, organisationId, userId),
+			},
+
+			resource.TestStep{
+				ResourceName:      resourceName,
+				ImportState:       true,
+				ImportStateVerify: true,
 			},
 		},
 	})
@@ -97,7 +124,7 @@ func testAccCheckUserExists(resourceKey string, user *users.GetUsersUserIDOK) re
 const testForm3UserConfigA = `
 resource "form3_user" "user" {
 	organisation_id = "%s"
-	user_id 		= "44247ebb-fe01-44ab-887d-7f344481712f"
+	user_id 		= "%s"
 	user_name 	= "terraform-user"
  	email 			= "terraform-user@form3.tech"
 	roles 			= ["32881d6b-a000-4258-b779-56c59970590f"]
@@ -106,7 +133,7 @@ resource "form3_user" "user" {
 const testForm3UserConfigAUpdate = `
 resource "form3_user" "user" {
 	organisation_id = "%s"
-	user_id 		= "44247ebb-fe01-44ab-887d-7f344481712f"
+	user_id 		= "%s"
 	user_name 	= "terraform-user"
   email			  = "dude@form3.tech"
 	roles 			= ["ad538853-4db0-44e3-9369-17eaae4aa3b7"]

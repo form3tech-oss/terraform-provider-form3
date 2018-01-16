@@ -17,6 +17,9 @@ func resourceForm3User() *schema.Resource {
 		Read:   resourceUserRead,
 		Update: resourceUserUpdate,
 		Delete: resourceUserDelete,
+		Importer: &schema.ResourceImporter{
+			State: schema.ImportStatePassthrough,
+		},
 
 		Schema: map[string]*schema.Schema{
 			"user_id": &schema.Schema{
@@ -78,7 +81,13 @@ func resourceUserRead(d *schema.ResourceData, meta interface{}) error {
 	key := d.Id()
 	userId, _ := GetUUIDOK(d, "user_id")
 	userName := d.Get("user_name").(string)
-	log.Printf("[INFO] Reading user for id: %s username: %s", key, userName)
+
+	if userId == "" {
+		userId = strfmt.UUID(key)
+		log.Printf("[INFO] Importing user id: %s", key)
+	} else {
+		log.Printf("[INFO] Reading user for id: %s username: %s", key, userName)
+	}
 
 	user, err := client.SecurityClient.Users.GetUsersUserID(users.NewGetUsersUserIDParams().WithUserID(userId))
 	if err != nil {
