@@ -7,34 +7,76 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
+	"github.com/satori/go.uuid"
+	"math/rand"
 	"os"
 	"testing"
+	"time"
 )
 
-func TestAccStarlingPayportAssociation_basic(t *testing.T) {
+func TestAccPayportAssociation_basic(t *testing.T) {
 	var payportResponse associations.GetPayportIDOK
-	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationId := uuid.NewV4().String()
+	participantId := generateTestParticipantId()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
 		Providers:    testAccProviders,
-		CheckDestroy: testAccCheckStarlingPayportAssociationDestroy,
+		CheckDestroy: testAccCheckPayportAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3StarlingPayportAssociationConfigA, organisationId),
+				Config: fmt.Sprintf(testForm3PayportAssociationConfigA, organisationId, parentOrganisationId, participantId),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckStarlingPayportAssociationExists("form3_payport_association.association", &payportResponse),
+					testAccCheckPayportAssociationExists("form3_payport_association.association", &payportResponse),
 					resource.TestCheckResourceAttr(
-						"form3_payport_association.association", "participant_id", "08008802"),
+						"form3_payport_association.association", "participant_id", participantId),
 					resource.TestCheckResourceAttr(
-						"form3_payport_association.association", "participant_id", "08008802"),
+						"form3_payport_association.association", "participant_id", participantId),
 				),
 			},
 		},
 	})
 }
 
-func testAccCheckStarlingPayportAssociationDestroy(state *terraform.State) error {
+func TestAccPayportAssociation_importBasic(t *testing.T) {
+
+	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationId := uuid.NewV4().String()
+	participantId := generateTestParticipantId()
+
+	resourceName := "form3_payport_association.association"
+
+	resource.Test(t, resource.TestCase{
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
+		CheckDestroy: testAccCheckPayportAssociationDestroy,
+		Steps: []resource.TestStep{
+			resource.TestStep{
+				Config: fmt.Sprintf(testForm3PayportAssociationConfigA, organisationId, parentOrganisationId, participantId),
+			},
+
+			resource.TestStep{
+				ResourceName:      resourceName,
+				ImportState:       true,
+				ImportStateVerify: true,
+			},
+		},
+	})
+}
+
+func generateTestParticipantId() string {
+	rand.Seed(time.Now().UTC().UnixNano())
+	var characters = []rune("0123456789")
+	b := make([]rune, 8)
+	for i := range b {
+		b[i] = characters[rand.Intn(len(characters))]
+	}
+
+	return string(b)
+}
+
+func testAccCheckPayportAssociationDestroy(state *terraform.State) error {
 	client := testAccProvider.Meta().(*form3.AuthenticatedClient)
 
 	for _, rs := range state.RootModule().Resources {
@@ -53,7 +95,7 @@ func testAccCheckStarlingPayportAssociationDestroy(state *terraform.State) error
 	return nil
 }
 
-func testAccCheckStarlingPayportAssociationExists(resourceKey string, association *associations.GetPayportIDOK) resource.TestCheckFunc {
+func testAccCheckPayportAssociationExists(resourceKey string, association *associations.GetPayportIDOK) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceKey]
 
@@ -84,11 +126,17 @@ func testAccCheckStarlingPayportAssociationExists(resourceKey string, associatio
 	}
 }
 
-const testForm3StarlingPayportAssociationConfigA = `
+const testForm3PayportAssociationConfigA = `
+resource "form3_organisation" "organisation" {
+	organisation_id        = "%s"
+	parent_organisation_id = "%s"
+	name 		               = "terraform-organisation"
+}
+
 resource "form3_payport_association" "association" {
-	organisation_id                  = "%s"
+	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
 	payport_association_id           = "6e89d652-0344-4ab4-8118-f3ac30397ee8"
-	participant_id	                 = "08008802"
+	participant_id	                 = "%s"
   customer_sending_fps_institution = "444443"
   sponsor_bank_id                  = "111113"
   sponsor_account_number           = "22222223"

@@ -16,6 +16,9 @@ func resourceForm3PayportAssociation() *schema.Resource {
 		Create: resourcePayportAssociationCreate,
 		Read:   resourcePayportAssociationRead,
 		Delete: resourcePayportAssociationDelete,
+		Importer: &schema.ResourceImporter{
+			State: schema.ImportStatePassthrough,
+		},
 
 		Schema: map[string]*schema.Schema{
 			"payport_association_id": &schema.Schema{
@@ -84,7 +87,13 @@ func resourcePayportAssociationRead(d *schema.ResourceData, meta interface{}) er
 	key := d.Id()
 	associationId, _ := GetUUIDOK(d, "payport_association_id")
 	participantId := d.Get("participant_id").(string)
-	log.Printf("[INFO] Reading payport association for id: %s participant id: %s", key, participantId)
+
+	if associationId == "" {
+		associationId = strfmt.UUID(key)
+		log.Printf("[INFO] Importing payport association for id: %s participant id: %s", associationId, participantId)
+	} else {
+		log.Printf("[INFO] Reading payport association for id: %s participant id: %s", associationId, participantId)
+	}
 
 	association, err := client.AssociationClient.Associations.GetPayportID(associations.NewGetPayportIDParams().
 		WithID(associationId))
@@ -104,6 +113,7 @@ func resourcePayportAssociationRead(d *schema.ResourceData, meta interface{}) er
 	d.Set("customer_sending_fps_institution", association.Payload.Data.Attributes.CustomerSendingFpsInstitution)
 	d.Set("sponsor_bank_id", association.Payload.Data.Attributes.SponsorBankID)
 	d.Set("sponsor_account_number", association.Payload.Data.Attributes.SponsorAccountNumber)
+	d.Set("organisation_id", association.Payload.Data.OrganisationID.String())
 	return nil
 }
 
