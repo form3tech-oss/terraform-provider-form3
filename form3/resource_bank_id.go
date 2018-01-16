@@ -16,6 +16,9 @@ func resourceForm3BankID() *schema.Resource {
 		Create: resourceBankIDCreate,
 		Read:   resourceBankIDRead,
 		Delete: resourceBankIDDelete,
+		Importer: &schema.ResourceImporter{
+			State: schema.ImportStatePassthrough,
+		},
 
 		Schema: map[string]*schema.Schema{
 			"bank_resource_id": &schema.Schema{
@@ -81,7 +84,12 @@ func resourceBankIDRead(d *schema.ResourceData, meta interface{}) error {
 
 	bankResourceID, _ := GetUUIDOK(d, "bank_resource_id")
 
-	log.Printf("[INFO] Reading bank id with resource id: %s.", bankResourceID)
+	if bankResourceID == "" {
+		bankResourceID = strfmt.UUID(d.Id())
+		log.Printf("[INFO] Importing bank id with resource id: %s.", bankResourceID)
+	} else {
+		log.Printf("[INFO] Reading bank id with resource id: %s.", bankResourceID)
+	}
 
 	bankIDResponse, err := client.AccountClient.Accounts.GetBankidsID(accounts.NewGetBankidsIDParams().
 		WithID(bankResourceID))

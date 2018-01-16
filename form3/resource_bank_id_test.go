@@ -7,13 +7,16 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
+	"github.com/satori/go.uuid"
 	"os"
 	"testing"
 )
 
 func TestAccBankID_basic(t *testing.T) {
 	var bankIDResponse accounts.GetBankidsIDOK
-	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationId := uuid.NewV4().String()
+	bankResourceId := uuid.NewV4().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -21,16 +24,42 @@ func TestAccBankID_basic(t *testing.T) {
 		CheckDestroy: testAccCheckBankIDDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3BankIDConfigA, organisationId),
+				Config: fmt.Sprintf(testForm3BankIDConfigA, organisationId, parentOrganisationId, bankResourceId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBankIDExists("form3_bank_id.bank_id", &bankIDResponse),
 					resource.TestCheckResourceAttr(
-						"form3_bank_id.bank_id", "bank_id", "400309"),
+						"form3_bank_id.bank_id", "bank_id", "999999"),
 					resource.TestCheckResourceAttr(
 						"form3_bank_id.bank_id", "bank_id_code", "GBDSC"),
 					resource.TestCheckResourceAttr(
 						"form3_bank_id.bank_id", "country", "GB"),
 				),
+			},
+		},
+	})
+}
+
+func TestAccBankID_importBasic(t *testing.T) {
+
+	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationId := uuid.NewV4().String()
+	bankResourceId := uuid.NewV4().String()
+
+	resourceName := "form3_bank_id.bank_id"
+
+	resource.Test(t, resource.TestCase{
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
+		CheckDestroy: testAccCheckOrganisationDestroy,
+		Steps: []resource.TestStep{
+			resource.TestStep{
+				Config: fmt.Sprintf(testForm3BankIDConfigA, organisationId, parentOrganisationId, bankResourceId),
+			},
+
+			resource.TestStep{
+				ResourceName:      resourceName,
+				ImportState:       true,
+				ImportStateVerify: true,
 			},
 		},
 	})
@@ -87,10 +116,16 @@ func testAccCheckBankIDExists(resourceKey string, bankIDResponse *accounts.GetBa
 }
 
 const testForm3BankIDConfigA = `
+resource "form3_organisation" "organisation" {
+	organisation_id        = "%s"
+	parent_organisation_id = "%s"
+	name 		               = "terraform-organisation"
+}
+
 resource "form3_bank_id" "bank_id" {
-	organisation_id  = "%s"
-  bank_resource_id = "2f606e19-d32e-4dcb-9237-7348f71d7da0"
-	bank_id       	 = "400309"
+	organisation_id  = "${form3_organisation.organisation.organisation_id}"
+  bank_resource_id = "%s"
+	bank_id       	 = "999999"
   bank_id_code     = "GBDSC"
   country          = "GB"
 }
