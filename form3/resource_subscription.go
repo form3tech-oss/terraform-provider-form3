@@ -17,6 +17,9 @@ func resourceForm3Subscription() *schema.Resource {
 		Read:   resourceSubscriptionRead,
 		Update: resourceSubscriptionUpdate,
 		Delete: resourceSubscriptionDelete,
+		Importer: &schema.ResourceImporter{
+			State: schema.ImportStatePassthrough,
+		},
 
 		Schema: map[string]*schema.Schema{
 			"organisation_id": &schema.Schema{
@@ -80,7 +83,13 @@ func resourceSubscriptionRead(d *schema.ResourceData, meta interface{}) error {
 
 	key := d.Id()
 	subscriptionId, _ := GetUUIDOK(d, "subscription_id")
-	log.Printf("[INFO] Reading subscription for id: %s ", key)
+
+	if subscriptionId == "" {
+		subscriptionId = strfmt.UUID(key)
+		log.Printf("[INFO] Importing subscription for id: %s ", key)
+	} else {
+		log.Printf("[INFO] Reading subscription for id: %s ", subscriptionId)
+	}
 
 	subscription, err := client.NotificationClient.Subscriptions.GetSubscriptionsID(
 		subscriptions.NewGetSubscriptionsIDParams().WithID(subscriptionId))

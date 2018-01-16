@@ -7,6 +7,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
+	"github.com/satori/go.uuid"
 	"os"
 	"testing"
 )
@@ -14,6 +15,7 @@ import (
 func TestAccSubscription_basic(t *testing.T) {
 	var subscriptionResponse subscriptions.GetSubscriptionsIDOK
 	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	subscriptionId := uuid.NewV4().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -21,7 +23,7 @@ func TestAccSubscription_basic(t *testing.T) {
 		CheckDestroy: testAccCheckSubscriptionDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3SubscriptionConfigA, organisationId),
+				Config: fmt.Sprintf(testForm3SubscriptionConfigA, organisationId, subscriptionId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckSubscriptionExists("form3_subscription.subscription", &subscriptionResponse),
 					resource.TestCheckResourceAttr(
@@ -35,12 +37,37 @@ func TestAccSubscription_basic(t *testing.T) {
 				),
 			},
 			{
-				Config: fmt.Sprintf(testForm3SubscriptionConfigAUpdate, organisationId),
+				Config: fmt.Sprintf(testForm3SubscriptionConfigAUpdate, organisationId, subscriptionId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckSubscriptionExists("form3_subscription.subscription", &subscriptionResponse),
 					resource.TestCheckResourceAttr(
 						"form3_subscription.subscription", "callback_uri", "https://sqs.eu-west-1.amazonaws.com/984234431138/terraform-test-2"),
 				),
+			},
+		},
+	})
+}
+
+func TestAccSubscription_importBasic(t *testing.T) {
+
+	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	subscriptionId := uuid.NewV4().String()
+
+	resourceName := "form3_subscription.subscription"
+
+	resource.Test(t, resource.TestCase{
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
+		CheckDestroy: testAccCheckSubscriptionDestroy,
+		Steps: []resource.TestStep{
+			resource.TestStep{
+				Config: fmt.Sprintf(testForm3SubscriptionConfigA, organisationId, subscriptionId),
+			},
+
+			resource.TestStep{
+				ResourceName:      resourceName,
+				ImportState:       true,
+				ImportStateVerify: true,
 			},
 		},
 	})
@@ -99,7 +126,7 @@ func testAccCheckSubscriptionExists(resourceKey string, subscription *subscripti
 const testForm3SubscriptionConfigA = `
 resource "form3_subscription" "subscription" {
 	organisation_id    = "%s"
-	subscription_id    = "851d3bcb-e0fc-43b5-bfd7-d454440192a5"
+	subscription_id    = "%s"
 	callback_transport = "queue"
   callback_uri       = "https://sqs.eu-west-1.amazonaws.com/984234431138/terraform-test"
   event_type         = "Updated"
@@ -109,7 +136,7 @@ resource "form3_subscription" "subscription" {
 const testForm3SubscriptionConfigAUpdate = `
 resource "form3_subscription" "subscription" {
 	organisation_id    = "%s"
-	subscription_id    = "851d3bcb-e0fc-43b5-bfd7-d454440192a5"
+	subscription_id    = "%s"
 	callback_transport = "queue"
   callback_uri       = "https://sqs.eu-west-1.amazonaws.com/984234431138/terraform-test-2"
   event_type         = "Updated"
