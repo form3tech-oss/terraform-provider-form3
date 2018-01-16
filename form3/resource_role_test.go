@@ -7,6 +7,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
+	"github.com/satori/go.uuid"
 	"os"
 	"testing"
 )
@@ -14,6 +15,7 @@ import (
 func TestAccRole_basic(t *testing.T) {
 	var roleResponse roles.GetRolesRoleIDOK
 	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	roleId := uuid.NewV4().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -21,12 +23,37 @@ func TestAccRole_basic(t *testing.T) {
 		CheckDestroy: testAccCheckRoleDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3RoleConfigA, organisationId),
+				Config: fmt.Sprintf(testForm3RoleConfigA, organisationId, roleId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckRoleExists("form3_role.role", &roleResponse),
 					resource.TestCheckResourceAttr(
 						"form3_role.role", "name", "terraform-role"),
 				),
+			},
+		},
+	})
+}
+
+func TestAccRole_importBasic(t *testing.T) {
+
+	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	roleId := uuid.NewV4().String()
+
+	resourceName := "form3_role.role"
+
+	resource.Test(t, resource.TestCase{
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
+		CheckDestroy: testAccCheckRoleDestroy,
+		Steps: []resource.TestStep{
+			resource.TestStep{
+				Config: fmt.Sprintf(testForm3RoleConfigA, organisationId, roleId),
+			},
+
+			resource.TestStep{
+				ResourceName:      resourceName,
+				ImportState:       true,
+				ImportStateVerify: true,
 			},
 		},
 	})
@@ -83,6 +110,6 @@ func testAccCheckRoleExists(resourceKey string, role *roles.GetRolesRoleIDOK) re
 const testForm3RoleConfigA = `
 resource "form3_role" "role" {
 	organisation_id = "%s"
-	role_id 		= "933a03db-08fa-42af-8e4b-9a088b178b3a"
+	role_id 		= "%s"
 	name     		= "terraform-role"
 }`

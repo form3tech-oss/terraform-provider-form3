@@ -16,6 +16,9 @@ func resourceForm3Role() *schema.Resource {
 		Create: resourceRoleCreate,
 		Read:   resourceRoleRead,
 		Delete: resourceRoleDelete,
+		Importer: &schema.ResourceImporter{
+			State: schema.ImportStatePassthrough,
+		},
 
 		Schema: map[string]*schema.Schema{
 			"role_id": &schema.Schema{
@@ -70,7 +73,13 @@ func resourceRoleRead(d *schema.ResourceData, meta interface{}) error {
 	key := d.Id()
 	roleId, _ := GetUUIDOK(d, "role_id")
 	roleName := d.Get("name").(string)
-	log.Printf("[INFO] Reading role for id: %s rolename: %s", key, roleName)
+
+	if roleId == "" {
+		roleId = strfmt.UUID(key)
+		log.Printf("[INFO] Importing role id: %s", roleId)
+	} else {
+		log.Printf("[INFO] Reading role for id: %s rolename: %s", key, roleName)
+	}
 
 	role, err := client.SecurityClient.Roles.GetRolesRoleID(roles.NewGetRolesRoleIDParams().WithRoleID(roleId))
 	if err != nil {
@@ -85,6 +94,8 @@ func resourceRoleRead(d *schema.ResourceData, meta interface{}) error {
 
 	d.Set("role_id", role.Payload.Data.ID.String())
 	d.Set("name", role.Payload.Data.Attributes.Name)
+	d.Set("organisation_id", role.Payload.Data.OrganisationID.String())
+
 	return nil
 }
 
