@@ -39,33 +39,6 @@ func TestAccAce_basic(t *testing.T) {
 	})
 }
 
-func TestAccAce_importBasic(t *testing.T) {
-
-	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	aceId := uuid.NewV4().String()
-	roleId := uuid.NewV4().String()
-
-	resourceName := "form3_ace.ace"
-
-	resource.Test(t, resource.TestCase{
-		PreCheck:     func() { testAccPreCheck(t) },
-		Providers:    testAccProviders,
-		CheckDestroy: testAccCheckAceDestroy,
-		Steps: []resource.TestStep{
-			resource.TestStep{
-				Config: fmt.Sprintf(testForm3AceConfigA, aceId, organisationId, roleId),
-			},
-
-			resource.TestStep{
-				ResourceName:      resourceName,
-				ImportStateId:     fmt.Sprintf("%s|%s", roleId, aceId),
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
-	})
-}
-
 func testAccCheckAceDestroy(state *terraform.State) error {
 	client := testAccProvider.Meta().(*form3.AuthenticatedClient)
 
@@ -108,7 +81,7 @@ func testAccCheckAceExists(resourceKey string, aceResponse *ace.GetRolesRoleIDAc
 			return err
 		}
 
-		if fmt.Sprintf("%s|%s", foundRecord.Payload.Data.Attributes.RoleID.String(), foundRecord.Payload.Data.ID.String()) != rs.Primary.ID {
+		if foundRecord.Payload.Data.ID.String() != rs.Primary.ID {
 			return fmt.Errorf("record not found expected %s found %s", rs.Primary.ID, foundRecord.Payload.Data.ID.String())
 		}
 

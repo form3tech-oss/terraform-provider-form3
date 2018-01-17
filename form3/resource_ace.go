@@ -6,10 +6,8 @@ import (
 	"github.com/ewilde/go-form3/client/ace"
 	"github.com/ewilde/go-form3/models"
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/schema"
 	"log"
-	"strings"
 )
 
 func resourceForm3Ace() *schema.Resource {
@@ -17,9 +15,6 @@ func resourceForm3Ace() *schema.Resource {
 		Create: resourceAceCreate,
 		Read:   resourceAceRead,
 		Delete: resourceAceDelete,
-		Importer: &schema.ResourceImporter{
-			State: schema.ImportStatePassthrough,
-		},
 
 		Schema: map[string]*schema.Schema{
 			"ace_id": &schema.Schema{
@@ -85,17 +80,7 @@ func resourceAceRead(d *schema.ResourceData, meta interface{}) error {
 	aceId, _ := GetUUIDOK(d, "ace_id")
 	roleId, _ := GetUUIDOK(d, "role_id")
 
-	if aceId == "" && roleId == "" {
-		split := strings.Split(d.Id(), "|")
-		if len(split) != 2 {
-			return fmt.Errorf("[ERROR] when importing ace must use id in format <roleId>|<aceId>")
-		}
-		roleId = strfmt.UUID(split[0])
-		aceId = strfmt.UUID(split[1])
-		log.Printf("[INFO] Importing ace for id: %s role id: %s", aceId, roleId)
-	} else {
-		log.Printf("[INFO] Reading ace for id: %s role id: %s", aceId, roleId)
-	}
+	log.Printf("[INFO] Reading ace for id: %s role id: %s", aceId, roleId)
 
 	aceResponse, err := client.SecurityClient.Ace.GetRolesRoleIDAcesAceID(ace.NewGetRolesRoleIDAcesAceIDParams().
 		WithAceID(aceId).
@@ -110,13 +95,10 @@ func resourceAceRead(d *schema.ResourceData, meta interface{}) error {
 		return fmt.Errorf("couldn't find ace: %s", err)
 	}
 
-	d.SetId(fmt.Sprintf("%s|%s", roleId, aceId))
 	d.Set("ace_id", aceResponse.Payload.Data.ID.String())
 	d.Set("role_id", aceResponse.Payload.Data.Attributes.RoleID.String())
 	d.Set("record_type", aceResponse.Payload.Data.Attributes.RecordType)
 	d.Set("action", aceResponse.Payload.Data.Attributes.Action)
-	d.Set("organisation_id", aceResponse.Payload.Data.OrganisationID.String())
-
 	return nil
 }
 
