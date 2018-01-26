@@ -9,12 +9,12 @@ import (
 	"github.com/go-openapi/runtime"
 	rc "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/hashicorp/terraform/helper/logging"
 	"golang.org/x/net/context"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"net/http/httputil"
-	"github.com/hashicorp/terraform/helper/logging"
 )
 
 type AuthenticatedClient struct {
