@@ -11,7 +11,10 @@ import (
 	"github.com/go-openapi/strfmt"
 	"golang.org/x/net/context"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"net/http/httputil"
+	"github.com/hashicorp/terraform/helper/logging"
 )
 
 type AuthenticatedClient struct {
@@ -125,6 +128,15 @@ func (r *AuthenticatedClient) Do(ctx context.Context, client *http.Client, req *
 		req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", r.AccessToken))
 	}
 
+	if logging.IsDebugOrHigher() {
+		dump, errDump := httputil.DumpRequestOut(req, true)
+		if errDump != nil {
+			log.Fatal(errDump)
+		}
+
+		log.Printf("[DEBUG] %s %s", req.URL.String(), string(dump))
+	}
+
 	resp, err := client.Do(req.WithContext(ctx))
 	// If we got an error, and the context has been canceled,
 	// the context's error is probably more useful.
@@ -135,6 +147,16 @@ func (r *AuthenticatedClient) Do(ctx context.Context, client *http.Client, req *
 		default:
 		}
 	}
+
+	if logging.IsDebugOrHigher() {
+		dump, errDump := httputil.DumpResponse(resp, true)
+		if errDump != nil {
+			log.Fatal(errDump)
+		}
+
+		log.Printf("[DEBUG] %s %s", req.URL.String(), string(dump))
+	}
+
 	return resp, err
 }
 
