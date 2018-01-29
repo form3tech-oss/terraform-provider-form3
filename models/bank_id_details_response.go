@@ -14,7 +14,6 @@ import (
 
 // BankIDDetailsResponse bank Id details response
 // swagger:model BankIdDetailsResponse
-
 type BankIDDetailsResponse struct {
 
 	// data
@@ -23,10 +22,6 @@ type BankIDDetailsResponse struct {
 	// links
 	Links *Links `json:"links,omitempty"`
 }
-
-/* polymorph BankIdDetailsResponse data false */
-
-/* polymorph BankIdDetailsResponse links false */
 
 // Validate validates this bank Id details response
 func (m *BankIDDetailsResponse) Validate(formats strfmt.Registry) error {

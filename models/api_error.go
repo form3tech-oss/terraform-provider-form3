@@ -14,7 +14,6 @@ import (
 
 // APIError Api error
 // swagger:model ApiError
-
 type APIError struct {
 
 	// error code
@@ -23,10 +22,6 @@ type APIError struct {
 	// error message
 	ErrorMessage string `json:"error_message,omitempty"`
 }
-
-/* polymorph ApiError error_code false */
-
-/* polymorph ApiError error_message false */
 
 // Validate validates this Api error
 func (m *APIError) Validate(formats strfmt.Registry) error {

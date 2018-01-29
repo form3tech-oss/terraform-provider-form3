@@ -14,14 +14,11 @@ import (
 
 // OrganisationCreation organisation creation
 // swagger:model OrganisationCreation
-
 type OrganisationCreation struct {
 
 	// data
 	Data *Organisation `json:"data,omitempty"`
 }
-
-/* polymorph OrganisationCreation data false */
 
 // Validate validates this organisation creation
 func (m *OrganisationCreation) Validate(formats strfmt.Registry) error {

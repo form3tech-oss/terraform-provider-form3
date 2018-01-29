@@ -15,7 +15,6 @@ import (
 
 // BankIDAttributes bank Id attributes
 // swagger:model BankIdAttributes
-
 type BankIDAttributes struct {
 
 	// bank id
@@ -30,12 +29,6 @@ type BankIDAttributes struct {
 	// Pattern: ^[A-Z]{2}$
 	Country string `json:"country,omitempty"`
 }
-
-/* polymorph BankIdAttributes bank_id false */
-
-/* polymorph BankIdAttributes bank_id_code false */
-
-/* polymorph BankIdAttributes country false */
 
 // Validate validates this bank Id attributes
 func (m *BankIDAttributes) Validate(formats strfmt.Registry) error {

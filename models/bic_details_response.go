@@ -14,7 +14,6 @@ import (
 
 // BicDetailsResponse bic details response
 // swagger:model BicDetailsResponse
-
 type BicDetailsResponse struct {
 
 	// data
@@ -23,10 +22,6 @@ type BicDetailsResponse struct {
 	// links
 	Links *Links `json:"links,omitempty"`
 }
-
-/* polymorph BicDetailsResponse data false */
-
-/* polymorph BicDetailsResponse links false */
 
 // Validate validates this bic details response
 func (m *BicDetailsResponse) Validate(formats strfmt.Registry) error {

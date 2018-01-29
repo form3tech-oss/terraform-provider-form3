@@ -140,12 +140,10 @@ func (o *PatchSubscriptionsIDParams) WriteToRequest(r runtime.ClientRequest, reg
 	}
 	var res []error
 
-	if o.SubscriptionUpdateRequest == nil {
-		o.SubscriptionUpdateRequest = new(models.SubscriptionCreation)
-	}
-
-	if err := r.SetBodyParam(o.SubscriptionUpdateRequest); err != nil {
-		return err
+	if o.SubscriptionUpdateRequest != nil {
+		if err := r.SetBodyParam(o.SubscriptionUpdateRequest); err != nil {
+			return err
+		}
 	}
 
 	// path param id

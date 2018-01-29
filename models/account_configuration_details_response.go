@@ -14,7 +14,6 @@ import (
 
 // AccountConfigurationDetailsResponse account configuration details response
 // swagger:model AccountConfigurationDetailsResponse
-
 type AccountConfigurationDetailsResponse struct {
 
 	// data
@@ -23,10 +22,6 @@ type AccountConfigurationDetailsResponse struct {
 	// links
 	Links *Links `json:"links,omitempty"`
 }
-
-/* polymorph AccountConfigurationDetailsResponse data false */
-
-/* polymorph AccountConfigurationDetailsResponse links false */
 
 // Validate validates this account configuration details response
 func (m *AccountConfigurationDetailsResponse) Validate(formats strfmt.Registry) error {

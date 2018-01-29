@@ -14,7 +14,6 @@ import (
 
 // PayportAssociationCreationResponse payport association creation response
 // swagger:model PayportAssociationCreationResponse
-
 type PayportAssociationCreationResponse struct {
 
 	// data
@@ -23,10 +22,6 @@ type PayportAssociationCreationResponse struct {
 	// links
 	Links *Links `json:"links,omitempty"`
 }
-
-/* polymorph PayportAssociationCreationResponse data false */
-
-/* polymorph PayportAssociationCreationResponse links false */
 
 // Validate validates this payport association creation response
 func (m *PayportAssociationCreationResponse) Validate(formats strfmt.Registry) error {

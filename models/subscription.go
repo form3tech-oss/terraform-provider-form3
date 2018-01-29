@@ -15,7 +15,6 @@ import (
 
 // Subscription subscription
 // swagger:model Subscription
-
 type Subscription struct {
 
 	// attributes
@@ -35,16 +34,6 @@ type Subscription struct {
 	// Minimum: 0
 	Version *int64 `json:"version,omitempty"`
 }
-
-/* polymorph Subscription attributes false */
-
-/* polymorph Subscription id false */
-
-/* polymorph Subscription organisation_id false */
-
-/* polymorph Subscription type false */
-
-/* polymorph Subscription version false */
 
 // Validate validates this subscription
 func (m *Subscription) Validate(formats strfmt.Registry) error {

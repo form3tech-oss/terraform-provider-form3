@@ -14,14 +14,11 @@ import (
 
 // RoleCreation role creation
 // swagger:model RoleCreation
-
 type RoleCreation struct {
 
 	// data
 	Data *Role `json:"data,omitempty"`
 }
-
-/* polymorph RoleCreation data false */
 
 // Validate validates this role creation
 func (m *RoleCreation) Validate(formats strfmt.Registry) error {

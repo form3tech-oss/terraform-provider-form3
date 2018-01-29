@@ -124,12 +124,10 @@ func (o *PostRolesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 	}
 	var res []error
 
-	if o.RoleCreationRequest == nil {
-		o.RoleCreationRequest = new(models.RoleCreation)
-	}
-
-	if err := r.SetBodyParam(o.RoleCreationRequest); err != nil {
-		return err
+	if o.RoleCreationRequest != nil {
+		if err := r.SetBodyParam(o.RoleCreationRequest); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

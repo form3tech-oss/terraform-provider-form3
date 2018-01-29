@@ -15,7 +15,6 @@ import (
 
 // ApprovalRequest approval request
 // swagger:model ApprovalRequest
-
 type ApprovalRequest struct {
 
 	// attributes
@@ -35,16 +34,6 @@ type ApprovalRequest struct {
 	// Minimum: 0
 	Version *int64 `json:"version,omitempty"`
 }
-
-/* polymorph ApprovalRequest attributes false */
-
-/* polymorph ApprovalRequest id false */
-
-/* polymorph ApprovalRequest organisation_id false */
-
-/* polymorph ApprovalRequest type false */
-
-/* polymorph ApprovalRequest version false */
 
 // Validate validates this approval request
 func (m *ApprovalRequest) Validate(formats strfmt.Registry) error {
@@ -127,166 +116,6 @@ func (m *ApprovalRequest) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *ApprovalRequest) UnmarshalBinary(b []byte) error {
 	var res ApprovalRequest
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*m = res
-	return nil
-}
-
-// ApprovalRequestAttributes approval request attributes
-// swagger:model ApprovalRequestAttributes
-
-type ApprovalRequestAttributes struct {
-
-	// action
-	// Pattern: ^[A-Za-z]*$
-	Action string `json:"action,omitempty"`
-
-	// action time
-	ActionTime strfmt.DateTime `json:"action_time,omitempty"`
-
-	// actioned by
-	ActionedBy strfmt.UUID `json:"actioned_by,omitempty"`
-
-	// after data
-	AfterData interface{} `json:"after_data,omitempty"`
-
-	// before data
-	BeforeData interface{} `json:"before_data,omitempty"`
-
-	// record id
-	RecordID strfmt.UUID `json:"record_id,omitempty"`
-
-	// record orgid
-	RecordOrgid strfmt.UUID `json:"record_orgid,omitempty"`
-
-	// record type
-	// Pattern: ^[A-Za-z]*$
-	RecordType string `json:"record_type,omitempty"`
-
-	// record version
-	// Minimum: 0
-	RecordVersion *int64 `json:"record_version,omitempty"`
-
-	// status
-	// Pattern: ^[A-Za-z]*$
-	Status string `json:"status,omitempty"`
-}
-
-/* polymorph ApprovalRequestAttributes action false */
-
-/* polymorph ApprovalRequestAttributes action_time false */
-
-/* polymorph ApprovalRequestAttributes actioned_by false */
-
-/* polymorph ApprovalRequestAttributes after_data false */
-
-/* polymorph ApprovalRequestAttributes before_data false */
-
-/* polymorph ApprovalRequestAttributes record_id false */
-
-/* polymorph ApprovalRequestAttributes record_orgid false */
-
-/* polymorph ApprovalRequestAttributes record_type false */
-
-/* polymorph ApprovalRequestAttributes record_version false */
-
-/* polymorph ApprovalRequestAttributes status false */
-
-// Validate validates this approval request attributes
-func (m *ApprovalRequestAttributes) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateAction(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateRecordType(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateRecordVersion(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateStatus(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *ApprovalRequestAttributes) validateAction(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Action) { // not required
-		return nil
-	}
-
-	if err := validate.Pattern("attributes"+"."+"action", "body", string(m.Action), `^[A-Za-z]*$`); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ApprovalRequestAttributes) validateRecordType(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.RecordType) { // not required
-		return nil
-	}
-
-	if err := validate.Pattern("attributes"+"."+"record_type", "body", string(m.RecordType), `^[A-Za-z]*$`); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ApprovalRequestAttributes) validateRecordVersion(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.RecordVersion) { // not required
-		return nil
-	}
-
-	if err := validate.MinimumInt("attributes"+"."+"record_version", "body", int64(*m.RecordVersion), 0, false); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ApprovalRequestAttributes) validateStatus(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Status) { // not required
-		return nil
-	}
-
-	if err := validate.Pattern("attributes"+"."+"status", "body", string(m.Status), `^[A-Za-z]*$`); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (m *ApprovalRequestAttributes) MarshalBinary() ([]byte, error) {
-	if m == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(m)
-}
-
-// UnmarshalBinary interface implementation
-func (m *ApprovalRequestAttributes) UnmarshalBinary(b []byte) error {
-	var res ApprovalRequestAttributes
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

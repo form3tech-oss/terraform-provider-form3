@@ -140,12 +140,10 @@ func (o *PatchUsersUserIDParams) WriteToRequest(r runtime.ClientRequest, reg str
 	}
 	var res []error
 
-	if o.UserUpdateRequest == nil {
-		o.UserUpdateRequest = new(models.UserCreation)
-	}
-
-	if err := r.SetBodyParam(o.UserUpdateRequest); err != nil {
-		return err
+	if o.UserUpdateRequest != nil {
+		if err := r.SetBodyParam(o.UserUpdateRequest); err != nil {
+			return err
+		}
 	}
 
 	// path param user_id

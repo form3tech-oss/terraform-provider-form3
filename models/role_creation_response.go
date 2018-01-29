@@ -14,7 +14,6 @@ import (
 
 // RoleCreationResponse role creation response
 // swagger:model RoleCreationResponse
-
 type RoleCreationResponse struct {
 
 	// data
@@ -23,10 +22,6 @@ type RoleCreationResponse struct {
 	// links
 	Links *Links `json:"links,omitempty"`
 }
-
-/* polymorph RoleCreationResponse data false */
-
-/* polymorph RoleCreationResponse links false */
 
 // Validate validates this role creation response
 func (m *RoleCreationResponse) Validate(formats strfmt.Registry) error {

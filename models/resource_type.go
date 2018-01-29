@@ -16,12 +16,13 @@ import (
 
 // ResourceType resource type
 // swagger:model ResourceType
-
 type ResourceType string
 
 const (
 	// ResourceTypePayportAssociations captures enum value "payport_associations"
 	ResourceTypePayportAssociations ResourceType = "payport_associations"
+	// ResourceTypeLimits captures enum value "limits"
+	ResourceTypeLimits ResourceType = "limits"
 )
 
 // for schema
@@ -29,7 +30,7 @@ var resourceTypeEnum []interface{}
 
 func init() {
 	var res []ResourceType
-	if err := json.Unmarshal([]byte(`["payport_associations"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["payport_associations","limits"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {

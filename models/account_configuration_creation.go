@@ -14,14 +14,11 @@ import (
 
 // AccountConfigurationCreation account configuration creation
 // swagger:model AccountConfigurationCreation
-
 type AccountConfigurationCreation struct {
 
 	// data
 	Data *AccountConfiguration `json:"data,omitempty"`
 }
-
-/* polymorph AccountConfigurationCreation data false */
 
 // Validate validates this account configuration creation
 func (m *AccountConfigurationCreation) Validate(formats strfmt.Registry) error {

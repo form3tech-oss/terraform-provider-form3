@@ -14,14 +14,11 @@ import (
 
 // BankIDCreation bank Id creation
 // swagger:model BankIdCreation
-
 type BankIDCreation struct {
 
 	// data
 	Data *BankID `json:"data,omitempty"`
 }
-
-/* polymorph BankIdCreation data false */
 
 // Validate validates this bank Id creation
 func (m *BankIDCreation) Validate(formats strfmt.Registry) error {

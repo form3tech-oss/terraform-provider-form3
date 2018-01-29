@@ -15,7 +15,6 @@ import (
 
 // Account account
 // swagger:model Account
-
 type Account struct {
 
 	// attributes
@@ -38,16 +37,6 @@ type Account struct {
 	// Minimum: 0
 	Version *int64 `json:"version,omitempty"`
 }
-
-/* polymorph Account attributes false */
-
-/* polymorph Account id false */
-
-/* polymorph Account organisation_id false */
-
-/* polymorph Account type false */
-
-/* polymorph Account version false */
 
 // Validate validates this account
 func (m *Account) Validate(formats strfmt.Registry) error {

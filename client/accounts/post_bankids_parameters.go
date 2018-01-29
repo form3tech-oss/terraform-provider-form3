@@ -124,12 +124,10 @@ func (o *PostBankidsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 	}
 	var res []error
 
-	if o.BankIDCreationRequest == nil {
-		o.BankIDCreationRequest = new(models.BankIDCreation)
-	}
-
-	if err := r.SetBodyParam(o.BankIDCreationRequest); err != nil {
-		return err
+	if o.BankIDCreationRequest != nil {
+		if err := r.SetBodyParam(o.BankIDCreationRequest); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

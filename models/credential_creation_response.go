@@ -14,7 +14,6 @@ import (
 
 // CredentialCreationResponse credential creation response
 // swagger:model CredentialCreationResponse
-
 type CredentialCreationResponse struct {
 
 	// data
@@ -23,10 +22,6 @@ type CredentialCreationResponse struct {
 	// links
 	Links *Links `json:"links,omitempty"`
 }
-
-/* polymorph CredentialCreationResponse data false */
-
-/* polymorph CredentialCreationResponse links false */
 
 // Validate validates this credential creation response
 func (m *CredentialCreationResponse) Validate(formats strfmt.Registry) error {

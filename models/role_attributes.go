@@ -14,14 +14,11 @@ import (
 
 // RoleAttributes role attributes
 // swagger:model RoleAttributes
-
 type RoleAttributes struct {
 
 	// name
 	Name string `json:"name,omitempty"`
 }
-
-/* polymorph RoleAttributes name false */
 
 // Validate validates this role attributes
 func (m *RoleAttributes) Validate(formats strfmt.Registry) error {
