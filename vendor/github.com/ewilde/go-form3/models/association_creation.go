@@ -14,14 +14,11 @@ import (
 
 // AssociationCreation association creation
 // swagger:model AssociationCreation
-
 type AssociationCreation struct {
 
 	// data
 	Data *NewAssociation `json:"data,omitempty"`
 }
-
-/* polymorph AssociationCreation data false */
 
 // Validate validates this association creation
 func (m *AssociationCreation) Validate(formats strfmt.Registry) error {

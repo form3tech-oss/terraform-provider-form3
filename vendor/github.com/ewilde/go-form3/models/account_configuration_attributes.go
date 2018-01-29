@@ -14,14 +14,11 @@ import (
 
 // AccountConfigurationAttributes account configuration attributes
 // swagger:model AccountConfigurationAttributes
-
 type AccountConfigurationAttributes struct {
 
 	// account generation enabled
 	AccountGenerationEnabled bool `json:"account_generation_enabled,omitempty"`
 }
-
-/* polymorph AccountConfigurationAttributes account_generation_enabled false */
 
 // Validate validates this account configuration attributes
 func (m *AccountConfigurationAttributes) Validate(formats strfmt.Registry) error {

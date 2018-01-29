@@ -15,7 +15,6 @@ import (
 
 // AccountAttributes account attributes
 // swagger:model AccountAttributes
-
 type AccountAttributes struct {
 
 	// account number
@@ -51,22 +50,6 @@ type AccountAttributes struct {
 	// Pattern: ^[A-Z]{2}[0-9]{2}[A-Z0-9]{0,64}$
 	Iban string `json:"iban,omitempty"`
 }
-
-/* polymorph AccountAttributes account_number false */
-
-/* polymorph AccountAttributes bank_id false */
-
-/* polymorph AccountAttributes bank_id_code false */
-
-/* polymorph AccountAttributes base_currency false */
-
-/* polymorph AccountAttributes bic false */
-
-/* polymorph AccountAttributes country false */
-
-/* polymorph AccountAttributes customer_id false */
-
-/* polymorph AccountAttributes iban false */
 
 // Validate validates this account attributes
 func (m *AccountAttributes) Validate(formats strfmt.Registry) error {

@@ -14,7 +14,6 @@ import (
 
 // CredentialSecret credential secret
 // swagger:model CredentialSecret
-
 type CredentialSecret struct {
 
 	// client id
@@ -23,10 +22,6 @@ type CredentialSecret struct {
 	// client secret
 	ClientSecret string `json:"client_secret,omitempty"`
 }
-
-/* polymorph CredentialSecret client_id false */
-
-/* polymorph CredentialSecret client_secret false */
 
 // Validate validates this credential secret
 func (m *CredentialSecret) Validate(formats strfmt.Registry) error {

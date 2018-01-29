@@ -15,15 +15,12 @@ import (
 
 // BicAttributes bic attributes
 // swagger:model BicAttributes
-
 type BicAttributes struct {
 
 	// bic
 	// Pattern: ^([A-Z]{6}[A-Z0-9]{2}|[A-Z]{6}[A-Z0-9]{5})$
 	Bic string `json:"bic,omitempty"`
 }
-
-/* polymorph BicAttributes bic false */
 
 // Validate validates this bic attributes
 func (m *BicAttributes) Validate(formats strfmt.Registry) error {

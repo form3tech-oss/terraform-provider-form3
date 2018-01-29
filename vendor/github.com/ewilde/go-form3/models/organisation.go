@@ -15,7 +15,6 @@ import (
 
 // Organisation organisation
 // swagger:model Organisation
-
 type Organisation struct {
 
 	// attributes
@@ -34,16 +33,6 @@ type Organisation struct {
 	// Minimum: 0
 	Version *int64 `json:"version,omitempty"`
 }
-
-/* polymorph Organisation attributes false */
-
-/* polymorph Organisation id false */
-
-/* polymorph Organisation organisation_id false */
-
-/* polymorph Organisation type false */
-
-/* polymorph Organisation version false */
 
 // Validate validates this organisation
 func (m *Organisation) Validate(formats strfmt.Registry) error {

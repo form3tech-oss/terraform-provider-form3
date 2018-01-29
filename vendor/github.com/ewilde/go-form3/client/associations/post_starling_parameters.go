@@ -124,12 +124,10 @@ func (o *PostStarlingParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 	}
 	var res []error
 
-	if o.CreationRequest == nil {
-		o.CreationRequest = new(models.AssociationCreation)
-	}
-
-	if err := r.SetBodyParam(o.CreationRequest); err != nil {
-		return err
+	if o.CreationRequest != nil {
+		if err := r.SetBodyParam(o.CreationRequest); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

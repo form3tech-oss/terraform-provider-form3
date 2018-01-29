@@ -14,14 +14,11 @@ import (
 
 // OrganisationAttributes organisation attributes
 // swagger:model OrganisationAttributes
-
 type OrganisationAttributes struct {
 
 	// name
 	Name string `json:"name,omitempty"`
 }
-
-/* polymorph OrganisationAttributes name false */
 
 // Validate validates this organisation attributes
 func (m *OrganisationAttributes) Validate(formats strfmt.Registry) error {

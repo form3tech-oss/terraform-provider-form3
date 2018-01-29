@@ -124,12 +124,10 @@ func (o *PostSubscriptionsParams) WriteToRequest(r runtime.ClientRequest, reg st
 	}
 	var res []error
 
-	if o.SubscriptionCreationRequest == nil {
-		o.SubscriptionCreationRequest = new(models.SubscriptionCreation)
-	}
-
-	if err := r.SetBodyParam(o.SubscriptionCreationRequest); err != nil {
-		return err
+	if o.SubscriptionCreationRequest != nil {
+		if err := r.SetBodyParam(o.SubscriptionCreationRequest); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

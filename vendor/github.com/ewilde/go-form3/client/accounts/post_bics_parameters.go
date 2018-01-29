@@ -124,12 +124,10 @@ func (o *PostBicsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 	}
 	var res []error
 
-	if o.BicCreationRequest == nil {
-		o.BicCreationRequest = new(models.BicCreation)
-	}
-
-	if err := r.SetBodyParam(o.BicCreationRequest); err != nil {
-		return err
+	if o.BicCreationRequest != nil {
+		if err := r.SetBodyParam(o.BicCreationRequest); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

@@ -6,3 +6,4 @@ terraform-provider-form3
 pkg
 .terraform
 plan
+.DS_Store

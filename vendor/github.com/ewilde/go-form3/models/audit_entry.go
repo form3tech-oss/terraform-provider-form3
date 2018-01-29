@@ -15,7 +15,6 @@ import (
 
 // AuditEntry audit entry
 // swagger:model AuditEntry
-
 type AuditEntry struct {
 
 	// attributes
@@ -35,16 +34,6 @@ type AuditEntry struct {
 	// Minimum: 0
 	Version *int64 `json:"version,omitempty"`
 }
-
-/* polymorph AuditEntry attributes false */
-
-/* polymorph AuditEntry id false */
-
-/* polymorph AuditEntry organisation_id false */
-
-/* polymorph AuditEntry type false */
-
-/* polymorph AuditEntry version false */
 
 // Validate validates this audit entry
 func (m *AuditEntry) Validate(formats strfmt.Registry) error {
@@ -127,113 +116,6 @@ func (m *AuditEntry) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *AuditEntry) UnmarshalBinary(b []byte) error {
 	var res AuditEntry
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*m = res
-	return nil
-}
-
-// AuditEntryAttributes audit entry attributes
-// swagger:model AuditEntryAttributes
-
-type AuditEntryAttributes struct {
-
-	// action time
-	ActionTime strfmt.DateTime `json:"action_time,omitempty"`
-
-	// actioned by
-	ActionedBy strfmt.UUID `json:"actioned_by,omitempty"`
-
-	// after data
-	AfterData interface{} `json:"after_data,omitempty"`
-
-	// before data
-	BeforeData interface{} `json:"before_data,omitempty"`
-
-	// description
-	// Pattern: ^[A-Za-z0-9 .,@:]*$
-	Description string `json:"description,omitempty"`
-
-	// record id
-	RecordID strfmt.UUID `json:"record_id,omitempty"`
-
-	// record type
-	// Pattern: ^[A-Za-z]*$
-	RecordType string `json:"record_type,omitempty"`
-}
-
-/* polymorph AuditEntryAttributes action_time false */
-
-/* polymorph AuditEntryAttributes actioned_by false */
-
-/* polymorph AuditEntryAttributes after_data false */
-
-/* polymorph AuditEntryAttributes before_data false */
-
-/* polymorph AuditEntryAttributes description false */
-
-/* polymorph AuditEntryAttributes record_id false */
-
-/* polymorph AuditEntryAttributes record_type false */
-
-// Validate validates this audit entry attributes
-func (m *AuditEntryAttributes) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateDescription(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateRecordType(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *AuditEntryAttributes) validateDescription(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Description) { // not required
-		return nil
-	}
-
-	if err := validate.Pattern("attributes"+"."+"description", "body", string(m.Description), `^[A-Za-z0-9 .,@:]*$`); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *AuditEntryAttributes) validateRecordType(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.RecordType) { // not required
-		return nil
-	}
-
-	if err := validate.Pattern("attributes"+"."+"record_type", "body", string(m.RecordType), `^[A-Za-z]*$`); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (m *AuditEntryAttributes) MarshalBinary() ([]byte, error) {
-	if m == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(m)
-}
-
-// UnmarshalBinary interface implementation
-func (m *AuditEntryAttributes) UnmarshalBinary(b []byte) error {
-	var res AuditEntryAttributes
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

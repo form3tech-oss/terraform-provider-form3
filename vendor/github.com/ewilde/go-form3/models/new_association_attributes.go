@@ -14,14 +14,11 @@ import (
 
 // NewAssociationAttributes new association attributes
 // swagger:model NewAssociationAttributes
-
 type NewAssociationAttributes struct {
 
 	// starling account name
 	StarlingAccountName string `json:"starling_account_name,omitempty"`
 }
-
-/* polymorph NewAssociationAttributes starling_account_name false */
 
 // Validate validates this new association attributes
 func (m *NewAssociationAttributes) Validate(formats strfmt.Registry) error {

@@ -14,7 +14,6 @@ import (
 
 // PayportAssociationAttributes payport association attributes
 // swagger:model PayportAssociationAttributes
-
 type PayportAssociationAttributes struct {
 
 	// customer sending fps institution
@@ -29,14 +28,6 @@ type PayportAssociationAttributes struct {
 	// sponsor bank id
 	SponsorBankID string `json:"sponsor_bank_id,omitempty"`
 }
-
-/* polymorph PayportAssociationAttributes customer_sending_fps_institution false */
-
-/* polymorph PayportAssociationAttributes participant_id false */
-
-/* polymorph PayportAssociationAttributes sponsor_account_number false */
-
-/* polymorph PayportAssociationAttributes sponsor_bank_id false */
 
 // Validate validates this payport association attributes
 func (m *PayportAssociationAttributes) Validate(formats strfmt.Registry) error {

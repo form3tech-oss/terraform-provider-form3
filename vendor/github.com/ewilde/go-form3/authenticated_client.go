@@ -9,9 +9,12 @@ import (
 	"github.com/go-openapi/runtime"
 	rc "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/hashicorp/terraform/helper/logging"
 	"golang.org/x/net/context"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"net/http/httputil"
 )
 
 type AuthenticatedClient struct {
@@ -24,6 +27,7 @@ type AuthenticatedClient struct {
 	OrganisationClient *client.Form3CorelibDataStructures
 	AssociationClient  *client.Form3CorelibDataStructures
 	AccountClient      *client.Form3CorelibDataStructures
+	PaymentsClient     *client.Form3CorelibDataStructures
 }
 
 type AuthenticatedClientCheckRedirect struct {
@@ -61,12 +65,17 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 	rt5 := rc.NewWithClient(config.Host, config.BasePath, config.Schemes, h)
 	accountClient := client.New(rt5, strfmt.Default)
 
+	config.WithBasePath("/v1/organisation/units/")
+	rt6 := rc.NewWithClient(config.Host, config.BasePath, config.Schemes, h)
+	paymentsClient := client.New(rt6, strfmt.Default)
+
 	authClient := &AuthenticatedClient{
 		AssociationClient:  associationsClient,
 		SecurityClient:     securityClient,
 		NotificationClient: notificationClient,
 		OrganisationClient: organisationClient,
 		AccountClient:      accountClient,
+		PaymentsClient:     paymentsClient,
 		HttpClient:         h,
 		Config:             config,
 	}
@@ -76,6 +85,7 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 	configureRuntime(rt3, authClient)
 	configureRuntime(rt4, authClient)
 	configureRuntime(rt5, authClient)
+	configureRuntime(rt6, authClient)
 
 	return authClient
 }
@@ -125,6 +135,15 @@ func (r *AuthenticatedClient) Do(ctx context.Context, client *http.Client, req *
 		req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", r.AccessToken))
 	}
 
+	if logging.IsDebugOrHigher() {
+		dump, errDump := httputil.DumpRequestOut(req, true)
+		if errDump != nil {
+			log.Fatal(errDump)
+		}
+
+		log.Printf("[DEBUG] %s %s", req.URL.String(), string(dump))
+	}
+
 	resp, err := client.Do(req.WithContext(ctx))
 	// If we got an error, and the context has been canceled,
 	// the context's error is probably more useful.
@@ -135,6 +154,16 @@ func (r *AuthenticatedClient) Do(ctx context.Context, client *http.Client, req *
 		default:
 		}
 	}
+
+	if logging.IsDebugOrHigher() {
+		dump, errDump := httputil.DumpResponse(resp, true)
+		if errDump != nil {
+			log.Fatal(errDump)
+		}
+
+		log.Printf("[DEBUG] %s %s", req.URL.String(), string(dump))
+	}
+
 	return resp, err
 }
 

@@ -124,12 +124,10 @@ func (o *PostAccountconfigurationsParams) WriteToRequest(r runtime.ClientRequest
 	}
 	var res []error
 
-	if o.AccountConfigurationCreationRequest == nil {
-		o.AccountConfigurationCreationRequest = new(models.AccountConfigurationCreation)
-	}
-
-	if err := r.SetBodyParam(o.AccountConfigurationCreationRequest); err != nil {
-		return err
+	if o.AccountConfigurationCreationRequest != nil {
+		if err := r.SetBodyParam(o.AccountConfigurationCreationRequest); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

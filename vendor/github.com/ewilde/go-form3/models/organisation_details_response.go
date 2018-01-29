@@ -14,7 +14,6 @@ import (
 
 // OrganisationDetailsResponse organisation details response
 // swagger:model OrganisationDetailsResponse
-
 type OrganisationDetailsResponse struct {
 
 	// data
@@ -23,10 +22,6 @@ type OrganisationDetailsResponse struct {
 	// links
 	Links *Links `json:"links,omitempty"`
 }
-
-/* polymorph OrganisationDetailsResponse data false */
-
-/* polymorph OrganisationDetailsResponse links false */
 
 // Validate validates this organisation details response
 func (m *OrganisationDetailsResponse) Validate(formats strfmt.Registry) error {

@@ -17,7 +17,6 @@ import (
 
 // SubscriptionAttributes subscription attributes
 // swagger:model SubscriptionAttributes
-
 type SubscriptionAttributes struct {
 
 	// callback transport
@@ -39,16 +38,6 @@ type SubscriptionAttributes struct {
 	// Read Only: true
 	UserID strfmt.UUID `json:"user_id,omitempty"`
 }
-
-/* polymorph SubscriptionAttributes callback_transport false */
-
-/* polymorph SubscriptionAttributes callback_uri false */
-
-/* polymorph SubscriptionAttributes event_type false */
-
-/* polymorph SubscriptionAttributes record_type false */
-
-/* polymorph SubscriptionAttributes user_id false */
 
 // Validate validates this subscription attributes
 func (m *SubscriptionAttributes) Validate(formats strfmt.Registry) error {

@@ -140,12 +140,10 @@ func (o *PatchUnitsIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 	}
 	var res []error
 
-	if o.OrganisationUpdateRequest == nil {
-		o.OrganisationUpdateRequest = new(models.OrganisationUpdate)
-	}
-
-	if err := r.SetBodyParam(o.OrganisationUpdateRequest); err != nil {
-		return err
+	if o.OrganisationUpdateRequest != nil {
+		if err := r.SetBodyParam(o.OrganisationUpdateRequest); err != nil {
+			return err
+		}
 	}
 
 	// path param id

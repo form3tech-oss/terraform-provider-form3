@@ -14,7 +14,6 @@ import (
 
 // RoleDetailsResponse role details response
 // swagger:model RoleDetailsResponse
-
 type RoleDetailsResponse struct {
 
 	// data
@@ -23,10 +22,6 @@ type RoleDetailsResponse struct {
 	// links
 	Links *Links `json:"links,omitempty"`
 }
-
-/* polymorph RoleDetailsResponse data false */
-
-/* polymorph RoleDetailsResponse links false */
 
 // Validate validates this role details response
 func (m *RoleDetailsResponse) Validate(formats strfmt.Registry) error {

@@ -14,14 +14,11 @@ import (
 
 // PayportAssociationCreation payport association creation
 // swagger:model PayportAssociationCreation
-
 type PayportAssociationCreation struct {
 
 	// data
 	Data *PayportAssociation `json:"data,omitempty"`
 }
-
-/* polymorph PayportAssociationCreation data false */
 
 // Validate validates this payport association creation
 func (m *PayportAssociationCreation) Validate(formats strfmt.Registry) error {

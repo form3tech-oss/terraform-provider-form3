@@ -124,12 +124,10 @@ func (o *PostUsersParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 	}
 	var res []error
 
-	if o.UserCreationRequest == nil {
-		o.UserCreationRequest = new(models.UserCreation)
-	}
-
-	if err := r.SetBodyParam(o.UserCreationRequest); err != nil {
-		return err
+	if o.UserCreationRequest != nil {
+		if err := r.SetBodyParam(o.UserCreationRequest); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {
