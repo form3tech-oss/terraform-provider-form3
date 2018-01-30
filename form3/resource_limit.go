@@ -3,12 +3,12 @@ package form3
 import (
 	"fmt"
 	"github.com/ewilde/go-form3"
+	"github.com/ewilde/go-form3/client/limits"
 	"github.com/ewilde/go-form3/models"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/schema"
 	"log"
-  "github.com/ewilde/go-form3/client/payments"
 )
 
 func resourceForm3Limit() *schema.Resource {
@@ -36,21 +36,21 @@ func resourceForm3Limit() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
-      "gateway": &schema.Schema{
-        Type:     schema.TypeString,
-        Required: true,
-        ForceNew: true,
-      },
-      "scheme": &schema.Schema{
-        Type:     schema.TypeString,
-        Required: true,
-        ForceNew: true,
-      },
-      "settlement_cycle_type": &schema.Schema{
-        Type:     schema.TypeString,
-        Required: true,
-        ForceNew: true,
-      },
+			"gateway": &schema.Schema{
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
+			"scheme": &schema.Schema{
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
+			"settlement_cycle_type": &schema.Schema{
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
 		},
 	}
 }
@@ -67,7 +67,7 @@ func resourceLimitCreate(d *schema.ResourceData, meta interface{}) error {
 	}
 	log.Printf("[DEBUG] limit create: %#v", limit)
 
-	createdLimit, err := client.PaymentsClient.Payments.PostLimits(payments.NewPostLimitsParams().
+	createdLimit, err := client.LimitsClient.Limits.PostLimits(limits.NewPostLimitsParams().
 		WithLimitCreationRequest(&models.LimitCreation{
 			Data: limit,
 		}))
@@ -90,13 +90,13 @@ func resourceLimitRead(d *schema.ResourceData, meta interface{}) error {
 	amount := d.Get("amount").(string)
 
 	if limitId == "" {
-    limitId = strfmt.UUID(key)
+		limitId = strfmt.UUID(key)
 		log.Printf("[INFO] Importing limit id: %s", limitId)
 	} else {
 		log.Printf("[INFO] Reading limit for id: %s amount: %s", key, amount)
 	}
 
-	limit, err := client.PaymentsClient.Payments.GetLimitsID(payments.NewGetLimitsIDParams().WithID(limitId))
+	limit, err := client.LimitsClient.Limits.GetLimitsID(limits.NewGetLimitsIDParams().WithID(limitId))
 	if err != nil {
 		apiError := err.(*runtime.APIError)
 		if apiError.Code == 404 {
@@ -110,9 +110,9 @@ func resourceLimitRead(d *schema.ResourceData, meta interface{}) error {
 	d.Set("limit_id", limit.Payload.Data.ID.String())
 	d.Set("amount", limit.Payload.Data.Attributes.Amount)
 	d.Set("organisation_id", limit.Payload.Data.OrganisationID.String())
-  d.Set("gateway", limit.Payload.Data.Attributes.Gateway)
-  d.Set("scheme", limit.Payload.Data.Attributes.Scheme)
-  d.Set("settlement_cycle_type", limit.Payload.Data.Attributes.SettlementCycleType)
+	d.Set("gateway", limit.Payload.Data.Attributes.Gateway)
+	d.Set("scheme", limit.Payload.Data.Attributes.Scheme)
+	d.Set("settlement_cycle_type", limit.Payload.Data.Attributes.SettlementCycleType)
 
 	return nil
 }
@@ -127,7 +127,7 @@ func resourceLimitDelete(d *schema.ResourceData, meta interface{}) error {
 
 	log.Printf("[INFO] Deleting limit for id: %s amount: %s", limitFromResource.ID, limitFromResource.Attributes.Amount)
 
-	_, _, err = client.PaymentsClient.Payments.DeleteLimitsID(payments.NewDeleteLimitsIDParams().
+	_, err = client.LimitsClient.Limits.DeleteLimitsID(limits.NewDeleteLimitsIDParams().
 		WithID(limitFromResource.ID).
 		WithVersion(*limitFromResource.Version))
 
@@ -139,13 +139,13 @@ func resourceLimitDelete(d *schema.ResourceData, meta interface{}) error {
 }
 
 func createLimitFromResourceDataWithVersion(d *schema.ResourceData, client *form3.AuthenticatedClient) (*models.Limit, error) {
-  limit, err := createLimitFromResourceData(d)
-  version, err := getLimitVersion(client, limit.ID)
+	limit, err := createLimitFromResourceData(d)
+	version, err := getLimitVersion(client, limit.ID)
 	if err != nil {
 		return nil, err
 	}
 
-  limit.Version = &version
+	limit.Version = &version
 
 	return limit, nil
 }
@@ -153,37 +153,37 @@ func createLimitFromResourceDataWithVersion(d *schema.ResourceData, client *form
 func createLimitFromResourceData(d *schema.ResourceData) (*models.Limit, error) {
 
 	limit := models.Limit{Attributes: &models.LimitAttributes{}}
-  limit.Type = "limits"
+	limit.Type = "limits"
 	if attr, ok := GetUUIDOK(d, "limit_id"); ok {
-    limit.ID = attr
+		limit.ID = attr
 	}
 
 	if attr, ok := d.GetOk("amount"); ok {
-    limit.Attributes.Amount = attr.(string)
+		limit.Attributes.Amount = attr.(string)
 	}
 
-  if attr, ok := d.GetOk("gateway"); ok {
-    limit.Attributes.Gateway = attr.(string)
-  }
+	if attr, ok := d.GetOk("gateway"); ok {
+		limit.Attributes.Gateway = attr.(string)
+	}
 
-  if attr, ok := d.GetOk("scheme"); ok {
-    limit.Attributes.Scheme = attr.(string)
-  }
+	if attr, ok := d.GetOk("scheme"); ok {
+		limit.Attributes.Scheme = attr.(string)
+	}
 
-  if attr, ok := d.GetOk("settlement_cycle_type"); ok {
-    val := attr.(string)
-    limit.Attributes.SettlementCycleType = models.SettlementCycleType(val)
-  }
+	if attr, ok := d.GetOk("settlement_cycle_type"); ok {
+		val := attr.(string)
+		limit.Attributes.SettlementCycleType = models.SettlementCycleType(val)
+	}
 
 	if attr, ok := GetUUIDOK(d, "organisation_id"); ok {
-    limit.OrganisationID = attr
+		limit.OrganisationID = attr
 	}
 
 	return &limit, nil
 }
 
 func getLimitVersion(client *form3.AuthenticatedClient, limitId strfmt.UUID) (int64, error) {
-	limit, err := client.PaymentsClient.Payments.GetLimitsID(payments.NewGetLimitsIDParams().WithID(limitId))
+	limit, err := client.LimitsClient.Limits.GetLimitsID(limits.NewGetLimitsIDParams().WithID(limitId))
 	if err != nil {
 		if err != nil {
 			return -1, fmt.Errorf("error reading limit: %s", err)

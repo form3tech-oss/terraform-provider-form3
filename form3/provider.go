@@ -43,7 +43,7 @@ func Provider() terraform.ResourceProvider {
 			"form3_starling_association":  resourceForm3StarlingAssociation(),
 			"form3_subscription":          resourceForm3Subscription(),
 			"form3_user":                  resourceForm3User(),
-      "form3_limit":                 resourceForm3Limit(),
+			"form3_limit":                 resourceForm3Limit(),
 		},
 
 		ConfigureFunc: providerConfigure,

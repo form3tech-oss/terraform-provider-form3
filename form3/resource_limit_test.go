@@ -3,17 +3,17 @@ package form3
 import (
 	"fmt"
 	"github.com/ewilde/go-form3"
+	"github.com/ewilde/go-form3/client/limits"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
 	"github.com/satori/go.uuid"
 	"os"
 	"testing"
-  "github.com/ewilde/go-form3/client/payments"
 )
 
 func TestAccLimit_basic(t *testing.T) {
-	var limitResponse payments.GetLimitsIDOK
+	var limitResponse limits.GetLimitsIDOK
 	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	limitId := uuid.NewV4().String()
 
@@ -27,9 +27,9 @@ func TestAccLimit_basic(t *testing.T) {
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckLimitExists("form3_limit.limit", &limitResponse),
 					resource.TestCheckResourceAttr("form3_limit.limit", "amount", "1000"),
-          resource.TestCheckResourceAttr("form3_limit.limit", "gateway", "payport_interface"),
-          resource.TestCheckResourceAttr("form3_limit.limit", "scheme", "FPS"),
-          resource.TestCheckResourceAttr("form3_limit.limit", "settlement_cycle_type", "daily"),
+					resource.TestCheckResourceAttr("form3_limit.limit", "gateway", "payport_interface"),
+					resource.TestCheckResourceAttr("form3_limit.limit", "scheme", "FPS"),
+					resource.TestCheckResourceAttr("form3_limit.limit", "settlement_cycle_type", "daily"),
 				),
 			},
 		},
@@ -69,7 +69,7 @@ func testAccCheckLimitDestroy(state *terraform.State) error {
 			continue
 		}
 
-		response, err := client.PaymentsClient.Payments.GetLimitsID(payments.NewGetLimitsIDParams().WithID(strfmt.UUID(rs.Primary.ID)))
+		response, err := client.LimitsClient.Limits.GetLimitsID(limits.NewGetLimitsIDParams().WithID(strfmt.UUID(rs.Primary.ID)))
 
 		if err == nil {
 			return fmt.Errorf("record %s still exists, %+v", rs.Primary.ID, response)
@@ -79,7 +79,7 @@ func testAccCheckLimitDestroy(state *terraform.State) error {
 	return nil
 }
 
-func testAccCheckLimitExists(resourceKey string, limit *payments.GetLimitsIDOK) resource.TestCheckFunc {
+func testAccCheckLimitExists(resourceKey string, limit *limits.GetLimitsIDOK) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceKey]
 
@@ -93,7 +93,7 @@ func testAccCheckLimitExists(resourceKey string, limit *payments.GetLimitsIDOK) 
 
 		client := testAccProvider.Meta().(*form3.AuthenticatedClient)
 
-		foundRecord, err := client.PaymentsClient.Payments.GetLimitsID(payments.NewGetLimitsIDParams().WithID(strfmt.UUID(rs.Primary.ID)))
+		foundRecord, err := client.LimitsClient.Limits.GetLimitsID(limits.NewGetLimitsIDParams().WithID(strfmt.UUID(rs.Primary.ID)))
 
 		if err != nil {
 			return err
