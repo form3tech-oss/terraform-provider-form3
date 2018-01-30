@@ -1278,7 +1278,7 @@ paths:
     post:
       summary: Create a limit
       tags:
-       - Payments
+       - Limits
       consumes:
         - application/vnd.api+json
         - application/json
@@ -1301,7 +1301,7 @@ paths:
     get:
       summary: List limits
       tags:
-        - Payments
+        - Limits
       parameters:
         - name: page[number]
           in: query
@@ -1337,7 +1337,7 @@ paths:
     get:
       summary: Fetch limit
       tags:
-        - Payments
+        - Limits
       parameters:
         - name: id
           in: path
@@ -1354,7 +1354,7 @@ paths:
     patch:
       summary: Amend limit
       tags:
-        - Payments
+        - Limits
       consumes:
         - application/vnd.api+json
         - application/json
@@ -1378,7 +1378,7 @@ paths:
     delete:
       summary: Delete limit
       tags:
-        - Payments
+        - Limits
       parameters:
         - name: id
           in: path

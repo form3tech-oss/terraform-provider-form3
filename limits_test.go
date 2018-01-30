@@ -1,7 +1,7 @@
 package form3
 
 import (
-	"github.com/ewilde/go-form3/client/payments"
+	"github.com/ewilde/go-form3/client/limits"
 	"github.com/ewilde/go-form3/models"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
@@ -10,7 +10,7 @@ import (
 
 func TestAccPostLimit(t *testing.T) {
 
-	createResponse, err := auth.PaymentsClient.Payments.PostLimits(payments.NewPostLimitsParams().
+	createResponse, err := auth.LimitsClient.Limits.PostLimits(limits.NewPostLimitsParams().
 		WithLimitCreationRequest(&models.LimitCreation{
 			Data: &models.Limit{
 				OrganisationID: organisationId,
@@ -27,10 +27,10 @@ func TestAccPostLimit(t *testing.T) {
 
 	assertNoErrorOccurred(err, t)
 
-	_, err = auth.PaymentsClient.Payments.GetLimitsID(payments.NewGetLimitsIDParams().WithID(strfmt.UUID(createResponse.Payload.Data.ID)))
+	_, err = auth.LimitsClient.Limits.GetLimitsID(limits.NewGetLimitsIDParams().WithID(strfmt.UUID(createResponse.Payload.Data.ID)))
 	assertNoErrorOccurred(err, t)
 
-	_, err = auth.PaymentsClient.Payments.DeleteLimitsID(payments.NewDeleteLimitsIDParams().
+	_, err = auth.LimitsClient.Limits.DeleteLimitsID(limits.NewDeleteLimitsIDParams().
 		WithID(createResponse.Payload.Data.ID),
 	)
 	assertNoErrorOccurred(err, t)
@@ -39,7 +39,7 @@ func TestAccPostLimit(t *testing.T) {
 
 func TestAccGetLimits(t *testing.T) {
 
-	createResponse, err := auth.PaymentsClient.Payments.PostLimits(payments.NewPostLimitsParams().
+	createResponse, err := auth.LimitsClient.Limits.PostLimits(limits.NewPostLimitsParams().
 		WithLimitCreationRequest(&models.LimitCreation{
 			Data: &models.Limit{
 				OrganisationID: organisationId,
@@ -56,9 +56,9 @@ func TestAccGetLimits(t *testing.T) {
 
 	assertNoErrorOccurred(err, t)
 
-	response, err := auth.PaymentsClient.Payments.GetLimits(payments.NewGetLimitsParams())
+	response, err := auth.LimitsClient.Limits.GetLimits(limits.NewGetLimitsParams())
 
-	_, err = auth.PaymentsClient.Payments.DeleteLimitsID(payments.NewDeleteLimitsIDParams().
+	_, err = auth.LimitsClient.Limits.DeleteLimitsID(limits.NewDeleteLimitsIDParams().
 		WithID(createResponse.Payload.Data.ID),
 	)
 	assertNoErrorOccurred(err, t)
@@ -71,7 +71,7 @@ func TestAccGetLimits(t *testing.T) {
 
 func TestAccDeleteLimit(t *testing.T) {
 
-	createResponse, err := auth.PaymentsClient.Payments.PostLimits(payments.NewPostLimitsParams().
+	createResponse, err := auth.LimitsClient.Limits.PostLimits(limits.NewPostLimitsParams().
 		WithLimitCreationRequest(&models.LimitCreation{
 			Data: &models.Limit{
 				OrganisationID: organisationId,
@@ -88,7 +88,7 @@ func TestAccDeleteLimit(t *testing.T) {
 
 	assertNoErrorOccurred(err, t)
 
-	_, err = auth.PaymentsClient.Payments.DeleteLimitsID(payments.NewDeleteLimitsIDParams().
+	_, err = auth.LimitsClient.Limits.DeleteLimitsID(limits.NewDeleteLimitsIDParams().
 		WithID(createResponse.Payload.Data.ID),
 	)
 
@@ -96,7 +96,7 @@ func TestAccDeleteLimit(t *testing.T) {
 		t.Error(err)
 	}
 
-	_, err = auth.PaymentsClient.Payments.GetLimitsID(payments.NewGetLimitsIDParams().
+	_, err = auth.LimitsClient.Limits.GetLimitsID(limits.NewGetLimitsIDParams().
 		WithID(createResponse.Payload.Data.ID))
 
 	assertStatusCode(err, t, 404)
@@ -104,7 +104,7 @@ func TestAccDeleteLimit(t *testing.T) {
 
 func TestAccGetLimitWithIdNotFound(t *testing.T) {
 
-	_, err := auth.PaymentsClient.Payments.GetLimitsID(payments.NewGetLimitsIDParams().WithID(strfmt.UUID("8ea57253-aea2-409b-ab59-e9f0a96adc12")))
+	_, err := auth.LimitsClient.Limits.GetLimitsID(limits.NewGetLimitsIDParams().WithID(strfmt.UUID("8ea57253-aea2-409b-ab59-e9f0a96adc12")))
 	if err == nil {
 		t.Error("Expected error to occur")
 	}
