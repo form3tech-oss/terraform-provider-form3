@@ -1,29 +1,29 @@
 package form3
 
 import (
+	"github.com/ewilde/go-form3/client/payments"
 	"github.com/ewilde/go-form3/models"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"testing"
-	"github.com/ewilde/go-form3/client/payments"
 )
 
 func TestAccPostLimit(t *testing.T) {
 
 	createResponse, err := auth.PaymentsClient.Payments.PostLimits(payments.NewPostLimitsParams().
 		WithLimitCreationRequest(&models.LimitCreation{
-		Data: &models.Limit{
-			OrganisationID: organisationId,
-			Type:           "limits",
-			ID:             strfmt.UUID("7066746d-4c12-4c21-9b9f-ee1a6d401f44"),
-			Attributes: &models.LimitAttributes{
-				Amount:   "1000",
-				Gateway:  "payport-interface",
-				Scheme:   "FPS",
-				SettlementCycleType: models.SettlementCycleTypePerScheme,
+			Data: &models.Limit{
+				OrganisationID: organisationId,
+				Type:           "limits",
+				ID:             strfmt.UUID("7066746d-4c12-4c21-9b9f-ee1a6d401f44"),
+				Attributes: &models.LimitAttributes{
+					Amount:              "1000",
+					Gateway:             "payport-interface",
+					Scheme:              "FPS",
+					SettlementCycleType: models.SettlementCycleTypePerScheme,
+				},
 			},
-		},
-	}))
+		}))
 
 	assertNoErrorOccurred(err, t)
 
@@ -37,23 +37,22 @@ func TestAccPostLimit(t *testing.T) {
 
 }
 
-
 func TestAccGetLimits(t *testing.T) {
 
 	createResponse, err := auth.PaymentsClient.Payments.PostLimits(payments.NewPostLimitsParams().
 		WithLimitCreationRequest(&models.LimitCreation{
-		Data: &models.Limit{
-			OrganisationID: organisationId,
-			Type:           "limits",
-			ID:             strfmt.UUID("7066746d-4c12-4c21-9b9f-ee1a6d401f44"),
-			Attributes: &models.LimitAttributes{
-				Amount:   "1000",
-				Gateway:  "payport-interface",
-				Scheme:   "FPS",
-				SettlementCycleType: models.SettlementCycleTypePerScheme,
+			Data: &models.Limit{
+				OrganisationID: organisationId,
+				Type:           "limits",
+				ID:             strfmt.UUID("7066746d-4c12-4c21-9b9f-ee1a6d401f44"),
+				Attributes: &models.LimitAttributes{
+					Amount:              "1000",
+					Gateway:             "payport-interface",
+					Scheme:              "FPS",
+					SettlementCycleType: models.SettlementCycleTypePerScheme,
+				},
 			},
-		},
-	}))
+		}))
 
 	assertNoErrorOccurred(err, t)
 
@@ -68,7 +67,6 @@ func TestAccGetLimits(t *testing.T) {
 		t.Error("Expected at least one limit")
 	}
 
-
 }
 
 func TestAccDeleteLimit(t *testing.T) {
@@ -80,9 +78,9 @@ func TestAccDeleteLimit(t *testing.T) {
 				Type:           "limits",
 				ID:             strfmt.UUID("7066746d-4c12-4c21-9b9f-ee1a6d401f44"),
 				Attributes: &models.LimitAttributes{
-					Amount:   "1000",
-					Gateway:  "payport-interface",
-					Scheme:   "FPS",
+					Amount:              "1000",
+					Gateway:             "payport-interface",
+					Scheme:              "FPS",
 					SettlementCycleType: models.SettlementCycleTypePerScheme,
 				},
 			},

@@ -75,7 +75,7 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 		NotificationClient: notificationClient,
 		OrganisationClient: organisationClient,
 		AccountClient:      accountClient,
-		PaymentsClient:		paymentsClient,
+		PaymentsClient:     paymentsClient,
 		HttpClient:         h,
 		Config:             config,
 	}
