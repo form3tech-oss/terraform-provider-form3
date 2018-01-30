@@ -15,7 +15,6 @@ import (
 
 // Bic bic
 // swagger:model Bic
-
 type Bic struct {
 
 	// attributes
@@ -35,16 +34,6 @@ type Bic struct {
 	// Minimum: 0
 	Version *int64 `json:"version,omitempty"`
 }
-
-/* polymorph Bic attributes false */
-
-/* polymorph Bic id false */
-
-/* polymorph Bic organisation_id false */
-
-/* polymorph Bic type false */
-
-/* polymorph Bic version false */
 
 // Validate validates this bic
 func (m *Bic) Validate(formats strfmt.Registry) error {

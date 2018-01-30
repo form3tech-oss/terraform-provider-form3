@@ -14,14 +14,11 @@ import (
 
 // BicCreation bic creation
 // swagger:model BicCreation
-
 type BicCreation struct {
 
 	// data
 	Data *Bic `json:"data,omitempty"`
 }
-
-/* polymorph BicCreation data false */
 
 // Validate validates this bic creation
 func (m *BicCreation) Validate(formats strfmt.Registry) error {

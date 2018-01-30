@@ -14,7 +14,6 @@ import (
 
 // Links links
 // swagger:model Links
-
 type Links struct {
 
 	// first
@@ -32,16 +31,6 @@ type Links struct {
 	// self
 	Self string `json:"self,omitempty"`
 }
-
-/* polymorph Links first false */
-
-/* polymorph Links last false */
-
-/* polymorph Links next false */
-
-/* polymorph Links prev false */
-
-/* polymorph Links self false */
 
 // Validate validates this links
 func (m *Links) Validate(formats strfmt.Registry) error {

@@ -14,14 +14,11 @@ import (
 
 // SubscriptionCreation subscription creation
 // swagger:model SubscriptionCreation
-
 type SubscriptionCreation struct {
 
 	// data
 	Data *Subscription `json:"data,omitempty"`
 }
-
-/* polymorph SubscriptionCreation data false */
 
 // Validate validates this subscription creation
 func (m *SubscriptionCreation) Validate(formats strfmt.Registry) error {

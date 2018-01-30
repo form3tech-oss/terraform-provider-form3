@@ -15,7 +15,6 @@ import (
 
 // Association association
 // swagger:model Association
-
 type Association struct {
 
 	// attributes
@@ -34,16 +33,6 @@ type Association struct {
 	// Minimum: 0
 	Version *int64 `json:"version,omitempty"`
 }
-
-/* polymorph Association attributes false */
-
-/* polymorph Association id false */
-
-/* polymorph Association organisation_id false */
-
-/* polymorph Association type false */
-
-/* polymorph Association version false */
 
 // Validate validates this association
 func (m *Association) Validate(formats strfmt.Registry) error {

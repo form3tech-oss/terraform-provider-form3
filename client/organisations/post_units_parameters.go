@@ -124,12 +124,10 @@ func (o *PostUnitsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 	}
 	var res []error
 
-	if o.OrganisationCreationRequest == nil {
-		o.OrganisationCreationRequest = new(models.OrganisationCreation)
-	}
-
-	if err := r.SetBodyParam(o.OrganisationCreationRequest); err != nil {
-		return err
+	if o.OrganisationCreationRequest != nil {
+		if err := r.SetBodyParam(o.OrganisationCreationRequest); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

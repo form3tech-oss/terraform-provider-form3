@@ -15,7 +15,6 @@ import (
 
 // Role role
 // swagger:model Role
-
 type Role struct {
 
 	// attributes
@@ -34,16 +33,6 @@ type Role struct {
 	// Minimum: 0
 	Version *int64 `json:"version,omitempty"`
 }
-
-/* polymorph Role attributes false */
-
-/* polymorph Role id false */
-
-/* polymorph Role organisation_id false */
-
-/* polymorph Role type false */
-
-/* polymorph Role version false */
 
 // Validate validates this role
 func (m *Role) Validate(formats strfmt.Registry) error {

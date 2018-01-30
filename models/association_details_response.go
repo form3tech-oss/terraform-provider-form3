@@ -14,7 +14,6 @@ import (
 
 // AssociationDetailsResponse association details response
 // swagger:model AssociationDetailsResponse
-
 type AssociationDetailsResponse struct {
 
 	// data
@@ -23,10 +22,6 @@ type AssociationDetailsResponse struct {
 	// links
 	Links *Links `json:"links,omitempty"`
 }
-
-/* polymorph AssociationDetailsResponse data false */
-
-/* polymorph AssociationDetailsResponse links false */
 
 // Validate validates this association details response
 func (m *AssociationDetailsResponse) Validate(formats strfmt.Registry) error {

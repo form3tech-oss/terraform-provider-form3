@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ewilde/go-form3.svg?branch=master)](https://travis-ci.org/ewilde/go-form3)
+  [![Build Status](https://travis-ci.org/ewilde/go-form3.svg?branch=master)](https://travis-ci.org/ewilde/go-form3)
 # Developing
 ## Build locally
 * `git clone git@github.com:ewilde/go-form3.git`

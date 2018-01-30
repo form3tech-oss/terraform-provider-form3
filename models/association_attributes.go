@@ -14,7 +14,6 @@ import (
 
 // AssociationAttributes association attributes
 // swagger:model AssociationAttributes
-
 type AssociationAttributes struct {
 
 	// starling account name
@@ -23,10 +22,6 @@ type AssociationAttributes struct {
 	// starling account uid
 	StarlingAccountUID strfmt.UUID `json:"starling_account_uid,omitempty"`
 }
-
-/* polymorph AssociationAttributes starling_account_name false */
-
-/* polymorph AssociationAttributes starling_account_uid false */
 
 // Validate validates this association attributes
 func (m *AssociationAttributes) Validate(formats strfmt.Registry) error {

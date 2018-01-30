@@ -14,14 +14,11 @@ import (
 
 // AceCreation ace creation
 // swagger:model AceCreation
-
 type AceCreation struct {
 
 	// data
 	Data *Ace `json:"data,omitempty"`
 }
-
-/* polymorph AceCreation data false */
 
 // Validate validates this ace creation
 func (m *AceCreation) Validate(formats strfmt.Registry) error {

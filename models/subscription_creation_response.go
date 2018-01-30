@@ -14,7 +14,6 @@ import (
 
 // SubscriptionCreationResponse subscription creation response
 // swagger:model SubscriptionCreationResponse
-
 type SubscriptionCreationResponse struct {
 
 	// data
@@ -23,10 +22,6 @@ type SubscriptionCreationResponse struct {
 	// links
 	Links *Links `json:"links,omitempty"`
 }
-
-/* polymorph SubscriptionCreationResponse data false */
-
-/* polymorph SubscriptionCreationResponse links false */
 
 // Validate validates this subscription creation response
 func (m *SubscriptionCreationResponse) Validate(formats strfmt.Registry) error {

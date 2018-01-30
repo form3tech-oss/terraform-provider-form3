@@ -1274,6 +1274,128 @@ paths:
           description: AccountConfiguration deleted
 #account api -end
 
+  /limits:
+    post:
+      summary: Create a limit
+      tags:
+       - Limits
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+      - name: Limit creation request
+        in: body
+        schema:
+          $ref: "#/definitions/LimitCreation"
+      responses:
+        201:
+          description: Limit creation response
+          schema:
+            $ref: "#/definitions/LimitCreationResponse"
+
+        400:
+          description: Limit creation error
+          schema:
+            $ref: "#/definitions/ApiError"
+
+    get:
+      summary: List limits
+      tags:
+        - Limits
+      parameters:
+        - name: page[number]
+          in: query
+          description: Which page to select
+          required: false
+          type: string
+          minimum: 0
+          pattern: "$[A-z0-9]{4}^"
+        - name: page[size]
+          in: query
+          description: Number of items to select
+          required: false
+          type: integer
+          minimum: 0
+          maximum: 1000
+        - name: filter[organisation_id]
+          in: query
+          description: Filter by organisation id
+          required: false
+          type: array
+          items:
+            type: string
+            format: uuid
+          collectionFormat: csv
+      responses:
+        200:
+          description: List of limit details
+          schema:
+            $ref: "#/definitions/LimitDetailsListResponse"
+
+  /limits/{id}:
+
+    get:
+      summary: Fetch limit
+      tags:
+        - Limits
+      parameters:
+        - name: id
+          in: path
+          description: limit Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Limit details
+          schema:
+            $ref: "#/definitions/LimitDetailsResponse"
+
+    patch:
+      summary: Amend limit
+      tags:
+        - Limits
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Limit Id
+          required: true
+          type: string
+          format: uuid
+        - name: Limit amend request
+          in: body
+          schema:
+            $ref: "#/definitions/LimitAmendment"
+      responses:
+        200:
+          description: Limit updated
+          schema:
+            $ref: "#/definitions/LimitDetailsResponse"
+
+    delete:
+      summary: Delete limit
+      tags:
+        - Limits
+      parameters:
+        - name: id
+          in: path
+          description: Limit Id
+          required: true
+          type: string
+          format: uuid
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+      responses:
+        204:
+          description: Limit deleted
+
 definitions:
 
   ApiError:
@@ -1298,6 +1420,18 @@ definitions:
         type: string
       last:
         type: string
+
+  Self:
+    type: object
+    properties:
+      self:
+        type: string
+
+  RecordCount:
+    type: object
+    properties:
+      count:
+        type: integer
 
   #Ace
   Ace:
@@ -2175,3 +2309,76 @@ definitions:
      type: string
      enum:
        - payport_associations
+       - limits
+
+  LimitCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/Limit'
+
+  LimitCreationResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/definitions/Limit'
+
+  LimitDetailsListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Limit'
+      links:
+        $ref: '#/definitions/Links'
+      meta:
+        $ref: '#/definitions/RecordCount'
+
+  LimitDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/Limit'
+
+  LimitAmendment:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/Limit'
+
+  Limit:
+    type: object
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          gateway:
+            type: string
+            pattern: ^[A-Za-z_\-]*$
+          scheme:
+            type: string
+            pattern: ^[A-Za-z_\-]*$
+          amount:
+            type: string
+            pattern: ^[0-9.]{0,20}$
+          settlement_cycle_type:
+            $ref: '#/definitions/SettlementCycleType'
+
+  SettlementCycleType:
+    type: string
+    enum:
+      - daily
+      - per_scheme

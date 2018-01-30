@@ -15,7 +15,6 @@ import (
 
 // BankID bank Id
 // swagger:model BankId
-
 type BankID struct {
 
 	// attributes
@@ -35,16 +34,6 @@ type BankID struct {
 	// Minimum: 0
 	Version *int64 `json:"version,omitempty"`
 }
-
-/* polymorph BankId attributes false */
-
-/* polymorph BankId id false */
-
-/* polymorph BankId organisation_id false */
-
-/* polymorph BankId type false */
-
-/* polymorph BankId version false */
 
 // Validate validates this bank Id
 func (m *BankID) Validate(formats strfmt.Registry) error {

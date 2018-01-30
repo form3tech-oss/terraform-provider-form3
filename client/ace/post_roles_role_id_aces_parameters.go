@@ -140,12 +140,10 @@ func (o *PostRolesRoleIDAcesParams) WriteToRequest(r runtime.ClientRequest, reg 
 	}
 	var res []error
 
-	if o.AceCreationRequest == nil {
-		o.AceCreationRequest = new(models.AceCreation)
-	}
-
-	if err := r.SetBodyParam(o.AceCreationRequest); err != nil {
-		return err
+	if o.AceCreationRequest != nil {
+		if err := r.SetBodyParam(o.AceCreationRequest); err != nil {
+			return err
+		}
 	}
 
 	// path param role_id

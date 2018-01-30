@@ -14,14 +14,11 @@ import (
 
 // Credential credential
 // swagger:model Credential
-
 type Credential struct {
 
 	// client id
 	ClientID strfmt.UUID `json:"client_id,omitempty"`
 }
-
-/* polymorph Credential client_id false */
 
 // Validate validates this credential
 func (m *Credential) Validate(formats strfmt.Registry) error {

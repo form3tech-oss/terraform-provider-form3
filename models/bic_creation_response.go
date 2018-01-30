@@ -14,7 +14,6 @@ import (
 
 // BicCreationResponse bic creation response
 // swagger:model BicCreationResponse
-
 type BicCreationResponse struct {
 
 	// data
@@ -23,10 +22,6 @@ type BicCreationResponse struct {
 	// links
 	Links *Links `json:"links,omitempty"`
 }
-
-/* polymorph BicCreationResponse data false */
-
-/* polymorph BicCreationResponse links false */
 
 // Validate validates this bic creation response
 func (m *BicCreationResponse) Validate(formats strfmt.Registry) error {

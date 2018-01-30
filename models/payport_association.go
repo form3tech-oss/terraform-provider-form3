@@ -15,7 +15,6 @@ import (
 
 // PayportAssociation payport association
 // swagger:model PayportAssociation
-
 type PayportAssociation struct {
 
 	// attributes
@@ -34,16 +33,6 @@ type PayportAssociation struct {
 	// Minimum: 0
 	Version *int64 `json:"version,omitempty"`
 }
-
-/* polymorph PayportAssociation attributes false */
-
-/* polymorph PayportAssociation id false */
-
-/* polymorph PayportAssociation organisation_id false */
-
-/* polymorph PayportAssociation type false */
-
-/* polymorph PayportAssociation version false */
 
 // Validate validates this payport association
 func (m *PayportAssociation) Validate(formats strfmt.Registry) error {

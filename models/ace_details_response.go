@@ -14,7 +14,6 @@ import (
 
 // AceDetailsResponse ace details response
 // swagger:model AceDetailsResponse
-
 type AceDetailsResponse struct {
 
 	// data
@@ -23,10 +22,6 @@ type AceDetailsResponse struct {
 	// links
 	Links *Links `json:"links,omitempty"`
 }
-
-/* polymorph AceDetailsResponse data false */
-
-/* polymorph AceDetailsResponse links false */
 
 // Validate validates this ace details response
 func (m *AceDetailsResponse) Validate(formats strfmt.Registry) error {

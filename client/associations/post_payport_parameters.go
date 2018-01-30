@@ -124,12 +124,10 @@ func (o *PostPayportParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 	}
 	var res []error
 
-	if o.CreationRequest == nil {
-		o.CreationRequest = new(models.PayportAssociationCreation)
-	}
-
-	if err := r.SetBodyParam(o.CreationRequest); err != nil {
-		return err
+	if o.CreationRequest != nil {
+		if err := r.SetBodyParam(o.CreationRequest); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {
