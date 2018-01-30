@@ -1393,8 +1393,6 @@ paths:
           type: integer
           minimum: 0
       responses:
-        200:
-          description: Limit deleted
         204:
           description: Limit deleted
 

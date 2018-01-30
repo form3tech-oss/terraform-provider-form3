@@ -30,7 +30,7 @@ func TestAccPostLimit(t *testing.T) {
 	_, err = auth.PaymentsClient.Payments.GetLimitsID(payments.NewGetLimitsIDParams().WithID(strfmt.UUID(createResponse.Payload.Data.ID)))
 	assertNoErrorOccurred(err, t)
 
-	_, _, err = auth.PaymentsClient.Payments.DeleteLimitsID(payments.NewDeleteLimitsIDParams().
+	_, err = auth.PaymentsClient.Payments.DeleteLimitsID(payments.NewDeleteLimitsIDParams().
 		WithID(createResponse.Payload.Data.ID),
 	)
 	assertNoErrorOccurred(err, t)
@@ -58,7 +58,7 @@ func TestAccGetLimits(t *testing.T) {
 
 	response, err := auth.PaymentsClient.Payments.GetLimits(payments.NewGetLimitsParams())
 
-	_, _, err = auth.PaymentsClient.Payments.DeleteLimitsID(payments.NewDeleteLimitsIDParams().
+	_, err = auth.PaymentsClient.Payments.DeleteLimitsID(payments.NewDeleteLimitsIDParams().
 		WithID(createResponse.Payload.Data.ID),
 	)
 	assertNoErrorOccurred(err, t)
@@ -88,7 +88,7 @@ func TestAccDeleteLimit(t *testing.T) {
 
 	assertNoErrorOccurred(err, t)
 
-	_, _, err = auth.PaymentsClient.Payments.DeleteLimitsID(payments.NewDeleteLimitsIDParams().
+	_, err = auth.PaymentsClient.Payments.DeleteLimitsID(payments.NewDeleteLimitsIDParams().
 		WithID(createResponse.Payload.Data.ID),
 	)
 
