@@ -18,7 +18,6 @@ func TestAccBacsAssociation_basic(t *testing.T) {
   var bacsResponse associations.GetBacsIDOK
   parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
   organisationId := uuid.NewV4().String()
-  participantId := generateBacsTestParticipantId()
 
   resource.Test(t, resource.TestCase{
     PreCheck:     func() { testAccPreCheck(t) },
@@ -26,54 +25,16 @@ func TestAccBacsAssociation_basic(t *testing.T) {
     CheckDestroy: testAccCheckBacsAssociationDestroy,
     Steps: []resource.TestStep{
       {
-        Config: fmt.Sprintf(testForm3BacsAssociationConfigA, organisationId, parentOrganisationId, participantId),
+        Config: fmt.Sprintf(testForm3BacsAssociationConfigA, organisationId, parentOrganisationId),
         Check: resource.ComposeTestCheckFunc(
           testAccCheckBacsAssociationExists("form3_bacs_association.association", &bacsResponse),
-          resource.TestCheckResourceAttr(
-            "form3_bacs_association.association", "participant_id", participantId),
-          resource.TestCheckResourceAttr(
-            "form3_bacs_association.association", "participant_id", participantId),
+          resource.TestCheckResourceAttr("form3_bacs_association.association", "service_user_number", "112233"),
+          resource.TestCheckResourceAttr("form3_bacs_association.association", "organisation_id", organisationId),
+          resource.TestCheckResourceAttr("form3_bacs_association.association", "association_id", "810f71c0-408b-4d00-8c7b-7073166bacfb"),
         ),
       },
     },
   })
-}
-
-func TestAccBacsAssociation_importBasic(t *testing.T) {
-
-  parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-  organisationId := uuid.NewV4().String()
-  participantId := generateBacsTestParticipantId()
-
-  resourceName := "form3_bacs_association.association"
-
-  resource.Test(t, resource.TestCase{
-    PreCheck:     func() { testAccPreCheck(t) },
-    Providers:    testAccProviders,
-    CheckDestroy: testAccCheckBacsAssociationDestroy,
-    Steps: []resource.TestStep{
-      resource.TestStep{
-        Config: fmt.Sprintf(testForm3BacsAssociationConfigA, organisationId, parentOrganisationId, participantId),
-      },
-
-      resource.TestStep{
-        ResourceName:      resourceName,
-        ImportState:       true,
-        ImportStateVerify: true,
-      },
-    },
-  })
-}
-
-func generateBacsTestParticipantId() string {
-  rand.Seed(time.Now().UTC().UnixNano())
-  var characters = []rune("0123456789")
-  b := make([]rune, 8)
-  for i := range b {
-    b[i] = characters[rand.Intn(len(characters))]
-  }
-
-  return string(b)
 }
 
 func testAccCheckBacsAssociationDestroy(state *terraform.State) error {
@@ -88,7 +49,7 @@ func testAccCheckBacsAssociationDestroy(state *terraform.State) error {
       WithID(strfmt.UUID(rs.Primary.ID)))
 
     if err == nil {
-      return fmt.Errorf("record %s still exists, %+v", rs.Primary.ID, response)
+      return fmt.Errorf("bacs record %s still exists, %+v", rs.Primary.ID, response)
     }
   }
 
@@ -100,11 +61,11 @@ func testAccCheckBacsAssociationExists(resourceKey string, association *associat
     rs, ok := s.RootModule().Resources[resourceKey]
 
     if !ok {
-      return fmt.Errorf("not found: %s", resourceKey)
+      return fmt.Errorf("bacs not found: %s", resourceKey)
     }
 
     if rs.Primary.ID == "" {
-      return fmt.Errorf("no Record ID is set")
+      return fmt.Errorf("no bacs Record ID is set")
     }
 
     client := testAccProvider.Meta().(*form3.AuthenticatedClient)
@@ -117,7 +78,7 @@ func testAccCheckBacsAssociationExists(resourceKey string, association *associat
     }
 
     if foundRecord.Payload.Data.ID.String() != rs.Primary.ID {
-      return fmt.Errorf("record not found expected %s found %s", rs.Primary.ID, foundRecord.Payload.Data.ID.String())
+      return fmt.Errorf("bacs record not found expected %s found %s", rs.Primary.ID, foundRecord.Payload.Data.ID.String())
     }
 
     association = foundRecord
@@ -135,9 +96,6 @@ resource "form3_organisation" "organisation" {
 
 resource "form3_bacs_association" "association" {
 	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
-	bacs_association_id           = "6e89d652-0344-4ab4-8118-f3ac30397ee8"
-	participant_id	                 = "%s"
-  customer_sending_fps_institution = "444443"
-  sponsor_bank_id                  = "111113"
-  sponsor_account_number           = "22222223"
+	association_id                   = "810f71c0-408b-4d00-8c7b-7073166bacfb"
+	service_user_number              = "112233"
 }`
