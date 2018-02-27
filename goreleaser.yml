@@ -6,7 +6,5 @@ builds:
       - windows
     goarch:
       - amd64
-    hooks:
-      post: ./scripts/goreleaser-post.sh
 archive:
   format: zip
