@@ -79,7 +79,7 @@ func testAccCheckCredentialExists(resourceKey string, credential *models.Credent
 				credential = element
 				found = true
 				if len(credential.ClientID.String()) != 36 {
-					return fmt.Errorf("expected credential %s to have a length of 36 got %s", credential.ClientID.String(),
+					return fmt.Errorf("expected credential %s to have a length of 36 got %d", credential.ClientID.String(),
 						len(credential.ClientID.String()))
 				}
 			}
