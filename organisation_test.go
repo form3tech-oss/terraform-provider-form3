@@ -56,7 +56,7 @@ func TestAccDeleteOrganisationAssociation(t *testing.T) {
 
 	_, err = auth.AssociationClient.Associations.DeleteStarlingID(associations.NewDeleteStarlingIDParams().
 		WithID(createResponse.Payload.Data.ID).
-		WithVersion(createResponse.Payload.Data.Version),
+		WithVersion(*createResponse.Payload.Data.Version),
 	)
 
 	assertNoErrorOccurred(err, t)

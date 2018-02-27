@@ -860,6 +860,7 @@ paths:
          - name: version
            in: query
            description: Version
+           required: true
            type: integer
            minimum: 0
        responses:
@@ -1456,7 +1457,7 @@ paths:
         200:
           description: Associations details for BACS
           schema:
-            $ref: "#/definitions/AssociationDetailsResponse"
+            $ref: "#/definitions/BacsAssociationDetailsResponse"
 
     delete:
       summary: Delete organisation association for BACS

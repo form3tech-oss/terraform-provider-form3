@@ -47,7 +47,7 @@ func NewGetBacsIDOK() *GetBacsIDOK {
 Associations details for BACS
 */
 type GetBacsIDOK struct {
-	Payload *models.AssociationDetailsResponse
+	Payload *models.BacsAssociationDetailsResponse
 }
 
 func (o *GetBacsIDOK) Error() string {
@@ -56,7 +56,7 @@ func (o *GetBacsIDOK) Error() string {
 
 func (o *GetBacsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.AssociationDetailsResponse)
+	o.Payload = new(models.BacsAssociationDetailsResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

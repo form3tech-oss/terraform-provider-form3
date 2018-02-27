@@ -63,11 +63,21 @@ func TestGetBacsAssociation(t *testing.T) {
 
 	assertNoErrorOccurred(err, t)
 
-	_, err = auth.AssociationClient.Associations.GetBacsID(associations.NewGetBacsIDParams().
+	bacsAssociation, err := auth.AssociationClient.Associations.GetBacsID(associations.NewGetBacsIDParams().
 		WithID(createResponse.Payload.Data.ID),
 	)
 
 	assertNoErrorOccurred(err, t)
+
+	actualServiceUserNumber := bacsAssociation.Payload.Data.Attributes.ServiceUserNumber
+	actualOrganisationId := bacsAssociation.Payload.Data.OrganisationID
+	if actualServiceUserNumber != serviceUserNumber {
+		t.Fatalf("Expected %s, got %s", serviceUserNumber, actualServiceUserNumber)
+	}
+
+	if actualOrganisationId != organisationId {
+		t.Fatalf("Expected %s, got %s", organisationId, actualOrganisationId)
+	}
 
 	_, err = auth.AssociationClient.Associations.DeleteBacsID(associations.NewDeleteBacsIDParams().
 		WithID(createResponse.Payload.Data.ID),
