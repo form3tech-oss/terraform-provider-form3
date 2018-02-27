@@ -7,7 +7,7 @@ after_success:
 - make release
 env:
   global:
-  - FORM3_HOST=api.tabla.env.form3.tech
+  - FORM3_HOST=api.vibraharp.env.form3.tech
   - DEBUG=1
   - TF_LOG=DEBUG
   # Ramwong Values
