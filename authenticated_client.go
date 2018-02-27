@@ -104,12 +104,30 @@ func (r *AuthenticatedClient) Authenticate(clientId string, clientSecret string)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Set("Authorization", "Basic "+base64.StdEncoding.EncodeToString([]byte(clientId+":"+clientSecret)))
 
+	if logging.IsDebugOrHigher() {
+		dump, errDump := httputil.DumpRequestOut(req, true)
+		if errDump != nil {
+			log.Fatal(errDump)
+		}
+
+		log.Printf("[DEBUG] %s %s", req.URL.String(), string(dump))
+	}
+
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
 		panic(err)
 	}
 	defer resp.Body.Close()
+
+	if logging.IsDebugOrHigher() {
+		dump, errDump := httputil.DumpResponse(resp, true)
+		if errDump != nil {
+			log.Fatal(errDump)
+		}
+
+		log.Printf("[DEBUG] %s %s", req.URL.String(), string(dump))
+	}
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
