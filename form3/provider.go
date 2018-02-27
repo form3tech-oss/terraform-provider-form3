@@ -44,7 +44,7 @@ func Provider() terraform.ResourceProvider {
 			"form3_subscription":          resourceForm3Subscription(),
 			"form3_user":                  resourceForm3User(),
 			"form3_limit":                 resourceForm3Limit(),
-      "form3_bacs_association":      resourceForm3BacsAssociation(),
+			"form3_bacs_association":      resourceForm3BacsAssociation(),
 		},
 
 		ConfigureFunc: providerConfigure,
