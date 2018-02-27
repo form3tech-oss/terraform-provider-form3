@@ -153,6 +153,7 @@ func (r *AuthenticatedClient) Do(ctx context.Context, client *http.Client, req *
 			err = ctx.Err()
 		default:
 		}
+		return nil, err
 	}
 
 	if logging.IsDebugOrHigher() {
