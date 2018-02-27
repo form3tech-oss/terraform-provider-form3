@@ -860,6 +860,7 @@ paths:
          - name: version
            in: query
            description: Version
+           required: true
            type: integer
            minimum: 0
        responses:
@@ -1395,6 +1396,89 @@ paths:
       responses:
         204:
           description: Limit deleted
+
+
+paths:
+  /bacs:
+
+    post:
+      summary: Create organisation association for BACS
+      tags:
+       - Associations
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: creation request
+          in: body
+          schema:
+            $ref: "#/definitions/BacsAssociationCreation"
+
+      responses:
+        201:
+          description: creation response
+          schema:
+            $ref: "#/definitions/BacsAssociationCreationResponse"
+
+
+    get:
+      summary: List all organisation associations for BACS
+      tags:
+        - Associations
+      parameters:
+        - name: filter[organisation_id]
+          in: query
+          description: Organisation id
+          required: false
+          type: string
+          format: uuid
+
+      responses:
+        200:
+          description: List of associations for BACS
+          schema:
+            $ref: "#/definitions/BacsAssociationDetailsListResponse"
+
+
+  /bacs/{id}:
+
+    get:
+      summary: Fetch organisation association for BACS
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Associations details for BACS
+          schema:
+            $ref: "#/definitions/BacsAssociationDetailsResponse"
+
+    delete:
+      summary: Delete organisation association for BACS
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+      responses:
+        204:
+          description: Association deleted
 
 definitions:
 
@@ -2310,6 +2394,7 @@ definitions:
      enum:
        - payport_associations
        - limits
+       - bacs_associations
 
   LimitCreation:
     type: object
@@ -2382,3 +2467,76 @@ definitions:
     enum:
       - daily
       - per_scheme
+
+
+  BacsAssociation:
+      type: object
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+          format: uuid
+        version:
+          type: integer
+          minimum: 0
+        organisation_id:
+          type: string
+          format: uuid
+        attributes:
+          $ref: "#/definitions/BacsAssociationAttributes"
+
+  BacsNewAssociation:
+    type: object
+    properties:
+      type:
+        type: string
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        $ref: "#/definitions/BacsAssociationAttributes"
+
+  BacsAssociationAttributes:
+    type: object
+    properties:
+      service_user_number:
+        type: string
+
+  BacsAssociationCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/BacsNewAssociation'
+
+  BacsAssociationCreationResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/BacsAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+  BacsAssociationDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/BacsAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+  BacsAssociationDetailsListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/BacsAssociation'
+      links:
+        $ref: '#/definitions/Links'
