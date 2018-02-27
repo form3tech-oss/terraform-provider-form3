@@ -46,16 +46,9 @@ test-compile:
 	fi
 	go test -c $(TEST) $(TESTARGS)
 
-build-release-deps:
-	go get -u github.com/mitchellh/gox
-
-build-release: build-release-deps fmtcheck vet
-	gox -osarch="linux/amd64 windows/amd64 darwin/amd64" \
-	-output="pkg/{{.OS}}_{{.Arch}}/terraform-provider-form3" .
-
 release:
 	go get github.com/goreleaser/goreleaser; \
-  goreleaser;
+	goreleaser; \
 
-.PHONY: build test testacc vet fmt fmtcheck errcheck vendor-status test-compile release build-release build-release-deps
+.PHONY: build test testacc vet fmt fmtcheck errcheck vendor-status test-compile release
 
