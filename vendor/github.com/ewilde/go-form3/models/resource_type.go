@@ -23,6 +23,8 @@ const (
 	ResourceTypePayportAssociations ResourceType = "payport_associations"
 	// ResourceTypeLimits captures enum value "limits"
 	ResourceTypeLimits ResourceType = "limits"
+	// ResourceTypeBacsAssociations captures enum value "bacs_associations"
+	ResourceTypeBacsAssociations ResourceType = "bacs_associations"
 )
 
 // for schema
@@ -30,7 +32,7 @@ var resourceTypeEnum []interface{}
 
 func init() {
 	var res []ResourceType
-	if err := json.Unmarshal([]byte(`["payport_associations","limits"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["payport_associations","limits","bacs_associations"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {

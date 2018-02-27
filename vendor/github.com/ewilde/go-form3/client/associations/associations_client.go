@@ -25,6 +25,34 @@ type Client struct {
 }
 
 /*
+DeleteBacsID deletes organisation association for b a c s
+*/
+func (a *Client) DeleteBacsID(params *DeleteBacsIDParams) (*DeleteBacsIDNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteBacsIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteBacsID",
+		Method:             "DELETE",
+		PathPattern:        "/bacs/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteBacsIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteBacsIDNoContent), nil
+
+}
+
+/*
 DeletePayportID deletes service association
 */
 func (a *Client) DeletePayportID(params *DeletePayportIDParams) (*DeletePayportIDNoContent, error) {
@@ -77,6 +105,62 @@ func (a *Client) DeleteStarlingID(params *DeleteStarlingIDParams) (*DeleteStarli
 		return nil, err
 	}
 	return result.(*DeleteStarlingIDNoContent), nil
+
+}
+
+/*
+GetBacs lists all organisation associations for b a c s
+*/
+func (a *Client) GetBacs(params *GetBacsParams) (*GetBacsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetBacsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetBacs",
+		Method:             "GET",
+		PathPattern:        "/bacs",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetBacsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetBacsOK), nil
+
+}
+
+/*
+GetBacsID fetches organisation association for b a c s
+*/
+func (a *Client) GetBacsID(params *GetBacsIDParams) (*GetBacsIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetBacsIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetBacsID",
+		Method:             "GET",
+		PathPattern:        "/bacs/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetBacsIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetBacsIDOK), nil
 
 }
 
@@ -189,6 +273,34 @@ func (a *Client) GetStarlingID(params *GetStarlingIDParams) (*GetStarlingIDOK, e
 		return nil, err
 	}
 	return result.(*GetStarlingIDOK), nil
+
+}
+
+/*
+PostBacs creates organisation association for b a c s
+*/
+func (a *Client) PostBacs(params *PostBacsParams) (*PostBacsCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostBacsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostBacs",
+		Method:             "POST",
+		PathPattern:        "/bacs",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PostBacsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PostBacsCreated), nil
 
 }
 
