@@ -8,10 +8,8 @@ import (
   "github.com/hashicorp/terraform/helper/resource"
   "github.com/hashicorp/terraform/terraform"
   "github.com/satori/go.uuid"
-  "math/rand"
   "os"
   "testing"
-  "time"
 )
 
 func TestAccBacsAssociation_basic(t *testing.T) {

@@ -106,7 +106,7 @@ func resourceStarlingAssociationDelete(d *schema.ResourceData, meta interface{})
 
 	_, err = client.AssociationClient.Associations.DeleteStarlingID(associations.NewDeleteStarlingIDParams().
 		WithID(associationFromResource.ID).
-		WithVersion(associationFromResource.Version))
+		WithVersion(*associationFromResource.Version))
 
 	if err != nil {
 		return fmt.Errorf("error deleting association: %s", err)
