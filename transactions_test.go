@@ -3,7 +3,6 @@ package form3
 import (
 	"github.com/ewilde/go-form3/client/payments"
 	"github.com/ewilde/go-form3/models"
-	"log"
 	"testing"
 )
 
@@ -38,7 +37,7 @@ func TestAccPostTransactionsPaymentSubmission(t *testing.T) {
 
 	assertNoErrorOccurred(err, t)
 
-	submissionResponse, err := auth.TransactionClient.Payments.PostPaymentsIDSubmissions(
+	_, err = auth.TransactionClient.Payments.PostPaymentsIDSubmissions(
 		payments.NewPostPaymentsIDSubmissionsParams().
 			WithID(*paymentResponse.Payload.Data.ID).
 			WithSubmissionCreationRequest(
@@ -53,5 +52,4 @@ func TestAccPostTransactionsPaymentSubmission(t *testing.T) {
 	)
 
 	assertNoErrorOccurred(err, t)
-	log.Println(submissionResponse.Payload.Data.ID.String())
 }
