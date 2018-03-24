@@ -57,6 +57,7 @@ func (m *PayportAssociationDetailsResponse) validateData(formats strfmt.Registry
 			}
 			return err
 		}
+
 	}
 
 	return nil
@@ -76,6 +77,7 @@ func (m *PayportAssociationDetailsResponse) validateLinks(formats strfmt.Registr
 			}
 			return err
 		}
+
 	}
 
 	return nil

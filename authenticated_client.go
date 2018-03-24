@@ -10,6 +10,7 @@ import (
 	rc "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/logging"
+	"github.com/nu7hatch/gouuid"
 	"golang.org/x/net/context"
 	"io/ioutil"
 	"log"
@@ -28,6 +29,7 @@ type AuthenticatedClient struct {
 	AssociationClient  *client.Form3CorelibDataStructures
 	AccountClient      *client.Form3CorelibDataStructures
 	LimitsClient       *client.Form3CorelibDataStructures
+	TransactionClient  *client.Form3CorelibDataStructures
 }
 
 type AuthenticatedClientCheckRedirect struct {
@@ -67,7 +69,11 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 
 	config.WithBasePath("/v1/organisation/units/")
 	rt6 := rc.NewWithClient(config.Host, config.BasePath, config.Schemes, h)
-	LimitsClient := client.New(rt6, strfmt.Default)
+	limitsClient := client.New(rt6, strfmt.Default)
+
+	config.WithBasePath("/v1/transaction")
+	rt7 := rc.NewWithClient(config.Host, config.BasePath, config.Schemes, h)
+	transactionClient := client.New(rt7, strfmt.Default)
 
 	authClient := &AuthenticatedClient{
 		AssociationClient:  associationsClient,
@@ -75,7 +81,8 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 		NotificationClient: notificationClient,
 		OrganisationClient: organisationClient,
 		AccountClient:      accountClient,
-		LimitsClient:       LimitsClient,
+		LimitsClient:       limitsClient,
+		TransactionClient:  transactionClient,
 		HttpClient:         h,
 		Config:             config,
 	}
@@ -86,6 +93,7 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 	configureRuntime(rt4, authClient)
 	configureRuntime(rt5, authClient)
 	configureRuntime(rt6, authClient)
+	configureRuntime(rt7, authClient)
 
 	return authClient
 }
@@ -190,6 +198,14 @@ func getLoginResponse(body []byte) (*LoginResponse, error) {
 	var s = new(LoginResponse)
 	err := json.Unmarshal(body, &s)
 	return s, err
+}
+
+func strfmtUUIDtoPtr(s strfmt.UUID) *strfmt.UUID { return &s }
+func strToUUID(s string) *strfmt.UUID            { return strfmtUUIDtoPtr(strfmt.UUID(s)) }
+func uuidTostrfmtUUID(s *uuid.UUID) *strfmt.UUID { return strfmtUUIDtoPtr(strfmt.UUID(s.String())) }
+func newstrfmtUUID() *strfmt.UUID {
+	id, _ := uuid.NewV4()
+	return uuidTostrfmtUUID(id)
 }
 
 type LoginResponse struct {

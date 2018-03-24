@@ -49,6 +49,7 @@ func (m *OrganisationUpdate) validateData(formats strfmt.Registry) error {
 			}
 			return err
 		}
+
 	}
 
 	return nil

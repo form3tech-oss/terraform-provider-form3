@@ -1397,8 +1397,6 @@ paths:
         204:
           description: Limit deleted
 
-
-paths:
   /bacs:
 
     post:
@@ -1479,6 +1477,894 @@ paths:
       responses:
         204:
           description: Association deleted
+
+#paymentapi - start
+
+  /payments:
+
+    post:
+      summary: Create payment
+      tags:
+       - Payments
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: Payment creation request
+          in: body
+          schema:
+            $ref: "#/definitions/PaymentCreation"
+
+      responses:
+        201:
+          description: Payment creation response
+          schema:
+            $ref: "#/definitions/PaymentCreationResponse"
+
+        400:
+          description: Payment creation error
+          schema:
+            $ref: "#/definitions/ApiError"
+
+    get:
+      summary: List payments
+      tags:
+        - Payments
+      parameters:
+        - name: page[number]
+          in: query
+          description: Which page to select
+          required: false
+          type: string
+          minimum: 0
+          pattern: "$[A-z0-9]{4}^"
+        - name: page[size]
+          in: query
+          description: Number of items to select
+          required: false
+          type: integer
+          minimum: 0
+          maximum: 1000
+        - name: filter[organisation_id]
+          in: query
+          description: Filter by organisation id
+          required: false
+          type: array
+          items:
+            type: string
+            format: uuid
+        - name: filter[debtor_party.account_number]
+          in: query
+          required: false
+          type: string
+        - name: filter[debtor_party.bank_id]
+          in: query
+          required: false
+          type: string
+        - name: filter[beneficiary_party.account_number]
+          in: query
+          required: false
+          type: string
+        - name: filter[beneficiary_party.bank_id]
+          in: query
+          required: false
+          type: string
+        - name: filter[currency]
+          in: query
+          required: false
+          type: string
+        - name: filter[scheme_transaction_id]
+          in: query
+          required: false
+          type: string
+        - name: filter[payment_scheme]
+          in: query
+          required: false
+          type: string
+        - name: filter[payment_type]
+          in: query
+          required: false
+          type: string
+        - name: filter[processing_date_from]
+          in: query
+          required: false
+          type: string
+          format: date
+        - name: filter[processing_date_to]
+          in: query
+          required: false
+          type: string
+          format: date
+        - name: filter[unique_scheme_id]
+          in: query
+          required: false
+          type: string
+        - name: filter[submission.submission_date_from]
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: filter[submission.submission_date_to]
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: filter[submission.status]
+          in: query
+          description: Filter by submission status
+          required: false
+          type: string
+        - name: filter[submission.scheme_status_code]
+          description: Filter by submission scheme status code
+          in: query
+          required: false
+          type: string
+        - name: filter[admission.admission_date_from]
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: filter[admission.admission_date_to]
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: filter[admission.status]
+          in: query
+          description: Filter by admission status
+          required: false
+          type: string
+        - name: filter[admission.scheme_status_code]
+          description: Filter by admission scheme status code
+          in: query
+          required: false
+          type: string
+
+      responses:
+        200:
+          description: List of payment details
+          schema:
+            $ref: "#/definitions/PaymentDetailsListResponse"
+
+
+  /payments/{id}/admissions:
+
+    post:
+      summary: create admission
+      tags:
+       - Payments
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Payment Id
+          required: true
+          type: string
+          format: uuid
+        - name: Admission creation request
+          in: body
+          schema:
+            $ref: "#/definitions/PaymentAdmissionCreation"
+
+      responses:
+        201:
+          description: Admission creation response
+          schema:
+            $ref: "#/definitions/PaymentAdmissionCreationResponse"
+
+        400:
+          description: Admission creation error
+          schema:
+            $ref: "#/definitions/ApiError"
+
+  /payments/{id}/admissions/{admissionId}:
+
+    get:
+      summary: Fetch admission
+      tags:
+        - Payments
+      parameters:
+        - name: id
+          in: path
+          description: Payment Id
+          required: true
+          type: string
+          format: uuid
+        - name: admissionId
+          in: path
+          description: Admission Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Admission details
+          schema:
+            $ref: "#/definitions/PaymentAdmissionDetailsResponse"
+
+  /payments/{id}/submissions:
+
+    post:
+      summary: create submission
+      tags:
+       - Payments
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Payment Id
+          required: true
+          type: string
+          format: uuid
+        - name: Submission creation request
+          in: body
+          schema:
+            $ref: "#/definitions/PaymentSubmissionCreation"
+
+      responses:
+        201:
+          description: Submission creation response
+          schema:
+            $ref: "#/definitions/PaymentSubmissionCreationResponse"
+
+        400:
+          description: Submission creation error
+          schema:
+            $ref: "#/definitions/ApiError"
+
+  /payments/{id}/submissions/{submissionId}:
+
+    get:
+      summary: Fetch submission
+      tags:
+        - Payments
+      parameters:
+        - name: id
+          in: path
+          description: Payment Id
+          required: true
+          type: string
+          format: uuid
+        - name: submissionId
+          in: path
+          description: Submission Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Submission details
+          schema:
+            $ref: "#/definitions/PaymentSubmissionDetailsResponse"
+
+    patch:
+      summary: Update submission
+      tags:
+       - Payments
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Payment Id
+          required: true
+          type: string
+          format: uuid
+        - name: submissionId
+          in: path
+          description: Submission Id
+          required: true
+          type: string
+          format: uuid
+        - name: Submission update request
+          in: body
+          schema:
+            $ref: "#/definitions/PaymentSubmissionAmendment"
+
+      responses:
+        200:
+          description: Submission update response
+          schema:
+            $ref: "#/definitions/PaymentSubmissionDetailsResponse"
+
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/ApiError"
+
+  /payments/{id}/submissions/{submissionId}/validations:
+
+    post:
+      summary: Create payment submission validation
+      tags:
+        - Payments
+      parameters:
+        - name: id
+          in: path
+          description: Payment Id
+          required: true
+          type: string
+          format: uuid
+        - name: submissionId
+          in: path
+          description: Submission Id
+          required: true
+          type: string
+          format: uuid
+        - name: Payment submission validation request
+          in: body
+          schema:
+            $ref: "#/definitions/PaymentSubmissionValidationCreation"
+      responses:
+        201:
+          description: Payment submission validation creation response
+          schema:
+            $ref: "#/definitions/PaymentSubmissionValidationCreationResponse"
+
+        400:
+          description: Payment submission validation creation error
+          schema:
+            $ref: "#/definitions/ApiError"
+
+  /payments/{id}/returns:
+    post:
+      summary: Create return
+      tags:
+       - Payments
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Payment Id
+          required: true
+          type: string
+          format: uuid
+        - name: Return creation request
+          in: body
+          schema:
+            $ref: "#/definitions/ReturnCreation"
+
+      responses:
+        201:
+          description: Return creation response
+          schema:
+            $ref: "#/definitions/ReturnCreationResponse"
+
+        400:
+          description: Return creation error
+          schema:
+            $ref: "#/definitions/ApiError"
+
+  /payments/{id}/returns/{returnId}:
+
+    get:
+      summary: Fetch return
+      tags:
+        - Payments
+      parameters:
+        - name: id
+          in: path
+          description: Payment Id
+          required: true
+          type: string
+          format: uuid
+        - name: returnId
+          in: path
+          description: Return Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Return details
+          schema:
+            $ref: "#/definitions/ReturnDetailsResponse"
+
+  /payments/{id}/returns/{returnId}/admissions:
+    post:
+      summary: create return admission
+      tags:
+       - Payments
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Payment Id
+          required: true
+          type: string
+          format: uuid
+        - name: returnId
+          in: path
+          description: Return Id
+          required: true
+          type: string
+          format: uuid
+        - name: Return admission creation request
+          in: body
+          schema:
+            $ref: "#/definitions/ReturnAdmissionCreation"
+
+      responses:
+        201:
+          description: Return admission creation response
+          schema:
+            $ref: "#/definitions/ReturnAdmissionCreationResponse"
+
+        400:
+          description: Return admission creation error
+          schema:
+            $ref: "#/definitions/ApiError"
+
+  /payments/{id}/returns/{returnId}/admissions/{admissionId}:
+    get:
+      summary: Fetch return admission
+      tags:
+        - Payments
+      parameters:
+        - name: id
+          in: path
+          description: Payment Id
+          required: true
+          type: string
+          format: uuid
+        - name: returnId
+          in: path
+          description: Return Id
+          required: true
+          type: string
+          format: uuid
+        - name: admissionId
+          in: path
+          description: Admission Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Return admission details
+          schema:
+            $ref: "#/definitions/ReturnAdmissionDetailsResponse"
+
+  /payments/{id}/returns/{returnId}/submissions:
+    post:
+      summary: create return submission
+      tags:
+       - Payments
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Payment Id
+          required: true
+          type: string
+          format: uuid
+        - name: returnId
+          in: path
+          description: Return Id
+          required: true
+          type: string
+          format: uuid
+        - name: Return submission creation request
+          in: body
+          schema:
+            $ref: "#/definitions/ReturnSubmissionCreation"
+
+      responses:
+        201:
+          description: Return submission creation response
+          schema:
+            $ref: "#/definitions/ReturnSubmissionCreationResponse"
+
+        400:
+          description: Return submission creation error
+          schema:
+            $ref: "#/definitions/ApiError"
+
+
+
+  /payments/{id}/returns/{returnId}/submissions/{submissionId}:
+    get:
+      summary: Fetch return submission
+      tags:
+        - Payments
+      parameters:
+        - name: id
+          in: path
+          description: Payment Id
+          required: true
+          type: string
+          format: uuid
+        - name: returnId
+          in: path
+          description: Return Id
+          required: true
+          type: string
+          format: uuid
+        - name: submissionId
+          in: path
+          description: Submission Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Return submission details
+          schema:
+            $ref: "#/definitions/ReturnSubmissionDetailsResponse"
+
+    patch:
+      summary: Update return submission
+      tags:
+       - Payments
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Payment Id
+          required: true
+          type: string
+          format: uuid
+        - name: returnId
+          in: path
+          description: Return Id
+          required: true
+          type: string
+          format: uuid
+        - name: submissionId
+          in: path
+          description: Submission Id
+          required: true
+          type: string
+          format: uuid
+        - name: Return submission update request
+          in: body
+          schema:
+            $ref: "#/definitions/ReturnSubmissionAmendment"
+
+      responses:
+        200:
+          description: Return submission update response
+          schema:
+            $ref: "#/definitions/ReturnSubmissionDetailsResponse"
+
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/ApiError"
+
+  /payments/{id}/returns/{returnId}/submissions/{returnSubmissionId}/validations:
+    post:
+      summary: Create return submission validation
+      tags:
+        - Payments
+      parameters:
+        - name: id
+          in: path
+          description: Payment Id
+          required: true
+          type: string
+          format: uuid
+        - name: returnId
+          in: path
+          description: Return Id
+          required: true
+          type: string
+          format: uuid
+        - name: returnSubmissionId
+          in: path
+          description: Return Submission Id
+          required: true
+          type: string
+          format: uuid
+        - name: Return submission validation request
+          in: body
+          schema:
+            $ref: "#/definitions/ReturnSubmissionValidationCreation"
+      responses:
+        201:
+          description: Return submission validation creation response
+          schema:
+            $ref: "#/definitions/ReturnSubmissionValidationCreationResponse"
+
+        400:
+          description: Return submission validation creation error
+          schema:
+            $ref: "#/definitions/ApiError"
+
+  /payments/{id}/returns/{returnId}/reversals:
+    post:
+      summary: Create return reversal
+      tags:
+       - Payments
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Payment Id
+          required: true
+          type: string
+          format: uuid
+        - name: returnId
+          in: path
+          description: Return Id
+          required: true
+          type: string
+          format: uuid
+        - name: Return reversal creation request
+          in: body
+          schema:
+            $ref: "#/definitions/ReturnReversalCreation"
+
+      responses:
+        201:
+          description: Reversal creation response
+          schema:
+            $ref: "#/definitions/ReturnReversalCreationResponse"
+
+        400:
+          description: Reversal creation error
+          schema:
+            $ref: "#/definitions/ApiError"
+
+  /payments/{id}/returns/{returnId}/reversals/{reversalId}:
+
+    get:
+      summary: Fetch return reversal
+      tags:
+        - Payments
+      parameters:
+        - name: id
+          in: path
+          description: Payment Id
+          required: true
+          type: string
+          format: uuid
+        - name: returnId
+          in: path
+          description: Return Id
+          required: true
+          type: string
+          format: uuid
+        - name: reversalId
+          in: path
+          description: Reversal Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Return reversal details
+          schema:
+            $ref: "#/definitions/ReturnReversalDetailsResponse"
+
+  /payments/{id}/returns/{returnId}/reversals/{reversalId}/admissions:
+    post:
+      summary: create return reversal admission
+      tags:
+       - Payments
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Payment Id
+          required: true
+          type: string
+          format: uuid
+        - name: returnId
+          in: path
+          description: Return Id
+          required: true
+          type: string
+          format: uuid
+        - name: reversalId
+          in: path
+          description: Reversal Id
+          required: true
+          type: string
+          format: uuid
+        - name: Return reversal admission creation request
+          in: body
+          schema:
+            $ref: "#/definitions/ReturnReversalAdmissionCreation"
+
+      responses:
+        201:
+          description: Return reversal admission creation response
+          schema:
+            $ref: "#/definitions/ReturnReversalAdmissionCreationResponse"
+
+        400:
+          description: Reversal admission creation error
+          schema:
+            $ref: "#/definitions/ApiError"
+
+  /payments/{id}/returns/{returnId}/reversals/{reversalId}/admissions/{admissionId}:
+    get:
+      summary: Fetch return reversal admission
+      tags:
+        - Payments
+      parameters:
+        - name: id
+          in: path
+          description: Payment Id
+          required: true
+          type: string
+          format: uuid
+        - name: returnId
+          in: path
+          description: Return Id
+          required: true
+          type: string
+          format: uuid
+        - name: reversalId
+          in: path
+          description: Reversal Id
+          required: true
+          type: string
+          format: uuid
+        - name: admissionId
+          in: path
+          description: Admission Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Return reversal admission details
+          schema:
+            $ref: "#/definitions/ReturnReversalAdmissionDetailsResponse"
+
+  /payments/{id}/reversals:
+    post:
+      summary: Create reversal
+      tags:
+       - Payments
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Payment Id
+          required: true
+          type: string
+          format: uuid
+        - name: Reversal creation request
+          in: body
+          schema:
+            $ref: "#/definitions/ReversalCreation"
+
+      responses:
+        201:
+          description: Reversal creation response
+          schema:
+            $ref: "#/definitions/ReversalCreationResponse"
+
+        400:
+          description: Reversal creation error
+          schema:
+            $ref: "#/definitions/ApiError"
+
+  /payments/{id}/reversals/{reversalId}:
+
+    get:
+      summary: Fetch reversal
+      tags:
+        - Payments
+      parameters:
+        - name: id
+          in: path
+          description: Payment Id
+          required: true
+          type: string
+          format: uuid
+        - name: reversalId
+          in: path
+          description: Reversal Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Reversal details
+          schema:
+            $ref: "#/definitions/ReversalDetailsResponse"
+
+  /payments/{id}/reversals/{reversalId}/admissions:
+    post:
+      summary: create reversal admission
+      tags:
+       - Payments
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Payment Id
+          required: true
+          type: string
+          format: uuid
+        - name: reversalId
+          in: path
+          description: Reversal Id
+          required: true
+          type: string
+          format: uuid
+        - name: Reversal admission creation request
+          in: body
+          schema:
+            $ref: "#/definitions/ReversalAdmissionCreation"
+
+      responses:
+        201:
+          description: Reversal admission creation response
+          schema:
+            $ref: "#/definitions/ReversalAdmissionCreationResponse"
+
+        400:
+          description: Reversal admission creation error
+          schema:
+            $ref: "#/definitions/ApiError"
+
+  /payments/{id}/reversals/{reversalId}/admissions/{admissionId}:
+    get:
+      summary: Fetch reversal admission
+      tags:
+        - Payments
+      parameters:
+        - name: id
+          in: path
+          description: Payment Id
+          required: true
+          type: string
+          format: uuid
+        - name: reversalId
+          in: path
+          description: Reversal Id
+          required: true
+          type: string
+          format: uuid
+        - name: admissionId
+          in: path
+          description: Admission Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Reversal admission details
+          schema:
+            $ref: "#/definitions/ReversalAdmissionDetailsResponse"
+
+  /positions:
+    get:
+      summary: List Positions
+      tags:
+        - Payments
+      responses:
+        200:
+          description: List of position details
+          schema:
+            $ref: "#/definitions/PositionDetailsListResponse"
+#paymentapi - end
 
 definitions:
 
@@ -2540,3 +3426,1389 @@ definitions:
           $ref: '#/definitions/BacsAssociation'
       links:
         $ref: '#/definitions/Links'
+
+# paymentapi - start
+
+  Payment:
+    type: object
+    required:
+      - id
+      - organisation_id
+      - attributes
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          amount:
+            type: string
+            pattern: ^[0-9.]{0,20}$
+          batch_booking_indicator:
+            type: string
+          batch_id:
+            type: string
+          batch_type:
+            type: string
+          beneficiary_party:
+            type: object
+            properties:
+              account_name:
+                type: string
+              account_number:
+                type: string
+                pattern: ^[A-Z0-9]{6,34}$
+              account_number_code:
+                $ref: '#/definitions/AccountNumberCode'
+              account_type:
+                type: integer
+              account_with:
+                $ref: '#/definitions/AccountHoldingEntity'
+              address:
+                type: array
+                items:
+                  type: string
+              birth_date:
+                type: string
+                format: date
+              birth_city:
+                type: string
+              birth_country:
+                type: string
+              birth_province:
+                type: string
+              country:
+                type: string
+              name:
+                type: string
+              organisation_identification:
+                type: string
+              organisation_identification_code:
+                type: string
+              organisation_identification_issuer:
+                type: string
+              telephone_number:
+                type: string
+          category_purpose_coded:
+            type: string
+          category_purpose:
+            type: string
+          charges_information:
+            $ref: '#/definitions/ChargesInformation'
+          clearing_id:
+            type: string
+          currency:
+            type: string
+          debtor_party:
+            type: object
+            properties:
+              account_name:
+                type: string
+              account_number:
+                type: string
+                pattern: ^[A-Z0-9]{6,34}$
+              account_number_code:
+                $ref: '#/definitions/AccountNumberCode'
+              account_with:
+                $ref: '#/definitions/AccountHoldingEntity'
+              address:
+                type: array
+                items:
+                  type: string
+              birth_date:
+                type: string
+                format: date
+              birth_city:
+                type: string
+              birth_country:
+                type: string
+              birth_province:
+                type: string
+              country:
+                type: string
+              customer_id:
+                type: string
+              customer_id_code:
+                type: string
+              name:
+                type: string
+              organisation_identification:
+                type: string
+              organisation_identification_code:
+                type: string
+              organisation_identification_issuer:
+                type: string
+          end_to_end_reference:
+            type: string
+          file_number:
+            type: string
+          fx:
+            type: object
+            properties:
+              contract_reference:
+                type: string
+              exchange_rate:
+                type: string
+              original_amount:
+                type: string
+              original_currency:
+                type: string
+          intermediary_bank:
+            $ref: '#/definitions/AccountHoldingEntity'
+          numeric_reference:
+            type: string
+          payment_acceptance_datetime:
+            type: string
+            format: 'date-time'
+          scheme_transaction_id:
+            type: string
+          unique_scheme_id:
+            type: string
+          payment_instructing_id:
+            type: string
+          payment_purpose:
+            type: string
+          payment_purpose_coded:
+            type: string
+          payment_scheme:
+            type: string
+          payment_type:
+            type: string
+          processing_date:
+            type: string
+            format: date
+          receivers_correspondent:
+            $ref: '#/definitions/AccountHoldingEntity'
+          reference:
+            type: string
+          regulatory_reporting:
+            type: string
+          reimbursement:
+            $ref: '#/definitions/AccountHoldingEntity'
+          remittance_information:
+            type: string
+          scheme_payment_sub_type:
+            type: string
+          scheme_payment_type:
+            type: string
+          scheme_status_code:
+            type: string
+          senders_correspondent:
+            $ref: '#/definitions/AccountHoldingEntity'
+          structured_reference:
+            type: object
+            properties:
+              issuer:
+                type: string
+              reference:
+                type: string
+          swift:
+            type: object
+            properties:
+              bank_operation_code:
+                type: string
+              header:
+                type: object
+                properties:
+                  destination:
+                    type: string
+                  message_type:
+                    type: string
+                  priority:
+                    type: string
+                  recipient:
+                    type: string
+                  source:
+                    type: string
+                  user_reference:
+                    type: string
+              instruction_code:
+                type: string
+              sender_receiver_information:
+                type: string
+              time_indication:
+                type: string
+          ultimate_beneficiary:
+            $ref: '#/definitions/UltimateEntity'
+          ultimate_debtor:
+            $ref: '#/definitions/UltimateEntity'
+      relationships:
+        $ref: '#/definitions/PaymentRelationships'
+
+  PaymentRelationships:
+    type: object
+    properties:
+      payment_submission:
+        $ref: '#/definitions/RelationshipLinks'
+      payment_return:
+        $ref: '#/definitions/RelationshipLinks'
+      payment_admission:
+        $ref: '#/definitions/RelationshipLinks'
+      payment_reversal:
+        $ref: '#/definitions/RelationshipLinks'
+
+  AccountHoldingEntity:
+    type: object
+    properties:
+      bank_address:
+        type: array
+        items:
+          type: string
+      bank_id:
+        type: string
+      bank_id_code:
+        $ref: '#/definitions/BankIdCode'
+      bank_name:
+        type: string
+      bank_party_id:
+        type: string
+
+  AccountNumberCode:
+    type: string
+    enum:
+      - IBAN
+      - BBAN
+
+  BankIdCode:
+    type: string
+    enum:
+      - SWBIC
+      - GBDSC
+      - BE
+      - FR
+      - DEBLZ
+      - GRBIC
+      - ITNCC
+      - PLKNR
+      - PTNCC
+      - ESNCC
+      - CHBCC
+
+  UltimateEntity:
+    type: object
+    properties:
+      name:
+        type: string
+      country:
+        type: string
+      address:
+        type: string
+      organisation_identification:
+        type: string
+      organisation_identification_code:
+        type: string
+      organisation_identification_issuer:
+        type: string
+      birth_date:
+        type: string
+        format: date
+      birth_city:
+        type: string
+      birth_country:
+        type: string
+      birth_province:
+        type: string
+
+
+  ReturnPayment:
+    type: object
+    required:
+      - id
+      - organisation_id
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          amount:
+            type: string
+            pattern: ^[0-9.]{0,20}$
+          currency:
+            type: string
+          return_code:
+            type: string
+          scheme_transaction_id:
+            type: string
+          limit_breach_start_datetime:
+            type: string
+            format: 'date-time'
+            readOnly: true
+          limit_breach_end_datetime:
+            type: string
+            format: 'date-time'
+            readOnly: true
+      relationships:
+        type: object
+        properties:
+          payment:
+            $ref: '#/definitions/RelationshipLinks'
+          return_admission:
+            $ref: '#/definitions/RelationshipLinks'
+          return_submission:
+            $ref: '#/definitions/RelationshipLinks'
+
+  ReversalPayment:
+    type: object
+    required:
+      - id
+      - organisation_id
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+      relationships:
+        type: object
+        properties:
+          payment:
+            $ref: '#/definitions/RelationshipLinks'
+          reversal_admission:
+            $ref: '#/definitions/RelationshipLinks'
+
+  ReversalReturn:
+    type: object
+    required:
+      - id
+      - organisation_id
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+      relationships:
+        type: object
+        properties:
+          payment_return:
+            $ref: '#/definitions/RelationshipLinks'
+          return_reversal_admission:
+            $ref: '#/definitions/RelationshipLinks'
+
+  NewPaymentSubmission:
+    type: object
+    required:
+      - id
+      - organisation_id
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      relationships:
+        type: object
+        properties:
+          validations:
+            $ref: '#/definitions/RelationshipLinks'
+
+
+  PaymentSubmission:
+    type: object
+    required:
+      - id
+      - organisation_id
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          status:
+            $ref: '#/definitions/PaymentSubmissionStatus'
+          scheme_status_code:
+            type: string
+          status_reason:
+            type: string
+          submission_datetime:
+            type: string
+            format: 'date-time'
+            readOnly: true
+          settlement_date:
+            type: string
+            format: 'date'
+          settlement_cycle:
+            type: integer
+            minimum: 0
+          redirected_bank_id:
+            type: string
+          redirected_account_number:
+            type: string
+          limit_breach_start_datetime:
+            type: string
+            format: 'date-time'
+            readOnly: true
+          limit_breach_end_datetime:
+            type: string
+            format: 'date-time'
+            readOnly: true
+          transaction_start_datetime:
+            type: string
+            format: 'date-time'
+            readOnly: true
+      relationships:
+        $ref: '#/definitions/PaymentSubmissionRelationships'
+
+  PaymentSubmissionRelationships:
+    type: object
+    properties:
+      payment:
+        $ref: '#/definitions/RelationshipLinks'
+      validations:
+        $ref: '#/definitions/RelationshipLinks'
+
+  PaymentAdmission:
+    type: object
+    required:
+      - id
+      - organisation_id
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          status:
+            $ref: '#/definitions/PaymentAdmissionStatus'
+          scheme_status_code:
+            type: string
+          status_reason:
+            $ref: '#/definitions/PaymentAdmissionStatusReason'
+          admission_datetime:
+            type: string
+            format: 'date-time'
+            readOnly: true
+          settlement_date:
+            type: string
+            format: 'date'
+          settlement_cycle:
+            type: integer
+            minimum: 0
+      relationships:
+        type: object
+        properties:
+          payment:
+            $ref: '#/definitions/RelationshipLinks'
+
+  NewPaymentAdmission:
+    type: object
+    required:
+      - id
+      - organisation_id
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          scheme_status_code:
+            type: string
+          admission_datetime:
+            type: string
+            format: 'date-time'
+            readOnly: true
+          settlement_date:
+            type: string
+            format: 'date'
+          settlement_cycle:
+            type: integer
+            minimum: 0
+          source_gateway:
+            type: string
+
+  NewReturnSubmission:
+    type: object
+    required:
+      - id
+      - organisation_id
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      relationships:
+        $ref: '#/definitions/ReturnSubmissionRelationships'
+
+  ReturnSubmission:
+    type: object
+    required:
+      - id
+      - organisation_id
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          scheme_status_code:
+            type: string
+          status_reason:
+            type: string
+          submission_datetime:
+            type: string
+            format: 'date-time'
+            readOnly: true
+          settlement_date:
+            type: string
+            format: 'date'
+          settlement_cycle:
+            type: integer
+            minimum: 0
+          status:
+            $ref: '#/definitions/ReturnSubmissionStatus'
+          redirected_bank_id:
+            type: string
+          redirected_account_number:
+            type: string
+          limit_breach_start_datetime:
+            type: string
+            format: 'date-time'
+            readOnly: true
+          limit_breach_end_datetime:
+            type: string
+            format: 'date-time'
+            readOnly: true
+          transaction_start_datetime:
+            type: string
+            format: 'date-time'
+            readOnly: true
+      relationships:
+        $ref: '#/definitions/ReturnSubmissionRelationships'
+
+  ReturnSubmissionRelationships:
+    type: object
+    properties:
+      payment_return:
+        $ref: '#/definitions/RelationshipLinks'
+      validations:
+        $ref: '#/definitions/RelationshipLinks'
+
+  ReturnAdmission:
+    type: object
+    required:
+      - id
+      - organisation_id
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          scheme_status_code:
+            type: string
+          status_reason:
+            type: string
+          admission_datetime:
+            type: string
+            format: 'date-time'
+            readOnly: true
+          settlement_date:
+            type: string
+            format: 'date'
+          settlement_cycle:
+            type: integer
+            minimum: 0
+          status:
+            $ref: '#/definitions/ReturnAdmissionStatus'
+      relationships:
+        $ref: '#/definitions/ReturnAdmissionRelationships'
+
+  ReturnAdmissionRelationships:
+    type: object
+    properties:
+      payment_return:
+        $ref: '#/definitions/RelationshipLinks'
+      validations:
+        $ref: '#/definitions/RelationshipLinks'
+
+  NewReturnAdmission:
+    type: object
+    required:
+      - id
+      - organisation_id
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          scheme_status_code:
+            type: string
+          status_reason:
+            type: string
+          settlement_date:
+            type: string
+            format: 'date'
+          settlement_cycle:
+            type: integer
+            minimum: 0
+          source_gateway:
+            type: string
+      relationships:
+        type: object
+        properties:
+          validations:
+            $ref: '#/definitions/RelationshipLinks'
+
+  ReversalAdmission:
+    type: object
+    required:
+      - id
+      - organisation_id
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          scheme_status_code:
+            type: string
+          source_gateway:
+            type: string
+      relationships:
+        type: object
+        properties:
+          reversal:
+            $ref: '#/definitions/RelationshipLinks'
+
+  ReturnReversalAdmission:
+    type: object
+    required:
+      - id
+      - organisation_id
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          source_gateway:
+            type: string
+          scheme_status_code:
+            type: string
+      relationships:
+        type: object
+        properties:
+          payment_return_reversal:
+            $ref: '#/definitions/RelationshipLinks'
+
+  PaymentSubmissionValidation:
+    type: object
+    required:
+      - id
+      - organisation_id
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          source:
+            $ref: '#/definitions/ValidationSource'
+          status:
+            $ref: '#/definitions/ValidationStatus'
+          response:
+            type: string
+
+  ReturnSubmissionValidation:
+    type: object
+    required:
+      - id
+      - organisation_id
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          source:
+            $ref: '#/definitions/ValidationSource'
+          status:
+            $ref: '#/definitions/ValidationStatus'
+          response:
+            type: string
+
+  PaymentCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/Payment'
+
+  ReturnCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ReturnPayment'
+
+  ReversalCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ReversalPayment'
+
+  ReturnReversalCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ReversalReturn'
+
+  PaymentAdmissionCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/NewPaymentAdmission'
+
+  PaymentSubmissionCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/NewPaymentSubmission'
+
+  ReturnSubmissionCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/NewReturnSubmission'
+
+  ReturnAdmissionCreation:
+      type: object
+      properties:
+        data:
+          $ref: '#/definitions/NewReturnAdmission'
+
+  ReversalAdmissionCreation:
+      type: object
+      properties:
+        data:
+          $ref: '#/definitions/ReversalAdmission'
+
+  ReturnReversalAdmissionCreation:
+      type: object
+      properties:
+        data:
+          $ref: '#/definitions/ReturnReversalAdmission'
+
+  PaymentAmendment:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/Payment'
+
+  PaymentSubmissionAmendment:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/PaymentSubmission'
+
+  ReturnSubmissionAmendment:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ReturnSubmission'
+
+  PaymentCreationResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/Payment'
+      links:
+        $ref: '#/definitions/Links'
+
+  ReturnCreationResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/definitions/ReturnPayment'
+        links:
+          $ref: '#/definitions/Links'
+
+  ReversalCreationResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/definitions/ReversalPayment'
+        links:
+          $ref: '#/definitions/Links'
+
+  ReturnReversalCreationResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/definitions/ReversalReturn'
+        links:
+          $ref: '#/definitions/Links'
+
+  PaymentDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/Payment'
+      links:
+        $ref: '#/definitions/Links'
+
+  ReturnDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ReturnPayment'
+      links:
+        $ref: '#/definitions/Links'
+
+  ReversalDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ReversalPayment'
+      links:
+        $ref: '#/definitions/Links'
+
+  ReturnReversalDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ReversalReturn'
+      links:
+        $ref: '#/definitions/Links'
+
+  PaymentDetailsListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Payment'
+      links:
+        $ref: '#/definitions/Links'
+
+  PaymentAdmissionCreationResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/PaymentAdmission'
+      links:
+        $ref: '#/definitions/Links'
+
+
+  PaymentSubmissionCreationResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/PaymentSubmission'
+      links:
+        $ref: '#/definitions/Links'
+
+  ReturnSubmissionCreationResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ReturnSubmission'
+      links:
+        $ref: '#/definitions/Links'
+
+  ReturnAdmissionCreationResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/definitions/ReturnAdmission'
+        links:
+          $ref: '#/definitions/Links'
+
+  ReversalAdmissionCreationResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/definitions/ReversalAdmission'
+        links:
+          $ref: '#/definitions/Links'
+
+  ReturnReversalAdmissionCreationResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/definitions/ReturnReversalAdmission'
+        links:
+          $ref: '#/definitions/Links'
+
+  PaymentAdmissionDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/PaymentAdmission'
+      links:
+        $ref: '#/definitions/Links'
+
+  PaymentSubmissionDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/PaymentSubmission'
+      links:
+        $ref: '#/definitions/Links'
+
+  ReturnSubmissionDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ReturnSubmission'
+      links:
+        $ref: '#/definitions/Links'
+
+  ReturnAdmissionDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ReturnAdmission'
+      links:
+        $ref: '#/definitions/Links'
+
+  ReversalAdmissionDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ReversalAdmission'
+      links:
+        $ref: '#/definitions/Links'
+
+  ReturnReversalAdmissionDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ReturnReversalAdmission'
+      links:
+        $ref: '#/definitions/Links'
+
+  PaymentSubmissionDetailsListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/PaymentSubmission'
+      links:
+        $ref: '#/definitions/Links'
+
+  PaymentSubmissionValidationCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/PaymentSubmissionValidation'
+
+  ReturnSubmissionValidationCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ReturnSubmissionValidation'
+
+  PaymentSubmissionValidationCreationResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/PaymentSubmissionValidation'
+
+  ReturnSubmissionValidationCreationResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/definitions/ReturnSubmissionValidation'
+
+  RelationshipLinks:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/definitions/RelationshipData'
+
+  PaymentSubmittedEvent:
+    type: object
+    properties:
+      payment_submission:
+        $ref: '#/definitions/PaymentSubmission'
+      payment:
+        $ref: '#/definitions/Payment'
+
+  ReturnSubmittedEvent:
+    type: object
+    properties:
+      payment:
+        $ref: '#/definitions/Payment'
+      return_payment:
+        $ref: '#/definitions/ReturnPayment'
+      return_submission:
+        $ref: '#/definitions/ReturnSubmission'
+
+  RelationshipData:
+    type: object
+    properties:
+      type:
+        type: string
+      id:
+        type: string
+        format: uuid
+
+  RelationshipsResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Relationship'
+      links:
+        $ref: '#/definitions/Links'
+
+  Relationship:
+    type: object
+    properties:
+      type:
+        type: string
+      id:
+        type: string
+        format: uuid
+
+
+  PaymentAdmissionStatus:
+    type: string
+    enum:
+      - confirmed
+      - failed
+
+  PaymentAdmissionStatusReason:
+    type: string
+    enum:
+      - accepted
+      - invalid_beneficiary_details
+      - bankid_not_provisioned
+      - unknown_accountnumber
+
+  PaymentSubmissionStatus:
+    type: string
+    enum:
+      - accepted
+      - limit_check_pending
+      - limit_check_failed
+      - limit_check_passed
+      - released_to_gateway
+      - queued_for_delivery
+      - delivery_confirmed
+      - delivery_failed
+      - submitted
+      - validation_pending
+
+  ReturnSubmissionStatus:
+    type: string
+    enum:
+      - accepted
+      - limit_check_pending
+      - limit_check_failed
+      - limit_check_passed
+      - released_to_gateway
+      - delivery_confirmed
+      - delivery_failed
+      - submitted
+      - validation_pending
+
+  ReturnAdmissionStatus:
+    type: string
+    enum:
+      - confirmed
+      - failed
+
+  ValidationStatus:
+    type: string
+    enum:
+      - failed
+      - passed
+      - not_accepted
+
+  ValidationSource:
+    type: string
+    enum:
+      - payment_api
+      - payport_interface
+      - starling_gateway
+      - bacs_gateway
+
+  ChargesInformation:
+    type: object
+    properties:
+      bearer_code:
+        type: string
+      receiver_charges_amount:
+        type: string
+      receiver_charges_currency:
+        type: string
+      sender_charges:
+        type: array
+        items:
+          type: object
+          properties:
+            amount:
+              type: string
+            currency:
+              type: string
+
+  PositionDetailsListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Position'
+
+  Position:
+    type: object
+    required:
+      - id
+      - organisation_id
+      - attributes
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          scheme:
+            type: string
+            pattern: ^[A-Za-z_\-]*$
+          limit:
+            type: string
+            pattern: ^[0-9.]{0,20}$
+          position:
+            type: string
+            pattern: ^[0-9.]{0,20}$
+      links:
+        $ref: '#/definitions/Self'
+
+  SettlementCycle:
+    type: object
+    required:
+      - id
+      - attributes
+    properties:
+      id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          gateway:
+            type: string
+            pattern: ^[A-Za-z_\-]*$
+          settlement_cycle_type:
+            type: string
+            pattern: ^[A-Za-z_\-]*$
+          settlement_cycle_number:
+            type: integer
+            minimum: 1
+
+  SettlementCycleCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/SettlementCycle'
+
+  SettlementCycleCreationResponse:
+    type: object
+
+  LimitCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/Limit'
+
+  LimitCreationResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/definitions/Limit'
+
+  LimitDetailsListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Limit'
+      links:
+        $ref: '#/definitions/Links'
+      meta:
+        $ref: '#/definitions/RecordCount'
+
+  LimitDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/Limit'
+
+  LimitAmendment:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/Limit'
+
+
+# paymentapi - end

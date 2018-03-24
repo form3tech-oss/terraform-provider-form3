@@ -49,6 +49,7 @@ func (m *SubscriptionCreation) validateData(formats strfmt.Registry) error {
 			}
 			return err
 		}
+
 	}
 
 	return nil

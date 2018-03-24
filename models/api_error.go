@@ -10,6 +10,7 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // APIError Api error
@@ -27,9 +28,27 @@ type APIError struct {
 func (m *APIError) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateErrorCode(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *APIError) validateErrorCode(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ErrorCode) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("error_code", "body", "uuid", m.ErrorCode.String(), formats); err != nil {
+		return err
+	}
+
 	return nil
 }
 

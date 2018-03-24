@@ -49,6 +49,7 @@ func (m *UserCreation) validateData(formats strfmt.Registry) error {
 			}
 			return err
 		}
+
 	}
 
 	return nil

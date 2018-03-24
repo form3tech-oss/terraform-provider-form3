@@ -63,6 +63,11 @@ func (m *SubscriptionAttributes) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateUserID(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -82,10 +87,13 @@ func init() {
 }
 
 const (
+
 	// SubscriptionAttributesCallbackTransportHTTP captures enum value "http"
 	SubscriptionAttributesCallbackTransportHTTP string = "http"
+
 	// SubscriptionAttributesCallbackTransportEmail captures enum value "email"
 	SubscriptionAttributesCallbackTransportEmail string = "email"
+
 	// SubscriptionAttributesCallbackTransportQueue captures enum value "queue"
 	SubscriptionAttributesCallbackTransportQueue string = "queue"
 )
@@ -145,6 +153,19 @@ func (m *SubscriptionAttributes) validateRecordType(formats strfmt.Registry) err
 	}
 
 	if err := validate.Pattern("record_type", "body", string(m.RecordType), `^[A-Za-z_-]*$`); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *SubscriptionAttributes) validateUserID(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.UserID) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("user_id", "body", "uuid", m.UserID.String(), formats); err != nil {
 		return err
 	}
 

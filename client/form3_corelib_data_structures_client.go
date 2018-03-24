@@ -16,6 +16,7 @@ import (
 	"github.com/ewilde/go-form3/client/associations"
 	"github.com/ewilde/go-form3/client/limits"
 	"github.com/ewilde/go-form3/client/organisations"
+	"github.com/ewilde/go-form3/client/payments"
 	"github.com/ewilde/go-form3/client/roles"
 	"github.com/ewilde/go-form3/client/subscriptions"
 	"github.com/ewilde/go-form3/client/users"
@@ -45,9 +46,6 @@ func NewHTTPClient(formats strfmt.Registry) *Form3CorelibDataStructures {
 // using a customizable transport config.
 func NewHTTPClientWithConfig(formats strfmt.Registry, cfg *TransportConfig) *Form3CorelibDataStructures {
 	// ensure nullable parameters have default
-	if formats == nil {
-		formats = strfmt.Default
-	}
 	if cfg == nil {
 		cfg = DefaultTransportConfig()
 	}
@@ -59,6 +57,11 @@ func NewHTTPClientWithConfig(formats strfmt.Registry, cfg *TransportConfig) *For
 
 // New creates a new form3 corelib data structures client
 func New(transport runtime.ClientTransport, formats strfmt.Registry) *Form3CorelibDataStructures {
+	// ensure nullable parameters have default
+	if formats == nil {
+		formats = strfmt.Default
+	}
+
 	cli := new(Form3CorelibDataStructures)
 	cli.Transport = transport
 
@@ -71,6 +74,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Form3Corel
 	cli.Limits = limits.New(transport, formats)
 
 	cli.Organisations = organisations.New(transport, formats)
+
+	cli.Payments = payments.New(transport, formats)
 
 	cli.Roles = roles.New(transport, formats)
 
@@ -132,6 +137,8 @@ type Form3CorelibDataStructures struct {
 
 	Organisations *organisations.Client
 
+	Payments *payments.Client
+
 	Roles *roles.Client
 
 	Subscriptions *subscriptions.Client
@@ -154,6 +161,8 @@ func (c *Form3CorelibDataStructures) SetTransport(transport runtime.ClientTransp
 	c.Limits.SetTransport(transport)
 
 	c.Organisations.SetTransport(transport)
+
+	c.Payments.SetTransport(transport)
 
 	c.Roles.SetTransport(transport)
 

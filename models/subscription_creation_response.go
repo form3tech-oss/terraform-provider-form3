@@ -57,6 +57,7 @@ func (m *SubscriptionCreationResponse) validateData(formats strfmt.Registry) err
 			}
 			return err
 		}
+
 	}
 
 	return nil
@@ -76,6 +77,7 @@ func (m *SubscriptionCreationResponse) validateLinks(formats strfmt.Registry) er
 			}
 			return err
 		}
+
 	}
 
 	return nil

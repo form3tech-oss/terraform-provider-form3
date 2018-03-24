@@ -57,6 +57,7 @@ func (m *UserCreationResponse) validateData(formats strfmt.Registry) error {
 			}
 			return err
 		}
+
 	}
 
 	return nil
@@ -76,6 +77,7 @@ func (m *UserCreationResponse) validateLinks(formats strfmt.Registry) error {
 			}
 			return err
 		}
+
 	}
 
 	return nil
