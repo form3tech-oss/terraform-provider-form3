@@ -12,22 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package runtime
+package middleware
 
-import "mime/multipart"
+import "net/http"
 
-// File represents an uploaded file.
-type File struct {
-	Data   multipart.File
-	Header *multipart.FileHeader
-}
+// NewOperationExecutor creates a context aware middleware that handles the operations after routing
+func NewOperationExecutor(ctx *Context) http.Handler {
+	return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
+		// use context to lookup routes
+		route, rCtx, _ := ctx.RouteInfo(r)
+		if rCtx != nil {
+			r = rCtx
+		}
 
-// Read bytes from the file
-func (f *File) Read(p []byte) (n int, err error) {
-	return f.Data.Read(p)
-}
-
-// Close the file
-func (f *File) Close() error {
-	return f.Data.Close()
+		route.Handler.ServeHTTP(rw, r)
+	})
 }

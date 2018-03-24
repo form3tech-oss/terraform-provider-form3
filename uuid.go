@@ -5,8 +5,8 @@ import (
 	"github.com/nu7hatch/gouuid"
 )
 
-func ConvertUUIDtoPointer(s strfmt.UUID) *strfmt.UUID { return &s }
-func ConvertStringtoUUID(s string) *strfmt.UUID       { return ConvertUUIDtoPointer(strfmt.UUID(s)) }
+func ConvertUUIDtoPointer(s strfmt.UUID) *strfmt.UUID  { return &s }
+func ConvertStringtoUUIDPointer(s string) *strfmt.UUID { return ConvertUUIDtoPointer(strfmt.UUID(s)) }
 func ConvertUUIDtoStrFmtUUID(s *uuid.UUID) *strfmt.UUID {
 	return ConvertUUIDtoPointer(strfmt.UUID(s.String()))
 }

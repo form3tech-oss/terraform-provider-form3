@@ -12,22 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package runtime
+package middleware
 
-import "mime/multipart"
+import "net/http"
 
-// File represents an uploaded file.
-type File struct {
-	Data   multipart.File
-	Header *multipart.FileHeader
-}
+func newSecureAPI(ctx *Context, next http.Handler) http.Handler {
+	return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
+		route, rCtx, _ := ctx.RouteInfo(r)
+		if rCtx != nil {
+			r = rCtx
+		}
+		if route != nil && len(route.Authenticators) == 0 {
+			next.ServeHTTP(rw, r)
+			return
+		}
 
-// Read bytes from the file
-func (f *File) Read(p []byte) (n int, err error) {
-	return f.Data.Read(p)
-}
+		_, rCtx, err := ctx.Authorize(r, route)
+		if err != nil {
+			ctx.Respond(rw, r, route.Produces, route, err)
+			return
+		}
+		r = rCtx
 
-// Close the file
-func (f *File) Close() error {
-	return f.Data.Close()
+		next.ServeHTTP(rw, r)
+	})
 }

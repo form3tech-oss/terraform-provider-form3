@@ -12,22 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package runtime
+package security
 
-import "mime/multipart"
+import (
+	"net/http"
 
-// File represents an uploaded file.
-type File struct {
-	Data   multipart.File
-	Header *multipart.FileHeader
-}
+	"github.com/go-openapi/runtime"
+)
 
-// Read bytes from the file
-func (f *File) Read(p []byte) (n int, err error) {
-	return f.Data.Read(p)
-}
-
-// Close the file
-func (f *File) Close() error {
-	return f.Data.Close()
+// Authorized provides a default implementation of the Authorizer interface where all
+// requests are authorized (successful)
+func Authorized() runtime.Authorizer {
+	return runtime.AuthorizerFunc(func(_ *http.Request, _ interface{}) error { return nil })
 }

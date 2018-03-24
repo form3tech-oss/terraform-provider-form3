@@ -10,7 +10,6 @@ import (
 	rc "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/logging"
-	"golang.org/x/net/context"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -34,6 +33,12 @@ type AuthenticatedClient struct {
 type AuthenticatedClientCheckRedirect struct {
 }
 
+type roundTripperFunc func(*http.Request) (*http.Response, error)
+
+func (fn roundTripperFunc) RoundTrip(req *http.Request) (*http.Response, error) {
+	return fn(req)
+}
+
 func (r *AuthenticatedClientCheckRedirect) CheckRedirect(req *http.Request, via []*http.Request) error {
 	req.Header.Add("Authorization", via[0].Header.Get("Authorization"))
 	return nil
@@ -41,8 +46,40 @@ func (r *AuthenticatedClientCheckRedirect) CheckRedirect(req *http.Request, via 
 
 func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient {
 	a := &AuthenticatedClientCheckRedirect{}
+	var authClient *AuthenticatedClient
+
 	h := &http.Client{
-		Transport:     http.DefaultTransport,
+		Transport: roundTripperFunc(func(req *http.Request) (*http.Response, error) {
+			if len(authClient.AccessToken) > 0 {
+				req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", authClient.AccessToken))
+			}
+
+			if logging.IsDebugOrHigher() {
+				dump, errDump := httputil.DumpRequestOut(req, true)
+				if errDump != nil {
+					log.Fatal(errDump)
+				}
+
+				log.Printf("[DEBUG] %s %s", req.URL.String(), string(dump))
+			}
+
+			resp, err := http.DefaultTransport.RoundTrip(req)
+
+			if err != nil {
+				return nil, err
+			}
+
+			if logging.IsDebugOrHigher() {
+				dump, errDump := httputil.DumpResponse(resp, true)
+				if errDump != nil {
+					log.Fatal(errDump)
+				}
+
+				log.Printf("[DEBUG] %s %s", req.URL.String(), string(dump))
+			}
+
+			return resp, err
+		}),
 		CheckRedirect: a.CheckRedirect,
 	}
 
@@ -74,7 +111,7 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 	rt7 := rc.NewWithClient(config.Host, config.BasePath, config.Schemes, h)
 	transactionClient := client.New(rt7, strfmt.Default)
 
-	authClient := &AuthenticatedClient{
+	authClient = &AuthenticatedClient{
 		AssociationClient:  associationsClient,
 		SecurityClient:     securityClient,
 		NotificationClient: notificationClient,
@@ -99,7 +136,6 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 func configureRuntime(rt *rc.Runtime, authClient *AuthenticatedClient) {
 	rt.Consumers["application/vnd.api+json;charset=UTF-8"] = runtime.JSONConsumer()
 	rt.Consumers["application/vnd.api+json"] = runtime.JSONConsumer()
-	rt.Do = authClient.Do
 }
 
 func (r *AuthenticatedClient) Authenticate(clientId string, clientSecret string) error {
@@ -149,48 +185,6 @@ func (r *AuthenticatedClient) Authenticate(clientId string, clientSecret string)
 
 	r.AccessToken = loginResponse.AccessToken
 	return nil
-}
-
-func (r *AuthenticatedClient) Do(ctx context.Context, client *http.Client, req *http.Request) (*http.Response, error) {
-	if client == nil {
-		client = r.HttpClient
-	}
-
-	if len(r.AccessToken) > 0 {
-		req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", r.AccessToken))
-	}
-
-	if logging.IsDebugOrHigher() {
-		dump, errDump := httputil.DumpRequestOut(req, true)
-		if errDump != nil {
-			log.Fatal(errDump)
-		}
-
-		log.Printf("[DEBUG] %s %s", req.URL.String(), string(dump))
-	}
-
-	resp, err := client.Do(req.WithContext(ctx))
-	// If we got an error, and the context has been canceled,
-	// the context's error is probably more useful.
-	if err != nil {
-		select {
-		case <-ctx.Done():
-			err = ctx.Err()
-		default:
-		}
-		return nil, err
-	}
-
-	if logging.IsDebugOrHigher() {
-		dump, errDump := httputil.DumpResponse(resp, true)
-		if errDump != nil {
-			log.Fatal(errDump)
-		}
-
-		log.Printf("[DEBUG] %s %s", req.URL.String(), string(dump))
-	}
-
-	return resp, err
 }
 
 func getLoginResponse(body []byte) (*LoginResponse, error) {
