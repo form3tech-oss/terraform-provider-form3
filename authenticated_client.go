@@ -10,7 +10,6 @@ import (
 	rc "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/logging"
-	"github.com/nu7hatch/gouuid"
 	"golang.org/x/net/context"
 	"io/ioutil"
 	"log"
@@ -198,14 +197,6 @@ func getLoginResponse(body []byte) (*LoginResponse, error) {
 	var s = new(LoginResponse)
 	err := json.Unmarshal(body, &s)
 	return s, err
-}
-
-func strfmtUUIDtoPtr(s strfmt.UUID) *strfmt.UUID { return &s }
-func strToUUID(s string) *strfmt.UUID            { return strfmtUUIDtoPtr(strfmt.UUID(s)) }
-func uuidTostrfmtUUID(s *uuid.UUID) *strfmt.UUID { return strfmtUUIDtoPtr(strfmt.UUID(s.String())) }
-func newstrfmtUUID() *strfmt.UUID {
-	id, _ := uuid.NewV4()
-	return uuidTostrfmtUUID(id)
 }
 
 type LoginResponse struct {
