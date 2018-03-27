@@ -58,6 +58,16 @@ func (b *PaymentBuilder) WithOrganisationID(id strfmt.UUID) *PaymentBuilder {
 	return b
 }
 
+func (b *PaymentBuilder) WithPaymentScheme(scheme string) *PaymentBuilder {
+	b.payment.Attributes.PaymentScheme = scheme
+	return b
+}
+
+func (b *PaymentBuilder) WithPaymentType(paymentType string) *PaymentBuilder {
+	b.payment.Attributes.PaymentType = paymentType
+	return b
+}
+
 func (b *PaymentBuilder) Build() *models.Payment {
 	return &b.payment
 }
