@@ -5,6 +5,9 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/nu7hatch/gouuid"
 	"time"
+	"math/rand"
+	"math"
+	"fmt"
 )
 
 type PaymentBuilder struct {
@@ -71,6 +74,17 @@ func (b *PaymentBuilder) WithSchemePaymentType(schemePaymentType string) *Paymen
 func (b *PaymentBuilder) WithDebtorPartyAccountWithBankID(bankID string) *PaymentBuilder {
 	b.payment.Attributes.DebtorParty.AccountWith.BankID = bankID
 	return b
+}
+
+func (b *PaymentBuilder) WithSchemeTransactionID(schemeTransactionID string) *PaymentBuilder {
+	b.payment.Attributes.SchemeTransactionID = schemeTransactionID
+	return b
+}
+
+func (b *PaymentBuilder) NewSchemeTransactionID() string {
+	timestamp := time.Now().UTC().Format("yyyyMMddHHmmss")
+	uniqueId := math.Mod(rand.Float64(), 100000000000000000)
+	return timestamp + fmt.Sprintf("%f", uniqueId)
 }
 
 func (b *PaymentBuilder) Build() *models.Payment {
