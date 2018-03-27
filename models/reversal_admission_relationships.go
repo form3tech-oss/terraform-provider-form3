@@ -49,7 +49,6 @@ func (m *ReversalAdmissionRelationships) validateReversal(formats strfmt.Registr
 			}
 			return err
 		}
-
 	}
 
 	return nil

@@ -49,7 +49,6 @@ func (m *ReturnReversalAdmissionRelationships) validatePaymentReturnReversal(for
 			}
 			return err
 		}
-
 	}
 
 	return nil

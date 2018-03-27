@@ -94,7 +94,6 @@ func (m *ReturnSubmission) validateAttributes(formats strfmt.Registry) error {
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -140,7 +139,6 @@ func (m *ReturnSubmission) validateRelationships(formats strfmt.Registry) error 
 			}
 			return err
 		}
-
 	}
 
 	return nil

@@ -57,7 +57,6 @@ func (m *ReversalReturnRelationships) validatePaymentReturn(formats strfmt.Regis
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -77,7 +76,6 @@ func (m *ReversalReturnRelationships) validateReturnReversalAdmission(formats st
 			}
 			return err
 		}
-
 	}
 
 	return nil

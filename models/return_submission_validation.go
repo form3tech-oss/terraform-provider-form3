@@ -86,7 +86,6 @@ func (m *ReturnSubmissionValidation) validateAttributes(formats strfmt.Registry)
 			}
 			return err
 		}
-
 	}
 
 	return nil

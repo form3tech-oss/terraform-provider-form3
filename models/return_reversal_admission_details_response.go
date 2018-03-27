@@ -57,7 +57,6 @@ func (m *ReturnReversalAdmissionDetailsResponse) validateData(formats strfmt.Reg
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -77,7 +76,6 @@ func (m *ReturnReversalAdmissionDetailsResponse) validateLinks(formats strfmt.Re
 			}
 			return err
 		}
-
 	}
 
 	return nil

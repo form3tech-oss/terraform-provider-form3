@@ -17,7 +17,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/ewilde/go-form3/models"
+	"github.com/ewilde/go-form3/models"
 )
 
 // NewPostPayportParams creates a new PostPayportParams object

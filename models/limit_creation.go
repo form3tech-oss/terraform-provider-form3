@@ -49,7 +49,6 @@ func (m *LimitCreation) validateData(formats strfmt.Registry) error {
 			}
 			return err
 		}
-
 	}
 
 	return nil

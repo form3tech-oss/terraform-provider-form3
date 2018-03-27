@@ -87,7 +87,6 @@ func (m *Account) validateAttributes(formats strfmt.Registry) error {
 			}
 			return err
 		}
-
 	}
 
 	return nil

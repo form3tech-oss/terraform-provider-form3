@@ -46,11 +46,6 @@ func (m *AceAttributes) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateRoleID(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -77,19 +72,6 @@ func (m *AceAttributes) validateRecordType(formats strfmt.Registry) error {
 	}
 
 	if err := validate.Pattern("record_type", "body", string(m.RecordType), `^[A-Za-z]*$`); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *AceAttributes) validateRoleID(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.RoleID) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("role_id", "body", "uuid", m.RoleID.String(), formats); err != nil {
 		return err
 	}
 

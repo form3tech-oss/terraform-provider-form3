@@ -68,6 +68,11 @@ func (b *PaymentBuilder) WithSchemePaymentType(schemePaymentType string) *Paymen
 	return b
 }
 
+func (b *PaymentBuilder) WithDebtorPartyAccountWithBankID(bankID string) *PaymentBuilder {
+	b.payment.Attributes.DebtorParty.AccountWith.BankID = bankID
+	return b
+}
+
 func (b *PaymentBuilder) Build() *models.Payment {
 	return &b.payment
 }

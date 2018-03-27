@@ -49,7 +49,6 @@ func (m *AccountConfigurationCreation) validateData(formats strfmt.Registry) err
 			}
 			return err
 		}
-
 	}
 
 	return nil

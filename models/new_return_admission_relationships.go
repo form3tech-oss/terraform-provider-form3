@@ -49,7 +49,6 @@ func (m *NewReturnAdmissionRelationships) validateValidations(formats strfmt.Reg
 			}
 			return err
 		}
-
 	}
 
 	return nil

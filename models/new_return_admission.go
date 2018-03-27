@@ -94,7 +94,6 @@ func (m *NewReturnAdmission) validateAttributes(formats strfmt.Registry) error {
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -140,7 +139,6 @@ func (m *NewReturnAdmission) validateRelationships(formats strfmt.Registry) erro
 			}
 			return err
 		}
-
 	}
 
 	return nil

@@ -112,7 +112,6 @@ func (m *NewPaymentSubmission) validateRelationships(formats strfmt.Registry) er
 			}
 			return err
 		}
-
 	}
 
 	return nil

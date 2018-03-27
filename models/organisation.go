@@ -43,16 +43,6 @@ func (m *Organisation) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateID(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateOrganisationID(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if err := m.validateVersion(formats); err != nil {
 		// prop
 		res = append(res, err)
@@ -78,33 +68,6 @@ func (m *Organisation) validateAttributes(formats strfmt.Registry) error {
 			}
 			return err
 		}
-
-	}
-
-	return nil
-}
-
-func (m *Organisation) validateID(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.ID) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("id", "body", "uuid", m.ID.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *Organisation) validateOrganisationID(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.OrganisationID) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("organisation_id", "body", "uuid", m.OrganisationID.String(), formats); err != nil {
-		return err
 	}
 
 	return nil

@@ -18,7 +18,7 @@ import (
 type AuditEntryAttributes struct {
 
 	// action time
-	ActionTime strfmt.DateTime `json:"action_time,omitempty"`
+	ActionTime *strfmt.DateTime `json:"action_time,omitempty"`
 
 	// actioned by
 	ActionedBy strfmt.UUID `json:"actioned_by,omitempty"`
@@ -45,22 +45,7 @@ type AuditEntryAttributes struct {
 func (m *AuditEntryAttributes) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateActionTime(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateActionedBy(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if err := m.validateDescription(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateRecordID(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -76,32 +61,6 @@ func (m *AuditEntryAttributes) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *AuditEntryAttributes) validateActionTime(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.ActionTime) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("action_time", "body", "date-time", m.ActionTime.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *AuditEntryAttributes) validateActionedBy(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.ActionedBy) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("actioned_by", "body", "uuid", m.ActionedBy.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *AuditEntryAttributes) validateDescription(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Description) { // not required
@@ -109,19 +68,6 @@ func (m *AuditEntryAttributes) validateDescription(formats strfmt.Registry) erro
 	}
 
 	if err := validate.Pattern("description", "body", string(m.Description), `^[A-Za-z0-9 .,@:]*$`); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *AuditEntryAttributes) validateRecordID(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.RecordID) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("record_id", "body", "uuid", m.RecordID.String(), formats); err != nil {
 		return err
 	}
 

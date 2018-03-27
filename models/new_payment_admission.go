@@ -86,7 +86,6 @@ func (m *NewPaymentAdmission) validateAttributes(formats strfmt.Registry) error 
 			}
 			return err
 		}
-
 	}
 
 	return nil

@@ -95,7 +95,6 @@ func (m *Position) validateAttributes(formats strfmt.Registry) error {
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -128,7 +127,6 @@ func (m *Position) validateLinks(formats strfmt.Registry) error {
 			}
 			return err
 		}
-
 	}
 
 	return nil

@@ -57,7 +57,6 @@ func (m *AccountConfigurationDetailsResponse) validateData(formats strfmt.Regist
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -77,7 +76,6 @@ func (m *AccountConfigurationDetailsResponse) validateLinks(formats strfmt.Regis
 			}
 			return err
 		}
-
 	}
 
 	return nil

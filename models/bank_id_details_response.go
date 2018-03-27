@@ -57,7 +57,6 @@ func (m *BankIDDetailsResponse) validateData(formats strfmt.Registry) error {
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -77,7 +76,6 @@ func (m *BankIDDetailsResponse) validateLinks(formats strfmt.Registry) error {
 			}
 			return err
 		}
-
 	}
 
 	return nil

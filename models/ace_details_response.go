@@ -57,7 +57,6 @@ func (m *AceDetailsResponse) validateData(formats strfmt.Registry) error {
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -77,7 +76,6 @@ func (m *AceDetailsResponse) validateLinks(formats strfmt.Registry) error {
 			}
 			return err
 		}
-
 	}
 
 	return nil

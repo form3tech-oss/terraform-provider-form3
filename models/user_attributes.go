@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"strconv"
-
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -73,14 +71,6 @@ func (m *UserAttributes) validateRoleIds(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.RoleIds) { // not required
 		return nil
-	}
-
-	for i := 0; i < len(m.RoleIds); i++ {
-
-		if err := validate.FormatOf("role_ids"+"."+strconv.Itoa(i), "body", "uuid", m.RoleIds[i].String(), formats); err != nil {
-			return err
-		}
-
 	}
 
 	return nil

@@ -2489,6 +2489,7 @@ definitions:
           action_time:
             type: string
             format: 'date-time'
+            x-nullable: true
           before_data:
             type: object
           after_data:
@@ -2535,6 +2536,7 @@ definitions:
           action_time:
             type: string
             format: 'date-time'
+            x-nullable: true
           description:
             type: string
             pattern: ^[A-Za-z0-9 .,@:]*$
@@ -3569,7 +3571,8 @@ definitions:
             type: string
           payment_acceptance_datetime:
             type: string
-            format: 'date-time'
+            format: date-time
+            x-nullable: true
           scheme_transaction_id:
             type: string
           unique_scheme_id:

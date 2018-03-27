@@ -57,7 +57,6 @@ func (m *PaymentSubmissionCreationResponse) validateData(formats strfmt.Registry
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -77,7 +76,6 @@ func (m *PaymentSubmissionCreationResponse) validateLinks(formats strfmt.Registr
 			}
 			return err
 		}
-
 	}
 
 	return nil

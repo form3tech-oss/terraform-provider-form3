@@ -60,22 +60,7 @@ type ReturnSubmissionAttributes struct {
 func (m *ReturnSubmissionAttributes) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateLimitBreachEndDatetime(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateLimitBreachStartDatetime(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if err := m.validateSettlementCycle(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateSettlementDate(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -85,45 +70,9 @@ func (m *ReturnSubmissionAttributes) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateSubmissionDatetime(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateTransactionStartDatetime(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *ReturnSubmissionAttributes) validateLimitBreachEndDatetime(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.LimitBreachEndDatetime) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("limit_breach_end_datetime", "body", "date-time", m.LimitBreachEndDatetime.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ReturnSubmissionAttributes) validateLimitBreachStartDatetime(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.LimitBreachStartDatetime) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("limit_breach_start_datetime", "body", "date-time", m.LimitBreachStartDatetime.String(), formats); err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -140,19 +89,6 @@ func (m *ReturnSubmissionAttributes) validateSettlementCycle(formats strfmt.Regi
 	return nil
 }
 
-func (m *ReturnSubmissionAttributes) validateSettlementDate(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.SettlementDate) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("settlement_date", "body", "date", m.SettlementDate.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *ReturnSubmissionAttributes) validateStatus(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Status) { // not required
@@ -163,32 +99,6 @@ func (m *ReturnSubmissionAttributes) validateStatus(formats strfmt.Registry) err
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("status")
 		}
-		return err
-	}
-
-	return nil
-}
-
-func (m *ReturnSubmissionAttributes) validateSubmissionDatetime(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.SubmissionDatetime) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("submission_datetime", "body", "date-time", m.SubmissionDatetime.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ReturnSubmissionAttributes) validateTransactionStartDatetime(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.TransactionStartDatetime) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("transaction_start_datetime", "body", "date-time", m.TransactionStartDatetime.String(), formats); err != nil {
 		return err
 	}
 

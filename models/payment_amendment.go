@@ -49,7 +49,6 @@ func (m *PaymentAmendment) validateData(formats strfmt.Registry) error {
 			}
 			return err
 		}
-
 	}
 
 	return nil

@@ -43,11 +43,6 @@ func (m *NewReturnAdmissionAttributes) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateSettlementDate(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -61,19 +56,6 @@ func (m *NewReturnAdmissionAttributes) validateSettlementCycle(formats strfmt.Re
 	}
 
 	if err := validate.MinimumInt("settlement_cycle", "body", int64(*m.SettlementCycle), 0, false); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *NewReturnAdmissionAttributes) validateSettlementDate(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.SettlementDate) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("settlement_date", "body", "date", m.SettlementDate.String(), formats); err != nil {
 		return err
 	}
 

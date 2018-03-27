@@ -49,7 +49,6 @@ func (m *ReversalCreation) validateData(formats strfmt.Registry) error {
 			}
 			return err
 		}
-
 	}
 
 	return nil

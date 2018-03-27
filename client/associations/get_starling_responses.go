@@ -13,7 +13,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/ewilde/go-form3/models"
+	"github.com/ewilde/go-form3/models"
 )
 
 // GetStarlingReader is a Reader for the GetStarling structure.

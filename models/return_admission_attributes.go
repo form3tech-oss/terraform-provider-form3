@@ -42,17 +42,7 @@ type ReturnAdmissionAttributes struct {
 func (m *ReturnAdmissionAttributes) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateAdmissionDatetime(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if err := m.validateSettlementCycle(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateSettlementDate(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -68,19 +58,6 @@ func (m *ReturnAdmissionAttributes) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *ReturnAdmissionAttributes) validateAdmissionDatetime(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.AdmissionDatetime) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("admission_datetime", "body", "date-time", m.AdmissionDatetime.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *ReturnAdmissionAttributes) validateSettlementCycle(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.SettlementCycle) { // not required
@@ -88,19 +65,6 @@ func (m *ReturnAdmissionAttributes) validateSettlementCycle(formats strfmt.Regis
 	}
 
 	if err := validate.MinimumInt("settlement_cycle", "body", int64(*m.SettlementCycle), 0, false); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ReturnAdmissionAttributes) validateSettlementDate(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.SettlementDate) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("settlement_date", "body", "date", m.SettlementDate.String(), formats); err != nil {
 		return err
 	}
 

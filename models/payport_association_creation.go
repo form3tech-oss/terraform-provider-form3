@@ -49,7 +49,6 @@ func (m *PayportAssociationCreation) validateData(formats strfmt.Registry) error
 			}
 			return err
 		}
-
 	}
 
 	return nil

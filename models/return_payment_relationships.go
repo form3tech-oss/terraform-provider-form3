@@ -65,7 +65,6 @@ func (m *ReturnPaymentRelationships) validatePayment(formats strfmt.Registry) er
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -85,7 +84,6 @@ func (m *ReturnPaymentRelationships) validateReturnAdmission(formats strfmt.Regi
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -105,7 +103,6 @@ func (m *ReturnPaymentRelationships) validateReturnSubmission(formats strfmt.Reg
 			}
 			return err
 		}
-
 	}
 
 	return nil

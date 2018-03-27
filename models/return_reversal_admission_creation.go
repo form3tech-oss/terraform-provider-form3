@@ -49,7 +49,6 @@ func (m *ReturnReversalAdmissionCreation) validateData(formats strfmt.Registry) 
 			}
 			return err
 		}
-
 	}
 
 	return nil

@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"strconv"
-
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -28,49 +26,16 @@ type ChargesInformation struct {
 	ReceiverChargesCurrency string `json:"receiver_charges_currency,omitempty"`
 
 	// sender charges
-	SenderCharges []*ChargesInformationSenderChargesItems `json:"sender_charges"`
+	SenderCharges ChargesInformationSenderCharges `json:"sender_charges"`
 }
 
 // Validate validates this charges information
 func (m *ChargesInformation) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateSenderCharges(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *ChargesInformation) validateSenderCharges(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.SenderCharges) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.SenderCharges); i++ {
-
-		if swag.IsZero(m.SenderCharges[i]) { // not required
-			continue
-		}
-
-		if m.SenderCharges[i] != nil {
-
-			if err := m.SenderCharges[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("sender_charges" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-
-		}
-
-	}
-
 	return nil
 }
 

@@ -61,7 +61,6 @@ func (m *PaymentAttributesSwift) validateHeader(formats strfmt.Registry) error {
 			}
 			return err
 		}
-
 	}
 
 	return nil

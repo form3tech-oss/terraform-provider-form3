@@ -49,7 +49,6 @@ func (m *NewPaymentSubmissionRelationships) validateValidations(formats strfmt.R
 			}
 			return err
 		}
-
 	}
 
 	return nil

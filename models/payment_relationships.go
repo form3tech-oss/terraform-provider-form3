@@ -73,7 +73,6 @@ func (m *PaymentRelationships) validatePaymentAdmission(formats strfmt.Registry)
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -93,7 +92,6 @@ func (m *PaymentRelationships) validatePaymentReturn(formats strfmt.Registry) er
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -113,7 +111,6 @@ func (m *PaymentRelationships) validatePaymentReversal(formats strfmt.Registry) 
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -133,7 +130,6 @@ func (m *PaymentRelationships) validatePaymentSubmission(formats strfmt.Registry
 			}
 			return err
 		}
-
 	}
 
 	return nil

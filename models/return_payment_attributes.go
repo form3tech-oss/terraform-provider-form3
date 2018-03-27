@@ -48,16 +48,6 @@ func (m *ReturnPaymentAttributes) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateLimitBreachEndDatetime(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateLimitBreachStartDatetime(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -71,32 +61,6 @@ func (m *ReturnPaymentAttributes) validateAmount(formats strfmt.Registry) error 
 	}
 
 	if err := validate.Pattern("amount", "body", string(m.Amount), `^[0-9.]{0,20}$`); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ReturnPaymentAttributes) validateLimitBreachEndDatetime(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.LimitBreachEndDatetime) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("limit_breach_end_datetime", "body", "date-time", m.LimitBreachEndDatetime.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ReturnPaymentAttributes) validateLimitBreachStartDatetime(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.LimitBreachStartDatetime) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("limit_breach_start_datetime", "body", "date-time", m.LimitBreachStartDatetime.String(), formats); err != nil {
 		return err
 	}
 

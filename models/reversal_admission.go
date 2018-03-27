@@ -94,7 +94,6 @@ func (m *ReversalAdmission) validateAttributes(formats strfmt.Registry) error {
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -140,7 +139,6 @@ func (m *ReversalAdmission) validateRelationships(formats strfmt.Registry) error
 			}
 			return err
 		}
-
 	}
 
 	return nil

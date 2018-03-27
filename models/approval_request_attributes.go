@@ -22,7 +22,7 @@ type ApprovalRequestAttributes struct {
 	Action string `json:"action,omitempty"`
 
 	// action time
-	ActionTime strfmt.DateTime `json:"action_time,omitempty"`
+	ActionTime *strfmt.DateTime `json:"action_time,omitempty"`
 
 	// actioned by
 	ActionedBy strfmt.UUID `json:"actioned_by,omitempty"`
@@ -61,26 +61,6 @@ func (m *ApprovalRequestAttributes) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateActionTime(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateActionedBy(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateRecordID(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateRecordOrgid(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if err := m.validateRecordType(formats); err != nil {
 		// prop
 		res = append(res, err)
@@ -109,58 +89,6 @@ func (m *ApprovalRequestAttributes) validateAction(formats strfmt.Registry) erro
 	}
 
 	if err := validate.Pattern("action", "body", string(m.Action), `^[A-Za-z]*$`); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ApprovalRequestAttributes) validateActionTime(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.ActionTime) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("action_time", "body", "date-time", m.ActionTime.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ApprovalRequestAttributes) validateActionedBy(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.ActionedBy) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("actioned_by", "body", "uuid", m.ActionedBy.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ApprovalRequestAttributes) validateRecordID(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.RecordID) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("record_id", "body", "uuid", m.RecordID.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ApprovalRequestAttributes) validateRecordOrgid(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.RecordOrgid) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("record_orgid", "body", "uuid", m.RecordOrgid.String(), formats); err != nil {
 		return err
 	}
 

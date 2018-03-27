@@ -65,7 +65,6 @@ func (m *ReturnSubmittedEvent) validatePayment(formats strfmt.Registry) error {
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -85,7 +84,6 @@ func (m *ReturnSubmittedEvent) validateReturnPayment(formats strfmt.Registry) er
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -105,7 +103,6 @@ func (m *ReturnSubmittedEvent) validateReturnSubmission(formats strfmt.Registry)
 			}
 			return err
 		}
-
 	}
 
 	return nil

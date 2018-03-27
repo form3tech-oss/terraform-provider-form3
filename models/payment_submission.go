@@ -94,7 +94,6 @@ func (m *PaymentSubmission) validateAttributes(formats strfmt.Registry) error {
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -140,7 +139,6 @@ func (m *PaymentSubmission) validateRelationships(formats strfmt.Registry) error
 			}
 			return err
 		}
-
 	}
 
 	return nil

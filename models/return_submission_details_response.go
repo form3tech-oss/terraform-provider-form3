@@ -57,7 +57,6 @@ func (m *ReturnSubmissionDetailsResponse) validateData(formats strfmt.Registry) 
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -77,7 +76,6 @@ func (m *ReturnSubmissionDetailsResponse) validateLinks(formats strfmt.Registry)
 			}
 			return err
 		}
-
 	}
 
 	return nil

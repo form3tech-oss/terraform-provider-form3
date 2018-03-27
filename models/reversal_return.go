@@ -115,7 +115,6 @@ func (m *ReversalReturn) validateRelationships(formats strfmt.Registry) error {
 			}
 			return err
 		}
-
 	}
 
 	return nil

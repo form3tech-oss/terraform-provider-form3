@@ -67,7 +67,7 @@ type PaymentAttributes struct {
 	NumericReference string `json:"numeric_reference,omitempty"`
 
 	// payment acceptance datetime
-	PaymentAcceptanceDatetime strfmt.DateTime `json:"payment_acceptance_datetime,omitempty"`
+	PaymentAcceptanceDatetime *strfmt.DateTime `json:"payment_acceptance_datetime,omitempty"`
 
 	// payment instructing id
 	PaymentInstructingID string `json:"payment_instructing_id,omitempty"`
@@ -167,16 +167,6 @@ func (m *PaymentAttributes) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validatePaymentAcceptanceDatetime(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateProcessingDate(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if err := m.validateReceiversCorrespondent(formats); err != nil {
 		// prop
 		res = append(res, err)
@@ -245,7 +235,6 @@ func (m *PaymentAttributes) validateBeneficiaryParty(formats strfmt.Registry) er
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -265,7 +254,6 @@ func (m *PaymentAttributes) validateChargesInformation(formats strfmt.Registry) 
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -285,7 +273,6 @@ func (m *PaymentAttributes) validateDebtorParty(formats strfmt.Registry) error {
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -305,7 +292,6 @@ func (m *PaymentAttributes) validateFx(formats strfmt.Registry) error {
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -325,33 +311,6 @@ func (m *PaymentAttributes) validateIntermediaryBank(formats strfmt.Registry) er
 			}
 			return err
 		}
-
-	}
-
-	return nil
-}
-
-func (m *PaymentAttributes) validatePaymentAcceptanceDatetime(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.PaymentAcceptanceDatetime) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("payment_acceptance_datetime", "body", "date-time", m.PaymentAcceptanceDatetime.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *PaymentAttributes) validateProcessingDate(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.ProcessingDate) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("processing_date", "body", "date", m.ProcessingDate.String(), formats); err != nil {
-		return err
 	}
 
 	return nil
@@ -371,7 +330,6 @@ func (m *PaymentAttributes) validateReceiversCorrespondent(formats strfmt.Regist
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -391,7 +349,6 @@ func (m *PaymentAttributes) validateReimbursement(formats strfmt.Registry) error
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -411,7 +368,6 @@ func (m *PaymentAttributes) validateSendersCorrespondent(formats strfmt.Registry
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -431,7 +387,6 @@ func (m *PaymentAttributes) validateStructuredReference(formats strfmt.Registry)
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -451,7 +406,6 @@ func (m *PaymentAttributes) validateSwift(formats strfmt.Registry) error {
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -471,7 +425,6 @@ func (m *PaymentAttributes) validateUltimateBeneficiary(formats strfmt.Registry)
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -491,7 +444,6 @@ func (m *PaymentAttributes) validateUltimateDebtor(formats strfmt.Registry) erro
 			}
 			return err
 		}
-
 	}
 
 	return nil

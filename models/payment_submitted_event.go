@@ -57,7 +57,6 @@ func (m *PaymentSubmittedEvent) validatePayment(formats strfmt.Registry) error {
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -77,7 +76,6 @@ func (m *PaymentSubmittedEvent) validatePaymentSubmission(formats strfmt.Registr
 			}
 			return err
 		}
-
 	}
 
 	return nil

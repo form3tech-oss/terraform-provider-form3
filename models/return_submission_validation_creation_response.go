@@ -49,7 +49,6 @@ func (m *ReturnSubmissionValidationCreationResponse) validateData(formats strfmt
 			}
 			return err
 		}
-
 	}
 
 	return nil

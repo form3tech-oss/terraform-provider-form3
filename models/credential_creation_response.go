@@ -57,7 +57,6 @@ func (m *CredentialCreationResponse) validateData(formats strfmt.Registry) error
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -77,7 +76,6 @@ func (m *CredentialCreationResponse) validateLinks(formats strfmt.Registry) erro
 			}
 			return err
 		}
-
 	}
 
 	return nil

@@ -49,7 +49,6 @@ func (m *PaymentSubmissionValidationCreationResponse) validateData(formats strfm
 			}
 			return err
 		}
-
 	}
 
 	return nil

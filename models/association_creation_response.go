@@ -57,7 +57,6 @@ func (m *AssociationCreationResponse) validateData(formats strfmt.Registry) erro
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -77,7 +76,6 @@ func (m *AssociationCreationResponse) validateLinks(formats strfmt.Registry) err
 			}
 			return err
 		}
-
 	}
 
 	return nil

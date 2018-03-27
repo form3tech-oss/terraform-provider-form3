@@ -57,7 +57,6 @@ func (m *PaymentSubmissionRelationships) validatePayment(formats strfmt.Registry
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -77,7 +76,6 @@ func (m *PaymentSubmissionRelationships) validateValidations(formats strfmt.Regi
 			}
 			return err
 		}
-
 	}
 
 	return nil

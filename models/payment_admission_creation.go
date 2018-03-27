@@ -49,7 +49,6 @@ func (m *PaymentAdmissionCreation) validateData(formats strfmt.Registry) error {
 			}
 			return err
 		}
-
 	}
 
 	return nil

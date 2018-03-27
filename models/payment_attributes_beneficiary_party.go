@@ -91,11 +91,6 @@ func (m *PaymentAttributesBeneficiaryParty) Validate(formats strfmt.Registry) er
 		res = append(res, err)
 	}
 
-	if err := m.validateBirthDate(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -145,7 +140,6 @@ func (m *PaymentAttributesBeneficiaryParty) validateAccountWith(formats strfmt.R
 			}
 			return err
 		}
-
 	}
 
 	return nil
@@ -155,19 +149,6 @@ func (m *PaymentAttributesBeneficiaryParty) validateAddress(formats strfmt.Regis
 
 	if swag.IsZero(m.Address) { // not required
 		return nil
-	}
-
-	return nil
-}
-
-func (m *PaymentAttributesBeneficiaryParty) validateBirthDate(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.BirthDate) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("birth_date", "body", "date", m.BirthDate.String(), formats); err != nil {
-		return err
 	}
 
 	return nil
