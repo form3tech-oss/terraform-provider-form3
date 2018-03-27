@@ -7,5 +7,5 @@ import (
 
 func TestNewSchemeTransactionID(t *testing.T) {
 	builder := PaymentBuilder{}
-	assert.Equal(t, 31, len(builder.NewSchemeTransactionID()))
+	assert.Equal(t, 17, len(builder.NewSchemeTransactionID()))
 }
