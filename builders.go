@@ -40,7 +40,7 @@ func (b *PaymentBuilder) WithDefaults() *PaymentBuilder {
 				},
 			},
 			EndToEndReference:   "00151519632ZCBBBJQ",
-			SchemeTransactionID: "12345",
+			SchemeTransactionID: b.NewSchemeTransactionID(),
 			ProcessingDate:      strfmt.Date(time.Now()),
 			PaymentScheme:       "Bacs",
 			SchemePaymentType:   "TelephoneBanking",
