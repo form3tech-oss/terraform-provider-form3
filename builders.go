@@ -63,8 +63,8 @@ func (b *PaymentBuilder) WithPaymentScheme(scheme string) *PaymentBuilder {
 	return b
 }
 
-func (b *PaymentBuilder) WithPaymentType(paymentType string) *PaymentBuilder {
-	b.payment.Attributes.PaymentType = paymentType
+func (b *PaymentBuilder) WithSchemePaymentType(schemePaymentType string) *PaymentBuilder {
+	b.payment.Attributes.SchemePaymentType = schemePaymentType
 	return b
 }
 
