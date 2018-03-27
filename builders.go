@@ -82,9 +82,9 @@ func (b *PaymentBuilder) WithSchemeTransactionID(schemeTransactionID string) *Pa
 }
 
 func (b *PaymentBuilder) NewSchemeTransactionID() string {
-	timestamp := time.Now().UTC().Format("yyyyMMddHHmmss")
-	uniqueId := math.Mod(rand.Float64(), 100000000000000000)
-	return timestamp + fmt.Sprintf("%f", uniqueId)
+	timestamp := time.Now().UTC().Format("20060102150405")
+	uniqueId := math.Mod(float64(rand.Int63n(math.MaxInt64)), 100000000000000000)
+	return timestamp + fmt.Sprintf("%17.0f", uniqueId)
 }
 
 func (b *PaymentBuilder) Build() *models.Payment {
