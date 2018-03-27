@@ -81,8 +81,14 @@ func (b *PaymentBuilder) WithSchemeTransactionID(schemeTransactionID string) *Pa
 	return b
 }
 
+var haveSeeded = false
 func (b *PaymentBuilder) NewSchemeTransactionID() string {
-	uniqueId := math.Mod(float64(rand.Int63n(math.MaxInt64)), 100000000000000000)
+	if !haveSeeded {
+		rand.Seed(time.Now().UnixNano())
+		haveSeeded = true
+	}
+
+	uniqueId := float64(rand.Int63n(math.MaxInt64/100))
 	return fmt.Sprintf("%17.0f", uniqueId)
 }
 
