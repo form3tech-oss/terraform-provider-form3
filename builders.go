@@ -1,13 +1,13 @@
 package form3
 
 import (
+	"fmt"
 	"github.com/ewilde/go-form3/models"
 	"github.com/go-openapi/strfmt"
 	"github.com/nu7hatch/gouuid"
-	"time"
-	"math/rand"
 	"math"
-	"fmt"
+	"math/rand"
+	"time"
 )
 
 type PaymentBuilder struct {
@@ -81,21 +81,19 @@ func (b *PaymentBuilder) WithSchemeTransactionID(schemeTransactionID string) *Pa
 	return b
 }
 
-var haveSeeded = false
 func (b *PaymentBuilder) NewSchemeTransactionID() string {
-	if !haveSeeded {
-		rand.Seed(time.Now().UnixNano())
-		haveSeeded = true
-	}
-
-	uniqueId := float64(rand.Int63n(math.MaxInt64/100))
+	uniqueId := float64(rand.Int63n(math.MaxInt64 / 100))
 	return fmt.Sprintf("%17.0f", uniqueId)
+}
+
+func init() {
+	rand.Seed(time.Now().UnixNano())
 }
 
 func (b *PaymentBuilder) NewMessageID() string {
 	timestamp := time.Now().UTC().Format("20060102150405")
 	uniqueId := b.NewSchemeTransactionID()
-	return timestamp + fmt.Sprintf("%17.0f", uniqueId)
+	return timestamp + uniqueId
 }
 
 func (b *PaymentBuilder) Build() *models.Payment {
