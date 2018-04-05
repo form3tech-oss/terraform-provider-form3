@@ -16,6 +16,7 @@ import (
 	"github.com/ewilde/go-form3/client/associations"
 	"github.com/ewilde/go-form3/client/limits"
 	"github.com/ewilde/go-form3/client/organisations"
+	"github.com/ewilde/go-form3/client/payment_defaults"
 	"github.com/ewilde/go-form3/client/payments"
 	"github.com/ewilde/go-form3/client/roles"
 	"github.com/ewilde/go-form3/client/subscriptions"
@@ -72,6 +73,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Form3Corel
 	cli.Limits = limits.New(transport, formats)
 
 	cli.Organisations = organisations.New(transport, formats)
+
+	cli.PaymentDefaults = payment_defaults.New(transport, formats)
 
 	cli.Payments = payments.New(transport, formats)
 
@@ -135,6 +138,8 @@ type Form3CorelibDataStructures struct {
 
 	Organisations *organisations.Client
 
+	PaymentDefaults *payment_defaults.Client
+
 	Payments *payments.Client
 
 	Roles *roles.Client
@@ -159,6 +164,8 @@ func (c *Form3CorelibDataStructures) SetTransport(transport runtime.ClientTransp
 	c.Limits.SetTransport(transport)
 
 	c.Organisations.SetTransport(transport)
+
+	c.PaymentDefaults.SetTransport(transport)
 
 	c.Payments.SetTransport(transport)
 

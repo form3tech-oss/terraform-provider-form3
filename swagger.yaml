@@ -2364,6 +2364,129 @@ paths:
           description: List of position details
           schema:
             $ref: "#/definitions/PositionDetailsListResponse"
+
+  /paymentdefaults:
+    post:
+      summary: Create the default settings for a payment
+      tags:
+      - PaymentDefaults
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: Default configuration
+          in: body
+          schema:
+            $ref: "#/definitions/PaymentDefaultsCreate"
+      responses:
+        201:
+          description: Default settings created
+          schema:
+              $ref: "#/definitions/PaymentDefaultsCreateResponse"
+        400:
+          description: Default settings creation error
+          schema:
+            $ref: "#/definitions/ApiError"
+    get:
+      summary: List default settings for payments
+      tags:
+        - PaymentDefaults
+      parameters:
+        - name: page[number]
+          in: query
+          description: Which page to select
+          required: false
+          type: string
+          minimum: 0
+          pattern: "$[A-z0-9]{4}^"
+        - name: page[size]
+          in: query
+          description: Number of items to select
+          required: false
+          type: integer
+          minimum: 0
+          maximum: 1000
+        - name: filter[organisation_id]
+          in: query
+          description: Filter by organisation id
+          required: false
+          type: array
+          items:
+            type: string
+            format: uuid
+          collectionFormat: csv
+      responses:
+        200:
+          description: List of payment defaults
+          schema:
+            $ref: "#/definitions/PaymentDefaultsListResponse"
+
+  /paymentdefaults/{id}:
+    get:
+      summary: Fetch payment defaults
+      tags:
+        - PaymentDefaults
+      parameters:
+        - name: id
+          in: path
+          description: Payment defaults Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Payment default details
+          schema:
+            $ref: "#/definitions/PaymentDefaultsResponse"
+
+    patch:
+      summary: Update payment defaults
+      tags:
+       - PaymentDefaults
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Payment defaults Id
+          required: true
+          type: string
+          format: uuid
+        - name: Defaults update request
+          in: body
+          schema:
+            $ref: "#/definitions/PaymentDefaultsAmendment"
+      responses:
+        200:
+          description: Defaults update response
+          schema:
+            $ref: "#/definitions/PaymentDefaultsResponse"
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/ApiError"
+
+    delete:
+      summary: Delete payment defaults
+      tags:
+        - PaymentDefaults
+      parameters:
+        - name: id
+          in: path
+          description: Limit Id
+          required: true
+          type: string
+          format: uuid
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+      responses:
+        204:
+          description: Payment defaults deleted
 #paymentapi - end
 
 definitions:
@@ -4813,5 +4936,60 @@ definitions:
       data:
         $ref: '#/definitions/Limit'
 
+
+  PaymentDefaultsCreate:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/PaymentDefaults'
+
+  PaymentDefaultsCreateResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/PaymentDefaults'
+
+  PaymentDefaultsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/PaymentDefaults'
+
+  PaymentDefaultsAmendment:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/PaymentDefaults'
+
+  PaymentDefaultsListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/PaymentDefaults'
+      links:
+        $ref: '#/definitions/Links'
+      meta:
+        $ref: '#/definitions/RecordCount'
+
+
+  PaymentDefaults:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          default_payment_scheme:
+            type: string
 
 # paymentapi - end

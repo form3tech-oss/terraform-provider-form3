@@ -5,29 +5,31 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"log"
+	"net/http"
+	"net/http/httputil"
+
 	"github.com/ewilde/go-form3/client"
 	"github.com/go-openapi/runtime"
 	rc "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/logging"
-	"io/ioutil"
-	"log"
-	"net/http"
-	"net/http/httputil"
 )
 
 type AuthenticatedClient struct {
-	AccessToken        string
-	SecurityClient     *client.Form3CorelibDataStructures
-	NotificationClient *client.Form3CorelibDataStructures
-	Config             *client.TransportConfig
-	HttpClient         *http.Client
-	OrganisationId     string
-	OrganisationClient *client.Form3CorelibDataStructures
-	AssociationClient  *client.Form3CorelibDataStructures
-	AccountClient      *client.Form3CorelibDataStructures
-	LimitsClient       *client.Form3CorelibDataStructures
-	TransactionClient  *client.Form3CorelibDataStructures
+	AccessToken           string
+	SecurityClient        *client.Form3CorelibDataStructures
+	NotificationClient    *client.Form3CorelibDataStructures
+	Config                *client.TransportConfig
+	HttpClient            *http.Client
+	OrganisationId        string
+	OrganisationClient    *client.Form3CorelibDataStructures
+	AssociationClient     *client.Form3CorelibDataStructures
+	AccountClient         *client.Form3CorelibDataStructures
+	LimitsClient          *client.Form3CorelibDataStructures
+	PaymentdefaultsClient *client.Form3CorelibDataStructures
+	TransactionClient     *client.Form3CorelibDataStructures
 }
 
 type AuthenticatedClientCheckRedirect struct {
@@ -111,16 +113,21 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 	rt7 := rc.NewWithClient(config.Host, config.BasePath, config.Schemes, h)
 	transactionClient := client.New(rt7, strfmt.Default)
 
+	config.WithBasePath("/v1/organisation/units/")
+	rt8 := rc.NewWithClient(config.Host, config.BasePath, config.Schemes, h)
+	paymentdefaultsClient := client.New(rt8, strfmt.Default)
+
 	authClient = &AuthenticatedClient{
-		AssociationClient:  associationsClient,
-		SecurityClient:     securityClient,
-		NotificationClient: notificationClient,
-		OrganisationClient: organisationClient,
-		AccountClient:      accountClient,
-		LimitsClient:       limitsClient,
-		TransactionClient:  transactionClient,
-		HttpClient:         h,
-		Config:             config,
+		AssociationClient:     associationsClient,
+		SecurityClient:        securityClient,
+		NotificationClient:    notificationClient,
+		OrganisationClient:    organisationClient,
+		AccountClient:         accountClient,
+		LimitsClient:          limitsClient,
+		PaymentdefaultsClient: paymentdefaultsClient,
+		TransactionClient:     transactionClient,
+		HttpClient:            h,
+		Config:                config,
 	}
 
 	configureRuntime(rt1, authClient)
@@ -130,6 +137,7 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 	configureRuntime(rt5, authClient)
 	configureRuntime(rt6, authClient)
 	configureRuntime(rt7, authClient)
+	configureRuntime(rt8, authClient)
 
 	return authClient
 }

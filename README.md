@@ -17,7 +17,7 @@
 | TF_LOG               | "TRACE", "DEBUG", "INFO", "WARN", "ERROR"  |
 
 ## Example
-`make test FORM3_ACC=1 FORM3_CLIENT_ID=xxx FORM3_CLIENT_SECRET=xxx FORM3_HOST=api.whistle.env.form3.tech FORM3_ORGANISATION_ID=xxx`
+`make testacc FORM3_ACC=1 FORM3_CLIENT_ID=xxx FORM3_CLIENT_SECRET=xxx FORM3_HOST=api.whistle.env.form3.tech FORM3_ORGANISATION_ID=xxx`
 
 
 # Swagger
