@@ -22,7 +22,7 @@ type ApprovalRequestAttributes struct {
 	Action string `json:"action,omitempty"`
 
 	// action time
-	ActionTime strfmt.DateTime `json:"action_time,omitempty"`
+	ActionTime *strfmt.DateTime `json:"action_time,omitempty"`
 
 	// actioned by
 	ActionedBy strfmt.UUID `json:"actioned_by,omitempty"`

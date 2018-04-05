@@ -5,32 +5,40 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"log"
+	"net/http"
+	"net/http/httputil"
+
 	"github.com/ewilde/go-form3/client"
 	"github.com/go-openapi/runtime"
 	rc "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/logging"
-	"golang.org/x/net/context"
-	"io/ioutil"
-	"log"
-	"net/http"
-	"net/http/httputil"
 )
 
 type AuthenticatedClient struct {
-	AccessToken        string
-	SecurityClient     *client.Form3CorelibDataStructures
-	NotificationClient *client.Form3CorelibDataStructures
-	Config             *client.TransportConfig
-	HttpClient         *http.Client
-	OrganisationId     string
-	OrganisationClient *client.Form3CorelibDataStructures
-	AssociationClient  *client.Form3CorelibDataStructures
-	AccountClient      *client.Form3CorelibDataStructures
-	LimitsClient       *client.Form3CorelibDataStructures
+	AccessToken           string
+	SecurityClient        *client.Form3CorelibDataStructures
+	NotificationClient    *client.Form3CorelibDataStructures
+	Config                *client.TransportConfig
+	HttpClient            *http.Client
+	OrganisationId        string
+	OrganisationClient    *client.Form3CorelibDataStructures
+	AssociationClient     *client.Form3CorelibDataStructures
+	AccountClient         *client.Form3CorelibDataStructures
+	LimitsClient          *client.Form3CorelibDataStructures
+	PaymentdefaultsClient *client.Form3CorelibDataStructures
+	TransactionClient     *client.Form3CorelibDataStructures
 }
 
 type AuthenticatedClientCheckRedirect struct {
+}
+
+type roundTripperFunc func(*http.Request) (*http.Response, error)
+
+func (fn roundTripperFunc) RoundTrip(req *http.Request) (*http.Response, error) {
+	return fn(req)
 }
 
 func (r *AuthenticatedClientCheckRedirect) CheckRedirect(req *http.Request, via []*http.Request) error {
@@ -40,8 +48,40 @@ func (r *AuthenticatedClientCheckRedirect) CheckRedirect(req *http.Request, via 
 
 func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient {
 	a := &AuthenticatedClientCheckRedirect{}
+	var authClient *AuthenticatedClient
+
 	h := &http.Client{
-		Transport:     http.DefaultTransport,
+		Transport: roundTripperFunc(func(req *http.Request) (*http.Response, error) {
+			if len(authClient.AccessToken) > 0 {
+				req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", authClient.AccessToken))
+			}
+
+			if logging.IsDebugOrHigher() {
+				dump, errDump := httputil.DumpRequestOut(req, true)
+				if errDump != nil {
+					log.Fatal(errDump)
+				}
+
+				log.Printf("[DEBUG] %s %s", req.URL.String(), string(dump))
+			}
+
+			resp, err := http.DefaultTransport.RoundTrip(req)
+
+			if err != nil {
+				return nil, err
+			}
+
+			if logging.IsDebugOrHigher() {
+				dump, errDump := httputil.DumpResponse(resp, true)
+				if errDump != nil {
+					log.Fatal(errDump)
+				}
+
+				log.Printf("[DEBUG] %s %s", req.URL.String(), string(dump))
+			}
+
+			return resp, err
+		}),
 		CheckRedirect: a.CheckRedirect,
 	}
 
@@ -67,17 +107,27 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 
 	config.WithBasePath("/v1/organisation/units/")
 	rt6 := rc.NewWithClient(config.Host, config.BasePath, config.Schemes, h)
-	LimitsClient := client.New(rt6, strfmt.Default)
+	limitsClient := client.New(rt6, strfmt.Default)
 
-	authClient := &AuthenticatedClient{
-		AssociationClient:  associationsClient,
-		SecurityClient:     securityClient,
-		NotificationClient: notificationClient,
-		OrganisationClient: organisationClient,
-		AccountClient:      accountClient,
-		LimitsClient:       LimitsClient,
-		HttpClient:         h,
-		Config:             config,
+	config.WithBasePath("/v1/transaction")
+	rt7 := rc.NewWithClient(config.Host, config.BasePath, config.Schemes, h)
+	transactionClient := client.New(rt7, strfmt.Default)
+
+	config.WithBasePath("/v1/organisation/units/")
+	rt8 := rc.NewWithClient(config.Host, config.BasePath, config.Schemes, h)
+	paymentdefaultsClient := client.New(rt8, strfmt.Default)
+
+	authClient = &AuthenticatedClient{
+		AssociationClient:     associationsClient,
+		SecurityClient:        securityClient,
+		NotificationClient:    notificationClient,
+		OrganisationClient:    organisationClient,
+		AccountClient:         accountClient,
+		LimitsClient:          limitsClient,
+		PaymentdefaultsClient: paymentdefaultsClient,
+		TransactionClient:     transactionClient,
+		HttpClient:            h,
+		Config:                config,
 	}
 
 	configureRuntime(rt1, authClient)
@@ -86,13 +136,14 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 	configureRuntime(rt4, authClient)
 	configureRuntime(rt5, authClient)
 	configureRuntime(rt6, authClient)
+	configureRuntime(rt7, authClient)
+	configureRuntime(rt8, authClient)
 
 	return authClient
 }
 func configureRuntime(rt *rc.Runtime, authClient *AuthenticatedClient) {
 	rt.Consumers["application/vnd.api+json;charset=UTF-8"] = runtime.JSONConsumer()
 	rt.Consumers["application/vnd.api+json"] = runtime.JSONConsumer()
-	rt.Do = authClient.Do
 }
 
 func (r *AuthenticatedClient) Authenticate(clientId string, clientSecret string) error {
@@ -142,48 +193,6 @@ func (r *AuthenticatedClient) Authenticate(clientId string, clientSecret string)
 
 	r.AccessToken = loginResponse.AccessToken
 	return nil
-}
-
-func (r *AuthenticatedClient) Do(ctx context.Context, client *http.Client, req *http.Request) (*http.Response, error) {
-	if client == nil {
-		client = r.HttpClient
-	}
-
-	if len(r.AccessToken) > 0 {
-		req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", r.AccessToken))
-	}
-
-	if logging.IsDebugOrHigher() {
-		dump, errDump := httputil.DumpRequestOut(req, true)
-		if errDump != nil {
-			log.Fatal(errDump)
-		}
-
-		log.Printf("[DEBUG] %s %s", req.URL.String(), string(dump))
-	}
-
-	resp, err := client.Do(req.WithContext(ctx))
-	// If we got an error, and the context has been canceled,
-	// the context's error is probably more useful.
-	if err != nil {
-		select {
-		case <-ctx.Done():
-			err = ctx.Err()
-		default:
-		}
-		return nil, err
-	}
-
-	if logging.IsDebugOrHigher() {
-		dump, errDump := httputil.DumpResponse(resp, true)
-		if errDump != nil {
-			log.Fatal(errDump)
-		}
-
-		log.Printf("[DEBUG] %s %s", req.URL.String(), string(dump))
-	}
-
-	return resp, err
 }
 
 func getLoginResponse(body []byte) (*LoginResponse, error) {

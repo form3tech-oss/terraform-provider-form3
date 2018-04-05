@@ -6,9 +6,19 @@
 * `make build`
 
 ## Running tests
-To run the integration test you need to export 3 environment variables
-`env FORM3_CLIENT_ID=xxx FORM3_CLIENT_SECRET=xxx FORM3_HOST=api.tabla.env.form3.tech FORM3_ORGANISATION_ID=xxx make`
+# Tests
+
+| Environment variables| Description                                |
+|:---------------------|:-------------------------------------------|
+| FORM3_HOST           | Form 3 host e.g. api.form3.tech            |
+| FORM3_ACC            | Set to `1` to run integration tests        |
+| FORM3_CLIENT_ID      | Client id                                  |
+| FORM3_CLIENT_SECRET  | Secret                                     |
+| TF_LOG               | "TRACE", "DEBUG", "INFO", "WARN", "ERROR"  |
+
+## Example
+`make testacc FORM3_ACC=1 FORM3_CLIENT_ID=xxx FORM3_CLIENT_SECRET=xxx FORM3_HOST=api.whistle.env.form3.tech FORM3_ORGANISATION_ID=xxx`
 
 
 # Swagger
-To generate the swagger model run: `go-swagger generate client -f ./swagger.yaml`
+To generate the swagger model run: `swagger generate client -f ./swagger.yaml`
