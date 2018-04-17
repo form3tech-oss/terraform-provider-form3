@@ -124,31 +124,3 @@ func TestAccDeleteBics(t *testing.T) {
 
 	assertStatusCode(err, t, 404)
 }
-
-func TestAccDeleteAccountConfigurations(t *testing.T) {
-
-	createResponse, err := auth.AccountClient.Accounts.PostAccountconfigurations(accounts.NewPostAccountconfigurationsParams().
-		WithAccountConfigurationCreationRequest(&models.AccountConfigurationCreation{
-			Data: &models.AccountConfiguration{
-				OrganisationID: testOrganisationId,
-				Type:           "accountconfigurations",
-				ID:             strfmt.UUID("a883905a-da5d-4694-8d81-aada675be6a4"),
-				Attributes: &models.AccountConfigurationAttributes{
-					AccountGenerationEnabled: true,
-				},
-			},
-		}))
-
-	assertNoErrorOccurred(err, t)
-
-	_, err = auth.AccountClient.Accounts.DeleteAccountconfigurationsID(accounts.NewDeleteAccountconfigurationsIDParams().
-		WithID(createResponse.Payload.Data.ID),
-	)
-
-	assertNoErrorOccurred(err, t)
-
-	_, err = auth.AccountClient.Accounts.GetAccountconfigurationsID(accounts.NewGetAccountconfigurationsIDParams().
-		WithID(createResponse.Payload.Data.ID))
-
-	assertStatusCode(err, t, 404)
-}

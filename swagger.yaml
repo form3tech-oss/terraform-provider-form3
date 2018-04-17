@@ -1273,6 +1273,30 @@ paths:
       responses:
         204:
           description: AccountConfiguration deleted
+
+    patch:
+      summary: Amend config
+      tags:
+        - Accounts
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Configuration Id
+          required: true
+          type: string
+          format: uuid
+        - name: config amend request
+          in: body
+          schema:
+            $ref: "#/definitions/ConfigurationAmendment"
+      responses:
+        200:
+          description: Configuration updated
+          schema:
+            $ref: "#/definitions/AccountConfigurationDetailsResponse"
 #account api -end
 
   /limits:
@@ -3287,7 +3311,7 @@ definitions:
     properties:
       type:
         type: string
-        pattern: ^[A-Za-z]*$
+        pattern: ^account_configurations$
       id:
         type: string
         format: uuid
@@ -3305,6 +3329,28 @@ definitions:
     properties:
       account_generation_enabled:
         type: boolean
+      account_generation_configuration:
+        type: array
+        items:
+          type: object
+          $ref: "#/definitions/AccountGenerationConfiguration"
+
+  AccountGenerationConfiguration:
+    type: object
+    properties:
+      country:
+        type: string
+      valid_account_ranges:
+        type: array
+        items:
+          type: object
+          properties:
+            minimum:
+              type: integer
+              format: int64
+            maximum:
+              type: integer
+              format: int64
 
   AccountConfigurationCreation:
     type: object
@@ -3337,6 +3383,12 @@ definitions:
           $ref: '#/definitions/AccountConfiguration'
       links:
         $ref: '#/definitions/Links'
+
+  ConfigurationAmendment:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/AccountConfiguration'
 # account api - end
 
   PayportAssociation:
@@ -4899,43 +4951,6 @@ definitions:
 
   SettlementCycleCreationResponse:
     type: object
-
-  LimitCreation:
-    type: object
-    properties:
-      data:
-        $ref: '#/definitions/Limit'
-
-  LimitCreationResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/definitions/Limit'
-
-  LimitDetailsListResponse:
-    type: object
-    properties:
-      data:
-        type: array
-        items:
-          $ref: '#/definitions/Limit'
-      links:
-        $ref: '#/definitions/Links'
-      meta:
-        $ref: '#/definitions/RecordCount'
-
-  LimitDetailsResponse:
-    type: object
-    properties:
-      data:
-        $ref: '#/definitions/Limit'
-
-  LimitAmendment:
-    type: object
-    properties:
-      data:
-        $ref: '#/definitions/Limit'
-
 
   PaymentDefaultsCreate:
     type: object
