@@ -27,7 +27,7 @@ type AccountConfiguration struct {
 	OrganisationID strfmt.UUID `json:"organisation_id,omitempty"`
 
 	// type
-	// Pattern: ^[A-Za-z]*$
+	// Pattern: ^account_configurations$
 	Type string `json:"type,omitempty"`
 
 	// version
@@ -85,7 +85,7 @@ func (m *AccountConfiguration) validateType(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := validate.Pattern("type", "body", string(m.Type), `^[A-Za-z]*$`); err != nil {
+	if err := validate.Pattern("type", "body", string(m.Type), `^account_configurations$`); err != nil {
 		return err
 	}
 

@@ -12,7 +12,7 @@ import (
 	"testing"
 )
 
-func TestAccAccountConfiguration_basic(t *testing.T) {
+func TestAccAccountConfigurationBasic(t *testing.T) {
 	var accountResponse accounts.GetAccountconfigurationsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.NewV4().String()
@@ -35,7 +35,7 @@ func TestAccAccountConfiguration_basic(t *testing.T) {
 	})
 }
 
-func TestAccAccountConfigurationimportBasic(t *testing.T) {
+func TestAccAccountConfigurationImportBasic(t *testing.T) {
 
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.NewV4().String()
@@ -58,6 +58,10 @@ func TestAccAccountConfigurationimportBasic(t *testing.T) {
 			},
 		},
 	})
+}
+
+func TestAccAccountConfigurationUpdate(t *testing.T) {
+
 }
 
 func testAccCheckAccountConfigurationDestroy(state *terraform.State) error {

@@ -16,6 +16,9 @@ import (
 // swagger:model AccountConfigurationAttributes
 type AccountConfigurationAttributes struct {
 
+	// account generation configuration
+	AccountGenerationConfiguration AccountConfigurationAttributesAccountGenerationConfiguration `json:"account_generation_configuration"`
+
 	// account generation enabled
 	AccountGenerationEnabled bool `json:"account_generation_enabled,omitempty"`
 }

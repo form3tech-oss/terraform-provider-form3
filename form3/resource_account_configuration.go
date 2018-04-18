@@ -120,6 +120,10 @@ func resourceAccountConfigurationDelete(d *schema.ResourceData, meta interface{}
 	return nil
 }
 
+func resourceAccountConfigurationUpdate() {
+
+}
+
 func createAccountConfigurationFromResourceDataWithVersion(d *schema.ResourceData, client *form3.AuthenticatedClient) (*models.AccountConfiguration, error) {
 	configuration, err := createAccountConfigurationFromResourceData(d)
 	version, err := getAccountConfigurationVersion(client, configuration.ID)
@@ -135,7 +139,7 @@ func createAccountConfigurationFromResourceDataWithVersion(d *schema.ResourceDat
 func createAccountConfigurationFromResourceData(d *schema.ResourceData) (*models.AccountConfiguration, error) {
 
 	configuration := models.AccountConfiguration{Attributes: &models.AccountConfigurationAttributes{}}
-	configuration.Type = "accountconfigurations"
+	configuration.Type = "account_configurations"
 	if attr, ok := GetUUIDOK(d, "account_configuration_id"); ok {
 		configuration.ID = attr
 	}
