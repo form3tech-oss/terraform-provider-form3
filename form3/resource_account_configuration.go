@@ -1,12 +1,14 @@
 package form3
 
 import (
+	"bytes"
 	"fmt"
 	"github.com/ewilde/go-form3"
 	"github.com/ewilde/go-form3/client/accounts"
 	"github.com/ewilde/go-form3/models"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+	"github.com/hashicorp/terraform/helper/hashcode"
 	"github.com/hashicorp/terraform/helper/schema"
 	"log"
 )
@@ -47,7 +49,7 @@ func resourceForm3AccountConfiguration() *schema.Resource {
 							Required: true,
 						},
 						"valid_account_ranges": {
-							Type:     schema.TypeList,
+							Type:     schema.TypeSet,
 							Required: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
@@ -132,7 +134,7 @@ func resourceAccountConfigurationRead(d *schema.ResourceData, meta interface{}) 
 	for _, element := range configuration.Payload.Data.Attributes.AccountGenerationConfiguration {
 		accountGenerationConfigurations = append(accountGenerationConfigurations, map[string]interface{}{
 			"country":              element.Country,
-			"valid_account_ranges": element.ValidAccountRanges,
+			"valid_account_ranges": flattenValidAccountRanges(element.ValidAccountRanges),
 		})
 	}
 
@@ -141,6 +143,35 @@ func resourceAccountConfigurationRead(d *schema.ResourceData, meta interface{}) 
 	}
 
 	return nil
+}
+
+func flattenValidAccountRanges(validAccountRanges models.AccountGenerationConfigurationValidAccountRanges) *schema.Set {
+	validAccountRangesSet := schema.NewSet(validAccountRangeHash, []interface{}{})
+
+	if validAccountRanges == nil {
+		return validAccountRangesSet
+	}
+
+	for _, value := range validAccountRanges {
+		validAccountRangesSet.Add(flattenValidAccountRange(value))
+	}
+	return validAccountRangesSet
+}
+
+func validAccountRangeHash(v interface{}) int {
+	var buf bytes.Buffer
+	m := v.(map[string]int64)
+	buf.WriteString(fmt.Sprintf("%d", m["minimum"]))
+	buf.WriteString(fmt.Sprintf("%d", m["maximum"]))
+	return hashcode.String(buf.String())
+}
+
+func flattenValidAccountRange(value *models.AccountGenerationConfigurationValidAccountRangesItems) map[string]int64 {
+	m := map[string]int64{}
+	m["minimum"] = value.Minimum
+	m["maximum"] = value.Maximum
+
+	return m
 }
 
 func resourceAccountConfigurationDelete(d *schema.ResourceData, meta interface{}) error {
@@ -198,17 +229,28 @@ func createAccountConfigurationFromResourceData(d *schema.ResourceData) (*models
 	}
 
 	if attr, ok := d.GetOk("account_generation_configuration"); ok {
-		accountConfigurationList := attr.([]interface{})
-		//accountConfigurations := accountConfigurationSet[0].(map[string]interface{})
+		accountConfigurationArray := attr.([]interface{})
 
 		accountConfigs := models.AccountConfigurationAttributesAccountGenerationConfiguration{}
 
-		for _, element := range accountConfigurationList {
-			country := element.(map[string]interface{})["country"].(string)
-			//validRanges := element.(map[string]interface{})["valid_account_ranges"].(*schema.Set).List()
+		for _, accountConfigElement := range accountConfigurationArray {
+			country := accountConfigElement.(map[string]interface{})["country"].(string)
+
+			validAccountRangesSet := accountConfigElement.(map[string]interface{})["valid_account_ranges"].(*schema.Set).List()
+
+			validAccountRanges := models.AccountGenerationConfigurationValidAccountRanges{}
+
+			for _, accountRangeElement := range validAccountRangesSet {
+				validAccountRange := models.AccountGenerationConfigurationValidAccountRangesItems{
+					Minimum: int64(accountRangeElement.(map[string]interface{})["minimum"].(int)),
+					Maximum: int64(accountRangeElement.(map[string]interface{})["maximum"].(int)),
+				}
+				validAccountRanges = append(validAccountRanges, &validAccountRange)
+			}
 
 			accountConfig := models.AccountGenerationConfiguration{
-				Country: country,
+				Country:            country,
+				ValidAccountRanges: validAccountRanges,
 			}
 
 			accountConfigs = append(accountConfigs, &accountConfig)

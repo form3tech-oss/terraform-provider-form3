@@ -136,10 +136,10 @@ resource "form3_account_configuration" "configuration" {
         {
             country               = "US"
             valid_account_ranges  = [
-                //{
-                //    minimum = "8400000000"
-                //    maximum = "8409999999"
-                //}
+                {
+                   minimum = "8400000000"
+                   maximum = "8409999999"
+                }
             ]
         }
     ]
