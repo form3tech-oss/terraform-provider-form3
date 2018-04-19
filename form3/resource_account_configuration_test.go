@@ -60,9 +60,16 @@ func TestAccAccountConfigurationImportBasic(t *testing.T) {
 	})
 }
 
-func TestAccAccountConfigurationUpdate(t *testing.T) {
-
-}
+//func TestAccAccountConfigurationUpdate(t *testing.T) {
+//
+//	resource.Test(t, resource.TestCase{
+//		PreCheck:     func() { testAccPreCheck(t) },
+//		Providers:    testAccProviders,
+//		CheckDestroy: testAccCheckAccountConfigurationDestroy,
+//		Steps:        []resource.TestStep{},
+//	})
+//
+//}
 
 func testAccCheckAccountConfigurationDestroy(state *terraform.State) error {
 	client := testAccProvider.Meta().(*form3.AuthenticatedClient)
@@ -125,5 +132,15 @@ resource "form3_account_configuration" "configuration" {
 	organisation_id            = "${form3_organisation.organisation.organisation_id}"
 	account_configuration_id   = "%s"
 	account_generation_enabled = true
-   
+  account_generation_configuration = [
+        {
+            country               = "US"
+            valid_account_ranges  = [
+                //{
+                //    minimum = "8400000000"
+                //    maximum = "8409999999"
+                //}
+            ]
+        }
+    ]
 }`

@@ -16,6 +16,7 @@ func resourceForm3AccountConfiguration() *schema.Resource {
 		Create: resourceAccountConfigurationCreate,
 		Read:   resourceAccountConfigurationRead,
 		Delete: resourceAccountConfigurationDelete,
+		Update: resourceAccountConfigurationUpdate,
 		Importer: &schema.ResourceImporter{
 			State: schema.ImportStatePassthrough,
 		},
@@ -35,6 +36,34 @@ func resourceForm3AccountConfiguration() *schema.Resource {
 				Type:     schema.TypeBool,
 				Required: true,
 				ForceNew: true,
+			},
+			"account_generation_configuration": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"country": {
+							Type:     schema.TypeString,
+							Required: true,
+						},
+						"valid_account_ranges": {
+							Type:     schema.TypeList,
+							Required: true,
+							Elem: &schema.Resource{
+								Schema: map[string]*schema.Schema{
+									"minimum": {
+										Type:     schema.TypeInt,
+										Required: true,
+									},
+									"maximum": {
+										Type:     schema.TypeInt,
+										Required: true,
+									},
+								},
+							},
+						},
+					},
+				},
 			},
 		},
 	}
@@ -96,6 +125,21 @@ func resourceAccountConfigurationRead(d *schema.ResourceData, meta interface{}) 
 	d.Set("organisation_id", configuration.Payload.Data.OrganisationID.String())
 	d.Set("account_configuration_id", configuration.Payload.Data.ID.String())
 	d.Set("account_generation_enabled", configuration.Payload.Data.Attributes.AccountGenerationEnabled)
+
+	accountGenerationConfigurations :=
+		make([]interface{}, 0, len(configuration.Payload.Data.Attributes.AccountGenerationConfiguration))
+
+	for _, element := range configuration.Payload.Data.Attributes.AccountGenerationConfiguration {
+		accountGenerationConfigurations = append(accountGenerationConfigurations, map[string]interface{}{
+			"country":              element.Country,
+			"valid_account_ranges": element.ValidAccountRanges,
+		})
+	}
+
+	if err := d.Set("account_generation_configuration", accountGenerationConfigurations); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -120,8 +164,9 @@ func resourceAccountConfigurationDelete(d *schema.ResourceData, meta interface{}
 	return nil
 }
 
-func resourceAccountConfigurationUpdate() {
+func resourceAccountConfigurationUpdate(d *schema.ResourceData, meta interface{}) error {
 
+	return nil
 }
 
 func createAccountConfigurationFromResourceDataWithVersion(d *schema.ResourceData, client *form3.AuthenticatedClient) (*models.AccountConfiguration, error) {
@@ -150,6 +195,26 @@ func createAccountConfigurationFromResourceData(d *schema.ResourceData) (*models
 
 	if attr, ok := d.GetOk("account_generation_enabled"); ok {
 		configuration.Attributes.AccountGenerationEnabled = attr.(bool)
+	}
+
+	if attr, ok := d.GetOk("account_generation_configuration"); ok {
+		accountConfigurationList := attr.([]interface{})
+		//accountConfigurations := accountConfigurationSet[0].(map[string]interface{})
+
+		accountConfigs := models.AccountConfigurationAttributesAccountGenerationConfiguration{}
+
+		for _, element := range accountConfigurationList {
+			country := element.(map[string]interface{})["country"].(string)
+			//validRanges := element.(map[string]interface{})["valid_account_ranges"].(*schema.Set).List()
+
+			accountConfig := models.AccountGenerationConfiguration{
+				Country: country,
+			}
+
+			accountConfigs = append(accountConfigs, &accountConfig)
+		}
+
+		configuration.Attributes.AccountGenerationConfiguration = accountConfigs
 	}
 	return &configuration, nil
 }
