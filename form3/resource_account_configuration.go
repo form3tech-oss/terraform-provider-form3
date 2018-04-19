@@ -145,35 +145,6 @@ func resourceAccountConfigurationRead(d *schema.ResourceData, meta interface{}) 
 	return nil
 }
 
-func flattenValidAccountRanges(validAccountRanges models.AccountGenerationConfigurationValidAccountRanges) *schema.Set {
-	validAccountRangesSet := schema.NewSet(validAccountRangeHash, []interface{}{})
-
-	if validAccountRanges == nil {
-		return validAccountRangesSet
-	}
-
-	for _, value := range validAccountRanges {
-		validAccountRangesSet.Add(flattenValidAccountRange(value))
-	}
-	return validAccountRangesSet
-}
-
-func validAccountRangeHash(v interface{}) int {
-	var buf bytes.Buffer
-	m := v.(map[string]int64)
-	buf.WriteString(fmt.Sprintf("%d", m["minimum"]))
-	buf.WriteString(fmt.Sprintf("%d", m["maximum"]))
-	return hashcode.String(buf.String())
-}
-
-func flattenValidAccountRange(value *models.AccountGenerationConfigurationValidAccountRangesItems) map[string]int64 {
-	m := map[string]int64{}
-	m["minimum"] = value.Minimum
-	m["maximum"] = value.Maximum
-
-	return m
-}
-
 func resourceAccountConfigurationDelete(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
 
@@ -196,6 +167,27 @@ func resourceAccountConfigurationDelete(d *schema.ResourceData, meta interface{}
 }
 
 func resourceAccountConfigurationUpdate(d *schema.ResourceData, meta interface{}) error {
+	client := meta.(*form3.AuthenticatedClient)
+
+	id := d.Get("account_configuration_id").(string)
+	log.Printf("[INFO] Updating account configuration with id: %s", id)
+
+	configuration, err := createAccountConfigurationFromResourceData(d)
+	if err != nil {
+		return fmt.Errorf("failed to update account configuration: %s", err)
+	}
+
+	updatedConfiguration, err := client.AccountClient.Accounts.PatchAccountconfigurationsID(accounts.NewPatchAccountconfigurationsIDParams().
+		WithConfigAmendRequest(&models.ConfigurationAmendment{
+			Data: configuration,
+		}))
+
+	if err != nil {
+		return fmt.Errorf("failed to update account configuration: %s", err)
+	}
+
+	d.SetId(updatedConfiguration.Payload.Data.ID.String())
+	log.Printf("[INFO] configuration key: %s", d.Id())
 
 	return nil
 }
@@ -270,4 +262,33 @@ func getAccountConfigurationVersion(client *form3.AuthenticatedClient, configura
 	}
 
 	return *configuration.Payload.Data.Version, nil
+}
+
+func flattenValidAccountRanges(validAccountRanges models.AccountGenerationConfigurationValidAccountRanges) *schema.Set {
+	validAccountRangesSet := schema.NewSet(validAccountRangeHash, []interface{}{})
+
+	if validAccountRanges == nil {
+		return validAccountRangesSet
+	}
+
+	for _, value := range validAccountRanges {
+		validAccountRangesSet.Add(flattenValidAccountRange(value))
+	}
+	return validAccountRangesSet
+}
+
+func validAccountRangeHash(v interface{}) int {
+	var buf bytes.Buffer
+	m := v.(map[string]int64)
+	buf.WriteString(fmt.Sprintf("%d", m["minimum"]))
+	buf.WriteString(fmt.Sprintf("%d", m["maximum"]))
+	return hashcode.String(buf.String())
+}
+
+func flattenValidAccountRange(value *models.AccountGenerationConfigurationValidAccountRangesItems) map[string]int64 {
+	m := map[string]int64{}
+	m["minimum"] = value.Minimum
+	m["maximum"] = value.Maximum
+
+	return m
 }

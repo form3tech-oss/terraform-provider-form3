@@ -60,17 +60,6 @@ func TestAccAccountConfigurationImportBasic(t *testing.T) {
 	})
 }
 
-//func TestAccAccountConfigurationUpdate(t *testing.T) {
-//
-//	resource.Test(t, resource.TestCase{
-//		PreCheck:     func() { testAccPreCheck(t) },
-//		Providers:    testAccProviders,
-//		CheckDestroy: testAccCheckAccountConfigurationDestroy,
-//		Steps:        []resource.TestStep{},
-//	})
-//
-//}
-
 func testAccCheckAccountConfigurationDestroy(state *terraform.State) error {
 	client := testAccProvider.Meta().(*form3.AuthenticatedClient)
 
