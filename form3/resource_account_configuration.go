@@ -168,16 +168,15 @@ func resourceAccountConfigurationDelete(d *schema.ResourceData, meta interface{}
 
 func resourceAccountConfigurationUpdate(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
-
-	id := d.Get("account_configuration_id").(string)
-	log.Printf("[INFO] Updating account configuration with id: %s", id)
-
 	configuration, err := createAccountConfigurationFromResourceData(d)
+
 	if err != nil {
 		return fmt.Errorf("failed to update account configuration: %s", err)
 	}
 
-	updatedConfiguration, err := client.AccountClient.Accounts.PatchAccountconfigurationsID(accounts.NewPatchAccountconfigurationsIDParams().
+	log.Printf("[INFO] Updating account configuration with id: %s", configuration.ID)
+	_, err = client.AccountClient.Accounts.PatchAccountconfigurationsID(accounts.NewPatchAccountconfigurationsIDParams().
+		WithID(configuration.ID).
 		WithConfigAmendRequest(&models.ConfigurationAmendment{
 			Data: configuration,
 		}))
@@ -185,9 +184,6 @@ func resourceAccountConfigurationUpdate(d *schema.ResourceData, meta interface{}
 	if err != nil {
 		return fmt.Errorf("failed to update account configuration: %s", err)
 	}
-
-	d.SetId(updatedConfiguration.Payload.Data.ID.String())
-	log.Printf("[INFO] configuration key: %s", d.Id())
 
 	return nil
 }
