@@ -361,6 +361,34 @@ func (a *Client) GetBicsID(params *GetBicsIDParams) (*GetBicsIDOK, error) {
 }
 
 /*
+PatchAccountconfigurationsID amends config
+*/
+func (a *Client) PatchAccountconfigurationsID(params *PatchAccountconfigurationsIDParams) (*PatchAccountconfigurationsIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPatchAccountconfigurationsIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PatchAccountconfigurationsID",
+		Method:             "PATCH",
+		PathPattern:        "/accountconfigurations/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PatchAccountconfigurationsIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PatchAccountconfigurationsIDOK), nil
+
+}
+
+/*
 PostAccountconfigurations creates configuration
 */
 func (a *Client) PostAccountconfigurations(params *PostAccountconfigurationsParams) (*PostAccountconfigurationsCreated, error) {

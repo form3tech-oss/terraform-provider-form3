@@ -12,7 +12,7 @@ import (
 	"testing"
 )
 
-func TestAccAccountConfiguration_basic(t *testing.T) {
+func TestAccAccountConfigurationBasic(t *testing.T) {
 	var accountResponse accounts.GetAccountconfigurationsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.NewV4().String()
@@ -29,13 +29,23 @@ func TestAccAccountConfiguration_basic(t *testing.T) {
 					testAccCheckAccountConfigurationExists("form3_account_configuration.configuration", &accountResponse),
 					resource.TestCheckResourceAttr(
 						"form3_account_configuration.configuration", "account_generation_enabled", "true"),
+					resource.TestCheckResourceAttr(
+						"form3_account_configuration.configuration", "account_generation_configuration.#", "1"),
+					resource.TestCheckResourceAttr(
+						"form3_account_configuration.configuration", "account_generation_configuration.0.country", "US"),
+					resource.TestCheckResourceAttr(
+						"form3_account_configuration.configuration", "account_generation_configuration.0.valid_account_ranges.#", "1"),
+					resource.TestCheckResourceAttr(
+						"form3_account_configuration.configuration", "account_generation_configuration.0.valid_account_ranges.3684339938.maximum", "8409999999"),
+					resource.TestCheckResourceAttr(
+						"form3_account_configuration.configuration", "account_generation_configuration.0.valid_account_ranges.3684339938.minimum", "8400000000"),
 				),
 			},
 		},
 	})
 }
 
-func TestAccAccountConfigurationimportBasic(t *testing.T) {
+func TestAccAccountConfigurationImportBasic(t *testing.T) {
 
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.NewV4().String()
@@ -121,5 +131,15 @@ resource "form3_account_configuration" "configuration" {
 	organisation_id            = "${form3_organisation.organisation.organisation_id}"
 	account_configuration_id   = "%s"
 	account_generation_enabled = true
-   
+  account_generation_configuration = [
+        {
+            country               = "US"
+            valid_account_ranges  = [
+                {
+                   minimum = "8400000000"
+                   maximum = "8409999999"
+                }
+            ]
+        }
+    ]
 }`

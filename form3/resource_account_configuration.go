@@ -1,12 +1,14 @@
 package form3
 
 import (
+	"bytes"
 	"fmt"
 	"github.com/ewilde/go-form3"
 	"github.com/ewilde/go-form3/client/accounts"
 	"github.com/ewilde/go-form3/models"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+	"github.com/hashicorp/terraform/helper/hashcode"
 	"github.com/hashicorp/terraform/helper/schema"
 	"log"
 )
@@ -16,6 +18,7 @@ func resourceForm3AccountConfiguration() *schema.Resource {
 		Create: resourceAccountConfigurationCreate,
 		Read:   resourceAccountConfigurationRead,
 		Delete: resourceAccountConfigurationDelete,
+		Update: resourceAccountConfigurationUpdate,
 		Importer: &schema.ResourceImporter{
 			State: schema.ImportStatePassthrough,
 		},
@@ -35,6 +38,34 @@ func resourceForm3AccountConfiguration() *schema.Resource {
 				Type:     schema.TypeBool,
 				Required: true,
 				ForceNew: true,
+			},
+			"account_generation_configuration": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"country": {
+							Type:     schema.TypeString,
+							Required: true,
+						},
+						"valid_account_ranges": {
+							Type:     schema.TypeSet,
+							Required: true,
+							Elem: &schema.Resource{
+								Schema: map[string]*schema.Schema{
+									"minimum": {
+										Type:     schema.TypeInt,
+										Required: true,
+									},
+									"maximum": {
+										Type:     schema.TypeInt,
+										Required: true,
+									},
+								},
+							},
+						},
+					},
+				},
 			},
 		},
 	}
@@ -96,6 +127,21 @@ func resourceAccountConfigurationRead(d *schema.ResourceData, meta interface{}) 
 	d.Set("organisation_id", configuration.Payload.Data.OrganisationID.String())
 	d.Set("account_configuration_id", configuration.Payload.Data.ID.String())
 	d.Set("account_generation_enabled", configuration.Payload.Data.Attributes.AccountGenerationEnabled)
+
+	accountGenerationConfigurations :=
+		make([]interface{}, 0, len(configuration.Payload.Data.Attributes.AccountGenerationConfiguration))
+
+	for _, element := range configuration.Payload.Data.Attributes.AccountGenerationConfiguration {
+		accountGenerationConfigurations = append(accountGenerationConfigurations, map[string]interface{}{
+			"country":              element.Country,
+			"valid_account_ranges": flattenValidAccountRanges(element.ValidAccountRanges),
+		})
+	}
+
+	if err := d.Set("account_generation_configuration", accountGenerationConfigurations); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -120,6 +166,32 @@ func resourceAccountConfigurationDelete(d *schema.ResourceData, meta interface{}
 	return nil
 }
 
+func resourceAccountConfigurationUpdate(d *schema.ResourceData, meta interface{}) error {
+	client := meta.(*form3.AuthenticatedClient)
+
+	id := d.Get("account_configuration_id").(string)
+	log.Printf("[INFO] Updating account configuration with id: %s", id)
+
+	configuration, err := createAccountConfigurationFromResourceData(d)
+	if err != nil {
+		return fmt.Errorf("failed to update account configuration: %s", err)
+	}
+
+	updatedConfiguration, err := client.AccountClient.Accounts.PatchAccountconfigurationsID(accounts.NewPatchAccountconfigurationsIDParams().
+		WithConfigAmendRequest(&models.ConfigurationAmendment{
+			Data: configuration,
+		}))
+
+	if err != nil {
+		return fmt.Errorf("failed to update account configuration: %s", err)
+	}
+
+	d.SetId(updatedConfiguration.Payload.Data.ID.String())
+	log.Printf("[INFO] configuration key: %s", d.Id())
+
+	return nil
+}
+
 func createAccountConfigurationFromResourceDataWithVersion(d *schema.ResourceData, client *form3.AuthenticatedClient) (*models.AccountConfiguration, error) {
 	configuration, err := createAccountConfigurationFromResourceData(d)
 	version, err := getAccountConfigurationVersion(client, configuration.ID)
@@ -135,7 +207,7 @@ func createAccountConfigurationFromResourceDataWithVersion(d *schema.ResourceDat
 func createAccountConfigurationFromResourceData(d *schema.ResourceData) (*models.AccountConfiguration, error) {
 
 	configuration := models.AccountConfiguration{Attributes: &models.AccountConfigurationAttributes{}}
-	configuration.Type = "accountconfigurations"
+	configuration.Type = "account_configurations"
 	if attr, ok := GetUUIDOK(d, "account_configuration_id"); ok {
 		configuration.ID = attr
 	}
@@ -146,6 +218,37 @@ func createAccountConfigurationFromResourceData(d *schema.ResourceData) (*models
 
 	if attr, ok := d.GetOk("account_generation_enabled"); ok {
 		configuration.Attributes.AccountGenerationEnabled = attr.(bool)
+	}
+
+	if attr, ok := d.GetOk("account_generation_configuration"); ok {
+		accountConfigurationArray := attr.([]interface{})
+
+		accountConfigs := models.AccountConfigurationAttributesAccountGenerationConfiguration{}
+
+		for _, accountConfigElement := range accountConfigurationArray {
+			country := accountConfigElement.(map[string]interface{})["country"].(string)
+
+			validAccountRangesSet := accountConfigElement.(map[string]interface{})["valid_account_ranges"].(*schema.Set).List()
+
+			validAccountRanges := models.AccountGenerationConfigurationValidAccountRanges{}
+
+			for _, accountRangeElement := range validAccountRangesSet {
+				validAccountRange := models.AccountGenerationConfigurationValidAccountRangesItems{
+					Minimum: int64(accountRangeElement.(map[string]interface{})["minimum"].(int)),
+					Maximum: int64(accountRangeElement.(map[string]interface{})["maximum"].(int)),
+				}
+				validAccountRanges = append(validAccountRanges, &validAccountRange)
+			}
+
+			accountConfig := models.AccountGenerationConfiguration{
+				Country:            country,
+				ValidAccountRanges: validAccountRanges,
+			}
+
+			accountConfigs = append(accountConfigs, &accountConfig)
+		}
+
+		configuration.Attributes.AccountGenerationConfiguration = accountConfigs
 	}
 	return &configuration, nil
 }
@@ -159,4 +262,33 @@ func getAccountConfigurationVersion(client *form3.AuthenticatedClient, configura
 	}
 
 	return *configuration.Payload.Data.Version, nil
+}
+
+func flattenValidAccountRanges(validAccountRanges models.AccountGenerationConfigurationValidAccountRanges) *schema.Set {
+	validAccountRangesSet := schema.NewSet(validAccountRangeHash, []interface{}{})
+
+	if validAccountRanges == nil {
+		return validAccountRangesSet
+	}
+
+	for _, value := range validAccountRanges {
+		validAccountRangesSet.Add(flattenValidAccountRange(value))
+	}
+	return validAccountRangesSet
+}
+
+func validAccountRangeHash(v interface{}) int {
+	var buf bytes.Buffer
+	m := v.(map[string]int64)
+	buf.WriteString(fmt.Sprintf("%d", m["minimum"]))
+	buf.WriteString(fmt.Sprintf("%d", m["maximum"]))
+	return hashcode.String(buf.String())
+}
+
+func flattenValidAccountRange(value *models.AccountGenerationConfigurationValidAccountRangesItems) map[string]int64 {
+	m := map[string]int64{}
+	m["minimum"] = value.Minimum
+	m["maximum"] = value.Maximum
+
+	return m
 }
