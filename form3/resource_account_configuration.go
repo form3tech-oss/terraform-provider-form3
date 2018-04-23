@@ -168,7 +168,7 @@ func resourceAccountConfigurationDelete(d *schema.ResourceData, meta interface{}
 
 func resourceAccountConfigurationUpdate(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
-	configuration, err := createAccountConfigurationFromResourceData(d)
+	configuration, err := createAccountConfigurationFromResourceDataWithVersion(d, client)
 
 	if err != nil {
 		return fmt.Errorf("failed to update account configuration: %s", err)

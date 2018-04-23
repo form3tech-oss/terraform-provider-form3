@@ -24,7 +24,7 @@ func TestAccAccountConfigurationBasic(t *testing.T) {
 		CheckDestroy: testAccCheckAccountConfigurationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3AccountConfigurationConfigA, organisationId, parentOrganisationId, accountConfigurationId),
+				Config: fmt.Sprintf(testForm3AccountConfigurationConfig, organisationId, parentOrganisationId, accountConfigurationId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckAccountConfigurationExists("form3_account_configuration.configuration", &accountResponse),
 					resource.TestCheckResourceAttr(
@@ -39,6 +39,32 @@ func TestAccAccountConfigurationBasic(t *testing.T) {
 						"form3_account_configuration.configuration", "account_generation_configuration.0.valid_account_ranges.3684339938.maximum", "8409999999"),
 					resource.TestCheckResourceAttr(
 						"form3_account_configuration.configuration", "account_generation_configuration.0.valid_account_ranges.3684339938.minimum", "8400000000"),
+				),
+			},
+			{
+				Config: fmt.Sprintf(testForm3AccountConfigurationConfigUpdated, organisationId, parentOrganisationId, accountConfigurationId),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckAccountConfigurationExists("form3_account_configuration.configuration", &accountResponse),
+					resource.TestCheckResourceAttr(
+						"form3_account_configuration.configuration", "account_generation_enabled", "true"),
+					resource.TestCheckResourceAttr(
+						"form3_account_configuration.configuration", "account_generation_configuration.#", "2"),
+					resource.TestCheckResourceAttr(
+						"form3_account_configuration.configuration", "account_generation_configuration.0.country", "US"),
+					resource.TestCheckResourceAttr(
+						"form3_account_configuration.configuration", "account_generation_configuration.0.valid_account_ranges.#", "1"),
+					resource.TestCheckResourceAttr(
+						"form3_account_configuration.configuration", "account_generation_configuration.0.valid_account_ranges.3874585650.maximum", "84099999"),
+					resource.TestCheckResourceAttr(
+						"form3_account_configuration.configuration", "account_generation_configuration.0.valid_account_ranges.3874585650.minimum", "84000000"),
+					resource.TestCheckResourceAttr(
+						"form3_account_configuration.configuration", "account_generation_configuration.1.country", "NL"),
+					resource.TestCheckResourceAttr(
+						"form3_account_configuration.configuration", "account_generation_configuration.1.valid_account_ranges.#", "1"),
+					resource.TestCheckResourceAttr(
+						"form3_account_configuration.configuration", "account_generation_configuration.1.valid_account_ranges.1611898932.maximum", "2005389080"),
+					resource.TestCheckResourceAttr(
+						"form3_account_configuration.configuration", "account_generation_configuration.1.valid_account_ranges.1611898932.minimum", "2005356441"),
 				),
 			},
 		},
@@ -57,11 +83,10 @@ func TestAccAccountConfigurationImportBasic(t *testing.T) {
 		Providers:    testAccProviders,
 		CheckDestroy: testAccCheckAccountConfigurationDestroy,
 		Steps: []resource.TestStep{
-			resource.TestStep{
-				Config: fmt.Sprintf(testForm3AccountConfigurationConfigA, organisationId, parentOrganisationId, accountConfigurationId),
+			{
+				Config: fmt.Sprintf(testForm3AccountConfigurationConfig, organisationId, parentOrganisationId, accountConfigurationId),
 			},
-
-			resource.TestStep{
+			{
 				ResourceName:      resourceName,
 				ImportState:       true,
 				ImportStateVerify: true,
@@ -120,7 +145,7 @@ func testAccCheckAccountConfigurationExists(resourceKey string, configuration *a
 	}
 }
 
-const testForm3AccountConfigurationConfigA = `
+const testForm3AccountConfigurationConfig = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
@@ -138,6 +163,39 @@ resource "form3_account_configuration" "configuration" {
                 {
                    minimum = "8400000000"
                    maximum = "8409999999"
+                }
+            ]
+        }
+    ]
+}`
+
+const testForm3AccountConfigurationConfigUpdated = `
+resource "form3_organisation" "organisation" {
+	organisation_id        = "%s"
+	parent_organisation_id = "%s"
+	name 		               = "terraform-organisation"
+}
+
+resource "form3_account_configuration" "configuration" {
+	organisation_id            = "${form3_organisation.organisation.organisation_id}"
+	account_configuration_id   = "%s"
+	account_generation_enabled = true
+  account_generation_configuration = [
+        {
+            country               = "US"
+            valid_account_ranges  = [
+                {
+                   minimum = "84000000"
+                   maximum = "84099999"
+                }
+            ]
+        },
+        {
+            country               = "NL"
+            valid_account_ranges  = [
+                {
+                   minimum = "2005356441"
+                   maximum = "2005389080"
                 }
             ]
         }
