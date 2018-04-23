@@ -50,6 +50,14 @@ func TestAccAccountConfigurationBasic(t *testing.T) {
 					resource.TestCheckResourceAttr(
 						"form3_account_configuration.configuration", "account_generation_configuration.#", "2"),
 					resource.TestCheckResourceAttr(
+						"form3_account_configuration.configuration", "account_generation_configuration.0.country", "US"),
+					resource.TestCheckResourceAttr(
+						"form3_account_configuration.configuration", "account_generation_configuration.0.valid_account_ranges.#", "1"),
+					resource.TestCheckResourceAttr(
+						"form3_account_configuration.configuration", "account_generation_configuration.0.valid_account_ranges.3874585650.maximum", "84099999"),
+					resource.TestCheckResourceAttr(
+						"form3_account_configuration.configuration", "account_generation_configuration.0.valid_account_ranges.3874585650.minimum", "84000000"),
+					resource.TestCheckResourceAttr(
 						"form3_account_configuration.configuration", "account_generation_configuration.1.country", "NL"),
 					resource.TestCheckResourceAttr(
 						"form3_account_configuration.configuration", "account_generation_configuration.1.valid_account_ranges.#", "1"),
