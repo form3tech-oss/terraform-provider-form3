@@ -8,6 +8,8 @@ import (
 	"testing"
 )
 
+var accountConfigurationVersion = int64(0)
+
 func TestAccountConfigurationPost(t *testing.T) {
 	createResponse, err := createAccountConfiguration()
 
@@ -16,10 +18,14 @@ func TestAccountConfigurationPost(t *testing.T) {
 	err = getAccountConfiguration(err, createResponse.Payload.Data.ID)
 
 	assertNoErrorOccurred(err, t)
+
+	err = deleteAccountConfiguration(err, createResponse.Payload.Data.ID)
+
+	assertNoErrorOccurred(err, t)
 }
 
 func TestAccountConfigurationGetList(t *testing.T) {
-	_, err := createAccountConfiguration()
+	createResponse, err := createAccountConfiguration()
 
 	assertNoErrorOccurred(err, t)
 
@@ -30,6 +36,10 @@ func TestAccountConfigurationGetList(t *testing.T) {
 	if len(getAllResponse.Payload.Data) == 0 {
 		t.Error("expected at least one account configuration")
 	}
+
+	err = deleteAccountConfiguration(err, createResponse.Payload.Data.ID)
+
+	assertNoErrorOccurred(err, t)
 }
 
 func TestAccountConfigurationGetID(t *testing.T) {
@@ -38,6 +48,10 @@ func TestAccountConfigurationGetID(t *testing.T) {
 	assertNoErrorOccurred(err, t)
 
 	err = getAccountConfiguration(err, createResponse.Payload.Data.ID)
+
+	assertNoErrorOccurred(err, t)
+
+	err = deleteAccountConfiguration(err, createResponse.Payload.Data.ID)
 
 	assertNoErrorOccurred(err, t)
 }
@@ -64,7 +78,7 @@ func TestAccountConfigurationUpdate(t *testing.T) {
 			Data: &models.AccountConfiguration{
 				ID:             createResponse.Payload.Data.ID,
 				OrganisationID: organisationId,
-				Version:        &version,
+				Version:        &accountConfigurationVersion,
 				Attributes: &models.AccountConfigurationAttributes{
 					AccountGenerationConfiguration: models.AccountConfigurationAttributesAccountGenerationConfiguration{
 						existingAccountGenerationConfiguration,
@@ -83,6 +97,12 @@ func TestAccountConfigurationUpdate(t *testing.T) {
 	if len(getConfigurationResponse.Payload.Data.Attributes.AccountGenerationConfiguration) != 2 {
 		t.Error("expected to have two account generation configurations")
 	}
+
+	accountConfigurationVersion = *getConfigurationResponse.Payload.Data.Version
+
+	err = deleteAccountConfiguration(err, createResponse.Payload.Data.ID)
+
+	assertNoErrorOccurred(err, t)
 }
 
 func TestAccountConfigurationDelete(t *testing.T) {
@@ -107,7 +127,8 @@ func getAccountConfiguration(err error, accountConfigurationId strfmt.UUID) erro
 
 func deleteAccountConfiguration(err error, accountConfigurationId strfmt.UUID) error {
 	_, err = auth.AccountClient.Accounts.DeleteAccountconfigurationsID(accounts.NewDeleteAccountconfigurationsIDParams().
-		WithID(accountConfigurationId),
+		WithID(accountConfigurationId).
+		WithVersion(accountConfigurationVersion),
 	)
 	return err
 }
@@ -118,9 +139,9 @@ func createAccountConfiguration() (*accounts.PostAccountconfigurationsCreated, e
 	createResponse, err := auth.AccountClient.Accounts.PostAccountconfigurations(accounts.NewPostAccountconfigurationsParams().
 		WithAccountConfigurationCreationRequest(&models.AccountConfigurationCreation{
 			Data: &models.AccountConfiguration{
-				OrganisationID: organisationId,
+				OrganisationID: testOrganisationId,
 				Type:           "account_configurations",
-				Version:        &version,
+				Version:        &accountConfigurationVersion,
 				ID:             strfmt.UUID(newId.String()),
 				Attributes: &models.AccountConfigurationAttributes{
 					AccountGenerationEnabled: true,
@@ -129,8 +150,8 @@ func createAccountConfiguration() (*accounts.PostAccountconfigurationsCreated, e
 							Country: "US",
 							ValidAccountRanges: models.AccountGenerationConfigurationValidAccountRanges{
 								&models.AccountGenerationConfigurationValidAccountRangesItems{
-									Minimum: 8400000000,
-									Maximum: 8409999999,
+									Minimum: 84000000,
+									Maximum: 84099999,
 								},
 							},
 						},
