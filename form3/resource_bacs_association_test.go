@@ -26,9 +26,12 @@ func TestAccBacsAssociation_basic(t *testing.T) {
 				Config: fmt.Sprintf(testForm3BacsAssociationConfigA, organisationId, parentOrganisationId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBacsAssociationExists("form3_bacs_association.association", &bacsResponse),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "service_user_number", "112233"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "service_user_number", "112238"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "account_number", "12345678"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "sorting_code", "123456"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "account_type", "1"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "association_id", "810f71c0-408b-4d00-8c7b-7073166bacfb"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "association_id", "ad5e20e5-800d-4143-9936-ca1007da3a03"),
 				),
 			},
 		},
@@ -94,6 +97,9 @@ resource "form3_organisation" "organisation" {
 
 resource "form3_bacs_association" "association" {
 	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
-	association_id                   = "810f71c0-408b-4d00-8c7b-7073166bacfb"
-	service_user_number              = "112233"
+	association_id                   = "ad5e20e5-800d-4143-9936-ca1007da3a03"
+	service_user_number              = "112238",
+  account_number                   = "12345678",
+  sorting_code                     = "123456",
+  account_type                     = 1
 }`

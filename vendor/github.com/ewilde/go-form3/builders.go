@@ -29,6 +29,7 @@ func (b *PaymentBuilder) WithDefaults() *PaymentBuilder {
 					BankID:     "888888",
 					BankIDCode: "GBDSC",
 				},
+				Country: "GB",
 			},
 			Currency: "GBP",
 			DebtorParty: &models.PaymentAttributesDebtorParty{
@@ -38,6 +39,7 @@ func (b *PaymentBuilder) WithDefaults() *PaymentBuilder {
 					BankID:     "333333",
 					BankIDCode: "GBDSC",
 				},
+				Country: "GB",
 			},
 			EndToEndReference:   "00151519632ZCBBBJQ",
 			SchemeTransactionID: b.NewSchemeTransactionID(),

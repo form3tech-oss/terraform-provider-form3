@@ -33,6 +33,21 @@ func resourceForm3BacsAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
+			"account_number": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
+			"sorting_code": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
+			"account_type": {
+				Type:     schema.TypeInt,
+				Required: true,
+				ForceNew: true,
+			},
 		},
 	}
 }
@@ -40,8 +55,8 @@ func resourceForm3BacsAssociation() *schema.Resource {
 func resourceBacsAssociationCreate(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
 
-	serviceUserName := d.Get("service_user_number").(string)
-	log.Printf("[INFO] Creating Bacs association with service user number: %s", serviceUserName)
+	serviceUserNumber := d.Get("service_user_number").(string)
+	log.Printf("[INFO] Creating Bacs association with service user number: %s", serviceUserNumber)
 
 	association, err := createBacsNewAssociationFromResourceData(d)
 	if err != nil {
@@ -86,6 +101,9 @@ func resourceBacsAssociationRead(d *schema.ResourceData, meta interface{}) error
 
 	d.Set("association_id", bacsAssociation.Payload.Data.ID.String())
 	d.Set("service_user_number", bacsAssociation.Payload.Data.Attributes.ServiceUserNumber)
+	d.Set("account_number", bacsAssociation.Payload.Data.Attributes.AccountNumber)
+	d.Set("sorting_code", bacsAssociation.Payload.Data.Attributes.SortingCode)
+	d.Set("account_type", bacsAssociation.Payload.Data.Attributes.AccountType)
 	return nil
 }
 
@@ -137,6 +155,18 @@ func createBacsAssociationFromResourceData(d *schema.ResourceData) (*models.Bacs
 		association.Attributes.ServiceUserNumber = attr.(string)
 	}
 
+	if attr, ok := d.GetOk("account_number"); ok {
+		association.Attributes.AccountNumber = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("sorting_code"); ok {
+		association.Attributes.SortingCode = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("account_type"); ok {
+		association.Attributes.AccountType = int64(attr.(int))
+	}
+
 	return &association, nil
 }
 
@@ -154,6 +184,18 @@ func createBacsNewAssociationFromResourceData(d *schema.ResourceData) (*models.B
 
 	if attr, ok := d.GetOk("service_user_number"); ok {
 		association.Attributes.ServiceUserNumber = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("account_number"); ok {
+		association.Attributes.AccountNumber = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("sorting_code"); ok {
+		association.Attributes.SortingCode = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("account_type"); ok {
+		association.Attributes.AccountType = int64(attr.(int))
 	}
 
 	return &association, nil
