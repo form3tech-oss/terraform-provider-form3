@@ -12,6 +12,10 @@ import (
 func TestDeleteBacsAssociation(t *testing.T) {
 
 	serviceUserNumber := "123456"
+	accountNumber := "12345678"
+	sortingCode := "123456"
+	accountType := int64(1)
+
 	id, _ := uuid.NewV4()
 	createResponse, err := auth.AssociationClient.Associations.PostBacs(associations.NewPostBacsParams().
 		WithCreationRequest(&models.BacsAssociationCreation{
@@ -20,6 +24,9 @@ func TestDeleteBacsAssociation(t *testing.T) {
 				OrganisationID: strfmt.UUID(organisationId.String()),
 				Attributes: &models.BacsAssociationAttributes{
 					ServiceUserNumber: serviceUserNumber,
+					AccountNumber:     accountNumber,
+					SortingCode:       sortingCode,
+					AccountType:       accountType,
 				},
 			},
 		}))
@@ -49,6 +56,10 @@ func TestGetBacsForNonExistingAssociation(t *testing.T) {
 
 func TestGetBacsAssociation(t *testing.T) {
 	serviceUserNumber := "987892"
+	accountNumber := "12345678"
+	sortingCode := "123456"
+	accountType := int64(1)
+
 	id, _ := uuid.NewV4()
 	createResponse, err := auth.AssociationClient.Associations.PostBacs(associations.NewPostBacsParams().
 		WithCreationRequest(&models.BacsAssociationCreation{
@@ -57,6 +68,9 @@ func TestGetBacsAssociation(t *testing.T) {
 				OrganisationID: strfmt.UUID(organisationId.String()),
 				Attributes: &models.BacsAssociationAttributes{
 					ServiceUserNumber: serviceUserNumber,
+					AccountNumber:     accountNumber,
+					SortingCode:       sortingCode,
+					AccountType:       accountType,
 				},
 			},
 		}))
@@ -88,6 +102,10 @@ func TestGetBacsAssociation(t *testing.T) {
 
 func TestPostBacsAssociation(t *testing.T) {
 	serviceUserNumber := "987897"
+	accountNumber := "12345678"
+	sortingCode := "123456"
+	accountType := int64(1)
+
 	id, _ := uuid.NewV4()
 	createResponse, err := auth.AssociationClient.Associations.PostBacs(associations.NewPostBacsParams().
 		WithCreationRequest(&models.BacsAssociationCreation{
@@ -96,6 +114,9 @@ func TestPostBacsAssociation(t *testing.T) {
 				OrganisationID: strfmt.UUID(organisationId.String()),
 				Attributes: &models.BacsAssociationAttributes{
 					ServiceUserNumber: serviceUserNumber,
+					AccountNumber:     accountNumber,
+					SortingCode:       sortingCode,
+					AccountType:       accountType,
 				},
 			},
 		}))
@@ -122,6 +143,10 @@ func TestGetBacsAssociationList(t *testing.T) {
 	id, _ := uuid.NewV4()
 	organisationIdUUID := strfmt.UUID(organisationId.String())
 	serviceUserNumber := "123456"
+	accountNumber := "12345678"
+	sortingCode := "123456"
+	accountType := int64(1)
+
 	createResponse, err := auth.AssociationClient.Associations.PostBacs(associations.NewPostBacsParams().
 		WithCreationRequest(&models.BacsAssociationCreation{
 			Data: &models.BacsNewAssociation{
@@ -129,6 +154,9 @@ func TestGetBacsAssociationList(t *testing.T) {
 				OrganisationID: strfmt.UUID(organisationId.String()),
 				Attributes: &models.BacsAssociationAttributes{
 					ServiceUserNumber: serviceUserNumber,
+					AccountNumber:     accountNumber,
+					SortingCode:       sortingCode,
+					AccountType:       accountType,
 				},
 			},
 		}))
@@ -137,8 +165,6 @@ func TestGetBacsAssociationList(t *testing.T) {
 
 	getBacsResponse, err := auth.AssociationClient.Associations.GetBacs(associations.NewGetBacsParams().
 		WithFilterOrganisationID(&organisationIdUUID))
-
-	//getBacsResponse, err := auth.AssociationClient.Associations.GetBacs(associations.NewGetBacsParams())
 
 	fmt.Println(getBacsResponse)
 	assertNoErrorOccurred(err, t)

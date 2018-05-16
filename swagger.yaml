@@ -3571,6 +3571,15 @@ definitions:
     properties:
       service_user_number:
         type: string
+        pattern: ^[0-9A-Z]{6}$
+      account_number:
+        type: string
+        pattern: ^[0-9]{8}$
+      sorting_code:
+        type: string
+        pattern: ^[0-9]{6}$
+      account_type:
+        type: integer
 
   BacsAssociationCreation:
     type: object
