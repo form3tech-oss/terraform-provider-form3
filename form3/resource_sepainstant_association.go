@@ -93,7 +93,7 @@ func resourceSepaInstantAssociationDelete(d *schema.ResourceData, meta interface
 		return fmt.Errorf("error deleting sepa instant association: %s", err)
 	}
 
-	log.Printf("[INFO] Deleting sepa instant association for id: %s business user id: %s", sepaInstantAssociation.Payload.Data.ID, &sepaInstantAssociation.Payload.Data.Attributes.BusinessUserID)
+	log.Printf("[INFO] Deleting sepa instant association for id: %s business user id: %s", sepaInstantAssociation.Payload.Data.ID, sepaInstantAssociation.Payload.Data.Attributes.BusinessUserID)
 
 	_, err = client.AssociationClient.Associations.DeleteSepainstantID(associations.NewDeleteSepainstantIDParams().
 		WithID(sepaInstantAssociation.Payload.Data.ID).
