@@ -1502,6 +1502,90 @@ paths:
         204:
           description: Association deleted
 
+  /sepainstant:
+
+    post:
+      summary: Create organisation association for sepa instant
+      tags:
+       - Associations
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: creation request
+          in: body
+          schema:
+            $ref: "#/definitions/SepaInstantAssociationCreation"
+
+      responses:
+        201:
+          description: creation response
+          schema:
+            $ref: "#/definitions/SepaInstantAssociationCreationResponse"
+
+
+    get:
+      summary: List all organisation sepa instant associations
+      tags:
+        - Associations
+      parameters:
+        - name: filter[organisation_id]
+          in: query
+          description: Organisation id
+          required: false
+          type: array
+          items:
+            type: string
+            format: uuid
+
+      responses:
+        200:
+          description: List of associations
+          schema:
+            $ref: "#/definitions/SepaInstantAssociationDetailsListResponse"
+
+
+  /sepainstant/{id}:
+
+    get:
+      summary: Fetch organisation sepa instant association
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Associations details
+          schema:
+            $ref: "#/definitions/SepaInstantAssociationDetailsResponse"
+
+    delete:
+      summary: Delete organisation spea instant association
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+      responses:
+        204:
+          description: Association deleted
+
+
 #paymentapi - start
 
   /payments:
@@ -3610,6 +3694,78 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/BacsAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+  SepaInstantAssociation:
+    type: object
+    properties:
+      type:
+        type: string
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        $ref: "#/definitions/SepaInstantAssociationAttributes"
+
+  NewSepaInstantAssociation:
+    type: object
+    properties:
+      type:
+        type: string
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        $ref: "#/definitions/SepaInstantAssociationAttributes"
+
+  SepaInstantAssociationAttributes:
+    type: object
+    properties:
+      business_user_id:
+        type: string
+
+  SepaInstantAssociationCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/NewSepaInstantAssociation'
+
+  SepaInstantAssociationCreationResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/SepaInstantAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+  SepaInstantAssociationDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/SepaInstantAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+  SepaInstantAssociationDetailsListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/SepaInstantAssociation'
       links:
         $ref: '#/definitions/Links'
 
