@@ -53,6 +53,7 @@ func TestAccUser_importBasic(t *testing.T) {
 
 	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	userId := uuid.NewV4().String()
+	roleId := uuid.NewV4().String()
 
 	resourceName := "form3_user.user"
 
@@ -61,11 +62,10 @@ func TestAccUser_importBasic(t *testing.T) {
 		Providers:    testAccProviders,
 		CheckDestroy: testAccCheckUserDestroy,
 		Steps: []resource.TestStep{
-			resource.TestStep{
-				Config: fmt.Sprintf(testForm3UserConfigA, organisationId, userId),
+			{
+				Config: fmt.Sprintf(testForm3UserConfigA, organisationId, roleId, organisationId, userId),
 			},
-
-			resource.TestStep{
+			{
 				ResourceName:      resourceName,
 				ImportState:       true,
 				ImportStateVerify: true,
