@@ -16,6 +16,7 @@ func TestAccUser_basic(t *testing.T) {
 	var userResponse users.GetUsersUserIDOK
 	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	userId := uuid.NewV4().String()
+	roleId := uuid.NewV4().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -23,7 +24,7 @@ func TestAccUser_basic(t *testing.T) {
 		CheckDestroy: testAccCheckUserDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3UserConfigA, organisationId, userId),
+				Config: fmt.Sprintf(testForm3UserConfigA, organisationId, roleId, organisationId, userId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckUserExists("form3_user.user", &userResponse),
 					resource.TestCheckResourceAttr(
@@ -31,17 +32,17 @@ func TestAccUser_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(
 						"form3_user.user", "email", "terraform-user@form3.tech"),
 					resource.TestCheckResourceAttr(
-						"form3_user.user", "roles.0", "32881d6b-a000-4258-b779-56c59970590f"),
+						"form3_user.user", "roles.0", roleId),
 				),
 			},
 			{
-				Config: fmt.Sprintf(testForm3UserConfigAUpdate, organisationId, userId),
+				Config: fmt.Sprintf(testForm3UserConfigAUpdate, organisationId, roleId, organisationId, userId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckUserExists("form3_user.user", &userResponse),
 					resource.TestCheckResourceAttr(
 						"form3_user.user", "email", "dude@form3.tech"),
 					resource.TestCheckResourceAttr(
-						"form3_user.user", "roles.0", "ad538853-4db0-44e3-9369-17eaae4aa3b7"),
+						"form3_user.user", "roles.0", roleId),
 				),
 			},
 		},
@@ -122,19 +123,31 @@ func testAccCheckUserExists(resourceKey string, user *users.GetUsersUserIDOK) re
 }
 
 const testForm3UserConfigA = `
+resource "form3_role" "role" {
+	organisation_id = "%s"
+	role_id 		= "%s"
+	name     		= "terraform-role"
+}
+
 resource "form3_user" "user" {
 	organisation_id = "%s"
 	user_id 		= "%s"
 	user_name 	= "terraform-user"
  	email 			= "terraform-user@form3.tech"
-	roles 			= ["32881d6b-a000-4258-b779-56c59970590f"]
+	roles 			= ["${form3_role.role.role_id}"]
 }`
 
 const testForm3UserConfigAUpdate = `
+resource "form3_role" "role" {
+	organisation_id = "%s"
+	role_id 		= "%s"
+	name     		= "terraform-role"
+}
+
 resource "form3_user" "user" {
 	organisation_id = "%s"
 	user_id 		= "%s"
 	user_name 	= "terraform-user"
   email			  = "dude@form3.tech"
-	roles 			= ["ad538853-4db0-44e3-9369-17eaae4aa3b7"]
+	roles 			= ["${form3_role.role.role_id}"]
 }`
