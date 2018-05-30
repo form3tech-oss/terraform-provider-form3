@@ -81,6 +81,34 @@ func (a *Client) DeletePayportID(params *DeletePayportIDParams) (*DeletePayportI
 }
 
 /*
+DeleteSepainstantID deletes organisation spea instant association
+*/
+func (a *Client) DeleteSepainstantID(params *DeleteSepainstantIDParams) (*DeleteSepainstantIDNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteSepainstantIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteSepainstantID",
+		Method:             "DELETE",
+		PathPattern:        "/sepainstant/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteSepainstantIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteSepainstantIDNoContent), nil
+
+}
+
+/*
 DeleteStarlingID deletes organisation association
 */
 func (a *Client) DeleteStarlingID(params *DeleteStarlingIDParams) (*DeleteStarlingIDNoContent, error) {
@@ -221,6 +249,62 @@ func (a *Client) GetPayportID(params *GetPayportIDParams) (*GetPayportIDOK, erro
 }
 
 /*
+GetSepainstant lists all organisation sepa instant associations
+*/
+func (a *Client) GetSepainstant(params *GetSepainstantParams) (*GetSepainstantOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetSepainstantParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetSepainstant",
+		Method:             "GET",
+		PathPattern:        "/sepainstant",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetSepainstantReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetSepainstantOK), nil
+
+}
+
+/*
+GetSepainstantID fetches organisation sepa instant association
+*/
+func (a *Client) GetSepainstantID(params *GetSepainstantIDParams) (*GetSepainstantIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetSepainstantIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetSepainstantID",
+		Method:             "GET",
+		PathPattern:        "/sepainstant/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetSepainstantIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetSepainstantIDOK), nil
+
+}
+
+/*
 GetStarling lists all organisation associations
 */
 func (a *Client) GetStarling(params *GetStarlingParams) (*GetStarlingOK, error) {
@@ -329,6 +413,34 @@ func (a *Client) PostPayport(params *PostPayportParams) (*PostPayportCreated, er
 		return nil, err
 	}
 	return result.(*PostPayportCreated), nil
+
+}
+
+/*
+PostSepainstant creates organisation association for sepa instant
+*/
+func (a *Client) PostSepainstant(params *PostSepainstantParams) (*PostSepainstantCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostSepainstantParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostSepainstant",
+		Method:             "POST",
+		PathPattern:        "/sepainstant",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PostSepainstantReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PostSepainstantCreated), nil
 
 }
 
