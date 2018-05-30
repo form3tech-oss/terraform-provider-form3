@@ -110,64 +110,24 @@ func resourceBacsAssociationRead(d *schema.ResourceData, meta interface{}) error
 func resourceBacsAssociationDelete(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
 
-	associationFromResource, err := createBacsAssociationFromResourceDataWithVersion(d, client)
+  bacsAssociation, err := client.AssociationClient.Associations.GetBacsID(associations.NewGetBacsIDParams().
+    WithID(strfmt.UUID(d.Id())))
+
 	if err != nil {
 		return fmt.Errorf("error deleting Bacs association: %s", err)
 	}
 
-	log.Printf("[INFO] Deleting Bacs association for id: %s service user number: %s", associationFromResource.ID, associationFromResource.Attributes.ServiceUserNumber)
+	log.Printf("[INFO] Deleting Bacs association for id: %s service user number: %s", bacsAssociation.Payload.Data.ID, bacsAssociation.Payload.Data.Attributes.ServiceUserNumber)
 
 	_, err = client.AssociationClient.Associations.DeleteBacsID(associations.NewDeleteBacsIDParams().
-		WithID(associationFromResource.ID).
-		WithVersion(*associationFromResource.Version))
+		WithID(bacsAssociation.Payload.Data.ID).
+		WithVersion(*bacsAssociation.Payload.Data.Version))
 
 	if err != nil {
 		return fmt.Errorf("error deleting Bacs association: %s", err)
 	}
 
 	return nil
-}
-
-func createBacsAssociationFromResourceDataWithVersion(d *schema.ResourceData, client *form3.AuthenticatedClient) (*models.BacsAssociation, error) {
-	association, err := createBacsAssociationFromResourceData(d)
-	version, err := getBacsAssociation(client, association.ID)
-	if err != nil {
-		return nil, err
-	}
-
-	association.Version = &version
-
-	return association, nil
-}
-
-func createBacsAssociationFromResourceData(d *schema.ResourceData) (*models.BacsAssociation, error) {
-	association := models.BacsAssociation{Attributes: &models.BacsAssociationAttributes{}}
-	association.Type = "associations"
-	if attr, ok := GetUUIDOK(d, "association_id"); ok {
-		association.ID = attr
-	}
-
-	if attr, ok := GetUUIDOK(d, "organisation_id"); ok {
-		association.OrganisationID = attr
-	}
-
-	if attr, ok := d.GetOk("service_user_number"); ok {
-		association.Attributes.ServiceUserNumber = attr.(string)
-	}
-
-	if attr, ok := d.GetOk("account_number"); ok {
-		association.Attributes.AccountNumber = attr.(string)
-	}
-
-	if attr, ok := d.GetOk("sorting_code"); ok {
-		association.Attributes.SortingCode = attr.(string)
-	}
-
-	if attr, ok := d.GetOk("account_type"); ok {
-		association.Attributes.AccountType = int64(attr.(int))
-	}
-
-	return &association, nil
 }
 
 func createBacsNewAssociationFromResourceData(d *schema.ResourceData) (*models.BacsNewAssociation, error) {
@@ -201,13 +161,3 @@ func createBacsNewAssociationFromResourceData(d *schema.ResourceData) (*models.B
 	return &association, nil
 }
 
-func getBacsAssociation(client *form3.AuthenticatedClient, associationId strfmt.UUID) (int64, error) {
-	association, err := client.AssociationClient.Associations.GetBacsID(associations.NewGetBacsIDParams().WithID(associationId))
-	if err != nil {
-		if err != nil {
-			return -1, fmt.Errorf("error reading Bacs association: %s", err)
-		}
-	}
-
-	return *association.Payload.Data.Version, nil
-}

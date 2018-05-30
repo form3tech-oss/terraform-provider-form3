@@ -87,52 +87,23 @@ func resourceSepaInstantAssociationRead(d *schema.ResourceData, meta interface{}
 func resourceSepaInstantAssociationDelete(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
 
-	associationFromResource, err := createSepaInstantAssociationFromResourceDataWithVersion(d, client)
+  sepaInstantAssociation, err := client.AssociationClient.Associations.GetSepainstantID(associations.NewGetSepainstantIDParams().
+    WithID(strfmt.UUID(d.Id())))
 	if err != nil {
 		return fmt.Errorf("error deleting sepa instant association: %s", err)
 	}
 
-	log.Printf("[INFO] Deleting sepa instant association for id: %s business user id: %s", associationFromResource.ID, associationFromResource.Attributes.BusinessUserID)
+	log.Printf("[INFO] Deleting sepa instant association for id: %s business user id: %s", sepaInstantAssociation.Payload.Data.ID, &sepaInstantAssociation.Payload.Data.Attributes.BusinessUserID)
 
 	_, err = client.AssociationClient.Associations.DeleteSepainstantID(associations.NewDeleteSepainstantIDParams().
-		WithID(associationFromResource.ID).
-		WithVersion(*associationFromResource.Version))
+		WithID(sepaInstantAssociation.Payload.Data.ID).
+		WithVersion(*sepaInstantAssociation.Payload.Data.Version))
 
 	if err != nil {
 		return fmt.Errorf("error deleting sepa instant association: %s", err)
 	}
 
 	return nil
-}
-
-func createSepaInstantAssociationFromResourceDataWithVersion(d *schema.ResourceData, client *form3.AuthenticatedClient) (*models.SepaInstantAssociation, error) {
-	association, err := createSepaInstantAssociationFromResourceData(d)
-	version, err := getSepaInstantAssociation(client, association.ID)
-	if err != nil {
-		return nil, err
-	}
-
-	association.Version = &version
-
-	return association, nil
-}
-
-func createSepaInstantAssociationFromResourceData(d *schema.ResourceData) (*models.SepaInstantAssociation, error) {
-	association := models.SepaInstantAssociation{Attributes: &models.SepaInstantAssociationAttributes{}}
-	association.Type = "associations"
-	if attr, ok := GetUUIDOK(d, "association_id"); ok {
-		association.ID = attr
-	}
-
-	if attr, ok := GetUUIDOK(d, "organisation_id"); ok {
-		association.OrganisationID = attr
-	}
-
-	if attr, ok := d.GetOk("business_user_id"); ok {
-		association.Attributes.BusinessUserID = attr.(string)
-	}
-
-	return &association, nil
 }
 
 func createSepaInstantNewAssociationFromResourceData(d *schema.ResourceData) (*models.NewSepaInstantAssociation, error) {
@@ -152,15 +123,4 @@ func createSepaInstantNewAssociationFromResourceData(d *schema.ResourceData) (*m
 	}
 
 	return &association, nil
-}
-
-func getSepaInstantAssociation(client *form3.AuthenticatedClient, associationId strfmt.UUID) (int64, error) {
-	association, err := client.AssociationClient.Associations.GetSepainstantID(associations.NewGetSepainstantIDParams().WithID(associationId))
-	if err != nil {
-		if err != nil {
-			return -1, fmt.Errorf("error reading sepa instant association: %s", err)
-		}
-	}
-
-	return *association.Payload.Data.Version, nil
 }
