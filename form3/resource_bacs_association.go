@@ -110,8 +110,8 @@ func resourceBacsAssociationRead(d *schema.ResourceData, meta interface{}) error
 func resourceBacsAssociationDelete(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
 
-  bacsAssociation, err := client.AssociationClient.Associations.GetBacsID(associations.NewGetBacsIDParams().
-    WithID(strfmt.UUID(d.Id())))
+	bacsAssociation, err := client.AssociationClient.Associations.GetBacsID(associations.NewGetBacsIDParams().
+		WithID(strfmt.UUID(d.Id())))
 
 	if err != nil {
 		return fmt.Errorf("error deleting Bacs association: %s", err)
@@ -160,4 +160,3 @@ func createBacsNewAssociationFromResourceData(d *schema.ResourceData) (*models.B
 
 	return &association, nil
 }
-

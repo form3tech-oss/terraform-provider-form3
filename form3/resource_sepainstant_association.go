@@ -87,8 +87,8 @@ func resourceSepaInstantAssociationRead(d *schema.ResourceData, meta interface{}
 func resourceSepaInstantAssociationDelete(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
 
-  sepaInstantAssociation, err := client.AssociationClient.Associations.GetSepainstantID(associations.NewGetSepainstantIDParams().
-    WithID(strfmt.UUID(d.Id())))
+	sepaInstantAssociation, err := client.AssociationClient.Associations.GetSepainstantID(associations.NewGetSepainstantIDParams().
+		WithID(strfmt.UUID(d.Id())))
 	if err != nil {
 		return fmt.Errorf("error deleting sepa instant association: %s", err)
 	}
