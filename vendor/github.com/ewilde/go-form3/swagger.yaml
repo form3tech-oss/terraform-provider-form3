@@ -3736,7 +3736,7 @@ definitions:
     properties:
       certificate_dn:
         type: string
-      certificate_serial_number:
+      certificate_id:
         type: string
       certificate_pin:
         type: string

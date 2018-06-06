@@ -38,7 +38,7 @@ func resourceForm3SepaInstantAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
-			"certificate_serial_number": {
+			"certificate_id": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
@@ -91,7 +91,7 @@ func resourceSepaInstantAssociationRead(d *schema.ResourceData, meta interface{}
 	d.Set("association_id", sepaInstantAssociation.Payload.Data.ID.String())
 	d.Set("certificate_dn", sepaInstantAssociation.Payload.Data.Attributes.CertificateDn)
 	d.Set("certificate_pin", sepaInstantAssociation.Payload.Data.Attributes.CertificatePin)
-	d.Set("certificate_serial_number", sepaInstantAssociation.Payload.Data.Attributes.CertificateSerialNumber)
+	d.Set("certificate_id", sepaInstantAssociation.Payload.Data.Attributes.CertificateID)
 
 	return nil
 }
@@ -136,8 +136,8 @@ func createSepaInstantNewAssociationFromResourceData(d *schema.ResourceData) (*m
 		association.Attributes.CertificatePin = attr.(string)
 	}
 
-	if attr, ok := d.GetOk("certificate_serial_number"); ok {
-		association.Attributes.CertificateSerialNumber = attr.(string)
+	if attr, ok := d.GetOk("certificate_id"); ok {
+		association.Attributes.CertificateID = attr.(string)
 	}
 
 	return &association, nil
