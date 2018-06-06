@@ -28,7 +28,17 @@ func resourceForm3SepaInstantAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
-			"business_user_id": {
+			"certificate_dn": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
+			"certificate_pin": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
+			"certificate_serial_number": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
@@ -79,7 +89,9 @@ func resourceSepaInstantAssociationRead(d *schema.ResourceData, meta interface{}
 	}
 
 	d.Set("association_id", sepaInstantAssociation.Payload.Data.ID.String())
-	d.Set("business_user_id", sepaInstantAssociation.Payload.Data.Attributes.BusinessUserID)
+	d.Set("certificate_dn", sepaInstantAssociation.Payload.Data.Attributes.CertificateDn)
+	d.Set("certificate_pin", sepaInstantAssociation.Payload.Data.Attributes.CertificatePin)
+	d.Set("certificate_serial_number", sepaInstantAssociation.Payload.Data.Attributes.CertificateSerialNumber)
 
 	return nil
 }
@@ -92,8 +104,6 @@ func resourceSepaInstantAssociationDelete(d *schema.ResourceData, meta interface
 	if err != nil {
 		return fmt.Errorf("error deleting sepa instant association: %s", err)
 	}
-
-	log.Printf("[INFO] Deleting sepa instant association for id: %s business user id: %s", sepaInstantAssociation.Payload.Data.ID, sepaInstantAssociation.Payload.Data.Attributes.BusinessUserID)
 
 	_, err = client.AssociationClient.Associations.DeleteSepainstantID(associations.NewDeleteSepainstantIDParams().
 		WithID(sepaInstantAssociation.Payload.Data.ID).
@@ -118,8 +128,16 @@ func createSepaInstantNewAssociationFromResourceData(d *schema.ResourceData) (*m
 		association.OrganisationID = attr
 	}
 
-	if attr, ok := d.GetOk("business_user_id"); ok {
-		association.Attributes.BusinessUserID = attr.(string)
+	if attr, ok := d.GetOk("certificate_dn"); ok {
+		association.Attributes.CertificateDn = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("certificate_pin"); ok {
+		association.Attributes.CertificatePin = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("certificate_serial_number"); ok {
+		association.Attributes.CertificateSerialNumber = attr.(string)
 	}
 
 	return &association, nil
