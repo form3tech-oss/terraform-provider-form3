@@ -19,11 +19,11 @@ type SepaInstantAssociationAttributes struct {
 	// certificate dn
 	CertificateDn string `json:"certificate_dn,omitempty"`
 
+	// certificate id
+	CertificateID string `json:"certificate_id,omitempty"`
+
 	// certificate pin
 	CertificatePin string `json:"certificate_pin,omitempty"`
-
-	// certificate serial number
-	CertificateSerialNumber string `json:"certificate_serial_number,omitempty"`
 }
 
 // Validate validates this sepa instant association attributes
