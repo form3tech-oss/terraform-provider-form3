@@ -16,8 +16,14 @@ import (
 // swagger:model SepaInstantAssociationAttributes
 type SepaInstantAssociationAttributes struct {
 
-	// business user id
-	BusinessUserID string `json:"business_user_id,omitempty"`
+	// certificate dn
+	CertificateDn string `json:"certificate_dn,omitempty"`
+
+	// certificate pin
+	CertificatePin string `json:"certificate_pin,omitempty"`
+
+	// certificate serial number
+	CertificateSerialNumber string `json:"certificate_serial_number,omitempty"`
 }
 
 // Validate validates this sepa instant association attributes
