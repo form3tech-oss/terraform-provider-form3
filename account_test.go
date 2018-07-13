@@ -1,7 +1,8 @@
 package form3
 
 import (
-	"github.com/apex/log"
+	"log"
+
 	"github.com/ewilde/go-form3/client/accounts"
 	"github.com/ewilde/go-form3/client/organisations"
 	"github.com/ewilde/go-form3/models"
@@ -26,9 +27,9 @@ func TestAccDeleteAccount(t *testing.T) {
 
 	defer func() {
 		if _, err := auth.AccountClient.Accounts.DeleteBankidsID(accounts.NewDeleteBankidsIDParams().WithID(createdBankID.Payload.Data.ID)); err != nil {
-			log.Warnf("Did not delete bank id, error %s", err.Error())
+			log.Println("[WARN] Did not delete bank id, error %s", err.Error())
 		} else {
-			log.Info("Successfully deleted bank id")
+			log.Println("[INFO] Successfully deleted bank id")
 		}
 	}()
 
@@ -46,9 +47,9 @@ func TestAccDeleteAccount(t *testing.T) {
 
 	defer func() {
 		if _, err := auth.AccountClient.Accounts.DeleteBicsID(accounts.NewDeleteBicsIDParams().WithID(createdBicID.Payload.Data.ID)); err != nil {
-			log.Warnf("Did not delete bic id, error %s", err.Error())
+			log.Println("[WARN] Did not delete bic id, error %s", err.Error())
 		} else {
-			log.Info("Successfully deleted bic")
+			log.Println("[INFO] Successfully deleted bic")
 		}
 	}()
 
