@@ -18,8 +18,8 @@ func (b *PaymentBuilder) WithDefaults() *PaymentBuilder {
 	id, _ := uuid.NewV4()
 	organisationId, _ := uuid.NewV4()
 	b.payment = models.Payment{
-		ID:             ConvertUUIDtoStrFmtUUID(id),
-		OrganisationID: ConvertUUIDtoStrFmtUUID(organisationId),
+		ID:             UUIDtoStrFmtUUID(id),
+		OrganisationID: UUIDtoStrFmtUUID(organisationId),
 		Attributes: &models.PaymentAttributes{
 			Amount: "60.00",
 			BeneficiaryParty: &models.PaymentAttributesBeneficiaryParty{
@@ -59,7 +59,7 @@ func (b *PaymentBuilder) WithAmount(amount string) *PaymentBuilder {
 }
 
 func (b *PaymentBuilder) WithOrganisationID(id strfmt.UUID) *PaymentBuilder {
-	b.payment.OrganisationID = ConvertUUIDtoPointer(id)
+	b.payment.OrganisationID = UUID(id)
 	return b
 }
 

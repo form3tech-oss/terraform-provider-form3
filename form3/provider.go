@@ -32,6 +32,7 @@ func Provider() terraform.ResourceProvider {
 		},
 
 		ResourcesMap: map[string]*schema.Resource{
+			"form3_account":                 resourceForm3Account(),
 			"form3_account_configuration":   resourceForm3AccountConfiguration(),
 			"form3_ace":                     resourceForm3Ace(),
 			"form3_bank_id":                 resourceForm3BankID(),
