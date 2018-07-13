@@ -43,7 +43,7 @@ func TestAccPostTransactionsPaymentSubmission(t *testing.T) {
 			WithSubmissionCreationRequest(
 				&models.PaymentSubmissionCreation{
 					Data: &models.NewPaymentSubmission{
-						ID:             NewStrFmtUUID(),
+						ID:             NewUUID(),
 						OrganisationID: &testOrganisationId,
 						Type:           "payment_submissions",
 					},
