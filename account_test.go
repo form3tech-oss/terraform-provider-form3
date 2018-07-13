@@ -27,9 +27,9 @@ func TestAccDeleteAccount(t *testing.T) {
 
 	defer func() {
 		if _, err := auth.AccountClient.Accounts.DeleteBankidsID(accounts.NewDeleteBankidsIDParams().WithID(createdBankID.Payload.Data.ID)); err != nil {
-			log.Println("[WARN] Did not delete bank id, error %s", err.Error())
+			log.Printf("[WARN] Did not delete bank id, error %s\n", err.Error())
 		} else {
-			log.Println("[INFO] Successfully deleted bank id")
+			log.Printf("[INFO] Successfully deleted bank id\n")
 		}
 	}()
 
@@ -47,9 +47,9 @@ func TestAccDeleteAccount(t *testing.T) {
 
 	defer func() {
 		if _, err := auth.AccountClient.Accounts.DeleteBicsID(accounts.NewDeleteBicsIDParams().WithID(createdBicID.Payload.Data.ID)); err != nil {
-			log.Println("[WARN] Did not delete bic id, error %s", err.Error())
+			log.Printf("[WARN] Did not delete bic id, error %s\n", err.Error())
 		} else {
-			log.Println("[INFO] Successfully deleted bic")
+			log.Printf("[INFO] Successfully deleted bic\n")
 		}
 	}()
 
