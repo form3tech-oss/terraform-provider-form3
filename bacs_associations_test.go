@@ -162,8 +162,8 @@ func TestPostBacsAssociation_DoNotIgnoreAccountTypeWhenValueIsZero(t *testing.T)
 
 	assertNoErrorOccurred(err, t)
 	actualAccountType := createResponse.Payload.Data.Attributes.AccountType
-	if actualAccountType != &accountType {
-		t.Fatalf("Expected %d, got %d", &accountType, actualAccountType)
+	if *actualAccountType != accountType {
+		t.Fatalf("Expected %v, got %v", accountType, *actualAccountType)
 	}
 
 	_, err = auth.AssociationClient.Associations.DeleteBacsID(associations.NewDeleteBacsIDParams().
