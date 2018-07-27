@@ -26,7 +26,7 @@ func TestDeleteBacsAssociation(t *testing.T) {
 					ServiceUserNumber: serviceUserNumber,
 					AccountNumber:     accountNumber,
 					SortingCode:       sortingCode,
-					AccountType:       accountType,
+					AccountType:       &accountType,
 				},
 			},
 		}))
@@ -70,7 +70,7 @@ func TestGetBacsAssociation(t *testing.T) {
 					ServiceUserNumber: serviceUserNumber,
 					AccountNumber:     accountNumber,
 					SortingCode:       sortingCode,
-					AccountType:       accountType,
+					AccountType:       &accountType,
 				},
 			},
 		}))
@@ -116,7 +116,7 @@ func TestPostBacsAssociation(t *testing.T) {
 					ServiceUserNumber: serviceUserNumber,
 					AccountNumber:     accountNumber,
 					SortingCode:       sortingCode,
-					AccountType:       accountType,
+					AccountType:       &accountType,
 				},
 			},
 		}))
@@ -139,6 +139,40 @@ func TestPostBacsAssociation(t *testing.T) {
 
 }
 
+func TestPostBacsAssociation_DoNotIgnoreAccountTypeWhenValueIsZero(t *testing.T) {
+	serviceUserNumber := "987897"
+	accountNumber := "12345678"
+	sortingCode := "123456"
+	accountType := int64(0)
+
+	id, _ := uuid.NewV4()
+	createResponse, err := auth.AssociationClient.Associations.PostBacs(associations.NewPostBacsParams().
+		WithCreationRequest(&models.BacsAssociationCreation{
+			Data: &models.BacsNewAssociation{
+				ID:             strfmt.UUID(id.String()),
+				OrganisationID: strfmt.UUID(organisationId.String()),
+				Attributes: &models.BacsAssociationAttributes{
+					ServiceUserNumber: serviceUserNumber,
+					AccountNumber:     accountNumber,
+					SortingCode:       sortingCode,
+					AccountType:       &accountType,
+				},
+			},
+		}))
+
+	assertNoErrorOccurred(err, t)
+	actualAccountType := createResponse.Payload.Data.Attributes.AccountType
+	if actualAccountType != &accountType {
+		t.Fatalf("Expected %d, got %d", &accountType, actualAccountType)
+	}
+
+	_, err = auth.AssociationClient.Associations.DeleteBacsID(associations.NewDeleteBacsIDParams().
+		WithID(createResponse.Payload.Data.ID),
+	)
+
+	assertNoErrorOccurred(err, t)
+}
+
 func TestGetBacsAssociationList(t *testing.T) {
 	id, _ := uuid.NewV4()
 	organisationIdUUID := strfmt.UUID(organisationId.String())
@@ -156,7 +190,7 @@ func TestGetBacsAssociationList(t *testing.T) {
 					ServiceUserNumber: serviceUserNumber,
 					AccountNumber:     accountNumber,
 					SortingCode:       sortingCode,
-					AccountType:       accountType,
+					AccountType:       &accountType,
 				},
 			},
 		}))
