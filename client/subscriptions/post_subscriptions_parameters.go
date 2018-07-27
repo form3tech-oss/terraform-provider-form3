@@ -17,7 +17,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/ewilde/go-form3/models"
+	models "github.com/ewilde/go-form3/models"
 )
 
 // NewPostSubscriptionsParams creates a new PostSubscriptionsParams object

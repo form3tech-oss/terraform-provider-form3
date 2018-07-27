@@ -13,7 +13,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/ewilde/go-form3/models"
+	models "github.com/ewilde/go-form3/models"
 )
 
 // GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDReader is a Reader for the GetPaymentsIDReturnsReturnIDSubmissionsSubmissionID structure.

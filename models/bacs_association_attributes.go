@@ -22,7 +22,7 @@ type BacsAssociationAttributes struct {
 	AccountNumber string `json:"account_number,omitempty"`
 
 	// account type
-	AccountType int64 `json:"account_type,omitempty"`
+	AccountType *int64 `json:"account_type,omitempty"`
 
 	// service user number
 	// Pattern: ^[0-9A-Z]{6}$
@@ -38,17 +38,14 @@ func (m *BacsAssociationAttributes) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAccountNumber(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateServiceUserNumber(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateSortingCode(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 

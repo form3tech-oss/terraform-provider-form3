@@ -27,7 +27,6 @@ func (m *BicAttributes) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateBic(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
