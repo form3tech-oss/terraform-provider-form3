@@ -36,28 +36,13 @@ type AccountHoldingEntity struct {
 func (m *AccountHoldingEntity) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateBankAddress(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if err := m.validateBankIDCode(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *AccountHoldingEntity) validateBankAddress(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.BankAddress) { // not required
-		return nil
-	}
-
 	return nil
 }
 

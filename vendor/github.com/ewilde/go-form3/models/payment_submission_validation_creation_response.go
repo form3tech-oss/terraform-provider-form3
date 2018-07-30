@@ -25,7 +25,6 @@ func (m *PaymentSubmissionValidationCreationResponse) Validate(formats strfmt.Re
 	var res []error
 
 	if err := m.validateData(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
@@ -42,7 +41,6 @@ func (m *PaymentSubmissionValidationCreationResponse) validateData(formats strfm
 	}
 
 	if m.Data != nil {
-
 		if err := m.Data.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("data")

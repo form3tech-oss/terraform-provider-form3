@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -17,7 +19,7 @@ import (
 type AccountConfigurationAttributes struct {
 
 	// account generation configuration
-	AccountGenerationConfiguration AccountConfigurationAttributesAccountGenerationConfiguration `json:"account_generation_configuration"`
+	AccountGenerationConfiguration []*AccountGenerationConfiguration `json:"account_generation_configuration"`
 
 	// account generation enabled
 	AccountGenerationEnabled bool `json:"account_generation_enabled,omitempty"`
@@ -27,9 +29,38 @@ type AccountConfigurationAttributes struct {
 func (m *AccountConfigurationAttributes) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAccountGenerationConfiguration(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *AccountConfigurationAttributes) validateAccountGenerationConfiguration(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.AccountGenerationConfiguration) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.AccountGenerationConfiguration); i++ {
+		if swag.IsZero(m.AccountGenerationConfiguration[i]) { // not required
+			continue
+		}
+
+		if m.AccountGenerationConfiguration[i] != nil {
+			if err := m.AccountGenerationConfiguration[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("account_generation_configuration" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 

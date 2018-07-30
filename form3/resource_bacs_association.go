@@ -154,8 +154,9 @@ func createBacsNewAssociationFromResourceData(d *schema.ResourceData) (*models.B
 		association.Attributes.SortingCode = attr.(string)
 	}
 
-	if attr, ok := d.GetOk("account_type"); ok {
-		association.Attributes.AccountType = int64(attr.(int))
+	if attr, ok := d.GetOkExists("account_type"); ok {
+		accountType := int64(attr.(int))
+		association.Attributes.AccountType = &accountType
 	}
 
 	return &association, nil
