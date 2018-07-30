@@ -219,17 +219,17 @@ func createAccountConfigurationFromResourceData(d *schema.ResourceData) (*models
 	if attr, ok := d.GetOk("account_generation_configuration"); ok {
 		accountConfigurationArray := attr.([]interface{})
 
-		accountConfigs := models.AccountConfigurationAttributesAccountGenerationConfiguration{}
+		var accountConfigs []*models.AccountGenerationConfiguration
 
 		for _, accountConfigElement := range accountConfigurationArray {
 			country := accountConfigElement.(map[string]interface{})["country"].(string)
 
 			validAccountRangesSet := accountConfigElement.(map[string]interface{})["valid_account_ranges"].(*schema.Set).List()
 
-			validAccountRanges := models.AccountGenerationConfigurationValidAccountRanges{}
+			var validAccountRanges []*models.AccountGenerationConfigurationValidAccountRangesItems0
 
 			for _, accountRangeElement := range validAccountRangesSet {
-				validAccountRange := models.AccountGenerationConfigurationValidAccountRangesItems{
+				validAccountRange := models.AccountGenerationConfigurationValidAccountRangesItems0{
 					Minimum: int64(accountRangeElement.(map[string]interface{})["minimum"].(int)),
 					Maximum: int64(accountRangeElement.(map[string]interface{})["maximum"].(int)),
 				}
@@ -260,7 +260,7 @@ func getAccountConfigurationVersion(client *form3.AuthenticatedClient, configura
 	return *configuration.Payload.Data.Version, nil
 }
 
-func flattenValidAccountRanges(validAccountRanges models.AccountGenerationConfigurationValidAccountRanges) *schema.Set {
+func flattenValidAccountRanges(validAccountRanges []*models.AccountGenerationConfigurationValidAccountRangesItems0) *schema.Set {
 	validAccountRangesSet := schema.NewSet(validAccountRangeHash, []interface{}{})
 
 	if validAccountRanges == nil {
@@ -281,7 +281,7 @@ func validAccountRangeHash(v interface{}) int {
 	return hashcode.String(buf.String())
 }
 
-func flattenValidAccountRange(value *models.AccountGenerationConfigurationValidAccountRangesItems) map[string]int64 {
+func flattenValidAccountRange(value *models.AccountGenerationConfigurationValidAccountRangesItems0) map[string]int64 {
 	m := map[string]int64{}
 	m["minimum"] = value.Minimum
 	m["maximum"] = value.Maximum
