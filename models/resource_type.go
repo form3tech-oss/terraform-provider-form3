@@ -19,10 +19,13 @@ import (
 type ResourceType string
 
 const (
+
 	// ResourceTypePayportAssociations captures enum value "payport_associations"
 	ResourceTypePayportAssociations ResourceType = "payport_associations"
+
 	// ResourceTypeLimits captures enum value "limits"
 	ResourceTypeLimits ResourceType = "limits"
+
 	// ResourceTypeBacsAssociations captures enum value "bacs_associations"
 	ResourceTypeBacsAssociations ResourceType = "bacs_associations"
 )

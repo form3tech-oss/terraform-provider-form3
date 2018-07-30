@@ -19,26 +19,37 @@ import (
 type BankIDCode string
 
 const (
+
 	// BankIDCodeSWBIC captures enum value "SWBIC"
 	BankIDCodeSWBIC BankIDCode = "SWBIC"
+
 	// BankIDCodeGBDSC captures enum value "GBDSC"
 	BankIDCodeGBDSC BankIDCode = "GBDSC"
+
 	// BankIDCodeBE captures enum value "BE"
 	BankIDCodeBE BankIDCode = "BE"
+
 	// BankIDCodeFR captures enum value "FR"
 	BankIDCodeFR BankIDCode = "FR"
+
 	// BankIDCodeDEBLZ captures enum value "DEBLZ"
 	BankIDCodeDEBLZ BankIDCode = "DEBLZ"
+
 	// BankIDCodeGRBIC captures enum value "GRBIC"
 	BankIDCodeGRBIC BankIDCode = "GRBIC"
+
 	// BankIDCodeITNCC captures enum value "ITNCC"
 	BankIDCodeITNCC BankIDCode = "ITNCC"
+
 	// BankIDCodePLKNR captures enum value "PLKNR"
 	BankIDCodePLKNR BankIDCode = "PLKNR"
+
 	// BankIDCodePTNCC captures enum value "PTNCC"
 	BankIDCodePTNCC BankIDCode = "PTNCC"
+
 	// BankIDCodeESNCC captures enum value "ESNCC"
 	BankIDCodeESNCC BankIDCode = "ESNCC"
+
 	// BankIDCodeCHBCC captures enum value "CHBCC"
 	BankIDCodeCHBCC BankIDCode = "CHBCC"
 )

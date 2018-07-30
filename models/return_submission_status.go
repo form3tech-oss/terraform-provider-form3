@@ -19,22 +19,31 @@ import (
 type ReturnSubmissionStatus string
 
 const (
+
 	// ReturnSubmissionStatusAccepted captures enum value "accepted"
 	ReturnSubmissionStatusAccepted ReturnSubmissionStatus = "accepted"
+
 	// ReturnSubmissionStatusLimitCheckPending captures enum value "limit_check_pending"
 	ReturnSubmissionStatusLimitCheckPending ReturnSubmissionStatus = "limit_check_pending"
+
 	// ReturnSubmissionStatusLimitCheckFailed captures enum value "limit_check_failed"
 	ReturnSubmissionStatusLimitCheckFailed ReturnSubmissionStatus = "limit_check_failed"
+
 	// ReturnSubmissionStatusLimitCheckPassed captures enum value "limit_check_passed"
 	ReturnSubmissionStatusLimitCheckPassed ReturnSubmissionStatus = "limit_check_passed"
+
 	// ReturnSubmissionStatusReleasedToGateway captures enum value "released_to_gateway"
 	ReturnSubmissionStatusReleasedToGateway ReturnSubmissionStatus = "released_to_gateway"
+
 	// ReturnSubmissionStatusDeliveryConfirmed captures enum value "delivery_confirmed"
 	ReturnSubmissionStatusDeliveryConfirmed ReturnSubmissionStatus = "delivery_confirmed"
+
 	// ReturnSubmissionStatusDeliveryFailed captures enum value "delivery_failed"
 	ReturnSubmissionStatusDeliveryFailed ReturnSubmissionStatus = "delivery_failed"
+
 	// ReturnSubmissionStatusSubmitted captures enum value "submitted"
 	ReturnSubmissionStatusSubmitted ReturnSubmissionStatus = "submitted"
+
 	// ReturnSubmissionStatusValidationPending captures enum value "validation_pending"
 	ReturnSubmissionStatusValidationPending ReturnSubmissionStatus = "validation_pending"
 )

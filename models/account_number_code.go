@@ -19,8 +19,10 @@ import (
 type AccountNumberCode string
 
 const (
+
 	// AccountNumberCodeIBAN captures enum value "IBAN"
 	AccountNumberCodeIBAN AccountNumberCode = "IBAN"
+
 	// AccountNumberCodeBBAN captures enum value "BBAN"
 	AccountNumberCodeBBAN AccountNumberCode = "BBAN"
 )
