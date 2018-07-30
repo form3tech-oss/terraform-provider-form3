@@ -155,7 +155,10 @@ func createBacsNewAssociationFromResourceData(d *schema.ResourceData) (*models.B
 	}
 
 	if attr, ok := d.GetOk("account_type"); ok {
-		association.Attributes.AccountType = int64(attr.(int))
+		accountType := int64(attr.(int))
+		log.Printf("[INFO] creating bacs association with account_type: %v", accountType)
+
+		association.Attributes.AccountType = &accountType
 	}
 
 	return &association, nil
