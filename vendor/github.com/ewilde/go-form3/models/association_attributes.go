@@ -10,6 +10,7 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // AssociationAttributes association attributes
@@ -20,6 +21,7 @@ type AssociationAttributes struct {
 	StarlingAccountName string `json:"starling_account_name,omitempty"`
 
 	// starling account uid
+	// Format: uuid
 	StarlingAccountUID strfmt.UUID `json:"starling_account_uid,omitempty"`
 }
 
@@ -27,9 +29,26 @@ type AssociationAttributes struct {
 func (m *AssociationAttributes) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateStarlingAccountUID(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *AssociationAttributes) validateStarlingAccountUID(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.StarlingAccountUID) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("starling_account_uid", "body", "uuid", m.StarlingAccountUID.String(), formats); err != nil {
+		return err
+	}
+
 	return nil
 }
 

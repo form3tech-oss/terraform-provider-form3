@@ -19,24 +19,34 @@ import (
 type PaymentSubmissionStatus string
 
 const (
+
 	// PaymentSubmissionStatusAccepted captures enum value "accepted"
 	PaymentSubmissionStatusAccepted PaymentSubmissionStatus = "accepted"
+
 	// PaymentSubmissionStatusLimitCheckPending captures enum value "limit_check_pending"
 	PaymentSubmissionStatusLimitCheckPending PaymentSubmissionStatus = "limit_check_pending"
+
 	// PaymentSubmissionStatusLimitCheckFailed captures enum value "limit_check_failed"
 	PaymentSubmissionStatusLimitCheckFailed PaymentSubmissionStatus = "limit_check_failed"
+
 	// PaymentSubmissionStatusLimitCheckPassed captures enum value "limit_check_passed"
 	PaymentSubmissionStatusLimitCheckPassed PaymentSubmissionStatus = "limit_check_passed"
+
 	// PaymentSubmissionStatusReleasedToGateway captures enum value "released_to_gateway"
 	PaymentSubmissionStatusReleasedToGateway PaymentSubmissionStatus = "released_to_gateway"
+
 	// PaymentSubmissionStatusQueuedForDelivery captures enum value "queued_for_delivery"
 	PaymentSubmissionStatusQueuedForDelivery PaymentSubmissionStatus = "queued_for_delivery"
+
 	// PaymentSubmissionStatusDeliveryConfirmed captures enum value "delivery_confirmed"
 	PaymentSubmissionStatusDeliveryConfirmed PaymentSubmissionStatus = "delivery_confirmed"
+
 	// PaymentSubmissionStatusDeliveryFailed captures enum value "delivery_failed"
 	PaymentSubmissionStatusDeliveryFailed PaymentSubmissionStatus = "delivery_failed"
+
 	// PaymentSubmissionStatusSubmitted captures enum value "submitted"
 	PaymentSubmissionStatusSubmitted PaymentSubmissionStatus = "submitted"
+
 	// PaymentSubmissionStatusValidationPending captures enum value "validation_pending"
 	PaymentSubmissionStatusValidationPending PaymentSubmissionStatus = "validation_pending"
 )

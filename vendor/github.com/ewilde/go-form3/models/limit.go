@@ -21,9 +21,11 @@ type Limit struct {
 	Attributes *LimitAttributes `json:"attributes,omitempty"`
 
 	// id
+	// Format: uuid
 	ID strfmt.UUID `json:"id,omitempty"`
 
 	// organisation id
+	// Format: uuid
 	OrganisationID strfmt.UUID `json:"organisation_id,omitempty"`
 
 	// type
@@ -40,17 +42,22 @@ func (m *Limit) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAttributes(formats); err != nil {
-		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateOrganisationID(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateType(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateVersion(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
@@ -67,13 +74,38 @@ func (m *Limit) validateAttributes(formats strfmt.Registry) error {
 	}
 
 	if m.Attributes != nil {
-
 		if err := m.Attributes.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attributes")
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *Limit) validateID(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ID) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("id", "body", "uuid", m.ID.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Limit) validateOrganisationID(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.OrganisationID) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("organisation_id", "body", "uuid", m.OrganisationID.String(), formats); err != nil {
+		return err
 	}
 
 	return nil
@@ -116,6 +148,125 @@ func (m *Limit) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *Limit) UnmarshalBinary(b []byte) error {
 	var res Limit
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// LimitAttributes limit attributes
+// swagger:model LimitAttributes
+type LimitAttributes struct {
+
+	// amount
+	// Pattern: ^[0-9.]{0,20}$
+	Amount string `json:"amount,omitempty"`
+
+	// gateway
+	// Pattern: ^[A-Za-z_\-]*$
+	Gateway string `json:"gateway,omitempty"`
+
+	// scheme
+	// Pattern: ^[A-Za-z_\-]*$
+	Scheme string `json:"scheme,omitempty"`
+
+	// settlement cycle type
+	SettlementCycleType SettlementCycleType `json:"settlement_cycle_type,omitempty"`
+}
+
+// Validate validates this limit attributes
+func (m *LimitAttributes) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAmount(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateGateway(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateScheme(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSettlementCycleType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *LimitAttributes) validateAmount(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Amount) { // not required
+		return nil
+	}
+
+	if err := validate.Pattern("attributes"+"."+"amount", "body", string(m.Amount), `^[0-9.]{0,20}$`); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *LimitAttributes) validateGateway(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Gateway) { // not required
+		return nil
+	}
+
+	if err := validate.Pattern("attributes"+"."+"gateway", "body", string(m.Gateway), `^[A-Za-z_\-]*$`); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *LimitAttributes) validateScheme(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Scheme) { // not required
+		return nil
+	}
+
+	if err := validate.Pattern("attributes"+"."+"scheme", "body", string(m.Scheme), `^[A-Za-z_\-]*$`); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *LimitAttributes) validateSettlementCycleType(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.SettlementCycleType) { // not required
+		return nil
+	}
+
+	if err := m.SettlementCycleType.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("attributes" + "." + "settlement_cycle_type")
+		}
+		return err
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *LimitAttributes) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *LimitAttributes) UnmarshalBinary(b []byte) error {
+	var res LimitAttributes
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -22,10 +22,12 @@ type ReturnAdmission struct {
 
 	// id
 	// Required: true
+	// Format: uuid
 	ID *strfmt.UUID `json:"id"`
 
 	// organisation id
 	// Required: true
+	// Format: uuid
 	OrganisationID *strfmt.UUID `json:"organisation_id"`
 
 	// relationships
@@ -45,32 +47,26 @@ func (m *ReturnAdmission) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAttributes(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateID(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateOrganisationID(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateRelationships(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateType(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateVersion(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
@@ -87,7 +83,6 @@ func (m *ReturnAdmission) validateAttributes(formats strfmt.Registry) error {
 	}
 
 	if m.Attributes != nil {
-
 		if err := m.Attributes.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attributes")
@@ -132,7 +127,6 @@ func (m *ReturnAdmission) validateRelationships(formats strfmt.Registry) error {
 	}
 
 	if m.Relationships != nil {
-
 		if err := m.Relationships.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("relationships")
@@ -181,6 +175,132 @@ func (m *ReturnAdmission) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *ReturnAdmission) UnmarshalBinary(b []byte) error {
 	var res ReturnAdmission
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// ReturnAdmissionAttributes return admission attributes
+// swagger:model ReturnAdmissionAttributes
+type ReturnAdmissionAttributes struct {
+
+	// admission datetime
+	// Read Only: true
+	// Format: date-time
+	AdmissionDatetime strfmt.DateTime `json:"admission_datetime,omitempty"`
+
+	// scheme status code
+	SchemeStatusCode string `json:"scheme_status_code,omitempty"`
+
+	// settlement cycle
+	// Minimum: 0
+	SettlementCycle *int64 `json:"settlement_cycle,omitempty"`
+
+	// settlement date
+	// Format: date
+	SettlementDate strfmt.Date `json:"settlement_date,omitempty"`
+
+	// status
+	Status ReturnAdmissionStatus `json:"status,omitempty"`
+
+	// status reason
+	StatusReason string `json:"status_reason,omitempty"`
+}
+
+// Validate validates this return admission attributes
+func (m *ReturnAdmissionAttributes) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAdmissionDatetime(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSettlementCycle(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSettlementDate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateStatus(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ReturnAdmissionAttributes) validateAdmissionDatetime(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.AdmissionDatetime) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("attributes"+"."+"admission_datetime", "body", "date-time", m.AdmissionDatetime.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ReturnAdmissionAttributes) validateSettlementCycle(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.SettlementCycle) { // not required
+		return nil
+	}
+
+	if err := validate.MinimumInt("attributes"+"."+"settlement_cycle", "body", int64(*m.SettlementCycle), 0, false); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ReturnAdmissionAttributes) validateSettlementDate(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.SettlementDate) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("attributes"+"."+"settlement_date", "body", "date", m.SettlementDate.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ReturnAdmissionAttributes) validateStatus(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Status) { // not required
+		return nil
+	}
+
+	if err := m.Status.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("attributes" + "." + "status")
+		}
+		return err
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *ReturnAdmissionAttributes) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *ReturnAdmissionAttributes) UnmarshalBinary(b []byte) error {
+	var res ReturnAdmissionAttributes
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

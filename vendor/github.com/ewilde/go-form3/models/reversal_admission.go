@@ -22,10 +22,12 @@ type ReversalAdmission struct {
 
 	// id
 	// Required: true
+	// Format: uuid
 	ID *strfmt.UUID `json:"id"`
 
 	// organisation id
 	// Required: true
+	// Format: uuid
 	OrganisationID *strfmt.UUID `json:"organisation_id"`
 
 	// relationships
@@ -45,32 +47,26 @@ func (m *ReversalAdmission) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAttributes(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateID(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateOrganisationID(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateRelationships(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateType(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateVersion(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
@@ -87,7 +83,6 @@ func (m *ReversalAdmission) validateAttributes(formats strfmt.Registry) error {
 	}
 
 	if m.Attributes != nil {
-
 		if err := m.Attributes.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attributes")
@@ -132,7 +127,6 @@ func (m *ReversalAdmission) validateRelationships(formats strfmt.Registry) error
 	}
 
 	if m.Relationships != nil {
-
 		if err := m.Relationships.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("relationships")
@@ -181,6 +175,98 @@ func (m *ReversalAdmission) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *ReversalAdmission) UnmarshalBinary(b []byte) error {
 	var res ReversalAdmission
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// ReversalAdmissionAttributes reversal admission attributes
+// swagger:model ReversalAdmissionAttributes
+type ReversalAdmissionAttributes struct {
+
+	// scheme status code
+	SchemeStatusCode string `json:"scheme_status_code,omitempty"`
+
+	// source gateway
+	SourceGateway string `json:"source_gateway,omitempty"`
+}
+
+// Validate validates this reversal admission attributes
+func (m *ReversalAdmissionAttributes) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *ReversalAdmissionAttributes) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *ReversalAdmissionAttributes) UnmarshalBinary(b []byte) error {
+	var res ReversalAdmissionAttributes
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// ReversalAdmissionRelationships reversal admission relationships
+// swagger:model ReversalAdmissionRelationships
+type ReversalAdmissionRelationships struct {
+
+	// reversal
+	Reversal *RelationshipLinks `json:"reversal,omitempty"`
+}
+
+// Validate validates this reversal admission relationships
+func (m *ReversalAdmissionRelationships) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateReversal(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ReversalAdmissionRelationships) validateReversal(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Reversal) { // not required
+		return nil
+	}
+
+	if m.Reversal != nil {
+		if err := m.Reversal.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("relationships" + "." + "reversal")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *ReversalAdmissionRelationships) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *ReversalAdmissionRelationships) UnmarshalBinary(b []byte) error {
+	var res ReversalAdmissionRelationships
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

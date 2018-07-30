@@ -22,10 +22,12 @@ type NewReturnAdmission struct {
 
 	// id
 	// Required: true
+	// Format: uuid
 	ID *strfmt.UUID `json:"id"`
 
 	// organisation id
 	// Required: true
+	// Format: uuid
 	OrganisationID *strfmt.UUID `json:"organisation_id"`
 
 	// relationships
@@ -45,32 +47,26 @@ func (m *NewReturnAdmission) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAttributes(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateID(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateOrganisationID(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateRelationships(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateType(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateVersion(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
@@ -87,7 +83,6 @@ func (m *NewReturnAdmission) validateAttributes(formats strfmt.Registry) error {
 	}
 
 	if m.Attributes != nil {
-
 		if err := m.Attributes.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attributes")
@@ -132,7 +127,6 @@ func (m *NewReturnAdmission) validateRelationships(formats strfmt.Registry) erro
 	}
 
 	if m.Relationships != nil {
-
 		if err := m.Relationships.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("relationships")
@@ -181,6 +175,148 @@ func (m *NewReturnAdmission) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *NewReturnAdmission) UnmarshalBinary(b []byte) error {
 	var res NewReturnAdmission
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// NewReturnAdmissionAttributes new return admission attributes
+// swagger:model NewReturnAdmissionAttributes
+type NewReturnAdmissionAttributes struct {
+
+	// scheme status code
+	SchemeStatusCode string `json:"scheme_status_code,omitempty"`
+
+	// settlement cycle
+	// Minimum: 0
+	SettlementCycle *int64 `json:"settlement_cycle,omitempty"`
+
+	// settlement date
+	// Format: date
+	SettlementDate strfmt.Date `json:"settlement_date,omitempty"`
+
+	// source gateway
+	SourceGateway string `json:"source_gateway,omitempty"`
+
+	// status reason
+	StatusReason string `json:"status_reason,omitempty"`
+}
+
+// Validate validates this new return admission attributes
+func (m *NewReturnAdmissionAttributes) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateSettlementCycle(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSettlementDate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *NewReturnAdmissionAttributes) validateSettlementCycle(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.SettlementCycle) { // not required
+		return nil
+	}
+
+	if err := validate.MinimumInt("attributes"+"."+"settlement_cycle", "body", int64(*m.SettlementCycle), 0, false); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *NewReturnAdmissionAttributes) validateSettlementDate(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.SettlementDate) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("attributes"+"."+"settlement_date", "body", "date", m.SettlementDate.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *NewReturnAdmissionAttributes) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *NewReturnAdmissionAttributes) UnmarshalBinary(b []byte) error {
+	var res NewReturnAdmissionAttributes
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// NewReturnAdmissionRelationships new return admission relationships
+// swagger:model NewReturnAdmissionRelationships
+type NewReturnAdmissionRelationships struct {
+
+	// validations
+	Validations *RelationshipLinks `json:"validations,omitempty"`
+}
+
+// Validate validates this new return admission relationships
+func (m *NewReturnAdmissionRelationships) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateValidations(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *NewReturnAdmissionRelationships) validateValidations(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Validations) { // not required
+		return nil
+	}
+
+	if m.Validations != nil {
+		if err := m.Validations.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("relationships" + "." + "validations")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *NewReturnAdmissionRelationships) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *NewReturnAdmissionRelationships) UnmarshalBinary(b []byte) error {
+	var res NewReturnAdmissionRelationships
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
