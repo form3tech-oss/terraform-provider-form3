@@ -326,6 +326,88 @@
 			"revision": ""
 		},
 		{
+			"checksumSHA1": "z3P9jCnURhdmNLHSeM8AqWcrC0o=",
+			"path": "github.com/form3tech-oss/go-form3",
+			"revision": "59de9ba71fa569ba9eaaf7e239027b8c56e6b16a",
+			"revisionTime": "2018-08-23T13:06:35Z"
+		},
+		{
+			"checksumSHA1": "NkcU/DDYx4NOsmFfGnRcNxGzVKs=",
+			"path": "github.com/form3tech-oss/go-form3/client",
+			"revision": "59de9ba71fa569ba9eaaf7e239027b8c56e6b16a",
+			"revisionTime": "2018-08-23T13:06:35Z"
+		},
+		{
+			"checksumSHA1": "R/nUmuCjLwP5IPpGHiG4dhswHnM=",
+			"path": "github.com/form3tech-oss/go-form3/client/accounts",
+			"revision": "59de9ba71fa569ba9eaaf7e239027b8c56e6b16a",
+			"revisionTime": "2018-08-23T13:06:35Z"
+		},
+		{
+			"checksumSHA1": "Nlc8UnpUaiTxTQQvC1DWU/BP4LY=",
+			"path": "github.com/form3tech-oss/go-form3/client/ace",
+			"revision": "59de9ba71fa569ba9eaaf7e239027b8c56e6b16a",
+			"revisionTime": "2018-08-23T13:06:35Z"
+		},
+		{
+			"checksumSHA1": "SjDBTCoOfw1gG5ENd76uoO6Utng=",
+			"path": "github.com/form3tech-oss/go-form3/client/associations",
+			"revision": "59de9ba71fa569ba9eaaf7e239027b8c56e6b16a",
+			"revisionTime": "2018-08-23T13:06:35Z"
+		},
+		{
+			"checksumSHA1": "dWKwRV+Bz1eRWHkywxofUDUNJrk=",
+			"path": "github.com/form3tech-oss/go-form3/client/limits",
+			"revision": "59de9ba71fa569ba9eaaf7e239027b8c56e6b16a",
+			"revisionTime": "2018-08-23T13:06:35Z"
+		},
+		{
+			"checksumSHA1": "X8UXrbRGV674bE9Y9KGr2IJtP3o=",
+			"path": "github.com/form3tech-oss/go-form3/client/organisations",
+			"revision": "59de9ba71fa569ba9eaaf7e239027b8c56e6b16a",
+			"revisionTime": "2018-08-23T13:06:35Z"
+		},
+		{
+			"checksumSHA1": "UEvX87geaDPxaU6IhebyVOAfoLE=",
+			"path": "github.com/form3tech-oss/go-form3/client/payment_defaults",
+			"revision": "59de9ba71fa569ba9eaaf7e239027b8c56e6b16a",
+			"revisionTime": "2018-08-23T13:06:35Z"
+		},
+		{
+			"checksumSHA1": "x8zJrLdYLOgseMxNMQm9SebcU+k=",
+			"path": "github.com/form3tech-oss/go-form3/client/payments",
+			"revision": "59de9ba71fa569ba9eaaf7e239027b8c56e6b16a",
+			"revisionTime": "2018-08-23T13:06:35Z"
+		},
+		{
+			"checksumSHA1": "v2Zse6VsZoEcdzP0yYdx2fK92VY=",
+			"path": "github.com/form3tech-oss/go-form3/client/roles",
+			"revision": "59de9ba71fa569ba9eaaf7e239027b8c56e6b16a",
+			"revisionTime": "2018-08-23T13:06:35Z"
+		},
+		{
+			"checksumSHA1": "+MG0lMsj51wOHb5pXvhc2H2P2K4=",
+			"path": "github.com/form3tech-oss/go-form3/client/subscriptions",
+			"revision": "59de9ba71fa569ba9eaaf7e239027b8c56e6b16a",
+			"revisionTime": "2018-08-23T13:06:35Z"
+		},
+		{
+			"checksumSHA1": "tmA0cGZdXi5neUPr2UKKU8+3msY=",
+			"path": "github.com/form3tech-oss/go-form3/client/users",
+			"revision": "59de9ba71fa569ba9eaaf7e239027b8c56e6b16a",
+			"revisionTime": "2018-08-23T13:06:35Z"
+		},
+		{
+			"checksumSHA1": "J44f8ATjmMvWkWW2KsDJHft+fFI=",
+			"path": "github.com/form3tech-oss/go-form3/models",
+			"revision": "59de9ba71fa569ba9eaaf7e239027b8c56e6b16a",
+			"revisionTime": "2018-08-23T13:06:35Z"
+		},
+		{
+			"path": "github.com/form3test-oss/go-form3",
+			"revision": ""
+		},
+		{
 			"checksumSHA1": "1K+xrZ1PBez190iGt5OnMtGdih4=",
 			"origin": "github.com/hashicorp/terraform/vendor/github.com/go-ini/ini",
 			"path": "github.com/go-ini/ini",
@@ -1105,5 +1187,5 @@
 			"revisionTime": "2017-08-12T16:00:11Z"
 		}
 	],
-	"rootPath": "github.com/ewilde/terraform-provider-form3"
+	"rootPath": "github.com/form3tech-oss/terraform-provider-form3"
 }

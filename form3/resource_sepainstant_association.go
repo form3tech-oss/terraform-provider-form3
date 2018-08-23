@@ -2,9 +2,9 @@ package form3
 
 import (
 	"fmt"
-	"github.com/ewilde/go-form3"
-	"github.com/ewilde/go-form3/client/associations"
-	"github.com/ewilde/go-form3/models"
+	"github.com/form3tech-oss/go-form3"
+	"github.com/form3tech-oss/go-form3/client/associations"
+	"github.com/form3tech-oss/go-form3/models"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/schema"
@@ -39,6 +39,11 @@ func resourceForm3SepaInstantAssociation() *schema.Resource {
 				ForceNew: true,
 			},
 			"certificate_id": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
+			"bic": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
@@ -92,6 +97,7 @@ func resourceSepaInstantAssociationRead(d *schema.ResourceData, meta interface{}
 	d.Set("certificate_dn", sepaInstantAssociation.Payload.Data.Attributes.CertificateDn)
 	d.Set("certificate_pin", sepaInstantAssociation.Payload.Data.Attributes.CertificatePin)
 	d.Set("certificate_id", sepaInstantAssociation.Payload.Data.Attributes.CertificateID)
+	d.Set("bic", sepaInstantAssociation.Payload.Data.Attributes.Bic)
 
 	return nil
 }
@@ -138,6 +144,10 @@ func createSepaInstantNewAssociationFromResourceData(d *schema.ResourceData) (*m
 
 	if attr, ok := d.GetOk("certificate_id"); ok {
 		association.Attributes.CertificateID = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("bic"); ok {
+		association.Attributes.Bic = attr.(string)
 	}
 
 	return &association, nil
