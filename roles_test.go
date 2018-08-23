@@ -5,8 +5,8 @@ import (
 	"github.com/form3tech-oss/go-form3/client/roles"
 	"github.com/form3tech-oss/go-form3/models"
 	"github.com/go-openapi/strfmt"
-	"testing"
 	"github.com/nu7hatch/gouuid"
+	"testing"
 )
 
 func TestAccDeleteRole(t *testing.T) {
