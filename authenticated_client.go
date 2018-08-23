@@ -10,7 +10,7 @@ import (
 	"net/http"
 	"net/http/httputil"
 
-	"github.com/ewilde/go-form3/client"
+	"github.com/form3tech-oss/go-form3/client"
 	"github.com/go-openapi/runtime"
 	rc "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"

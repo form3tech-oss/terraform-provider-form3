@@ -1,8 +1,8 @@
 package form3
 
 import (
-	"github.com/ewilde/go-form3/client/accounts"
-	"github.com/ewilde/go-form3/models"
+	"github.com/form3tech-oss/go-form3/client/accounts"
+	"github.com/form3tech-oss/go-form3/models"
 	"github.com/go-openapi/strfmt"
 	"github.com/nu7hatch/gouuid"
 	"testing"

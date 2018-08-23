@@ -2,9 +2,9 @@ package form3
 
 import (
 	"errors"
-	"github.com/ewilde/go-form3/client"
-	"github.com/ewilde/go-form3/client/organisations"
-	"github.com/ewilde/go-form3/models"
+	"github.com/form3tech-oss/go-form3/client"
+	"github.com/form3tech-oss/go-form3/client/organisations"
+	"github.com/form3tech-oss/go-form3/models"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/nu7hatch/gouuid"

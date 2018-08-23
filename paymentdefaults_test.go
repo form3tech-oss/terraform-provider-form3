@@ -3,8 +3,8 @@ package form3
 import (
 	"testing"
 
-	"github.com/ewilde/go-form3/client/payment_defaults"
-	"github.com/ewilde/go-form3/models"
+	"github.com/form3tech-oss/go-form3/client/payment_defaults"
+	"github.com/form3tech-oss/go-form3/models"
 	"github.com/go-openapi/strfmt"
 )
 
