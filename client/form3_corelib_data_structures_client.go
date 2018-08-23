@@ -11,16 +11,16 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/ewilde/go-form3/client/accounts"
-	"github.com/ewilde/go-form3/client/ace"
-	"github.com/ewilde/go-form3/client/associations"
-	"github.com/ewilde/go-form3/client/limits"
-	"github.com/ewilde/go-form3/client/organisations"
-	"github.com/ewilde/go-form3/client/payment_defaults"
-	"github.com/ewilde/go-form3/client/payments"
-	"github.com/ewilde/go-form3/client/roles"
-	"github.com/ewilde/go-form3/client/subscriptions"
-	"github.com/ewilde/go-form3/client/users"
+	"github.com/form3tech-oss/go-form3/client/accounts"
+	"github.com/form3tech-oss/go-form3/client/ace"
+	"github.com/form3tech-oss/go-form3/client/associations"
+	"github.com/form3tech-oss/go-form3/client/limits"
+	"github.com/form3tech-oss/go-form3/client/organisations"
+	"github.com/form3tech-oss/go-form3/client/payment_defaults"
+	"github.com/form3tech-oss/go-form3/client/payments"
+	"github.com/form3tech-oss/go-form3/client/roles"
+	"github.com/form3tech-oss/go-form3/client/subscriptions"
+	"github.com/form3tech-oss/go-form3/client/users"
 )
 
 // Default form3 corelib data structures HTTP client.

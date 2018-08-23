@@ -3,9 +3,9 @@ package form3
 import (
 	"log"
 
-	"github.com/ewilde/go-form3/client/accounts"
-	"github.com/ewilde/go-form3/client/organisations"
-	"github.com/ewilde/go-form3/models"
+	"github.com/form3tech-oss/go-form3/client/accounts"
+	"github.com/form3tech-oss/go-form3/client/organisations"
+	"github.com/form3tech-oss/go-form3/models"
 	"testing"
 )
 

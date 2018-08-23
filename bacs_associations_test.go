@@ -2,8 +2,8 @@ package form3
 
 import (
 	"fmt"
-	"github.com/ewilde/go-form3/client/associations"
-	"github.com/ewilde/go-form3/models"
+	"github.com/form3tech-oss/go-form3/client/associations"
+	"github.com/form3tech-oss/go-form3/models"
 	"github.com/go-openapi/strfmt"
 	"github.com/nu7hatch/gouuid"
 	"testing"
@@ -11,7 +11,7 @@ import (
 
 func TestDeleteBacsAssociation(t *testing.T) {
 
-	serviceUserNumber := "123456"
+	serviceUserNumber := "123458"
 	accountNumber := "12345678"
 	sortingCode := "123456"
 	accountType := int64(1)

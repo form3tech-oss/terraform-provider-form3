@@ -3741,6 +3741,8 @@ definitions:
         type: string
       certificate_pin:
         type: string
+      bic:
+        type: string
 
   SepaInstantAssociationCreation:
     type: object

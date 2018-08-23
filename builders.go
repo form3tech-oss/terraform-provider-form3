@@ -2,7 +2,7 @@ package form3
 
 import (
 	"fmt"
-	"github.com/ewilde/go-form3/models"
+	"github.com/form3tech-oss/go-form3/models"
 	"github.com/go-openapi/strfmt"
 	"github.com/nu7hatch/gouuid"
 	"math"
