@@ -6,17 +6,29 @@ import (
 	"github.com/form3tech-oss/go-form3/client/payment_defaults"
 	"github.com/form3tech-oss/go-form3/models"
 	"github.com/go-openapi/strfmt"
+	"github.com/nu7hatch/gouuid"
 )
 
 var version = int64(0)
 
+func Must(u *uuid.UUID, err error) *uuid.UUID {
+	if err != nil {
+		panic(err)
+	}
+
+	return u
+}
+
 func TestAccPostPaymentDefaults(t *testing.T) {
+
+	paymentId := Must(uuid.NewV4()).String()
+
 	createResponse, err := auth.PaymentdefaultsClient.PaymentDefaults.PostPaymentdefaults(payment_defaults.NewPostPaymentdefaultsParams().
 		WithDefaultConfiguration(&models.PaymentDefaultsCreate{
 			Data: &models.PaymentDefaults{
 				OrganisationID: organisationId,
 				Version:        &version,
-				ID:             strfmt.UUID("7066746d-4c12-4c21-9b9f-ee1a6d401f44"),
+				ID:             strfmt.UUID(paymentId),
 				Attributes: &models.PaymentDefaultsAttributes{
 					DefaultPaymentScheme: "FPS",
 				},
@@ -36,12 +48,14 @@ func TestAccPostPaymentDefaults(t *testing.T) {
 }
 
 func TestAccGetPaymentDefaultsList(t *testing.T) {
+	paymentId := Must(uuid.NewV4()).String()
+
 	createResponse, err := auth.PaymentdefaultsClient.PaymentDefaults.PostPaymentdefaults(payment_defaults.NewPostPaymentdefaultsParams().
 		WithDefaultConfiguration(&models.PaymentDefaultsCreate{
 			Data: &models.PaymentDefaults{
 				OrganisationID: organisationId,
 				Version:        &version,
-				ID:             strfmt.UUID("7066746d-4c12-4c21-9b9f-ee1a6d401f44"),
+				ID:             strfmt.UUID(paymentId),
 				Attributes: &models.PaymentDefaultsAttributes{
 					DefaultPaymentScheme: "FPS",
 				},
@@ -64,12 +78,14 @@ func TestAccGetPaymentDefaultsList(t *testing.T) {
 }
 
 func TestAccDeletePaymentDefaults(t *testing.T) {
+	paymentId := Must(uuid.NewV4()).String()
+
 	createResponse, err := auth.PaymentdefaultsClient.PaymentDefaults.PostPaymentdefaults(payment_defaults.NewPostPaymentdefaultsParams().
 		WithDefaultConfiguration(&models.PaymentDefaultsCreate{
 			Data: &models.PaymentDefaults{
 				OrganisationID: organisationId,
 				Version:        &version,
-				ID:             strfmt.UUID("7066746d-4c12-4c21-9b9f-ee1a6d401f44"),
+				ID:             strfmt.UUID(paymentId),
 				Attributes: &models.PaymentDefaultsAttributes{
 					DefaultPaymentScheme: "FPS",
 				},

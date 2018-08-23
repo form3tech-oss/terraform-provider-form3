@@ -11,7 +11,7 @@ import (
 
 func TestDeleteBacsAssociation(t *testing.T) {
 
-	serviceUserNumber := "123456"
+	serviceUserNumber := "123458"
 	accountNumber := "12345678"
 	sortingCode := "123456"
 	accountType := int64(1)

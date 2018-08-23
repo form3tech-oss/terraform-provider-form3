@@ -6,6 +6,7 @@ import (
 	"github.com/form3tech-oss/go-form3/models"
 	"github.com/go-openapi/strfmt"
 	"testing"
+	"github.com/nu7hatch/gouuid"
 )
 
 func TestAccDeleteRole(t *testing.T) {
@@ -40,12 +41,14 @@ func TestAccDeleteRole(t *testing.T) {
 
 func TestAccDeleteRoleAce(t *testing.T) {
 
+	roleId := Must(uuid.NewV4()).String()
+
 	createRoleResponse, err := auth.SecurityClient.Roles.PostRoles(roles.NewPostRolesParams().
 		WithRoleCreationRequest(&models.RoleCreation{
 			Data: &models.Role{
 				OrganisationID: organisationId,
 				Type:           "roles",
-				ID:             strfmt.UUID("f6679900-10d2-44a1-9a46-2d972f4bf457"),
+				ID:             strfmt.UUID(roleId),
 				Attributes: &models.RoleAttributes{
 					Name: "TestRole",
 				},
@@ -54,13 +57,15 @@ func TestAccDeleteRoleAce(t *testing.T) {
 
 	assertNoErrorOccurred(err, t)
 
+	aceId := Must(uuid.NewV4()).String()
+
 	createAceResponse, err := auth.SecurityClient.Ace.PostRolesRoleIDAces(ace.NewPostRolesRoleIDAcesParams().
 		WithRoleID(createRoleResponse.Payload.Data.ID).
 		WithAceCreationRequest(&models.AceCreation{
 			Data: &models.Ace{
 				OrganisationID: organisationId,
 				Type:           "roles",
-				ID:             strfmt.UUID("ad7e4332-dc05-4fd1-a9de-e0b9ef0fc269"),
+				ID:             strfmt.UUID(aceId),
 				Attributes: &models.AceAttributes{
 					RoleID:     createRoleResponse.Payload.Data.ID,
 					Action:     "updated",
