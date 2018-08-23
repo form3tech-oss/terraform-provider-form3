@@ -15,6 +15,9 @@ import (
 // swagger:model SepaInstantAssociationAttributes
 type SepaInstantAssociationAttributes struct {
 
+	// bic
+	Bic string `json:"bic,omitempty"`
+
 	// certificate dn
 	CertificateDn string `json:"certificate_dn,omitempty"`
 
