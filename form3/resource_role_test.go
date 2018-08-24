@@ -2,8 +2,8 @@ package form3
 
 import (
 	"fmt"
-	"github.com/ewilde/go-form3"
-	"github.com/ewilde/go-form3/client/roles"
+	"github.com/form3tech-oss/go-form3"
+	"github.com/form3tech-oss/go-form3/client/roles"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"

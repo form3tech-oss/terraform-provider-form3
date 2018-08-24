@@ -2,8 +2,8 @@ package form3
 
 import (
 	"fmt"
-	"github.com/ewilde/go-form3"
-	"github.com/ewilde/go-form3/client/associations"
+	"github.com/form3tech-oss/go-form3"
+	"github.com/form3tech-oss/go-form3/client/associations"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
@@ -31,6 +31,7 @@ func TestAccSepaInstantAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "certificate_dn", "abcdef"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "certificate_pin", "123456"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "certificate_id", "xyz"),
+					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "bic", "TESTBIC8"),
 				),
 			},
 		},
@@ -98,4 +99,5 @@ resource "form3_sepainstant_association" "association" {
 	certificate_dn       = "abcdef"
 	certificate_pin      = "123456"
 	certificate_id       = "xyz"
+	bic                  = "TESTBIC8"
 }`

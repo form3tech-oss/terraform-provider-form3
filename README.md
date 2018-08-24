@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ewilde/terraform-provider-form3.svg?branch=master)](https://travis-ci.org/ewilde/terraform-provider-form3)
+[![Build Status](https://travis-ci.org/form3tech-oss/terraform-provider-form3.svg?branch=master)](https://travis-ci.org/form3tech-oss/terraform-provider-form3)
 # Terraform Form3 Provider
 
 - Website: https://www.terraform.io
@@ -17,12 +17,12 @@ the official [Form3 API](http://api-docs.form3.tech)
 
 ## Building The Provider
 
-Clone repository to: `$GOPATH/src/github.com/ewilde/terraform-provider-form3`
+Clone repository to: `$GOPATH/src/github.com/form3tech-oss/terraform-provider-form3`
 
 Enter the provider directory and build the provider
 
 ```sh
-$ cd $GOPATH/src/github.com/ewilde/terraform-provider-form3
+$ cd $GOPATH/src/github.com/form3tech-oss/terraform-provider-form3
 $ make build
 ```
 
@@ -60,4 +60,4 @@ $ env FORM3_CLIENT_ID={your_client_id} FORM3_CLIENT_SECRET={your_client_secret} 
 ```
 
 ### Updating packages
-* govendor fetch github.com/ewilde/go-form3/...
+* govendor fetch github.com/form3tech-oss/go-form3/...
