@@ -16,6 +16,9 @@ func resourceForm3BacsAssociation() *schema.Resource {
 		Create: resourceBacsAssociationCreate,
 		Read:   resourceBacsAssociationRead,
 		Delete: resourceBacsAssociationDelete,
+		Importer: &schema.ResourceImporter{
+			State: schema.ImportStatePassthrough,
+		},
 
 		Schema: map[string]*schema.Schema{
 			"association_id": {
@@ -81,25 +84,32 @@ func resourceBacsAssociationCreate(d *schema.ResourceData, meta interface{}) err
 func resourceBacsAssociationRead(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
 
-	key := d.Id()
 	associationId, _ := GetUUIDOK(d, "association_id")
-	serviceUserNumber := d.Get("service_user_number").(string)
-	log.Printf("[INFO] Reading Bacs association for id: %s service user number: %s", key, serviceUserNumber)
+
+	if associationId == "" {
+		associationId = strfmt.UUID(d.Id())
+		log.Printf("[INFO] Importing bacs association with resource id: %s.", associationId)
+	} else {
+		log.Printf("[INFO] Reading bacs association with resource id: %s.", associationId)
+	}
 
 	bacsAssociation, err := client.AssociationClient.Associations.GetBacsID(associations.NewGetBacsIDParams().
 		WithID(associationId))
 
 	if err != nil {
-		apiError := err.(*runtime.APIError)
-		if apiError.Code == 404 {
+		apiError, ok := err.(*runtime.APIError)
+		if ok && apiError.Code == 404 {
 			d.SetId("")
 			return nil
+		} else {
+			return err
 		}
 
 		return fmt.Errorf("couldn't find Bacs association: %s", err)
 	}
 
 	d.Set("association_id", bacsAssociation.Payload.Data.ID.String())
+	d.Set("organisation_id", bacsAssociation.Payload.Data.OrganisationID.String())
 	d.Set("service_user_number", bacsAssociation.Payload.Data.Attributes.ServiceUserNumber)
 	d.Set("account_number", bacsAssociation.Payload.Data.Attributes.AccountNumber)
 	d.Set("sorting_code", bacsAssociation.Payload.Data.Attributes.SortingCode)
