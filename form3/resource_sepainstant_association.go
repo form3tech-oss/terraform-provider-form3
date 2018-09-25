@@ -28,21 +28,6 @@ func resourceForm3SepaInstantAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
-			"certificate_dn": {
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
-			},
-			"certificate_pin": {
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
-			},
-			"certificate_id": {
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
-			},
 			"bic": {
 				Type:     schema.TypeString,
 				Required: true,
@@ -94,9 +79,6 @@ func resourceSepaInstantAssociationRead(d *schema.ResourceData, meta interface{}
 	}
 
 	d.Set("association_id", sepaInstantAssociation.Payload.Data.ID.String())
-	d.Set("certificate_dn", sepaInstantAssociation.Payload.Data.Attributes.CertificateDn)
-	d.Set("certificate_pin", sepaInstantAssociation.Payload.Data.Attributes.CertificatePin)
-	d.Set("certificate_id", sepaInstantAssociation.Payload.Data.Attributes.CertificateID)
 	d.Set("bic", sepaInstantAssociation.Payload.Data.Attributes.Bic)
 
 	return nil
@@ -132,18 +114,6 @@ func createSepaInstantNewAssociationFromResourceData(d *schema.ResourceData) (*m
 
 	if attr, ok := GetUUIDOK(d, "organisation_id"); ok {
 		association.OrganisationID = attr
-	}
-
-	if attr, ok := d.GetOk("certificate_dn"); ok {
-		association.Attributes.CertificateDn = attr.(string)
-	}
-
-	if attr, ok := d.GetOk("certificate_pin"); ok {
-		association.Attributes.CertificatePin = attr.(string)
-	}
-
-	if attr, ok := d.GetOk("certificate_id"); ok {
-		association.Attributes.CertificateID = attr.(string)
 	}
 
 	if attr, ok := d.GetOk("bic"); ok {
