@@ -17,15 +17,6 @@ type SepaInstantAssociationAttributes struct {
 
 	// bic
 	Bic string `json:"bic,omitempty"`
-
-	// certificate dn
-	CertificateDn string `json:"certificate_dn,omitempty"`
-
-	// certificate id
-	CertificateID string `json:"certificate_id,omitempty"`
-
-	// certificate pin
-	CertificatePin string `json:"certificate_pin,omitempty"`
 }
 
 // Validate validates this sepa instant association attributes
