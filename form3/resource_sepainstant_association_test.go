@@ -28,9 +28,6 @@ func TestAccSepaInstantAssociation_basic(t *testing.T) {
 					testAccCheckSepaInstantAssociationExists("form3_sepainstant_association.association"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "association_id", associationId),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "certificate_dn", "abcdef"),
-					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "certificate_pin", "123456"),
-					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "certificate_id", "xyz"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "bic", "TESTBIC8"),
 				),
 			},
@@ -95,9 +92,6 @@ resource "form3_organisation" "organisation" {
 
 resource "form3_sepainstant_association" "association" {
 	organisation_id      = "${form3_organisation.organisation.organisation_id}"
-	association_id       = "%s"
-	certificate_dn       = "abcdef"
-	certificate_pin      = "123456"
-	certificate_id       = "xyz"
+	association_id       = "%s"	
 	bic                  = "TESTBIC8"
 }`
