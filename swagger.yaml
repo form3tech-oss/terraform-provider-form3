@@ -3735,12 +3735,6 @@ definitions:
   SepaInstantAssociationAttributes:
     type: object
     properties:
-      certificate_dn:
-        type: string
-      certificate_id:
-        type: string
-      certificate_pin:
-        type: string
       bic:
         type: string
 
