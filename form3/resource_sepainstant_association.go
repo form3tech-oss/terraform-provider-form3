@@ -28,6 +28,11 @@ func resourceForm3SepaInstantAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
+			"business_user_dn": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
 			"bic": {
 				Type:     schema.TypeString,
 				Required: true,
@@ -79,6 +84,7 @@ func resourceSepaInstantAssociationRead(d *schema.ResourceData, meta interface{}
 	}
 
 	d.Set("association_id", sepaInstantAssociation.Payload.Data.ID.String())
+	d.Set("business_user_dn", sepaInstantAssociation.Payload.Data.Attributes.BusinessUserDn)
 	d.Set("bic", sepaInstantAssociation.Payload.Data.Attributes.Bic)
 
 	return nil
@@ -118,6 +124,10 @@ func createSepaInstantNewAssociationFromResourceData(d *schema.ResourceData) (*m
 
 	if attr, ok := d.GetOk("bic"); ok {
 		association.Attributes.Bic = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("business_user_dn"); ok {
+		association.Attributes.BusinessUserDn = attr.(string)
 	}
 
 	return &association, nil

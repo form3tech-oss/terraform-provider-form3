@@ -3735,6 +3735,8 @@ definitions:
   SepaInstantAssociationAttributes:
     type: object
     properties:
+      business_user_dn:
+        type: string
       bic:
         type: string
 
