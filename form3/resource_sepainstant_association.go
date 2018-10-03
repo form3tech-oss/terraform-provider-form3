@@ -69,8 +69,8 @@ func resourceSepaInstantAssociationRead(d *schema.ResourceData, meta interface{}
 		WithID(associationId))
 
 	if err != nil {
-		apiError := err.(*runtime.APIError)
-		if apiError.Code == 404 {
+		apiError, ok := err.(*runtime.APIError)
+		if ok && apiError.Code == 404 {
 			d.SetId("")
 			return nil
 		}

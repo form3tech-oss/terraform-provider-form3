@@ -98,8 +98,8 @@ func resourceLimitRead(d *schema.ResourceData, meta interface{}) error {
 
 	limit, err := client.LimitsClient.Limits.GetLimitsID(limits.NewGetLimitsIDParams().WithID(limitId))
 	if err != nil {
-		apiError := err.(*runtime.APIError)
-		if apiError.Code == 404 {
+		apiError, ok := err.(*runtime.APIError)
+		if ok && apiError.Code == 404 {
 			d.SetId("")
 			return nil
 		}

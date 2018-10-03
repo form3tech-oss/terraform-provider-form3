@@ -85,8 +85,8 @@ func resourceBicRead(d *schema.ResourceData, meta interface{}) error {
 		WithID(bicID))
 
 	if err != nil {
-		apiError := err.(*runtime.APIError)
-		if apiError.Code == 404 {
+		apiError, ok := err.(*runtime.APIError)
+		if ok && apiError.Code == 404 {
 			d.SetId("")
 			return nil
 		}
