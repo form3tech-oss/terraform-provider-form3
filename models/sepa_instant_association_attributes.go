@@ -17,6 +17,9 @@ type SepaInstantAssociationAttributes struct {
 
 	// bic
 	Bic string `json:"bic,omitempty"`
+
+	// business user dn
+	BusinessUserDn string `json:"business_user_dn,omitempty"`
 }
 
 // Validate validates this sepa instant association attributes
