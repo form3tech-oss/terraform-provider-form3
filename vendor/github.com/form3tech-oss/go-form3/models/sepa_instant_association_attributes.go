@@ -20,6 +20,9 @@ type SepaInstantAssociationAttributes struct {
 
 	// business user dn
 	BusinessUserDn string `json:"business_user_dn,omitempty"`
+
+	// transport profile id
+	TransportProfileID string `json:"transport_profile_id,omitempty"`
 }
 
 // Validate validates this sepa instant association attributes

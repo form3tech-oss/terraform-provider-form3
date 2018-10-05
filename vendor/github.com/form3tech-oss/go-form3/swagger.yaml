@@ -3737,6 +3737,8 @@ definitions:
     properties:
       business_user_dn:
         type: string
+      transport_profile_id:
+        type: string
       bic:
         type: string
 
