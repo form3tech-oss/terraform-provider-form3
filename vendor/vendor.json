@@ -244,12 +244,6 @@
 			"revisionTime": "2017-09-19T17:24:43Z"
 		},
 		{
-			"checksumSHA1": "2AR602gCYSUjfzFRTK2t+FPqbKg=",
-			"path": "github.com/ewilde/go-form3",
-			"revision": "9cbf875303a7f78a32e752ab8d678e07b3b73ca3",
-			"revisionTime": "2018-07-30T07:34:10Z"
-		},
-		{
 			"checksumSHA1": "vOiBcXliKf+rj7e+7cK939kf1HY=",
 			"path": "github.com/ewilde/go-form3/client",
 			"revision": "9cbf875303a7f78a32e752ab8d678e07b3b73ca3",
