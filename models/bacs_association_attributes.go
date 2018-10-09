@@ -24,6 +24,14 @@ type BacsAssociationAttributes struct {
 	// account type
 	AccountType *int64 `json:"account_type,omitempty"`
 
+	// bank code
+	// Pattern: ^[0-9A-Z]{4}$
+	BankCode string `json:"bank_code,omitempty"`
+
+	// centre number
+	// Pattern: ^[0-9A-Z]{2}$
+	CentreNumber string `json:"centre_number,omitempty"`
+
 	// service user number
 	// Pattern: ^[0-9A-Z]{6}$
 	ServiceUserNumber string `json:"service_user_number,omitempty"`
@@ -38,6 +46,14 @@ func (m *BacsAssociationAttributes) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAccountNumber(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateBankCode(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCentreNumber(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -62,6 +78,32 @@ func (m *BacsAssociationAttributes) validateAccountNumber(formats strfmt.Registr
 	}
 
 	if err := validate.Pattern("account_number", "body", string(m.AccountNumber), `^[0-9]{8}$`); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BacsAssociationAttributes) validateBankCode(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.BankCode) { // not required
+		return nil
+	}
+
+	if err := validate.Pattern("bank_code", "body", string(m.BankCode), `^[0-9A-Z]{4}$`); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BacsAssociationAttributes) validateCentreNumber(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CentreNumber) { // not required
+		return nil
+	}
+
+	if err := validate.Pattern("centre_number", "body", string(m.CentreNumber), `^[0-9A-Z]{2}$`); err != nil {
 		return err
 	}
 
