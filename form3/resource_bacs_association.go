@@ -51,6 +51,16 @@ func resourceForm3BacsAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
+			"bank_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
+			"centre_number": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
 		},
 	}
 }
@@ -104,8 +114,6 @@ func resourceBacsAssociationRead(d *schema.ResourceData, meta interface{}) error
 		} else {
 			return err
 		}
-
-		return fmt.Errorf("couldn't find Bacs association: %s", err)
 	}
 
 	d.Set("association_id", bacsAssociation.Payload.Data.ID.String())
@@ -114,6 +122,8 @@ func resourceBacsAssociationRead(d *schema.ResourceData, meta interface{}) error
 	d.Set("account_number", bacsAssociation.Payload.Data.Attributes.AccountNumber)
 	d.Set("sorting_code", bacsAssociation.Payload.Data.Attributes.SortingCode)
 	d.Set("account_type", bacsAssociation.Payload.Data.Attributes.AccountType)
+	d.Set("bank_id", bacsAssociation.Payload.Data.Attributes.BankCode)
+	d.Set("centre_number", bacsAssociation.Payload.Data.Attributes.CentreNumber)
 	return nil
 }
 
@@ -167,6 +177,14 @@ func createBacsNewAssociationFromResourceData(d *schema.ResourceData) (*models.B
 	if attr, ok := d.GetOkExists("account_type"); ok {
 		accountType := int64(attr.(int))
 		association.Attributes.AccountType = &accountType
+	}
+
+	if attr, ok := d.GetOk("bank_code"); ok {
+		association.Attributes.BankCode = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("centre_number"); ok {
+		association.Attributes.CentreNumber = attr.(string)
 	}
 
 	return &association, nil
