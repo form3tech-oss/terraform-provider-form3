@@ -3665,6 +3665,12 @@ definitions:
       account_type:
         type: integer
         x-nullable: true
+      bank_code:
+        type: string
+        pattern: ^[0-9A-Z]{4}$
+      centre_number:
+        type: string
+        pattern: ^[0-9A-Z]{2}$
 
   BacsAssociationCreation:
     type: object

@@ -244,168 +244,82 @@
 			"revisionTime": "2017-09-19T17:24:43Z"
 		},
 		{
-			"checksumSHA1": "2AR602gCYSUjfzFRTK2t+FPqbKg=",
-			"path": "github.com/ewilde/go-form3",
-			"revision": "9cbf875303a7f78a32e752ab8d678e07b3b73ca3",
-			"revisionTime": "2018-07-30T07:34:10Z"
-		},
-		{
-			"checksumSHA1": "vOiBcXliKf+rj7e+7cK939kf1HY=",
-			"path": "github.com/ewilde/go-form3/client",
-			"revision": "9cbf875303a7f78a32e752ab8d678e07b3b73ca3",
-			"revisionTime": "2018-07-30T07:34:10Z"
-		},
-		{
-			"checksumSHA1": "wObYiovgCh8f+q1PKcj2zOjqBqY=",
-			"path": "github.com/ewilde/go-form3/client/accounts",
-			"revision": "9cbf875303a7f78a32e752ab8d678e07b3b73ca3",
-			"revisionTime": "2018-07-30T07:34:10Z"
-		},
-		{
-			"checksumSHA1": "nG2nwo+chXuQsI66D3kKRrOUYhI=",
-			"path": "github.com/ewilde/go-form3/client/ace",
-			"revision": "9cbf875303a7f78a32e752ab8d678e07b3b73ca3",
-			"revisionTime": "2018-07-30T07:34:10Z"
-		},
-		{
-			"checksumSHA1": "JpS1jJgE8NargqYSDUk/SHGyv9M=",
-			"path": "github.com/ewilde/go-form3/client/associations",
-			"revision": "9cbf875303a7f78a32e752ab8d678e07b3b73ca3",
-			"revisionTime": "2018-07-30T07:34:10Z"
-		},
-		{
-			"checksumSHA1": "oViBDnlTtMB8WFW2Fkf1T/dKuOQ=",
-			"path": "github.com/ewilde/go-form3/client/limits",
-			"revision": "9cbf875303a7f78a32e752ab8d678e07b3b73ca3",
-			"revisionTime": "2018-07-30T07:34:10Z"
-		},
-		{
-			"checksumSHA1": "JLUffSoLflihYA6zyN0qrn/16QE=",
-			"path": "github.com/ewilde/go-form3/client/organisations",
-			"revision": "9cbf875303a7f78a32e752ab8d678e07b3b73ca3",
-			"revisionTime": "2018-07-30T07:34:10Z"
-		},
-		{
-			"checksumSHA1": "buVmC0C1IVvObpKja0N0peMjS/I=",
-			"path": "github.com/ewilde/go-form3/client/payment_defaults",
-			"revision": "9cbf875303a7f78a32e752ab8d678e07b3b73ca3",
-			"revisionTime": "2018-07-30T07:34:10Z"
-		},
-		{
-			"checksumSHA1": "0jrgh+6UkGDrBK+o4K9+kCpDQCc=",
-			"path": "github.com/ewilde/go-form3/client/payments",
-			"revision": "9cbf875303a7f78a32e752ab8d678e07b3b73ca3",
-			"revisionTime": "2018-07-30T07:34:10Z"
-		},
-		{
-			"checksumSHA1": "m+QR0lBf0txngM4hnTJhnnAA2g0=",
-			"path": "github.com/ewilde/go-form3/client/roles",
-			"revision": "9cbf875303a7f78a32e752ab8d678e07b3b73ca3",
-			"revisionTime": "2018-07-30T07:34:10Z"
-		},
-		{
-			"checksumSHA1": "Tdmo1ySkq7RlJjyXfB8WY8qshZ0=",
-			"path": "github.com/ewilde/go-form3/client/subscriptions",
-			"revision": "9cbf875303a7f78a32e752ab8d678e07b3b73ca3",
-			"revisionTime": "2018-07-30T07:34:10Z"
-		},
-		{
-			"checksumSHA1": "AMvuKrj18RKrYJngXtkfQeIcMQE=",
-			"path": "github.com/ewilde/go-form3/client/users",
-			"revision": "9cbf875303a7f78a32e752ab8d678e07b3b73ca3",
-			"revisionTime": "2018-07-30T07:34:10Z"
-		},
-		{
-			"checksumSHA1": "tJXoPi/uZFMOJ8xQfC1uwsj2/DQ=",
-			"path": "github.com/ewilde/go-form3/models",
-			"revision": "9cbf875303a7f78a32e752ab8d678e07b3b73ca3",
-			"revisionTime": "2018-07-30T07:34:10Z"
-		},
-		{
-			"path": "github.com/ewilde/go-form3^",
-			"revision": ""
-		},
-		{
-			"checksumSHA1": "/OWDXOfChvRYm/XUKEH7Lf4/1Uk=",
+			"checksumSHA1": "vDkCZfLyKBgUV9fODVLDRgFbpTE=",
 			"path": "github.com/form3tech-oss/go-form3",
-			"revision": "e515cda01f1b5e8c5c04099da696ee8293522151",
-			"revisionTime": "2018-10-04T15:25:27Z"
+			"revision": "de745436404c7352a8b2cd72641688f5cad2ab65",
+			"revisionTime": "2018-10-10T09:05:26Z"
 		},
 		{
 			"checksumSHA1": "NkcU/DDYx4NOsmFfGnRcNxGzVKs=",
 			"path": "github.com/form3tech-oss/go-form3/client",
-			"revision": "e515cda01f1b5e8c5c04099da696ee8293522151",
-			"revisionTime": "2018-10-04T15:25:27Z"
+			"revision": "de745436404c7352a8b2cd72641688f5cad2ab65",
+			"revisionTime": "2018-10-10T09:05:26Z"
 		},
 		{
 			"checksumSHA1": "R/nUmuCjLwP5IPpGHiG4dhswHnM=",
 			"path": "github.com/form3tech-oss/go-form3/client/accounts",
-			"revision": "e515cda01f1b5e8c5c04099da696ee8293522151",
-			"revisionTime": "2018-10-04T15:25:27Z"
+			"revision": "de745436404c7352a8b2cd72641688f5cad2ab65",
+			"revisionTime": "2018-10-10T09:05:26Z"
 		},
 		{
 			"checksumSHA1": "Nlc8UnpUaiTxTQQvC1DWU/BP4LY=",
 			"path": "github.com/form3tech-oss/go-form3/client/ace",
-			"revision": "e515cda01f1b5e8c5c04099da696ee8293522151",
-			"revisionTime": "2018-10-04T15:25:27Z"
+			"revision": "de745436404c7352a8b2cd72641688f5cad2ab65",
+			"revisionTime": "2018-10-10T09:05:26Z"
 		},
 		{
 			"checksumSHA1": "SjDBTCoOfw1gG5ENd76uoO6Utng=",
 			"path": "github.com/form3tech-oss/go-form3/client/associations",
-			"revision": "e515cda01f1b5e8c5c04099da696ee8293522151",
-			"revisionTime": "2018-10-04T15:25:27Z"
+			"revision": "de745436404c7352a8b2cd72641688f5cad2ab65",
+			"revisionTime": "2018-10-10T09:05:26Z"
 		},
 		{
 			"checksumSHA1": "dWKwRV+Bz1eRWHkywxofUDUNJrk=",
 			"path": "github.com/form3tech-oss/go-form3/client/limits",
-			"revision": "e515cda01f1b5e8c5c04099da696ee8293522151",
-			"revisionTime": "2018-10-04T15:25:27Z"
+			"revision": "de745436404c7352a8b2cd72641688f5cad2ab65",
+			"revisionTime": "2018-10-10T09:05:26Z"
 		},
 		{
 			"checksumSHA1": "X8UXrbRGV674bE9Y9KGr2IJtP3o=",
 			"path": "github.com/form3tech-oss/go-form3/client/organisations",
-			"revision": "e515cda01f1b5e8c5c04099da696ee8293522151",
-			"revisionTime": "2018-10-04T15:25:27Z"
+			"revision": "de745436404c7352a8b2cd72641688f5cad2ab65",
+			"revisionTime": "2018-10-10T09:05:26Z"
 		},
 		{
 			"checksumSHA1": "UEvX87geaDPxaU6IhebyVOAfoLE=",
 			"path": "github.com/form3tech-oss/go-form3/client/payment_defaults",
-			"revision": "e515cda01f1b5e8c5c04099da696ee8293522151",
-			"revisionTime": "2018-10-04T15:25:27Z"
+			"revision": "de745436404c7352a8b2cd72641688f5cad2ab65",
+			"revisionTime": "2018-10-10T09:05:26Z"
 		},
 		{
 			"checksumSHA1": "x8zJrLdYLOgseMxNMQm9SebcU+k=",
 			"path": "github.com/form3tech-oss/go-form3/client/payments",
-			"revision": "e515cda01f1b5e8c5c04099da696ee8293522151",
-			"revisionTime": "2018-10-04T15:25:27Z"
+			"revision": "de745436404c7352a8b2cd72641688f5cad2ab65",
+			"revisionTime": "2018-10-10T09:05:26Z"
 		},
 		{
 			"checksumSHA1": "v2Zse6VsZoEcdzP0yYdx2fK92VY=",
 			"path": "github.com/form3tech-oss/go-form3/client/roles",
-			"revision": "e515cda01f1b5e8c5c04099da696ee8293522151",
-			"revisionTime": "2018-10-04T15:25:27Z"
+			"revision": "de745436404c7352a8b2cd72641688f5cad2ab65",
+			"revisionTime": "2018-10-10T09:05:26Z"
 		},
 		{
 			"checksumSHA1": "+MG0lMsj51wOHb5pXvhc2H2P2K4=",
 			"path": "github.com/form3tech-oss/go-form3/client/subscriptions",
-			"revision": "e515cda01f1b5e8c5c04099da696ee8293522151",
-			"revisionTime": "2018-10-04T15:25:27Z"
+			"revision": "de745436404c7352a8b2cd72641688f5cad2ab65",
+			"revisionTime": "2018-10-10T09:05:26Z"
 		},
 		{
 			"checksumSHA1": "tmA0cGZdXi5neUPr2UKKU8+3msY=",
 			"path": "github.com/form3tech-oss/go-form3/client/users",
-			"revision": "e515cda01f1b5e8c5c04099da696ee8293522151",
-			"revisionTime": "2018-10-04T15:25:27Z"
+			"revision": "de745436404c7352a8b2cd72641688f5cad2ab65",
+			"revisionTime": "2018-10-10T09:05:26Z"
 		},
 		{
-			"checksumSHA1": "y6DSrWMgAuhYmCnvaeogPdV/s7M=",
+			"checksumSHA1": "DkxuCoPCE8omAS+4GNWydCQk2jo=",
 			"path": "github.com/form3tech-oss/go-form3/models",
-			"revision": "e515cda01f1b5e8c5c04099da696ee8293522151",
-			"revisionTime": "2018-10-04T15:25:27Z"
-		},
-		{
-			"path": "github.com/form3test-oss/go-form3",
-			"revision": ""
+			"revision": "de745436404c7352a8b2cd72641688f5cad2ab65",
+			"revisionTime": "2018-10-10T09:05:26Z"
 		},
 		{
 			"checksumSHA1": "1K+xrZ1PBez190iGt5OnMtGdih4=",
