@@ -78,7 +78,7 @@ func TestAccBacsAssociation_withBankIdAndCentre(t *testing.T) {
 				Config: fmt.Sprintf(testForm3BacsAssociationConfigC, organisationId, parentOrganisationId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBacsAssociationExists("form3_bacs_association.association", &bacsResponse),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "bank_id", "BANK"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "bank_code", "BANK"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "centre_number", "42"),
 				),
 			},
@@ -177,11 +177,11 @@ resource "form3_organisation" "organisation" {
 
 resource "form3_bacs_association" "association" {
 	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
-	association_id                   = "ba2283f5-e194-4e12-ac8d-ae9bb08eeddb"
+	association_id                   = "ba2283f5-e194-4e12-ac8d-ae9bb08eeeee"
 	service_user_number              = "112233",
   account_number                   = "87654321",
   sorting_code                     = "654321",
   account_type                     = 0,
-  bank_id                          = "BANK",
+  bank_code                          = "BANK",
   centre_number                    = "42"
 }`

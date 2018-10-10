@@ -51,7 +51,7 @@ func resourceForm3BacsAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
-			"bank_id": {
+			"bank_code": {
 				Type:     schema.TypeString,
 				Optional: true,
 				ForceNew: true,
@@ -122,7 +122,7 @@ func resourceBacsAssociationRead(d *schema.ResourceData, meta interface{}) error
 	d.Set("account_number", bacsAssociation.Payload.Data.Attributes.AccountNumber)
 	d.Set("sorting_code", bacsAssociation.Payload.Data.Attributes.SortingCode)
 	d.Set("account_type", bacsAssociation.Payload.Data.Attributes.AccountType)
-	d.Set("bank_id", bacsAssociation.Payload.Data.Attributes.BankCode)
+	d.Set("bank_code", bacsAssociation.Payload.Data.Attributes.BankCode)
 	d.Set("centre_number", bacsAssociation.Payload.Data.Attributes.CentreNumber)
 	return nil
 }
