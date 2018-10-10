@@ -139,6 +139,47 @@ func TestPostBacsAssociation(t *testing.T) {
 
 }
 
+func TestPostBacsAssociationIncludingOptionalServiceCentre(t *testing.T) {
+	serviceUserNumber := "987897"
+	accountNumber := "12345699"
+	sortingCode := "123456"
+	accountType := int64(1)
+
+	id, _ := uuid.NewV4()
+	createResponse, err := auth.AssociationClient.Associations.PostBacs(associations.NewPostBacsParams().
+		WithCreationRequest(&models.BacsAssociationCreation{
+			Data: &models.BacsNewAssociation{
+				ID:             strfmt.UUID(id.String()),
+				OrganisationID: strfmt.UUID(organisationId.String()),
+				Attributes: &models.BacsAssociationAttributes{
+					ServiceUserNumber: serviceUserNumber,
+					AccountNumber:     accountNumber,
+					SortingCode:       sortingCode,
+					AccountType:       &accountType,
+					BankCode:          "1234",
+					CentreNumber:      "99",
+				},
+			},
+		}))
+
+	assertNoErrorOccurred(err, t)
+	actualBankCode := createResponse.Payload.Data.Attributes.BankCode
+	actualCentreNumber := createResponse.Payload.Data.Attributes.CentreNumber
+	if actualBankCode != "1234" {
+		t.Fatalf("Expected %s, got %s", "1234", actualBankCode)
+	}
+
+	if actualCentreNumber != "99" {
+		t.Fatalf("Expected %s, got %s", "99", actualCentreNumber)
+	}
+	_, err = auth.AssociationClient.Associations.DeleteBacsID(associations.NewDeleteBacsIDParams().
+		WithID(createResponse.Payload.Data.ID),
+	)
+
+	assertNoErrorOccurred(err, t)
+
+}
+
 func TestPostBacsAssociation_DoNotIgnoreAccountTypeWhenValueIsZero(t *testing.T) {
 	serviceUserNumber := "987897"
 	accountNumber := "12345678"
