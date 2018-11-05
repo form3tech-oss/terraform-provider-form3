@@ -19,16 +19,12 @@ import (
 type PaymentAdmissionStatusReason string
 
 const (
-
 	// PaymentAdmissionStatusReasonAccepted captures enum value "accepted"
 	PaymentAdmissionStatusReasonAccepted PaymentAdmissionStatusReason = "accepted"
-
 	// PaymentAdmissionStatusReasonInvalidBeneficiaryDetails captures enum value "invalid_beneficiary_details"
 	PaymentAdmissionStatusReasonInvalidBeneficiaryDetails PaymentAdmissionStatusReason = "invalid_beneficiary_details"
-
 	// PaymentAdmissionStatusReasonBankidNotProvisioned captures enum value "bankid_not_provisioned"
 	PaymentAdmissionStatusReasonBankidNotProvisioned PaymentAdmissionStatusReason = "bankid_not_provisioned"
-
 	// PaymentAdmissionStatusReasonUnknownAccountnumber captures enum value "unknown_accountnumber"
 	PaymentAdmissionStatusReasonUnknownAccountnumber PaymentAdmissionStatusReason = "unknown_accountnumber"
 )

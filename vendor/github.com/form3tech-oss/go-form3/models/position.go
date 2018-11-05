@@ -23,7 +23,6 @@ type Position struct {
 
 	// id
 	// Required: true
-	// Format: uuid
 	ID *strfmt.UUID `json:"id"`
 
 	// links
@@ -31,7 +30,6 @@ type Position struct {
 
 	// organisation id
 	// Required: true
-	// Format: uuid
 	OrganisationID *strfmt.UUID `json:"organisation_id"`
 
 	// type
@@ -48,26 +46,32 @@ func (m *Position) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAttributes(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateID(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateLinks(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateOrganisationID(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateType(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateVersion(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
@@ -84,6 +88,7 @@ func (m *Position) validateAttributes(formats strfmt.Registry) error {
 	}
 
 	if m.Attributes != nil {
+
 		if err := m.Attributes.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attributes")
@@ -115,6 +120,7 @@ func (m *Position) validateLinks(formats strfmt.Registry) error {
 	}
 
 	if m.Links != nil {
+
 		if err := m.Links.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("links")
@@ -176,102 +182,6 @@ func (m *Position) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *Position) UnmarshalBinary(b []byte) error {
 	var res Position
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*m = res
-	return nil
-}
-
-// PositionAttributes position attributes
-// swagger:model PositionAttributes
-type PositionAttributes struct {
-
-	// limit
-	// Pattern: ^[0-9.]{0,20}$
-	Limit string `json:"limit,omitempty"`
-
-	// position
-	// Pattern: ^[0-9.]{0,20}$
-	Position string `json:"position,omitempty"`
-
-	// scheme
-	// Pattern: ^[A-Za-z_\-]*$
-	Scheme string `json:"scheme,omitempty"`
-}
-
-// Validate validates this position attributes
-func (m *PositionAttributes) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateLimit(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validatePosition(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateScheme(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *PositionAttributes) validateLimit(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Limit) { // not required
-		return nil
-	}
-
-	if err := validate.Pattern("attributes"+"."+"limit", "body", string(m.Limit), `^[0-9.]{0,20}$`); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *PositionAttributes) validatePosition(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Position) { // not required
-		return nil
-	}
-
-	if err := validate.Pattern("attributes"+"."+"position", "body", string(m.Position), `^[0-9.]{0,20}$`); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *PositionAttributes) validateScheme(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Scheme) { // not required
-		return nil
-	}
-
-	if err := validate.Pattern("attributes"+"."+"scheme", "body", string(m.Scheme), `^[A-Za-z_\-]*$`); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (m *PositionAttributes) MarshalBinary() ([]byte, error) {
-	if m == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(m)
-}
-
-// UnmarshalBinary interface implementation
-func (m *PositionAttributes) UnmarshalBinary(b []byte) error {
-	var res PositionAttributes
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

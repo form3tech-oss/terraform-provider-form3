@@ -56,34 +56,42 @@ func (m *AccountAttributes) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAccountNumber(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateBankID(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateBankIDCode(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateBaseCurrency(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateBic(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateCountry(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateCustomerID(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateIban(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 

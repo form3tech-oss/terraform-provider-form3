@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"strconv"
-
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -19,7 +17,7 @@ import (
 type PaymentDefaultsListResponse struct {
 
 	// data
-	Data []*PaymentDefaults `json:"data"`
+	Data PaymentDefaultsListResponseData `json:"data"`
 
 	// links
 	Links *Links `json:"links,omitempty"`
@@ -32,46 +30,19 @@ type PaymentDefaultsListResponse struct {
 func (m *PaymentDefaultsListResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateData(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateLinks(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateMeta(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *PaymentDefaultsListResponse) validateData(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Data) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.Data); i++ {
-		if swag.IsZero(m.Data[i]) { // not required
-			continue
-		}
-
-		if m.Data[i] != nil {
-			if err := m.Data[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("data" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
 	return nil
 }
 
@@ -82,6 +53,7 @@ func (m *PaymentDefaultsListResponse) validateLinks(formats strfmt.Registry) err
 	}
 
 	if m.Links != nil {
+
 		if err := m.Links.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("links")
@@ -100,6 +72,7 @@ func (m *PaymentDefaultsListResponse) validateMeta(formats strfmt.Registry) erro
 	}
 
 	if m.Meta != nil {
+
 		if err := m.Meta.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("meta")

@@ -22,12 +22,10 @@ type PaymentAdmission struct {
 
 	// id
 	// Required: true
-	// Format: uuid
 	ID *strfmt.UUID `json:"id"`
 
 	// organisation id
 	// Required: true
-	// Format: uuid
 	OrganisationID *strfmt.UUID `json:"organisation_id"`
 
 	// relationships
@@ -47,26 +45,32 @@ func (m *PaymentAdmission) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAttributes(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateID(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateOrganisationID(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateRelationships(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateType(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateVersion(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
@@ -83,6 +87,7 @@ func (m *PaymentAdmission) validateAttributes(formats strfmt.Registry) error {
 	}
 
 	if m.Attributes != nil {
+
 		if err := m.Attributes.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attributes")
@@ -127,6 +132,7 @@ func (m *PaymentAdmission) validateRelationships(formats strfmt.Registry) error 
 	}
 
 	if m.Relationships != nil {
+
 		if err := m.Relationships.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("relationships")
@@ -175,210 +181,6 @@ func (m *PaymentAdmission) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *PaymentAdmission) UnmarshalBinary(b []byte) error {
 	var res PaymentAdmission
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*m = res
-	return nil
-}
-
-// PaymentAdmissionAttributes payment admission attributes
-// swagger:model PaymentAdmissionAttributes
-type PaymentAdmissionAttributes struct {
-
-	// admission datetime
-	// Read Only: true
-	// Format: date-time
-	AdmissionDatetime strfmt.DateTime `json:"admission_datetime,omitempty"`
-
-	// scheme status code
-	SchemeStatusCode string `json:"scheme_status_code,omitempty"`
-
-	// settlement cycle
-	// Minimum: 0
-	SettlementCycle *int64 `json:"settlement_cycle,omitempty"`
-
-	// settlement date
-	// Format: date
-	SettlementDate strfmt.Date `json:"settlement_date,omitempty"`
-
-	// status
-	Status PaymentAdmissionStatus `json:"status,omitempty"`
-
-	// status reason
-	StatusReason PaymentAdmissionStatusReason `json:"status_reason,omitempty"`
-}
-
-// Validate validates this payment admission attributes
-func (m *PaymentAdmissionAttributes) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateAdmissionDatetime(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateSettlementCycle(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateSettlementDate(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateStatus(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateStatusReason(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *PaymentAdmissionAttributes) validateAdmissionDatetime(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.AdmissionDatetime) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("attributes"+"."+"admission_datetime", "body", "date-time", m.AdmissionDatetime.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *PaymentAdmissionAttributes) validateSettlementCycle(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.SettlementCycle) { // not required
-		return nil
-	}
-
-	if err := validate.MinimumInt("attributes"+"."+"settlement_cycle", "body", int64(*m.SettlementCycle), 0, false); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *PaymentAdmissionAttributes) validateSettlementDate(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.SettlementDate) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("attributes"+"."+"settlement_date", "body", "date", m.SettlementDate.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *PaymentAdmissionAttributes) validateStatus(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Status) { // not required
-		return nil
-	}
-
-	if err := m.Status.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("attributes" + "." + "status")
-		}
-		return err
-	}
-
-	return nil
-}
-
-func (m *PaymentAdmissionAttributes) validateStatusReason(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.StatusReason) { // not required
-		return nil
-	}
-
-	if err := m.StatusReason.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("attributes" + "." + "status_reason")
-		}
-		return err
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (m *PaymentAdmissionAttributes) MarshalBinary() ([]byte, error) {
-	if m == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(m)
-}
-
-// UnmarshalBinary interface implementation
-func (m *PaymentAdmissionAttributes) UnmarshalBinary(b []byte) error {
-	var res PaymentAdmissionAttributes
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*m = res
-	return nil
-}
-
-// PaymentAdmissionRelationships payment admission relationships
-// swagger:model PaymentAdmissionRelationships
-type PaymentAdmissionRelationships struct {
-
-	// payment
-	Payment *RelationshipLinks `json:"payment,omitempty"`
-}
-
-// Validate validates this payment admission relationships
-func (m *PaymentAdmissionRelationships) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validatePayment(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *PaymentAdmissionRelationships) validatePayment(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Payment) { // not required
-		return nil
-	}
-
-	if m.Payment != nil {
-		if err := m.Payment.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("relationships" + "." + "payment")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (m *PaymentAdmissionRelationships) MarshalBinary() ([]byte, error) {
-	if m == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(m)
-}
-
-// UnmarshalBinary interface implementation
-func (m *PaymentAdmissionRelationships) UnmarshalBinary(b []byte) error {
-	var res PaymentAdmissionRelationships
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

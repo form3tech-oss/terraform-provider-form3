@@ -19,16 +19,12 @@ import (
 type ValidationSource string
 
 const (
-
 	// ValidationSourcePaymentAPI captures enum value "payment_api"
 	ValidationSourcePaymentAPI ValidationSource = "payment_api"
-
 	// ValidationSourcePayportInterface captures enum value "payport_interface"
 	ValidationSourcePayportInterface ValidationSource = "payport_interface"
-
 	// ValidationSourceStarlingGateway captures enum value "starling_gateway"
 	ValidationSourceStarlingGateway ValidationSource = "starling_gateway"
-
 	// ValidationSourceBacsGateway captures enum value "bacs_gateway"
 	ValidationSourceBacsGateway ValidationSource = "bacs_gateway"
 )

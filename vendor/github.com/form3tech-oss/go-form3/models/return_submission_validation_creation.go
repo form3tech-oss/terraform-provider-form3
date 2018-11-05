@@ -25,6 +25,7 @@ func (m *ReturnSubmissionValidationCreation) Validate(formats strfmt.Registry) e
 	var res []error
 
 	if err := m.validateData(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
@@ -41,6 +42,7 @@ func (m *ReturnSubmissionValidationCreation) validateData(formats strfmt.Registr
 	}
 
 	if m.Data != nil {
+
 		if err := m.Data.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("data")

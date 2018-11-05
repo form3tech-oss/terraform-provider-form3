@@ -22,12 +22,10 @@ type ReturnReversalAdmission struct {
 
 	// id
 	// Required: true
-	// Format: uuid
 	ID *strfmt.UUID `json:"id"`
 
 	// organisation id
 	// Required: true
-	// Format: uuid
 	OrganisationID *strfmt.UUID `json:"organisation_id"`
 
 	// relationships
@@ -47,26 +45,32 @@ func (m *ReturnReversalAdmission) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAttributes(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateID(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateOrganisationID(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateRelationships(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateType(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateVersion(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
@@ -83,6 +87,7 @@ func (m *ReturnReversalAdmission) validateAttributes(formats strfmt.Registry) er
 	}
 
 	if m.Attributes != nil {
+
 		if err := m.Attributes.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attributes")
@@ -127,6 +132,7 @@ func (m *ReturnReversalAdmission) validateRelationships(formats strfmt.Registry)
 	}
 
 	if m.Relationships != nil {
+
 		if err := m.Relationships.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("relationships")
@@ -175,98 +181,6 @@ func (m *ReturnReversalAdmission) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *ReturnReversalAdmission) UnmarshalBinary(b []byte) error {
 	var res ReturnReversalAdmission
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*m = res
-	return nil
-}
-
-// ReturnReversalAdmissionAttributes return reversal admission attributes
-// swagger:model ReturnReversalAdmissionAttributes
-type ReturnReversalAdmissionAttributes struct {
-
-	// scheme status code
-	SchemeStatusCode string `json:"scheme_status_code,omitempty"`
-
-	// source gateway
-	SourceGateway string `json:"source_gateway,omitempty"`
-}
-
-// Validate validates this return reversal admission attributes
-func (m *ReturnReversalAdmissionAttributes) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (m *ReturnReversalAdmissionAttributes) MarshalBinary() ([]byte, error) {
-	if m == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(m)
-}
-
-// UnmarshalBinary interface implementation
-func (m *ReturnReversalAdmissionAttributes) UnmarshalBinary(b []byte) error {
-	var res ReturnReversalAdmissionAttributes
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*m = res
-	return nil
-}
-
-// ReturnReversalAdmissionRelationships return reversal admission relationships
-// swagger:model ReturnReversalAdmissionRelationships
-type ReturnReversalAdmissionRelationships struct {
-
-	// payment return reversal
-	PaymentReturnReversal *RelationshipLinks `json:"payment_return_reversal,omitempty"`
-}
-
-// Validate validates this return reversal admission relationships
-func (m *ReturnReversalAdmissionRelationships) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validatePaymentReturnReversal(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *ReturnReversalAdmissionRelationships) validatePaymentReturnReversal(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.PaymentReturnReversal) { // not required
-		return nil
-	}
-
-	if m.PaymentReturnReversal != nil {
-		if err := m.PaymentReturnReversal.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("relationships" + "." + "payment_return_reversal")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (m *ReturnReversalAdmissionRelationships) MarshalBinary() ([]byte, error) {
-	if m == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(m)
-}
-
-// UnmarshalBinary interface implementation
-func (m *ReturnReversalAdmissionRelationships) UnmarshalBinary(b []byte) error {
-	var res ReturnReversalAdmissionRelationships
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
