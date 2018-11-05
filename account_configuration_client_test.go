@@ -64,7 +64,7 @@ func TestAccountConfigurationUpdate(t *testing.T) {
 	var existingAccountGenerationConfiguration = createResponse.Payload.Data.Attributes.AccountGenerationConfiguration[0]
 	var newAccountGenerationConfiguration = &models.AccountGenerationConfiguration{
 		Country: "NL",
-		ValidAccountRanges: []*models.AccountGenerationConfigurationValidAccountRangesItems0{
+		ValidAccountRanges: []*models.AccountGenerationConfigurationValidAccountRangesItems{
 			{
 				Minimum: 1234567890,
 				Maximum: 9999999999,
@@ -148,7 +148,7 @@ func createAccountConfiguration() (*accounts.PostAccountconfigurationsCreated, e
 					AccountGenerationConfiguration: []*models.AccountGenerationConfiguration{
 						{
 							Country: "US",
-							ValidAccountRanges: []*models.AccountGenerationConfigurationValidAccountRangesItems0{
+							ValidAccountRanges: []*models.AccountGenerationConfigurationValidAccountRangesItems{
 								{
 									Minimum: 84000000,
 									Maximum: 84099999,

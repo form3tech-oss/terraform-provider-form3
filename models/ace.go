@@ -21,11 +21,9 @@ type Ace struct {
 	Attributes *AceAttributes `json:"attributes,omitempty"`
 
 	// id
-	// Format: uuid
 	ID strfmt.UUID `json:"id,omitempty"`
 
 	// organisation id
-	// Format: uuid
 	OrganisationID strfmt.UUID `json:"organisation_id,omitempty"`
 
 	// type
@@ -42,22 +40,17 @@ func (m *Ace) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAttributes(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateID(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateOrganisationID(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateType(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateVersion(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
@@ -74,38 +67,13 @@ func (m *Ace) validateAttributes(formats strfmt.Registry) error {
 	}
 
 	if m.Attributes != nil {
+
 		if err := m.Attributes.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attributes")
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *Ace) validateID(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.ID) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("id", "body", "uuid", m.ID.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *Ace) validateOrganisationID(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.OrganisationID) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("organisation_id", "body", "uuid", m.OrganisationID.String(), formats); err != nil {
-		return err
 	}
 
 	return nil
@@ -148,105 +116,6 @@ func (m *Ace) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *Ace) UnmarshalBinary(b []byte) error {
 	var res Ace
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*m = res
-	return nil
-}
-
-// AceAttributes ace attributes
-// swagger:model AceAttributes
-type AceAttributes struct {
-
-	// action
-	// Pattern: ^[A-Za-z]*$
-	Action string `json:"action,omitempty"`
-
-	// filter
-	Filter string `json:"filter,omitempty"`
-
-	// record type
-	// Pattern: ^[A-Za-z]*$
-	RecordType string `json:"record_type,omitempty"`
-
-	// role id
-	// Format: uuid
-	RoleID strfmt.UUID `json:"role_id,omitempty"`
-}
-
-// Validate validates this ace attributes
-func (m *AceAttributes) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateAction(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateRecordType(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateRoleID(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *AceAttributes) validateAction(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Action) { // not required
-		return nil
-	}
-
-	if err := validate.Pattern("attributes"+"."+"action", "body", string(m.Action), `^[A-Za-z]*$`); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *AceAttributes) validateRecordType(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.RecordType) { // not required
-		return nil
-	}
-
-	if err := validate.Pattern("attributes"+"."+"record_type", "body", string(m.RecordType), `^[A-Za-z]*$`); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *AceAttributes) validateRoleID(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.RoleID) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("attributes"+"."+"role_id", "body", "uuid", m.RoleID.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (m *AceAttributes) MarshalBinary() ([]byte, error) {
-	if m == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(m)
-}
-
-// UnmarshalBinary interface implementation
-func (m *AceAttributes) UnmarshalBinary(b []byte) error {
-	var res AceAttributes
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
