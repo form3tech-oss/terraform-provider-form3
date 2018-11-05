@@ -19,10 +19,8 @@ import (
 type ReturnAdmissionStatus string
 
 const (
-
 	// ReturnAdmissionStatusConfirmed captures enum value "confirmed"
 	ReturnAdmissionStatusConfirmed ReturnAdmissionStatus = "confirmed"
-
 	// ReturnAdmissionStatusFailed captures enum value "failed"
 	ReturnAdmissionStatusFailed ReturnAdmissionStatus = "failed"
 )

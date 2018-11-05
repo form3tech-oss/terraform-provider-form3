@@ -46,22 +46,27 @@ func (m *BacsAssociationAttributes) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAccountNumber(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateBankCode(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateCentreNumber(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateServiceUserNumber(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateSortingCode(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 

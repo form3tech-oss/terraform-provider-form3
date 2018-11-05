@@ -10,7 +10,6 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // CredentialSecret credential secret
@@ -18,7 +17,6 @@ import (
 type CredentialSecret struct {
 
 	// client id
-	// Format: uuid
 	ClientID strfmt.UUID `json:"client_id,omitempty"`
 
 	// client secret
@@ -29,26 +27,9 @@ type CredentialSecret struct {
 func (m *CredentialSecret) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateClientID(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *CredentialSecret) validateClientID(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.ClientID) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("client_id", "body", "uuid", m.ClientID.String(), formats); err != nil {
-		return err
-	}
-
 	return nil
 }
 

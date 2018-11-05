@@ -3632,6 +3632,8 @@ definitions:
           format: uuid
         attributes:
           $ref: "#/definitions/BacsAssociationAttributes"
+        relationships:
+          $ref: "#/definitions/BacsAssociationRelationships"
 
   BacsNewAssociation:
     type: object
@@ -3649,6 +3651,8 @@ definitions:
         format: uuid
       attributes:
         $ref: "#/definitions/BacsAssociationAttributes"
+      relationships:
+        $ref: "#/definitions/BacsAssociationRelationships"
 
   BacsAssociationAttributes:
     type: object
@@ -3671,6 +3675,28 @@ definitions:
       centre_number:
         type: string
         pattern: ^[0-9A-Z]{2}$
+
+  BacsAssociationRelationships:
+    type: object
+    properties:
+      input_certificate:
+        $ref: "#/definitions/BacsAssociationCertificateRelationship"
+      output_certificate:
+        $ref: "#/definitions/BacsAssociationCertificateRelationship"
+      messaging_certificate:
+        $ref: "#/definitions/BacsAssociationCertificateRelationship"
+
+  BacsAssociationCertificateRelationship:
+    type: object
+    properties:
+      data:
+        type: object
+        properties:
+          type:
+            type: string
+          id:
+            type: string
+            format: uuid
 
   BacsAssociationCreation:
     type: object

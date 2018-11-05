@@ -22,12 +22,10 @@ type PaymentSubmissionValidation struct {
 
 	// id
 	// Required: true
-	// Format: uuid
 	ID *strfmt.UUID `json:"id"`
 
 	// organisation id
 	// Required: true
-	// Format: uuid
 	OrganisationID *strfmt.UUID `json:"organisation_id"`
 
 	// type
@@ -44,22 +42,27 @@ func (m *PaymentSubmissionValidation) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAttributes(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateID(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateOrganisationID(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateType(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateVersion(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
@@ -76,6 +79,7 @@ func (m *PaymentSubmissionValidation) validateAttributes(formats strfmt.Registry
 	}
 
 	if m.Attributes != nil {
+
 		if err := m.Attributes.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attributes")
@@ -150,88 +154,6 @@ func (m *PaymentSubmissionValidation) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *PaymentSubmissionValidation) UnmarshalBinary(b []byte) error {
 	var res PaymentSubmissionValidation
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*m = res
-	return nil
-}
-
-// PaymentSubmissionValidationAttributes payment submission validation attributes
-// swagger:model PaymentSubmissionValidationAttributes
-type PaymentSubmissionValidationAttributes struct {
-
-	// response
-	Response string `json:"response,omitempty"`
-
-	// source
-	Source ValidationSource `json:"source,omitempty"`
-
-	// status
-	Status ValidationStatus `json:"status,omitempty"`
-}
-
-// Validate validates this payment submission validation attributes
-func (m *PaymentSubmissionValidationAttributes) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateSource(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateStatus(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *PaymentSubmissionValidationAttributes) validateSource(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Source) { // not required
-		return nil
-	}
-
-	if err := m.Source.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("attributes" + "." + "source")
-		}
-		return err
-	}
-
-	return nil
-}
-
-func (m *PaymentSubmissionValidationAttributes) validateStatus(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Status) { // not required
-		return nil
-	}
-
-	if err := m.Status.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("attributes" + "." + "status")
-		}
-		return err
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (m *PaymentSubmissionValidationAttributes) MarshalBinary() ([]byte, error) {
-	if m == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(m)
-}
-
-// UnmarshalBinary interface implementation
-func (m *PaymentSubmissionValidationAttributes) UnmarshalBinary(b []byte) error {
-	var res PaymentSubmissionValidationAttributes
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

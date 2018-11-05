@@ -22,12 +22,10 @@ type NewPaymentAdmission struct {
 
 	// id
 	// Required: true
-	// Format: uuid
 	ID *strfmt.UUID `json:"id"`
 
 	// organisation id
 	// Required: true
-	// Format: uuid
 	OrganisationID *strfmt.UUID `json:"organisation_id"`
 
 	// type
@@ -44,22 +42,27 @@ func (m *NewPaymentAdmission) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAttributes(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateID(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateOrganisationID(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateType(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateVersion(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
@@ -76,6 +79,7 @@ func (m *NewPaymentAdmission) validateAttributes(formats strfmt.Registry) error 
 	}
 
 	if m.Attributes != nil {
+
 		if err := m.Attributes.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attributes")
@@ -150,109 +154,6 @@ func (m *NewPaymentAdmission) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *NewPaymentAdmission) UnmarshalBinary(b []byte) error {
 	var res NewPaymentAdmission
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*m = res
-	return nil
-}
-
-// NewPaymentAdmissionAttributes new payment admission attributes
-// swagger:model NewPaymentAdmissionAttributes
-type NewPaymentAdmissionAttributes struct {
-
-	// admission datetime
-	// Read Only: true
-	// Format: date-time
-	AdmissionDatetime strfmt.DateTime `json:"admission_datetime,omitempty"`
-
-	// scheme status code
-	SchemeStatusCode string `json:"scheme_status_code,omitempty"`
-
-	// settlement cycle
-	// Minimum: 0
-	SettlementCycle *int64 `json:"settlement_cycle,omitempty"`
-
-	// settlement date
-	// Format: date
-	SettlementDate strfmt.Date `json:"settlement_date,omitempty"`
-
-	// source gateway
-	SourceGateway string `json:"source_gateway,omitempty"`
-}
-
-// Validate validates this new payment admission attributes
-func (m *NewPaymentAdmissionAttributes) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateAdmissionDatetime(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateSettlementCycle(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateSettlementDate(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *NewPaymentAdmissionAttributes) validateAdmissionDatetime(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.AdmissionDatetime) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("attributes"+"."+"admission_datetime", "body", "date-time", m.AdmissionDatetime.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *NewPaymentAdmissionAttributes) validateSettlementCycle(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.SettlementCycle) { // not required
-		return nil
-	}
-
-	if err := validate.MinimumInt("attributes"+"."+"settlement_cycle", "body", int64(*m.SettlementCycle), 0, false); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *NewPaymentAdmissionAttributes) validateSettlementDate(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.SettlementDate) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("attributes"+"."+"settlement_date", "body", "date", m.SettlementDate.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (m *NewPaymentAdmissionAttributes) MarshalBinary() ([]byte, error) {
-	if m == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(m)
-}
-
-// UnmarshalBinary interface implementation
-func (m *NewPaymentAdmissionAttributes) UnmarshalBinary(b []byte) error {
-	var res NewPaymentAdmissionAttributes
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

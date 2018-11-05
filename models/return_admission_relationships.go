@@ -28,10 +28,12 @@ func (m *ReturnAdmissionRelationships) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validatePaymentReturn(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateValidations(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
@@ -48,6 +50,7 @@ func (m *ReturnAdmissionRelationships) validatePaymentReturn(formats strfmt.Regi
 	}
 
 	if m.PaymentReturn != nil {
+
 		if err := m.PaymentReturn.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("payment_return")
@@ -66,6 +69,7 @@ func (m *ReturnAdmissionRelationships) validateValidations(formats strfmt.Regist
 	}
 
 	if m.Validations != nil {
+
 		if err := m.Validations.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("validations")

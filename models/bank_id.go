@@ -21,11 +21,9 @@ type BankID struct {
 	Attributes *BankIDAttributes `json:"attributes,omitempty"`
 
 	// id
-	// Format: uuid
 	ID strfmt.UUID `json:"id,omitempty"`
 
 	// organisation id
-	// Format: uuid
 	OrganisationID strfmt.UUID `json:"organisation_id,omitempty"`
 
 	// type
@@ -42,22 +40,17 @@ func (m *BankID) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAttributes(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateID(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateOrganisationID(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateType(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateVersion(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
@@ -74,38 +67,13 @@ func (m *BankID) validateAttributes(formats strfmt.Registry) error {
 	}
 
 	if m.Attributes != nil {
+
 		if err := m.Attributes.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attributes")
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *BankID) validateID(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.ID) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("id", "body", "uuid", m.ID.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *BankID) validateOrganisationID(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.OrganisationID) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("organisation_id", "body", "uuid", m.OrganisationID.String(), formats); err != nil {
-		return err
 	}
 
 	return nil
