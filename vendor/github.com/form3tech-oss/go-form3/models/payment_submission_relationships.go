@@ -28,10 +28,12 @@ func (m *PaymentSubmissionRelationships) Validate(formats strfmt.Registry) error
 	var res []error
 
 	if err := m.validatePayment(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateValidations(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
@@ -48,6 +50,7 @@ func (m *PaymentSubmissionRelationships) validatePayment(formats strfmt.Registry
 	}
 
 	if m.Payment != nil {
+
 		if err := m.Payment.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("payment")
@@ -66,6 +69,7 @@ func (m *PaymentSubmissionRelationships) validateValidations(formats strfmt.Regi
 	}
 
 	if m.Validations != nil {
+
 		if err := m.Validations.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("validations")

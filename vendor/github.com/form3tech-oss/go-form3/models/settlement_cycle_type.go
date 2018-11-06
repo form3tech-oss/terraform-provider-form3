@@ -19,10 +19,8 @@ import (
 type SettlementCycleType string
 
 const (
-
 	// SettlementCycleTypeDaily captures enum value "daily"
 	SettlementCycleTypeDaily SettlementCycleType = "daily"
-
 	// SettlementCycleTypePerScheme captures enum value "per_scheme"
 	SettlementCycleTypePerScheme SettlementCycleType = "per_scheme"
 )

@@ -21,11 +21,9 @@ type PaymentDefaults struct {
 	Attributes *PaymentDefaultsAttributes `json:"attributes,omitempty"`
 
 	// id
-	// Format: uuid
 	ID strfmt.UUID `json:"id,omitempty"`
 
 	// organisation id
-	// Format: uuid
 	OrganisationID strfmt.UUID `json:"organisation_id,omitempty"`
 
 	// version
@@ -38,18 +36,12 @@ func (m *PaymentDefaults) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAttributes(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateID(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateOrganisationID(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateVersion(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
@@ -66,38 +58,13 @@ func (m *PaymentDefaults) validateAttributes(formats strfmt.Registry) error {
 	}
 
 	if m.Attributes != nil {
+
 		if err := m.Attributes.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attributes")
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *PaymentDefaults) validateID(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.ID) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("id", "body", "uuid", m.ID.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *PaymentDefaults) validateOrganisationID(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.OrganisationID) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("organisation_id", "body", "uuid", m.OrganisationID.String(), formats); err != nil {
-		return err
 	}
 
 	return nil
@@ -127,37 +94,6 @@ func (m *PaymentDefaults) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *PaymentDefaults) UnmarshalBinary(b []byte) error {
 	var res PaymentDefaults
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*m = res
-	return nil
-}
-
-// PaymentDefaultsAttributes payment defaults attributes
-// swagger:model PaymentDefaultsAttributes
-type PaymentDefaultsAttributes struct {
-
-	// default payment scheme
-	DefaultPaymentScheme string `json:"default_payment_scheme,omitempty"`
-}
-
-// Validate validates this payment defaults attributes
-func (m *PaymentDefaultsAttributes) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (m *PaymentDefaultsAttributes) MarshalBinary() ([]byte, error) {
-	if m == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(m)
-}
-
-// UnmarshalBinary interface implementation
-func (m *PaymentDefaultsAttributes) UnmarshalBinary(b []byte) error {
-	var res PaymentDefaultsAttributes
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

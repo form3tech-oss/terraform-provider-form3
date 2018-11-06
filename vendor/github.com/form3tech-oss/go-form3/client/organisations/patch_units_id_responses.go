@@ -13,7 +13,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/form3tech-oss/go-form3/models"
+	"github.com/form3tech-oss/go-form3/models"
 )
 
 // PatchUnitsIDReader is a Reader for the PatchUnitsID structure.

@@ -34,18 +34,22 @@ func (m *PaymentRelationships) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validatePaymentAdmission(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validatePaymentReturn(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validatePaymentReversal(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validatePaymentSubmission(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
@@ -62,6 +66,7 @@ func (m *PaymentRelationships) validatePaymentAdmission(formats strfmt.Registry)
 	}
 
 	if m.PaymentAdmission != nil {
+
 		if err := m.PaymentAdmission.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("payment_admission")
@@ -80,6 +85,7 @@ func (m *PaymentRelationships) validatePaymentReturn(formats strfmt.Registry) er
 	}
 
 	if m.PaymentReturn != nil {
+
 		if err := m.PaymentReturn.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("payment_return")
@@ -98,6 +104,7 @@ func (m *PaymentRelationships) validatePaymentReversal(formats strfmt.Registry) 
 	}
 
 	if m.PaymentReversal != nil {
+
 		if err := m.PaymentReversal.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("payment_reversal")
@@ -116,6 +123,7 @@ func (m *PaymentRelationships) validatePaymentSubmission(formats strfmt.Registry
 	}
 
 	if m.PaymentSubmission != nil {
+
 		if err := m.PaymentSubmission.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("payment_submission")

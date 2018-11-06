@@ -226,10 +226,10 @@ func createAccountConfigurationFromResourceData(d *schema.ResourceData) (*models
 
 			validAccountRangesSet := accountConfigElement.(map[string]interface{})["valid_account_ranges"].(*schema.Set).List()
 
-			var validAccountRanges []*models.AccountGenerationConfigurationValidAccountRangesItems0
+			var validAccountRanges []*models.AccountGenerationConfigurationValidAccountRangesItems
 
 			for _, accountRangeElement := range validAccountRangesSet {
-				validAccountRange := models.AccountGenerationConfigurationValidAccountRangesItems0{
+				validAccountRange := models.AccountGenerationConfigurationValidAccountRangesItems{
 					Minimum: int64(accountRangeElement.(map[string]interface{})["minimum"].(int)),
 					Maximum: int64(accountRangeElement.(map[string]interface{})["maximum"].(int)),
 				}
@@ -260,7 +260,7 @@ func getAccountConfigurationVersion(client *form3.AuthenticatedClient, configura
 	return *configuration.Payload.Data.Version, nil
 }
 
-func flattenValidAccountRanges(validAccountRanges []*models.AccountGenerationConfigurationValidAccountRangesItems0) *schema.Set {
+func flattenValidAccountRanges(validAccountRanges []*models.AccountGenerationConfigurationValidAccountRangesItems) *schema.Set {
 	validAccountRangesSet := schema.NewSet(validAccountRangeHash, []interface{}{})
 
 	if validAccountRanges == nil {
@@ -281,7 +281,7 @@ func validAccountRangeHash(v interface{}) int {
 	return hashcode.String(buf.String())
 }
 
-func flattenValidAccountRange(value *models.AccountGenerationConfigurationValidAccountRangesItems0) map[string]int64 {
+func flattenValidAccountRange(value *models.AccountGenerationConfigurationValidAccountRangesItems) map[string]int64 {
 	m := map[string]int64{}
 	m["minimum"] = value.Minimum
 	m["maximum"] = value.Maximum

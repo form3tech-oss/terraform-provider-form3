@@ -19,10 +19,8 @@ import (
 type PaymentAdmissionStatus string
 
 const (
-
 	// PaymentAdmissionStatusConfirmed captures enum value "confirmed"
 	PaymentAdmissionStatusConfirmed PaymentAdmissionStatus = "confirmed"
-
 	// PaymentAdmissionStatusFailed captures enum value "failed"
 	PaymentAdmissionStatusFailed PaymentAdmissionStatus = "failed"
 )

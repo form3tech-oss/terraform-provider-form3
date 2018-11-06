@@ -21,11 +21,9 @@ type AuditEntry struct {
 	Attributes *AuditEntryAttributes `json:"attributes,omitempty"`
 
 	// id
-	// Format: uuid
 	ID strfmt.UUID `json:"id,omitempty"`
 
 	// organisation id
-	// Format: uuid
 	OrganisationID strfmt.UUID `json:"organisation_id,omitempty"`
 
 	// type
@@ -42,22 +40,17 @@ func (m *AuditEntry) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAttributes(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateID(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateOrganisationID(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateType(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateVersion(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
@@ -74,38 +67,13 @@ func (m *AuditEntry) validateAttributes(formats strfmt.Registry) error {
 	}
 
 	if m.Attributes != nil {
+
 		if err := m.Attributes.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attributes")
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *AuditEntry) validateID(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.ID) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("id", "body", "uuid", m.ID.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *AuditEntry) validateOrganisationID(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.OrganisationID) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("organisation_id", "body", "uuid", m.OrganisationID.String(), formats); err != nil {
-		return err
 	}
 
 	return nil
@@ -148,150 +116,6 @@ func (m *AuditEntry) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *AuditEntry) UnmarshalBinary(b []byte) error {
 	var res AuditEntry
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*m = res
-	return nil
-}
-
-// AuditEntryAttributes audit entry attributes
-// swagger:model AuditEntryAttributes
-type AuditEntryAttributes struct {
-
-	// action time
-	// Format: date-time
-	ActionTime *strfmt.DateTime `json:"action_time,omitempty"`
-
-	// actioned by
-	// Format: uuid
-	ActionedBy strfmt.UUID `json:"actioned_by,omitempty"`
-
-	// after data
-	AfterData interface{} `json:"after_data,omitempty"`
-
-	// before data
-	BeforeData interface{} `json:"before_data,omitempty"`
-
-	// description
-	// Pattern: ^[A-Za-z0-9 .,@:]*$
-	Description string `json:"description,omitempty"`
-
-	// record id
-	// Format: uuid
-	RecordID strfmt.UUID `json:"record_id,omitempty"`
-
-	// record type
-	// Pattern: ^[A-Za-z]*$
-	RecordType string `json:"record_type,omitempty"`
-}
-
-// Validate validates this audit entry attributes
-func (m *AuditEntryAttributes) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateActionTime(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateActionedBy(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateDescription(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateRecordID(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateRecordType(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *AuditEntryAttributes) validateActionTime(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.ActionTime) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("attributes"+"."+"action_time", "body", "date-time", m.ActionTime.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *AuditEntryAttributes) validateActionedBy(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.ActionedBy) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("attributes"+"."+"actioned_by", "body", "uuid", m.ActionedBy.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *AuditEntryAttributes) validateDescription(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Description) { // not required
-		return nil
-	}
-
-	if err := validate.Pattern("attributes"+"."+"description", "body", string(m.Description), `^[A-Za-z0-9 .,@:]*$`); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *AuditEntryAttributes) validateRecordID(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.RecordID) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("attributes"+"."+"record_id", "body", "uuid", m.RecordID.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *AuditEntryAttributes) validateRecordType(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.RecordType) { // not required
-		return nil
-	}
-
-	if err := validate.Pattern("attributes"+"."+"record_type", "body", string(m.RecordType), `^[A-Za-z]*$`); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (m *AuditEntryAttributes) MarshalBinary() ([]byte, error) {
-	if m == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(m)
-}
-
-// UnmarshalBinary interface implementation
-func (m *AuditEntryAttributes) UnmarshalBinary(b []byte) error {
-	var res AuditEntryAttributes
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -20,7 +20,6 @@ import (
 type SubscriptionAttributes struct {
 
 	// callback transport
-	// Enum: [http email queue]
 	CallbackTransport string `json:"callback_transport,omitempty"`
 
 	// callback uri
@@ -37,7 +36,6 @@ type SubscriptionAttributes struct {
 
 	// user id
 	// Read Only: true
-	// Format: uuid
 	UserID strfmt.UUID `json:"user_id,omitempty"`
 }
 
@@ -46,22 +44,22 @@ func (m *SubscriptionAttributes) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateCallbackTransport(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateCallbackURI(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateEventType(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateRecordType(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateUserID(formats); err != nil {
+		// prop
 		res = append(res, err)
 	}
 
@@ -84,13 +82,10 @@ func init() {
 }
 
 const (
-
 	// SubscriptionAttributesCallbackTransportHTTP captures enum value "http"
 	SubscriptionAttributesCallbackTransportHTTP string = "http"
-
 	// SubscriptionAttributesCallbackTransportEmail captures enum value "email"
 	SubscriptionAttributesCallbackTransportEmail string = "email"
-
 	// SubscriptionAttributesCallbackTransportQueue captures enum value "queue"
 	SubscriptionAttributesCallbackTransportQueue string = "queue"
 )
@@ -150,19 +145,6 @@ func (m *SubscriptionAttributes) validateRecordType(formats strfmt.Registry) err
 	}
 
 	if err := validate.Pattern("record_type", "body", string(m.RecordType), `^[A-Za-z_-]*$`); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *SubscriptionAttributes) validateUserID(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.UserID) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("user_id", "body", "uuid", m.UserID.String(), formats); err != nil {
 		return err
 	}
 
