@@ -4,18 +4,28 @@ import (
 	"bytes"
 	"encoding/base64"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"net/http/httputil"
+	"sync"
 
 	"github.com/form3tech-oss/go-form3/client"
 	"github.com/go-openapi/runtime"
 	rc "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/logging"
+	"time"
 )
+
+var tokenCache = sync.Map{}
+
+type CachedToken struct {
+	Token   string
+	Expires time.Time
+}
 
 type AuthenticatedClient struct {
 	AccessToken           string
@@ -147,6 +157,11 @@ func configureRuntime(rt *rc.Runtime, authClient *AuthenticatedClient) {
 }
 
 func (r *AuthenticatedClient) Authenticate(clientId string, clientSecret string) error {
+	token, cached := tokenCache.Load(clientId)
+	if cached && time.Now().Before(token.(CachedToken).Expires) {
+		r.AccessToken = token.(CachedToken).Token
+		return nil
+	}
 
 	req, _ := http.NewRequest("POST", "/v1/oauth2/token", bytes.NewBufferString("grant_type=client_credentials"))
 	req.URL.Host = r.Config.Host
@@ -169,6 +184,12 @@ func (r *AuthenticatedClient) Authenticate(clientId string, clientSecret string)
 	if err != nil {
 		panic(err)
 	}
+
+	if resp.StatusCode != 200 {
+		err = errors.New(fmt.Sprintf("Error returned while authenticating, response code was %v", resp.StatusCode))
+		return err
+	}
+
 	defer resp.Body.Close()
 
 	if logging.IsDebugOrHigher() {
@@ -192,6 +213,8 @@ func (r *AuthenticatedClient) Authenticate(clientId string, clientSecret string)
 	}
 
 	r.AccessToken = loginResponse.AccessToken
+	tokenCache.Store(clientId, CachedToken{Token: r.AccessToken, Expires: time.Now().Add(time.Duration(loginResponse.ExpiresIn/2) * time.Second)})
+
 	return nil
 }
 
