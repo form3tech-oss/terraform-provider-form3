@@ -169,7 +169,7 @@ resource "form3_organisation" "organisation" {
 
 resource "form3_payport_association" "association" {
 	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
-	payport_association_id           = "6e89d652-0344-4ab4-8118-f3ac30397ee8"
+	payport_association_id           = "df768317-8180-41f1-a62f-61cb29e7b0e4"
 	participant_id	                 = "%s"
 	participant_type                 = "settling"
   customer_sending_fps_institution = "444443"
