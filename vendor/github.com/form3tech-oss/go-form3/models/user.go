@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -21,9 +23,11 @@ type User struct {
 	Attributes *UserAttributes `json:"attributes,omitempty"`
 
 	// id
+	// Format: uuid
 	ID strfmt.UUID `json:"id,omitempty"`
 
 	// organisation id
+	// Format: uuid
 	OrganisationID strfmt.UUID `json:"organisation_id,omitempty"`
 
 	// type
@@ -39,12 +43,18 @@ func (m *User) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAttributes(formats); err != nil {
-		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateOrganisationID(formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.validateVersion(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
@@ -61,13 +71,38 @@ func (m *User) validateAttributes(formats strfmt.Registry) error {
 	}
 
 	if m.Attributes != nil {
-
 		if err := m.Attributes.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attributes")
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *User) validateID(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ID) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("id", "body", "uuid", m.ID.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *User) validateOrganisationID(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.OrganisationID) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("organisation_id", "body", "uuid", m.OrganisationID.String(), formats); err != nil {
+		return err
 	}
 
 	return nil
@@ -97,6 +132,105 @@ func (m *User) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *User) UnmarshalBinary(b []byte) error {
 	var res User
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// UserAttributes user attributes
+// swagger:model UserAttributes
+type UserAttributes struct {
+
+	// email
+	// Pattern: ^[A-Za-z0-9-+@.]*$
+	Email string `json:"email,omitempty"`
+
+	// role ids
+	RoleIds []strfmt.UUID `json:"role_ids"`
+
+	// username
+	// Pattern: ^[A-Za-z0-9-+@.]*$
+	Username string `json:"username,omitempty"`
+}
+
+// Validate validates this user attributes
+func (m *UserAttributes) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateEmail(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRoleIds(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUsername(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *UserAttributes) validateEmail(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Email) { // not required
+		return nil
+	}
+
+	if err := validate.Pattern("attributes"+"."+"email", "body", string(m.Email), `^[A-Za-z0-9-+@.]*$`); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *UserAttributes) validateRoleIds(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.RoleIds) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.RoleIds); i++ {
+
+		if err := validate.FormatOf("attributes"+"."+"role_ids"+"."+strconv.Itoa(i), "body", "uuid", m.RoleIds[i].String(), formats); err != nil {
+			return err
+		}
+
+	}
+
+	return nil
+}
+
+func (m *UserAttributes) validateUsername(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Username) { // not required
+		return nil
+	}
+
+	if err := validate.Pattern("attributes"+"."+"username", "body", string(m.Username), `^[A-Za-z0-9-+@.]*$`); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *UserAttributes) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *UserAttributes) UnmarshalBinary(b []byte) error {
+	var res UserAttributes
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -10,6 +10,7 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // BacsAssociationCertificateRelationship bacs association certificate relationship
@@ -25,7 +26,6 @@ func (m *BacsAssociationCertificateRelationship) Validate(formats strfmt.Registr
 	var res []error
 
 	if err := m.validateData(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
@@ -42,7 +42,6 @@ func (m *BacsAssociationCertificateRelationship) validateData(formats strfmt.Reg
 	}
 
 	if m.Data != nil {
-
 		if err := m.Data.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("data")
@@ -65,6 +64,63 @@ func (m *BacsAssociationCertificateRelationship) MarshalBinary() ([]byte, error)
 // UnmarshalBinary interface implementation
 func (m *BacsAssociationCertificateRelationship) UnmarshalBinary(b []byte) error {
 	var res BacsAssociationCertificateRelationship
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// BacsAssociationCertificateRelationshipData bacs association certificate relationship data
+// swagger:model BacsAssociationCertificateRelationshipData
+type BacsAssociationCertificateRelationshipData struct {
+
+	// id
+	// Format: uuid
+	ID strfmt.UUID `json:"id,omitempty"`
+
+	// type
+	Type string `json:"type,omitempty"`
+}
+
+// Validate validates this bacs association certificate relationship data
+func (m *BacsAssociationCertificateRelationshipData) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *BacsAssociationCertificateRelationshipData) validateID(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ID) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("data"+"."+"id", "body", "uuid", m.ID.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *BacsAssociationCertificateRelationshipData) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *BacsAssociationCertificateRelationshipData) UnmarshalBinary(b []byte) error {
+	var res BacsAssociationCertificateRelationshipData
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

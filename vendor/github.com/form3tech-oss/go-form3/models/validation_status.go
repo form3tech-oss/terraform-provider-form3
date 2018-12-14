@@ -19,10 +19,13 @@ import (
 type ValidationStatus string
 
 const (
+
 	// ValidationStatusFailed captures enum value "failed"
 	ValidationStatusFailed ValidationStatus = "failed"
+
 	// ValidationStatusPassed captures enum value "passed"
 	ValidationStatusPassed ValidationStatus = "passed"
+
 	// ValidationStatusNotAccepted captures enum value "not_accepted"
 	ValidationStatusNotAccepted ValidationStatus = "not_accepted"
 )

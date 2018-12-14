@@ -3427,14 +3427,17 @@ definitions:
       valid_account_ranges:
         type: array
         items:
-          type: object
-          properties:
-            minimum:
-              type: integer
-              format: int64
-            maximum:
-              type: integer
-              format: int64
+            $ref: "#/definitions/AccountGenerationConfigurationValidAccountRangesItems"
+
+  AccountGenerationConfigurationValidAccountRangesItems:
+    type: object
+    properties:
+      minimum:
+        type: integer
+        format: int64
+      maximum:
+        type: integer
+        format: int64
 
   AccountConfigurationCreation:
     type: object
@@ -3497,12 +3500,20 @@ definitions:
     properties:
       participant_id:
         type: string
+      participant_type:
+        $ref: '#/definitions/PayportParticipantType'
       customer_sending_fps_institution:
         type: string
       sponsor_bank_id:
         type: string
       sponsor_account_number:
         type: string
+
+  PayportParticipantType:
+    type: string
+    enum:
+      - settling
+      - non_settling
 
   PayportAssociationCreation:
     type: object
