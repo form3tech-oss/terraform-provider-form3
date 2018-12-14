@@ -22,10 +22,12 @@ type ReturnPayment struct {
 
 	// id
 	// Required: true
+	// Format: uuid
 	ID *strfmt.UUID `json:"id"`
 
 	// organisation id
 	// Required: true
+	// Format: uuid
 	OrganisationID *strfmt.UUID `json:"organisation_id"`
 
 	// relationships
@@ -45,32 +47,26 @@ func (m *ReturnPayment) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAttributes(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateID(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateOrganisationID(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateRelationships(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateType(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateVersion(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
@@ -87,7 +83,6 @@ func (m *ReturnPayment) validateAttributes(formats strfmt.Registry) error {
 	}
 
 	if m.Attributes != nil {
-
 		if err := m.Attributes.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attributes")
@@ -132,7 +127,6 @@ func (m *ReturnPayment) validateRelationships(formats strfmt.Registry) error {
 	}
 
 	if m.Relationships != nil {
-
 		if err := m.Relationships.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("relationships")
@@ -181,6 +175,221 @@ func (m *ReturnPayment) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *ReturnPayment) UnmarshalBinary(b []byte) error {
 	var res ReturnPayment
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// ReturnPaymentAttributes return payment attributes
+// swagger:model ReturnPaymentAttributes
+type ReturnPaymentAttributes struct {
+
+	// amount
+	// Pattern: ^[0-9.]{0,20}$
+	Amount string `json:"amount,omitempty"`
+
+	// currency
+	Currency string `json:"currency,omitempty"`
+
+	// limit breach end datetime
+	// Read Only: true
+	// Format: date-time
+	LimitBreachEndDatetime strfmt.DateTime `json:"limit_breach_end_datetime,omitempty"`
+
+	// limit breach start datetime
+	// Read Only: true
+	// Format: date-time
+	LimitBreachStartDatetime strfmt.DateTime `json:"limit_breach_start_datetime,omitempty"`
+
+	// return code
+	ReturnCode string `json:"return_code,omitempty"`
+
+	// scheme transaction id
+	SchemeTransactionID string `json:"scheme_transaction_id,omitempty"`
+}
+
+// Validate validates this return payment attributes
+func (m *ReturnPaymentAttributes) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAmount(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLimitBreachEndDatetime(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateLimitBreachStartDatetime(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ReturnPaymentAttributes) validateAmount(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Amount) { // not required
+		return nil
+	}
+
+	if err := validate.Pattern("attributes"+"."+"amount", "body", string(m.Amount), `^[0-9.]{0,20}$`); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ReturnPaymentAttributes) validateLimitBreachEndDatetime(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.LimitBreachEndDatetime) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("attributes"+"."+"limit_breach_end_datetime", "body", "date-time", m.LimitBreachEndDatetime.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ReturnPaymentAttributes) validateLimitBreachStartDatetime(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.LimitBreachStartDatetime) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("attributes"+"."+"limit_breach_start_datetime", "body", "date-time", m.LimitBreachStartDatetime.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *ReturnPaymentAttributes) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *ReturnPaymentAttributes) UnmarshalBinary(b []byte) error {
+	var res ReturnPaymentAttributes
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// ReturnPaymentRelationships return payment relationships
+// swagger:model ReturnPaymentRelationships
+type ReturnPaymentRelationships struct {
+
+	// payment
+	Payment *RelationshipLinks `json:"payment,omitempty"`
+
+	// return admission
+	ReturnAdmission *RelationshipLinks `json:"return_admission,omitempty"`
+
+	// return submission
+	ReturnSubmission *RelationshipLinks `json:"return_submission,omitempty"`
+}
+
+// Validate validates this return payment relationships
+func (m *ReturnPaymentRelationships) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validatePayment(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateReturnAdmission(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateReturnSubmission(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ReturnPaymentRelationships) validatePayment(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Payment) { // not required
+		return nil
+	}
+
+	if m.Payment != nil {
+		if err := m.Payment.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("relationships" + "." + "payment")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ReturnPaymentRelationships) validateReturnAdmission(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ReturnAdmission) { // not required
+		return nil
+	}
+
+	if m.ReturnAdmission != nil {
+		if err := m.ReturnAdmission.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("relationships" + "." + "return_admission")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ReturnPaymentRelationships) validateReturnSubmission(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ReturnSubmission) { // not required
+		return nil
+	}
+
+	if m.ReturnSubmission != nil {
+		if err := m.ReturnSubmission.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("relationships" + "." + "return_submission")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *ReturnPaymentRelationships) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *ReturnPaymentRelationships) UnmarshalBinary(b []byte) error {
+	var res ReturnPaymentRelationships
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

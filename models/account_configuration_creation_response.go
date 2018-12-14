@@ -28,12 +28,10 @@ func (m *AccountConfigurationCreationResponse) Validate(formats strfmt.Registry)
 	var res []error
 
 	if err := m.validateData(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateLinks(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
@@ -50,7 +48,6 @@ func (m *AccountConfigurationCreationResponse) validateData(formats strfmt.Regis
 	}
 
 	if m.Data != nil {
-
 		if err := m.Data.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("data")
@@ -69,7 +66,6 @@ func (m *AccountConfigurationCreationResponse) validateLinks(formats strfmt.Regi
 	}
 
 	if m.Links != nil {
-
 		if err := m.Links.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("links")

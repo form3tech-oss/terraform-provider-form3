@@ -13,7 +13,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/go-form3/models"
+	models "github.com/form3tech-oss/go-form3/models"
 )
 
 // GetLimitsReader is a Reader for the GetLimits structure.

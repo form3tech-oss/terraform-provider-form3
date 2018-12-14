@@ -8,12 +8,11 @@ package models
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 )
 
 // AccountGenerationConfigurationValidAccountRangesItems account generation configuration valid account ranges items
-// swagger:model accountGenerationConfigurationValidAccountRangesItems
+// swagger:model AccountGenerationConfigurationValidAccountRangesItems
 type AccountGenerationConfigurationValidAccountRangesItems struct {
 
 	// maximum
@@ -25,11 +24,6 @@ type AccountGenerationConfigurationValidAccountRangesItems struct {
 
 // Validate validates this account generation configuration valid account ranges items
 func (m *AccountGenerationConfigurationValidAccountRangesItems) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
 	return nil
 }
 

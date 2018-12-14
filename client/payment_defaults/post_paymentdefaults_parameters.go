@@ -17,7 +17,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/go-form3/models"
+	models "github.com/form3tech-oss/go-form3/models"
 )
 
 // NewPostPaymentdefaultsParams creates a new PostPaymentdefaultsParams object

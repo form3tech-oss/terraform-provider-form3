@@ -35,17 +35,14 @@ func (m *BankIDAttributes) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateBankID(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateBankIDCode(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateCountry(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 

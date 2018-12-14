@@ -10,6 +10,7 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // UltimateEntity ultimate entity
@@ -26,6 +27,7 @@ type UltimateEntity struct {
 	BirthCountry string `json:"birth_country,omitempty"`
 
 	// birth date
+	// Format: date
 	BirthDate strfmt.Date `json:"birth_date,omitempty"`
 
 	// birth province
@@ -51,9 +53,26 @@ type UltimateEntity struct {
 func (m *UltimateEntity) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateBirthDate(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *UltimateEntity) validateBirthDate(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.BirthDate) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("birth_date", "body", "date", m.BirthDate.String(), formats); err != nil {
+		return err
+	}
+
 	return nil
 }
 
