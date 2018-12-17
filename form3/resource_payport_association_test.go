@@ -20,6 +20,7 @@ func TestAccPayportAssociation_basic_non_settling(t *testing.T) {
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.NewV4().String()
 	participantId := generateTestParticipantId()
+	associationId := uuid.NewV4().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -27,7 +28,7 @@ func TestAccPayportAssociation_basic_non_settling(t *testing.T) {
 		CheckDestroy: testAccCheckPayportAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3PayportAssociationConfigNonSettling, organisationId, parentOrganisationId, participantId),
+				Config: fmt.Sprintf(testForm3PayportAssociationConfigNonSettling, organisationId, parentOrganisationId, associationId, participantId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckPayportAssociationExists("form3_payport_association.association", &payportResponse),
 					resource.TestCheckResourceAttrSet("form3_payport_association.association", "payport_association_id"),
@@ -48,6 +49,7 @@ func TestAccPayportAssociation_basic_settling(t *testing.T) {
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.NewV4().String()
 	participantId := generateTestParticipantId()
+	associationId := uuid.NewV4().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -55,7 +57,7 @@ func TestAccPayportAssociation_basic_settling(t *testing.T) {
 		CheckDestroy: testAccCheckPayportAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3PayportAssociationConfigSettling, organisationId, parentOrganisationId, participantId),
+				Config: fmt.Sprintf(testForm3PayportAssociationConfigSettling, organisationId, parentOrganisationId, associationId, participantId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckPayportAssociationExists("form3_payport_association.association", &payportResponse),
 					resource.TestCheckResourceAttrSet("form3_payport_association.association", "payport_association_id"),
@@ -72,10 +74,10 @@ func TestAccPayportAssociation_basic_settling(t *testing.T) {
 }
 
 func TestAccPayportAssociation_importBasic(t *testing.T) {
-
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.NewV4().String()
 	participantId := generateTestParticipantId()
+	associationId := uuid.NewV4().String()
 
 	resourceName := "form3_payport_association.association"
 
@@ -92,7 +94,7 @@ func TestAccPayportAssociation_importBasic(t *testing.T) {
 				CheckDestroy: testAccCheckPayportAssociationDestroy,
 				Steps: []resource.TestStep{
 					resource.TestStep{
-						Config: fmt.Sprintf(config, organisationId, parentOrganisationId, participantId),
+						Config: fmt.Sprintf(config, organisationId, parentOrganisationId, associationId, participantId),
 					},
 
 					resource.TestStep{
@@ -175,7 +177,7 @@ resource "form3_organisation" "organisation" {
 
 resource "form3_payport_association" "association" {
 	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
-	payport_association_id           = "6e89d652-0344-4ab4-8118-f3ac30397ee8"
+	payport_association_id           = "%s"
 	participant_id	                 = "%s"
 	participant_type                 = "non_settling"
   customer_sending_fps_institution = "444443"
@@ -192,7 +194,7 @@ resource "form3_organisation" "organisation" {
 
 resource "form3_payport_association" "association" {
 	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
-	payport_association_id           = "df768317-8180-41f1-a62f-61cb29e7b0e4"
+	payport_association_id           = "%s"
 	participant_id	                 = "%s"
 	participant_type                 = "settling"
   customer_sending_fps_institution = "444443"
