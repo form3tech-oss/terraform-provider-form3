@@ -15,37 +15,60 @@ import (
 	uuid "github.com/satori/go.uuid"
 )
 
-func TestAccPayportAssociation_basic(t *testing.T) {
+func TestAccPayportAssociation_basic_non_settling(t *testing.T) {
 	var payportResponse associations.GetPayportIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.NewV4().String()
 	participantId := generateTestParticipantId()
 
-	cases := map[string]string{
-		"non_settling": testForm3PayportAssociationConfigNonSettling,
-		"settling":     testForm3PayportAssociationConfigSettling,
-	}
-	for name, config := range cases {
-		t.Run(name, func(t *testing.T) {
+	resource.Test(t, resource.TestCase{
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
+		CheckDestroy: testAccCheckPayportAssociationDestroy,
+		Steps: []resource.TestStep{
+			{
+				Config: fmt.Sprintf(testForm3PayportAssociationConfigNonSettling, organisationId, parentOrganisationId, participantId),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckPayportAssociationExists("form3_payport_association.association", &payportResponse),
+					resource.TestCheckResourceAttrSet("form3_payport_association.association", "payport_association_id"),
+					resource.TestCheckResourceAttr("form3_payport_association.association", "organisation_id", organisationId),
+					resource.TestCheckResourceAttr("form3_payport_association.association", "participant_id", participantId),
+					resource.TestCheckResourceAttr("form3_payport_association.association", "participant_type", "non_settling"),
+					resource.TestCheckResourceAttr("form3_payport_association.association", "customer_sending_fps_institution", "444443"),
+					resource.TestCheckResourceAttr("form3_payport_association.association", "sponsor_bank_id", "111113"),
+					resource.TestCheckResourceAttr("form3_payport_association.association", "sponsor_account_number", "22222223"),
+				),
+			},
+		},
+	})
+}
 
-			resource.Test(t, resource.TestCase{
-				PreCheck:     func() { testAccPreCheck(t) },
-				Providers:    testAccProviders,
-				CheckDestroy: testAccCheckPayportAssociationDestroy,
-				Steps: []resource.TestStep{
-					{
-						Config: fmt.Sprintf(config, organisationId, parentOrganisationId, participantId),
-						Check: resource.ComposeTestCheckFunc(
-							testAccCheckPayportAssociationExists("form3_payport_association.association", &payportResponse),
-							resource.TestCheckResourceAttr(
-								"form3_payport_association.association", "participant_id", participantId),
-						),
-					},
-				},
-			})
+func TestAccPayportAssociation_basic_settling(t *testing.T) {
+	var payportResponse associations.GetPayportIDOK
+	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationId := uuid.NewV4().String()
+	participantId := generateTestParticipantId()
 
-		})
-	}
+	resource.Test(t, resource.TestCase{
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
+		CheckDestroy: testAccCheckPayportAssociationDestroy,
+		Steps: []resource.TestStep{
+			{
+				Config: fmt.Sprintf(testForm3PayportAssociationConfigSettling, organisationId, parentOrganisationId, participantId),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckPayportAssociationExists("form3_payport_association.association", &payportResponse),
+					resource.TestCheckResourceAttrSet("form3_payport_association.association", "payport_association_id"),
+					resource.TestCheckResourceAttr("form3_payport_association.association", "organisation_id", organisationId),
+					resource.TestCheckResourceAttr("form3_payport_association.association", "participant_id", participantId),
+					resource.TestCheckResourceAttr("form3_payport_association.association", "participant_type", "settling"),
+					resource.TestCheckResourceAttr("form3_payport_association.association", "customer_sending_fps_institution", "444443"),
+					resource.TestCheckResourceAttr("form3_payport_association.association", "sponsor_bank_id", ""),
+					resource.TestCheckResourceAttr("form3_payport_association.association", "sponsor_account_number", ""),
+				),
+			},
+		},
+	})
 }
 
 func TestAccPayportAssociation_importBasic(t *testing.T) {
