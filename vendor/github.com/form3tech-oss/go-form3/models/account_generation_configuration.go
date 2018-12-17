@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -20,16 +22,45 @@ type AccountGenerationConfiguration struct {
 	Country string `json:"country,omitempty"`
 
 	// valid account ranges
-	ValidAccountRanges AccountGenerationConfigurationValidAccountRanges `json:"valid_account_ranges"`
+	ValidAccountRanges []*AccountGenerationConfigurationValidAccountRangesItems `json:"valid_account_ranges"`
 }
 
 // Validate validates this account generation configuration
 func (m *AccountGenerationConfiguration) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateValidAccountRanges(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *AccountGenerationConfiguration) validateValidAccountRanges(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ValidAccountRanges) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.ValidAccountRanges); i++ {
+		if swag.IsZero(m.ValidAccountRanges[i]) { // not required
+			continue
+		}
+
+		if m.ValidAccountRanges[i] != nil {
+			if err := m.ValidAccountRanges[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("valid_account_ranges" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 

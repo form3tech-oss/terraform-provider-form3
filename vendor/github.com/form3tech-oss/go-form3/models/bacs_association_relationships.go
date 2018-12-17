@@ -31,17 +31,14 @@ func (m *BacsAssociationRelationships) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateInputCertificate(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateMessagingCertificate(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateOutputCertificate(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
@@ -58,7 +55,6 @@ func (m *BacsAssociationRelationships) validateInputCertificate(formats strfmt.R
 	}
 
 	if m.InputCertificate != nil {
-
 		if err := m.InputCertificate.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("input_certificate")
@@ -77,7 +73,6 @@ func (m *BacsAssociationRelationships) validateMessagingCertificate(formats strf
 	}
 
 	if m.MessagingCertificate != nil {
-
 		if err := m.MessagingCertificate.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("messaging_certificate")
@@ -96,7 +91,6 @@ func (m *BacsAssociationRelationships) validateOutputCertificate(formats strfmt.
 	}
 
 	if m.OutputCertificate != nil {
-
 		if err := m.OutputCertificate.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("output_certificate")

@@ -28,12 +28,10 @@ func (m *PaymentSubmittedEvent) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validatePayment(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validatePaymentSubmission(formats); err != nil {
-		// prop
 		res = append(res, err)
 	}
 
@@ -50,7 +48,6 @@ func (m *PaymentSubmittedEvent) validatePayment(formats strfmt.Registry) error {
 	}
 
 	if m.Payment != nil {
-
 		if err := m.Payment.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("payment")
@@ -69,7 +66,6 @@ func (m *PaymentSubmittedEvent) validatePaymentSubmission(formats strfmt.Registr
 	}
 
 	if m.PaymentSubmission != nil {
-
 		if err := m.PaymentSubmission.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("payment_submission")

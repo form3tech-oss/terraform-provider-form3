@@ -2,13 +2,14 @@ package form3
 
 import (
 	"fmt"
-	"github.com/form3tech-oss/go-form3"
+	"log"
+
+	form3 "github.com/form3tech-oss/go-form3"
 	"github.com/form3tech-oss/go-form3/client/associations"
 	"github.com/form3tech-oss/go-form3/models"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/schema"
-	"log"
 )
 
 func resourceForm3PayportAssociation() *schema.Resource {
@@ -36,6 +37,11 @@ func resourceForm3PayportAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
+			"participant_type": &schema.Schema{
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
 			"customer_sending_fps_institution": &schema.Schema{
 				Type:     schema.TypeString,
 				Required: true,
@@ -43,12 +49,12 @@ func resourceForm3PayportAssociation() *schema.Resource {
 			},
 			"sponsor_bank_id": &schema.Schema{
 				Type:     schema.TypeString,
-				Required: true,
+				Optional: true,
 				ForceNew: true,
 			},
 			"sponsor_account_number": &schema.Schema{
 				Type:     schema.TypeString,
-				Required: true,
+				Optional: true,
 				ForceNew: true,
 			},
 		},
@@ -110,6 +116,7 @@ func resourcePayportAssociationRead(d *schema.ResourceData, meta interface{}) er
 
 	d.Set("payport_association_id", association.Payload.Data.ID.String())
 	d.Set("participant_id", association.Payload.Data.Attributes.ParticipantID)
+	d.Set("participant_type", association.Payload.Data.Attributes.ParticipantType)
 	d.Set("customer_sending_fps_institution", association.Payload.Data.Attributes.CustomerSendingFpsInstitution)
 	d.Set("sponsor_bank_id", association.Payload.Data.Attributes.SponsorBankID)
 	d.Set("sponsor_account_number", association.Payload.Data.Attributes.SponsorAccountNumber)
@@ -164,6 +171,10 @@ func createPayportAssociationFromResourceData(d *schema.ResourceData) (*models.P
 
 	if attr, ok := d.GetOk("participant_id"); ok {
 		association.Attributes.ParticipantID = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("participant_type"); ok {
+		association.Attributes.ParticipantType = models.PayportParticipantType(attr.(string))
 	}
 
 	if attr, ok := d.GetOk("customer_sending_fps_institution"); ok {

@@ -2,14 +2,15 @@ package form3
 
 import (
 	"fmt"
-	"github.com/form3tech-oss/go-form3"
+	"os"
+	"testing"
+
+	form3 "github.com/form3tech-oss/go-form3"
 	"github.com/form3tech-oss/go-form3/client/associations"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
-	"github.com/satori/go.uuid"
-	"os"
-	"testing"
+	uuid "github.com/satori/go.uuid"
 )
 
 func TestAccBacsAssociation_basic(t *testing.T) {
@@ -78,7 +79,7 @@ func TestAccBacsAssociation_withBankIdAndCentre(t *testing.T) {
 				Config: fmt.Sprintf(testForm3BacsAssociationConfigC, organisationId, parentOrganisationId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBacsAssociationExists("form3_bacs_association.association", &bacsResponse),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "bank_code", "BANK"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "bank_code", "1234"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "centre_number", "42"),
 				),
 			},
@@ -182,6 +183,6 @@ resource "form3_bacs_association" "association" {
   account_number                   = "87654321",
   sorting_code                     = "654321",
   account_type                     = 0,
-  bank_code                          = "BANK",
+  bank_code                          = "1234",
   centre_number                    = "42"
 }`
