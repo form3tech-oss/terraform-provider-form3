@@ -2,14 +2,15 @@ package form3
 
 import (
 	"fmt"
-	"github.com/form3tech-oss/go-form3"
+	"os"
+	"testing"
+
+	form3 "github.com/form3tech-oss/go-form3"
 	"github.com/form3tech-oss/go-form3/client/limits"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
-	"github.com/satori/go.uuid"
-	"os"
-	"testing"
+	uuid "github.com/satori/go.uuid"
 )
 
 func TestAccLimit_basic(t *testing.T) {
@@ -37,7 +38,6 @@ func TestAccLimit_basic(t *testing.T) {
 }
 
 func TestAccLimit_importBasic(t *testing.T) {
-
 	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	limitId := uuid.NewV4().String()
 
