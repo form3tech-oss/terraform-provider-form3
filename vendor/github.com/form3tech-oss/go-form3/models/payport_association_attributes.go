@@ -8,6 +8,7 @@ package models
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 )
 
@@ -21,6 +22,9 @@ type PayportAssociationAttributes struct {
 	// participant id
 	ParticipantID string `json:"participant_id,omitempty"`
 
+	// participant type
+	ParticipantType PayportParticipantType `json:"participant_type,omitempty"`
+
 	// sponsor account number
 	SponsorAccountNumber string `json:"sponsor_account_number,omitempty"`
 
@@ -30,6 +34,31 @@ type PayportAssociationAttributes struct {
 
 // Validate validates this payport association attributes
 func (m *PayportAssociationAttributes) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateParticipantType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *PayportAssociationAttributes) validateParticipantType(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ParticipantType) { // not required
+		return nil
+	}
+
+	if err := m.ParticipantType.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("participant_type")
+		}
+		return err
+	}
+
 	return nil
 }
 

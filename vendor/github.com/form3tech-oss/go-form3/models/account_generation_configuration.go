@@ -22,7 +22,7 @@ type AccountGenerationConfiguration struct {
 	Country string `json:"country,omitempty"`
 
 	// valid account ranges
-	ValidAccountRanges []*AccountGenerationConfigurationValidAccountRangesItems0 `json:"valid_account_ranges"`
+	ValidAccountRanges []*AccountGenerationConfigurationValidAccountRangesItems `json:"valid_account_ranges"`
 }
 
 // Validate validates this account generation configuration
@@ -75,40 +75,6 @@ func (m *AccountGenerationConfiguration) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *AccountGenerationConfiguration) UnmarshalBinary(b []byte) error {
 	var res AccountGenerationConfiguration
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*m = res
-	return nil
-}
-
-// AccountGenerationConfigurationValidAccountRangesItems0 account generation configuration valid account ranges items0
-// swagger:model AccountGenerationConfigurationValidAccountRangesItems0
-type AccountGenerationConfigurationValidAccountRangesItems0 struct {
-
-	// maximum
-	Maximum int64 `json:"maximum,omitempty"`
-
-	// minimum
-	Minimum int64 `json:"minimum,omitempty"`
-}
-
-// Validate validates this account generation configuration valid account ranges items0
-func (m *AccountGenerationConfigurationValidAccountRangesItems0) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (m *AccountGenerationConfigurationValidAccountRangesItems0) MarshalBinary() ([]byte, error) {
-	if m == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(m)
-}
-
-// UnmarshalBinary interface implementation
-func (m *AccountGenerationConfigurationValidAccountRangesItems0) UnmarshalBinary(b []byte) error {
-	var res AccountGenerationConfigurationValidAccountRangesItems0
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

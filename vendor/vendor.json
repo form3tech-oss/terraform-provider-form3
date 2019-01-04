@@ -244,16 +244,16 @@
 			"revisionTime": "2017-09-19T17:24:43Z"
 		},
 		{
-			"checksumSHA1": "vDkCZfLyKBgUV9fODVLDRgFbpTE=",
+			"checksumSHA1": "+6TzKKQDsRTu9Yyi3lAu7Nx/BEU=",
 			"path": "github.com/form3tech-oss/go-form3",
-			"revision": "de745436404c7352a8b2cd72641688f5cad2ab65",
-			"revisionTime": "2018-10-10T09:05:26Z"
+			"revision": "f61cc7ce47195f6017f2a996635ea54d871ae6a6",
+			"revisionTime": "2019-01-04T16:37:27Z"
 		},
 		{
 			"checksumSHA1": "NkcU/DDYx4NOsmFfGnRcNxGzVKs=",
 			"path": "github.com/form3tech-oss/go-form3/client",
-			"revision": "de745436404c7352a8b2cd72641688f5cad2ab65",
-			"revisionTime": "2018-10-10T09:05:26Z"
+			"revision": "f61cc7ce47195f6017f2a996635ea54d871ae6a6",
+			"revisionTime": "2019-01-04T16:37:27Z"
 		},
 		{
 			"checksumSHA1": "R/nUmuCjLwP5IPpGHiG4dhswHnM=",
@@ -268,10 +268,10 @@
 			"revisionTime": "2018-10-10T09:05:26Z"
 		},
 		{
-			"checksumSHA1": "SjDBTCoOfw1gG5ENd76uoO6Utng=",
+			"checksumSHA1": "D0CTvIZRzSLndPJRk2dMVYlAIAw=",
 			"path": "github.com/form3tech-oss/go-form3/client/associations",
-			"revision": "de745436404c7352a8b2cd72641688f5cad2ab65",
-			"revisionTime": "2018-10-10T09:05:26Z"
+			"revision": "f61cc7ce47195f6017f2a996635ea54d871ae6a6",
+			"revisionTime": "2019-01-04T16:37:27Z"
 		},
 		{
 			"checksumSHA1": "dWKwRV+Bz1eRWHkywxofUDUNJrk=",
@@ -316,10 +316,10 @@
 			"revisionTime": "2018-10-10T09:05:26Z"
 		},
 		{
-			"checksumSHA1": "DkxuCoPCE8omAS+4GNWydCQk2jo=",
+			"checksumSHA1": "o3r17bHOHkof09EltiWbkADqf0c=",
 			"path": "github.com/form3tech-oss/go-form3/models",
-			"revision": "de745436404c7352a8b2cd72641688f5cad2ab65",
-			"revisionTime": "2018-10-10T09:05:26Z"
+			"revision": "f61cc7ce47195f6017f2a996635ea54d871ae6a6",
+			"revisionTime": "2019-01-04T16:37:27Z"
 		},
 		{
 			"checksumSHA1": "1K+xrZ1PBez190iGt5OnMtGdih4=",

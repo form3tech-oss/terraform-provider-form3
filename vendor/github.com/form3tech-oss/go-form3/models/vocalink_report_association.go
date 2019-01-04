@@ -13,12 +13,12 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// BacsNewAssociation bacs new association
-// swagger:model BacsNewAssociation
-type BacsNewAssociation struct {
+// VocalinkReportAssociation vocalink report association
+// swagger:model VocalinkReportAssociation
+type VocalinkReportAssociation struct {
 
 	// attributes
-	Attributes *BacsAssociationAttributes `json:"attributes,omitempty"`
+	Attributes VocalinkReportAssociationAttributes `json:"attributes,omitempty"`
 
 	// id
 	// Format: uuid
@@ -29,7 +29,7 @@ type BacsNewAssociation struct {
 	OrganisationID strfmt.UUID `json:"organisation_id,omitempty"`
 
 	// relationships
-	Relationships *BacsAssociationRelationships `json:"relationships,omitempty"`
+	Relationships *VocalinkReportAssociationRelationships `json:"relationships,omitempty"`
 
 	// type
 	Type string `json:"type,omitempty"`
@@ -39,13 +39,9 @@ type BacsNewAssociation struct {
 	Version *int64 `json:"version,omitempty"`
 }
 
-// Validate validates this bacs new association
-func (m *BacsNewAssociation) Validate(formats strfmt.Registry) error {
+// Validate validates this vocalink report association
+func (m *VocalinkReportAssociation) Validate(formats strfmt.Registry) error {
 	var res []error
-
-	if err := m.validateAttributes(formats); err != nil {
-		res = append(res, err)
-	}
 
 	if err := m.validateID(formats); err != nil {
 		res = append(res, err)
@@ -69,25 +65,7 @@ func (m *BacsNewAssociation) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *BacsNewAssociation) validateAttributes(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Attributes) { // not required
-		return nil
-	}
-
-	if m.Attributes != nil {
-		if err := m.Attributes.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *BacsNewAssociation) validateID(formats strfmt.Registry) error {
+func (m *VocalinkReportAssociation) validateID(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.ID) { // not required
 		return nil
@@ -100,7 +78,7 @@ func (m *BacsNewAssociation) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *BacsNewAssociation) validateOrganisationID(formats strfmt.Registry) error {
+func (m *VocalinkReportAssociation) validateOrganisationID(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.OrganisationID) { // not required
 		return nil
@@ -113,7 +91,7 @@ func (m *BacsNewAssociation) validateOrganisationID(formats strfmt.Registry) err
 	return nil
 }
 
-func (m *BacsNewAssociation) validateRelationships(formats strfmt.Registry) error {
+func (m *VocalinkReportAssociation) validateRelationships(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Relationships) { // not required
 		return nil
@@ -131,7 +109,7 @@ func (m *BacsNewAssociation) validateRelationships(formats strfmt.Registry) erro
 	return nil
 }
 
-func (m *BacsNewAssociation) validateVersion(formats strfmt.Registry) error {
+func (m *VocalinkReportAssociation) validateVersion(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Version) { // not required
 		return nil
@@ -145,7 +123,7 @@ func (m *BacsNewAssociation) validateVersion(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *BacsNewAssociation) MarshalBinary() ([]byte, error) {
+func (m *VocalinkReportAssociation) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -153,8 +131,8 @@ func (m *BacsNewAssociation) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *BacsNewAssociation) UnmarshalBinary(b []byte) error {
-	var res BacsNewAssociation
+func (m *VocalinkReportAssociation) UnmarshalBinary(b []byte) error {
+	var res VocalinkReportAssociation
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
