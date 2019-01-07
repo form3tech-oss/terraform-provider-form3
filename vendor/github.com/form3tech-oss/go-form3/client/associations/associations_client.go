@@ -137,6 +137,34 @@ func (a *Client) DeleteStarlingID(params *DeleteStarlingIDParams) (*DeleteStarli
 }
 
 /*
+DeleteVocalinkreportID deletes organisation association
+*/
+func (a *Client) DeleteVocalinkreportID(params *DeleteVocalinkreportIDParams) (*DeleteVocalinkreportIDNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteVocalinkreportIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteVocalinkreportID",
+		Method:             "DELETE",
+		PathPattern:        "/vocalinkreport/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteVocalinkreportIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteVocalinkreportIDNoContent), nil
+
+}
+
+/*
 GetBacs lists all organisation associations for b a c s
 */
 func (a *Client) GetBacs(params *GetBacsParams) (*GetBacsOK, error) {
@@ -361,6 +389,62 @@ func (a *Client) GetStarlingID(params *GetStarlingIDParams) (*GetStarlingIDOK, e
 }
 
 /*
+GetVocalinkreport lists all organisation associations
+*/
+func (a *Client) GetVocalinkreport(params *GetVocalinkreportParams) (*GetVocalinkreportOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetVocalinkreportParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetVocalinkreport",
+		Method:             "GET",
+		PathPattern:        "/vocalinkreport",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetVocalinkreportReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetVocalinkreportOK), nil
+
+}
+
+/*
+GetVocalinkreportID fetches organisation association
+*/
+func (a *Client) GetVocalinkreportID(params *GetVocalinkreportIDParams) (*GetVocalinkreportIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetVocalinkreportIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetVocalinkreportID",
+		Method:             "GET",
+		PathPattern:        "/vocalinkreport/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetVocalinkreportIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetVocalinkreportIDOK), nil
+
+}
+
+/*
 PostBacs creates organisation association for b a c s
 */
 func (a *Client) PostBacs(params *PostBacsParams) (*PostBacsCreated, error) {
@@ -469,6 +553,34 @@ func (a *Client) PostStarling(params *PostStarlingParams) (*PostStarlingCreated,
 		return nil, err
 	}
 	return result.(*PostStarlingCreated), nil
+
+}
+
+/*
+PostVocalinkreport creates organisation association
+*/
+func (a *Client) PostVocalinkreport(params *PostVocalinkreportParams) (*PostVocalinkreportCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostVocalinkreportParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostVocalinkreport",
+		Method:             "POST",
+		PathPattern:        "/vocalinkreport",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PostVocalinkreportReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PostVocalinkreportCreated), nil
 
 }
 
