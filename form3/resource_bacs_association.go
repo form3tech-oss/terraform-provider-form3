@@ -61,6 +61,21 @@ func resourceForm3BacsAssociation() *schema.Resource {
 				Optional: true,
 				ForceNew: true,
 			},
+			"input_certificate_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
+			"output_certificate_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
+			"messaging_certificate_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
 		},
 	}
 }
@@ -124,6 +139,19 @@ func resourceBacsAssociationRead(d *schema.ResourceData, meta interface{}) error
 	d.Set("account_type", bacsAssociation.Payload.Data.Attributes.AccountType)
 	d.Set("bank_code", bacsAssociation.Payload.Data.Attributes.BankCode)
 	d.Set("centre_number", bacsAssociation.Payload.Data.Attributes.CentreNumber)
+
+	if bacsAssociation.Payload.Data.Relationships != nil {
+		if bacsAssociation.Payload.Data.Relationships.InputCertificate != nil && bacsAssociation.Payload.Data.Relationships.InputCertificate.Data != nil {
+			d.Set("input_certificate_id", bacsAssociation.Payload.Data.Relationships.InputCertificate.Data.ID)
+		}
+		if bacsAssociation.Payload.Data.Relationships.OutputCertificate != nil && bacsAssociation.Payload.Data.Relationships.OutputCertificate.Data != nil {
+			d.Set("output_certificate_id", bacsAssociation.Payload.Data.Relationships.OutputCertificate.Data.ID)
+		}
+		if bacsAssociation.Payload.Data.Relationships.MessagingCertificate != nil && bacsAssociation.Payload.Data.Relationships.MessagingCertificate.Data != nil {
+			d.Set("messaging_certificate_id", bacsAssociation.Payload.Data.Relationships.MessagingCertificate.Data.ID)
+		}
+	}
+
 	return nil
 }
 
@@ -152,7 +180,11 @@ func resourceBacsAssociationDelete(d *schema.ResourceData, meta interface{}) err
 
 func createBacsNewAssociationFromResourceData(d *schema.ResourceData) (*models.BacsNewAssociation, error) {
 
-	association := models.BacsNewAssociation{Attributes: &models.BacsAssociationAttributes{}}
+	association := models.BacsNewAssociation{
+		Attributes:    &models.BacsAssociationAttributes{},
+		Relationships: &models.BacsAssociationRelationships{},
+	}
+
 	association.Type = "associations"
 	if attr, ok := GetUUIDOK(d, "association_id"); ok {
 		association.ID = attr
@@ -185,6 +217,24 @@ func createBacsNewAssociationFromResourceData(d *schema.ResourceData) (*models.B
 
 	if attr, ok := d.GetOk("centre_number"); ok {
 		association.Attributes.CentreNumber = attr.(string)
+	}
+
+	if attr, ok := GetUUIDOK(d, "input_certificate_id"); ok {
+		association.Relationships.InputCertificate = &models.BacsAssociationCertificateRelationship{
+			Data: &models.BacsAssociationCertificateRelationshipData{ID: attr},
+		}
+	}
+
+	if attr, ok := GetUUIDOK(d, "output_certificate_id"); ok {
+		association.Relationships.OutputCertificate = &models.BacsAssociationCertificateRelationship{
+			Data: &models.BacsAssociationCertificateRelationshipData{ID: attr},
+		}
+	}
+
+	if attr, ok := GetUUIDOK(d, "messaging_certificate_id"); ok {
+		association.Relationships.MessagingCertificate = &models.BacsAssociationCertificateRelationship{
+			Data: &models.BacsAssociationCertificateRelationshipData{ID: attr},
+		}
 	}
 
 	return &association, nil

@@ -2,14 +2,15 @@ package form3
 
 import (
 	"fmt"
-	"github.com/form3tech-oss/go-form3"
+	"os"
+	"testing"
+
+	form3 "github.com/form3tech-oss/go-form3"
 	"github.com/form3tech-oss/go-form3/client/accounts"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
-	"github.com/satori/go.uuid"
-	"os"
-	"testing"
+	uuid "github.com/satori/go.uuid"
 )
 
 func TestAccAccount_basic(t *testing.T) {
@@ -19,6 +20,7 @@ func TestAccAccount_basic(t *testing.T) {
 	accountId := uuid.NewV4().String()
 	bankResourceId := uuid.NewV4().String()
 	bicId := uuid.NewV4().String()
+	bic := "NWABCD13"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -26,7 +28,7 @@ func TestAccAccount_basic(t *testing.T) {
 		CheckDestroy: testAccCheckAccountDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3AccountConfigA, organisationId, parentOrganisationId, accountId, bankResourceId, bicId),
+				Config: fmt.Sprintf(testForm3AccountConfigA, organisationId, parentOrganisationId, accountId, bic, bankResourceId, bicId, bic),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckAccountExists("form3_account.account", &accountResponse),
 					resource.TestCheckResourceAttr("form3_account.account", "account_id", accountId),
@@ -48,6 +50,7 @@ func TestAccAccount_importBasic(t *testing.T) {
 	accountId := uuid.NewV4().String()
 	bankResourceId := uuid.NewV4().String()
 	bicId := uuid.NewV4().String()
+	bic := "NWABCD14"
 
 	resourceName := "form3_account.account"
 
@@ -57,7 +60,7 @@ func TestAccAccount_importBasic(t *testing.T) {
 		CheckDestroy: testAccCheckAccountDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3AccountConfigA, organisationId, parentOrganisationId, accountId, bankResourceId, bicId),
+				Config: fmt.Sprintf(testForm3AccountConfigA, organisationId, parentOrganisationId, accountId, bic, bankResourceId, bicId, bic),
 			},
 			{
 				ResourceName:      resourceName,
@@ -131,7 +134,7 @@ resource "form3_account" "account" {
 	account_number 	 = "12345678"
   bank_id          = "401005"
   bank_id_code     = "GBDSC"
-  bic              = "NWABCD13"
+  bic              = "%s"
   country          = "GB"
   depends_on       = ["form3_bank_id.bank_id", "form3_bic.bic"]
 }
@@ -147,6 +150,6 @@ resource "form3_bank_id" "bank_id" {
 resource "form3_bic" "bic" {
 	organisation_id = "${form3_organisation.organisation.organisation_id}"
   bic_id          = "%s"
-	bic       	    = "NWABCD13"
+	bic       	    = "%s"
 }
 `
