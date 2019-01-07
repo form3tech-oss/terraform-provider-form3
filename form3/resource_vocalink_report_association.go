@@ -31,6 +31,21 @@ func resourceForm3VocalinkReportAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
+			"fps_member_certificate_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
+			"bacs_member_certificate_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
+			"bacs_service_user_certificate_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
 		},
 	}
 }
@@ -87,6 +102,19 @@ func resourceVocalinkReportAssociationRead(d *schema.ResourceData, meta interfac
 
 	d.Set("association_id", bacsAssociation.Payload.Data.ID.String())
 	d.Set("organisation_id", bacsAssociation.Payload.Data.OrganisationID.String())
+
+	if bacsAssociation.Payload.Data.Relationships != nil {
+		if bacsAssociation.Payload.Data.Relationships.FpsMemberCertificate != nil && bacsAssociation.Payload.Data.Relationships.FpsMemberCertificate.Data != nil {
+			d.Set("fps_member_certificate_id", bacsAssociation.Payload.Data.Relationships.FpsMemberCertificate.Data.ID)
+		}
+		if bacsAssociation.Payload.Data.Relationships.BacsMemberCertificate != nil && bacsAssociation.Payload.Data.Relationships.BacsMemberCertificate.Data != nil {
+			d.Set("bacs_member_certificate_id", bacsAssociation.Payload.Data.Relationships.BacsMemberCertificate.Data.ID)
+		}
+		if bacsAssociation.Payload.Data.Relationships.BacsServiceUserCertificate != nil && bacsAssociation.Payload.Data.Relationships.BacsServiceUserCertificate.Data != nil {
+			d.Set("bacs_service_user_certificate_id", bacsAssociation.Payload.Data.Relationships.BacsServiceUserCertificate.Data.ID)
+		}
+	}
+
 	return nil
 }
 
@@ -125,6 +153,24 @@ func createVocalinkReportNewAssociationFromResourceData(d *schema.ResourceData) 
 	if attr, ok := GetUUIDOK(d, "organisation_id"); ok {
 		uuid := strfmt.UUID(attr.String())
 		association.OrganisationID = &uuid
+	}
+
+	if attr, ok := GetUUIDOK(d, "fps_member_certificate_id"); ok {
+		association.Relationships.FpsMemberCertificate = &models.VocalinkReportAssociationCertificateRelationship{
+			Data: &models.VocalinkReportAssociationCertificateRelationshipData{ID: attr},
+		}
+	}
+
+	if attr, ok := GetUUIDOK(d, "bacs_member_certificate_id"); ok {
+		association.Relationships.BacsMemberCertificate = &models.VocalinkReportAssociationCertificateRelationship{
+			Data: &models.VocalinkReportAssociationCertificateRelationshipData{ID: attr},
+		}
+	}
+
+	if attr, ok := GetUUIDOK(d, "bacs_service_user_certificate_id"); ok {
+		association.Relationships.BacsServiceUserCertificate = &models.VocalinkReportAssociationCertificateRelationship{
+			Data: &models.VocalinkReportAssociationCertificateRelationshipData{ID: attr},
+		}
 	}
 
 	return association, nil
