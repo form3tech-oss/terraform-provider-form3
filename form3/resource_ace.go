@@ -116,6 +116,11 @@ func resourceAceDelete(d *schema.ResourceData, meta interface{}) error {
 		WithAceID(aceFromResource.ID).
 		WithRoleID(aceFromResource.Attributes.RoleID))
 
+	apiError, ok := err.(*runtime.APIError)
+	if ok && apiError.Code == 404 {
+		return nil
+	}
+
 	if err != nil {
 		return fmt.Errorf("error deleting ace: %s", err)
 	}
