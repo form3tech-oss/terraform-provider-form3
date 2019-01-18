@@ -25,9 +25,9 @@ func TestAccVocalinkReportAssociation_basic(t *testing.T) {
 			{
 				Config: fmt.Sprintf(testForm3VocalinkReportAssociationConfigA, organisationId, parentOrganisationId),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckVocalinkReportAssociationExists("form3_vocalinkreport_association.association", &response),
-					resource.TestCheckResourceAttr("form3_vocalinkreport_association.association", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_vocalinkreport_association.association", "association_id", "ad5e20e5-800d-4143-9936-ca1007da3a03"),
+					testAccCheckVocalinkReportAssociationExists("form3_vocalink_report_association.association", &response),
+					resource.TestCheckResourceAttr("form3_vocalink_report_association.association", "organisation_id", organisationId),
+					resource.TestCheckResourceAttr("form3_vocalink_report_association.association", "association_id", "ad5e20e5-800d-4143-9936-ca1007da3a03"),
 				),
 			},
 		},
@@ -38,7 +38,7 @@ func testAccCheckVocalinkReportAssociationDestroy(state *terraform.State) error 
 	client := testAccProvider.Meta().(*form3.AuthenticatedClient)
 
 	for _, rs := range state.RootModule().Resources {
-		if rs.Type != "form3_vocalinkreport_association" {
+		if rs.Type != "form3_vocalink_report_association" {
 			continue
 		}
 
@@ -91,7 +91,7 @@ resource "form3_organisation" "organisation" {
 	name 		               = "terraform-organisation"
 }
 
-resource "form3_vocalinkreport_association" "association" {
+resource "form3_vocalink_report_association" "association" {
 	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
 	association_id                   = "ad5e20e5-800d-4143-9936-ca1007da3a03"
 }`
