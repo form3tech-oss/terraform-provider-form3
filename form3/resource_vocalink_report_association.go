@@ -143,7 +143,10 @@ func resourceVocalinkReportAssociationDelete(d *schema.ResourceData, meta interf
 
 func createVocalinkReportNewAssociationFromResourceData(d *schema.ResourceData) (*models.NewVocalinkReportAssociation, error) {
 
-	association := &models.NewVocalinkReportAssociation{}
+	association := &models.NewVocalinkReportAssociation{
+		Relationships: &models.VocalinkReportAssociationRelationships{},
+	}
+
 	association.Type = "associations"
 	if attr, ok := GetUUIDOK(d, "association_id"); ok {
 		uuid := strfmt.UUID(attr.String())
