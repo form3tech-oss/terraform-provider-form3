@@ -1581,6 +1581,166 @@ paths:
         204:
           description: Association deleted
 
+  /vocalinkreport/certificate_requests:
+    post:
+      summary: Create certificate request
+      tags:
+        - System
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: certificate request creation request
+          in: body
+          schema:
+            $ref: "#/definitions/VocalinkReportCertificateRequestCreation"
+      responses:
+        201:
+          description: creation response
+          schema:
+            $ref: "#/definitions/VocalinkReportCertificateRequestCreationResponse"
+
+    get:
+      summary: List all certificate requests
+      tags:
+        - System
+      responses:
+        200:
+          description: List of certificate requests
+          schema:
+            $ref: "#/definitions/VocalinkReportCertificateRequestDetailsListResponse"
+
+  /vocalinkreport/certificate_requests/{certificate_request_id}:
+    get:
+      summary: Fetch certificate request
+      tags:
+        - System
+      parameters:
+        - name: certificate_request_id
+          in: path
+          description: Certificate request Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Certificate request details
+          schema:
+            $ref: "#/definitions/VocalinkReportCertificateRequestDetailsResponse"
+
+    delete:
+      summary: Delete certificate request
+      tags:
+        - System
+      parameters:
+        - name: certificate_request_id
+          in: path
+          description: Certificate request Id
+          required: true
+          type: string
+          format: uuid
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+      responses:
+        204:
+          description: Certificate request deleted
+
+  /vocalinkreport/certificate_requests/{certificate_request_id}/certificate:
+    post:
+      summary: Create certificate
+      tags:
+        - System
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: certificate_request_id
+          in: path
+          description: Certificate Request Id
+          required: true
+          type: string
+          format: uuid
+        - name: certificate creation request
+          in: body
+          schema:
+            $ref: "#/definitions/VocalinkReportCertificateCreation"
+      responses:
+        201:
+          description: creation response
+          schema:
+            $ref: "#/definitions/VocalinkReportCertificateCreationResponse"
+
+    get:
+      summary: List all certificates
+      tags:
+        - System
+      parameters:
+        - name: certificate_request_id
+          in: path
+          description: Certificate Request Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: List of certificates
+          schema:
+            $ref: "#/definitions/VocalinkReportCertificateDetailsListResponse"
+
+  /vocalinkreport/certificate_requests/{certificate_request_id}/certificate/{certificate_id}:
+    get:
+      summary: Fetch certificate
+      tags:
+        - System
+      parameters:
+        - name: certificate_request_id
+          in: path
+          description: Certificate request Id
+          required: true
+          type: string
+          format: uuid
+        - name: certificate_id
+          in: path
+          description: Certificate Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Certificate details
+          schema:
+            $ref: "#/definitions/VocalinkReportCertificateDetailsResponse"
+
+    delete:
+      summary: Delete certificate
+      tags:
+        - System
+      parameters:
+        - name: certificate_request_id
+          in: path
+          description: Certificate request Id
+          required: true
+          type: string
+          format: uuid
+        - name: certificate_id
+          in: path
+          description: Certificate Id
+          required: true
+          type: string
+          format: uuid
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+      responses:
+        204:
+          description: Certificate deleted
   /sepainstant:
 
     post:
@@ -3918,6 +4078,129 @@ definitions:
           $ref: '#/definitions/VocalinkReportAssociation'
       links:
         $ref: '#/definitions/Links'
+
+  VocalinkReportCertificateRequestCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/VocalinkReportCertificateRequest'
+
+  VocalinkReportCertificateRequestCreationResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/VocalinkReportCertificateRequest'
+      links:
+        $ref: '#/definitions/Links'
+
+  VocalinkReportCertificateRequestDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/VocalinkReportCertificateRequest'
+      links:
+        $ref: '#/definitions/Links'
+
+  VocalinkReportCertificateRequestDetailsListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/VocalinkReportCertificateRequest'
+      links:
+        $ref: '#/definitions/Links'
+
+  VocalinkReportCertificateRequest:
+    type: object
+    properties:
+      type:
+        type: string
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        $ref: "#/definitions/VocalinkReportCertificateRequestAttributes"
+
+  VocalinkReportCertificateRequestAttributes:
+    type: object
+    properties:
+      subject:
+        type: string
+      private_key:
+        type: string
+      public_key:
+        type: string
+      description:
+        type: string
+      cerficiate_signing_request:
+        type: string
+
+  VocalinkReportCertificateCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/VocalinkReportCertificate'
+
+  VocalinkReportCertificateCreationResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/VocalinkReportCertificate'
+      links:
+        $ref: '#/definitions/Links'
+
+  VocalinkReportCertificateDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/VocalinkReportCertificate'
+      links:
+        $ref: '#/definitions/Links'
+
+  VocalinkReportCertificateDetailsListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/VocalinkReportCertificate'
+      links:
+        $ref: '#/definitions/Links'
+
+  VocalinkReportCertificate:
+    type: object
+    properties:
+      type:
+        type: string
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        $ref: "#/definitions/VocalinkReportCertificateAttributes"
+
+  VocalinkReportCertificateAttributes:
+    type: object
+    required:
+      - certificate
+    properties:
+      certificate:
+        type: string
+      issuing_certificate:
+        type: string
+
 
   SepaInstantAssociation:
     type: object
