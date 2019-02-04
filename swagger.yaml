@@ -4139,7 +4139,7 @@ definitions:
         type: string
       description:
         type: string
-      cerficiate_signing_request:
+      certificate_signing_request:
         type: string
 
   VocalinkReportCertificateCreation:
@@ -4198,8 +4198,10 @@ definitions:
     properties:
       certificate:
         type: string
-      issuing_certificate:
-        type: string
+      issuing_certificates:
+        type: array
+        items:
+          type: string
 
 
   SepaInstantAssociation:

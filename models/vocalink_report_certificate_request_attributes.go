@@ -15,8 +15,8 @@ import (
 // swagger:model VocalinkReportCertificateRequestAttributes
 type VocalinkReportCertificateRequestAttributes struct {
 
-	// cerficiate signing request
-	CerficiateSigningRequest string `json:"cerficiate_signing_request,omitempty"`
+	// certificate signing request
+	CertificateSigningRequest string `json:"certificate_signing_request,omitempty"`
 
 	// description
 	Description string `json:"description,omitempty"`

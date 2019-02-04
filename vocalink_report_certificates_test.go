@@ -22,7 +22,7 @@ func TestPostVocalinkReportCertificateRequest(t *testing.T) {
 	assert.Equal(t, "go-form3 testing", createResponse.Payload.Data.Attributes.Description)
 	assert.Contains(t, createResponse.Payload.Data.Attributes.PrivateKey, "BEGIN RSA PRIVATE KEY")
 	assert.Contains(t, createResponse.Payload.Data.Attributes.PublicKey, "BEGIN PUBLIC KEY")
-	assert.Contains(t, createResponse.Payload.Data.Attributes.CerficiateSigningRequest, "CERTIFICATE")
+	assert.Contains(t, createResponse.Payload.Data.Attributes.CertificateSigningRequest, "CERTIFICATE")
 
 }
 
@@ -86,8 +86,8 @@ func TestPostVocalinkReportCertificateRequestCertificate(t *testing.T) {
 	createCertificateResponse := createCertificate(createResponse, t)
 	defer deleteCertificate(createResponse, createCertificateResponse, t)
 
-	assert.Equal(t, "Issuing Cert", createCertificateResponse.Payload.Data.Attributes.IssuingCertificate)
-	assert.Equal(t, "Test Cert", createCertificateResponse.Payload.Data.Attributes.Certificate)
+	assert.Equal(t, "Issuing Cert", createCertificateResponse.Payload.Data.Attributes.IssuingCertificates[0])
+	assert.Equal(t, "Test Cert", *createCertificateResponse.Payload.Data.Attributes.Certificate)
 }
 
 func TestDeleteVocalinkReportCertificateRequestCertificate(t *testing.T) {
@@ -120,8 +120,8 @@ func createCertificate(createResponse *system.PostVocalinkreportCertificateReque
 				ID:             *UUIDtoStrFmtUUID(id),
 				OrganisationID: organisationId,
 				Attributes: &models.VocalinkReportCertificateAttributes{
-					Certificate:        &certName,
-					IssuingCertificate: "Issuing Cert",
+					Certificate:         &certName,
+					IssuingCertificates: []string{"Issuing Cert"},
 				},
 			},
 		}))

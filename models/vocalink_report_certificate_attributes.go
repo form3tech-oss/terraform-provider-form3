@@ -21,8 +21,8 @@ type VocalinkReportCertificateAttributes struct {
 	// Required: true
 	Certificate *string `json:"certificate"`
 
-	// issuing certificate
-	IssuingCertificate string `json:"issuing_certificate,omitempty"`
+	// issuing certificates
+	IssuingCertificates []string `json:"issuing_certificates"`
 }
 
 // Validate validates this vocalink report certificate attributes
