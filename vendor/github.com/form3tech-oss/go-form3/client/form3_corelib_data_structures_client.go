@@ -20,6 +20,7 @@ import (
 	"github.com/form3tech-oss/go-form3/client/payments"
 	"github.com/form3tech-oss/go-form3/client/roles"
 	"github.com/form3tech-oss/go-form3/client/subscriptions"
+	"github.com/form3tech-oss/go-form3/client/system"
 	"github.com/form3tech-oss/go-form3/client/users"
 )
 
@@ -83,6 +84,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Form3Corel
 	cli.Roles = roles.New(transport, formats)
 
 	cli.Subscriptions = subscriptions.New(transport, formats)
+
+	cli.System = system.New(transport, formats)
 
 	cli.Users = users.New(transport, formats)
 
@@ -148,6 +151,8 @@ type Form3CorelibDataStructures struct {
 
 	Subscriptions *subscriptions.Client
 
+	System *system.Client
+
 	Users *users.Client
 
 	Transport runtime.ClientTransport
@@ -174,6 +179,8 @@ func (c *Form3CorelibDataStructures) SetTransport(transport runtime.ClientTransp
 	c.Roles.SetTransport(transport)
 
 	c.Subscriptions.SetTransport(transport)
+
+	c.System.SetTransport(transport)
 
 	c.Users.SetTransport(transport)
 
