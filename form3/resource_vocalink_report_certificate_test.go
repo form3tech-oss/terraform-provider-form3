@@ -3,8 +3,10 @@ package form3
 import (
 	"fmt"
 	"github.com/form3tech-oss/go-form3"
+	"github.com/form3tech-oss/go-form3/client/organisations"
 	"github.com/form3tech-oss/go-form3/client/system"
 	"github.com/form3tech-oss/go-form3/models"
+	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
 	"github.com/satori/go.uuid"
@@ -93,6 +95,117 @@ func TestAccVocalinkReportCertificateRequest_withSelfSignedCert(t *testing.T) {
 			},
 		},
 	})
+}
+
+func TestAccVocalinkReportCertificateRequest_importExistingCert(t *testing.T) {
+	var response models.VocalinkReportCertificateRequest
+	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationId := uuid.NewV4().String()
+	certificateRequestId := uuid.NewV4().String()
+	certificateId := uuid.NewV4().String()
+
+	if acc, ok := os.LookupEnv("TF_ACC"); ok && acc == "1" {
+		// Setup existing resources to be imported.
+		config := Config{
+			ApiHost:      os.Getenv("FORM3_HOST"),
+			ClientId:     os.Getenv("FORM3_CLIENT_ID"),
+			ClientSecret: os.Getenv("FORM3_CLIENT_SECRET"),
+		}
+		client, err := config.Client()
+		if err != nil {
+			t.Fail()
+		}
+
+		_, err = client.OrganisationClient.Organisations.PostUnits(organisations.NewPostUnitsParams().
+			WithOrganisationCreationRequest(&models.OrganisationCreation{Data: &models.Organisation{
+				OrganisationID: strfmt.UUID(parentOrganisationId),
+				ID:             strfmt.UUID(organisationId),
+				Type:           "organisations",
+				Attributes: &models.OrganisationAttributes{
+					Name: "terraform-organisation",
+				},
+			}}))
+		if err != nil {
+			t.Fail()
+		}
+
+		_, err = client.SystemClient.System.PostVocalinkreportCertificateRequests(system.NewPostVocalinkreportCertificateRequestsParams().
+			WithCertificateRequestCreationRequest(&models.VocalinkReportCertificateRequestCreation{
+				Data: &models.VocalinkReportCertificateRequest{
+					ID:             strfmt.UUID(certificateRequestId),
+					OrganisationID: strfmt.UUID(organisationId),
+					Attributes: &models.VocalinkReportCertificateRequestAttributes{
+						CertificateSigningRequest: "EXISTING CSR",
+						Description:               "",
+						PrivateKey:                "existing-key-101",
+						PublicKey:                 "existing-key-102",
+						Subject:                   "CN=Terraform-test-existing-cert",
+					},
+				},
+			}))
+		if err != nil {
+			t.Fail()
+		}
+
+		_, err = client.SystemClient.System.PostVocalinkreportCertificateRequestsCertificateRequestIDCertificate(system.NewPostVocalinkreportCertificateRequestsCertificateRequestIDCertificateParams().
+			WithCertificateRequestID(strfmt.UUID(certificateRequestId)).
+			WithCertificateCreationRequest(&models.VocalinkReportCertificateCreation{
+				Data: &models.VocalinkReportCertificate{
+					ID:             strfmt.UUID(certificateId),
+					OrganisationID: strfmt.UUID(organisationId),
+					Attributes: &models.VocalinkReportCertificateAttributes{
+						Certificate:         ToStringPointer("Existing Certificate"),
+						IssuingCertificates: []string{"Existing Issuing Certificate"},
+					},
+				},
+			}))
+		if err != nil {
+			t.Fail()
+		}
+	}
+
+	resource.Test(t, resource.TestCase{
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
+		CheckDestroy: testAccCheckVocalinkReportCertificateRequestDestroy,
+		Steps: []resource.TestStep{
+			{
+				Config: fmt.Sprintf(testForm3VocalinkReportCertificateRequestConfigExistingCertReq, organisationId, parentOrganisationId, certificateRequestId),
+
+				ResourceName:      "form3_organisation.organisation",
+				ImportState:       true,
+				ImportStateId:     organisationId,
+				ImportStateVerify: false,
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckVocalinkReportCertificateRequestExists("form3_vocalink_report_certificate_request.cert_req", &response),
+					resource.TestCheckResourceAttr("form3_vocalink_report_certificate_request.cert_req", "organisation_id", organisationId),
+					resource.TestCheckResourceAttr("form3_vocalink_report_certificate_request.cert_req", "certificate_request_id", certificateRequestId),
+					resource.TestCheckResourceAttr("form3_vocalink_report_certificate_request.cert_req", "subject", "CN=Terraform-test-existing-cert"),
+					resource.TestCheckResourceAttr("form3_vocalink_report_certificate_request.cert_req", "private_key", "existing-key-101"),
+					resource.TestCheckResourceAttr("form3_vocalink_report_certificate_request.cert_req", "public_key", "existing-key-102"),
+					resource.TestMatchResourceAttr("form3_vocalink_report_certificate_request.cert_req", "certificate_signing_request", regexp.MustCompile(".*EXISTING CSR.*"))),
+			},
+			{
+				Config:        fmt.Sprintf(testForm3VocalinkReportCertificateRequestConfigExistingCert, organisationId, certificateRequestId, certificateId),
+				ResourceName:  "form3_vocalink_report_certificate_request.cert",
+				ImportState:   true,
+				ImportStateId: certificateId,
+
+				Check: resource.ComposeTestCheckFunc(
+					resource.TestCheckResourceAttr("form3_vocalink_report_certificate.cert", "organisation_id", organisationId),
+					resource.TestCheckResourceAttr("form3_vocalink_report_certificate.cert", "certificate_request_id", certificateRequestId),
+					resource.TestCheckResourceAttr("form3_vocalink_report_certificate.cert", "certificate_id", certificateId),
+					resource.TestCheckResourceAttr("form3_vocalink_report_certificate.cert", "certificate", "Existing Certificate"),
+					resource.TestCheckResourceAttr("form3_vocalink_report_certificate.cert", "issuing_certificates.#", "1"),
+					resource.TestCheckResourceAttr("form3_vocalink_report_certificate.cert", "issuing_certificates.0", "Existing Issuing Certificate"),
+				),
+			},
+		},
+	})
+}
+
+func ToStringPointer(s string) *string {
+	return &s
 }
 
 func testAccCheckVocalinkReportCertificateRequestDestroy(state *terraform.State) error {
@@ -193,7 +306,6 @@ resource "form3_vocalink_report_certificate" "cert" {
                               "-----BEGIN CERTIFICATE-----\nRoot'\n-----END CERTIFICATE-----"
                             ]
 }
-
 `
 
 const testForm3VocalinkReportCertificateRequestConfigWithSelfSignedCert = `
@@ -215,3 +327,26 @@ resource "form3_vocalink_report_certificate" "cert" {
   certificate_id          = "%s"
 }
 `
+
+const testForm3VocalinkReportCertificateRequestConfigExistingCertReq = `
+resource "form3_organisation" "organisation" {
+	organisation_id        = "%s"
+	parent_organisation_id = "%s"
+	name 		               = "terraform-organisation"
+}
+
+resource "form3_vocalink_report_certificate_request" "cert_req" {
+	organisation_id         = "${form3_organisation.organisation.organisation_id}"
+  subject                 = "CN=Terraform-test-existing"
+  certificate_request_id  = "%s"
+}
+`
+
+const testForm3VocalinkReportCertificateRequestConfigExistingCert = `
+resource "form3_vocalink_report_certificate" "cert" {
+	organisation_id         = "%s"
+  certificate_request_id  = "%s"
+  certificate_id          = "%s"
+  certificate             = "Existing Certificate"
+  issuing_certificates    = ["Existing Issuing Certificate"]
+}`
