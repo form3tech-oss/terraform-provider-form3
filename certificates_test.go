@@ -9,7 +9,7 @@ import (
 	"testing"
 )
 
-func TestPostVocalinkReportCertificateRequest(t *testing.T) {
+func TestPostKey(t *testing.T) {
 	createResponse := createCertificateRequest(t)
 	defer deleteCertificateRequest(createResponse, t)
 
@@ -26,21 +26,21 @@ func TestPostVocalinkReportCertificateRequest(t *testing.T) {
 
 }
 
-func deleteCertificateRequest(createResponse *system.PostVocalinkreportCertificateRequestsCreated, t *testing.T) {
-	_, err := auth.SystemClient.System.DeleteVocalinkreportCertificateRequestsCertificateRequestID(system.NewDeleteVocalinkreportCertificateRequestsCertificateRequestIDParams().
-		WithCertificateRequestID(createResponse.Payload.Data.ID),
+func deleteCertificateRequest(createResponse *system.PostKeysCreated, t *testing.T) {
+	_, err := auth.SystemClient.System.DeleteKeysKeyID(system.NewDeleteKeysKeyIDParams().
+		WithKeyID(createResponse.Payload.Data.ID),
 	)
 	assertNoErrorOccurred(err, t)
 }
 
-func createCertificateRequest(t *testing.T) *system.PostVocalinkreportCertificateRequestsCreated {
+func createCertificateRequest(t *testing.T) *system.PostKeysCreated {
 	id, _ := uuid.NewV4()
-	createResponse, err := auth.SystemClient.System.PostVocalinkreportCertificateRequests(system.NewPostVocalinkreportCertificateRequestsParams().
-		WithCertificateRequestCreationRequest(&models.VocalinkReportCertificateRequestCreation{
-			Data: &models.VocalinkReportCertificateRequest{
+	createResponse, err := auth.SystemClient.System.PostKeys(system.NewPostKeysParams().
+		WithKeyCreationRequest(&models.KeyCreation{
+			Data: &models.Key{
 				ID:             *UUIDtoStrFmtUUID(id),
 				OrganisationID: organisationId,
-				Attributes: &models.VocalinkReportCertificateRequestAttributes{
+				Attributes: &models.KeyAttributes{
 					Subject:     "C=GB, O=Test Limited, OU=Test Bank, CN=12344321",
 					Description: "go-form3 testing",
 				},
@@ -50,12 +50,12 @@ func createCertificateRequest(t *testing.T) *system.PostVocalinkreportCertificat
 	return createResponse
 }
 
-func TestDeleteVocalinkReportCertificateRequest(t *testing.T) {
+func TestDeleteKey(t *testing.T) {
 	createResponse := createCertificateRequest(t)
 
 	deleteCertificateRequest(createResponse, t)
 
-	list, err := auth.AssociationClient.System.GetVocalinkreportCertificateRequests(system.NewGetVocalinkreportCertificateRequestsParams())
+	list, err := auth.AssociationClient.System.GetKeys(system.NewGetKeysParams())
 	require.Nil(t, err)
 
 	for _, certificateRequest := range list.Payload.Data {
@@ -63,11 +63,11 @@ func TestDeleteVocalinkReportCertificateRequest(t *testing.T) {
 	}
 }
 
-func TestGetVocalinkReportCertificateRequest(t *testing.T) {
+func TestGetKey(t *testing.T) {
 	createResponse := createCertificateRequest(t)
 	defer deleteCertificateRequest(createResponse, t)
 
-	list, err := auth.SystemClient.System.GetVocalinkreportCertificateRequests(system.NewGetVocalinkreportCertificateRequestsParams())
+	list, err := auth.SystemClient.System.GetKeys(system.NewGetKeysParams())
 	require.Nil(t, err)
 
 	foundRequest := false
@@ -79,7 +79,7 @@ func TestGetVocalinkReportCertificateRequest(t *testing.T) {
 	assert.True(t, foundRequest)
 }
 
-func TestPostVocalinkReportCertificateRequestCertificate(t *testing.T) {
+func TestPostKeyCertificate(t *testing.T) {
 	createResponse := createCertificateRequest(t)
 	defer deleteCertificateRequest(createResponse, t)
 
@@ -90,7 +90,7 @@ func TestPostVocalinkReportCertificateRequestCertificate(t *testing.T) {
 	assert.Equal(t, "Test Cert", *createCertificateResponse.Payload.Data.Attributes.Certificate)
 }
 
-func TestDeleteVocalinkReportCertificateRequestCertificate(t *testing.T) {
+func TestDeleteKeyCertificate(t *testing.T) {
 	createResponse := createCertificateRequest(t)
 	defer deleteCertificateRequest(createResponse, t)
 
@@ -102,24 +102,24 @@ func TestDeleteVocalinkReportCertificateRequestCertificate(t *testing.T) {
 	defer deleteCertificate(createResponse, createCertificateResponse2, t)
 }
 
-func deleteCertificate(createResponse *system.PostVocalinkreportCertificateRequestsCreated, response *system.PostVocalinkreportCertificateRequestsCertificateRequestIDCertificateCreated, t *testing.T) {
-	_, err := auth.SystemClient.System.DeleteVocalinkreportCertificateRequestsCertificateRequestIDCertificateCertificateID(&system.DeleteVocalinkreportCertificateRequestsCertificateRequestIDCertificateCertificateIDParams{
-		CertificateRequestID: createResponse.Payload.Data.ID,
-		CertificateID:        response.Payload.Data.ID,
+func deleteCertificate(createResponse *system.PostKeysCreated, response *system.PostKeysKeyIDCertificatesCreated, t *testing.T) {
+	_, err := auth.SystemClient.System.DeleteKeysKeyIDCertificatesCertificateID(&system.DeleteKeysKeyIDCertificatesCertificateIDParams{
+		KeyID:         createResponse.Payload.Data.ID,
+		CertificateID: response.Payload.Data.ID,
 	})
 	assertNoErrorOccurred(err, t)
 }
 
-func createCertificate(createResponse *system.PostVocalinkreportCertificateRequestsCreated, t *testing.T) *system.PostVocalinkreportCertificateRequestsCertificateRequestIDCertificateCreated {
+func createCertificate(createResponse *system.PostKeysCreated, t *testing.T) *system.PostKeysKeyIDCertificatesCreated {
 	id, _ := uuid.NewV4()
 	certName := "Test Cert"
-	createCertResponse, err := auth.SystemClient.System.PostVocalinkreportCertificateRequestsCertificateRequestIDCertificate(system.NewPostVocalinkreportCertificateRequestsCertificateRequestIDCertificateParams().
-		WithCertificateRequestID(createResponse.Payload.Data.ID).
-		WithCertificateCreationRequest(&models.VocalinkReportCertificateCreation{
-			Data: &models.VocalinkReportCertificate{
+	createCertResponse, err := auth.SystemClient.System.PostKeysKeyIDCertificates(system.NewPostKeysKeyIDCertificatesParams().
+		WithKeyID(createResponse.Payload.Data.ID).
+		WithCertificateCreationRequest(&models.CertificateCreation{
+			Data: &models.Certificate{
 				ID:             *UUIDtoStrFmtUUID(id),
 				OrganisationID: organisationId,
-				Attributes: &models.VocalinkReportCertificateAttributes{
+				Attributes: &models.CertificateAttributes{
 					Certificate:         &certName,
 					IssuingCertificates: []string{"Issuing Cert"},
 				},
