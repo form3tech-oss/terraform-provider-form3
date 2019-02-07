@@ -1581,61 +1581,61 @@ paths:
         204:
           description: Association deleted
 
-  /vocalinkreport/certificate_requests:
+  /keys:
     post:
-      summary: Create certificate request
+      summary: Create Key
       tags:
         - System
       consumes:
         - application/vnd.api+json
         - application/json
       parameters:
-        - name: certificate request creation request
+        - name: Key creation request
           in: body
           schema:
-            $ref: "#/definitions/VocalinkReportCertificateRequestCreation"
+            $ref: "#/definitions/KeyCreation"
       responses:
         201:
           description: creation response
           schema:
-            $ref: "#/definitions/VocalinkReportCertificateRequestCreationResponse"
+            $ref: "#/definitions/KeyCreationResponse"
 
     get:
-      summary: List all certificate requests
+      summary: List all Keys
       tags:
         - System
       responses:
         200:
-          description: List of certificate requests
+          description: List of Keys
           schema:
-            $ref: "#/definitions/VocalinkReportCertificateRequestDetailsListResponse"
+            $ref: "#/definitions/KeyDetailsListResponse"
 
-  /vocalinkreport/certificate_requests/{certificate_request_id}:
+  /keys/{key_id}:
     get:
-      summary: Fetch certificate request
+      summary: Fetch Key
       tags:
         - System
       parameters:
-        - name: certificate_request_id
+        - name: key_id
           in: path
-          description: Certificate request Id
+          description: Key Id
           required: true
           type: string
           format: uuid
       responses:
         200:
-          description: Certificate request details
+          description: Key details
           schema:
-            $ref: "#/definitions/VocalinkReportCertificateRequestDetailsResponse"
+            $ref: "#/definitions/KeyDetailsResponse"
 
     delete:
-      summary: Delete certificate request
+      summary: Delete Key
       tags:
         - System
       parameters:
-        - name: certificate_request_id
+        - name: key_id
           in: path
-          description: Certificate request Id
+          description: Key Id
           required: true
           type: string
           format: uuid
@@ -1647,9 +1647,9 @@ paths:
           minimum: 0
       responses:
         204:
-          description: Certificate request deleted
+          description: Key deleted
 
-  /vocalinkreport/certificate_requests/{certificate_request_id}/certificate:
+  /keys/{key_id}/certificates:
     post:
       summary: Create certificate
       tags:
@@ -1658,30 +1658,30 @@ paths:
         - application/vnd.api+json
         - application/json
       parameters:
-        - name: certificate_request_id
+        - name: key_id
           in: path
-          description: Certificate Request Id
+          description: Key Id
           required: true
           type: string
           format: uuid
         - name: certificate creation request
           in: body
           schema:
-            $ref: "#/definitions/VocalinkReportCertificateCreation"
+            $ref: "#/definitions/CertificateCreation"
       responses:
         201:
           description: creation response
           schema:
-            $ref: "#/definitions/VocalinkReportCertificateCreationResponse"
+            $ref: "#/definitions/CertificateCreationResponse"
 
     get:
       summary: List all certificates
       tags:
         - System
       parameters:
-        - name: certificate_request_id
+        - name: key_id
           in: path
-          description: Certificate Request Id
+          description: Key Id
           required: true
           type: string
           format: uuid
@@ -1689,17 +1689,17 @@ paths:
         200:
           description: List of certificates
           schema:
-            $ref: "#/definitions/VocalinkReportCertificateDetailsListResponse"
+            $ref: "#/definitions/CertificateDetailsListResponse"
 
-  /vocalinkreport/certificate_requests/{certificate_request_id}/certificate/{certificate_id}:
+  /keys/{key_id}/certificates/{certificate_id}:
     get:
       summary: Fetch certificate
       tags:
         - System
       parameters:
-        - name: certificate_request_id
+        - name: key_id
           in: path
-          description: Certificate request Id
+          description: Key Id
           required: true
           type: string
           format: uuid
@@ -1713,16 +1713,16 @@ paths:
         200:
           description: Certificate details
           schema:
-            $ref: "#/definitions/VocalinkReportCertificateDetailsResponse"
+            $ref: "#/definitions/CertificateDetailsResponse"
 
     delete:
       summary: Delete certificate
       tags:
         - System
       parameters:
-        - name: certificate_request_id
+        - name: key_id
           in: path
-          description: Certificate request Id
+          description: Key Id
           required: true
           type: string
           format: uuid
@@ -1741,6 +1741,7 @@ paths:
       responses:
         204:
           description: Certificate deleted
+          
   /sepainstant:
 
     post:
@@ -4079,39 +4080,39 @@ definitions:
       links:
         $ref: '#/definitions/Links'
 
-  VocalinkReportCertificateRequestCreation:
+  KeyCreation:
     type: object
     properties:
       data:
-        $ref: '#/definitions/VocalinkReportCertificateRequest'
+        $ref: '#/definitions/Key'
 
-  VocalinkReportCertificateRequestCreationResponse:
+  KeyCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/VocalinkReportCertificateRequest'
+        $ref: '#/definitions/Key'
       links:
         $ref: '#/definitions/Links'
 
-  VocalinkReportCertificateRequestDetailsResponse:
+  KeyDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/VocalinkReportCertificateRequest'
+        $ref: '#/definitions/Key'
       links:
         $ref: '#/definitions/Links'
 
-  VocalinkReportCertificateRequestDetailsListResponse:
+  KeyDetailsListResponse:
     type: object
     properties:
       data:
         type: array
         items:
-          $ref: '#/definitions/VocalinkReportCertificateRequest'
+          $ref: '#/definitions/Key'
       links:
         $ref: '#/definitions/Links'
 
-  VocalinkReportCertificateRequest:
+  Key:
     type: object
     properties:
       type:
@@ -4126,9 +4127,9 @@ definitions:
         type: string
         format: uuid
       attributes:
-        $ref: "#/definitions/VocalinkReportCertificateRequestAttributes"
+        $ref: "#/definitions/KeyAttributes"
 
-  VocalinkReportCertificateRequestAttributes:
+  KeyAttributes:
     type: object
     properties:
       subject:
@@ -4142,39 +4143,39 @@ definitions:
       certificate_signing_request:
         type: string
 
-  VocalinkReportCertificateCreation:
+  CertificateCreation:
     type: object
     properties:
       data:
-        $ref: '#/definitions/VocalinkReportCertificate'
+        $ref: '#/definitions/Certificate'
 
-  VocalinkReportCertificateCreationResponse:
+  CertificateCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/VocalinkReportCertificate'
+        $ref: '#/definitions/Certificate'
       links:
         $ref: '#/definitions/Links'
 
-  VocalinkReportCertificateDetailsResponse:
+  CertificateDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/VocalinkReportCertificate'
+        $ref: '#/definitions/Certificate'
       links:
         $ref: '#/definitions/Links'
 
-  VocalinkReportCertificateDetailsListResponse:
+  CertificateDetailsListResponse:
     type: object
     properties:
       data:
         type: array
         items:
-          $ref: '#/definitions/VocalinkReportCertificate'
+          $ref: '#/definitions/Certificate'
       links:
         $ref: '#/definitions/Links'
 
-  VocalinkReportCertificate:
+  Certificate:
     type: object
     properties:
       type:
@@ -4189,9 +4190,9 @@ definitions:
         type: string
         format: uuid
       attributes:
-        $ref: "#/definitions/VocalinkReportCertificateAttributes"
+        $ref: "#/definitions/CertificateAttributes"
 
-  VocalinkReportCertificateAttributes:
+  CertificateAttributes:
     type: object
     required:
       - certificate

@@ -11,17 +11,17 @@ import (
 	"log"
 )
 
-func resourceForm3VocalinkReportCertificate() *schema.Resource {
+func resourceForm3Certificate() *schema.Resource {
 	return &schema.Resource{
-		Create: resourceVocalinkReportCertificateCreate,
-		Read:   resourceVocalinkReportCertificateRead,
-		Delete: resourceVocalinkReportCertificateDelete,
+		Create: resourceCertificateCreate,
+		Read:   resourceCertificateRead,
+		Delete: resourceCertificateDelete,
 		Importer: &schema.ResourceImporter{
 			State: schema.ImportStatePassthrough,
 		},
 
 		Schema: map[string]*schema.Schema{
-			"certificate_request_id": {
+			"key_id": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
@@ -55,38 +55,38 @@ func resourceForm3VocalinkReportCertificate() *schema.Resource {
 	}
 }
 
-func resourceVocalinkReportCertificateCreate(d *schema.ResourceData, meta interface{}) error {
+func resourceCertificateCreate(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
 
-	log.Print("[INFO] Creating VocalinkReport Certificate  ")
+	log.Print("[INFO] Creating Certificate")
 
 	certificate, err := createVocalinkReportNewCertificateFromResourceData(d)
 	if err != nil {
-		return fmt.Errorf("failed to create VocalinkReport certificate : %s", err)
+		return fmt.Errorf("failed to create Certificate : %s", err)
 	}
-	certRequestId, _ := GetUUIDOK(d, "certificate_request_id")
+	certRequestId, _ := GetUUIDOK(d, "key_id")
 
-	createdCertificate, err := client.SystemClient.System.PostVocalinkreportCertificateRequestsCertificateRequestIDCertificate(
-		system.NewPostVocalinkreportCertificateRequestsCertificateRequestIDCertificateParams().
+	createdCertificate, err := client.SystemClient.System.PostCertificateRequestsCertificateRequestIDCertificate(
+		system.NewPostCertificateRequestsCertificateRequestIDCertificateParams().
 			WithCertificateRequestID(certRequestId).
-			WithCertificateCreationRequest(&models.VocalinkReportCertificateCreation{
+			WithCertificateCreationRequest(&models.CertificateCreation{
 				Data: certificate,
 			}))
 
 	if err != nil {
-		return fmt.Errorf("failed to create VocalinkReport certificate : %s", err)
+		return fmt.Errorf("failed to create certificate : %s", err)
 	}
 
 	d.SetId(createdCertificate.Payload.Data.ID.String())
-	log.Printf("[INFO] VocalinkReport certificate  key: %s", d.Id())
+	log.Printf("[INFO] Certificate  key: %s", d.Id())
 
-	return resourceVocalinkReportCertificateRead(d, meta)
+	return resourceCertificateRead(d, meta)
 }
 
-func resourceVocalinkReportCertificateRead(d *schema.ResourceData, meta interface{}) error {
+func resourceCertificateRead(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
 
-	certRequestId, _ := GetUUIDOK(d, "certificate_request_id")
+	certRequestId, _ := GetUUIDOK(d, "key_id")
 	certId, _ := GetUUIDOK(d, "certificate__id")
 
 	if certId == "" {
@@ -96,8 +96,8 @@ func resourceVocalinkReportCertificateRead(d *schema.ResourceData, meta interfac
 		log.Printf("[INFO] Reading certificate with resource id: %s.", certId)
 	}
 
-	response, err := client.SystemClient.System.GetVocalinkreportCertificateRequestsCertificateRequestIDCertificate(
-		system.NewGetVocalinkreportCertificateRequestsCertificateRequestIDCertificateParams().
+	response, err := client.SystemClient.System.GetCertificateRequestsCertificateRequestIDCertificate(
+		system.NewGetCertificateRequestsCertificateRequestIDCertificateParams().
 			WithCertificateRequestID(certRequestId))
 
 	if err != nil {
@@ -110,7 +110,7 @@ func resourceVocalinkReportCertificateRead(d *schema.ResourceData, meta interfac
 		}
 	}
 
-	var cert *models.VocalinkReportCertificate
+	var cert *models.Certificate
 	for _, certificate := range response.Payload.Data {
 		if certId == certificate.ID {
 			cert = certificate
@@ -125,20 +125,20 @@ func resourceVocalinkReportCertificateRead(d *schema.ResourceData, meta interfac
 	d.Set("issuing_certificates", cert.Attributes.IssuingCertificates)
 	d.Set("organisation_id", cert.OrganisationID.String())
 	d.Set("certificate_id", cert.ID.String())
-	d.Set("certificate_request_id", certRequestId.String())
+	d.Set("key_id", certRequestId.String())
 
 	return nil
 }
 
-func resourceVocalinkReportCertificateDelete(d *schema.ResourceData, meta interface{}) error {
+func resourceCertificateDelete(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
 
-	certRequestId, _ := GetUUIDOK(d, "certificate_request_id")
+	certRequestId, _ := GetUUIDOK(d, "key_id")
 
-	response, err := client.SystemClient.System.GetVocalinkreportCertificateRequestsCertificateRequestIDCertificate(
-		system.NewGetVocalinkreportCertificateRequestsCertificateRequestIDCertificateParams().
+	response, err := client.SystemClient.System.GetCertificateRequestsCertificateRequestIDCertificate(
+		system.NewGetCertificateRequestsCertificateRequestIDCertificateParams().
 			WithCertificateRequestID(strfmt.UUID(certRequestId)))
-	var cert *models.VocalinkReportCertificate
+	var cert *models.Certificate
 	for _, certificate := range response.Payload.Data {
 		if strfmt.UUID(d.Id()) == certificate.ID {
 			cert = certificate
@@ -149,27 +149,27 @@ func resourceVocalinkReportCertificateDelete(d *schema.ResourceData, meta interf
 		return fmt.Errorf("unable to delete certificate as it does not exist")
 	}
 
-	log.Printf("[INFO] Deleting VocalinkReport certificate request for id: %s ", strfmt.UUID(d.Id()))
+	log.Printf("[INFO] Deleting Certificate request for id: %s ", strfmt.UUID(d.Id()))
 
-	_, err = client.SystemClient.System.DeleteVocalinkreportCertificateRequestsCertificateRequestIDCertificateCertificateID(
+	_, err = client.SystemClient.System.DeleteCertificateRequestsCertificateRequestIDCertificateCertificateID(
 
-		system.NewDeleteVocalinkreportCertificateRequestsCertificateRequestIDCertificateCertificateIDParams().
+		system.NewDeleteCertificateRequestsCertificateRequestIDCertificateCertificateIDParams().
 			WithCertificateRequestID(certRequestId).
 			WithVersion(*cert.Version).
 			WithCertificateID(cert.ID))
 
 	if err != nil {
-		return fmt.Errorf("error deleting VocalinkReport certificate: %s", err)
+		return fmt.Errorf("error deleting Certificate: %s", err)
 	}
 
 	return nil
 }
 
-func createVocalinkReportNewCertificateFromResourceData(d *schema.ResourceData) (*models.VocalinkReportCertificate, error) {
+func createVocalinkReportNewCertificateFromResourceData(d *schema.ResourceData) (*models.Certificate, error) {
 
-	certificate := &models.VocalinkReportCertificate{
-		Type:       "vocalink_report_certificate",
-		Attributes: &models.VocalinkReportCertificateAttributes{},
+	certificate := &models.Certificate{
+		Type:       "certificate",
+		Attributes: &models.CertificateAttributes{},
 	}
 
 	if attr, ok := GetUUIDOK(d, "certificate_id"); ok {

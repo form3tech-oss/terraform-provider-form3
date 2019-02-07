@@ -25,226 +25,226 @@ type Client struct {
 }
 
 /*
-DeleteVocalinkreportCertificateRequestsCertificateRequestID deletes certificate request
+DeleteKeysKeyID deletes key
 */
-func (a *Client) DeleteVocalinkreportCertificateRequestsCertificateRequestID(params *DeleteVocalinkreportCertificateRequestsCertificateRequestIDParams) (*DeleteVocalinkreportCertificateRequestsCertificateRequestIDNoContent, error) {
+func (a *Client) DeleteKeysKeyID(params *DeleteKeysKeyIDParams) (*DeleteKeysKeyIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewDeleteVocalinkreportCertificateRequestsCertificateRequestIDParams()
+		params = NewDeleteKeysKeyIDParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "DeleteVocalinkreportCertificateRequestsCertificateRequestID",
+		ID:                 "DeleteKeysKeyID",
 		Method:             "DELETE",
-		PathPattern:        "/vocalinkreport/certificate_requests/{certificate_request_id}",
+		PathPattern:        "/keys/{key_id}",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &DeleteVocalinkreportCertificateRequestsCertificateRequestIDReader{formats: a.formats},
+		Reader:             &DeleteKeysKeyIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteVocalinkreportCertificateRequestsCertificateRequestIDNoContent), nil
+	return result.(*DeleteKeysKeyIDNoContent), nil
 
 }
 
 /*
-DeleteVocalinkreportCertificateRequestsCertificateRequestIDCertificateCertificateID deletes certificate
+DeleteKeysKeyIDCertificatesCertificateID deletes certificate
 */
-func (a *Client) DeleteVocalinkreportCertificateRequestsCertificateRequestIDCertificateCertificateID(params *DeleteVocalinkreportCertificateRequestsCertificateRequestIDCertificateCertificateIDParams) (*DeleteVocalinkreportCertificateRequestsCertificateRequestIDCertificateCertificateIDNoContent, error) {
+func (a *Client) DeleteKeysKeyIDCertificatesCertificateID(params *DeleteKeysKeyIDCertificatesCertificateIDParams) (*DeleteKeysKeyIDCertificatesCertificateIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewDeleteVocalinkreportCertificateRequestsCertificateRequestIDCertificateCertificateIDParams()
+		params = NewDeleteKeysKeyIDCertificatesCertificateIDParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "DeleteVocalinkreportCertificateRequestsCertificateRequestIDCertificateCertificateID",
+		ID:                 "DeleteKeysKeyIDCertificatesCertificateID",
 		Method:             "DELETE",
-		PathPattern:        "/vocalinkreport/certificate_requests/{certificate_request_id}/certificate/{certificate_id}",
+		PathPattern:        "/keys/{key_id}/certificates/{certificate_id}",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &DeleteVocalinkreportCertificateRequestsCertificateRequestIDCertificateCertificateIDReader{formats: a.formats},
+		Reader:             &DeleteKeysKeyIDCertificatesCertificateIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteVocalinkreportCertificateRequestsCertificateRequestIDCertificateCertificateIDNoContent), nil
+	return result.(*DeleteKeysKeyIDCertificatesCertificateIDNoContent), nil
 
 }
 
 /*
-GetVocalinkreportCertificateRequests lists all certificate requests
+GetKeys lists all keys
 */
-func (a *Client) GetVocalinkreportCertificateRequests(params *GetVocalinkreportCertificateRequestsParams) (*GetVocalinkreportCertificateRequestsOK, error) {
+func (a *Client) GetKeys(params *GetKeysParams) (*GetKeysOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetVocalinkreportCertificateRequestsParams()
+		params = NewGetKeysParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "GetVocalinkreportCertificateRequests",
+		ID:                 "GetKeys",
 		Method:             "GET",
-		PathPattern:        "/vocalinkreport/certificate_requests",
+		PathPattern:        "/keys",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &GetVocalinkreportCertificateRequestsReader{formats: a.formats},
+		Reader:             &GetKeysReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetVocalinkreportCertificateRequestsOK), nil
+	return result.(*GetKeysOK), nil
 
 }
 
 /*
-GetVocalinkreportCertificateRequestsCertificateRequestID fetches certificate request
+GetKeysKeyID fetches key
 */
-func (a *Client) GetVocalinkreportCertificateRequestsCertificateRequestID(params *GetVocalinkreportCertificateRequestsCertificateRequestIDParams) (*GetVocalinkreportCertificateRequestsCertificateRequestIDOK, error) {
+func (a *Client) GetKeysKeyID(params *GetKeysKeyIDParams) (*GetKeysKeyIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetVocalinkreportCertificateRequestsCertificateRequestIDParams()
+		params = NewGetKeysKeyIDParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "GetVocalinkreportCertificateRequestsCertificateRequestID",
+		ID:                 "GetKeysKeyID",
 		Method:             "GET",
-		PathPattern:        "/vocalinkreport/certificate_requests/{certificate_request_id}",
+		PathPattern:        "/keys/{key_id}",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &GetVocalinkreportCertificateRequestsCertificateRequestIDReader{formats: a.formats},
+		Reader:             &GetKeysKeyIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetVocalinkreportCertificateRequestsCertificateRequestIDOK), nil
+	return result.(*GetKeysKeyIDOK), nil
 
 }
 
 /*
-GetVocalinkreportCertificateRequestsCertificateRequestIDCertificate lists all certificates
+GetKeysKeyIDCertificates lists all certificates
 */
-func (a *Client) GetVocalinkreportCertificateRequestsCertificateRequestIDCertificate(params *GetVocalinkreportCertificateRequestsCertificateRequestIDCertificateParams) (*GetVocalinkreportCertificateRequestsCertificateRequestIDCertificateOK, error) {
+func (a *Client) GetKeysKeyIDCertificates(params *GetKeysKeyIDCertificatesParams) (*GetKeysKeyIDCertificatesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetVocalinkreportCertificateRequestsCertificateRequestIDCertificateParams()
+		params = NewGetKeysKeyIDCertificatesParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "GetVocalinkreportCertificateRequestsCertificateRequestIDCertificate",
+		ID:                 "GetKeysKeyIDCertificates",
 		Method:             "GET",
-		PathPattern:        "/vocalinkreport/certificate_requests/{certificate_request_id}/certificate",
+		PathPattern:        "/keys/{key_id}/certificates",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &GetVocalinkreportCertificateRequestsCertificateRequestIDCertificateReader{formats: a.formats},
+		Reader:             &GetKeysKeyIDCertificatesReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetVocalinkreportCertificateRequestsCertificateRequestIDCertificateOK), nil
+	return result.(*GetKeysKeyIDCertificatesOK), nil
 
 }
 
 /*
-GetVocalinkreportCertificateRequestsCertificateRequestIDCertificateCertificateID fetches certificate
+GetKeysKeyIDCertificatesCertificateID fetches certificate
 */
-func (a *Client) GetVocalinkreportCertificateRequestsCertificateRequestIDCertificateCertificateID(params *GetVocalinkreportCertificateRequestsCertificateRequestIDCertificateCertificateIDParams) (*GetVocalinkreportCertificateRequestsCertificateRequestIDCertificateCertificateIDOK, error) {
+func (a *Client) GetKeysKeyIDCertificatesCertificateID(params *GetKeysKeyIDCertificatesCertificateIDParams) (*GetKeysKeyIDCertificatesCertificateIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetVocalinkreportCertificateRequestsCertificateRequestIDCertificateCertificateIDParams()
+		params = NewGetKeysKeyIDCertificatesCertificateIDParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "GetVocalinkreportCertificateRequestsCertificateRequestIDCertificateCertificateID",
+		ID:                 "GetKeysKeyIDCertificatesCertificateID",
 		Method:             "GET",
-		PathPattern:        "/vocalinkreport/certificate_requests/{certificate_request_id}/certificate/{certificate_id}",
+		PathPattern:        "/keys/{key_id}/certificates/{certificate_id}",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &GetVocalinkreportCertificateRequestsCertificateRequestIDCertificateCertificateIDReader{formats: a.formats},
+		Reader:             &GetKeysKeyIDCertificatesCertificateIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetVocalinkreportCertificateRequestsCertificateRequestIDCertificateCertificateIDOK), nil
+	return result.(*GetKeysKeyIDCertificatesCertificateIDOK), nil
 
 }
 
 /*
-PostVocalinkreportCertificateRequests creates certificate request
+PostKeys creates key
 */
-func (a *Client) PostVocalinkreportCertificateRequests(params *PostVocalinkreportCertificateRequestsParams) (*PostVocalinkreportCertificateRequestsCreated, error) {
+func (a *Client) PostKeys(params *PostKeysParams) (*PostKeysCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewPostVocalinkreportCertificateRequestsParams()
+		params = NewPostKeysParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "PostVocalinkreportCertificateRequests",
+		ID:                 "PostKeys",
 		Method:             "POST",
-		PathPattern:        "/vocalinkreport/certificate_requests",
+		PathPattern:        "/keys",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &PostVocalinkreportCertificateRequestsReader{formats: a.formats},
+		Reader:             &PostKeysReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostVocalinkreportCertificateRequestsCreated), nil
+	return result.(*PostKeysCreated), nil
 
 }
 
 /*
-PostVocalinkreportCertificateRequestsCertificateRequestIDCertificate creates certificate
+PostKeysKeyIDCertificates creates certificate
 */
-func (a *Client) PostVocalinkreportCertificateRequestsCertificateRequestIDCertificate(params *PostVocalinkreportCertificateRequestsCertificateRequestIDCertificateParams) (*PostVocalinkreportCertificateRequestsCertificateRequestIDCertificateCreated, error) {
+func (a *Client) PostKeysKeyIDCertificates(params *PostKeysKeyIDCertificatesParams) (*PostKeysKeyIDCertificatesCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewPostVocalinkreportCertificateRequestsCertificateRequestIDCertificateParams()
+		params = NewPostKeysKeyIDCertificatesParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "PostVocalinkreportCertificateRequestsCertificateRequestIDCertificate",
+		ID:                 "PostKeysKeyIDCertificates",
 		Method:             "POST",
-		PathPattern:        "/vocalinkreport/certificate_requests/{certificate_request_id}/certificate",
+		PathPattern:        "/keys/{key_id}/certificates",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &PostVocalinkreportCertificateRequestsCertificateRequestIDCertificateReader{formats: a.formats},
+		Reader:             &PostKeysKeyIDCertificatesReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostVocalinkreportCertificateRequestsCertificateRequestIDCertificateCreated), nil
+	return result.(*PostKeysKeyIDCertificatesCreated), nil
 
 }
 
