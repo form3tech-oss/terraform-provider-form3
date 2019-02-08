@@ -50,7 +50,7 @@ func Provider() terraform.ResourceProvider {
 			"form3_payment_defaults":            resourceForm3PaymentDefaults(),
 			"form3_vocalink_report_association": resourceForm3VocalinkReportAssociation(),
 			"form3_key":                         resourceForm3Key(),
-			"form3__certificate":                resourceForm3Certificate(),
+			"form3_certificate":                 resourceForm3Certificate(),
 		},
 
 		ConfigureFunc: providerConfigure,

@@ -60,15 +60,15 @@ func resourceCertificateCreate(d *schema.ResourceData, meta interface{}) error {
 
 	log.Print("[INFO] Creating Certificate")
 
-	certificate, err := createVocalinkReportNewCertificateFromResourceData(d)
+	certificate, err := createNewCertificateFromResourceData(d)
 	if err != nil {
 		return fmt.Errorf("failed to create Certificate : %s", err)
 	}
 	certRequestId, _ := GetUUIDOK(d, "key_id")
 
-	createdCertificate, err := client.SystemClient.System.PostCertificateRequestsCertificateRequestIDCertificate(
-		system.NewPostCertificateRequestsCertificateRequestIDCertificateParams().
-			WithCertificateRequestID(certRequestId).
+	createdCertificate, err := client.SystemClient.System.PostKeysKeyIDCertificates(
+		system.NewPostKeysKeyIDCertificatesParams().
+			WithKeyID(certRequestId).
 			WithCertificateCreationRequest(&models.CertificateCreation{
 				Data: certificate,
 			}))
@@ -86,19 +86,20 @@ func resourceCertificateCreate(d *schema.ResourceData, meta interface{}) error {
 func resourceCertificateRead(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
 
-	certRequestId, _ := GetUUIDOK(d, "key_id")
+	keyId, _ := GetUUIDOK(d, "key_id")
 	certId, _ := GetUUIDOK(d, "certificate__id")
 
 	if certId == "" {
 		certId = strfmt.UUID(d.Id())
-		log.Printf("[INFO] Importing certificate with resource id: %s.", certId)
+		log.Printf("[INFO] Importing certificate with key id: %s, certificate id: %s.", keyId, certId)
 	} else {
-		log.Printf("[INFO] Reading certificate with resource id: %s.", certId)
+		log.Printf("[INFO] Reading certificate with key id: %s, certificate id: %s.", keyId, certId)
 	}
 
-	response, err := client.SystemClient.System.GetCertificateRequestsCertificateRequestIDCertificate(
-		system.NewGetCertificateRequestsCertificateRequestIDCertificateParams().
-			WithCertificateRequestID(certRequestId))
+	response, err := client.SystemClient.System.GetKeysKeyIDCertificatesCertificateID(
+		system.NewGetKeysKeyIDCertificatesCertificateIDParams().
+			WithCertificateID(certId).
+			WithKeyID(keyId))
 
 	if err != nil {
 		apiError, ok := err.(*runtime.APIError)
@@ -110,22 +111,13 @@ func resourceCertificateRead(d *schema.ResourceData, meta interface{}) error {
 		}
 	}
 
-	var cert *models.Certificate
-	for _, certificate := range response.Payload.Data {
-		if certId == certificate.ID {
-			cert = certificate
-		}
-	}
-	if cert == nil {
-		d.SetId("")
-		return nil
-	}
+	cert := response.Payload.Data
 
 	d.Set("actual_certificate", cert.Attributes.Certificate)
 	d.Set("issuing_certificates", cert.Attributes.IssuingCertificates)
 	d.Set("organisation_id", cert.OrganisationID.String())
 	d.Set("certificate_id", cert.ID.String())
-	d.Set("key_id", certRequestId.String())
+	d.Set("key_id", keyId.String())
 
 	return nil
 }
@@ -135,9 +127,9 @@ func resourceCertificateDelete(d *schema.ResourceData, meta interface{}) error {
 
 	certRequestId, _ := GetUUIDOK(d, "key_id")
 
-	response, err := client.SystemClient.System.GetCertificateRequestsCertificateRequestIDCertificate(
-		system.NewGetCertificateRequestsCertificateRequestIDCertificateParams().
-			WithCertificateRequestID(strfmt.UUID(certRequestId)))
+	response, err := client.SystemClient.System.GetKeysKeyIDCertificates(
+		system.NewGetKeysKeyIDCertificatesParams().
+			WithKeyID(strfmt.UUID(certRequestId)))
 	var cert *models.Certificate
 	for _, certificate := range response.Payload.Data {
 		if strfmt.UUID(d.Id()) == certificate.ID {
@@ -151,10 +143,10 @@ func resourceCertificateDelete(d *schema.ResourceData, meta interface{}) error {
 
 	log.Printf("[INFO] Deleting Certificate request for id: %s ", strfmt.UUID(d.Id()))
 
-	_, err = client.SystemClient.System.DeleteCertificateRequestsCertificateRequestIDCertificateCertificateID(
+	_, err = client.SystemClient.System.DeleteKeysKeyIDCertificatesCertificateID(
 
-		system.NewDeleteCertificateRequestsCertificateRequestIDCertificateCertificateIDParams().
-			WithCertificateRequestID(certRequestId).
+		system.NewDeleteKeysKeyIDCertificatesCertificateIDParams().
+			WithKeyID(certRequestId).
 			WithVersion(*cert.Version).
 			WithCertificateID(cert.ID))
 
@@ -165,7 +157,7 @@ func resourceCertificateDelete(d *schema.ResourceData, meta interface{}) error {
 	return nil
 }
 
-func createVocalinkReportNewCertificateFromResourceData(d *schema.ResourceData) (*models.Certificate, error) {
+func createNewCertificateFromResourceData(d *schema.ResourceData) (*models.Certificate, error) {
 
 	certificate := &models.Certificate{
 		Type:       "certificate",

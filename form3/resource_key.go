@@ -73,9 +73,9 @@ func resourceKeyCreate(d *schema.ResourceData, meta interface{}) error {
 		return fmt.Errorf("failed to create Key: %s", err)
 	}
 
-	createdCertificateRequest, err := client.SystemClient.System.PostVocalinkreportCertificateRequests(
-		system.NewPostVocalinkreportCertificateRequestsParams().
-			WithCertificateRequestCreationRequest(&models.VocalinkReportCertificateRequestCreation{
+	createdKey, err := client.SystemClient.System.PostKeys(
+		system.NewPostKeysParams().
+			WithKeyCreationRequest(&models.KeyCreation{
 				Data: certificateRequest,
 			}))
 
@@ -83,7 +83,7 @@ func resourceKeyCreate(d *schema.ResourceData, meta interface{}) error {
 		return fmt.Errorf("failed to create Key: %s", err)
 	}
 
-	d.SetId(createdCertificateRequest.Payload.Data.ID.String())
+	d.SetId(createdKey.Payload.Data.ID.String())
 	log.Printf("[INFO] Key key: %s", d.Id())
 
 	return resourceKeyRead(d, meta)
@@ -101,8 +101,8 @@ func resourceKeyRead(d *schema.ResourceData, meta interface{}) error {
 		log.Printf("[INFO] Reading key with resource id: %s.", certRequestId)
 	}
 
-	response, err := client.SystemClient.System.GetVocalinkreportCertificateRequestsCertificateRequestID(
-		system.NewGetVocalinkreportCertificateRequestsCertificateRequestIDParams().WithCertificateRequestID(certRequestId))
+	response, err := client.SystemClient.System.GetKeysKeyID(
+		system.NewGetKeysKeyIDParams().WithKeyID(certRequestId))
 
 	if err != nil {
 		apiError, ok := err.(*runtime.APIError)
@@ -128,8 +128,8 @@ func resourceKeyRead(d *schema.ResourceData, meta interface{}) error {
 func resourceKeyDelete(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
 
-	response, err := client.SystemClient.System.GetVocalinkreportCertificateRequestsCertificateRequestID(
-		system.NewGetVocalinkreportCertificateRequestsCertificateRequestIDParams().WithCertificateRequestID(strfmt.UUID(d.Id())))
+	response, err := client.SystemClient.System.GetKeysKeyID(
+		system.NewGetKeysKeyIDParams().WithKeyID(strfmt.UUID(d.Id())))
 
 	if err != nil {
 		return fmt.Errorf("error deleting Key: %s", err)
@@ -137,9 +137,9 @@ func resourceKeyDelete(d *schema.ResourceData, meta interface{}) error {
 
 	log.Printf("[INFO] Deleting Key for id: %s ", response.Payload.Data.ID)
 
-	_, err = client.SystemClient.System.DeleteVocalinkreportCertificateRequestsCertificateRequestID(
-		system.NewDeleteVocalinkreportCertificateRequestsCertificateRequestIDParams().
-			WithCertificateRequestID(response.Payload.Data.ID).
+	_, err = client.SystemClient.System.DeleteKeysKeyID(
+		system.NewDeleteKeysKeyIDParams().
+			WithKeyID(response.Payload.Data.ID).
 			WithVersion(*response.Payload.Data.Version))
 
 	if err != nil {
@@ -149,11 +149,11 @@ func resourceKeyDelete(d *schema.ResourceData, meta interface{}) error {
 	return nil
 }
 
-func createKeyFromResourceData(d *schema.ResourceData) (*models.VocalinkReportCertificateRequest, error) {
+func createKeyFromResourceData(d *schema.ResourceData) (*models.Key, error) {
 
-	certificateRequest := &models.VocalinkReportCertificateRequest{
+	certificateRequest := &models.Key{
 		Type:       "keys",
-		Attributes: &models.VocalinkReportCertificateRequestAttributes{},
+		Attributes: &models.KeyAttributes{},
 	}
 
 	if attr, ok := GetUUIDOK(d, "key_id"); ok {

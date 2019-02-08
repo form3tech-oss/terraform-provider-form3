@@ -29,11 +29,11 @@ func TestAccKey_basic(t *testing.T) {
 			{
 				Config: fmt.Sprintf(testForm3KeyConfigA, organisationId, parentOrganisationId, keyId),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckKeyExists("form3_key.cert_req", &response),
-					resource.TestCheckResourceAttr("form3_key.cert_req", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_key.cert_req", "certificate_request_id", keyId),
-					resource.TestCheckResourceAttr("form3_key.cert_req", "subject", "CN=Terraform-test"),
-					resource.TestCheckResourceAttr("form3_key.cert_req", "description", "vocalink contact name is hsm1234"),
+					testAccCheckKeyExists("form3_key.test_key", &response),
+					resource.TestCheckResourceAttr("form3_key.test_key", "organisation_id", organisationId),
+					resource.TestCheckResourceAttr("form3_key.test_key", "key_id", keyId),
+					resource.TestCheckResourceAttr("form3_key.test_key", "subject", "CN=Terraform-test"),
+					resource.TestCheckResourceAttr("form3_key.test_key", "description", "vocalink contact name is hsm1234"),
 					resource.TestMatchOutput("csr", regexp.MustCompile(".*-----BEGIN CERTIFICATE REQUEST-----.*")),
 				),
 			},
@@ -56,13 +56,13 @@ func TestAccKey_withCert(t *testing.T) {
 			{
 				Config: fmt.Sprintf(testForm3KeyConfigWithCert, organisationId, parentOrganisationId, keyId, certificateId),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckKeyExists("form3_key.cert_req", &response),
-					resource.TestCheckResourceAttr("form3_key.cert_req", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_key.cert_req", "certificate_request_id", keyId),
-					resource.TestCheckResourceAttr("form3_key.cert_req", "subject", "CN=Terraform-test-with-cert"),
-					resource.TestMatchResourceAttr("form3_key.cert_req", "certificate_signing_request", regexp.MustCompile(".*BEGIN CERTIFICATE REQUEST.*")),
+					testAccCheckKeyExists("form3_key.test_key", &response),
+					resource.TestCheckResourceAttr("form3_key.test_key", "organisation_id", organisationId),
+					resource.TestCheckResourceAttr("form3_key.test_key", "key_id", keyId),
+					resource.TestCheckResourceAttr("form3_key.test_key", "subject", "CN=Terraform-test-with-cert"),
+					resource.TestMatchResourceAttr("form3_key.test_key", "certificate_signing_request", regexp.MustCompile(".*BEGIN CERTIFICATE REQUEST.*")),
 					resource.TestCheckResourceAttr("form3_certificate.cert", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_certificate.cert", "certificate_request_id", keyId),
+					resource.TestCheckResourceAttr("form3_certificate.cert", "key_id", keyId),
 					resource.TestCheckResourceAttr("form3_certificate.cert", "certificate_id", certificateId),
 					resource.TestMatchResourceAttr("form3_certificate.cert", "certificate", regexp.MustCompile(".*MIIGZzCCBU\\+gAwIBAgIQQAFoVhQdgReBTMSz0Ui/AjANBgkqhkiG9w0BAQsFADCB.*")),
 					resource.TestCheckResourceAttr("form3_certificate.cert", "issuing_certificates.#", "3"),
@@ -89,7 +89,7 @@ func TestAccKey_withSelfSignedCert(t *testing.T) {
 			{
 				Config: fmt.Sprintf(testForm3KeyConfigWithSelfSignedCert, organisationId, parentOrganisationId, keyId, certificateId),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckKeyExists("form3_key.cert_req", &response),
+					testAccCheckKeyExists("form3_key.test_key", &response),
 					resource.TestMatchResourceAttr("form3_certificate.cert", "actual_certificate", regexp.MustCompile(".*BEGIN CERTIFICATE.*")),
 				),
 			},
@@ -116,6 +116,7 @@ func TestAccKey_importExistingCert(t *testing.T) {
 			t.Fail()
 		}
 
+		fmt.Printf("Creating 'existing' organisation %s", organisationId)
 		_, err = client.OrganisationClient.Organisations.PostUnits(organisations.NewPostUnitsParams().
 			WithOrganisationCreationRequest(&models.OrganisationCreation{Data: &models.Organisation{
 				OrganisationID: strfmt.UUID(parentOrganisationId),
@@ -129,6 +130,7 @@ func TestAccKey_importExistingCert(t *testing.T) {
 			t.Fail()
 		}
 
+		fmt.Printf("Creating 'existing' key %s", keyId)
 		_, err = client.SystemClient.System.PostKeys(system.NewPostKeysParams().
 			WithKeyCreationRequest(&models.KeyCreation{
 				Data: &models.Key{
@@ -147,6 +149,7 @@ func TestAccKey_importExistingCert(t *testing.T) {
 			t.Fail()
 		}
 
+		fmt.Printf("Creating 'existing' certificate %s", certificateId)
 		_, err = client.SystemClient.System.PostKeysKeyIDCertificates(system.NewPostKeysKeyIDCertificatesParams().
 			WithKeyID(strfmt.UUID(keyId)).
 			WithCertificateCreationRequest(&models.CertificateCreation{
@@ -171,35 +174,46 @@ func TestAccKey_importExistingCert(t *testing.T) {
 		CheckDestroy: testAccCheckKeyDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3KeyConfigExistingCertReq, organisationId, parentOrganisationId, keyId),
+				Config: fmt.Sprintf(testForm3KeyConfigExistingKey, organisationId, parentOrganisationId, keyId),
 
-				ResourceName:      "form3_organisation.organisation",
-				ImportState:       true,
-				ImportStateId:     organisationId,
-				ImportStateVerify: false,
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckKeyExists("form3_key.cert_req", &response),
-					resource.TestCheckResourceAttr("form3_key.cert_req", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_key.cert_req", "certificate_request_id", keyId),
-					resource.TestCheckResourceAttr("form3_key.cert_req", "subject", "CN=Terraform-test-existing-cert"),
-					resource.TestCheckResourceAttr("form3_key.cert_req", "private_key", "existing-key-101"),
-					resource.TestCheckResourceAttr("form3_key.cert_req", "public_key", "existing-key-102"),
-					resource.TestMatchResourceAttr("form3_key.cert_req", "certificate_signing_request", regexp.MustCompile(".*EXISTING CSR.*"))),
+				ResourceName:       "form3_organisation.organisation",
+				ImportState:        true,
+				ImportStateId:      organisationId,
+				ImportStateVerify:  false,
+				ExpectNonEmptyPlan: false,
 			},
 			{
-				Config:        fmt.Sprintf(testForm3KeyConfigExistingCert, organisationId, keyId, certificateId),
-				ResourceName:  "form3_key.cert",
-				ImportState:   true,
-				ImportStateId: certificateId,
+				Config:            fmt.Sprintf(testForm3KeyConfigExistingKey, organisationId, parentOrganisationId, keyId),
+				ResourceName:      "form3_key.test_key",
+				ImportState:       true,
+				ImportStateId:     keyId,
+				ImportStateVerify: false,
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckKeyExists("form3_key.test_key", &response),
+					resource.TestCheckResourceAttr("form3_key.test_key", "organisation_id", organisationId),
+					resource.TestCheckResourceAttr("form3_key.test_key", "key_id", keyId),
+					resource.TestCheckResourceAttr("form3_key.test_key", "subject", "CN=Terraform-test-existing-cert"),
+					resource.TestCheckResourceAttr("form3_key.test_key", "private_key", "existing-key-101"),
+					resource.TestCheckResourceAttr("form3_key.test_key", "public_key", "existing-key-102"),
+					resource.TestMatchResourceAttr("form3_key.test_key", "certificate_signing_request", regexp.MustCompile(".*EXISTING CSR.*"))),
+				ExpectNonEmptyPlan: false,
+			},
+			{
+				Config:            fmt.Sprintf(testForm3KeyConfigExistingCert, organisationId, keyId, certificateId),
+				ResourceName:      "form3_certificate.cert",
+				ImportState:       true,
+				ImportStateId:     certificateId,
+				ImportStateVerify: false,
 
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr("form3_certificate.cert", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_certificate.cert", "certificate_request_id", keyId),
+					resource.TestCheckResourceAttr("form3_certificate.cert", "key_id", keyId),
 					resource.TestCheckResourceAttr("form3_certificate.cert", "certificate_id", certificateId),
 					resource.TestCheckResourceAttr("form3_certificate.cert", "certificate", "Existing Certificate"),
 					resource.TestCheckResourceAttr("form3_certificate.cert", "issuing_certificates.#", "1"),
 					resource.TestCheckResourceAttr("form3_certificate.cert", "issuing_certificates.0", "Existing Issuing Certificate"),
 				),
+				ExpectNonEmptyPlan: false,
 			},
 		},
 	})
@@ -272,15 +286,15 @@ resource "form3_organisation" "organisation" {
 	name 		               = "terraform-organisation"
 }
 
-resource "form3_key" "cert_req" {
+resource "form3_key" "test_key" {
 	organisation_id         = "${form3_organisation.organisation.organisation_id}"
   subject                 = "CN=Terraform-test"
-  certificate_request_id  = "%s"
+  key_id  = "%s"
   description             = "vocalink contact name is hsm1234"
 }
 
 output "csr" {
-  value = "${form3_key.cert_req.certificate_signing_request}"
+  value = "${form3_key.test_key.certificate_signing_request}"
 }
 `
 
@@ -291,15 +305,15 @@ resource "form3_organisation" "organisation" {
 	name 		               = "terraform-organisation"
 }
 
-resource "form3_key" "cert_req" {
+resource "form3_key" "test_key" {
 	organisation_id         = "${form3_organisation.organisation.organisation_id}"
   subject                 = "CN=Terraform-test-with-cert"
-  certificate_request_id  = "%s"
+  key_id  = "%s"
 }
 
 resource "form3_certificate" "cert" {
 	organisation_id         = "${form3_organisation.organisation.organisation_id}"
-  certificate_request_id  = "${form3_key.cert_req.certificate_request_id}"
+  key_id  = "${form3_key.test_key.key_id}"
   certificate_id          = "%s"
   certificate             = "-----BEGIN CERTIFICATE-----\nMIIGZzCCBU+gAwIBAgIQQAFoVhQdgReBTMSz0Ui/AjANBgkqhkiG9w0BAQsFADCB\nqzEnMCUGA1UECgw=\n-----END CERTIFICATE-----"
   issuing_certificates    = ["-----BEGIN CERTIFICATE-----\nMy Bank\n-----END CERTIFICATE-----",
@@ -316,37 +330,37 @@ resource "form3_organisation" "organisation" {
 	name 		               = "terraform-organisation"
 }
 
-resource "form3_key" "cert_req" {
+resource "form3_key" "test_key" {
 	organisation_id         = "${form3_organisation.organisation.organisation_id}"
   subject                 = "CN=Terraform-test-selfsigned"
-  certificate_request_id  = "%s"
+  key_id  = "%s"
 }
 
 resource "form3_certificate" "cert" {
 	organisation_id         = "${form3_organisation.organisation.organisation_id}"
-  certificate_request_id  = "${form3_key.cert_req.certificate_request_id}"
+  key_id  = "${form3_key.test_key.key_id}"
   certificate_id          = "%s"
 }
 `
 
-const testForm3KeyConfigExistingCertReq = `
+const testForm3KeyConfigExistingKey = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
 	name 		               = "terraform-organisation"
 }
 
-resource "form3_key" "cert_req" {
+resource "form3_key" "test_key" {
 	organisation_id         = "${form3_organisation.organisation.organisation_id}"
   subject                 = "CN=Terraform-test-existing"
-  certificate_request_id  = "%s"
+  key_id  = "%s"
 }
 `
 
 const testForm3KeyConfigExistingCert = `
 resource "form3_certificate" "cert" {
 	organisation_id         = "%s"
-  certificate_request_id  = "%s"
+  key_id                  = "%s"
   certificate_id          = "%s"
   certificate             = "Existing Certificate"
   issuing_certificates    = ["Existing Issuing Certificate"]
