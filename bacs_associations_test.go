@@ -21,7 +21,7 @@ func TestDeleteBacsAssociation(t *testing.T) {
 		WithCreationRequest(&models.BacsAssociationCreation{
 			Data: &models.BacsNewAssociation{
 				ID:             strfmt.UUID(id.String()),
-				OrganisationID: strfmt.UUID(organisationId.String()),
+				OrganisationID: strfmt.UUID(testOrganisationId.String()),
 				Attributes: &models.BacsAssociationAttributes{
 					ServiceUserNumber: serviceUserNumber,
 					AccountNumber:     accountNumber,
@@ -65,7 +65,7 @@ func TestGetBacsAssociation(t *testing.T) {
 		WithCreationRequest(&models.BacsAssociationCreation{
 			Data: &models.BacsNewAssociation{
 				ID:             strfmt.UUID(id.String()),
-				OrganisationID: strfmt.UUID(organisationId.String()),
+				OrganisationID: strfmt.UUID(testOrganisationId.String()),
 				Attributes: &models.BacsAssociationAttributes{
 					ServiceUserNumber: serviceUserNumber,
 					AccountNumber:     accountNumber,
@@ -89,8 +89,8 @@ func TestGetBacsAssociation(t *testing.T) {
 		t.Fatalf("Expected %s, got %s", serviceUserNumber, actualServiceUserNumber)
 	}
 
-	if actualOrganisationId != organisationId {
-		t.Fatalf("Expected %s, got %s", organisationId, actualOrganisationId)
+	if actualOrganisationId != testOrganisationId {
+		t.Fatalf("Expected %s, got %s", testOrganisationId, actualOrganisationId)
 	}
 
 	_, err = auth.AssociationClient.Associations.DeleteBacsID(associations.NewDeleteBacsIDParams().
@@ -111,7 +111,7 @@ func TestPostBacsAssociation(t *testing.T) {
 		WithCreationRequest(&models.BacsAssociationCreation{
 			Data: &models.BacsNewAssociation{
 				ID:             strfmt.UUID(id.String()),
-				OrganisationID: strfmt.UUID(organisationId.String()),
+				OrganisationID: strfmt.UUID(testOrganisationId.String()),
 				Attributes: &models.BacsAssociationAttributes{
 					ServiceUserNumber: serviceUserNumber,
 					AccountNumber:     accountNumber,
@@ -124,8 +124,8 @@ func TestPostBacsAssociation(t *testing.T) {
 	assertNoErrorOccurred(err, t)
 	actualOrganisationId := createResponse.Payload.Data.OrganisationID.String()
 	actualServiceUserNumber := createResponse.Payload.Data.Attributes.ServiceUserNumber
-	if actualOrganisationId != organisationId.String() {
-		t.Fatalf("Expected %s, got %s", organisationId.String(), actualOrganisationId)
+	if actualOrganisationId != testOrganisationId.String() {
+		t.Fatalf("Expected %s, got %s", testOrganisationId.String(), actualOrganisationId)
 	}
 
 	if actualServiceUserNumber != serviceUserNumber {
@@ -150,7 +150,7 @@ func TestPostBacsAssociationIncludingOptionalServiceCentre(t *testing.T) {
 		WithCreationRequest(&models.BacsAssociationCreation{
 			Data: &models.BacsNewAssociation{
 				ID:             strfmt.UUID(id.String()),
-				OrganisationID: strfmt.UUID(organisationId.String()),
+				OrganisationID: strfmt.UUID(testOrganisationId.String()),
 				Attributes: &models.BacsAssociationAttributes{
 					ServiceUserNumber: serviceUserNumber,
 					AccountNumber:     accountNumber,
@@ -191,7 +191,7 @@ func TestPostBacsAssociation_DoNotIgnoreAccountTypeWhenValueIsZero(t *testing.T)
 		WithCreationRequest(&models.BacsAssociationCreation{
 			Data: &models.BacsNewAssociation{
 				ID:             strfmt.UUID(id.String()),
-				OrganisationID: strfmt.UUID(organisationId.String()),
+				OrganisationID: strfmt.UUID(testOrganisationId.String()),
 				Attributes: &models.BacsAssociationAttributes{
 					ServiceUserNumber: serviceUserNumber,
 					AccountNumber:     accountNumber,
@@ -216,7 +216,7 @@ func TestPostBacsAssociation_DoNotIgnoreAccountTypeWhenValueIsZero(t *testing.T)
 
 func TestGetBacsAssociationList(t *testing.T) {
 	id, _ := uuid.NewV4()
-	organisationIdUUID := strfmt.UUID(organisationId.String())
+	organisationIdUUID := strfmt.UUID(testOrganisationId.String())
 	serviceUserNumber := "123456"
 	accountNumber := "12345678"
 	sortingCode := "123456"
@@ -226,7 +226,7 @@ func TestGetBacsAssociationList(t *testing.T) {
 		WithCreationRequest(&models.BacsAssociationCreation{
 			Data: &models.BacsNewAssociation{
 				ID:             strfmt.UUID(id.String()),
-				OrganisationID: strfmt.UUID(organisationId.String()),
+				OrganisationID: strfmt.UUID(testOrganisationId.String()),
 				Attributes: &models.BacsAssociationAttributes{
 					ServiceUserNumber: serviceUserNumber,
 					AccountNumber:     accountNumber,
