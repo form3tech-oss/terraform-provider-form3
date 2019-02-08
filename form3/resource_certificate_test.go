@@ -202,7 +202,7 @@ func TestAccKey_importExistingCert(t *testing.T) {
 				Config:            fmt.Sprintf(testForm3KeyConfigExistingCert, organisationId, keyId, certificateId),
 				ResourceName:      "form3_certificate.cert",
 				ImportState:       true,
-				ImportStateId:     certificateId,
+				ImportStateId:     keyId + "/" + certificateId,
 				ImportStateVerify: false,
 
 				Check: resource.ComposeTestCheckFunc(

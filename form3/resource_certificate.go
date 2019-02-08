@@ -8,7 +8,9 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/pkg/errors"
 	"log"
+	"strings"
 )
 
 func resourceForm3Certificate() *schema.Resource {
@@ -17,7 +19,7 @@ func resourceForm3Certificate() *schema.Resource {
 		Read:   resourceCertificateRead,
 		Delete: resourceCertificateDelete,
 		Importer: &schema.ResourceImporter{
-			State: schema.ImportStatePassthrough,
+			State: importCertificateState,
 		},
 
 		Schema: map[string]*schema.Schema{
@@ -53,6 +55,19 @@ func resourceForm3Certificate() *schema.Resource {
 			},
 		},
 	}
+}
+
+// ImportStatePassthrough is an implementation of StateFunc that can be
+// used to simply pass the ID directly through. This should be used only
+// in the case that an ID-only refresh is possible.
+func importCertificateState(d *schema.ResourceData, m interface{}) ([]*schema.ResourceData, error) {
+	parts := strings.Split(d.Id(), "/")
+	if len(parts) != 2 {
+		return nil, errors.New("certificate Import ID must be in form '<keyId>/<certificateId>'")
+	}
+	d.SetId(parts[1])
+	d.Set("key_id", parts[0])
+	return []*schema.ResourceData{d}, nil
 }
 
 func resourceCertificateCreate(d *schema.ResourceData, meta interface{}) error {
