@@ -1,6 +1,7 @@
 package form3
 
 import (
+	"errors"
 	"fmt"
 	"github.com/form3tech-oss/go-form3"
 	"github.com/form3tech-oss/go-form3/client/system"
@@ -8,7 +9,6 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/schema"
-	"github.com/pkg/errors"
 	"log"
 	"strings"
 )
