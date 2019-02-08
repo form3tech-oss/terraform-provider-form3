@@ -1,6 +1,7 @@
 package form3
 
 import (
+	"context"
 	"github.com/form3tech-oss/go-form3/client/system"
 	"github.com/form3tech-oss/go-form3/models"
 	"github.com/nu7hatch/gouuid"
@@ -10,8 +11,8 @@ import (
 )
 
 func TestPostKey(t *testing.T) {
-	createResponse := createCertificateRequest(t)
-	defer deleteCertificateRequest(createResponse, t)
+	createResponse := createKey(t)
+	defer deleteKey(createResponse, t)
 
 	actualOrganisationId := createResponse.Payload.Data.OrganisationID.String()
 	if actualOrganisationId != organisationId.String() {
@@ -26,14 +27,17 @@ func TestPostKey(t *testing.T) {
 
 }
 
-func deleteCertificateRequest(createResponse *system.PostKeysCreated, t *testing.T) {
+func deleteKey(createResponse *system.PostKeysCreated, t *testing.T) {
+
+	key, _ := auth.SystemClient.System.GetKeysKeyID(system.NewGetKeysKeyIDParams().WithKeyID(createResponse.Payload.Data.ID))
+
 	_, err := auth.SystemClient.System.DeleteKeysKeyID(system.NewDeleteKeysKeyIDParams().
-		WithKeyID(createResponse.Payload.Data.ID),
+		WithKeyID(createResponse.Payload.Data.ID).WithVersion(*key.Payload.Data.Version),
 	)
 	assertNoErrorOccurred(err, t)
 }
 
-func createCertificateRequest(t *testing.T) *system.PostKeysCreated {
+func createKey(t *testing.T) *system.PostKeysCreated {
 	id, _ := uuid.NewV4()
 	createResponse, err := auth.SystemClient.System.PostKeys(system.NewPostKeysParams().
 		WithKeyCreationRequest(&models.KeyCreation{
@@ -51,11 +55,11 @@ func createCertificateRequest(t *testing.T) *system.PostKeysCreated {
 }
 
 func TestDeleteKey(t *testing.T) {
-	createResponse := createCertificateRequest(t)
+	createResponse := createKey(t)
 
-	deleteCertificateRequest(createResponse, t)
+	deleteKey(createResponse, t)
 
-	list, err := auth.AssociationClient.System.GetKeys(system.NewGetKeysParams())
+	list, err := auth.SystemClient.System.GetKeys(system.NewGetKeysParams())
 	require.Nil(t, err)
 
 	for _, certificateRequest := range list.Payload.Data {
@@ -64,8 +68,8 @@ func TestDeleteKey(t *testing.T) {
 }
 
 func TestGetKey(t *testing.T) {
-	createResponse := createCertificateRequest(t)
-	defer deleteCertificateRequest(createResponse, t)
+	createResponse := createKey(t)
+	defer deleteKey(createResponse, t)
 
 	list, err := auth.SystemClient.System.GetKeys(system.NewGetKeysParams())
 	require.Nil(t, err)
@@ -77,11 +81,16 @@ func TestGetKey(t *testing.T) {
 		}
 	}
 	assert.True(t, foundRequest)
+
+	key, err := auth.SystemClient.System.GetKeysKeyID(system.NewGetKeysKeyIDParams().WithKeyID(createResponse.Payload.Data.ID))
+	require.Nil(t, err)
+	assert.Equal(t, "C=GB, O=Test Limited, OU=Test Bank, CN=12344321", key.Payload.Data.Attributes.Subject)
+
 }
 
 func TestPostKeyCertificate(t *testing.T) {
-	createResponse := createCertificateRequest(t)
-	defer deleteCertificateRequest(createResponse, t)
+	createResponse := createKey(t)
+	defer deleteKey(createResponse, t)
 
 	createCertificateResponse := createCertificate(createResponse, t)
 	defer deleteCertificate(createResponse, createCertificateResponse, t)
@@ -91,8 +100,8 @@ func TestPostKeyCertificate(t *testing.T) {
 }
 
 func TestDeleteKeyCertificate(t *testing.T) {
-	createResponse := createCertificateRequest(t)
-	defer deleteCertificateRequest(createResponse, t)
+	createResponse := createKey(t)
+	defer deleteKey(createResponse, t)
 
 	createCertificateResponse := createCertificate(createResponse, t)
 	deleteCertificate(createResponse, createCertificateResponse, t)
@@ -102,10 +111,17 @@ func TestDeleteKeyCertificate(t *testing.T) {
 	defer deleteCertificate(createResponse, createCertificateResponse2, t)
 }
 
-func deleteCertificate(createResponse *system.PostKeysCreated, response *system.PostKeysKeyIDCertificatesCreated, t *testing.T) {
-	_, err := auth.SystemClient.System.DeleteKeysKeyIDCertificatesCertificateID(&system.DeleteKeysKeyIDCertificatesCertificateIDParams{
-		KeyID:         createResponse.Payload.Data.ID,
-		CertificateID: response.Payload.Data.ID,
+func deleteCertificate(keysCreated *system.PostKeysCreated, certCreation *system.PostKeysKeyIDCertificatesCreated, t *testing.T) {
+
+	cert, err := auth.SystemClient.System.GetKeysKeyIDCertificatesCertificateID(system.NewGetKeysKeyIDCertificatesCertificateIDParams().WithKeyID(keysCreated.Payload.Data.ID).
+		WithCertificateID(certCreation.Payload.Data.ID))
+	assertNoErrorOccurred(err, t)
+
+	_, err = auth.SystemClient.System.DeleteKeysKeyIDCertificatesCertificateID(&system.DeleteKeysKeyIDCertificatesCertificateIDParams{
+		KeyID:         keysCreated.Payload.Data.ID,
+		CertificateID: certCreation.Payload.Data.ID,
+		Version:       *cert.Payload.Data.Version,
+		Context:       context.Background(),
 	})
 	assertNoErrorOccurred(err, t)
 }
