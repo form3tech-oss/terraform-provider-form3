@@ -3945,7 +3945,10 @@ definitions:
         properties:
           type:
             type: string
-          id:
+          key_id:
+            type: string
+            format: uuid
+          certificate_id:
             type: string
             format: uuid
 
@@ -4041,7 +4044,10 @@ definitions:
         properties:
           type:
             type: string
-          id:
+          key_id:
+            type: string
+            format: uuid
+          certificate_id:
             type: string
             format: uuid
 
