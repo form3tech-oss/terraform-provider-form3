@@ -142,13 +142,16 @@ func resourceBacsAssociationRead(d *schema.ResourceData, meta interface{}) error
 
 	if bacsAssociation.Payload.Data.Relationships != nil {
 		if bacsAssociation.Payload.Data.Relationships.InputCertificate != nil && bacsAssociation.Payload.Data.Relationships.InputCertificate.Data != nil {
-			d.Set("input_certificate_id", bacsAssociation.Payload.Data.Relationships.InputCertificate.Data.ID)
+			d.Set("input_key_id", bacsAssociation.Payload.Data.Relationships.InputCertificate.Data.KeyID)
+			d.Set("input_certificate_id", bacsAssociation.Payload.Data.Relationships.InputCertificate.Data.CertificateID)
 		}
 		if bacsAssociation.Payload.Data.Relationships.OutputCertificate != nil && bacsAssociation.Payload.Data.Relationships.OutputCertificate.Data != nil {
-			d.Set("output_certificate_id", bacsAssociation.Payload.Data.Relationships.OutputCertificate.Data.ID)
+			d.Set("output_key_id", bacsAssociation.Payload.Data.Relationships.OutputCertificate.Data.KeyID)
+			d.Set("output_certificate_id", bacsAssociation.Payload.Data.Relationships.OutputCertificate.Data.CertificateID)
 		}
 		if bacsAssociation.Payload.Data.Relationships.MessagingCertificate != nil && bacsAssociation.Payload.Data.Relationships.MessagingCertificate.Data != nil {
-			d.Set("messaging_certificate_id", bacsAssociation.Payload.Data.Relationships.MessagingCertificate.Data.ID)
+			d.Set("messaging_key_id", bacsAssociation.Payload.Data.Relationships.MessagingCertificate.Data.KeyID)
+			d.Set("messaging_certificate_id", bacsAssociation.Payload.Data.Relationships.MessagingCertificate.Data.CertificateID)
 		}
 	}
 
@@ -219,23 +222,23 @@ func createBacsNewAssociationFromResourceData(d *schema.ResourceData) (*models.B
 		association.Attributes.CentreNumber = attr.(string)
 	}
 
-	if attr, ok := GetUUIDOK(d, "input_certificate_id"); ok {
-		association.Relationships.InputCertificate = &models.BacsAssociationCertificateRelationship{
-			Data: &models.BacsAssociationCertificateRelationshipData{ID: attr},
-		}
-	}
-
-	if attr, ok := GetUUIDOK(d, "output_certificate_id"); ok {
-		association.Relationships.OutputCertificate = &models.BacsAssociationCertificateRelationship{
-			Data: &models.BacsAssociationCertificateRelationshipData{ID: attr},
-		}
-	}
-
-	if attr, ok := GetUUIDOK(d, "messaging_certificate_id"); ok {
-		association.Relationships.MessagingCertificate = &models.BacsAssociationCertificateRelationship{
-			Data: &models.BacsAssociationCertificateRelationshipData{ID: attr},
-		}
-	}
+	association.Relationships.InputCertificate = buildRelationship(d, "input")
+	association.Relationships.OutputCertificate = buildRelationship(d, "output")
+	association.Relationships.MessagingCertificate = buildRelationship(d, "messaging")
 
 	return &association, nil
+}
+
+func buildRelationship(d *schema.ResourceData, relation string) *models.BacsAssociationCertificateRelationship {
+	if keyId, ok := GetUUIDOK(d, relation+"_key_id"); ok {
+		if certId, certOk := GetUUIDOK(d, relation+"_certificate_id"); certOk {
+			return &models.BacsAssociationCertificateRelationship{
+				Data: &models.BacsAssociationCertificateRelationshipData{KeyID: keyId, CertificateID: certId},
+			}
+		}
+		return &models.BacsAssociationCertificateRelationship{
+			Data: &models.BacsAssociationCertificateRelationshipData{KeyID: keyId},
+		}
+	}
+	return nil
 }
