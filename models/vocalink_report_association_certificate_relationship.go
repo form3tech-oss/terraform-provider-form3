@@ -75,9 +75,13 @@ func (m *VocalinkReportAssociationCertificateRelationship) UnmarshalBinary(b []b
 // swagger:model VocalinkReportAssociationCertificateRelationshipData
 type VocalinkReportAssociationCertificateRelationshipData struct {
 
-	// id
+	// certificate id
 	// Format: uuid
-	ID strfmt.UUID `json:"id,omitempty"`
+	CertificateID strfmt.UUID `json:"certificate_id,omitempty"`
+
+	// key id
+	// Format: uuid
+	KeyID strfmt.UUID `json:"key_id,omitempty"`
 
 	// type
 	Type string `json:"type,omitempty"`
@@ -87,7 +91,11 @@ type VocalinkReportAssociationCertificateRelationshipData struct {
 func (m *VocalinkReportAssociationCertificateRelationshipData) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateID(formats); err != nil {
+	if err := m.validateCertificateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateKeyID(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -97,13 +105,26 @@ func (m *VocalinkReportAssociationCertificateRelationshipData) Validate(formats 
 	return nil
 }
 
-func (m *VocalinkReportAssociationCertificateRelationshipData) validateID(formats strfmt.Registry) error {
+func (m *VocalinkReportAssociationCertificateRelationshipData) validateCertificateID(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.ID) { // not required
+	if swag.IsZero(m.CertificateID) { // not required
 		return nil
 	}
 
-	if err := validate.FormatOf("data"+"."+"id", "body", "uuid", m.ID.String(), formats); err != nil {
+	if err := validate.FormatOf("data"+"."+"certificate_id", "body", "uuid", m.CertificateID.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *VocalinkReportAssociationCertificateRelationshipData) validateKeyID(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.KeyID) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("data"+"."+"key_id", "body", "uuid", m.KeyID.String(), formats); err != nil {
 		return err
 	}
 
