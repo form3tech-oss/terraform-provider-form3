@@ -61,12 +61,27 @@ func resourceForm3BacsAssociation() *schema.Resource {
 				Optional: true,
 				ForceNew: true,
 			},
+			"input_key_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
 			"input_certificate_id": {
 				Type:     schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
+			"output_key_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
 			"output_certificate_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
+			"messaging_key_id": {
 				Type:     schema.TypeString,
 				Optional: true,
 				ForceNew: true,

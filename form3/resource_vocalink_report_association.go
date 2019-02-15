@@ -31,12 +31,27 @@ func resourceForm3VocalinkReportAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
+			"fps_member_key_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
 			"fps_member_certificate_id": {
 				Type:     schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
+			"bacs_member_key_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
 			"bacs_member_certificate_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
+			"bacs_service_user_key_id": {
 				Type:     schema.TypeString,
 				Optional: true,
 				ForceNew: true,

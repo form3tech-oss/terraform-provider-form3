@@ -92,17 +92,17 @@ func resourceKeyCreate(d *schema.ResourceData, meta interface{}) error {
 func resourceKeyRead(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
 
-	certRequestId, _ := GetUUIDOK(d, "key_id")
+	keyId, _ := GetUUIDOK(d, "key_id")
 
-	if certRequestId == "" {
-		certRequestId = strfmt.UUID(d.Id())
-		log.Printf("[INFO] Importing key with resource id: %s.", certRequestId)
+	if keyId == "" {
+		keyId = strfmt.UUID(d.Id())
+		log.Printf("[INFO] Importing key with resource id: %s.", keyId)
 	} else {
-		log.Printf("[INFO] Reading key with resource id: %s.", certRequestId)
+		log.Printf("[INFO] Reading key with resource id: %s.", keyId)
 	}
 
 	response, err := client.SystemClient.System.GetKeysKeyID(
-		system.NewGetKeysKeyIDParams().WithKeyID(certRequestId))
+		system.NewGetKeysKeyIDParams().WithKeyID(keyId))
 
 	if err != nil {
 		apiError, ok := err.(*runtime.APIError)
