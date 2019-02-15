@@ -16,6 +16,7 @@ func TestAccPaymentDefaults_basic(t *testing.T) {
 	var paymentDefaultsResponse payment_defaults.GetPaymentdefaultsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.NewV4().String()
+	id := uuid.NewV4().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -23,12 +24,12 @@ func TestAccPaymentDefaults_basic(t *testing.T) {
 		CheckDestroy: testAccCheckPaymentDefaultsDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3PaymentDefaultsConfig, organisationId, parentOrganisationId),
+				Config: fmt.Sprintf(testForm3PaymentDefaultsConfig, organisationId, parentOrganisationId, id),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckPaymentDefaultsExists("form3_payment_defaults.payment_defaults", &paymentDefaultsResponse),
 					resource.TestCheckResourceAttr("form3_payment_defaults.payment_defaults", "default_payment_scheme", "FPS"),
 					resource.TestCheckResourceAttr("form3_payment_defaults.payment_defaults", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_payment_defaults.payment_defaults", "payment_defaults_id", "810f71c0-408b-4d00-8c7b-7073166bacfb"),
+					resource.TestCheckResourceAttr("form3_payment_defaults.payment_defaults", "payment_defaults_id", id),
 				),
 			},
 		},
@@ -94,6 +95,6 @@ resource "form3_organisation" "organisation" {
 
 resource "form3_payment_defaults" "payment_defaults" {
 	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
-	payment_defaults_id              = "810f71c0-408b-4d00-8c7b-7073166bacfb"
+	payment_defaults_id              = "%s"
   default_payment_scheme           = "FPS"
 }`

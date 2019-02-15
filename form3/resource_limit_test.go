@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	form3 "github.com/form3tech-oss/go-form3"
+	"github.com/form3tech-oss/go-form3"
 	"github.com/form3tech-oss/go-form3/client/limits"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/resource"
@@ -15,7 +15,9 @@ import (
 
 func TestAccLimit_basic(t *testing.T) {
 	var limitResponse limits.GetLimitsIDOK
-	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationId := uuid.NewV4().String()
+
 	limitId := uuid.NewV4().String()
 
 	resource.Test(t, resource.TestCase{
@@ -24,7 +26,7 @@ func TestAccLimit_basic(t *testing.T) {
 		CheckDestroy: testAccCheckLimitDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3LimitConfigA, organisationId, limitId),
+				Config: fmt.Sprintf(testForm3LimitConfigA, organisationId, parentOrganisationId, limitId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckLimitExists("form3_limit.limit", &limitResponse),
 					resource.TestCheckResourceAttr("form3_limit.limit", "amount", "1000"),
@@ -38,7 +40,8 @@ func TestAccLimit_basic(t *testing.T) {
 }
 
 func TestAccLimit_importBasic(t *testing.T) {
-	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationId := uuid.NewV4().String()
 	limitId := uuid.NewV4().String()
 
 	resourceName := "form3_limit.limit"
@@ -48,11 +51,10 @@ func TestAccLimit_importBasic(t *testing.T) {
 		Providers:    testAccProviders,
 		CheckDestroy: testAccCheckLimitDestroy,
 		Steps: []resource.TestStep{
-			resource.TestStep{
-				Config: fmt.Sprintf(testForm3LimitConfigA, organisationId, limitId),
+			{
+				Config: fmt.Sprintf(testForm3LimitConfigA, organisationId, parentOrganisationId, limitId),
 			},
-
-			resource.TestStep{
+			{
 				ResourceName:      resourceName,
 				ImportState:       true,
 				ImportStateVerify: true,
@@ -110,8 +112,15 @@ func testAccCheckLimitExists(resourceKey string, limit *limits.GetLimitsIDOK) re
 }
 
 const testForm3LimitConfigA = `
+
+resource "form3_organisation" "organisation" {
+	organisation_id        = "%s"
+	parent_organisation_id = "%s"
+	name 		               = "terraform-organisation"
+}
+
 resource "form3_limit" "limit" {
-	organisation_id       = "%s"
+	organisation_id       = "${form3_organisation.organisation.organisation_id}"
 	limit_id     	      	= "%s"
 	amount     	        	= "1000"
   gateway               = "payport_interface"

@@ -2,7 +2,9 @@ package form3
 
 import (
 	"fmt"
+	"math/rand"
 	"os"
+	"strconv"
 	"testing"
 
 	form3 "github.com/form3tech-oss/go-form3"
@@ -21,6 +23,7 @@ func TestAccAccount_basic(t *testing.T) {
 	bankResourceId := uuid.NewV4().String()
 	bicId := uuid.NewV4().String()
 	bic := "NWABCD13"
+	accountNumber := randomAccountNumber()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -28,11 +31,11 @@ func TestAccAccount_basic(t *testing.T) {
 		CheckDestroy: testAccCheckAccountDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3AccountConfigA, organisationId, parentOrganisationId, accountId, bic, bankResourceId, bicId, bic),
+				Config: fmt.Sprintf(testForm3AccountConfigA, organisationId, parentOrganisationId, accountId, accountNumber, bic, bankResourceId, bicId, bic),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckAccountExists("form3_account.account", &accountResponse),
 					resource.TestCheckResourceAttr("form3_account.account", "account_id", accountId),
-					resource.TestCheckResourceAttr("form3_account.account", "account_number", "12345678"),
+					resource.TestCheckResourceAttr("form3_account.account", "account_number", strconv.Itoa(accountNumber)),
 					resource.TestCheckResourceAttr("form3_account.account", "bank_id", "401005"),
 					resource.TestCheckResourceAttr("form3_account.account", "bank_id_code", "GBDSC"),
 					resource.TestCheckResourceAttr("form3_account.account", "bic", "NWABCD13"),
@@ -43,6 +46,14 @@ func TestAccAccount_basic(t *testing.T) {
 	})
 }
 
+func randomAccountNumber() int {
+	accountNumber := rand.Intn(99999999)
+	for accountNumber < 10000000 {
+		accountNumber = rand.Intn(99999999)
+	}
+	return accountNumber
+}
+
 func TestAccAccount_importBasic(t *testing.T) {
 
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
@@ -51,6 +62,7 @@ func TestAccAccount_importBasic(t *testing.T) {
 	bankResourceId := uuid.NewV4().String()
 	bicId := uuid.NewV4().String()
 	bic := "NWABCD14"
+	accountNumber := randomAccountNumber()
 
 	resourceName := "form3_account.account"
 
@@ -60,7 +72,7 @@ func TestAccAccount_importBasic(t *testing.T) {
 		CheckDestroy: testAccCheckAccountDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3AccountConfigA, organisationId, parentOrganisationId, accountId, bic, bankResourceId, bicId, bic),
+				Config: fmt.Sprintf(testForm3AccountConfigA, organisationId, parentOrganisationId, accountId, accountNumber, bic, bankResourceId, bicId, bic),
 			},
 			{
 				ResourceName:      resourceName,
@@ -131,7 +143,7 @@ resource "form3_organisation" "organisation" {
 resource "form3_account" "account" {
 	organisation_id  = "${form3_organisation.organisation.organisation_id}"
   account_id       = "%s"
-	account_number 	 = "12345678"
+	account_number 	 = "%d"
   bank_id          = "401005"
   bank_id_code     = "GBDSC"
   bic              = "%s"

@@ -31,12 +31,27 @@ func resourceForm3VocalinkReportAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
+			"fps_member_key_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
 			"fps_member_certificate_id": {
 				Type:     schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
+			"bacs_member_key_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
 			"bacs_member_certificate_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
+			"bacs_service_user_key_id": {
 				Type:     schema.TypeString,
 				Optional: true,
 				ForceNew: true,
@@ -105,13 +120,16 @@ func resourceVocalinkReportAssociationRead(d *schema.ResourceData, meta interfac
 
 	if bacsAssociation.Payload.Data.Relationships != nil {
 		if bacsAssociation.Payload.Data.Relationships.FpsMemberCertificate != nil && bacsAssociation.Payload.Data.Relationships.FpsMemberCertificate.Data != nil {
-			d.Set("fps_member_certificate_id", bacsAssociation.Payload.Data.Relationships.FpsMemberCertificate.Data.ID)
+			d.Set("fps_member_key_id", bacsAssociation.Payload.Data.Relationships.FpsMemberCertificate.Data.KeyID)
+			d.Set("fps_member_certificate_id", bacsAssociation.Payload.Data.Relationships.FpsMemberCertificate.Data.CertificateID)
 		}
 		if bacsAssociation.Payload.Data.Relationships.BacsMemberCertificate != nil && bacsAssociation.Payload.Data.Relationships.BacsMemberCertificate.Data != nil {
-			d.Set("bacs_member_certificate_id", bacsAssociation.Payload.Data.Relationships.BacsMemberCertificate.Data.ID)
+			d.Set("bacs_member_key_id", bacsAssociation.Payload.Data.Relationships.BacsMemberCertificate.Data.KeyID)
+			d.Set("bacs_member_certificate_id", bacsAssociation.Payload.Data.Relationships.BacsMemberCertificate.Data.CertificateID)
 		}
 		if bacsAssociation.Payload.Data.Relationships.BacsServiceUserCertificate != nil && bacsAssociation.Payload.Data.Relationships.BacsServiceUserCertificate.Data != nil {
-			d.Set("bacs_service_user_certificate_id", bacsAssociation.Payload.Data.Relationships.BacsServiceUserCertificate.Data.ID)
+			d.Set("bacs_service_user_key_id", bacsAssociation.Payload.Data.Relationships.BacsServiceUserCertificate.Data.KeyID)
+			d.Set("bacs_service_user_certificate_id", bacsAssociation.Payload.Data.Relationships.BacsServiceUserCertificate.Data.CertificateID)
 		}
 	}
 
@@ -158,23 +176,23 @@ func createVocalinkReportNewAssociationFromResourceData(d *schema.ResourceData) 
 		association.OrganisationID = &uuid
 	}
 
-	if attr, ok := GetUUIDOK(d, "fps_member_certificate_id"); ok {
-		association.Relationships.FpsMemberCertificate = &models.VocalinkReportAssociationCertificateRelationship{
-			Data: &models.VocalinkReportAssociationCertificateRelationshipData{ID: attr},
-		}
-	}
-
-	if attr, ok := GetUUIDOK(d, "bacs_member_certificate_id"); ok {
-		association.Relationships.BacsMemberCertificate = &models.VocalinkReportAssociationCertificateRelationship{
-			Data: &models.VocalinkReportAssociationCertificateRelationshipData{ID: attr},
-		}
-	}
-
-	if attr, ok := GetUUIDOK(d, "bacs_service_user_certificate_id"); ok {
-		association.Relationships.BacsServiceUserCertificate = &models.VocalinkReportAssociationCertificateRelationship{
-			Data: &models.VocalinkReportAssociationCertificateRelationshipData{ID: attr},
-		}
-	}
+	association.Relationships.FpsMemberCertificate = buildVocalinkRelationship(d, "fps_member")
+	association.Relationships.BacsMemberCertificate = buildVocalinkRelationship(d, "bacs_member")
+	association.Relationships.BacsServiceUserCertificate = buildVocalinkRelationship(d, "bacs_service_user")
 
 	return association, nil
+}
+
+func buildVocalinkRelationship(d *schema.ResourceData, relation string) *models.VocalinkReportAssociationCertificateRelationship {
+	if keyId, ok := GetUUIDOK(d, relation+"_key_id"); ok {
+		if certId, certOk := GetUUIDOK(d, relation+"_certificate_id"); certOk {
+			return &models.VocalinkReportAssociationCertificateRelationship{
+				Data: &models.VocalinkReportAssociationCertificateRelationshipData{KeyID: keyId, CertificateID: certId},
+			}
+		}
+		return &models.VocalinkReportAssociationCertificateRelationship{
+			Data: &models.VocalinkReportAssociationCertificateRelationshipData{KeyID: keyId},
+		}
+	}
+	return nil
 }
