@@ -1858,6 +1858,8 @@ paths:
       summary: List payments
       tags:
         - Payments
+      x-access:
+        - Public
       parameters:
         - name: page[number]
           in: query
@@ -1924,6 +1926,14 @@ paths:
           type: string
           format: date
         - name: filter[unique_scheme_id]
+          in: query
+          required: false
+          type: string
+        - name: filter[amount]
+          in: query
+          required: false
+          type: string
+        - name: filter[reference]
           in: query
           required: false
           type: string
