@@ -21,12 +21,12 @@ type Payment struct {
 	// Required: true
 	Attributes *PaymentAttributes `json:"attributes"`
 
-	// id
+	// Unique resource ID
 	// Required: true
 	// Format: uuid
 	ID *strfmt.UUID `json:"id"`
 
-	// organisation id
+	// Unique ID of the organisation this resource is created by
 	// Required: true
 	// Format: uuid
 	OrganisationID *strfmt.UUID `json:"organisation_id"`
@@ -34,11 +34,11 @@ type Payment struct {
 	// relationships
 	Relationships *PaymentRelationships `json:"relationships,omitempty"`
 
-	// type
+	// Name of the resource type
 	// Pattern: ^[A-Za-z_]*$
 	Type string `json:"type,omitempty"`
 
-	// version
+	// Version number
 	// Minimum: 0
 	Version *int64 `json:"version,omitempty"`
 }
@@ -187,7 +187,7 @@ func (m *Payment) UnmarshalBinary(b []byte) error {
 // swagger:model PaymentAttributes
 type PaymentAttributes struct {
 
-	// amount
+	// Amount of money moved between the instructing agent and instructed agent
 	// Pattern: ^[0-9.]{0,20}$
 	Amount string `json:"amount,omitempty"`
 
@@ -203,25 +203,25 @@ type PaymentAttributes struct {
 	// beneficiary party
 	BeneficiaryParty *PaymentAttributesBeneficiaryParty `json:"beneficiary_party,omitempty"`
 
-	// category purpose
+	// Category purpose in proprietary form. Specifies the high level purpose of the instruction. Cannot be used at the same time as `category_purpose_coded`.
 	CategoryPurpose string `json:"category_purpose,omitempty"`
 
-	// category purpose coded
+	// Category purpose in a coded form. Specifies the high level purpose of the instruction. Cannot be used at the same time as `category_purpose`.
 	CategoryPurposeCoded string `json:"category_purpose_coded,omitempty"`
 
 	// charges information
 	ChargesInformation *ChargesInformation `json:"charges_information,omitempty"`
 
-	// clearing id
+	// Unique identifier for organisations collecting payments
 	ClearingID string `json:"clearing_id,omitempty"`
 
-	// currency
+	// Currency of the transaction amount. Currency code as defined in [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm)
 	Currency string `json:"currency,omitempty"`
 
 	// debtor party
 	DebtorParty *PaymentAttributesDebtorParty `json:"debtor_party,omitempty"`
 
-	// end to end reference
+	// Unique identification, as assigned by the initiating party, to unambiguously identify the transaction. This identification is passed on, unchanged, throughout the entire end-to-end chain.
 	EndToEndReference string `json:"end_to_end_reference,omitempty"`
 
 	// file number
@@ -230,64 +230,65 @@ type PaymentAttributes struct {
 	// fx
 	Fx *PaymentAttributesFx `json:"fx,omitempty"`
 
-	// intermediary bank
-	IntermediaryBank *AccountHoldingEntity `json:"intermediary_bank,omitempty"`
+	// Unique identification, as assigned by the initiating party to unambigiously identify the transaction. This identification is an point-to-point reference and is passed on, unchanged, throughout the entire chain. Cannot includ leading, trailing or internal spaces.
+	InstructionID string `json:"instruction_id,omitempty"`
 
-	// numeric reference
+	// intermediary bank
+	IntermediaryBank *IntermediaryBankAccountHoldingEntity `json:"intermediary_bank,omitempty"`
+
+	// Numeric reference field, see scheme specific descriptions for usage
 	NumericReference string `json:"numeric_reference,omitempty"`
 
-	// payment acceptance datetime
+	// Timestamp of when the payment instruction meets the set processing conditions. Format: YYYY-MM-DDThh:mm:ss:mmm+hh:mm
 	// Format: date-time
-	PaymentAcceptanceDatetime *strfmt.DateTime `json:"payment_acceptance_datetime,omitempty"`
+	PaymentAcceptanceDatetime strfmt.DateTime `json:"payment_acceptance_datetime,omitempty"`
 
-	// payment instructing id
-	PaymentInstructingID string `json:"payment_instructing_id,omitempty"`
-
-	// payment purpose
+	// Purpose of the payment in a proprietary form
 	PaymentPurpose string `json:"payment_purpose,omitempty"`
 
-	// payment purpose coded
+	// Purpose of the payment in a coded form
 	PaymentPurposeCoded string `json:"payment_purpose_coded,omitempty"`
 
-	// payment scheme
+	// Clearing infrastructure through which the payment instruction is to be processed. Default for given organisation ID is used if left empty. Has to be a valid [scheme identifier](http://draft-api-docs.form3.tech/api.html#enumerations-schemes).
 	PaymentScheme string `json:"payment_scheme,omitempty"`
 
 	// payment type
 	PaymentType string `json:"payment_type,omitempty"`
 
-	// processing date
+	// Date on which the payment is to be debited from the debtor account. Formatted according to ISO 8601 format: YYYY-MM-DD.
 	// Format: date
 	ProcessingDate strfmt.Date `json:"processing_date,omitempty"`
 
 	// receivers correspondent
-	ReceiversCorrespondent *AccountHoldingEntity `json:"receivers_correspondent,omitempty"`
+	ReceiversCorrespondent *ReceiversCorrespondentAccountHoldingEntity `json:"receivers_correspondent,omitempty"`
 
-	// reference
+	// Payment reference for beneficiary use
 	Reference string `json:"reference,omitempty"`
 
-	// regulatory reporting
+	// Regulatory reporting information
 	RegulatoryReporting string `json:"regulatory_reporting,omitempty"`
 
 	// reimbursement
-	Reimbursement *AccountHoldingEntity `json:"reimbursement,omitempty"`
+	Reimbursement *ReimbursementAccountHoldingEntity `json:"reimbursement,omitempty"`
 
-	// remittance information
+	// Information supplied to enable the matching of an entry with the items that the transfer is intended to settle, such as commercial invoices in an accounts receivable system provided by the debtor for the beneficiary.
 	RemittanceInformation string `json:"remittance_information,omitempty"`
 
-	// scheme payment sub type
+	// The scheme specific payment [sub type](http://api-docs.form3.tech/api.html#enumerations-scheme-specific-payment-sub-types)
 	SchemePaymentSubType string `json:"scheme_payment_sub_type,omitempty"`
 
-	// scheme payment type
+	// The [scheme-specific payment type](#enumerations-scheme-payment-types)
 	SchemePaymentType string `json:"scheme_payment_type,omitempty"`
 
-	// scheme status code
-	SchemeStatusCode string `json:"scheme_status_code,omitempty"`
+	// Date on which the payment is processed by the scheme. Only used if different from `processing_date`.
+	// Format: date
+	SchemeProcessingDate strfmt.Date `json:"scheme_processing_date,omitempty"`
 
-	// scheme transaction id
+	// Unique identification, as assigned by the first instructing agent, to unambiguously identify the transaction that is passed on, unchanged, throughout the entire interbank chain.
 	SchemeTransactionID string `json:"scheme_transaction_id,omitempty"`
 
 	// senders correspondent
-	SendersCorrespondent *AccountHoldingEntity `json:"senders_correspondent,omitempty"`
+	SendersCorrespondent *SendersCorrespondentAccountHoldingEntity `json:"senders_correspondent,omitempty"`
 
 	// structured reference
 	StructuredReference *PaymentAttributesStructuredReference `json:"structured_reference,omitempty"`
@@ -301,7 +302,7 @@ type PaymentAttributes struct {
 	// ultimate debtor
 	UltimateDebtor *UltimateEntity `json:"ultimate_debtor,omitempty"`
 
-	// unique scheme id
+	// The scheme-specific unique transaction ID. Populated by the scheme.
 	UniqueSchemeID string `json:"unique_scheme_id,omitempty"`
 }
 
@@ -346,6 +347,10 @@ func (m *PaymentAttributes) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateReimbursement(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSchemeProcessingDate(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -540,6 +545,19 @@ func (m *PaymentAttributes) validateReimbursement(formats strfmt.Registry) error
 	return nil
 }
 
+func (m *PaymentAttributes) validateSchemeProcessingDate(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.SchemeProcessingDate) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("attributes"+"."+"scheme_processing_date", "body", "date", m.SchemeProcessingDate.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *PaymentAttributes) validateSendersCorrespondent(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.SendersCorrespondent) { // not required
@@ -652,64 +670,59 @@ func (m *PaymentAttributes) UnmarshalBinary(b []byte) error {
 // swagger:model PaymentAttributesBeneficiaryParty
 type PaymentAttributesBeneficiaryParty struct {
 
-	// account name
+	// Name of beneficiary as given with account
 	AccountName string `json:"account_name,omitempty"`
 
-	// account number
-	// Pattern: ^[A-Z0-9]{6,34}$
+	// Beneficiary account number
 	AccountNumber string `json:"account_number,omitempty"`
 
 	// account number code
 	AccountNumberCode AccountNumberCode `json:"account_number_code,omitempty"`
 
-	// account type
+	// The type of the account given with `beneficiary_party.account_number`. Single digit number. Only required if requested by the beneficiary party. Defaults to 0.
 	AccountType int64 `json:"account_type,omitempty"`
 
 	// account with
-	AccountWith *AccountHoldingEntity `json:"account_with,omitempty"`
+	AccountWith *BeneficiaryDebtorAccountHoldingEntity `json:"account_with,omitempty"`
 
-	// address
-	Address []string `json:"address"`
+	// Beneficiary address
+	Address []string `json:"address,omitempty"`
 
-	// birth city
+	// Beneficiary birth city
 	BirthCity string `json:"birth_city,omitempty"`
 
-	// birth country
+	// Beneficiary birth country, ISO 3166 format country code
 	BirthCountry string `json:"birth_country,omitempty"`
 
-	// birth date
+	// Beneficiary birth date. Formatted according to ISO 8601 format: YYYY-MM-DD
 	// Format: date
-	BirthDate strfmt.Date `json:"birth_date,omitempty"`
+	BirthDate *strfmt.Date `json:"birth_date,omitempty"`
 
-	// birth province
+	// Beneficiary birth province
 	BirthProvince string `json:"birth_province,omitempty"`
 
-	// country
+	// Country of the beneficiary address, ISO 3166 format country code
 	Country string `json:"country,omitempty"`
 
-	// name
+	// Beneficiary name
 	Name string `json:"name,omitempty"`
 
-	// organisation identification
+	// Organisation identification of a beneficiary, used in the case that the beneficiary is an organisation and not a private person
 	OrganisationIdentification string `json:"organisation_identification,omitempty"`
 
-	// organisation identification code
+	// The code that specifies the type of `organisation_identification`
 	OrganisationIdentificationCode string `json:"organisation_identification_code,omitempty"`
 
-	// organisation identification issuer
+	// Issuer of the organisation identification
 	OrganisationIdentificationIssuer string `json:"organisation_identification_issuer,omitempty"`
 
-	// telephone number
+	// Beneficiary phone number
 	TelephoneNumber string `json:"telephone_number,omitempty"`
 }
 
 // Validate validates this payment attributes beneficiary party
 func (m *PaymentAttributesBeneficiaryParty) Validate(formats strfmt.Registry) error {
 	var res []error
-
-	if err := m.validateAccountNumber(formats); err != nil {
-		res = append(res, err)
-	}
 
 	if err := m.validateAccountNumberCode(formats); err != nil {
 		res = append(res, err)
@@ -726,19 +739,6 @@ func (m *PaymentAttributesBeneficiaryParty) Validate(formats strfmt.Registry) er
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *PaymentAttributesBeneficiaryParty) validateAccountNumber(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.AccountNumber) { // not required
-		return nil
-	}
-
-	if err := validate.Pattern("attributes"+"."+"beneficiary_party"+"."+"account_number", "body", string(m.AccountNumber), `^[A-Z0-9]{6,34}$`); err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -811,64 +811,59 @@ func (m *PaymentAttributesBeneficiaryParty) UnmarshalBinary(b []byte) error {
 // swagger:model PaymentAttributesDebtorParty
 type PaymentAttributesDebtorParty struct {
 
-	// account name
+	// Name of debtor as given with account
 	AccountName string `json:"account_name,omitempty"`
 
-	// account number
-	// Pattern: ^[A-Z0-9]{6,34}$
+	// Debtor account number. Allows upper case and numeric characters.
 	AccountNumber string `json:"account_number,omitempty"`
 
 	// account number code
 	AccountNumberCode AccountNumberCode `json:"account_number_code,omitempty"`
 
 	// account with
-	AccountWith *AccountHoldingEntity `json:"account_with,omitempty"`
+	AccountWith *BeneficiaryDebtorAccountHoldingEntity `json:"account_with,omitempty"`
 
-	// address
-	Address []string `json:"address"`
+	// Debtor address
+	Address []string `json:"address,omitempty"`
 
-	// birth city
+	// Debtor birth city
 	BirthCity string `json:"birth_city,omitempty"`
 
-	// birth country
+	// Debtor birth country. ISO 3166 format country code
 	BirthCountry string `json:"birth_country,omitempty"`
 
-	// birth date
+	// Debtor birth date. Formatted according to ISO 8601 format: YYYY-MM-DD
 	// Format: date
-	BirthDate strfmt.Date `json:"birth_date,omitempty"`
+	BirthDate *strfmt.Date `json:"birth_date,omitempty"`
 
-	// birth province
+	// Debtor birth province
 	BirthProvince string `json:"birth_province,omitempty"`
 
-	// country
+	// Country of debtor address. ISO 3166 format country code"
 	Country string `json:"country,omitempty"`
 
-	// customer id
+	// SWIFT BIC for ordering customer, either BIC8 or BIC11
 	CustomerID string `json:"customer_id,omitempty"`
 
-	// customer id code
+	// Code for `customer_id`
 	CustomerIDCode string `json:"customer_id_code,omitempty"`
 
-	// name
+	// Debtor name
 	Name string `json:"name,omitempty"`
 
-	// organisation identification
+	// Organisation identification of a debtor, in the case that the debtor is an organisation and not a private person
 	OrganisationIdentification string `json:"organisation_identification,omitempty"`
 
-	// organisation identification code
+	// The code that specifies the type of `organisation_identification`
 	OrganisationIdentificationCode string `json:"organisation_identification_code,omitempty"`
 
-	// organisation identification issuer
+	// Issuer of the `organisation_identification`
 	OrganisationIdentificationIssuer string `json:"organisation_identification_issuer,omitempty"`
 }
 
 // Validate validates this payment attributes debtor party
 func (m *PaymentAttributesDebtorParty) Validate(formats strfmt.Registry) error {
 	var res []error
-
-	if err := m.validateAccountNumber(formats); err != nil {
-		res = append(res, err)
-	}
 
 	if err := m.validateAccountNumberCode(formats); err != nil {
 		res = append(res, err)
@@ -885,19 +880,6 @@ func (m *PaymentAttributesDebtorParty) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *PaymentAttributesDebtorParty) validateAccountNumber(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.AccountNumber) { // not required
-		return nil
-	}
-
-	if err := validate.Pattern("attributes"+"."+"debtor_party"+"."+"account_number", "body", string(m.AccountNumber), `^[A-Z0-9]{6,34}$`); err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -970,16 +952,16 @@ func (m *PaymentAttributesDebtorParty) UnmarshalBinary(b []byte) error {
 // swagger:model PaymentAttributesFx
 type PaymentAttributesFx struct {
 
-	// contract reference
+	// Reference to the foreign exchange contract associated with the transaction
 	ContractReference string `json:"contract_reference,omitempty"`
 
-	// exchange rate
+	// Factor used to convert an amount from the instructed currency into the transaction currency: i.e. to convert the `fx.original_amount`, expressed in the `fx.original_currency`, to `amount` specified in `currency`. Decimal value, represented as a string, maximum length 12. Must be > 0.
 	ExchangeRate string `json:"exchange_rate,omitempty"`
 
-	// original amount
+	// Amount of money to be moved between the debtor and creditor, before deduction of charges, expressed in the currency as instructed by the initiating party. Decimal value. Must be > 0.
 	OriginalAmount string `json:"original_amount,omitempty"`
 
-	// original currency
+	// Currency of `orginal_amount`. Currency code as defined in ISO 4217.
 	OriginalCurrency string `json:"original_currency,omitempty"`
 }
 
@@ -1010,10 +992,10 @@ func (m *PaymentAttributesFx) UnmarshalBinary(b []byte) error {
 // swagger:model PaymentAttributesStructuredReference
 type PaymentAttributesStructuredReference struct {
 
-	// issuer
+	// Issuer of remittance reference
 	Issuer string `json:"issuer,omitempty"`
 
-	// reference
+	// Unique reference to unambiguously refer to the payment originated by the creditor, this reference enables reconciliation by the creditor upon receipt of the amount of money.
 	Reference string `json:"reference,omitempty"`
 }
 
@@ -1044,19 +1026,19 @@ func (m *PaymentAttributesStructuredReference) UnmarshalBinary(b []byte) error {
 // swagger:model PaymentAttributesSwift
 type PaymentAttributesSwift struct {
 
-	// bank operation code
+	// SWIFT service level
 	BankOperationCode string `json:"bank_operation_code,omitempty"`
 
 	// header
 	Header *PaymentAttributesSwiftHeader `json:"header,omitempty"`
 
-	// instruction code
+	// A SWIFT instruction code
 	InstructionCode string `json:"instruction_code,omitempty"`
 
-	// sender receiver information
+	// This field specifies additional information for the Receiver or other party specified.
 	SenderReceiverInformation string `json:"sender_receiver_information,omitempty"`
 
-	// time indication
+	// This repetitive field specifies one or several time indication(s) related to the processing of the payment instruction.
 	TimeIndication string `json:"time_indication,omitempty"`
 }
 
@@ -1114,22 +1096,22 @@ func (m *PaymentAttributesSwift) UnmarshalBinary(b []byte) error {
 // swagger:model PaymentAttributesSwiftHeader
 type PaymentAttributesSwiftHeader struct {
 
-	// destination
+	// Destination SWIFT logical terminal address. Complete 12-character SWIFT destination, including BIC (x8), logical terminal code (x1) and branch code (x).
 	Destination string `json:"destination,omitempty"`
 
-	// message type
+	// The message type of the SWIFT payment, has to match `[A-Z]{2}[0-9]{3}`. Currently `MT103` is the only supported value
 	MessageType string `json:"message_type,omitempty"`
 
-	// priority
+	// SWIFT priority. Either `Normal` or `Priority`.
 	Priority string `json:"priority,omitempty"`
 
-	// recipient
+	// The destination SWIFT BIC for SWIFT MT messages being sent by Form3 client to SWIFT. Formatted as BIC8 or BIC11.
 	Recipient string `json:"recipient,omitempty"`
 
-	// source
+	// The source SWIFT BIC for SWIFT MT messages being received by Form3 client from SWIFT. Formatted as BIC8 or BIC11.
 	Source string `json:"source,omitempty"`
 
-	// user reference
+	// Message User Reference (MUR) value, which can be up to 16 characters, and will be returned in the ACK
 	UserReference string `json:"user_reference,omitempty"`
 }
 

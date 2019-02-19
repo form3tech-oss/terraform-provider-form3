@@ -12,28 +12,28 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// AccountHoldingEntity account holding entity
-// swagger:model AccountHoldingEntity
-type AccountHoldingEntity struct {
+// ReceiversCorrespondentAccountHoldingEntity receivers correspondent account holding entity
+// swagger:model ReceiversCorrespondentAccountHoldingEntity
+type ReceiversCorrespondentAccountHoldingEntity struct {
 
-	// Financial institution address
+	// Receiver's correspondent's address
 	BankAddress []string `json:"bank_address,omitempty"`
 
-	// Financial institution identification
+	// SWIFT BIC for receiver's correspondent
 	BankID string `json:"bank_id,omitempty"`
 
 	// bank id code
 	BankIDCode BankIDCode `json:"bank_id_code,omitempty"`
 
-	// Financial institution name
+	// Receiver's correspondent's name
 	BankName string `json:"bank_name,omitempty"`
 
-	// Identifier of the financial institution which services the account
+	// Reciever's correspondent party identifier
 	BankPartyID string `json:"bank_party_id,omitempty"`
 }
 
-// Validate validates this account holding entity
-func (m *AccountHoldingEntity) Validate(formats strfmt.Registry) error {
+// Validate validates this receivers correspondent account holding entity
+func (m *ReceiversCorrespondentAccountHoldingEntity) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateBankIDCode(formats); err != nil {
@@ -46,7 +46,7 @@ func (m *AccountHoldingEntity) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *AccountHoldingEntity) validateBankIDCode(formats strfmt.Registry) error {
+func (m *ReceiversCorrespondentAccountHoldingEntity) validateBankIDCode(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.BankIDCode) { // not required
 		return nil
@@ -63,7 +63,7 @@ func (m *AccountHoldingEntity) validateBankIDCode(formats strfmt.Registry) error
 }
 
 // MarshalBinary interface implementation
-func (m *AccountHoldingEntity) MarshalBinary() ([]byte, error) {
+func (m *ReceiversCorrespondentAccountHoldingEntity) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -71,8 +71,8 @@ func (m *AccountHoldingEntity) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *AccountHoldingEntity) UnmarshalBinary(b []byte) error {
-	var res AccountHoldingEntity
+func (m *ReceiversCorrespondentAccountHoldingEntity) UnmarshalBinary(b []byte) error {
+	var res ReceiversCorrespondentAccountHoldingEntity
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

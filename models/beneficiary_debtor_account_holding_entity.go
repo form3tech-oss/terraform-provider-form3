@@ -12,9 +12,9 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// AccountHoldingEntity account holding entity
-// swagger:model AccountHoldingEntity
-type AccountHoldingEntity struct {
+// BeneficiaryDebtorAccountHoldingEntity beneficiary debtor account holding entity
+// swagger:model BeneficiaryDebtorAccountHoldingEntity
+type BeneficiaryDebtorAccountHoldingEntity struct {
 
 	// Financial institution address
 	BankAddress []string `json:"bank_address,omitempty"`
@@ -32,8 +32,8 @@ type AccountHoldingEntity struct {
 	BankPartyID string `json:"bank_party_id,omitempty"`
 }
 
-// Validate validates this account holding entity
-func (m *AccountHoldingEntity) Validate(formats strfmt.Registry) error {
+// Validate validates this beneficiary debtor account holding entity
+func (m *BeneficiaryDebtorAccountHoldingEntity) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateBankIDCode(formats); err != nil {
@@ -46,7 +46,7 @@ func (m *AccountHoldingEntity) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *AccountHoldingEntity) validateBankIDCode(formats strfmt.Registry) error {
+func (m *BeneficiaryDebtorAccountHoldingEntity) validateBankIDCode(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.BankIDCode) { // not required
 		return nil
@@ -63,7 +63,7 @@ func (m *AccountHoldingEntity) validateBankIDCode(formats strfmt.Registry) error
 }
 
 // MarshalBinary interface implementation
-func (m *AccountHoldingEntity) MarshalBinary() ([]byte, error) {
+func (m *BeneficiaryDebtorAccountHoldingEntity) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -71,8 +71,8 @@ func (m *AccountHoldingEntity) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *AccountHoldingEntity) UnmarshalBinary(b []byte) error {
-	var res AccountHoldingEntity
+func (m *BeneficiaryDebtorAccountHoldingEntity) UnmarshalBinary(b []byte) error {
+	var res BeneficiaryDebtorAccountHoldingEntity
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -12,28 +12,28 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// AccountHoldingEntity account holding entity
-// swagger:model AccountHoldingEntity
-type AccountHoldingEntity struct {
+// ReimbursementAccountHoldingEntity reimbursement account holding entity
+// swagger:model ReimbursementAccountHoldingEntity
+type ReimbursementAccountHoldingEntity struct {
 
-	// Financial institution address
+	// Third party reimbursement institution address
 	BankAddress []string `json:"bank_address,omitempty"`
 
-	// Financial institution identification
+	// Identification of third party reimbursement institution
 	BankID string `json:"bank_id,omitempty"`
 
 	// bank id code
 	BankIDCode BankIDCode `json:"bank_id_code,omitempty"`
 
-	// Financial institution name
+	// Third party reimbursement institution name
 	BankName string `json:"bank_name,omitempty"`
 
-	// Identifier of the financial institution which services the account
+	// Third party reimbursement institution identifier
 	BankPartyID string `json:"bank_party_id,omitempty"`
 }
 
-// Validate validates this account holding entity
-func (m *AccountHoldingEntity) Validate(formats strfmt.Registry) error {
+// Validate validates this reimbursement account holding entity
+func (m *ReimbursementAccountHoldingEntity) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateBankIDCode(formats); err != nil {
@@ -46,7 +46,7 @@ func (m *AccountHoldingEntity) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *AccountHoldingEntity) validateBankIDCode(formats strfmt.Registry) error {
+func (m *ReimbursementAccountHoldingEntity) validateBankIDCode(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.BankIDCode) { // not required
 		return nil
@@ -63,7 +63,7 @@ func (m *AccountHoldingEntity) validateBankIDCode(formats strfmt.Registry) error
 }
 
 // MarshalBinary interface implementation
-func (m *AccountHoldingEntity) MarshalBinary() ([]byte, error) {
+func (m *ReimbursementAccountHoldingEntity) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -71,8 +71,8 @@ func (m *AccountHoldingEntity) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *AccountHoldingEntity) UnmarshalBinary(b []byte) error {
-	var res AccountHoldingEntity
+func (m *ReimbursementAccountHoldingEntity) UnmarshalBinary(b []byte) error {
+	var res ReimbursementAccountHoldingEntity
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
