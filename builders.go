@@ -25,7 +25,7 @@ func (b *PaymentBuilder) WithDefaults() *PaymentBuilder {
 			BeneficiaryParty: &models.PaymentAttributesBeneficiaryParty{
 				AccountNumber:     "12345678",
 				AccountNumberCode: "BBAN",
-				AccountWith: &models.AccountHoldingEntity{
+				AccountWith: &models.BeneficiaryDebtorAccountHoldingEntity{
 					BankID:     "888888",
 					BankIDCode: "GBDSC",
 				},
@@ -35,7 +35,7 @@ func (b *PaymentBuilder) WithDefaults() *PaymentBuilder {
 			DebtorParty: &models.PaymentAttributesDebtorParty{
 				AccountNumber:     "87654321",
 				AccountNumberCode: "BBAN",
-				AccountWith: &models.AccountHoldingEntity{
+				AccountWith: &models.BeneficiaryDebtorAccountHoldingEntity{
 					BankID:     "333333",
 					BankIDCode: "GBDSC",
 				},
