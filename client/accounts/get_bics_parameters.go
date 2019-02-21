@@ -63,11 +63,16 @@ for the get bics operation typically these are written to a http.Request
 */
 type GetBicsParams struct {
 
+	/*FilterBic
+	  Filter by specific bic
+
+	*/
+	FilterBic *string
 	/*PageNumber
 	  Which page to select
 
 	*/
-	PageNumber *int64
+	PageNumber *string
 	/*PageSize
 	  Number of items to select
 
@@ -112,14 +117,25 @@ func (o *GetBicsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithFilterBic adds the filterBic to the get bics params
+func (o *GetBicsParams) WithFilterBic(filterBic *string) *GetBicsParams {
+	o.SetFilterBic(filterBic)
+	return o
+}
+
+// SetFilterBic adds the filterBic to the get bics params
+func (o *GetBicsParams) SetFilterBic(filterBic *string) {
+	o.FilterBic = filterBic
+}
+
 // WithPageNumber adds the pageNumber to the get bics params
-func (o *GetBicsParams) WithPageNumber(pageNumber *int64) *GetBicsParams {
+func (o *GetBicsParams) WithPageNumber(pageNumber *string) *GetBicsParams {
 	o.SetPageNumber(pageNumber)
 	return o
 }
 
 // SetPageNumber adds the pageNumber to the get bics params
-func (o *GetBicsParams) SetPageNumber(pageNumber *int64) {
+func (o *GetBicsParams) SetPageNumber(pageNumber *string) {
 	o.PageNumber = pageNumber
 }
 
@@ -142,14 +158,30 @@ func (o *GetBicsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regis
 	}
 	var res []error
 
+	if o.FilterBic != nil {
+
+		// query param filter[bic]
+		var qrFilterBic string
+		if o.FilterBic != nil {
+			qrFilterBic = *o.FilterBic
+		}
+		qFilterBic := qrFilterBic
+		if qFilterBic != "" {
+			if err := r.SetQueryParam("filter[bic]", qFilterBic); err != nil {
+				return err
+			}
+		}
+
+	}
+
 	if o.PageNumber != nil {
 
 		// query param page[number]
-		var qrPageNumber int64
+		var qrPageNumber string
 		if o.PageNumber != nil {
 			qrPageNumber = *o.PageNumber
 		}
-		qPageNumber := swag.FormatInt64(qrPageNumber)
+		qPageNumber := qrPageNumber
 		if qPageNumber != "" {
 			if err := r.SetQueryParam("page[number]", qPageNumber); err != nil {
 				return err

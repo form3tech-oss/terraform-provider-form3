@@ -1159,13 +1159,14 @@ paths:
       summary: List bics
       tags:
         - Accounts
+      x-access:
+        - Private
       parameters:
         - name: page[number]
           in: query
           description: Which page to select
           required: false
-          type: integer
-          minimum: 0
+          type: string
         - name: page[size]
           in: query
           description: Number of items to select
@@ -1173,7 +1174,11 @@ paths:
           type: integer
           minimum: 0
           maximum: 1000
-
+        - name: filter[bic]
+          in: query
+          description: Filter by specific bic
+          required: false
+          type: string
       responses:
         200:
           description: List of bic details
