@@ -1040,13 +1040,14 @@ paths:
       summary: List bankIds
       tags:
         - Accounts
+      x-access:
+        - Private
       parameters:
         - name: page[number]
           in: query
           description: Which page to select
           required: false
-          type: integer
-          minimum: 0
+          type: string
         - name: page[size]
           in: query
           description: Number of items to select
@@ -1054,7 +1055,39 @@ paths:
           type: integer
           minimum: 0
           maximum: 1000
-
+        - name: filter[organisation_id]
+          in: query
+          description: Filter by organisation id
+          required: false
+          type: array
+          items:
+            type: string
+            format: uuid
+          collectionFormat: csv
+        - name: filter[bank_id_code]
+          in: query
+          description: Filter by type of bank id e.g. "GBDSC"
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: csv
+        - name: filter[bank_id]
+          in: query
+          description: Filter by bank id e.g. sort code or bic
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: csv
+        - name: filter[country]
+          in: query
+          description: Filter by country e.g. FR,GB
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: csv
       responses:
         200:
           description: List of bankId details

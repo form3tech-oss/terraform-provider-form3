@@ -63,11 +63,31 @@ for the get bankids operation typically these are written to a http.Request
 */
 type GetBankidsParams struct {
 
+	/*FilterBankID
+	  Filter by bank id e.g. sort code or bic
+
+	*/
+	FilterBankID []string
+	/*FilterBankIDCode
+	  Filter by type of bank id e.g. "GBDSC"
+
+	*/
+	FilterBankIDCode []string
+	/*FilterCountry
+	  Filter by country e.g. FR,GB
+
+	*/
+	FilterCountry []string
+	/*FilterOrganisationID
+	  Filter by organisation id
+
+	*/
+	FilterOrganisationID []strfmt.UUID
 	/*PageNumber
 	  Which page to select
 
 	*/
-	PageNumber *int64
+	PageNumber *string
 	/*PageSize
 	  Number of items to select
 
@@ -112,14 +132,58 @@ func (o *GetBankidsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithFilterBankID adds the filterBankID to the get bankids params
+func (o *GetBankidsParams) WithFilterBankID(filterBankID []string) *GetBankidsParams {
+	o.SetFilterBankID(filterBankID)
+	return o
+}
+
+// SetFilterBankID adds the filterBankId to the get bankids params
+func (o *GetBankidsParams) SetFilterBankID(filterBankID []string) {
+	o.FilterBankID = filterBankID
+}
+
+// WithFilterBankIDCode adds the filterBankIDCode to the get bankids params
+func (o *GetBankidsParams) WithFilterBankIDCode(filterBankIDCode []string) *GetBankidsParams {
+	o.SetFilterBankIDCode(filterBankIDCode)
+	return o
+}
+
+// SetFilterBankIDCode adds the filterBankIdCode to the get bankids params
+func (o *GetBankidsParams) SetFilterBankIDCode(filterBankIDCode []string) {
+	o.FilterBankIDCode = filterBankIDCode
+}
+
+// WithFilterCountry adds the filterCountry to the get bankids params
+func (o *GetBankidsParams) WithFilterCountry(filterCountry []string) *GetBankidsParams {
+	o.SetFilterCountry(filterCountry)
+	return o
+}
+
+// SetFilterCountry adds the filterCountry to the get bankids params
+func (o *GetBankidsParams) SetFilterCountry(filterCountry []string) {
+	o.FilterCountry = filterCountry
+}
+
+// WithFilterOrganisationID adds the filterOrganisationID to the get bankids params
+func (o *GetBankidsParams) WithFilterOrganisationID(filterOrganisationID []strfmt.UUID) *GetBankidsParams {
+	o.SetFilterOrganisationID(filterOrganisationID)
+	return o
+}
+
+// SetFilterOrganisationID adds the filterOrganisationId to the get bankids params
+func (o *GetBankidsParams) SetFilterOrganisationID(filterOrganisationID []strfmt.UUID) {
+	o.FilterOrganisationID = filterOrganisationID
+}
+
 // WithPageNumber adds the pageNumber to the get bankids params
-func (o *GetBankidsParams) WithPageNumber(pageNumber *int64) *GetBankidsParams {
+func (o *GetBankidsParams) WithPageNumber(pageNumber *string) *GetBankidsParams {
 	o.SetPageNumber(pageNumber)
 	return o
 }
 
 // SetPageNumber adds the pageNumber to the get bankids params
-func (o *GetBankidsParams) SetPageNumber(pageNumber *int64) {
+func (o *GetBankidsParams) SetPageNumber(pageNumber *string) {
 	o.PageNumber = pageNumber
 }
 
@@ -142,14 +206,49 @@ func (o *GetBankidsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 	}
 	var res []error
 
+	valuesFilterBankID := o.FilterBankID
+
+	joinedFilterBankID := swag.JoinByFormat(valuesFilterBankID, "csv")
+	// query array param filter[bank_id]
+	if err := r.SetQueryParam("filter[bank_id]", joinedFilterBankID...); err != nil {
+		return err
+	}
+
+	valuesFilterBankIDCode := o.FilterBankIDCode
+
+	joinedFilterBankIDCode := swag.JoinByFormat(valuesFilterBankIDCode, "csv")
+	// query array param filter[bank_id_code]
+	if err := r.SetQueryParam("filter[bank_id_code]", joinedFilterBankIDCode...); err != nil {
+		return err
+	}
+
+	valuesFilterCountry := o.FilterCountry
+
+	joinedFilterCountry := swag.JoinByFormat(valuesFilterCountry, "csv")
+	// query array param filter[country]
+	if err := r.SetQueryParam("filter[country]", joinedFilterCountry...); err != nil {
+		return err
+	}
+
+	var valuesFilterOrganisationID []string
+	for _, v := range o.FilterOrganisationID {
+		valuesFilterOrganisationID = append(valuesFilterOrganisationID, v.String())
+	}
+
+	joinedFilterOrganisationID := swag.JoinByFormat(valuesFilterOrganisationID, "csv")
+	// query array param filter[organisation_id]
+	if err := r.SetQueryParam("filter[organisation_id]", joinedFilterOrganisationID...); err != nil {
+		return err
+	}
+
 	if o.PageNumber != nil {
 
 		// query param page[number]
-		var qrPageNumber int64
+		var qrPageNumber string
 		if o.PageNumber != nil {
 			qrPageNumber = *o.PageNumber
 		}
-		qPageNumber := swag.FormatInt64(qrPageNumber)
+		qPageNumber := qrPageNumber
 		if qPageNumber != "" {
 			if err := r.SetQueryParam("page[number]", qPageNumber); err != nil {
 				return err
