@@ -2885,6 +2885,128 @@ paths:
           description: Payment defaults deleted
 #paymentapi - end
 
+#directdebit-api - start
+
+  /directdebits:
+
+    get:
+      summary: List direct debits
+      tags:
+        - DirectDebits
+      x-access:
+        - Public
+      parameters:
+        - name: page[number]
+          in: query
+          description: Which page to select
+          required: false
+          type: string
+          minimum: 0
+          pattern: "$[A-z0-9]{4}^"
+        - name: page[size]
+          in: query
+          description: Number of items to select
+          required: false
+          type: integer
+          minimum: 0
+          maximum: 1000
+        - name: filter[organisation_id]
+          in: query
+          description: Filter by organisation id
+          required: false
+          type: array
+          items:
+            type: string
+            format: uuid
+        - name: filter[debtor_party.account_number]
+          in: query
+          required: false
+          type: string
+        - name: filter[debtor_party.bank_id]
+          in: query
+          required: false
+          type: string
+        - name: filter[beneficiary_party.account_number]
+          in: query
+          required: false
+          type: string
+        - name: filter[beneficiary_party.bank_id]
+          in: query
+          required: false
+          type: string
+        - name: filter[currency]
+          in: query
+          required: false
+          type: string
+        - name: filter[payment_scheme]
+          in: query
+          required: false
+          type: string
+        - name: filter[payment_type]
+          in: query
+          required: false
+          type: string
+        - name: filter[processing_date_from]
+          in: query
+          required: false
+          type: string
+          format: date
+        - name: filter[processing_date_to]
+          in: query
+          required: false
+          type: string
+          format: date
+        - name: filter[clearing_id]
+          in: query
+          required: false
+          type: string
+        - name: filter[admission.admission_date_from]
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: filter[admission.admission_date_to]
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: filter[admission.status]
+          in: query
+          description: Filter by admission status
+          required: false
+          type: string
+        - name: filter[admission.scheme_status_code]
+          description: Filter by admission scheme status code
+          in: query
+          required: false
+          type: string
+        - name: filter[amount]
+          description: Filter by amount
+          in: query
+          required: false
+          type: string
+        - name: filter[reference]
+          description: Filter by reference
+          in: query
+          required: false
+          type: string
+        - name: filter[unique_scheme_id]
+          description: Filter by unique scheme id
+          in: query
+          required: false
+          type: string
+      responses:
+        200:
+          description: List of direct debit details
+          schema:
+            $ref: "#/definitions/DirectDebitDetailsListResponse"
+
+#directdebit-api - end
+
+#mandate-api - start
+
+#mandate-api - end
+
 definitions:
 
   ApiError:
@@ -6900,3 +7022,166 @@ definitions:
             type: string
 
 # paymentapi - end
+
+# directdebit-api start
+
+  DirectDebitDetailsListResponse:
+    type: object
+    x-access:
+      - Public
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/DirectDebit'
+      links:
+        $ref: '#/definitions/Links'
+
+  DirectDebit:
+    type: object
+    x-access:
+      - Public
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          amount:
+            type: string
+            pattern: ^[0-9.]{0,20}$
+          beneficiary_party:
+            type: object
+            properties:
+              account_name:
+                type: string
+              account_number:
+                type: string
+              account_number_code:
+                $ref: '#/definitions/AccountNumberCode'
+              account_type:
+                type: integer
+              account_with:
+                $ref: '#/definitions/AccountHoldingEntity'
+              country:
+                type: string
+              address:
+                type: array
+                items:
+                  type: string
+          currency:
+            type: string
+          debtor_party:
+            type: object
+            properties:
+              account_name:
+                type: string
+              account_number:
+                type: string
+              account_number_code:
+                $ref: '#/definitions/AccountNumberCode'
+              account_with:
+                $ref: '#/definitions/AccountHoldingEntity'
+              country:
+                type: string
+              address:
+                type: array
+                items:
+                  type: string
+          numeric_reference:
+            type: string
+          processing_date:
+            type: string
+            format: date
+          scheme_processing_date:
+            type: string
+            format: date
+          reference:
+            type: string
+          scheme_payment_type:
+            type: string
+          payment_scheme:
+            type: string
+          clearing_id:
+            type: string
+          unique_scheme_id:
+            type: string
+      relationships:
+        $ref: '#/definitions/DirectDebitRelationships'
+
+  DirectDebitRelationships:
+    type: object
+    x-access:
+      - Public
+    properties:
+      direct_debit_admission:
+        type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/definitions/DirectDebitAdmission'
+
+  DirectDebitAdmission:
+    type: object
+    x-access:
+      - Public
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          admission_datetime:
+            type: string
+            format: 'date-time'
+            readOnly: true
+          status:
+            $ref: '#/definitions/DirectDebitAdmissionStatus'
+          scheme_status_code:
+            type: string
+          scheme_status_code_description:
+            type: string
+          status_reason:
+            $ref: '#/definitions/DirectDebitAdmissionStatusReason'
+
+  DirectDebitAdmissionStatus:
+    type: string
+    x-access:
+      - Public
+    enum:
+      - confirmed
+      - failed
+
+  DirectDebitAdmissionStatusReason:
+    type: string
+    x-access:
+      - Public
+    enum:
+      - accepted
+      - invalid_beneficiary_details
+      - bankid_not_provisioned
+      - unknown_accountnumber
+
+# directdebit-api end
+

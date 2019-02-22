@@ -14,6 +14,7 @@ import (
 	"github.com/form3tech-oss/go-form3/client/accounts"
 	"github.com/form3tech-oss/go-form3/client/ace"
 	"github.com/form3tech-oss/go-form3/client/associations"
+	"github.com/form3tech-oss/go-form3/client/direct_debits"
 	"github.com/form3tech-oss/go-form3/client/limits"
 	"github.com/form3tech-oss/go-form3/client/organisations"
 	"github.com/form3tech-oss/go-form3/client/payment_defaults"
@@ -72,6 +73,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Form3Corel
 	cli.Ace = ace.New(transport, formats)
 
 	cli.Associations = associations.New(transport, formats)
+
+	cli.DirectDebits = direct_debits.New(transport, formats)
 
 	cli.Limits = limits.New(transport, formats)
 
@@ -139,6 +142,8 @@ type Form3CorelibDataStructures struct {
 
 	Associations *associations.Client
 
+	DirectDebits *direct_debits.Client
+
 	Limits *limits.Client
 
 	Organisations *organisations.Client
@@ -167,6 +172,8 @@ func (c *Form3CorelibDataStructures) SetTransport(transport runtime.ClientTransp
 	c.Ace.SetTransport(transport)
 
 	c.Associations.SetTransport(transport)
+
+	c.DirectDebits.SetTransport(transport)
 
 	c.Limits.SetTransport(transport)
 
