@@ -3005,6 +3005,145 @@ paths:
 
 #mandate-api - start
 
+  /mandates:
+
+    get:
+      summary: List mandates
+      tags:
+        - Mandates
+      x-access:
+        - Public
+      parameters:
+        - name: page[number]
+          in: query
+          description: Which page to select
+          required: false
+          type: string
+          minimum: 0
+          pattern: "$[A-z0-9]{4}^"
+        - name: page[size]
+          in: query
+          description: Number of items to select
+          required: false
+          type: integer
+          minimum: 0
+          maximum: 1000
+        - name: filter[organisation_id]
+          in: query
+          description: Filter by organisation id
+          required: false
+          type: array
+          items:
+            type: string
+            format: uuid
+        - name: filter[debtor_party.account_number]
+          in: query
+          required: false
+          type: string
+        - name: filter[debtor_party.bank_id]
+          in: query
+          required: false
+          type: string
+        - name: filter[beneficiary_party.account_number]
+          in: query
+          required: false
+          type: string
+        - name: filter[beneficiary_party.bank_id]
+          in: query
+          required: false
+          type: string
+        - name: filter[currency]
+          in: query
+          required: false
+          type: string
+        - name: filter[payment_scheme]
+          in: query
+          required: false
+          type: string
+        - name: filter[payment_type]
+          in: query
+          required: false
+          type: string
+        - name: filter[processing_date_from]
+          in: query
+          required: false
+          type: string
+          format: date
+        - name: filter[processing_date_to]
+          in: query
+          required: false
+          type: string
+          format: date
+        - name: filter[scheme_processing_date_from]
+          in: query
+          required: false
+          type: string
+          format: date
+        - name: filter[scheme_processing_date_to]
+          in: query
+          required: false
+          type: string
+          format: date
+        - name: filter[clearing_id]
+          in: query
+          required: false
+          type: string
+        - name: filter[admission.admission_date_from]
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: filter[admission.admission_date_to]
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: filter[admission.status]
+          in: query
+          description: Filter by admission status
+          required: false
+          type: string
+        - name: filter[admission.scheme_status_code]
+          description: Filter by admission scheme status code
+          in: query
+          required: false
+          type: string
+        - name: filter[amount]
+          description: Filter by amount
+          in: query
+          required: false
+          type: string
+        - name: filter[reference]
+          description: Filter by reference
+          in: query
+          required: false
+          type: string
+        - name: filter[unique_scheme_id]
+          description: Filter by unique scheme id
+          in: query
+          required: false
+          type: string
+        - name: filter[all_versions]
+          description: Include old versions of mandates
+          in: query
+          required: false
+          type: boolean
+        - name: filter[submission.submission_date_from]
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: filter[submission.submission_date_to]
+          in: query
+          required: false
+          type: string
+          format: date-time
+      responses:
+        200:
+          description: List of mandates details
+          schema:
+            $ref: "#/definitions/MandateDetailsListResponse"
+
 #mandate-api - end
 
 definitions:
@@ -7185,3 +7324,198 @@ definitions:
 
 # directdebit-api end
 
+# mandate-api - start
+
+  MandateDetailsListResponse:
+    type: object
+    x-access:
+      - Public
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Mandate'
+      links:
+        $ref: '#/definitions/Links'
+
+  Mandate:
+    type: object
+    x-access:
+      - Public
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        $ref: '#/definitions/MandateAttributes'
+      relationships:
+        $ref: '#/definitions/MandateRelationships'
+
+  MandateAttributes:
+    type: object
+    x-access:
+      - Public
+    properties:
+      amount:
+        type: string
+        pattern: ^[0-9.]{0,20}$
+      beneficiary_party:
+        $ref: '#/definitions/MandateAttributesBeneficiaryParty'
+      currency:
+        type: string
+      debtor_party:
+        $ref: '#/definitions/MandateAttributesDebtorParty'
+      numeric_reference:
+        type: string
+      processing_date:
+        type: string
+        format: date
+      scheme_processing_date:
+        type: string
+        format: date
+      reference:
+        type: string
+      scheme_payment_type:
+        type: string
+      payment_scheme:
+        type: string
+      clearing_id:
+        type: string
+      unique_scheme_id:
+        type: string
+      frequency:
+        $ref: '#/definitions/MandateFrequency'
+
+  MandateAttributesDebtorParty:
+    type: object
+    x-access:
+      - Public
+    properties:
+      account_name:
+        type: string
+        pattern: ^[A-Za-z0-9 \/\-?:\(\)\.,’\+\#\=\!\"%&\*\<\>;\{@\r\n]*$
+      account_number:
+        type: string
+        pattern: ^[A-Z0-9]{6,34}$
+      account_number_code:
+        $ref: '#/definitions/AccountNumberCode'
+      account_with:
+        $ref: '#/definitions/AccountHoldingEntity'
+      country:
+        type: string
+      address:
+        type: array
+        items:
+          type: string
+
+  MandateAttributesBeneficiaryParty:
+    type: object
+    x-access:
+      - Public
+    properties:
+      account_name:
+        type: string
+        pattern: ^[A-Za-z0-9 \/\-?:\(\)\.,’\+\#\=\!\"%&\*\<\>;\{@\r\n]*$
+      account_number:
+        type: string
+        pattern: ^[A-Z0-9]{6,34}$
+      account_number_code:
+        $ref: '#/definitions/AccountNumberCode'
+      account_type:
+        type: integer
+      account_with:
+        $ref: '#/definitions/AccountHoldingEntity'
+      country:
+        type: string
+      address:
+        type: array
+        items:
+          type: string
+
+  MandateRelationships:
+    type: object
+    x-access:
+      - Public
+    properties:
+      mandate_admission:
+        type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/definitions/MandateAdmission'
+
+  MandateAdmission:
+    type: object
+    x-access:
+      - Public
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          admission_datetime:
+            type: string
+            format: 'date-time'
+            readOnly: true
+          status:
+            $ref: '#/definitions/MandateAdmissionStatus'
+          scheme_status_code:
+            type: string
+          scheme_status_code_description:
+            type: string
+          status_reason:
+            $ref: '#/definitions/MandateAdmissionStatusReason'
+
+  MandateAdmissionStatus:
+    type: string
+    x-access:
+      - Public
+    enum:
+      - confirmed
+      - failed
+
+  MandateAdmissionStatusReason:
+    type: string
+    x-access:
+      - Public
+    enum:
+      - accepted
+      - invalid_beneficiary_details
+      - bankid_not_provisioned
+      - unknown_accountnumber
+
+  MandateFrequency:
+    type: string
+    x-access:
+      - Public
+    enum:
+      - daily
+      - weekly
+      - fortnightly
+      - monthly
+      - bimonthly
+      - quarterly
+      - yearly
+
+# mandate-api - end
