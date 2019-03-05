@@ -79,6 +79,9 @@ func TestPostVocalinkreportAssociation(t *testing.T) {
 				ID:             UUIDtoStrFmtUUID(id),
 				OrganisationID: &organisationId,
 				Relationships:  &models.VocalinkReportAssociationRelationships{},
+				Attributes: &models.VocalinkReportAssociationAttributes{
+					BacsServiceUserNumber: "123456",
+				},
 			},
 		}))
 
@@ -86,6 +89,11 @@ func TestPostVocalinkreportAssociation(t *testing.T) {
 	actualOrganisationId := createResponse.Payload.Data.OrganisationID.String()
 	if actualOrganisationId != organisationId.String() {
 		t.Fatalf("Expected %s, got %s", organisationId.String(), actualOrganisationId)
+	}
+
+	actualSun := createResponse.Payload.Data.Attributes.BacsServiceUserNumber
+	if actualSun != "123456" {
+		t.Errorf("Expected SUN %s, got %s", "123456", actualSun)
 	}
 
 	_, err = auth.AssociationClient.Associations.DeleteVocalinkreportID(associations.NewDeleteVocalinkreportIDParams().
