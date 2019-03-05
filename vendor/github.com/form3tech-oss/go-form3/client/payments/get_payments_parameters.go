@@ -6,9 +6,10 @@ package payments
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"net/http"
 	"time"
+
+	"golang.org/x/net/context"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
@@ -76,6 +77,8 @@ type GetPaymentsParams struct {
 
 	*/
 	FilterAdmissionStatus *string
+	/*FilterAmount*/
+	FilterAmount *string
 	/*FilterBeneficiaryPartyAccountNumber*/
 	FilterBeneficiaryPartyAccountNumber *string
 	/*FilterBeneficiaryPartyBankID*/
@@ -99,6 +102,8 @@ type GetPaymentsParams struct {
 	FilterProcessingDateFrom *strfmt.Date
 	/*FilterProcessingDateTo*/
 	FilterProcessingDateTo *strfmt.Date
+	/*FilterReference*/
+	FilterReference *string
 	/*FilterSchemeTransactionID*/
 	FilterSchemeTransactionID *string
 	/*FilterSubmissionSchemeStatusCode
@@ -210,6 +215,17 @@ func (o *GetPaymentsParams) SetFilterAdmissionStatus(filterAdmissionStatus *stri
 	o.FilterAdmissionStatus = filterAdmissionStatus
 }
 
+// WithFilterAmount adds the filterAmount to the get payments params
+func (o *GetPaymentsParams) WithFilterAmount(filterAmount *string) *GetPaymentsParams {
+	o.SetFilterAmount(filterAmount)
+	return o
+}
+
+// SetFilterAmount adds the filterAmount to the get payments params
+func (o *GetPaymentsParams) SetFilterAmount(filterAmount *string) {
+	o.FilterAmount = filterAmount
+}
+
 // WithFilterBeneficiaryPartyAccountNumber adds the filterBeneficiaryPartyAccountNumber to the get payments params
 func (o *GetPaymentsParams) WithFilterBeneficiaryPartyAccountNumber(filterBeneficiaryPartyAccountNumber *string) *GetPaymentsParams {
 	o.SetFilterBeneficiaryPartyAccountNumber(filterBeneficiaryPartyAccountNumber)
@@ -318,6 +334,17 @@ func (o *GetPaymentsParams) WithFilterProcessingDateTo(filterProcessingDateTo *s
 // SetFilterProcessingDateTo adds the filterProcessingDateTo to the get payments params
 func (o *GetPaymentsParams) SetFilterProcessingDateTo(filterProcessingDateTo *strfmt.Date) {
 	o.FilterProcessingDateTo = filterProcessingDateTo
+}
+
+// WithFilterReference adds the filterReference to the get payments params
+func (o *GetPaymentsParams) WithFilterReference(filterReference *string) *GetPaymentsParams {
+	o.SetFilterReference(filterReference)
+	return o
+}
+
+// SetFilterReference adds the filterReference to the get payments params
+func (o *GetPaymentsParams) SetFilterReference(filterReference *string) {
+	o.FilterReference = filterReference
 }
 
 // WithFilterSchemeTransactionID adds the filterSchemeTransactionID to the get payments params
@@ -480,6 +507,22 @@ func (o *GetPaymentsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 
 	}
 
+	if o.FilterAmount != nil {
+
+		// query param filter[amount]
+		var qrFilterAmount string
+		if o.FilterAmount != nil {
+			qrFilterAmount = *o.FilterAmount
+		}
+		qFilterAmount := qrFilterAmount
+		if qFilterAmount != "" {
+			if err := r.SetQueryParam("filter[amount]", qFilterAmount); err != nil {
+				return err
+			}
+		}
+
+	}
+
 	if o.FilterBeneficiaryPartyAccountNumber != nil {
 
 		// query param filter[beneficiary_party.account_number]
@@ -629,6 +672,22 @@ func (o *GetPaymentsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 		qFilterProcessingDateTo := qrFilterProcessingDateTo.String()
 		if qFilterProcessingDateTo != "" {
 			if err := r.SetQueryParam("filter[processing_date_to]", qFilterProcessingDateTo); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.FilterReference != nil {
+
+		// query param filter[reference]
+		var qrFilterReference string
+		if o.FilterReference != nil {
+			qrFilterReference = *o.FilterReference
+		}
+		qFilterReference := qrFilterReference
+		if qFilterReference != "" {
+			if err := r.SetQueryParam("filter[reference]", qFilterReference); err != nil {
 				return err
 			}
 		}

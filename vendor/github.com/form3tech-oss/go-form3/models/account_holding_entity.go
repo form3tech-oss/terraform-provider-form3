@@ -16,19 +16,19 @@ import (
 // swagger:model AccountHoldingEntity
 type AccountHoldingEntity struct {
 
-	// bank address
-	BankAddress []string `json:"bank_address"`
+	// Financial institution address
+	BankAddress []string `json:"bank_address,omitempty"`
 
-	// bank id
+	// Financial institution identification
 	BankID string `json:"bank_id,omitempty"`
 
 	// bank id code
 	BankIDCode BankIDCode `json:"bank_id_code,omitempty"`
 
-	// bank name
+	// Financial institution name
 	BankName string `json:"bank_name,omitempty"`
 
-	// bank party id
+	// Identifier of the financial institution which services the account
 	BankPartyID string `json:"bank_party_id,omitempty"`
 }
 

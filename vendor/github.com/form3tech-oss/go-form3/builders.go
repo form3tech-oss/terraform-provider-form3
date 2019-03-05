@@ -25,7 +25,7 @@ func (b *PaymentBuilder) WithDefaults() *PaymentBuilder {
 			BeneficiaryParty: &models.PaymentAttributesBeneficiaryParty{
 				AccountNumber:     "12345678",
 				AccountNumberCode: "BBAN",
-				AccountWith: &models.AccountHoldingEntity{
+				AccountWith: &models.BeneficiaryDebtorAccountHoldingEntity{
 					BankID:     "888888",
 					BankIDCode: "GBDSC",
 				},
@@ -35,7 +35,7 @@ func (b *PaymentBuilder) WithDefaults() *PaymentBuilder {
 			DebtorParty: &models.PaymentAttributesDebtorParty{
 				AccountNumber:     "87654321",
 				AccountNumberCode: "BBAN",
-				AccountWith: &models.AccountHoldingEntity{
+				AccountWith: &models.BeneficiaryDebtorAccountHoldingEntity{
 					BankID:     "333333",
 					BankIDCode: "GBDSC",
 				},
@@ -78,8 +78,28 @@ func (b *PaymentBuilder) WithDebtorPartyAccountWithBankID(bankID string) *Paymen
 	return b
 }
 
+func (b *PaymentBuilder) WithDebtorPartyAccountNumber(accountNumber string) *PaymentBuilder {
+	b.payment.Attributes.DebtorParty.AccountNumber = accountNumber
+	return b
+}
+
+func (b *PaymentBuilder) WithBeneficiaryPartyAccountWithBankID(bankID string) *PaymentBuilder {
+	b.payment.Attributes.BeneficiaryParty.AccountWith.BankID = bankID
+	return b
+}
+
+func (b *PaymentBuilder) WithBeneficiaryPartyAccountNumber(accountNumber string) *PaymentBuilder {
+	b.payment.Attributes.BeneficiaryParty.AccountNumber = accountNumber
+	return b
+}
+
 func (b *PaymentBuilder) WithSchemeTransactionID(schemeTransactionID string) *PaymentBuilder {
 	b.payment.Attributes.SchemeTransactionID = schemeTransactionID
+	return b
+}
+
+func (b *PaymentBuilder) WithReference(reference string) *PaymentBuilder {
+	b.payment.Attributes.Reference = reference
 	return b
 }
 
