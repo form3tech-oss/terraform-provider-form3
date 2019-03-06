@@ -4362,6 +4362,9 @@ definitions:
 
   VocalinkReportAssociationAttributes:
     type: object
+    properties:
+      bacs_service_user_number:
+        type: string
 
   VocalinkReportAssociationCreation:
     type: object
