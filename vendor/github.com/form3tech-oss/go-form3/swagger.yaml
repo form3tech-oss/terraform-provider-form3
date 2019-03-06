@@ -1040,13 +1040,14 @@ paths:
       summary: List bankIds
       tags:
         - Accounts
+      x-access:
+        - Private
       parameters:
         - name: page[number]
           in: query
           description: Which page to select
           required: false
-          type: integer
-          minimum: 0
+          type: string
         - name: page[size]
           in: query
           description: Number of items to select
@@ -1054,7 +1055,39 @@ paths:
           type: integer
           minimum: 0
           maximum: 1000
-
+        - name: filter[organisation_id]
+          in: query
+          description: Filter by organisation id
+          required: false
+          type: array
+          items:
+            type: string
+            format: uuid
+          collectionFormat: csv
+        - name: filter[bank_id_code]
+          in: query
+          description: Filter by type of bank id e.g. "GBDSC"
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: csv
+        - name: filter[bank_id]
+          in: query
+          description: Filter by bank id e.g. sort code or bic
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: csv
+        - name: filter[country]
+          in: query
+          description: Filter by country e.g. FR,GB
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: csv
       responses:
         200:
           description: List of bankId details
@@ -1126,13 +1159,14 @@ paths:
       summary: List bics
       tags:
         - Accounts
+      x-access:
+        - Private
       parameters:
         - name: page[number]
           in: query
           description: Which page to select
           required: false
-          type: integer
-          minimum: 0
+          type: string
         - name: page[size]
           in: query
           description: Number of items to select
@@ -1140,7 +1174,11 @@ paths:
           type: integer
           minimum: 0
           maximum: 1000
-
+        - name: filter[bic]
+          in: query
+          description: Filter by specific bic
+          required: false
+          type: string
       responses:
         200:
           description: List of bic details
@@ -1858,6 +1896,8 @@ paths:
       summary: List payments
       tags:
         - Payments
+      x-access:
+        - Public
       parameters:
         - name: page[number]
           in: query
@@ -1924,6 +1964,14 @@ paths:
           type: string
           format: date
         - name: filter[unique_scheme_id]
+          in: query
+          required: false
+          type: string
+        - name: filter[amount]
+          in: query
+          required: false
+          type: string
+        - name: filter[reference]
           in: query
           required: false
           type: string
@@ -2836,6 +2884,267 @@ paths:
         204:
           description: Payment defaults deleted
 #paymentapi - end
+
+#directdebit-api - start
+
+  /directdebits:
+
+    get:
+      summary: List direct debits
+      tags:
+        - DirectDebits
+      x-access:
+        - Public
+      parameters:
+        - name: page[number]
+          in: query
+          description: Which page to select
+          required: false
+          type: string
+          minimum: 0
+          pattern: "$[A-z0-9]{4}^"
+        - name: page[size]
+          in: query
+          description: Number of items to select
+          required: false
+          type: integer
+          minimum: 0
+          maximum: 1000
+        - name: filter[organisation_id]
+          in: query
+          description: Filter by organisation id
+          required: false
+          type: array
+          items:
+            type: string
+            format: uuid
+        - name: filter[debtor_party.account_number]
+          in: query
+          required: false
+          type: string
+        - name: filter[debtor_party.bank_id]
+          in: query
+          required: false
+          type: string
+        - name: filter[beneficiary_party.account_number]
+          in: query
+          required: false
+          type: string
+        - name: filter[beneficiary_party.bank_id]
+          in: query
+          required: false
+          type: string
+        - name: filter[currency]
+          in: query
+          required: false
+          type: string
+        - name: filter[payment_scheme]
+          in: query
+          required: false
+          type: string
+        - name: filter[payment_type]
+          in: query
+          required: false
+          type: string
+        - name: filter[processing_date_from]
+          in: query
+          required: false
+          type: string
+          format: date
+        - name: filter[processing_date_to]
+          in: query
+          required: false
+          type: string
+          format: date
+        - name: filter[clearing_id]
+          in: query
+          required: false
+          type: string
+        - name: filter[admission.admission_date_from]
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: filter[admission.admission_date_to]
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: filter[admission.status]
+          in: query
+          description: Filter by admission status
+          required: false
+          type: string
+        - name: filter[admission.scheme_status_code]
+          description: Filter by admission scheme status code
+          in: query
+          required: false
+          type: string
+        - name: filter[amount]
+          description: Filter by amount
+          in: query
+          required: false
+          type: string
+        - name: filter[reference]
+          description: Filter by reference
+          in: query
+          required: false
+          type: string
+        - name: filter[unique_scheme_id]
+          description: Filter by unique scheme id
+          in: query
+          required: false
+          type: string
+      responses:
+        200:
+          description: List of direct debit details
+          schema:
+            $ref: "#/definitions/DirectDebitDetailsListResponse"
+
+#directdebit-api - end
+
+#mandate-api - start
+
+  /mandates:
+
+    get:
+      summary: List mandates
+      tags:
+        - Mandates
+      x-access:
+        - Public
+      parameters:
+        - name: page[number]
+          in: query
+          description: Which page to select
+          required: false
+          type: string
+          minimum: 0
+          pattern: "$[A-z0-9]{4}^"
+        - name: page[size]
+          in: query
+          description: Number of items to select
+          required: false
+          type: integer
+          minimum: 0
+          maximum: 1000
+        - name: filter[organisation_id]
+          in: query
+          description: Filter by organisation id
+          required: false
+          type: array
+          items:
+            type: string
+            format: uuid
+        - name: filter[debtor_party.account_number]
+          in: query
+          required: false
+          type: string
+        - name: filter[debtor_party.bank_id]
+          in: query
+          required: false
+          type: string
+        - name: filter[beneficiary_party.account_number]
+          in: query
+          required: false
+          type: string
+        - name: filter[beneficiary_party.bank_id]
+          in: query
+          required: false
+          type: string
+        - name: filter[currency]
+          in: query
+          required: false
+          type: string
+        - name: filter[payment_scheme]
+          in: query
+          required: false
+          type: string
+        - name: filter[payment_type]
+          in: query
+          required: false
+          type: string
+        - name: filter[processing_date_from]
+          in: query
+          required: false
+          type: string
+          format: date
+        - name: filter[processing_date_to]
+          in: query
+          required: false
+          type: string
+          format: date
+        - name: filter[scheme_processing_date_from]
+          in: query
+          required: false
+          type: string
+          format: date
+        - name: filter[scheme_processing_date_to]
+          in: query
+          required: false
+          type: string
+          format: date
+        - name: filter[clearing_id]
+          in: query
+          required: false
+          type: string
+        - name: filter[admission.admission_date_from]
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: filter[admission.admission_date_to]
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: filter[admission.status]
+          in: query
+          description: Filter by admission status
+          required: false
+          type: string
+        - name: filter[admission.scheme_status_code]
+          description: Filter by admission scheme status code
+          in: query
+          required: false
+          type: string
+        - name: filter[amount]
+          description: Filter by amount
+          in: query
+          required: false
+          type: string
+        - name: filter[reference]
+          description: Filter by reference
+          in: query
+          required: false
+          type: string
+        - name: filter[unique_scheme_id]
+          description: Filter by unique scheme id
+          in: query
+          required: false
+          type: string
+        - name: filter[all_versions]
+          description: Include old versions of mandates
+          in: query
+          required: false
+          type: boolean
+        - name: filter[submission.submission_date_from]
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: filter[submission.submission_date_to]
+          in: query
+          required: false
+          type: string
+          format: date-time
+      responses:
+        200:
+          description: List of mandates details
+          schema:
+            $ref: "#/definitions/MandateDetailsListResponse"
+
+#mandate-api - end
 
 definitions:
 
@@ -4053,6 +4362,9 @@ definitions:
 
   VocalinkReportAssociationAttributes:
     type: object
+    properties:
+      bacs_service_user_number:
+        type: string
 
   VocalinkReportAssociationCreation:
     type: object
@@ -4291,6 +4603,8 @@ definitions:
 
   Payment:
     type: object
+    x-access:
+      - Public
     required:
       - id
       - organisation_id
@@ -4298,22 +4612,46 @@ definitions:
     properties:
       type:
         type: string
+        description: "Name of the resource type"
+        example: "payments"
         pattern: ^[A-Za-z_]*$
       id:
         type: string
         format: uuid
+        example: "7826c3cb-d6fd-41d0-b187-dc23ba928772"
+        description: "Unique resource ID"
       version:
         type: integer
+        description: "Version number"
+        example: 0
         minimum: 0
       organisation_id:
         type: string
         format: uuid
+        example: "ee2fb143-6dfe-4787-b183-ca8ddd4164d2"
+        description: "Unique ID of the organisation this resource is created by"
       attributes:
         type: object
         properties:
           amount:
             type: string
             pattern: ^[0-9.]{0,20}$
+            description: "Amount of money moved between the instructing agent and instructed agent"
+            x-description:
+              fps: "Format uses decimal point. Maximum two decimals, value must be > 0. Maximum value `250000.00`."
+              bacs: "Field8, automatically converted to pence when submitted to Bacs. Maximum value `20000000.00`."
+              sepa: "Interbank settlement amount, must have 2 decimal places. Maximum value 15000.00."
+              swift: "Field 32A: Interbank Settled Amount (15). No maximum value."
+            x-availability:
+              post:
+                fps: "required"
+                bacs: "required"
+                sepa: "required"
+              get:
+                fps: "always"
+                bacs: "always"
+                sepa: "always"
+            example: "10.00"
           batch_booking_indicator:
             type: string
           batch_id:
@@ -4325,91 +4663,471 @@ definitions:
             properties:
               account_name:
                 type: string
+                description: "Name of beneficiary as given with account"
+                x-length: 40
+                x-description:
+                  bacs: "Field11"
+                  swift: "Field 59A: Beneficiary customer name and address (140)"
+                x-availability:
+                  post:
+                    fps: "required"
+                    bacs: "required"
+                    swift: "required"
+                  get:
+                    fps: "sometimes"
+                    bacs: "sometimes"
+                    swift: "sometimes"
+                example: "James Bond"
               account_number:
                 type: string
-                pattern: ^[A-Z0-9]{6,34}$
+                description: "Beneficiary account number"
+                x-length: 34
+                x-description:
+                  bacs: "Field2"
+                  swift: "Field 59A: Beneficiary customer, Account Component (34)"
+                  sepa: "Must be in IBAN format"
+                x-availability:
+                  post:
+                    fps: "required"
+                    bacs: "required"
+                    sepa: "required"
+                    swift: "required"
+                  get:
+                    fps: "always"
+                    bacs: "always"
+                    sepa: "always"
+                    swift: "always"
+                example: "71268996"
               account_number_code:
                 $ref: '#/definitions/AccountNumberCode'
               account_type:
                 type: integer
+                description: "The type of the account given with `beneficiary_party.account_number`. Single digit number. Only required if requested by the beneficiary party. Defaults to 0."
+                x-description:
+                  fps: "Single digit number. Only required if requested by the beneficiary party. Defaults to 0."
+                  bacs: "Field3 (Defaults to 0)"
+                x-availability:
+                  post:
+                    fps: "optional"
+                    bacs: "optional"
+                example: 0
               account_with:
-                $ref: '#/definitions/AccountHoldingEntity'
+                $ref: '#/definitions/BeneficiaryDebtorAccountHoldingEntity'
               address:
+                x-omitempty: true
                 type: array
+                description: "Beneficiary address"
+                x-description:
+                  swift: "Field 59A: Beneficiary customer name and address (140)"
+                  sepa: "Max 2 lines of 70 text"
+                x-availability:
+                  post:
+                    fps: "optional"
+                    sepa: "optional"
+                    swift: "optional"
+                  get:
+                    fps: "sometimes"
+                    sepa: "sometimes"
+                    swift: "sometimes"
+                example: [
+                  "1 Clarence Mew",
+                  "Horsforth",
+                  "Leeds Ls18 4EP"
+                ]
                 items:
                   type: string
               birth_date:
+                x-nullable: true
                 type: string
                 format: date
+                description: "Beneficiary birth date. Formatted according to ISO 8601 format: YYYY-MM-DD"
+                x-description:
+                  sepa: "If a Creditor Identification is used then either `beneficiary_party.organisation_identification` can be present or date and place of birth can be present but not both"
+                x-availability:
+                  post:
+                    sepa: "optional"
+                  get:
+                    sepa: "sometimes"
+                example: "1977-02-28"
               birth_city:
                 type: string
+                description: "Beneficiary birth city"
+                x-length: 35
+                x-description:
+                  sepa: "If a Creditor Identification is used then either `beneficiary_party.organisation_identification` can be present or date and place of birth can be present but not both"
+                x-availability:
+                  post:
+                    sepa: "optional"
+                  get:
+                    sepa: "sometimes"
+                example: "PARIS"
               birth_country:
                 type: string
+                description: "Beneficiary birth country, ISO 3166 format country code"
+                x-length: 2
+                x-description:
+                  sepa: "If a Creditor Identification is used then either `beneficiary_party.organisation_identification` can be present or date and place of birth can be present but not both"
+                x-availability:
+                  post:
+                    sepa: "optional"
+                  get:
+                    sepa: "sometimes"
+                example: "FR"
               birth_province:
                 type: string
+                description: "Beneficiary birth province"
+                x-length: 35
+                x-description:
+                  sepa: "If a Creditor Identification is used then either `beneficiary_party.organisation_identification` can be present or date and place of birth can be present but not both"
+                x-availability:
+                  post:
+                    sepa: "optional"
+                  get:
+                    sepa: "sometimes"
+                example: "NORTHSIDE"
               country:
                 type: string
+                description: "Country of the beneficiary address, ISO 3166 format country code"
+                x-length: 2
+                x-availability:
+                  post:
+                    sepa: "optional"
+                  get:
+                    sepa: "sometimes"
+                example: "DE"
               name:
                 type: string
+                description: "Beneficiary name"
+                x-length: 70
+                x-description:
+                  swift: "Field 59A: Beneficiary customer name and address (140)"
+                x-availability:
+                  post:
+                    fps: "optional"
+                    swift: "optional"
+                    sepa: "required"
+                  get:
+                    fps: "sometimes"
+                    swift: "sometimes"
+                    sepa: "always"
+                example: "James Bond"
               organisation_identification:
                 type: string
+                description: "Organisation identification of a beneficiary, used in the case that the beneficiary is an organisation and not a private person"
+                x-length: 35
+                x-description:
+                  sepa: "The Identification can either be a BIC, BEI or Other Identification"
+                x-availability:
+                  post:
+                    sepa: "optional"
+                  get:
+                    sepa: "sometimes"
+                example: "ID1234656"
               organisation_identification_code:
                 type: string
+                description: "The code that specifies the type of `organisation_identification`"
+                x-length: 4
+                x-description:
+                  sepa: "If `beneficiary_party.organisation_identification` is specified, must be either `BIC`, `BEI`, or `Other`"
+                x-availability:
+                  post:
+                    sepa: "conditional"
+                  get:
+                    sepa: "sometimes"
+                example: "BIC"
               organisation_identification_issuer:
                 type: string
+                description: "Issuer of the organisation identification"
+                x-length: 35
+                x-description:
+                  sepa: "May only be present if `beneficary_party.organisation_identification_code` is `Other`"
+                x-availability:
+                  post:
+                    sepa: "optional"
+                  get:
+                    sepa: "sometimes"
+                example: "BANK"
               telephone_number:
                 type: string
+                x-length: 16
+                description: "Beneficiary phone number"
+                example: "+447921123987"
           category_purpose_coded:
             type: string
+            description: "Category purpose in a coded form. Specifies the high level purpose of the instruction. Cannot be used at the same time as `category_purpose`."
+            x-length: 4
+            x-description:
+              bacs: "The purpose of the payment using ISO code"
+              sepa: "The codes used must be part of the ISO 20022 ExternalCategoryPurpose1Code list"
+            x-availability:
+              post:
+                bacs: "optional"
+                sepa: "optional"
+              get:
+                bacs: "sometimes"
+                sepa: "sometimes"
+            example:
           category_purpose:
             type: string
+            description: "Category purpose in proprietary form. Specifies the high level purpose of the instruction. Cannot be used at the same time as `category_purpose_coded`."
+            x-length: 35
+            x-description:
+              bacs: "Indicates the purpose of the payment"
+            x-availability:
+              post:
+                bacs: "optional"
+                sepa: "optional"
+              get:
+                bacs: "sometimes"
+                sepa: "sometimes"
+            example:
           charges_information:
+            x-omitempty: true
             $ref: '#/definitions/ChargesInformation'
           clearing_id:
             type: string
+            description: "Unique identifier for organisations collecting payments"
+            x-length: 6
+            x-description:
+              bacs: "Bacs Service User Number (6 numeric digits). VOL1/Field7 HDR1/Field 3 EOF1/Field 3"
+            x-availability:
+              post:
+                bacs: "required"
+              get:
+                bacs: "always"
+            example:
           currency:
             type: string
+            description: "Currency of the transaction amount. Currency code as defined in [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm)"
+            x-length: 3
+            x-description:
+              bacs: "Field 32A: Digits 7-9"
+              sepa: "Must be `EUR`"
+            x-availability:
+              post:
+                fps: "required"
+                bacs: "required"
+                swift: "required"
+                sepa: "required"
+              get:
+                fps: "always"
+                bacs: "always"
+                swift: "always"
+                sepa: "always"
+            example: "EUR"
           debtor_party:
             type: object
             properties:
               account_name:
                 type: string
+                description: "Name of debtor as given with account"
+                x-length: 40
+                x-description:
+                  bacs: "Field9"
+                  swift: "Field 50A: Ordering customer name and address (140)"
+                x-availability:
+                  post:
+                    fps: "required"
+                    bacs: "required"
+                    swift: "required"
+                  get:
+                    fps: "always"
+                    bacs: "always"
+                    swift: "always"
+                example: "Jane Bond"
               account_number:
                 type: string
-                pattern: ^[A-Z0-9]{6,34}$
+                description: "Debtor account number. Allows upper case and numeric characters."
+                x-length: 34
+                x-description:
+                  bacs: "Field6"
+                  swift: "Field 50A: Ordering customer Account Component (34)"
+                  sepa: "Must be in IBAN format."
+                x-availability:
+                  post:
+                    fps: "required"
+                    bacs: "required"
+                    swift: "required"
+                    sepa: "required"
+                  get:
+                    fps: "always"
+                    bacs: "always"
+                    swift: "always"
+                    sepa: "always"
+                example: "12345678"
               account_number_code:
                 $ref: '#/definitions/AccountNumberCode'
               account_with:
-                $ref: '#/definitions/AccountHoldingEntity'
+                $ref: '#/definitions/BeneficiaryDebtorAccountHoldingEntity'
               address:
+                x-omitempty: true
                 type: array
+                description: "Debtor address"
+                x-description:
+                  swift: "Field 50A: Ordering customer name and address (140)"
+                  sepa: "Max 2 lines of 70 text."
+                x-availability:
+                  post:
+                    fps: "optional"
+                    swift: "optional"
+                    sepa: "optional"
+                  get:
+                    fps: "sometimes"
+                    swift: "sometimes"
+                    sepa: "sometimes"
+                example: ["63 St Mary Axe","London","EC3A 8AA"]
                 items:
                   type: string
               birth_date:
+                x-nullable: true
                 type: string
                 format: date
+                description: "Debtor birth date. Formatted according to ISO 8601 format: YYYY-MM-DD"
+                x-description:
+                  sepa: "If a Debtor Identification is used then either `debtor_party.organisation_identification` or date and place of birth can be present but not both"
+                x-availability:
+                  post:
+                    sepa: "optional"
+                  get:
+                    sepa: "optional"
+                example: "1973-01-31"
               birth_city:
                 type: string
+                description: "Debtor birth city"
+                x-length: 35
+                x-description:
+                  sepa: "If a Debtor Identification is used then either `debtor_party.organisation_identification` or date and place of birth can be present but not both"
+                x-availability:
+                  post:
+                    sepa: "optional"
+                  get:
+                    sepa: "sometimes"
+                example: "PARIS"
               birth_country:
                 type: string
+                description: "Debtor birth country. ISO 3166 format country code"
+                x-length: 2
+                x-description:
+                  sepa: "If a Debtor Identification is used then either `debtor_party.organisation_identification` or date and place of birth can be present but not both"
+                x-availability:
+                  post:
+                    sepa: "optional"
+                  get:
+                    sepa: "sometimes"
+                example: "FR"
               birth_province:
                 type: string
+                description: "Debtor birth province"
+                x-length: 35
+                x-description:
+                  sepa: "If a Debtor Identification is used then either `debtor_party.organisation_identification` or date and place of birth can be present but not both"
+                x-availability:
+                  post:
+                    sepa: "optional"
+                  get:
+                    sepa: "sometimes"
+                example: "SOUTH SIDE"
               country:
                 type: string
+                description: Country of debtor address. ISO 3166 format country code"
+                x-length: 2
+                x-availability:
+                  post:
+                    sepa: "optional"
+                  get:
+                    sepa: "sometimes"
+                example: "GB"
               customer_id:
                 type: string
+                description: "SWIFT BIC for ordering customer, either BIC8 or BIC11"
+                x-length: 11
+                x-description:
+                  swift: "Field 50A"
+                x-availability:
+                  post:
+                    swift: "optional"
+                  get:
+                    swift: "sometimes"
+                example: "BARCGB22"
               customer_id_code:
                 type: string
+                description: "Code for `customer_id`"
+                x-length: 5
+                x-availability:
+                  post:
+                    swift: "optional"
+                  get:
+                    swift: "sometimes"
+                example: "SWBIC"
               name:
                 type: string
+                description: "Debtor name"
+                x-length: 70
+                x-description:
+                  swift: "Field 50A: Ordering customer name and address (140)"
+                x-availability:
+                  post:
+                    fps: "optional"
+                    swift: "optional"
+                    sepa: "required"
+                  get:
+                    fps: "sometimes"
+                    swift: "sometimes"
+                    sepa: "always"
+                example: "Norman Smith"
               organisation_identification:
                 type: string
+                description: "Organisation identification of a debtor, in the case that the debtor is an organisation and not a private person"
+                x-length: 35
+                x-description:
+                  sepa: "The Identification can either be a BIC, BEI or Other Identification"
+                x-availability:
+                  post:
+                    sepa: "optional"
+                  get:
+                    sepa: "sometimes"
+                example: "ID1234656"
               organisation_identification_code:
                 type: string
+                description: "The code that specifies the type of `organisation_identification`"
+                x-length: 4
+                x-description:
+                  sepa: "If `debtor_party.organisation_identification` is specified, must be either `BIC`, `BEI`, or `Other`"
+                x-availability:
+                  post:
+                    sepa: "conditional"
+                  get:
+                    sepa: "sometimes"
+                example: "BIC"
               organisation_identification_issuer:
                 type: string
+                description: "Issuer of the `organisation_identification`"
+                x-length: 35
+                x-description:
+                  sepa: "May only be present if `debtor_party.organisation_identification_code` is `Other`"
+                x-availability:
+                  post:
+                    sepa: "optional"
+                  get:
+                    sepa: "sometimes"
+                example: "BANK"
           end_to_end_reference:
             type: string
+            description: "Unique identification, as assigned by the initiating party, to unambiguously identify the transaction. This identification is passed on, unchanged, throughout the entire end-to-end chain."
+            x-length: 35
+            x-description:
+              swift: "Field70: Remittance Information after /ROC/ code (31)"
+              sepa: "In the event that no reference was given, `NOTPROVIDED` must be used."
+            x-availability:
+              post:
+                fps: "optional"
+                swift: "optional"
+                sepa: "required"
+              get:
+                fps: "sometimes"
+                swift: "sometimes"
+                sepa: "always"
+            example: "PAYMENT REF: 20094"
           file_number:
             type: string
           fx:
@@ -4417,88 +5135,441 @@ definitions:
             properties:
               contract_reference:
                 type: string
+                description: "Reference to the foreign exchange contract associated with the transaction"
+                x-length: 35
+                x-availability:
+                  post:
+                    fps: "optional"
+                    swift: "optional"
+                  get:
+                    fps: "sometimes"
+                    swift: "sometimes"
+                example: "FXCONTRACT/REF/123567"
               exchange_rate:
                 type: string
+                description: "Factor used to convert an amount from the instructed currency into the transaction currency: i.e. to convert the `fx.original_amount`, expressed in the `fx.original_currency`, to `amount` specified in `currency`. Decimal value, represented as a string, maximum length 12. Must be > 0."
+                x-description:
+                  swift: "Field 36 Exchange Rate (12)"
+                  sepa: "If the instructed currency is not `EUR`: `fx.exchange_rate`, `fx.original_amount` and `fx.original_currency` must be provided"
+                x-availability:
+                  post:
+                    fps: "optional"
+                    swift: "optional"
+                    sepa: "conditional"
+                  get:
+                    fps: "sometimes"
+                    swift: "sometimes"
+                    sepa: "sometimes"
+                example: "0.13343"
               original_amount:
                 type: string
+                description: "Amount of money to be moved between the debtor and creditor, before deduction of charges, expressed in the currency as instructed by the initiating party. Decimal value. Must be > 0."
+                x-description:
+                  swift: "Field 33B: Currency/instructed amount (18)"
+                  sepa: "If the instructed currency is not `EUR`: `fx.exchange_rate`, `fx.original_amount` and `fx.original_currency` must be provided."
+                x-availability:
+                  post:
+                    fps: "optional"
+                    swift: "optional"
+                    sepa: "conditional"
+                  get:
+                    fps: "sometimes"
+                    swift: "sometimes"
+                    sepa: "sometimes"
+                example: "100.00"
               original_currency:
                 type: string
+                description: "Currency of `orginal_amount`. Currency code as defined in ISO 4217."
+                x-length: 3
+                x-description:
+                  swift: "Field 33B: Currency/instructed amount (18)"
+                  sepa: "If the instructed currency is not `EUR`: `fx.exchange_rate`, `fx.original_amount` and `fx.original_currency` must be provided."
+                x-availability:
+                  post:
+                    fps: "optional"
+                    swift: "optional"
+                    sepa: "conditional"
+                  get:
+                    fps: "sometimes"
+                    swift: "sometimes"
+                    sepa: "sometimes"
+                example: "EUR"
+          instruction_id:
+            type: string
+            description: "Unique identification, as assigned by the initiating party to unambigiously identify the transaction. This identification is an point-to-point reference and is passed on, unchanged, throughout the entire chain. Cannot includ leading, trailing or internal spaces."
+            x-length: 35
+            x-description:
+              sepa: "Cannot include leading, trailing or internal spaces"
+            x-availability:
+              post:
+                sepa: "optional"
+              get:
+                sepa: "sometimes"
+            example: "ID1245799"
           intermediary_bank:
-            $ref: '#/definitions/AccountHoldingEntity'
+            $ref: '#/definitions/IntermediaryBankAccountHoldingEntity'
           numeric_reference:
             type: string
+            description: "Numeric reference field, see scheme specific descriptions for usage"
+            x-length: 4
+            x-description:
+              bacs: "Field7: Reference field used for UK tax info and Bacs Returns"
+            x-availability:
+              post:
+                fps: "optional"
+                bacs: "optional"
+              get:
+                fps: "sometimes"
+                bacs: "sometimes"
+            example:
           payment_acceptance_datetime:
             type: string
-            format: date-time
-            x-nullable: true
+            format: 'date-time'
+            description: "Timestamp of when the payment instruction meets the set processing conditions. Format: YYYY-MM-DDThh:mm:ss:mmm+hh:mm"
+            example: "2017-09-30T12:36:02.123+01:00"
           scheme_transaction_id:
             type: string
+            description: "Unique identification, as assigned by the first instructing agent, to unambiguously identify the transaction that is passed on, unchanged, throughout the entire interbank chain."
+            example: "123456789012345678"
+            x-length: 35
+            x-description:
+              fps: "Corresponds to the Transaction Reference Number (TRN)"
+              swift: "Field 20: Senders Reference (20)"
+              sepa: "Cannot include leading, trailing or internal spaces"
+            x-availability:
+              post:
+                fps: "optional"
+                swift: "required"
+                sepa: "required"
+              get:
+                fps: "sometimes"
+                swift: "always"
+                sepa: "always"
           unique_scheme_id:
             type: string
-          payment_instructing_id:
-            type: string
+            description: "The scheme-specific unique transaction ID. Populated by the scheme."
+            example: "L5W48NDWYW7JV9MRO71020180301826040011"
+            x-length: 42
+            x-description:
+              fps: "Corresponds to the FPID, only present for incoming payments or after payment has been submitted to the scheme."
+            x-availability:
+              get:
+                fps: "sometimes"
           payment_purpose:
             type: string
+            description: "Purpose of the payment in a proprietary form"
+            example: "X"
+            x-length: 35
+            x-description:
+              fps: "FPS Procedures do not mandate any values for the use of this field"
+              swift: "Field 26T: Transaction Type (3)"
+            x-availability:
+              post:
+                fps: "optional"
+                swift: "optional"
+                sepa: "optional"
+              get:
+                fps: "sometimes"
+                swift: "sometimes"
+                sepa: "sometimes"
           payment_purpose_coded:
             type: string
+            description: "Purpose of the payment in a coded form"
+            x-length: 4
+            x-description:
+              sepa: "The codes used must be part of the ISO 20022 ExternalPurpose1Code list."
+            x-availability:
+              post:
+                sepa: "optional"
+              get:
+                sepa: "sometimes"
           payment_scheme:
             type: string
+            description: "Clearing infrastructure through which the payment instruction is to be processed. Default for given organisation ID is used if left empty. Has to be a valid [scheme identifier](http://draft-api-docs.form3.tech/api.html#enumerations-schemes)."
+            example: "FPS"
+            x-description:
+              fps: "`FPS` or empty if default for organisation is `FPS`"
+              bacs: "`BACS` or empty if default for organisation is `BACS`"
+              sepa: "`SEPAINSTANT` or empty if default for organisation is `SEPAINSTANT`"
+            x-availability:
+              post:
+                fps: "optional"
+                bacs: "optional"
+                sepa: "optional"
+                swift: "optional"
+              get:
+                fps: "sometimes"
+                bacs: "sometimes"
+                sepa: "sometimes"
+                swift: "sometimes"
           payment_type:
             type: string
           processing_date:
             type: string
             format: date
+            description: "Date on which the payment is to be debited from the debtor account. Formatted according to ISO 8601 format: YYYY-MM-DD."
+            example: "2015-02-12"
+            x-description:
+              fps: "Must be within +/- 1 day of today"
+              bacs: "Field12 +/- one working day"
+              swift: "Field 32A: Digits 1-6"
+              sepa: "Must be within +/- 1 day of today"
+            x-availability:
+              post:
+                fps: "required"
+                bacs: "optional"
+                swift: "optional"
+                sepa: "required"
+              get:
+                fps: "always"
+                bacs: "always"
+                swift: "always"
+                sepa: "always"
+          scheme_processing_date:
+            type: string
+            description: "Date on which the payment is processed by the scheme. Only used if different from `processing_date`."
+            example: "2015-02-12"
+            x-description:
+              bacs: "Field12. Usually day 2 of the Bacs cycle, only populated on incoming payments."
+            x-availability:
+              post:
+                bacs: "optional"
+              get:
+                bacs: "sometimes"
+            format: date
           receivers_correspondent:
-            $ref: '#/definitions/AccountHoldingEntity'
+            $ref: '#/definitions/ReceiversCorrespondentAccountHoldingEntity'
           reference:
             type: string
+            description: "Payment reference for beneficiary use"
+            example: "rent for oct"
+            x-length: 18
+            x-description:
+              fps: "Short reference information associated with the payment. The beneficiary bank must pass on this information to beneficiary. 18 characters max, must match ^[A-Za-z0-9 /&#92;-]{1,18}$."
+              bacs: "Field10"
+              swift: "Field 70: Remittance Information after /RFB/ code (31)"
+            x-availability:
+              post:
+                fps: "required"
+                bacs: "required"
+                swift: "required"
+              get:
+                fps: "always"
+                bacs: "always"
+                swift: "always"
           regulatory_reporting:
             type: string
+            description: "Regulatory reporting information"
+            example: "May be required for some foreign originated payments"
+            x-length: 105
+            x-description:
+              swift: "Field 77B: Regulatory Reporting (105)"
+            x-availability:
+              post:
+                fps: "optional"
+                swift: "optional"
+              get:
+                fps: "sometimes"
+                swift: "sometimes"
           reimbursement:
-            $ref: '#/definitions/AccountHoldingEntity'
+            $ref: '#/definitions/ReimbursementAccountHoldingEntity'
           remittance_information:
             type: string
+            description: "Information supplied to enable the matching of an entry with the items that the transfer is intended to settle, such as commercial invoices in an accounts receivable system provided by the debtor for the beneficiary."
+            example: "Additional remittance information over and above reference information"
+            x-length: 140
+            x-description:
+              fps: "Longer reference information associated with the payment."
+              swift: "Field 70: Remittance Information (140 less /RFB/ or /ROC/ elements if present)"
+              sepa: "Either the structured remittance information `structured_reference` or unstructured `remittance_information` may be present but not both."
+            x-availability:
+              post:
+                fps: "optional"
+                swift: "optional"
+                sepa: "conditional"
+              get:
+                fps: "sometimes"
+                swift: "sometimes"
+                sepa: "sometimes"
           scheme_payment_sub_type:
+            description: "The scheme specific payment [sub type](http://api-docs.form3.tech/api.html#enumerations-scheme-specific-payment-sub-types)"
+            example: "TelephoneBanking"
             type: string
+            x-description:
+              fps: "Either `TelephoneBanking`, `InternetBanking`, `BranchInstruction`, `Letter`, `Email` or `MobilePaymentsService`"
+            x-availability:
+              post:
+                fps: "optional"
+              get:
+                fps: "sometimes"
           scheme_payment_type:
+            description: "The [scheme-specific payment type](#enumerations-scheme-payment-types)"
+            example: "ImmediatePayment"
             type: string
-          scheme_status_code:
-            type: string
+            x-description:
+              fps: "Either `ImmediatePayment`, `ForwardDatedPayment` or `StandingOrder`"
+              bacs: "Has to be valid payment type for Bacs Direct Credit"
+            x-availability:
+              post:
+                fps: "required"
+                bacs: "required"
+              get:
+                fps: "always"
+                bacs: "always"
           senders_correspondent:
-            $ref: '#/definitions/AccountHoldingEntity'
+            $ref: '#/definitions/SendersCorrespondentAccountHoldingEntity'
           structured_reference:
             type: object
             properties:
               issuer:
                 type: string
+                description: "Issuer of remittance reference"
+                example:
+                x-length: 35
+                x-description:
+                  sepa: "Either the structured remittance information `structured_reference` or unstructured `remittance_information` may be present but not both. Mandatory if `SCOR` is used in the remittance data proprietary code."
+                x-availability:
+                  post:
+                    sepa: "conditional"
+                  get:
+                    sepa: "sometimes"
               reference:
+                description: "Unique reference to unambiguously refer to the payment originated by the creditor, this reference enables reconciliation by the creditor upon receipt of the amount of money."
+                example:
+                x-length: 35
+                x-description:
+                  sepa: "Either the structured remittance information `structured_reference` or unstructured `remittance_information` may be present but not both."
+                x-availability:
+                  post:
+                    sepa: "conditional"
+                  get:
+                    sepa: "sometimes"
                 type: string
           swift:
             type: object
             properties:
               bank_operation_code:
                 type: string
+                description: "SWIFT service level"
+                x-length: 4
+                x-description:
+                  swift: "Field 23B: Bank Operation Code (`SSTD`, `SPAY`, `SPRI`, `CRED`)"
+                x-availability:
+                  post:
+                    swift: "optional"
+                  get:
+                    swift: "sometimes"
+                example: "CRED"
               header:
                 type: object
                 properties:
                   destination:
                     type: string
+                    description: "Destination SWIFT logical terminal address. Complete 12-character SWIFT destination, including BIC (x8), logical terminal code (x1) and branch code (x)."
+                    example: "MIDLGB22XABC"
+                    x-length: 12
+                    x-description:
+                      swift: "Basic Header Block"
+                    x-availability:
+                      post:
+                        swift: "optional"
+                      get:
+                        swift: "sometimes"
                   message_type:
                     type: string
+                    description: "The message type of the SWIFT payment, has to match `[A-Z]{2}[0-9]{3}`. Currently `MT103` is the only supported value"
+                    example: "MT103"
+                    x-length: 5
+                    x-description:
+                      swift: "Application Header Block"
+                    x-availability:
+                      post:
+                        swift: "optional"
+                      get:
+                        swift: "sometimes"
                   priority:
                     type: string
+                    description: "SWIFT priority. Either `Normal` or `Priority`."
+                    example: "Priority"
+                    x-length: 8
+                    x-description:
+                      swift: "Application Header Block"
+                    x-availability:
+                      post:
+                        swift: "optional"
+                      get:
+                        swift: "sometimes"
                   recipient:
                     type: string
+                    description: "The destination SWIFT BIC for SWIFT MT messages being sent by Form3 client to SWIFT. Formatted as BIC8 or BIC11."
+                    example:
+                    x-length: 8
+                    x-description:
+                      swift: "Application Header Block"
+                    x-availability:
+                      post:
+                        swift: "optional"
+                      get:
+                        swift: "sometimes"
                   source:
                     type: string
+                    description: "The source SWIFT BIC for SWIFT MT messages being received by Form3 client from SWIFT. Formatted as BIC8 or BIC11."
+                    example:
+                    x-length: 8
+                    x-description:
+                      swift: "Application Header Block"
+                    x-availability:
+                      post:
+                        swift: "optional"
+                      get:
+                        swift: "sometimes"
                   user_reference:
                     type: string
+                    description: "Message User Reference (MUR) value, which can be up to 16 characters, and will be returned in the ACK"
+                    example:
+                    x-length: 16
+                    x-description:
+                      swift: "User Header Block"
+                    x-availability:
+                      post:
+                        swift: "optional"
+                      get:
+                        swift: "sometimes"
               instruction_code:
                 type: string
+                description: "A SWIFT instruction code"
+                example: "INTC"
+                x-length: 35
+                x-description:
+                  swift: "Field 23E"
+                x-availability:
+                  post:
+                    swift: "optional"
+                  get:
+                    swift: "sometimes"
               sender_receiver_information:
                 type: string
+                description: "This field specifies additional information for the Receiver or other party specified."
+                example: "/INS/ABNANL2A"
+                x-length: 210
+                x-description:
+                  swift: "Field 72 Line 1 /RETN/, Line 2 value follows Payment Return Code. Unless bilaterally agreed otherwise between the Sender and the Receiver, one of the following codes must be used in Code, placed between slashes (`/`):<br>- ACC Account with institution<br>- INS Instructing institution<br>- INT Intermediary institution<br>- REC Receiver"
+                x-availability:
+                  post:
+                    swift: "optional"
+                  get:
+                    swift: "sometimes"
               time_indication:
                 type: string
+                description: "This repetitive field specifies one or several time indication(s) related to the processing of the payment instruction."
+                example: "/CLSTIME/0915+0200"
+                x-description:
+                  swift: "Field 13C: Time Indication"
+                x-availability:
+                  post:
+                    swift: "optional"
+                  get:
+                    swift: "sometimes"
           ultimate_beneficiary:
             $ref: '#/definitions/UltimateEntity'
           ultimate_debtor:
@@ -4508,31 +5579,433 @@ definitions:
 
   PaymentRelationships:
     type: object
+    x-access:
+      - Public
     properties:
       payment_submission:
-        $ref: '#/definitions/RelationshipLinks'
+        type: object
+        description: "The payment submission resource related to the payment"
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/definitions/PaymentSubmission'
       payment_return:
-        $ref: '#/definitions/RelationshipLinks'
+        type: object
+        description: "The payment return resource related to the payment"
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/definitions/ReturnPayment'
       payment_admission:
-        $ref: '#/definitions/RelationshipLinks'
+        type: object
+        description: "The payment admission resource related to the payment"
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/definitions/PaymentAdmission'
       payment_reversal:
-        $ref: '#/definitions/RelationshipLinks'
+        type: object
+        description: "The payment reversal resource related to the payment"
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/definitions/ReversalPayment'
 
-  AccountHoldingEntity:
+  BeneficiaryDebtorAccountHoldingEntity:
+    x-access:
+      - Public
     type: object
     properties:
       bank_address:
+        x-omitempty: true
         type: array
+        description: Financial institution address
+        x-description:
+          swift: Field 57B
+        x-availability:
+          post:
+            swift: "optional"
+          get:
+            swift: "sometimes"
+        example: [
+          "Liverpool Customer Service Centre",
+          "Stevenson Way",
+          "Wavertree",
+          "L13 1NW"
+        ]
         items:
           type: string
       bank_id:
+        description: "Financial institution identification"
+        x-length: 11
+        x-description:
+          bacs: "Field1"
+          sepa: "Must be a BIC"
+          swift: "Field 57A: BIC Component (11)"
+        x-availability:
+          post:
+            fps: "required"
+            bacs: "required"
+            swift: "required"
+            sepa: "required"
+          get:
+            fps: "always"
+            bacs: "always"
+            swift: "always"
+            sepa: "always"
+        example: "333333"
         type: string
       bank_id_code:
         $ref: '#/definitions/BankIdCode'
       bank_name:
         type: string
+        description: "Financial institution name"
+        x-length: 35
+        x-description:
+          swift: "Field 57D"
+        x-availability:
+          post:
+            swift: "optional"
+          get:
+            swift: "sometimes"
+        example: "NATIONAL WESTMINSTER BANK PLC"
       bank_party_id:
         type: string
+        description: "Identifier of the financial institution which services the account"
+        x-length: 35
+        x-description:
+          swift: "Field 57A/57B/57D"
+        x-availability:
+          post:
+            swift: "optional"
+          get:
+            swift: "sometimes"
+        example: "//AT12345"
+
+  IntermediaryBankAccountHoldingEntity:
+    x-access:
+      - Public
+    type: object
+    properties:
+      bank_address:
+        x-omitempty: true
+        type: array
+        description: Financial institution address
+        x-description:
+          swift: Field 56B
+        x-availability:
+          post:
+            swift: "optional"
+          get:
+            swift: "sometimes"
+        example: [
+          "Liverpool Customer Service Centre",
+          "Stevenson Way",
+          "Wavertree",
+          "L13 1NW"
+        ]
+        items:
+          type: string
+      bank_id:
+        description: "Financial institution identification"
+        x-length: 11
+        x-description:
+          swift: "Field 56A"
+        x-availability:
+          post:
+            swift: "optional"
+          get:
+            swift: "sometimes"
+        example: "333333"
+        type: string
+      bank_id_code:
+        $ref: '#/definitions/BankIdCode'
+      bank_name:
+        type: string
+        description: "Financial institution name"
+        x-length: 35
+        x-description:
+          swift: "Field 56D"
+        x-availability:
+          post:
+            swift: "optional"
+          get:
+            swift: "sometimes"
+        example: "XYZ BANK PLC"
+      bank_party_id:
+        type: string
+        description: "Identifier of the financial institution which services the account"
+        x-length: 37
+        x-description:
+          swift: "Field 56A/56B/56D"
+        x-availability:
+          post:
+            swift: "optional"
+          get:
+            swift: "sometimes"
+        example: "//AT12345"
+
+  ReceiversCorrespondentAccountHoldingEntity:
+    x-access:
+      - Public
+    type: object
+    properties:
+      bank_address:
+        x-omitempty: true
+        type: array
+        description: "Receiver's correspondent's address"
+        x-length: 140
+        x-description:
+          swift: Field 54B
+        x-availability:
+          post:
+            swift: "optional"
+          get:
+            swift: "sometimes"
+        example: [
+          "Liverpool Customer Service Centre",
+          "Stevenson Way",
+          "Wavertree",
+          "L13 1NW"
+        ]
+        items:
+          type: string
+      bank_id:
+        description: "SWIFT BIC for receiver's correspondent"
+        x-length: 11
+        x-description:
+          swift: "Field 54A, must be BIC8 or BIC11"
+        x-availability:
+          post:
+            swift: "optional"
+          get:
+            swift: "sometimes"
+        example: "333333"
+        type: string
+      bank_id_code:
+        $ref: '#/definitions/BankIdCode'
+      bank_name:
+        type: string
+        description: "Receiver's correspondent's name"
+        x-length: 35
+        x-description:
+          swift: "Field 54D"
+        x-availability:
+          post:
+            swift: "optional"
+          get:
+            swift: "sometimes"
+        example: "XYZ BANK PLC"
+      bank_party_id:
+        type: string
+        description: "Reciever's correspondent party identifier"
+        x-length: 37
+        x-description:
+          swift: "Field 54A/54B/54D"
+        x-availability:
+          post:
+            swift: "optional"
+          get:
+            swift: "sometimes"
+        example: "//AT12345"
+
+  SendersCorrespondentAccountHoldingEntity:
+    x-access:
+      - Public
+    type: object
+    properties:
+      bank_address:
+        x-omitempty: true
+        type: array
+        description: "Sender's correspondent's address"
+        x-description:
+          swift: Field 53B
+        x-availability:
+          post:
+            swift: "optional"
+          get:
+            swift: "sometimes"
+        example: [
+          "Liverpool Customer Service Centre",
+          "Stevenson Way",
+          "Wavertree",
+          "L13 1NW"
+        ]
+        items:
+          type: string
+      bank_id:
+        description: "SWIFT BIC for sender's correspondent"
+        x-length: 11
+        x-description:
+          swift: "Field 53A"
+        x-availability:
+          post:
+            swift: "optional"
+          get:
+            swift: "sometimes"
+        example: "333333"
+        type: string
+      bank_id_code:
+        $ref: '#/definitions/BankIdCode'
+      bank_name:
+        type: string
+        description: "Sender's correspondent's name"
+        x-length: 35
+        x-description:
+          swift: "Field 53D"
+        x-availability:
+          post:
+            swift: "optional"
+          get:
+            swift: "sometimes"
+        example: "XYZ BANK PLC"
+      bank_party_id:
+        type: string
+        description: "Identifier of the financial institution which services the account"
+        x-length: 37
+        x-description:
+          swift: "Field 53A/53B/53D"
+        x-availability:
+          post:
+            swift: "optional"
+          get:
+            swift: "sometimes"
+        example: "//AT12345"
+
+  ReimbursementAccountHoldingEntity:
+    x-access:
+      - Public
+    type: object
+    properties:
+      bank_address:
+        x-omitempty: true
+        type: array
+        description: "Third party reimbursement institution address"
+        x-description:
+          swift: Field 55B
+        x-availability:
+          post:
+            swift: "optional"
+          get:
+            swift: "sometimes"
+        example: [
+          "Liverpool Customer Service Centre",
+          "Stevenson Way",
+          "Wavertree",
+          "L13 1NW"
+        ]
+        items:
+          type: string
+      bank_id:
+        description: "Identification of third party reimbursement institution"
+        x-length: 11
+        x-description:
+          swift: "Field 55A, must be BIC8 or BIC11"
+        x-availability:
+          post:
+            swift: "optional"
+          get:
+            swift: "sometimes"
+        example: "333333"
+        type: string
+      bank_id_code:
+        $ref: '#/definitions/BankIdCode'
+      bank_name:
+        type: string
+        description: "Third party reimbursement institution name"
+        x-length: 35
+        x-description:
+          swift: "Field 55D"
+        x-availability:
+          post:
+            swift: "optional"
+          get:
+            swift: "sometimes"
+        example: "NATIONAL WESTMINSTER BANK PLC"
+      bank_party_id:
+        type: string
+        description: "Third party reimbursement institution identifier"
+        x-length: 37
+        x-description:
+          swift: "Field 55A/55B/55D"
+        x-availability:
+          post:
+            swift: "optional"
+          get:
+            swift: "sometimes"
+        example: "//AT12345"
+
+  AccountHoldingEntity:
+    x-access:
+      - Public
+    type: object
+    properties:
+      bank_address:
+        x-omitempty: true
+        type: array
+        description: Financial institution address
+        x-description:
+          swift: Field 57B
+        x-availability:
+          post:
+            swift: "optional"
+          get:
+            swift: "sometimes"
+        example: [
+          "Liverpool Customer Service Centre",
+          "Stevenson Way",
+          "Wavertree",
+          "L13 1NW"
+        ]
+        items:
+          type: string
+      bank_id:
+        description: "Financial institution identification"
+        x-description:
+          bacs: "Field1"
+          sepa: "Must be a BIC"
+          swift: "Field 57A: BIC Component (11)"
+        x-availability:
+          post:
+            fps: "required"
+            bacs: "required"
+            swift: "required"
+            sepa: "required"
+          get:
+            fps: "always"
+            bacs: "always"
+            swift: "always"
+            sepa: "always"
+        example: "333333"
+        type: string
+      bank_id_code:
+        $ref: '#/definitions/BankIdCode'
+      bank_name:
+        type: string
+        description: "Financial institution name"
+        x-description:
+          swift: "Field 57D"
+        x-availability:
+          post:
+            swift: "optional"
+          get:
+            swift: "sometimes"
+        example: "NATIONAL WESTMINSTER BANK PLC"
+      bank_party_id:
+        type: string
+        description: "Identifier of the financial institution which services the account"
+        x-description:
+          swift: "Field 57A/57B/57D"
+        x-availability:
+          post:
+            swift: "optional"
+          get:
+            swift: "sometimes"
+        example: "//AT12345"
 
   AccountNumberCode:
     type: string
@@ -5691,3 +7164,361 @@ definitions:
             type: string
 
 # paymentapi - end
+
+# directdebit-api start
+
+  DirectDebitDetailsListResponse:
+    type: object
+    x-access:
+      - Public
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/DirectDebit'
+      links:
+        $ref: '#/definitions/Links'
+
+  DirectDebit:
+    type: object
+    x-access:
+      - Public
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          amount:
+            type: string
+            pattern: ^[0-9.]{0,20}$
+          beneficiary_party:
+            type: object
+            properties:
+              account_name:
+                type: string
+              account_number:
+                type: string
+              account_number_code:
+                $ref: '#/definitions/AccountNumberCode'
+              account_type:
+                type: integer
+              account_with:
+                $ref: '#/definitions/AccountHoldingEntity'
+              country:
+                type: string
+              address:
+                type: array
+                items:
+                  type: string
+          currency:
+            type: string
+          debtor_party:
+            type: object
+            properties:
+              account_name:
+                type: string
+              account_number:
+                type: string
+              account_number_code:
+                $ref: '#/definitions/AccountNumberCode'
+              account_with:
+                $ref: '#/definitions/AccountHoldingEntity'
+              country:
+                type: string
+              address:
+                type: array
+                items:
+                  type: string
+          numeric_reference:
+            type: string
+          processing_date:
+            type: string
+            format: date
+          scheme_processing_date:
+            type: string
+            format: date
+          reference:
+            type: string
+          scheme_payment_type:
+            type: string
+          payment_scheme:
+            type: string
+          clearing_id:
+            type: string
+          unique_scheme_id:
+            type: string
+      relationships:
+        $ref: '#/definitions/DirectDebitRelationships'
+
+  DirectDebitRelationships:
+    type: object
+    x-access:
+      - Public
+    properties:
+      direct_debit_admission:
+        type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/definitions/DirectDebitAdmission'
+
+  DirectDebitAdmission:
+    type: object
+    x-access:
+      - Public
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          admission_datetime:
+            type: string
+            format: 'date-time'
+            readOnly: true
+          status:
+            $ref: '#/definitions/DirectDebitAdmissionStatus'
+          scheme_status_code:
+            type: string
+          scheme_status_code_description:
+            type: string
+          status_reason:
+            $ref: '#/definitions/DirectDebitAdmissionStatusReason'
+
+  DirectDebitAdmissionStatus:
+    type: string
+    x-access:
+      - Public
+    enum:
+      - confirmed
+      - failed
+
+  DirectDebitAdmissionStatusReason:
+    type: string
+    x-access:
+      - Public
+    enum:
+      - accepted
+      - invalid_beneficiary_details
+      - bankid_not_provisioned
+      - unknown_accountnumber
+
+# directdebit-api end
+
+# mandate-api - start
+
+  MandateDetailsListResponse:
+    type: object
+    x-access:
+      - Public
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Mandate'
+      links:
+        $ref: '#/definitions/Links'
+
+  Mandate:
+    type: object
+    x-access:
+      - Public
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        $ref: '#/definitions/MandateAttributes'
+      relationships:
+        $ref: '#/definitions/MandateRelationships'
+
+  MandateAttributes:
+    type: object
+    x-access:
+      - Public
+    properties:
+      amount:
+        type: string
+        pattern: ^[0-9.]{0,20}$
+      beneficiary_party:
+        $ref: '#/definitions/MandateAttributesBeneficiaryParty'
+      currency:
+        type: string
+      debtor_party:
+        $ref: '#/definitions/MandateAttributesDebtorParty'
+      numeric_reference:
+        type: string
+      processing_date:
+        type: string
+        format: date
+      scheme_processing_date:
+        type: string
+        format: date
+      reference:
+        type: string
+      scheme_payment_type:
+        type: string
+      payment_scheme:
+        type: string
+      clearing_id:
+        type: string
+      unique_scheme_id:
+        type: string
+      frequency:
+        $ref: '#/definitions/MandateFrequency'
+
+  MandateAttributesDebtorParty:
+    type: object
+    x-access:
+      - Public
+    properties:
+      account_name:
+        type: string
+        pattern: ^[A-Za-z0-9 \/\-?:\(\)\.,’\+\#\=\!\"%&\*\<\>;\{@\r\n]*$
+      account_number:
+        type: string
+        pattern: ^[A-Z0-9]{6,34}$
+      account_number_code:
+        $ref: '#/definitions/AccountNumberCode'
+      account_with:
+        $ref: '#/definitions/AccountHoldingEntity'
+      country:
+        type: string
+      address:
+        type: array
+        items:
+          type: string
+
+  MandateAttributesBeneficiaryParty:
+    type: object
+    x-access:
+      - Public
+    properties:
+      account_name:
+        type: string
+        pattern: ^[A-Za-z0-9 \/\-?:\(\)\.,’\+\#\=\!\"%&\*\<\>;\{@\r\n]*$
+      account_number:
+        type: string
+        pattern: ^[A-Z0-9]{6,34}$
+      account_number_code:
+        $ref: '#/definitions/AccountNumberCode'
+      account_type:
+        type: integer
+      account_with:
+        $ref: '#/definitions/AccountHoldingEntity'
+      country:
+        type: string
+      address:
+        type: array
+        items:
+          type: string
+
+  MandateRelationships:
+    type: object
+    x-access:
+      - Public
+    properties:
+      mandate_admission:
+        type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/definitions/MandateAdmission'
+
+  MandateAdmission:
+    type: object
+    x-access:
+      - Public
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z_]*$
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        type: object
+        properties:
+          admission_datetime:
+            type: string
+            format: 'date-time'
+            readOnly: true
+          status:
+            $ref: '#/definitions/MandateAdmissionStatus'
+          scheme_status_code:
+            type: string
+          scheme_status_code_description:
+            type: string
+          status_reason:
+            $ref: '#/definitions/MandateAdmissionStatusReason'
+
+  MandateAdmissionStatus:
+    type: string
+    x-access:
+      - Public
+    enum:
+      - confirmed
+      - failed
+
+  MandateAdmissionStatusReason:
+    type: string
+    x-access:
+      - Public
+    enum:
+      - accepted
+      - invalid_beneficiary_details
+      - bankid_not_provisioned
+      - unknown_accountnumber
+
+  MandateFrequency:
+    type: string
+    x-access:
+      - Public
+    enum:
+      - daily
+      - weekly
+      - fortnightly
+      - monthly
+      - bimonthly
+      - quarterly
+      - yearly
+
+# mandate-api - end

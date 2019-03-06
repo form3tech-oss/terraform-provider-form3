@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -17,16 +19,16 @@ import (
 type PaymentRelationships struct {
 
 	// payment admission
-	PaymentAdmission *RelationshipLinks `json:"payment_admission,omitempty"`
+	PaymentAdmission *PaymentRelationshipsPaymentAdmission `json:"payment_admission,omitempty"`
 
 	// payment return
-	PaymentReturn *RelationshipLinks `json:"payment_return,omitempty"`
+	PaymentReturn *PaymentRelationshipsPaymentReturn `json:"payment_return,omitempty"`
 
 	// payment reversal
-	PaymentReversal *RelationshipLinks `json:"payment_reversal,omitempty"`
+	PaymentReversal *PaymentRelationshipsPaymentReversal `json:"payment_reversal,omitempty"`
 
 	// payment submission
-	PaymentSubmission *RelationshipLinks `json:"payment_submission,omitempty"`
+	PaymentSubmission *PaymentRelationshipsPaymentSubmission `json:"payment_submission,omitempty"`
 }
 
 // Validate validates this payment relationships
@@ -138,6 +140,266 @@ func (m *PaymentRelationships) MarshalBinary() ([]byte, error) {
 // UnmarshalBinary interface implementation
 func (m *PaymentRelationships) UnmarshalBinary(b []byte) error {
 	var res PaymentRelationships
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// PaymentRelationshipsPaymentAdmission The payment admission resource related to the payment
+// swagger:model PaymentRelationshipsPaymentAdmission
+type PaymentRelationshipsPaymentAdmission struct {
+
+	// data
+	Data []*PaymentAdmission `json:"data"`
+}
+
+// Validate validates this payment relationships payment admission
+func (m *PaymentRelationshipsPaymentAdmission) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateData(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *PaymentRelationshipsPaymentAdmission) validateData(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Data) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Data); i++ {
+		if swag.IsZero(m.Data[i]) { // not required
+			continue
+		}
+
+		if m.Data[i] != nil {
+			if err := m.Data[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("payment_admission" + "." + "data" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *PaymentRelationshipsPaymentAdmission) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *PaymentRelationshipsPaymentAdmission) UnmarshalBinary(b []byte) error {
+	var res PaymentRelationshipsPaymentAdmission
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// PaymentRelationshipsPaymentReturn The payment return resource related to the payment
+// swagger:model PaymentRelationshipsPaymentReturn
+type PaymentRelationshipsPaymentReturn struct {
+
+	// data
+	Data []*ReturnPayment `json:"data"`
+}
+
+// Validate validates this payment relationships payment return
+func (m *PaymentRelationshipsPaymentReturn) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateData(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *PaymentRelationshipsPaymentReturn) validateData(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Data) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Data); i++ {
+		if swag.IsZero(m.Data[i]) { // not required
+			continue
+		}
+
+		if m.Data[i] != nil {
+			if err := m.Data[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("payment_return" + "." + "data" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *PaymentRelationshipsPaymentReturn) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *PaymentRelationshipsPaymentReturn) UnmarshalBinary(b []byte) error {
+	var res PaymentRelationshipsPaymentReturn
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// PaymentRelationshipsPaymentReversal The payment reversal resource related to the payment
+// swagger:model PaymentRelationshipsPaymentReversal
+type PaymentRelationshipsPaymentReversal struct {
+
+	// data
+	Data []*ReversalPayment `json:"data"`
+}
+
+// Validate validates this payment relationships payment reversal
+func (m *PaymentRelationshipsPaymentReversal) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateData(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *PaymentRelationshipsPaymentReversal) validateData(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Data) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Data); i++ {
+		if swag.IsZero(m.Data[i]) { // not required
+			continue
+		}
+
+		if m.Data[i] != nil {
+			if err := m.Data[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("payment_reversal" + "." + "data" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *PaymentRelationshipsPaymentReversal) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *PaymentRelationshipsPaymentReversal) UnmarshalBinary(b []byte) error {
+	var res PaymentRelationshipsPaymentReversal
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
+	return nil
+}
+
+// PaymentRelationshipsPaymentSubmission The payment submission resource related to the payment
+// swagger:model PaymentRelationshipsPaymentSubmission
+type PaymentRelationshipsPaymentSubmission struct {
+
+	// data
+	Data []*PaymentSubmission `json:"data"`
+}
+
+// Validate validates this payment relationships payment submission
+func (m *PaymentRelationshipsPaymentSubmission) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateData(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *PaymentRelationshipsPaymentSubmission) validateData(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Data) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Data); i++ {
+		if swag.IsZero(m.Data[i]) { // not required
+			continue
+		}
+
+		if m.Data[i] != nil {
+			if err := m.Data[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("payment_submission" + "." + "data" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *PaymentRelationshipsPaymentSubmission) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *PaymentRelationshipsPaymentSubmission) UnmarshalBinary(b []byte) error {
+	var res PaymentRelationshipsPaymentSubmission
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

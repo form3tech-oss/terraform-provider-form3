@@ -18,7 +18,7 @@ import (
 type VocalinkReportAssociation struct {
 
 	// attributes
-	Attributes VocalinkReportAssociationAttributes `json:"attributes,omitempty"`
+	Attributes *VocalinkReportAssociationAttributes `json:"attributes,omitempty"`
 
 	// id
 	// Format: uuid
@@ -43,6 +43,10 @@ type VocalinkReportAssociation struct {
 func (m *VocalinkReportAssociation) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAttributes(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateID(formats); err != nil {
 		res = append(res, err)
 	}
@@ -62,6 +66,24 @@ func (m *VocalinkReportAssociation) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *VocalinkReportAssociation) validateAttributes(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Attributes) { // not required
+		return nil
+	}
+
+	if m.Attributes != nil {
+		if err := m.Attributes.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("attributes")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

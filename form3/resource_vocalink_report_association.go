@@ -56,6 +56,11 @@ func resourceForm3VocalinkReportAssociation() *schema.Resource {
 				Optional: true,
 				ForceNew: true,
 			},
+			"bacs_service_user_number": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
 			"bacs_service_user_certificate_id": {
 				Type:     schema.TypeString,
 				Optional: true,
@@ -117,6 +122,7 @@ func resourceVocalinkReportAssociationRead(d *schema.ResourceData, meta interfac
 
 	d.Set("association_id", bacsAssociation.Payload.Data.ID.String())
 	d.Set("organisation_id", bacsAssociation.Payload.Data.OrganisationID.String())
+	d.Set("bacs_service_user_number", bacsAssociation.Payload.Data.Attributes.BacsServiceUserNumber)
 
 	if bacsAssociation.Payload.Data.Relationships != nil {
 		if bacsAssociation.Payload.Data.Relationships.FpsMemberCertificate != nil && bacsAssociation.Payload.Data.Relationships.FpsMemberCertificate.Data != nil {
@@ -163,6 +169,7 @@ func createVocalinkReportNewAssociationFromResourceData(d *schema.ResourceData) 
 
 	association := &models.NewVocalinkReportAssociation{
 		Relationships: &models.VocalinkReportAssociationRelationships{},
+		Attributes:    &models.VocalinkReportAssociationAttributes{},
 	}
 
 	association.Type = "associations"
@@ -174,6 +181,10 @@ func createVocalinkReportNewAssociationFromResourceData(d *schema.ResourceData) 
 	if attr, ok := GetUUIDOK(d, "organisation_id"); ok {
 		uuid := strfmt.UUID(attr.String())
 		association.OrganisationID = &uuid
+	}
+
+	if sun, ok := d.GetOk("bacs_service_user_number"); ok {
+		association.Attributes.BacsServiceUserNumber = sun.(string)
 	}
 
 	association.Relationships.FpsMemberCertificate = buildVocalinkRelationship(d, "fps_member")
