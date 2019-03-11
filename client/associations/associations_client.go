@@ -109,6 +109,34 @@ func (a *Client) DeleteSepainstantID(params *DeleteSepainstantIDParams) (*Delete
 }
 
 /*
+DeleteSepasctID deletes organisation spea sct association
+*/
+func (a *Client) DeleteSepasctID(params *DeleteSepasctIDParams) (*DeleteSepasctIDNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteSepasctIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteSepasctID",
+		Method:             "DELETE",
+		PathPattern:        "/sepasct/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteSepasctIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteSepasctIDNoContent), nil
+
+}
+
+/*
 DeleteStarlingID deletes organisation association
 */
 func (a *Client) DeleteStarlingID(params *DeleteStarlingIDParams) (*DeleteStarlingIDNoContent, error) {
@@ -333,6 +361,62 @@ func (a *Client) GetSepainstantID(params *GetSepainstantIDParams) (*GetSepainsta
 }
 
 /*
+GetSepasct lists all organisation sepa sct associations
+*/
+func (a *Client) GetSepasct(params *GetSepasctParams) (*GetSepasctOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetSepasctParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetSepasct",
+		Method:             "GET",
+		PathPattern:        "/sepasct",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetSepasctReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetSepasctOK), nil
+
+}
+
+/*
+GetSepasctID fetches organisation sepa sct association
+*/
+func (a *Client) GetSepasctID(params *GetSepasctIDParams) (*GetSepasctIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetSepasctIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetSepasctID",
+		Method:             "GET",
+		PathPattern:        "/sepasct/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetSepasctIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetSepasctIDOK), nil
+
+}
+
+/*
 GetStarling lists all organisation associations
 */
 func (a *Client) GetStarling(params *GetStarlingParams) (*GetStarlingOK, error) {
@@ -525,6 +609,34 @@ func (a *Client) PostSepainstant(params *PostSepainstantParams) (*PostSepainstan
 		return nil, err
 	}
 	return result.(*PostSepainstantCreated), nil
+
+}
+
+/*
+PostSepasct creates organisation association for sepa sct
+*/
+func (a *Client) PostSepasct(params *PostSepasctParams) (*PostSepasctCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostSepasctParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostSepasct",
+		Method:             "POST",
+		PathPattern:        "/sepasct",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PostSepasctReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PostSepasctCreated), nil
 
 }
 
