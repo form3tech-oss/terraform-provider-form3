@@ -118,8 +118,6 @@ type Runtime struct {
 
 	Transport http.RoundTripper
 	Jar       http.CookieJar
-	Do         func(ctx context.Context, client *http.Client, req *http.Request) (*http.Response, error)
-
 	//Spec      *spec.Document
 	Host     string
 	BasePath string
@@ -130,6 +128,7 @@ type Runtime struct {
 	clientOnce *sync.Once
 	client     *http.Client
 	schemes    []string
+	do         func(ctx context.Context, client *http.Client, req *http.Request) (*http.Response, error)
 }
 
 // New creates a new default runtime for a swagger api runtime.Client
@@ -163,7 +162,7 @@ func New(host, basePath string, schemes []string) *Runtime {
 	if len(schemes) > 0 {
 		rt.schemes = schemes
 	}
-	rt.Do = ctxhttp.Do
+	rt.do = ctxhttp.Do
 	return &rt
 }
 
@@ -264,6 +263,14 @@ func (r *Runtime) Submit(operation *runtime.ClientOperation) (interface{}, error
 		}
 	})
 
+	if r.Debug {
+		b, err2 := httputil.DumpRequestOut(req, true)
+		if err2 != nil {
+			return nil, err2
+		}
+		fmt.Fprintln(os.Stderr, string(b))
+	}
+
 	var hasTimeout bool
 	pctx := operation.Context
 	if pctx == nil {
@@ -287,20 +294,10 @@ func (r *Runtime) Submit(operation *runtime.ClientOperation) (interface{}, error
 	if client == nil {
 		client = r.client
 	}
-	if r.Do == nil {
-		r.Do = ctxhttp.Do
+	if r.do == nil {
+		r.do = ctxhttp.Do
 	}
-
-	if r.Debug {
-		b, err2 := httputil.DumpRequestOut(req, true)
-		if err2 != nil {
-			return nil, err2
-		}
-		fmt.Fprintln(os.Stderr, string(b))
-	}
-
-	res, err := r.Do(ctx, client, req) // make requests, by default follows 10 redirects before failing
-
+	res, err := r.do(ctx, client, req) // make requests, by default follows 10 redirects before failing
 	if err != nil {
 		return nil, err
 	}
