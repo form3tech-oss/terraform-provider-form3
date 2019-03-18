@@ -3577,6 +3577,10 @@ definitions:
     properties:
       name:
         type: string
+      parent_role_id:
+        type: string
+        format: uuid
+        x-nullable: true
 
   RoleCreation:
     type: object
