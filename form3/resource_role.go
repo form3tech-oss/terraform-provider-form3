@@ -39,6 +39,7 @@ func resourceForm3Role() *schema.Resource {
 			"parent_role_id": &schema.Schema{
 				Type:     schema.TypeString,
 				Required: false,
+				Optional: true,
 				ForceNew: true,
 			},
 		},
