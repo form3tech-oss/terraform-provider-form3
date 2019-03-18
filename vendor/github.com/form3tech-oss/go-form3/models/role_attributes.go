@@ -8,7 +8,9 @@ package models
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // RoleAttributes role attributes
@@ -17,10 +19,36 @@ type RoleAttributes struct {
 
 	// name
 	Name string `json:"name,omitempty"`
+
+	// parent role id
+	// Format: uuid
+	ParentRoleID *strfmt.UUID `json:"parent_role_id,omitempty"`
 }
 
 // Validate validates this role attributes
 func (m *RoleAttributes) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateParentRoleID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *RoleAttributes) validateParentRoleID(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ParentRoleID) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("parent_role_id", "body", "uuid", m.ParentRoleID.String(), formats); err != nil {
+		return err
+	}
+
 	return nil
 }
 
