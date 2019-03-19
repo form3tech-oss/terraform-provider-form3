@@ -241,7 +241,7 @@ type PaymentAttributes struct {
 
 	// Timestamp of when the payment instruction meets the set processing conditions. Format: YYYY-MM-DDThh:mm:ss:mmm+hh:mm
 	// Format: date-time
-	PaymentAcceptanceDatetime strfmt.DateTime `json:"payment_acceptance_datetime,omitempty"`
+	PaymentAcceptanceDatetime *strfmt.DateTime `json:"payment_acceptance_datetime,omitempty"`
 
 	// Purpose of the payment in a proprietary form
 	PaymentPurpose string `json:"payment_purpose,omitempty"`
