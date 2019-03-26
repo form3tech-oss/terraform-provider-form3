@@ -27,6 +27,9 @@ type SubscriptionAttributes struct {
 	// Pattern: ^[A-Za-z0-9 .,@:\/-_]*$
 	CallbackURI string `json:"callback_uri,omitempty"`
 
+	// deactivated
+	Deactivated bool `json:"deactivated,omitempty"`
+
 	// event type
 	// Pattern: ^[A-Za-z_-]*$
 	EventType string `json:"event_type,omitempty"`
