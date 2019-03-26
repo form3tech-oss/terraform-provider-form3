@@ -20,9 +20,17 @@ type Subscription struct {
 	// attributes
 	Attributes *SubscriptionAttributes `json:"attributes,omitempty"`
 
+	// created on
+	// Format: date-time
+	CreatedOn *strfmt.DateTime `json:"created_on,omitempty"`
+
 	// id
 	// Format: uuid
 	ID strfmt.UUID `json:"id,omitempty"`
+
+	// modified on
+	// Format: date-time
+	ModifiedOn *strfmt.DateTime `json:"modified_on,omitempty"`
 
 	// organisation id
 	// Format: uuid
@@ -45,7 +53,15 @@ func (m *Subscription) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateCreatedOn(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateModifiedOn(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -85,6 +101,19 @@ func (m *Subscription) validateAttributes(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *Subscription) validateCreatedOn(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CreatedOn) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("created_on", "body", "date-time", m.CreatedOn.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *Subscription) validateID(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.ID) { // not required
@@ -92,6 +121,19 @@ func (m *Subscription) validateID(formats strfmt.Registry) error {
 	}
 
 	if err := validate.FormatOf("id", "body", "uuid", m.ID.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Subscription) validateModifiedOn(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ModifiedOn) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("modified_on", "body", "date-time", m.ModifiedOn.String(), formats); err != nil {
 		return err
 	}
 

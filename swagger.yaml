@@ -3422,6 +3422,8 @@ definitions:
       event_type:
         type: string
         pattern: ^[A-Za-z_-]*$
+      deactivated:
+        type: boolean
 
   #Organisation records
   #===
@@ -3677,6 +3679,7 @@ definitions:
           $ref: '#/definitions/Role'
       links:
         $ref: '#/definitions/Links'
+
   Subscription:
     type: object
     properties:
@@ -3692,6 +3695,14 @@ definitions:
       organisation_id:
         type: string
         format: uuid
+      created_on:
+        type: string
+        format: 'date-time'
+        x-nullable: true
+      modified_on:
+        type: string
+        format: 'date-time'
+        x-nullable: true
       attributes:
         $ref: "#/definitions/SubscriptionAttributes"
 
