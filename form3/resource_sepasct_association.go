@@ -28,16 +28,6 @@ func resourceForm3SepaSctAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
-			"business_user_dn": {
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
-			},
-			"transport_profile_id": {
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
-			},
 			"bic": {
 				Type:     schema.TypeString,
 				Required: true,
@@ -116,7 +106,7 @@ func resourceSepaSctAssociationDelete(d *schema.ResourceData, meta interface{}) 
 func createSepaSctNewAssociationFromResourceData(d *schema.ResourceData) (*models.NewSepaSctAssociation, error) {
 
 	association := models.NewSepaSctAssociation{Attributes: &models.SepaSctAssociationAttributes{}}
-
+  association.Type = "sepasct_associations"
 	if attr, ok := GetUUIDOK(d, "association_id"); ok {
 		association.ID = attr
 	}

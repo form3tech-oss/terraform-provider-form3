@@ -28,9 +28,7 @@ func TestAccSepaSctAssociation_basic(t *testing.T) {
 					testAccCheckSepaSctAssociationExists("form3_sepasct_association.association"),
 					resource.TestCheckResourceAttr("form3_sepasct_association.association", "association_id", associationId),
 					resource.TestCheckResourceAttr("form3_sepasct_association.association", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_sepasct_association.association", "business_user_dn", "cn=testbic8,ou=pilot,ou=eba_ips,o=88331,dc=sianet,dc=sia,dc=eu"),
-					resource.TestCheckResourceAttr("form3_sepasct_association.association", "transport_profile_id", "TEST_PROFILE_1"),
-					resource.TestCheckResourceAttr("form3_sepasct_association.association", "bic", "TESTBIC8"),
+					resource.TestCheckResourceAttr("form3_sepasct_association.association", "bic", "TESTBIC9"),
 				),
 			},
 		},
@@ -65,7 +63,7 @@ func testAccCheckSepaSctAssociationExists(resourceKey string) resource.TestCheck
 		}
 
 		if rs.Primary.ID == "" {
-			return fmt.Errorf("no bacs Record ID is set")
+			return fmt.Errorf("no sepasct Record ID is set")
 		}
 
 		client := testAccProvider.Meta().(*form3.AuthenticatedClient)
@@ -95,7 +93,5 @@ resource "form3_organisation" "organisation" {
 resource "form3_sepasct_association" "association" {
 	organisation_id      = "${form3_organisation.organisation.organisation_id}"
 	association_id       = "%s"
-  business_user_dn     = "cn=testbic8,ou=pilot,ou=eba_ips,o=88331,dc=sianet,dc=sia,dc=eu"
-  transport_profile_id = "TEST_PROFILE_1"
-	bic                  = "TESTBIC8"
+	bic                  = "TESTBIC9"
 }`
