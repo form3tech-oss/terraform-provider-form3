@@ -106,7 +106,7 @@ func resourceSepaSctAssociationDelete(d *schema.ResourceData, meta interface{}) 
 func createSepaSctNewAssociationFromResourceData(d *schema.ResourceData) (*models.NewSepaSctAssociation, error) {
 
 	association := models.NewSepaSctAssociation{Attributes: &models.SepaSctAssociationAttributes{}}
-  association.Type = "sepasct_associations"
+	association.Type = "sepasct_associations"
 	if attr, ok := GetUUIDOK(d, "association_id"); ok {
 		association.ID = attr
 	}
