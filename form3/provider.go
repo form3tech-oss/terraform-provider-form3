@@ -47,6 +47,7 @@ func Provider() terraform.ResourceProvider {
 			"form3_limit":                       resourceForm3Limit(),
 			"form3_bacs_association":            resourceForm3BacsAssociation(),
 			"form3_sepainstant_association":     resourceForm3SepaInstantAssociation(),
+			"form3_sepasct_association":         resourceForm3SepaSctAssociation(),
 			"form3_payment_defaults":            resourceForm3PaymentDefaults(),
 			"form3_vocalink_report_association": resourceForm3VocalinkReportAssociation(),
 			"form3_key":                         resourceForm3Key(),
