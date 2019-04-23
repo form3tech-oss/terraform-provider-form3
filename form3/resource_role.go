@@ -101,7 +101,10 @@ func resourceRoleRead(d *schema.ResourceData, meta interface{}) error {
 	d.Set("role_id", role.Payload.Data.ID.String())
 	d.Set("name", role.Payload.Data.Attributes.Name)
 	d.Set("organisation_id", role.Payload.Data.OrganisationID.String())
-	d.Set("parent_role_id", role.Payload.Data.Attributes.ParentRoleID.String())
+
+	if role.Payload.Data.Attributes.ParentRoleID != nil {
+		d.Set("parent_role_id", role.Payload.Data.Attributes.ParentRoleID.String())
+	}
 
 	return nil
 }
