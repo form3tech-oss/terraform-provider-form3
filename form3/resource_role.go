@@ -36,6 +36,12 @@ func resourceForm3Role() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
+			"parent_role_id": &schema.Schema{
+				Type:     schema.TypeString,
+				Required: false,
+				Optional: true,
+				ForceNew: true,
+			},
 		},
 	}
 }
@@ -96,6 +102,10 @@ func resourceRoleRead(d *schema.ResourceData, meta interface{}) error {
 	d.Set("name", role.Payload.Data.Attributes.Name)
 	d.Set("organisation_id", role.Payload.Data.OrganisationID.String())
 
+	if role.Payload.Data.Attributes.ParentRoleID != nil {
+		d.Set("parent_role_id", role.Payload.Data.Attributes.ParentRoleID.String())
+	}
+
 	return nil
 }
 
@@ -146,6 +156,10 @@ func createRoleFromResourceData(d *schema.ResourceData) (*models.Role, error) {
 
 	if attr, ok := GetUUIDOK(d, "organisation_id"); ok {
 		role.OrganisationID = attr
+	}
+
+	if attr, ok := GetUUIDOK(d, "parent_role_id"); ok {
+		role.Attributes.ParentRoleID = &attr
 	}
 
 	return &role, nil
