@@ -1,0 +1,127 @@
+{
+	"comment": "",
+	"ignore": "",
+	"package": [
+		{
+			"checksumSHA1": "58p21oydxcpPFYsYI+WOcSkFo7A=",
+			"path": "github.com/form3tech-oss/go-form3",
+			"revision": "b9e768cbe5064448f4d095b01196b158038be8dc",
+			"revisionTime": "2019-04-24T08:52:54Z"
+		},
+		{
+			"checksumSHA1": "Nz3YWBqb9uLzddk3SxcJzuN1e7Y=",
+			"path": "github.com/form3tech-oss/go-form3/client",
+			"revision": "b9e768cbe5064448f4d095b01196b158038be8dc",
+			"revisionTime": "2019-04-24T08:52:54Z"
+		},
+		{
+			"checksumSHA1": "j+iVy81kbyTEdAFYERgYosA7wmk=",
+			"path": "github.com/form3tech-oss/go-form3/client/accounts",
+			"revision": "b9e768cbe5064448f4d095b01196b158038be8dc",
+			"revisionTime": "2019-04-24T08:52:54Z"
+		},
+		{
+			"checksumSHA1": "2IgJo41ehMYfCI8c0aZNielBL7I=",
+			"path": "github.com/form3tech-oss/go-form3/client/ace",
+			"revision": "b9e768cbe5064448f4d095b01196b158038be8dc",
+			"revisionTime": "2019-04-24T08:52:54Z"
+		},
+		{
+			"checksumSHA1": "I+SEK9Vfa2q9vjyRYU4Fveb6n40=",
+			"path": "github.com/form3tech-oss/go-form3/client/admins",
+			"revision": "b9e768cbe5064448f4d095b01196b158038be8dc",
+			"revisionTime": "2019-04-24T08:52:54Z"
+		},
+		{
+			"checksumSHA1": "c6ok36GzIY8PD34LTNU18VjGZtU=",
+			"path": "github.com/form3tech-oss/go-form3/client/associations",
+			"revision": "b9e768cbe5064448f4d095b01196b158038be8dc",
+			"revisionTime": "2019-04-24T08:52:54Z"
+		},
+		{
+			"checksumSHA1": "DDrwafXA9nDxOVRdGr9jffO2ukU=",
+			"path": "github.com/form3tech-oss/go-form3/client/direct_debits",
+			"revision": "b9e768cbe5064448f4d095b01196b158038be8dc",
+			"revisionTime": "2019-04-24T08:52:54Z"
+		},
+		{
+			"checksumSHA1": "+Rz9tk7eS5loRt0J4tNJYEv/e6k=",
+			"path": "github.com/form3tech-oss/go-form3/client/limits",
+			"revision": "b9e768cbe5064448f4d095b01196b158038be8dc",
+			"revisionTime": "2019-04-24T08:52:54Z"
+		},
+		{
+			"checksumSHA1": "+fXD6klFUzLPl/jvfcL57Zd6N1c=",
+			"path": "github.com/form3tech-oss/go-form3/client/mandates",
+			"revision": "b9e768cbe5064448f4d095b01196b158038be8dc",
+			"revisionTime": "2019-04-24T08:52:54Z"
+		},
+		{
+			"checksumSHA1": "MsTvLeGMb/5vtkv9YXadv/lYkC0=",
+			"path": "github.com/form3tech-oss/go-form3/client/organisations",
+			"revision": "b9e768cbe5064448f4d095b01196b158038be8dc",
+			"revisionTime": "2019-04-24T08:52:54Z"
+		},
+		{
+			"checksumSHA1": "s01pmLYiCxfnNUnw5NyPApVdll0=",
+			"path": "github.com/form3tech-oss/go-form3/client/payment_defaults",
+			"revision": "b9e768cbe5064448f4d095b01196b158038be8dc",
+			"revisionTime": "2019-04-24T08:52:54Z"
+		},
+		{
+			"checksumSHA1": "TEKncgTaFld2nQmjUnpoZQ2diuE=",
+			"path": "github.com/form3tech-oss/go-form3/client/payments",
+			"revision": "b9e768cbe5064448f4d095b01196b158038be8dc",
+			"revisionTime": "2019-04-24T08:52:54Z"
+		},
+		{
+			"checksumSHA1": "UcH2TmINfyEVcskgNDZgJSw9ftg=",
+			"path": "github.com/form3tech-oss/go-form3/client/roles",
+			"revision": "b9e768cbe5064448f4d095b01196b158038be8dc",
+			"revisionTime": "2019-04-24T08:52:54Z"
+		},
+		{
+			"checksumSHA1": "hBIk9DyOXX2x14spHExTiqgPeQY=",
+			"path": "github.com/form3tech-oss/go-form3/client/subscriptions",
+			"revision": "b9e768cbe5064448f4d095b01196b158038be8dc",
+			"revisionTime": "2019-04-24T08:52:54Z"
+		},
+		{
+			"checksumSHA1": "6B/Ih95OeNmUVG6+G1+Qupd8HN0=",
+			"path": "github.com/form3tech-oss/go-form3/client/system",
+			"revision": "b9e768cbe5064448f4d095b01196b158038be8dc",
+			"revisionTime": "2019-04-24T08:52:54Z"
+		},
+		{
+			"checksumSHA1": "S+92IDdMAL0/uXt6hZr1A56bHE4=",
+			"path": "github.com/form3tech-oss/go-form3/client/users",
+			"revision": "b9e768cbe5064448f4d095b01196b158038be8dc",
+			"revisionTime": "2019-04-24T08:52:54Z"
+		},
+		{
+			"checksumSHA1": "D7wt1UhrRM+aejZeKGlSTMcIX6I=",
+			"path": "github.com/form3tech-oss/go-form3/models",
+			"revision": "b9e768cbe5064448f4d095b01196b158038be8dc",
+			"revisionTime": "2019-04-24T08:52:54Z"
+		},
+		{
+			"checksumSHA1": "RZOdTSZN/PgcTqko5LzIAzw+UT4=",
+			"path": "github.com/pmezard/go-difflib/difflib",
+			"revision": "5d4384ee4fb2527b0a1256a821ebfc92f91efefc",
+			"revisionTime": "2018-12-26T10:54:42Z"
+		},
+		{
+			"checksumSHA1": "HcKMR0fFgCLPhYzkwVVHgSGsezQ=",
+			"path": "github.com/stretchr/testify/assert",
+			"revision": "34c6fa2dc70986bccbbffcc6130f6920a924b075",
+			"revisionTime": "2019-03-04T09:57:49Z"
+		},
+		{
+			"checksumSHA1": "Xolss22hiad7/0XkStk0WM5LdgQ=",
+			"path": "github.com/stretchr/testify/require",
+			"revision": "34c6fa2dc70986bccbbffcc6130f6920a924b075",
+			"revisionTime": "2019-03-04T09:57:49Z"
+		}
+	],
+	"rootPath": "github.com/form3tech-oss/terraform-provider-form3"
+}
