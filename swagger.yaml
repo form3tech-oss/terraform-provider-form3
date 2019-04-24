@@ -8,6 +8,78 @@ schemes:
 basePath: /v1
 paths:
 
+  /admins/{user_id}/credentials:
+
+    get:
+      summary: Fetch admin credentials for user
+      tags:
+        - Admins
+      x-access:
+        - Public
+      parameters:
+        - name: user_id
+          in: path
+          description: User Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: List of admin credentials for user
+          schema:
+            $ref: "#/definitions/UserCredentialListResponse"
+
+    post:
+      summary: Generate new admin credentials for a user
+      tags:
+        - Admins
+      x-access:
+        - Public
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: user_id
+          in: path
+          description: User Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        201:
+          description: Credential creation response
+          schema:
+            $ref: "#/definitions/CredentialCreationResponse"
+
+  /admins/{user_id}/credentials/{client_id}:
+
+    delete:
+      summary: Delete admin credential for user
+      tags:
+        - Admins
+      x-access:
+        - Public
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: user_id
+          in: path
+          description: User Id
+          required: true
+          type: string
+          format: uuid
+        - name: client_id
+          in: path
+          description: client id
+          required: true
+          type: string
+      responses:
+        204:
+          description: Credential deleted
+
+
+
   /units:
 
     post:
@@ -47,7 +119,6 @@ paths:
           description: List of organisation details
           schema:
             $ref: "#/definitions/OrganisationDetailsListResponse"
-
 
   /units/{id}:
 
@@ -164,7 +235,6 @@ paths:
           schema:
             $ref: "#/definitions/UserDetailsListResponse"
 
-
   /users/{user_id}:
 
     get:
@@ -232,7 +302,6 @@ paths:
       responses:
         204:
           description: User deleted
-
 
   /users/{user_id}/aces:
 
@@ -439,7 +508,6 @@ paths:
             schema:
               $ref: "#/definitions/PayportAssociationDetailsListResponse"
 
-
   /payport/{id}:
 
     get:
@@ -479,6 +547,7 @@ paths:
       responses:
         204:
           description: Association deleted
+
   /roles:
 
     post:
@@ -525,7 +594,6 @@ paths:
           description: List of role details
           schema:
             $ref: "#/definitions/RoleDetailsListResponse"
-
 
   /roles/{role_id}:
 
@@ -613,7 +681,6 @@ paths:
           schema:
             $ref: "#/definitions/AceDetailsListResponse"
 
-
   /roles/{role_id}/aces/{ace_id}:
 
     get:
@@ -662,6 +729,7 @@ paths:
       responses:
         204:
           description: Ace deleted OK
+
   /subscriptions:
 
     post:
@@ -716,7 +784,6 @@ paths:
           description: List of subscription details
           schema:
             $ref: "#/definitions/SubscriptionDetailsListResponse"
-
 
   /subscriptions/{id}:
 
@@ -825,7 +892,6 @@ paths:
            description: List of associations
            schema:
              $ref: "#/definitions/AssociationDetailsListResponse"
-
 
   /starling/{id}:
 
@@ -973,7 +1039,6 @@ paths:
           schema:
             $ref: "#/definitions/AccountDetailsListResponse"
 
-
   /accounts/{id}:
 
     get:
@@ -1013,7 +1078,6 @@ paths:
       responses:
         204:
           description: Account deleted
-
 
   /bankids:
 
@@ -1224,7 +1288,6 @@ paths:
       responses:
         204:
           description: Bic deleted
-
 
   /accountconfigurations:
 
@@ -1498,7 +1561,6 @@ paths:
           description: List of associations for BACS
           schema:
             $ref: "#/definitions/BacsAssociationDetailsListResponse"
-
 
   /bacs/{id}:
 
@@ -1780,7 +1842,6 @@ paths:
         204:
           description: Certificate deleted
 
-
   /sepasct:
     post:
       summary: Create organisation association for sepa sct
@@ -1817,6 +1878,7 @@ paths:
           description: List of associations
           schema:
             $ref: "#/definitions/SepaSctAssociationDetailsListResponse"
+
   /sepasct/{id}:
     get:
       summary: Fetch organisation sepa sct association
@@ -1897,7 +1959,6 @@ paths:
           schema:
             $ref: "#/definitions/SepaInstantAssociationDetailsListResponse"
 
-
   /sepainstant/{id}:
 
     get:
@@ -1938,9 +1999,7 @@ paths:
         204:
           description: Association deleted
 
-
 #paymentapi - start
-
   /payments:
 
     post:
@@ -2096,7 +2155,6 @@ paths:
           description: List of payment details
           schema:
             $ref: "#/definitions/PaymentDetailsListResponse"
-
 
   /payments/{id}/admissions:
 
@@ -2441,8 +2499,6 @@ paths:
           description: Return submission creation error
           schema:
             $ref: "#/definitions/ApiError"
-
-
 
   /payments/{id}/returns/{returnId}/submissions/{submissionId}:
     get:
@@ -3422,6 +3478,8 @@ definitions:
       event_type:
         type: string
         pattern: ^[A-Za-z_-]*$
+      deactivated:
+        type: boolean
 
   #Organisation records
   #===
@@ -3681,6 +3739,7 @@ definitions:
           $ref: '#/definitions/Role'
       links:
         $ref: '#/definitions/Links'
+
   Subscription:
     type: object
     properties:
@@ -3696,6 +3755,14 @@ definitions:
       organisation_id:
         type: string
         format: uuid
+      created_on:
+        type: string
+        format: 'date-time'
+        x-nullable: true
+      modified_on:
+        type: string
+        format: 'date-time'
+        x-nullable: true
       attributes:
         $ref: "#/definitions/SubscriptionAttributes"
 
