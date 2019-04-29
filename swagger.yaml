@@ -4593,9 +4593,32 @@ definitions:
       attributes:
         $ref: "#/definitions/KeyAttributes"
 
+  KeyType:
+    type: string
+    enum: &KeyType
+      - RSA
+      - EC
+      - AES
+      - 3DES
+
+  CurveType:
+    type: string
+    enum: &CurveType
+      - PRIME256V1
+      - SECP256R1
+      - SECP384R1
+      - SECP256K1
+
   KeyAttributes:
     type: object
     properties:
+      type:
+        type: string
+        enum: *KeyType
+        default: RSA
+      curve:
+        type: string
+        enum: *CurveType
       subject:
         type: string
       private_key:
