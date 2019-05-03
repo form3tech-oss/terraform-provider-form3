@@ -53,6 +53,34 @@ func (a *Client) DeleteBacsID(params *DeleteBacsIDParams) (*DeleteBacsIDNoConten
 }
 
 /*
+DeleteConfirmationOfPayeeID deletes organisation association
+*/
+func (a *Client) DeleteConfirmationOfPayeeID(params *DeleteConfirmationOfPayeeIDParams) (*DeleteConfirmationOfPayeeIDNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteConfirmationOfPayeeIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteConfirmationOfPayeeID",
+		Method:             "DELETE",
+		PathPattern:        "/confirmation-of-payee/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteConfirmationOfPayeeIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteConfirmationOfPayeeIDNoContent), nil
+
+}
+
+/*
 DeletePayportID deletes service association
 */
 func (a *Client) DeletePayportID(params *DeletePayportIDParams) (*DeletePayportIDNoContent, error) {
@@ -245,6 +273,62 @@ func (a *Client) GetBacsID(params *GetBacsIDParams) (*GetBacsIDOK, error) {
 		return nil, err
 	}
 	return result.(*GetBacsIDOK), nil
+
+}
+
+/*
+GetConfirmationOfPayee lists all organisation associations
+*/
+func (a *Client) GetConfirmationOfPayee(params *GetConfirmationOfPayeeParams) (*GetConfirmationOfPayeeOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetConfirmationOfPayeeParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetConfirmationOfPayee",
+		Method:             "GET",
+		PathPattern:        "/confirmation-of-payee",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetConfirmationOfPayeeReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetConfirmationOfPayeeOK), nil
+
+}
+
+/*
+GetConfirmationOfPayeeID fetches organisation association
+*/
+func (a *Client) GetConfirmationOfPayeeID(params *GetConfirmationOfPayeeIDParams) (*GetConfirmationOfPayeeIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetConfirmationOfPayeeIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetConfirmationOfPayeeID",
+		Method:             "GET",
+		PathPattern:        "/confirmation-of-payee/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetConfirmationOfPayeeIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetConfirmationOfPayeeIDOK), nil
 
 }
 
@@ -553,6 +637,34 @@ func (a *Client) PostBacs(params *PostBacsParams) (*PostBacsCreated, error) {
 		return nil, err
 	}
 	return result.(*PostBacsCreated), nil
+
+}
+
+/*
+PostConfirmationOfPayee creates organisation association with confirmation of payee
+*/
+func (a *Client) PostConfirmationOfPayee(params *PostConfirmationOfPayeeParams) (*PostConfirmationOfPayeeCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostConfirmationOfPayeeParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostConfirmationOfPayee",
+		Method:             "POST",
+		PathPattern:        "/confirmation-of-payee",
+		ProducesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PostConfirmationOfPayeeReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PostConfirmationOfPayeeCreated), nil
 
 }
 
