@@ -32,8 +32,37 @@ func TestAccKey_basic(t *testing.T) {
 					testAccCheckKeyExists("form3_key.test_key", &response),
 					resource.TestCheckResourceAttr("form3_key.test_key", "organisation_id", organisationId),
 					resource.TestCheckResourceAttr("form3_key.test_key", "key_id", keyId),
+					resource.TestCheckResourceAttr("form3_key.test_key", "type", "RSA"),
 					resource.TestCheckResourceAttr("form3_key.test_key", "subject", "CN=Terraform-test"),
-					resource.TestCheckResourceAttr("form3_key.test_key", "description", "vocalink contact name is hsm1234"),
+					resource.TestCheckResourceAttr("form3_key.test_key", "description", "test key"),
+					resource.TestMatchOutput("csr", regexp.MustCompile(".*-----BEGIN CERTIFICATE REQUEST-----.*")),
+				),
+			},
+		},
+	})
+}
+
+func TestAccKey_ellipticCurve(t *testing.T) {
+	var response models.Key
+	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationId := uuid.NewV4().String()
+	keyId := uuid.NewV4().String()
+
+	resource.Test(t, resource.TestCase{
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
+		CheckDestroy: testAccCheckKeyDestroy,
+		Steps: []resource.TestStep{
+			{
+				Config: fmt.Sprintf(testForm3KeyConfigElliptic, organisationId, parentOrganisationId, keyId),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckKeyExists("form3_key.test_key", &response),
+					resource.TestCheckResourceAttr("form3_key.test_key", "organisation_id", organisationId),
+					resource.TestCheckResourceAttr("form3_key.test_key", "key_id", keyId),
+					resource.TestCheckResourceAttr("form3_key.test_key", "subject", "CN=Terraform-test"),
+					resource.TestCheckResourceAttr("form3_key.test_key", "type", "EC"),
+					resource.TestCheckResourceAttr("form3_key.test_key", "curve", "PRIME256V1"),
+					resource.TestCheckResourceAttr("form3_key.test_key", "description", "test key"),
 					resource.TestMatchOutput("csr", regexp.MustCompile(".*-----BEGIN CERTIFICATE REQUEST-----.*")),
 				),
 			},
@@ -116,7 +145,6 @@ func TestAccKey_importExistingCert(t *testing.T) {
 			t.Fail()
 		}
 
-		fmt.Printf("Creating 'existing' organisation %s", organisationId)
 		_, err = client.OrganisationClient.Organisations.PostUnits(organisations.NewPostUnitsParams().
 			WithOrganisationCreationRequest(&models.OrganisationCreation{Data: &models.Organisation{
 				OrganisationID: strfmt.UUID(parentOrganisationId),
@@ -130,7 +158,6 @@ func TestAccKey_importExistingCert(t *testing.T) {
 			t.Fail()
 		}
 
-		fmt.Printf("Creating 'existing' key %s", keyId)
 		_, err = client.SystemClient.System.PostKeys(system.NewPostKeysParams().
 			WithKeyCreationRequest(&models.KeyCreation{
 				Data: &models.Key{
@@ -149,7 +176,6 @@ func TestAccKey_importExistingCert(t *testing.T) {
 			t.Fail()
 		}
 
-		fmt.Printf("Creating 'existing' certificate %s", certificateId)
 		_, err = client.SystemClient.System.PostKeysKeyIDCertificates(system.NewPostKeysKeyIDCertificatesParams().
 			WithKeyID(strfmt.UUID(keyId)).
 			WithCertificateCreationRequest(&models.CertificateCreation{
@@ -287,10 +313,32 @@ resource "form3_organisation" "organisation" {
 }
 
 resource "form3_key" "test_key" {
-	organisation_id         = "${form3_organisation.organisation.organisation_id}"
-  subject                 = "CN=Terraform-test"
-  key_id  = "%s"
-  description             = "vocalink contact name is hsm1234"
+	organisation_id = "${form3_organisation.organisation.organisation_id}"
+  subject         = "CN=Terraform-test"
+  key_id          = "%s"
+  description     = "test key"
+}
+
+output "csr" {
+  value = "${form3_key.test_key.certificate_signing_request}"
+}
+`
+
+const testForm3KeyConfigElliptic = `
+
+resource "form3_organisation" "organisation" {
+	organisation_id        = "%s"
+	parent_organisation_id = "%s"
+	name 		               = "terraform-organisation"
+}
+
+resource "form3_key" "test_key" {
+	organisation_id  = "${form3_organisation.organisation.organisation_id}"
+  subject          = "CN=Terraform-test"
+  key_id           = "%s"
+  description      = "test key"
+  type             = "EC"
+  curve            = "PRIME256V1"
 }
 
 output "csr" {

@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/form3tech-oss/go-form3/client/system"
 	"github.com/form3tech-oss/go-form3/models"
+	"github.com/go-openapi/swag"
 	"github.com/nu7hatch/gouuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -21,7 +22,26 @@ func TestPostKey(t *testing.T) {
 
 	assert.Equal(t, "C=GB, O=Test Limited, OU=Test Bank, CN=12344321", createResponse.Payload.Data.Attributes.Subject)
 	assert.Equal(t, "go-form3 testing", createResponse.Payload.Data.Attributes.Description)
+	assert.Equal(t, "RSA", *createResponse.Payload.Data.Attributes.Type)
 	assert.Contains(t, createResponse.Payload.Data.Attributes.PrivateKey, "BEGIN RSA PRIVATE KEY")
+	assert.Contains(t, createResponse.Payload.Data.Attributes.PublicKey, "BEGIN PUBLIC KEY")
+	assert.Contains(t, createResponse.Payload.Data.Attributes.CertificateSigningRequest, "CERTIFICATE")
+
+}
+
+func TestPostEllipticCurveKey(t *testing.T) {
+	createResponse := createEcKey(t)
+	defer deleteKey(createResponse, t)
+
+	actualOrganisationId := createResponse.Payload.Data.OrganisationID.String()
+	if actualOrganisationId != organisationId.String() {
+		t.Fatalf("Expected %s, got %s", organisationId.String(), actualOrganisationId)
+	}
+
+	assert.Equal(t, "C=GB, O=Test Limited, OU=Test Bank, CN=12344321", createResponse.Payload.Data.Attributes.Subject)
+	assert.Equal(t, "go-form3 testing", createResponse.Payload.Data.Attributes.Description)
+	assert.Equal(t, "EC", *createResponse.Payload.Data.Attributes.Type)
+	assert.Contains(t, createResponse.Payload.Data.Attributes.PrivateKey, "BEGIN EC PRIVATE KEY")
 	assert.Contains(t, createResponse.Payload.Data.Attributes.PublicKey, "BEGIN PUBLIC KEY")
 	assert.Contains(t, createResponse.Payload.Data.Attributes.CertificateSigningRequest, "CERTIFICATE")
 
@@ -47,6 +67,25 @@ func createKey(t *testing.T) *system.PostKeysCreated {
 				Attributes: &models.KeyAttributes{
 					Subject:     "C=GB, O=Test Limited, OU=Test Bank, CN=12344321",
 					Description: "go-form3 testing",
+				},
+			},
+		}))
+	assertNoErrorOccurred(err, t)
+	return createResponse
+}
+
+func createEcKey(t *testing.T) *system.PostKeysCreated {
+	id, _ := uuid.NewV4()
+	createResponse, err := auth.SystemClient.System.PostKeys(system.NewPostKeysParams().
+		WithKeyCreationRequest(&models.KeyCreation{
+			Data: &models.Key{
+				ID:             *UUIDtoStrFmtUUID(id),
+				OrganisationID: organisationId,
+				Attributes: &models.KeyAttributes{
+					Subject:     "C=GB, O=Test Limited, OU=Test Bank, CN=12344321",
+					Description: "go-form3 testing",
+					Type:        swag.String("EC"),
+					Curve:       "PRIME256V1",
 				},
 			},
 		}))

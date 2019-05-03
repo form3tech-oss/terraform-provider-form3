@@ -59,6 +59,17 @@ func resourceForm3Key() *schema.Resource {
 				Optional: true,
 				ForceNew: true,
 			},
+			"type": {
+				Type:     schema.TypeString,
+				Optional: true,
+				Default:  "RSA",
+				ForceNew: true,
+			},
+			"curve": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
 		},
 	}
 }
@@ -121,6 +132,8 @@ func resourceKeyRead(d *schema.ResourceData, meta interface{}) error {
 	d.Set("public_key", response.Payload.Data.Attributes.PublicKey)
 	d.Set("private_key", response.Payload.Data.Attributes.PrivateKey)
 	d.Set("description", response.Payload.Data.Attributes.Description)
+	d.Set("type", response.Payload.Data.Attributes.Type)
+	d.Set("curve", response.Payload.Data.Attributes.Curve)
 
 	return nil
 }
@@ -172,6 +185,15 @@ func createKeyFromResourceData(d *schema.ResourceData) (*models.Key, error) {
 
 	if attr, ok := d.GetOk("description"); ok {
 		certificateRequest.Attributes.Description = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("type"); ok {
+		keyType := attr.(string)
+		certificateRequest.Attributes.Type = &keyType
+	}
+
+	if attr, ok := d.GetOk("curve"); ok {
+		certificateRequest.Attributes.Curve = attr.(string)
 	}
 
 	return certificateRequest, nil
