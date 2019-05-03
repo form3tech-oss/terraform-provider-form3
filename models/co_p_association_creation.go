@@ -10,6 +10,7 @@ import (
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // CoPAssociationCreation co p association creation
@@ -17,7 +18,8 @@ import (
 type CoPAssociationCreation struct {
 
 	// data
-	Data *CoPAssociation `json:"data,omitempty"`
+	// Required: true
+	Data *CoPAssociation `json:"data"`
 }
 
 // Validate validates this co p association creation
@@ -36,8 +38,8 @@ func (m *CoPAssociationCreation) Validate(formats strfmt.Registry) error {
 
 func (m *CoPAssociationCreation) validateData(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Data) { // not required
-		return nil
+	if err := validate.Required("data", "body", m.Data); err != nil {
+		return err
 	}
 
 	if m.Data != nil {

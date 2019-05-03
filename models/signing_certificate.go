@@ -78,15 +78,17 @@ func (m *SigningCertificate) UnmarshalBinary(b []byte) error {
 type SigningCertificateData struct {
 
 	// dn
-	Dn string `json:"dn,omitempty"`
+	// Required: true
+	Dn *string `json:"dn"`
 
 	// id
 	// Format: uuid
-	ID strfmt.UUID `json:"id,omitempty"`
+	ID *strfmt.UUID `json:"id,omitempty"`
 
 	// key id
+	// Required: true
 	// Format: uuid
-	KeyID strfmt.UUID `json:"key_id,omitempty"`
+	KeyID *strfmt.UUID `json:"key_id"`
 
 	// type
 	// Enum: [certificates]
@@ -96,6 +98,10 @@ type SigningCertificateData struct {
 // Validate validates this signing certificate data
 func (m *SigningCertificateData) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateDn(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateID(formats); err != nil {
 		res = append(res, err)
@@ -115,6 +121,15 @@ func (m *SigningCertificateData) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *SigningCertificateData) validateDn(formats strfmt.Registry) error {
+
+	if err := validate.Required("data"+"."+"dn", "body", m.Dn); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *SigningCertificateData) validateID(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.ID) { // not required
@@ -130,8 +145,8 @@ func (m *SigningCertificateData) validateID(formats strfmt.Registry) error {
 
 func (m *SigningCertificateData) validateKeyID(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.KeyID) { // not required
-		return nil
+	if err := validate.Required("data"+"."+"key_id", "body", m.KeyID); err != nil {
+		return err
 	}
 
 	if err := validate.FormatOf("data"+"."+"key_id", "body", "uuid", m.KeyID.String(), formats); err != nil {

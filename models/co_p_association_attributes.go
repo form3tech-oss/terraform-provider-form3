@@ -8,7 +8,9 @@ package models
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // CoPAssociationAttributes co p association attributes
@@ -16,14 +18,47 @@ import (
 type CoPAssociationAttributes struct {
 
 	// open banking organisation id
-	OpenBankingOrganisationID string `json:"open_banking_organisation_id,omitempty"`
+	// Required: true
+	OpenBankingOrganisationID *string `json:"open_banking_organisation_id"`
 
 	// public key id
-	PublicKeyID string `json:"public_key_id,omitempty"`
+	// Required: true
+	PublicKeyID *string `json:"public_key_id"`
 }
 
 // Validate validates this co p association attributes
 func (m *CoPAssociationAttributes) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateOpenBankingOrganisationID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePublicKeyID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CoPAssociationAttributes) validateOpenBankingOrganisationID(formats strfmt.Registry) error {
+
+	if err := validate.Required("open_banking_organisation_id", "body", m.OpenBankingOrganisationID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *CoPAssociationAttributes) validatePublicKeyID(formats strfmt.Registry) error {
+
+	if err := validate.Required("public_key_id", "body", m.PublicKeyID); err != nil {
+		return err
+	}
+
 	return nil
 }
 

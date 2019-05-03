@@ -18,26 +18,30 @@ import (
 type CoPAssociation struct {
 
 	// attributes
-	Attributes *CoPAssociationAttributes `json:"attributes,omitempty"`
+	// Required: true
+	Attributes *CoPAssociationAttributes `json:"attributes"`
 
 	// created on
 	// Format: date-time
 	CreatedOn strfmt.DateTime `json:"created_on,omitempty"`
 
 	// id
+	// Required: true
 	// Format: uuid
-	ID strfmt.UUID `json:"id,omitempty"`
+	ID *strfmt.UUID `json:"id"`
 
 	// modified on
 	// Format: date-time
 	ModifiedOn strfmt.DateTime `json:"modified_on,omitempty"`
 
 	// organisation id
+	// Required: true
 	// Format: uuid
-	OrganisationID strfmt.UUID `json:"organisation_id,omitempty"`
+	OrganisationID *strfmt.UUID `json:"organisation_id"`
 
 	// relationships
-	Relationships *CoPAssociationRelationships `json:"relationships,omitempty"`
+	// Required: true
+	Relationships *CoPAssociationRelationships `json:"relationships"`
 
 	// type
 	Type ResourceType `json:"type,omitempty"`
@@ -91,8 +95,8 @@ func (m *CoPAssociation) Validate(formats strfmt.Registry) error {
 
 func (m *CoPAssociation) validateAttributes(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Attributes) { // not required
-		return nil
+	if err := validate.Required("attributes", "body", m.Attributes); err != nil {
+		return err
 	}
 
 	if m.Attributes != nil {
@@ -122,8 +126,8 @@ func (m *CoPAssociation) validateCreatedOn(formats strfmt.Registry) error {
 
 func (m *CoPAssociation) validateID(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.ID) { // not required
-		return nil
+	if err := validate.Required("id", "body", m.ID); err != nil {
+		return err
 	}
 
 	if err := validate.FormatOf("id", "body", "uuid", m.ID.String(), formats); err != nil {
@@ -148,8 +152,8 @@ func (m *CoPAssociation) validateModifiedOn(formats strfmt.Registry) error {
 
 func (m *CoPAssociation) validateOrganisationID(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.OrganisationID) { // not required
-		return nil
+	if err := validate.Required("organisation_id", "body", m.OrganisationID); err != nil {
+		return err
 	}
 
 	if err := validate.FormatOf("organisation_id", "body", "uuid", m.OrganisationID.String(), formats); err != nil {
@@ -161,8 +165,8 @@ func (m *CoPAssociation) validateOrganisationID(formats strfmt.Registry) error {
 
 func (m *CoPAssociation) validateRelationships(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Relationships) { // not required
-		return nil
+	if err := validate.Required("relationships", "body", m.Relationships); err != nil {
+		return err
 	}
 
 	if m.Relationships != nil {

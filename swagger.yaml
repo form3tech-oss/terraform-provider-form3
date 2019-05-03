@@ -4330,6 +4330,7 @@ definitions:
        - payport_associations
        - limits
        - bacs_associations
+       - confirmation_of_payee_associations
 
   LimitCreation:
     type: object
@@ -7851,6 +7852,11 @@ definitions:
 
   CoPAssociation:
     type: object
+    required:
+      - id
+      - organisation_id
+      - attributes
+      - relationships
     properties:
       type:
         $ref: "#/definitions/ResourceType"
@@ -7885,6 +7891,9 @@ definitions:
     properties:
       data:
         type: object
+        required:
+          - key_id
+          - dn
         properties:
           type:
             type: string
@@ -7893,6 +7902,7 @@ definitions:
           id:
             type: string
             format: uuid
+            x-nullable: true
           key_id:
             type: string
             format: uuid
@@ -7901,6 +7911,9 @@ definitions:
 
   CoPAssociationAttributes:
     type: object
+    required:
+      - open_banking_organisation_id
+      - public_key_id
     properties:
       open_banking_organisation_id:
         type: string
@@ -7909,6 +7922,8 @@ definitions:
 
   CoPAssociationCreation:
     type: object
+    required:
+      - data
     properties:
       data:
         $ref: '#/definitions/CoPAssociation'
