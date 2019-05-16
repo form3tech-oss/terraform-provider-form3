@@ -8,6 +8,78 @@ schemes:
 basePath: /v1
 paths:
 
+  /admins/{user_id}/credentials:
+
+    get:
+      summary: Fetch admin credentials for user
+      tags:
+        - Admins
+      x-access:
+        - Public
+      parameters:
+        - name: user_id
+          in: path
+          description: User Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: List of admin credentials for user
+          schema:
+            $ref: "#/definitions/UserCredentialListResponse"
+
+    post:
+      summary: Generate new admin credentials for a user
+      tags:
+        - Admins
+      x-access:
+        - Public
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: user_id
+          in: path
+          description: User Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        201:
+          description: Credential creation response
+          schema:
+            $ref: "#/definitions/CredentialCreationResponse"
+
+  /admins/{user_id}/credentials/{client_id}:
+
+    delete:
+      summary: Delete admin credential for user
+      tags:
+        - Admins
+      x-access:
+        - Public
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: user_id
+          in: path
+          description: User Id
+          required: true
+          type: string
+          format: uuid
+        - name: client_id
+          in: path
+          description: client id
+          required: true
+          type: string
+      responses:
+        204:
+          description: Credential deleted
+
+
+
   /units:
 
     post:
@@ -47,7 +119,6 @@ paths:
           description: List of organisation details
           schema:
             $ref: "#/definitions/OrganisationDetailsListResponse"
-
 
   /units/{id}:
 
@@ -164,7 +235,6 @@ paths:
           schema:
             $ref: "#/definitions/UserDetailsListResponse"
 
-
   /users/{user_id}:
 
     get:
@@ -232,7 +302,6 @@ paths:
       responses:
         204:
           description: User deleted
-
 
   /users/{user_id}/aces:
 
@@ -439,7 +508,6 @@ paths:
             schema:
               $ref: "#/definitions/PayportAssociationDetailsListResponse"
 
-
   /payport/{id}:
 
     get:
@@ -479,6 +547,7 @@ paths:
       responses:
         204:
           description: Association deleted
+
   /roles:
 
     post:
@@ -525,7 +594,6 @@ paths:
           description: List of role details
           schema:
             $ref: "#/definitions/RoleDetailsListResponse"
-
 
   /roles/{role_id}:
 
@@ -613,7 +681,6 @@ paths:
           schema:
             $ref: "#/definitions/AceDetailsListResponse"
 
-
   /roles/{role_id}/aces/{ace_id}:
 
     get:
@@ -662,6 +729,7 @@ paths:
       responses:
         204:
           description: Ace deleted OK
+
   /subscriptions:
 
     post:
@@ -716,7 +784,6 @@ paths:
           description: List of subscription details
           schema:
             $ref: "#/definitions/SubscriptionDetailsListResponse"
-
 
   /subscriptions/{id}:
 
@@ -825,7 +892,6 @@ paths:
            description: List of associations
            schema:
              $ref: "#/definitions/AssociationDetailsListResponse"
-
 
   /starling/{id}:
 
@@ -973,7 +1039,6 @@ paths:
           schema:
             $ref: "#/definitions/AccountDetailsListResponse"
 
-
   /accounts/{id}:
 
     get:
@@ -1013,7 +1078,6 @@ paths:
       responses:
         204:
           description: Account deleted
-
 
   /bankids:
 
@@ -1224,7 +1288,6 @@ paths:
       responses:
         204:
           description: Bic deleted
-
 
   /accountconfigurations:
 
@@ -1498,7 +1561,6 @@ paths:
           description: List of associations for BACS
           schema:
             $ref: "#/definitions/BacsAssociationDetailsListResponse"
-
 
   /bacs/{id}:
 
@@ -1780,6 +1842,87 @@ paths:
         204:
           description: Certificate deleted
 
+  /confirmation-of-payee:
+    post:
+      summary: Create organisation association with confirmation of payee
+      tags:
+        - Associations
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      produces:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: creation request
+          in: body
+          schema:
+            $ref: "#/definitions/CoPAssociationCreation"
+      responses:
+        201:
+          description: creation response
+          schema:
+            $ref: "#/definitions/CoPAssociationCreationResponse"
+
+    get:
+      summary: List all organisation associations
+      tags:
+        - Associations
+      parameters:
+        - name: filter[organisation_id]
+          in: query
+          description: Organisation id
+          required: false
+          type: array
+          items:
+            type: string
+            format: uuid
+
+      responses:
+        200:
+          description: List of associations
+          schema:
+            $ref: "#/definitions/CoPAssociationDetailsListResponse"
+
+  /confirmation-of-payee/{id}:
+
+    get:
+      summary: Fetch organisation association
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Associations details
+          schema:
+            $ref: "#/definitions/CoPAssociationDetailsResponse"
+
+    delete:
+      summary: Delete organisation association
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+      responses:
+        204:
+          description: Association deleted
 
   /sepasct:
     post:
@@ -1817,6 +1960,7 @@ paths:
           description: List of associations
           schema:
             $ref: "#/definitions/SepaSctAssociationDetailsListResponse"
+
   /sepasct/{id}:
     get:
       summary: Fetch organisation sepa sct association
@@ -1897,7 +2041,6 @@ paths:
           schema:
             $ref: "#/definitions/SepaInstantAssociationDetailsListResponse"
 
-
   /sepainstant/{id}:
 
     get:
@@ -1938,9 +2081,7 @@ paths:
         204:
           description: Association deleted
 
-
 #paymentapi - start
-
   /payments:
 
     post:
@@ -2096,7 +2237,6 @@ paths:
           description: List of payment details
           schema:
             $ref: "#/definitions/PaymentDetailsListResponse"
-
 
   /payments/{id}/admissions:
 
@@ -2441,8 +2581,6 @@ paths:
           description: Return submission creation error
           schema:
             $ref: "#/definitions/ApiError"
-
-
 
   /payments/{id}/returns/{returnId}/submissions/{submissionId}:
     get:
@@ -3422,6 +3560,8 @@ definitions:
       event_type:
         type: string
         pattern: ^[A-Za-z_-]*$
+      deactivated:
+        type: boolean
 
   #Organisation records
   #===
@@ -3577,6 +3717,10 @@ definitions:
     properties:
       name:
         type: string
+      parent_role_id:
+        type: string
+        format: uuid
+        x-nullable: true
 
   RoleCreation:
     type: object
@@ -3677,6 +3821,7 @@ definitions:
           $ref: '#/definitions/Role'
       links:
         $ref: '#/definitions/Links'
+
   Subscription:
     type: object
     properties:
@@ -3692,6 +3837,14 @@ definitions:
       organisation_id:
         type: string
         format: uuid
+      created_on:
+        type: string
+        format: 'date-time'
+        x-nullable: true
+      modified_on:
+        type: string
+        format: 'date-time'
+        x-nullable: true
       attributes:
         $ref: "#/definitions/SubscriptionAttributes"
 
@@ -4177,6 +4330,7 @@ definitions:
        - payport_associations
        - limits
        - bacs_associations
+       - confirmation_of_payee_associations
 
   LimitCreation:
     type: object
@@ -4522,9 +4676,32 @@ definitions:
       attributes:
         $ref: "#/definitions/KeyAttributes"
 
+  KeyType:
+    type: string
+    enum: &KeyType
+      - RSA
+      - EC
+      - AES
+      - 3DES
+
+  CurveType:
+    type: string
+    enum: &CurveType
+      - PRIME256V1
+      - SECP256R1
+      - SECP384R1
+      - SECP256K1
+
   KeyAttributes:
     type: object
     properties:
+      type:
+        type: string
+        enum: *KeyType
+        default: RSA
+      curve:
+        type: string
+        enum: *CurveType
       subject:
         type: string
       private_key:
@@ -7670,3 +7847,111 @@ definitions:
       - yearly
 
 # mandate-api - end
+
+
+# open banking
+
+  CoPAssociation:
+    type: object
+    required:
+      - id
+      - organisation_id
+      - attributes
+      - relationships
+    properties:
+      type:
+        $ref: "#/definitions/ResourceType"
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      created_on:
+        type: string
+        format: date-time
+      modified_on:
+        type: string
+        format: date-time
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        $ref: "#/definitions/CoPAssociationAttributes"
+      relationships:
+        $ref: "#/definitions/CoPAssociationRelationships"
+
+  CoPAssociationRelationships:
+    type: object
+    properties:
+      signing_certificate:
+        $ref: "#/definitions/SigningCertificate"
+
+  SigningCertificate:
+    type: object
+    properties:
+      data:
+        type: object
+        required:
+          - key_id
+          - dn
+        properties:
+          type:
+            type: string
+            enum:
+              - certificates
+          id:
+            type: string
+            format: uuid
+            x-nullable: true
+          key_id:
+            type: string
+            format: uuid
+          dn:
+            type: string
+
+  CoPAssociationAttributes:
+    type: object
+    required:
+      - open_banking_organisation_id
+      - public_key_id
+    properties:
+      open_banking_organisation_id:
+        type: string
+      public_key_id:
+        type: string
+
+  CoPAssociationCreation:
+    type: object
+    required:
+      - data
+    properties:
+      data:
+        $ref: '#/definitions/CoPAssociation'
+
+  CoPAssociationCreationResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/CoPAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+  CoPAssociationDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/CoPAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+  CoPAssociationDetailsListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/CoPAssociation'
+      links:
+        $ref: '#/definitions/Links'
+# open banking - end

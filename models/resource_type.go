@@ -28,6 +28,9 @@ const (
 
 	// ResourceTypeBacsAssociations captures enum value "bacs_associations"
 	ResourceTypeBacsAssociations ResourceType = "bacs_associations"
+
+	// ResourceTypeConfirmationOfPayeeAssociations captures enum value "confirmation_of_payee_associations"
+	ResourceTypeConfirmationOfPayeeAssociations ResourceType = "confirmation_of_payee_associations"
 )
 
 // for schema
@@ -35,7 +38,7 @@ var resourceTypeEnum []interface{}
 
 func init() {
 	var res []ResourceType
-	if err := json.Unmarshal([]byte(`["payport_associations","limits","bacs_associations"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["payport_associations","limits","bacs_associations","confirmation_of_payee_associations"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {

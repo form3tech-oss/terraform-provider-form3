@@ -1,5 +1,13 @@
 .DEFAULT_GOAL := default
 
+swagger_codegen_version := "0.15.0"
+
+ifeq (${platform},Darwin)
+swagger_binary := "swagger_darwin_amd64"
+else
+swagger_binary := "swagger_linux_amd64"
+endif
+
 TEST?=$$(go list ./... |grep -v 'vendor')
 GOFMT_FILES?=$$(find . -name '*.go' |grep -v vendor)
 
@@ -10,6 +18,12 @@ build: fmtcheck vet
 
 testacc: fmtcheck
 	FORM3_ACC=1 go test $(TEST) -v $(TESTARGS) -timeout 120m
+
+install-swagger:
+	@sudo curl -o /usr/local/bin/swagger -L'#' https://github.com/go-swagger/go-swagger/releases/download/${swagger_codegen_version}/${swagger_binary} && chmod +x /usr/local/bin/swagger; \
+
+generate-swagger-model:
+	@swagger generate client -f ./swagger.yaml
 
 vet:
 	@echo "go vet ."

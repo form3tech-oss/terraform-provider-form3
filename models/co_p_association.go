@@ -13,40 +13,46 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// Subscription subscription
-// swagger:model Subscription
-type Subscription struct {
+// CoPAssociation co p association
+// swagger:model CoPAssociation
+type CoPAssociation struct {
 
 	// attributes
-	Attributes *SubscriptionAttributes `json:"attributes,omitempty"`
+	// Required: true
+	Attributes *CoPAssociationAttributes `json:"attributes"`
 
 	// created on
 	// Format: date-time
-	CreatedOn *strfmt.DateTime `json:"created_on,omitempty"`
+	CreatedOn strfmt.DateTime `json:"created_on,omitempty"`
 
 	// id
+	// Required: true
 	// Format: uuid
-	ID strfmt.UUID `json:"id,omitempty"`
+	ID *strfmt.UUID `json:"id"`
 
 	// modified on
 	// Format: date-time
-	ModifiedOn *strfmt.DateTime `json:"modified_on,omitempty"`
+	ModifiedOn strfmt.DateTime `json:"modified_on,omitempty"`
 
 	// organisation id
+	// Required: true
 	// Format: uuid
-	OrganisationID strfmt.UUID `json:"organisation_id,omitempty"`
+	OrganisationID *strfmt.UUID `json:"organisation_id"`
+
+	// relationships
+	// Required: true
+	Relationships *CoPAssociationRelationships `json:"relationships"`
 
 	// type
-	// Pattern: ^[A-Za-z]*$
-	Type string `json:"type,omitempty"`
+	Type ResourceType `json:"type,omitempty"`
 
 	// version
 	// Minimum: 0
 	Version *int64 `json:"version,omitempty"`
 }
 
-// Validate validates this subscription
-func (m *Subscription) Validate(formats strfmt.Registry) error {
+// Validate validates this co p association
+func (m *CoPAssociation) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAttributes(formats); err != nil {
@@ -69,6 +75,10 @@ func (m *Subscription) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateRelationships(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
@@ -83,10 +93,10 @@ func (m *Subscription) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Subscription) validateAttributes(formats strfmt.Registry) error {
+func (m *CoPAssociation) validateAttributes(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Attributes) { // not required
-		return nil
+	if err := validate.Required("attributes", "body", m.Attributes); err != nil {
+		return err
 	}
 
 	if m.Attributes != nil {
@@ -101,7 +111,7 @@ func (m *Subscription) validateAttributes(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Subscription) validateCreatedOn(formats strfmt.Registry) error {
+func (m *CoPAssociation) validateCreatedOn(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.CreatedOn) { // not required
 		return nil
@@ -114,10 +124,10 @@ func (m *Subscription) validateCreatedOn(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Subscription) validateID(formats strfmt.Registry) error {
+func (m *CoPAssociation) validateID(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.ID) { // not required
-		return nil
+	if err := validate.Required("id", "body", m.ID); err != nil {
+		return err
 	}
 
 	if err := validate.FormatOf("id", "body", "uuid", m.ID.String(), formats); err != nil {
@@ -127,7 +137,7 @@ func (m *Subscription) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Subscription) validateModifiedOn(formats strfmt.Registry) error {
+func (m *CoPAssociation) validateModifiedOn(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.ModifiedOn) { // not required
 		return nil
@@ -140,10 +150,10 @@ func (m *Subscription) validateModifiedOn(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Subscription) validateOrganisationID(formats strfmt.Registry) error {
+func (m *CoPAssociation) validateOrganisationID(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.OrganisationID) { // not required
-		return nil
+	if err := validate.Required("organisation_id", "body", m.OrganisationID); err != nil {
+		return err
 	}
 
 	if err := validate.FormatOf("organisation_id", "body", "uuid", m.OrganisationID.String(), formats); err != nil {
@@ -153,20 +163,41 @@ func (m *Subscription) validateOrganisationID(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Subscription) validateType(formats strfmt.Registry) error {
+func (m *CoPAssociation) validateRelationships(formats strfmt.Registry) error {
+
+	if err := validate.Required("relationships", "body", m.Relationships); err != nil {
+		return err
+	}
+
+	if m.Relationships != nil {
+		if err := m.Relationships.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("relationships")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *CoPAssociation) validateType(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("type", "body", string(m.Type), `^[A-Za-z]*$`); err != nil {
+	if err := m.Type.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("type")
+		}
 		return err
 	}
 
 	return nil
 }
 
-func (m *Subscription) validateVersion(formats strfmt.Registry) error {
+func (m *CoPAssociation) validateVersion(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Version) { // not required
 		return nil
@@ -180,7 +211,7 @@ func (m *Subscription) validateVersion(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *Subscription) MarshalBinary() ([]byte, error) {
+func (m *CoPAssociation) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -188,8 +219,8 @@ func (m *Subscription) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *Subscription) UnmarshalBinary(b []byte) error {
-	var res Subscription
+func (m *CoPAssociation) UnmarshalBinary(b []byte) error {
+	var res CoPAssociation
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
