@@ -5549,6 +5549,7 @@ definitions:
           payment_acceptance_datetime:
             type: string
             format: 'date-time'
+            x-nullable: true
             description: "Timestamp of when the payment instruction meets the set processing conditions. Format: YYYY-MM-DDThh:mm:ss:mmm+hh:mm"
             example: "2017-09-30T12:36:02.123+01:00"
           scheme_transaction_id:
