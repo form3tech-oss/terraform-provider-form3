@@ -4764,16 +4764,18 @@ definitions:
 
   CertificateAttributes:
     type: object
-    required:
-      - certificate
     properties:
       certificate:
+        type: string
+      subject:
         type: string
       issuing_certificates:
         type: array
         items:
           type: string
-
+      expires:
+        type: string
+        format: date-time
 
   SepaInstantAssociation:
     type: object

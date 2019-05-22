@@ -18,18 +18,24 @@ import (
 type CertificateAttributes struct {
 
 	// certificate
-	// Required: true
-	Certificate *string `json:"certificate"`
+	Certificate string `json:"certificate,omitempty"`
+
+	// expires
+	// Format: date-time
+	Expires strfmt.DateTime `json:"expires,omitempty"`
 
 	// issuing certificates
 	IssuingCertificates []string `json:"issuing_certificates"`
+
+	// subject
+	Subject string `json:"subject,omitempty"`
 }
 
 // Validate validates this certificate attributes
 func (m *CertificateAttributes) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateCertificate(formats); err != nil {
+	if err := m.validateExpires(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -39,9 +45,13 @@ func (m *CertificateAttributes) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *CertificateAttributes) validateCertificate(formats strfmt.Registry) error {
+func (m *CertificateAttributes) validateExpires(formats strfmt.Registry) error {
 
-	if err := validate.Required("certificate", "body", m.Certificate); err != nil {
+	if swag.IsZero(m.Expires) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("expires", "body", "date-time", m.Expires.String(), formats); err != nil {
 		return err
 	}
 
