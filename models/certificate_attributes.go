@@ -18,7 +18,8 @@ import (
 type CertificateAttributes struct {
 
 	// certificate
-	Certificate string `json:"certificate,omitempty"`
+	// Required: true
+	Certificate *string `json:"certificate"`
 
 	// expires
 	// Format: date-time
@@ -35,6 +36,10 @@ type CertificateAttributes struct {
 func (m *CertificateAttributes) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateCertificate(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateExpires(formats); err != nil {
 		res = append(res, err)
 	}
@@ -42,6 +47,15 @@ func (m *CertificateAttributes) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *CertificateAttributes) validateCertificate(formats strfmt.Registry) error {
+
+	if err := validate.Required("certificate", "body", m.Certificate); err != nil {
+		return err
+	}
+
 	return nil
 }
 

@@ -4764,6 +4764,8 @@ definitions:
 
   CertificateAttributes:
     type: object
+    required:
+        - certificate
     properties:
       certificate:
         type: string
