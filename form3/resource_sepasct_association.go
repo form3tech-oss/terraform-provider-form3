@@ -33,6 +33,16 @@ func resourceForm3SepaSctAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
+			"business_user": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
+			"receiver_business_user": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
 		},
 	}
 }
@@ -80,6 +90,9 @@ func resourceSepaSctAssociationRead(d *schema.ResourceData, meta interface{}) er
 
 	_ = d.Set("association_id", sepaSctAssociation.Payload.Data.ID.String())
 	_ = d.Set("bic", sepaSctAssociation.Payload.Data.Attributes.Bic)
+	_ = d.Set("business_user", sepaSctAssociation.Payload.Data.Attributes.BusinessUser)
+	_ = d.Set("receiver_business_user", sepaSctAssociation.Payload.Data.Attributes.ReceiverBusinessUser)
+
 	return nil
 }
 
@@ -118,5 +131,14 @@ func createSepaSctNewAssociationFromResourceData(d *schema.ResourceData) (*model
 	if attr, ok := d.GetOk("bic"); ok {
 		association.Attributes.Bic = attr.(string)
 	}
+
+	if attr, ok := d.GetOk("business_user"); ok {
+		association.Attributes.BusinessUser = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("receiver_business_user"); ok {
+		association.Attributes.ReceiverBusinessUser = attr.(string)
+	}
+
 	return &association, nil
 }

@@ -17,6 +17,12 @@ type SepaSctAssociationAttributes struct {
 
 	// bic
 	Bic string `json:"bic,omitempty"`
+
+	// business user
+	BusinessUser string `json:"businessUser,omitempty"`
+
+	// receiver business user
+	ReceiverBusinessUser string `json:"receiverBusinessUser,omitempty"`
 }
 
 // Validate validates this sepa sct association attributes
