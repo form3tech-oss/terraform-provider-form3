@@ -96,6 +96,6 @@ resource "form3_sepasct_association" "association" {
 	organisation_id        = "${form3_organisation.organisation.organisation_id}"
 	association_id         = "%s"
 	bic                    = "TESTBIC9"
-  business_use           = "PR344567"
+  business_user          = "PR344567"
   receiver_business_user = "PR344568"
 }`
