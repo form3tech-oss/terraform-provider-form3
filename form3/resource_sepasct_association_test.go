@@ -29,6 +29,8 @@ func TestAccSepaSctAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_sepasct_association.association", "association_id", associationId),
 					resource.TestCheckResourceAttr("form3_sepasct_association.association", "organisation_id", organisationId),
 					resource.TestCheckResourceAttr("form3_sepasct_association.association", "bic", "TESTBIC9"),
+					resource.TestCheckResourceAttr("form3_sepasct_association.association", "business_user", "PR344567"),
+					resource.TestCheckResourceAttr("form3_sepasct_association.association", "receiver_business_user", "PR344568"),
 				),
 			},
 		},
@@ -91,7 +93,9 @@ resource "form3_organisation" "organisation" {
 }
 
 resource "form3_sepasct_association" "association" {
-	organisation_id      = "${form3_organisation.organisation.organisation_id}"
-	association_id       = "%s"
-	bic                  = "TESTBIC9"
+	organisation_id        = "${form3_organisation.organisation.organisation_id}"
+	association_id         = "%s"
+	bic                    = "TESTBIC9"
+  business_use           = "PR344567"
+  receiver_business_user = "PR344568"
 }`
