@@ -12,7 +12,7 @@ import (
 	"net/http/httputil"
 	"sync"
 
-	"github.com/form3tech-oss/go-form3/client"
+	"github.com/form3tech-oss/terraform-provider-form3/client"
 	"github.com/go-openapi/runtime"
 	rc "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"

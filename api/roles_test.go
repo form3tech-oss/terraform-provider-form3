@@ -1,9 +1,9 @@
 package api
 
 import (
-	"github.com/form3tech-oss/go-form3/client/ace"
-	"github.com/form3tech-oss/go-form3/client/roles"
-	"github.com/form3tech-oss/go-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/client/ace"
+	"github.com/form3tech-oss/terraform-provider-form3/client/roles"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/strfmt"
 	"github.com/nu7hatch/gouuid"
 	"testing"

@@ -1,8 +1,8 @@
 package form3
 
 import (
-	"github.com/form3tech-oss/go-form3"
-	"github.com/form3tech-oss/go-form3/client"
+	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
+	"github.com/form3tech-oss/terraform-provider-form3/client"
 	"log"
 )
 

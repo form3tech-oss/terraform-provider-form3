@@ -1,8 +1,8 @@
 package api
 
 import (
-	"github.com/form3tech-oss/go-form3/client/associations"
-	"github.com/form3tech-oss/go-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/nu7hatch/gouuid"
@@ -44,6 +44,7 @@ func createAssociation(t *testing.T) *associations.PostConfirmationOfPayeeCreate
 					SigningCertificate: &models.SigningCertificate{
 						Data: &models.SigningCertificateData{
 							KeyID: UUIDtoStrFmtUUID(keyId),
+							Dn:    swag.String("test"),
 						},
 					},
 				},

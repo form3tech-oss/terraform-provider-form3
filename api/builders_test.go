@@ -8,9 +8,9 @@ import (
 
 func TestNewSchemeTransactionID(t *testing.T) {
 	builder := PaymentBuilder{}
-	assert.Equal(t, 17, len(NewSchemeTransactionID()))
-	id1 := NewSchemeTransactionID()
-	id2 := NewSchemeTransactionID()
+	assert.Equal(t, 17, len(builder.NewSchemeTransactionID()))
+	id1 := builder.NewSchemeTransactionID()
+	id2 := builder.NewSchemeTransactionID()
 
 	fmt.Println(id1)
 	fmt.Println(id2)

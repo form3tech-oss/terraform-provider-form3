@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"log"
 
-	form3 "github.com/form3tech-oss/go-form3"
-	"github.com/form3tech-oss/go-form3/client/associations"
-	"github.com/form3tech-oss/go-form3/models"
+	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
+	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/schema"

@@ -2,8 +2,8 @@ package api
 
 import (
 	"context"
-	"github.com/form3tech-oss/go-form3/client/system"
-	"github.com/form3tech-oss/go-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/client/system"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/swag"
 	"github.com/nu7hatch/gouuid"
 	"github.com/stretchr/testify/assert"

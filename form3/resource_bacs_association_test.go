@@ -5,8 +5,8 @@ import (
 	"os"
 	"testing"
 
-	form3 "github.com/form3tech-oss/go-form3"
-	"github.com/form3tech-oss/go-form3/client/associations"
+	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
+	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"

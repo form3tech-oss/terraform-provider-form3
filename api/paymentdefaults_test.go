@@ -3,8 +3,8 @@ package api
 import (
 	"testing"
 
-	"github.com/form3tech-oss/go-form3/client/payment_defaults"
-	"github.com/form3tech-oss/go-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/client/payment_defaults"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/strfmt"
 	"github.com/nu7hatch/gouuid"
 )

@@ -1,13 +1,17 @@
 package api
 
 import (
-	"github.com/form3tech-oss/go-form3/client/payments"
-	"github.com/form3tech-oss/go-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/client/payments"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"testing"
 )
 
 func TestAccPostTransactionsPayment(t *testing.T) {
-	payment := Build()
+	payment := (&PaymentBuilder{}).
+		WithDefaults().
+		WithAmount("60.00").
+		WithOrganisationID(testOrganisationId).
+		Build()
 
 	_, err := auth.TransactionClient.Payments.
 		PostPayments(payments.NewPostPaymentsParams().
@@ -19,7 +23,11 @@ func TestAccPostTransactionsPayment(t *testing.T) {
 }
 
 func TestAccPostTransactionsPaymentSubmission(t *testing.T) {
-	payment := Build()
+	payment := (&PaymentBuilder{}).
+		WithDefaults().
+		WithAmount("60.00").
+		WithOrganisationID(testOrganisationId).
+		Build()
 
 	paymentResponse, err := auth.TransactionClient.Payments.
 		PostPayments(payments.NewPostPaymentsParams().

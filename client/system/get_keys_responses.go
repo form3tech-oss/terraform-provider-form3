@@ -13,7 +13,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/form3tech-oss/go-form3/models"
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetKeysReader is a Reader for the GetKeys structure.

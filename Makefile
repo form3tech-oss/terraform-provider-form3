@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := default
 
-swagger_codegen_version := "0.15.0"
+swagger_codegen_version := "v0.19.0"
 
 ifeq (${platform},Darwin)
 swagger_binary := "swagger_darwin_amd64"
@@ -11,7 +11,7 @@ endif
 TEST?=$$(go list ./... |grep -v 'vendor')
 GOFMT_FILES?=$$(find . -name '*.go' |grep -v vendor)
 
-default: build test testacc
+default: build test clienttestacc testacc
 
 build: vet fmtcheck
 	@go install
