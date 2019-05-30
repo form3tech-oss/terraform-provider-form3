@@ -13,3 +13,8 @@ trim_trailing_whitespace = true
 [{Makefile, makefile, GNUmakefile}]
 indent_style = tab
 indent_size = 4
+
+; Golang
+[*.go]
+indent_style = tab
+indent_size = 4

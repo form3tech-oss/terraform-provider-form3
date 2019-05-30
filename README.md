@@ -13,7 +13,7 @@ the official [Form3 API](http://api-docs.form3.tech)
 ## Requirements
 
 -	[Terraform](https://www.terraform.io/downloads.html) 0.10.x
--	[Go](https://golang.org/doc/install) 1.9 (to build the provider plugin)
+-	[Go](https://golang.org/doc/install) 1.10 (to build the provider plugin)
 
 ## Building The Provider
 
@@ -59,5 +59,22 @@ In order to run the full suite of Acceptance tests, run `make testacc`.
 $ env FORM3_CLIENT_ID={your_client_id} FORM3_CLIENT_SECRET={your_client_secret} FORM3_HOST={some_env_host} FORM3_ORGANISATION_ID={your_organisation_id} make testacc
 ```
 
-### Updating packages
-* govendor fetch github.com/form3tech-oss/go-form3/...
+
+## Running tests
+# Tests
+
+| Environment variables| Description                                |
+|:---------------------|:-------------------------------------------|
+| FORM3_HOST           | Form 3 host e.g. api.form3.tech            |
+| FORM3_ACC            | Set to `1` to run integration tests        |
+| FORM3_CLIENT_ID      | Client id                                  |
+| FORM3_CLIENT_SECRET  | Secret                                     |
+| FORM3_ORGANISATION_ID| Organisation Id                            | 
+| TF_LOG               | "TRACE", "DEBUG", "INFO", "WARN", "ERROR"  |
+
+## Example
+`make testacc FORM3_ACC=1 FORM3_CLIENT_ID=xxx FORM3_CLIENT_SECRET=xxx FORM3_HOST=api.whistle.env.form3.tech FORM3_ORGANISATION_ID=xxx`
+
+
+# Swagger
+To generate the swagger model run: `swagger generate client -f ./swagger.yaml`
