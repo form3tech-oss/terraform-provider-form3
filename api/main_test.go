@@ -1,4 +1,4 @@
-package form3
+package api
 
 import (
 	"errors"
@@ -91,8 +91,8 @@ func createClient(config *client.TransportConfig) {
 }
 
 func ensureAuthenticated() {
-	if auth.AccessToken == "" {
-		auth.Authenticate(os.Getenv("FORM3_CLIENT_ID"), os.Getenv("FORM3_CLIENT_SECRET"))
+	if AccessToken == "" {
+		Authenticate(os.Getenv("FORM3_CLIENT_ID"), os.Getenv("FORM3_CLIENT_SECRET"))
 	}
 }
 

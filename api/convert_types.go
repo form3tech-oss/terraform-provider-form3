@@ -1,4 +1,4 @@
-package form3
+package api
 
 import (
 	"github.com/go-openapi/strfmt"

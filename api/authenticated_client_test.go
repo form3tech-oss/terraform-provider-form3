@@ -1,4 +1,4 @@
-package form3
+package api
 
 import (
 	"github.com/go-openapi/strfmt"
@@ -7,13 +7,13 @@ import (
 )
 
 func TestAccLogin(t *testing.T) {
-	err := auth.Authenticate(os.Getenv("FORM3_CLIENT_ID"), os.Getenv("FORM3_CLIENT_SECRET"))
+	err := Authenticate(os.Getenv("FORM3_CLIENT_ID"), os.Getenv("FORM3_CLIENT_SECRET"))
 	if err != nil {
 		t.Error(err)
 	}
 
-	if len(auth.AccessToken) < 32 {
-		t.Errorf("expected access token to be set, found %s", auth.AccessToken)
+	if len(AccessToken) < 32 {
+		t.Errorf("expected access token to be set, found %s", AccessToken)
 	}
 }
 

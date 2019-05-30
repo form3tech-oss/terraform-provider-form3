@@ -1,4 +1,4 @@
-package form3
+package api
 
 import (
 	"github.com/form3tech-oss/go-form3/client/payments"
@@ -7,11 +7,7 @@ import (
 )
 
 func TestAccPostTransactionsPayment(t *testing.T) {
-	payment := (&PaymentBuilder{}).
-		WithDefaults().
-		WithAmount("60.00").
-		WithOrganisationID(testOrganisationId).
-		Build()
+	payment := Build()
 
 	_, err := auth.TransactionClient.Payments.
 		PostPayments(payments.NewPostPaymentsParams().
@@ -23,11 +19,7 @@ func TestAccPostTransactionsPayment(t *testing.T) {
 }
 
 func TestAccPostTransactionsPaymentSubmission(t *testing.T) {
-	payment := (&PaymentBuilder{}).
-		WithDefaults().
-		WithAmount("60.00").
-		WithOrganisationID(testOrganisationId).
-		Build()
+	payment := Build()
 
 	paymentResponse, err := auth.TransactionClient.Payments.
 		PostPayments(payments.NewPostPaymentsParams().

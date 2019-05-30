@@ -1,4 +1,4 @@
-package form3
+package api
 
 import (
 	"github.com/form3tech-oss/go-form3/client/ace"
