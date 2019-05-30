@@ -2,8 +2,8 @@ package form3
 
 import (
 	"fmt"
-	"github.com/form3tech-oss/go-form3"
-	"github.com/form3tech-oss/go-form3/client/ace"
+	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
+	"github.com/form3tech-oss/terraform-provider-form3/client/ace"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
