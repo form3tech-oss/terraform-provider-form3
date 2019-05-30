@@ -24,6 +24,12 @@ var authOnce = new(sync.Once)
 var config = client.DefaultTransportConfig()
 
 func TestMain(m *testing.M) {
+	skip := len(os.Getenv("FORM3_ACC")) == 0
+	if skip {
+		log.Println("Client tests skipped as FORM3_ACC environment variable not set")
+		os.Exit(0)
+	}
+
 	if err := testPreCheck(); err != nil {
 		log.Fatalf("[FATAL] Error initializing test run: %+v", err)
 		os.Exit(-1)
@@ -137,10 +143,6 @@ func getType(myvar interface{}) string {
 }
 
 func testPreCheck() error {
-	skip := len(os.Getenv("FORM3_ACC")) == 0
-	if skip {
-		return errors.New("form3 client_test.go tests require setting FORM3_ACC=1 environment variable")
-	}
 
 	if len(os.Getenv("FORM3_CLIENT_ID")) == 0 {
 		return errors.New("FORM3_CLIENT_ID must be set for acceptance tests")

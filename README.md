@@ -51,17 +51,9 @@ In order to test the provider, you can simply run `make test`.
 $ make test
 ```
 
-In order to run the full suite of Acceptance tests, run `make clienttestacc` for client tests and `make testacc` for terraform tests.
+In order to run the full suite of Acceptance tests, set the environment variables listed below and run `make testacc`.
 
 *Note:* Acceptance tests create real resources, and often cost money to run.
-
-```sh
-$ env FORM3_CLIENT_ID={your_client_id} FORM3_CLIENT_SECRET={your_client_secret} FORM3_HOST={some_env_host} FORM3_ORGANISATION_ID={your_organisation_id} make clienttestacc
-```
-
-```sh
-$ env FORM3_CLIENT_ID={your_client_id} FORM3_CLIENT_SECRET={your_client_secret} FORM3_HOST={some_env_host} FORM3_ORGANISATION_ID={your_organisation_id} make testacc
-```
 
 
 | Environment variables| Description                                |

@@ -11,7 +11,7 @@ endif
 TEST?=$$(go list ./... |grep -v 'vendor')
 GOFMT_FILES?=$$(find . -name '*.go' |grep -v vendor)
 
-default: build test clienttestacc testacc
+default: build test testacc
 
 build: vet fmtcheck
 	@go install
@@ -25,10 +25,7 @@ test: fmtcheck
 		xargs -t -n4 go test $(TESTARGS) -count 1 -v -timeout=30s -parallel=4
 
 testacc: fmtcheck
-	TF_ACC=1 go test $(TEST) $(TESTARGS) -v -count 1 -timeout 120m
-
-clienttestacc: fmtcheck
-	FORM3_ACC=1 go test $(TEST) -v $(TESTARGS) -timeout 120m
+	TF_ACC=1 FORM3_ACC=1 go test $(TEST) $(TESTARGS) -v -count 1 -timeout 120m
 
 install-swagger:
 	@sudo curl -o /usr/local/bin/swagger -L'#' https://github.com/go-swagger/go-swagger/releases/download/${swagger_codegen_version}/${swagger_binary} && chmod +x /usr/local/bin/swagger; \
@@ -69,5 +66,5 @@ release:
 	go get github.com/goreleaser/goreleaser; \
 	goreleaser; \
 
-.PHONY: build test testacc clienttestacc vet fmt fmtcheck errcheck vendor-status test-compile release
+.PHONY: build test testacc vet fmt fmtcheck errcheck vendor-status test-compile release
 
