@@ -4822,6 +4822,8 @@ definitions:
         type: string
       bic:
         type: string
+      simulator_only:
+        type: boolean
 
   SepaInstantAssociationCreation:
     type: object

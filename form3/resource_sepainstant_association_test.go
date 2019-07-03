@@ -31,6 +31,7 @@ func TestAccSepaInstantAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "business_user_dn", "cn=testbic8,ou=pilot,ou=eba_ips,o=88331,dc=sianet,dc=sia,dc=eu"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "transport_profile_id", "TEST_PROFILE_1"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "bic", "TESTBIC8"),
+					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "simulator_only", "true"),
 				),
 			},
 		},
@@ -95,7 +96,8 @@ resource "form3_organisation" "organisation" {
 resource "form3_sepainstant_association" "association" {
 	organisation_id      = "${form3_organisation.organisation.organisation_id}"
 	association_id       = "%s"
-  business_user_dn     = "cn=testbic8,ou=pilot,ou=eba_ips,o=88331,dc=sianet,dc=sia,dc=eu"
-  transport_profile_id = "TEST_PROFILE_1"
+  	business_user_dn     = "cn=testbic8,ou=pilot,ou=eba_ips,o=88331,dc=sianet,dc=sia,dc=eu"
+  	transport_profile_id = "TEST_PROFILE_1"
 	bic                  = "TESTBIC8"
+	simulator_only       = true
 }`
