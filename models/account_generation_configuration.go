@@ -18,8 +18,20 @@ import (
 // swagger:model AccountGenerationConfiguration
 type AccountGenerationConfiguration struct {
 
+	// bank id
+	BankID string `json:"bank_id,omitempty"`
+
+	// base currency
+	BaseCurrency string `json:"base_currency,omitempty"`
+
+	// bic
+	Bic string `json:"bic,omitempty"`
+
 	// country
 	Country string `json:"country,omitempty"`
+
+	// mod check enabled
+	ModCheckEnabled bool `json:"mod_check_enabled,omitempty"`
 
 	// valid account ranges
 	ValidAccountRanges []*AccountGenerationConfigurationValidAccountRangesItems `json:"valid_account_ranges"`
