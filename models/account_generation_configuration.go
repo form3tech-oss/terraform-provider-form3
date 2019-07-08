@@ -31,7 +31,7 @@ type AccountGenerationConfiguration struct {
 	Country string `json:"country,omitempty"`
 
 	// mod check enabled
-	ModCheckEnabled bool `json:"mod_check_enabled,omitempty"`
+	ModCheckEnabled *bool `json:"mod_check_enabled,omitempty"`
 
 	// valid account ranges
 	ValidAccountRanges []*AccountGenerationConfigurationValidAccountRangesItems `json:"valid_account_ranges"`

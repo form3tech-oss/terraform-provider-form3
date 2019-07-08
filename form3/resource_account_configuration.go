@@ -51,7 +51,7 @@ func resourceForm3AccountConfiguration() *schema.Resource {
 						"mod_check_enabled": {
 							Type:     schema.TypeBool,
 							Optional: true,
-							Default:  false,
+							Default:  true,
 						},
 						"bank_id": {
 							Type:     schema.TypeString,
@@ -151,7 +151,7 @@ func resourceAccountConfigurationRead(d *schema.ResourceData, meta interface{}) 
 	for _, element := range configuration.Payload.Data.Attributes.AccountGenerationConfiguration {
 		accountGenerationConfigurations = append(accountGenerationConfigurations, map[string]interface{}{
 			"country":              element.Country,
-			"mod_check_enabled":    element.ModCheckEnabled,
+			"mod_check_enabled":    *element.ModCheckEnabled,
 			"bank_id":              element.BankID,
 			"bic":                  element.Bic,
 			"base_currency":        element.BaseCurrency,
@@ -263,7 +263,7 @@ func createAccountConfigurationFromResourceData(d *schema.ResourceData) (*models
 
 			accountConfig := models.AccountGenerationConfiguration{
 				Country:            country,
-				ModCheckEnabled:    modCheckEnabled,
+				ModCheckEnabled:    &modCheckEnabled,
 				BankID:             bankId,
 				Bic:                bic,
 				BaseCurrency:       baseCurrency,

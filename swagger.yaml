@@ -4203,6 +4203,7 @@ definitions:
         type: string
       mod_check_enabled:
         type: boolean
+        x-nullable: true
       bank_id:
         type: string
       bic:
