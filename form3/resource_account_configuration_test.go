@@ -193,7 +193,7 @@ resource "form3_account_configuration" "configuration" {
             country               = "US"
             bank_id               = "100000000"
 			bic                   = "CMFGUS33"
-			currency              = "USD"
+			base_currency         = "USD"
 			mod_check_enabled	  = true
             valid_account_ranges  = [
                 {
