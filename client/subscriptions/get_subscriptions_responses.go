@@ -13,7 +13,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	models "github.com/form3tech/terraform-provider-form3/models"
 )
 
 // GetSubscriptionsReader is a Reader for the GetSubscriptions structure.

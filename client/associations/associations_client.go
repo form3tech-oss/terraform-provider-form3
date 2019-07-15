@@ -81,6 +81,34 @@ func (a *Client) DeleteConfirmationOfPayeeID(params *DeleteConfirmationOfPayeeID
 }
 
 /*
+DeleteLhvID deletes organisation lhv association
+*/
+func (a *Client) DeleteLhvID(params *DeleteLhvIDParams) (*DeleteLhvIDNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteLhvIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteLhvID",
+		Method:             "DELETE",
+		PathPattern:        "/lhv/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteLhvIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteLhvIDNoContent), nil
+
+}
+
+/*
 DeletePayportID deletes service association
 */
 func (a *Client) DeletePayportID(params *DeletePayportIDParams) (*DeletePayportIDNoContent, error) {
@@ -329,6 +357,62 @@ func (a *Client) GetConfirmationOfPayeeID(params *GetConfirmationOfPayeeIDParams
 		return nil, err
 	}
 	return result.(*GetConfirmationOfPayeeIDOK), nil
+
+}
+
+/*
+GetLhv lists all organisation lhv associations
+*/
+func (a *Client) GetLhv(params *GetLhvParams) (*GetLhvOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetLhvParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetLhv",
+		Method:             "GET",
+		PathPattern:        "/lhv",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetLhvReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetLhvOK), nil
+
+}
+
+/*
+GetLhvID fetches organisation lhv association
+*/
+func (a *Client) GetLhvID(params *GetLhvIDParams) (*GetLhvIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetLhvIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetLhvID",
+		Method:             "GET",
+		PathPattern:        "/lhv/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetLhvIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetLhvIDOK), nil
 
 }
 
@@ -665,6 +749,34 @@ func (a *Client) PostConfirmationOfPayee(params *PostConfirmationOfPayeeParams) 
 		return nil, err
 	}
 	return result.(*PostConfirmationOfPayeeCreated), nil
+
+}
+
+/*
+PostLhv creates organisation association for lhv
+*/
+func (a *Client) PostLhv(params *PostLhvParams) (*PostLhvCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostLhvParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostLhv",
+		Method:             "POST",
+		PathPattern:        "/lhv",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PostLhvReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PostLhvCreated), nil
 
 }
 
