@@ -22,7 +22,7 @@ type SepaInstantAssociationAttributes struct {
 	BusinessUserDn string `json:"business_user_dn,omitempty"`
 
 	// simulator only
-	SimulatorOnly bool `json:"simulator_only,omitempty"`
+	SimulatorOnly *bool `json:"simulator_only,omitempty"`
 
 	// transport profile id
 	TransportProfileID string `json:"transport_profile_id,omitempty"`
