@@ -81,6 +81,34 @@ func (a *Client) DeleteUsersUserIDCredentialsClientID(params *DeleteUsersUserIDC
 }
 
 /*
+DeleteUsersUserIDCredentialsPublicKeyPublicKeyID deletes public key credential for user
+*/
+func (a *Client) DeleteUsersUserIDCredentialsPublicKeyPublicKeyID(params *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDParams) (*DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteUsersUserIDCredentialsPublicKeyPublicKeyID",
+		Method:             "DELETE",
+		PathPattern:        "/users/{user_id}/credentials/public_key/{public_key_id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDNoContent), nil
+
+}
+
+/*
 DeleteUsersUserIDRolesRoleID removes role from user
 */
 func (a *Client) DeleteUsersUserIDRolesRoleID(params *DeleteUsersUserIDRolesRoleIDParams) (*DeleteUsersUserIDRolesRoleIDNoContent, error) {
@@ -221,6 +249,62 @@ func (a *Client) GetUsersUserIDCredentials(params *GetUsersUserIDCredentialsPara
 }
 
 /*
+GetUsersUserIDCredentialsPublicKey fetches public key credentials
+*/
+func (a *Client) GetUsersUserIDCredentialsPublicKey(params *GetUsersUserIDCredentialsPublicKeyParams) (*GetUsersUserIDCredentialsPublicKeyOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetUsersUserIDCredentialsPublicKeyParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetUsersUserIDCredentialsPublicKey",
+		Method:             "GET",
+		PathPattern:        "/users/{user_id}/credentials/public_key",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetUsersUserIDCredentialsPublicKeyReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetUsersUserIDCredentialsPublicKeyOK), nil
+
+}
+
+/*
+GetUsersUserIDCredentialsPublicKeyPublicKeyID fetches public key credential
+*/
+func (a *Client) GetUsersUserIDCredentialsPublicKeyPublicKeyID(params *GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams) (*GetUsersUserIDCredentialsPublicKeyPublicKeyIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetUsersUserIDCredentialsPublicKeyPublicKeyID",
+		Method:             "GET",
+		PathPattern:        "/users/{user_id}/credentials/public_key/{public_key_id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetUsersUserIDCredentialsPublicKeyPublicKeyIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetUsersUserIDCredentialsPublicKeyPublicKeyIDOK), nil
+
+}
+
+/*
 GetUsersUserIDRoles gets all roles for user
 */
 func (a *Client) GetUsersUserIDRoles(params *GetUsersUserIDRolesParams) (*GetUsersUserIDRolesOK, error) {
@@ -329,6 +413,34 @@ func (a *Client) PostUsersUserIDCredentials(params *PostUsersUserIDCredentialsPa
 		return nil, err
 	}
 	return result.(*PostUsersUserIDCredentialsCreated), nil
+
+}
+
+/*
+PostUsersUserIDCredentialsPublicKey generates new public key credential for a user
+*/
+func (a *Client) PostUsersUserIDCredentialsPublicKey(params *PostUsersUserIDCredentialsPublicKeyParams) (*PostUsersUserIDCredentialsPublicKeyCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostUsersUserIDCredentialsPublicKeyParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostUsersUserIDCredentialsPublicKey",
+		Method:             "POST",
+		PathPattern:        "/users/{user_id}/credentials/public_key",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PostUsersUserIDCredentialsPublicKeyReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PostUsersUserIDCredentialsPublicKeyCreated), nil
 
 }
 
