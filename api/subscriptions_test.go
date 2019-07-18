@@ -19,7 +19,7 @@ func TestAccDeleteSubscription(t *testing.T) {
 					CallbackTransport: "queue",
 					CallbackURI:       "https://sqs.eu-west-1.amazonaws.com/134201431238/notification-test",
 					EventType:         "updated",
-					RecordType:        "foo_bar",
+					RecordType:        "payments",
 				},
 			},
 		}))
