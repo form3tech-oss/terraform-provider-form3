@@ -43,6 +43,12 @@ func resourceForm3SepaInstantAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
+			"simulator_only": {
+				Type:     schema.TypeBool,
+				Optional: true,
+				ForceNew: true,
+				Default:  false,
+			},
 		},
 	}
 }
@@ -92,6 +98,7 @@ func resourceSepaInstantAssociationRead(d *schema.ResourceData, meta interface{}
 	d.Set("business_user_dn", sepaInstantAssociation.Payload.Data.Attributes.BusinessUserDn)
 	d.Set("transport_profile_id", sepaInstantAssociation.Payload.Data.Attributes.TransportProfileID)
 	d.Set("bic", sepaInstantAssociation.Payload.Data.Attributes.Bic)
+	d.Set("simulator_only", sepaInstantAssociation.Payload.Data.Attributes.SimulatorOnly)
 
 	return nil
 }
@@ -138,6 +145,11 @@ func createSepaInstantNewAssociationFromResourceData(d *schema.ResourceData) (*m
 
 	if attr, ok := d.GetOk("transport_profile_id"); ok {
 		association.Attributes.TransportProfileID = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("simulator_only"); ok {
+		b := attr.(bool)
+		association.Attributes.SimulatorOnly = &b
 	}
 
 	return &association, nil
