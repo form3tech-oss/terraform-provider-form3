@@ -63,8 +63,7 @@ test-compile:
 	go test -c $(TEST) $(TESTARGS)
 
 release:
-	go get github.com/goreleaser/goreleaser; \
-	goreleaser; \
+	@curl -sL http://git.io/goreleaser | bash
 
 .PHONY: build test testacc vet fmt fmtcheck errcheck vendor-status test-compile release
 
