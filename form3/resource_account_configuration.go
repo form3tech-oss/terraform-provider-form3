@@ -48,6 +48,23 @@ func resourceForm3AccountConfiguration() *schema.Resource {
 							Type:     schema.TypeString,
 							Required: true,
 						},
+						"mod_check_enabled": {
+							Type:     schema.TypeBool,
+							Optional: true,
+							Default:  true,
+						},
+						"bank_id": {
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+						"bic": {
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+						"base_currency": {
+							Type:     schema.TypeString,
+							Optional: true,
+						},
 						"valid_account_ranges": {
 							Type:     schema.TypeSet,
 							Required: true,
@@ -134,6 +151,10 @@ func resourceAccountConfigurationRead(d *schema.ResourceData, meta interface{}) 
 	for _, element := range configuration.Payload.Data.Attributes.AccountGenerationConfiguration {
 		accountGenerationConfigurations = append(accountGenerationConfigurations, map[string]interface{}{
 			"country":              element.Country,
+			"mod_check_enabled":    *element.ModCheckEnabled,
+			"bank_id":              element.BankID,
+			"bic":                  element.Bic,
+			"base_currency":        element.BaseCurrency,
 			"valid_account_ranges": flattenValidAccountRanges(element.ValidAccountRanges),
 		})
 	}
@@ -223,6 +244,10 @@ func createAccountConfigurationFromResourceData(d *schema.ResourceData) (*models
 
 		for _, accountConfigElement := range accountConfigurationArray {
 			country := accountConfigElement.(map[string]interface{})["country"].(string)
+			modCheckEnabled := accountConfigElement.(map[string]interface{})["mod_check_enabled"].(bool)
+			bankId := accountConfigElement.(map[string]interface{})["bank_id"].(string)
+			bic := accountConfigElement.(map[string]interface{})["bic"].(string)
+			baseCurrency := accountConfigElement.(map[string]interface{})["base_currency"].(string)
 
 			validAccountRangesSet := accountConfigElement.(map[string]interface{})["valid_account_ranges"].(*schema.Set).List()
 
@@ -238,6 +263,10 @@ func createAccountConfigurationFromResourceData(d *schema.ResourceData) (*models
 
 			accountConfig := models.AccountGenerationConfiguration{
 				Country:            country,
+				ModCheckEnabled:    &modCheckEnabled,
+				BankID:             bankId,
+				Bic:                bic,
+				BaseCurrency:       baseCurrency,
 				ValidAccountRanges: validAccountRanges,
 			}
 

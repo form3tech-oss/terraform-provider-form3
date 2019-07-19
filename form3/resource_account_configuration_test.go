@@ -50,7 +50,15 @@ func TestAccAccountConfigurationBasic(t *testing.T) {
 					resource.TestCheckResourceAttr(
 						"form3_account_configuration.configuration", "account_generation_configuration.#", "2"),
 					resource.TestCheckResourceAttr(
+						"form3_account_configuration.configuration", "account_generation_configuration.0.mod_check_enabled", "true"),
+					resource.TestCheckResourceAttr(
 						"form3_account_configuration.configuration", "account_generation_configuration.0.country", "US"),
+					resource.TestCheckResourceAttr(
+						"form3_account_configuration.configuration", "account_generation_configuration.0.bank_id", "100000000"),
+					resource.TestCheckResourceAttr(
+						"form3_account_configuration.configuration", "account_generation_configuration.0.bic", "CMFGUS33"),
+					resource.TestCheckResourceAttr(
+						"form3_account_configuration.configuration", "account_generation_configuration.0.base_currency", "USD"),
 					resource.TestCheckResourceAttr(
 						"form3_account_configuration.configuration", "account_generation_configuration.0.valid_account_ranges.#", "1"),
 					resource.TestCheckResourceAttr(
@@ -183,6 +191,10 @@ resource "form3_account_configuration" "configuration" {
   account_generation_configuration = [
         {
             country               = "US"
+            bank_id               = "100000000"
+			bic                   = "CMFGUS33"
+			base_currency         = "USD"
+			mod_check_enabled	  = true
             valid_account_ranges  = [
                 {
                    minimum = "84000000"
