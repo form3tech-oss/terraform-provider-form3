@@ -25,7 +25,7 @@ func TestAccLhvAssociation_basic(t *testing.T) {
 		CheckDestroy: testAccCheckLhvAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3LhvAssociationConfigA, organisationId, parentOrganisationId, associationId),
+				Config: fmt.Sprintf(testForm3LhvAssociationConfigA, organisationId, parentOrganisationId, associationId, clientCode, iban),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckLhvAssociationExists("form3_lhv_association.association"),
 					resource.TestCheckResourceAttr("form3_lhv_association.association", "association_id", associationId),
@@ -97,7 +97,7 @@ resource "form3_organisation" "organisation" {
 resource "form3_lhv_association" "association" {
 	organisation_id        = "${form3_organisation.organisation.organisation_id}"
 	association_id         = "%s"
-	client_code            = "ABC0123"
+	client_code            = "%s"
     client_country         = "UK"
-    master_ibans           = ["GB98MIDL07009312345678"]
+    master_ibans           = ["%s"]
 }`
