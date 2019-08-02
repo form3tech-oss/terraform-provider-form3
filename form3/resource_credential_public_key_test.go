@@ -4,7 +4,6 @@ import (
 	"fmt"
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/users"
-	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
@@ -14,22 +13,57 @@ import (
 	"testing"
 )
 
-func TestAccCredentialPublicKey_basic(t *testing.T) {
+func TestAccCredentialPublicKey_multipleKeys_sequential(t *testing.T) {
 	log.SetOutput(os.Stdout)
-	var publicKeyresponse models.PublicKey
 	organisationID := os.Getenv("FORM3_ORGANISATION_ID")
-	publicKeyID := uuid.NewV4().String()
+	publicKeyIDOne := uuid.NewV4().String()
+	publicKeyIDTwo := uuid.NewV4().String()
+	publicKeyIDThree := uuid.NewV4().String()
 	userID := uuid.NewV4().String()
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() { testAccPreCheck(t) },
-		Providers: testAccProviders,
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
 		CheckDestroy: testAccCheckCredentialPublicKeyDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3CredentialPublicKeyConfig, publicKeyID, organisationID, userID),
+				Config: fmt.Sprintf(testForm3CredentialPublicKeyConfigSingle, "test_public_key_single_one", publicKeyIDOne, organisationID, userID),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckCredentialPublicKeyExists("form3_credential_public_key.test_public_key", &publicKeyresponse)),
+					testAccCheckCredentialPublicKeyExists("form3_credential_public_key.test_public_key_single_one", publicKeyIDOne),
+				),
+			},
+			{
+				Config: fmt.Sprintf(testForm3CredentialPublicKeyConfigSingle, "test_public_key_single_two", publicKeyIDTwo, organisationID, userID),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckCredentialPublicKeyExists("form3_credential_public_key.test_public_key_single_two", publicKeyIDTwo),
+				),
+			},
+			{
+				Config: fmt.Sprintf(testForm3CredentialPublicKeyConfigSingle, "test_public_key_single_three", publicKeyIDThree, organisationID, userID),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckCredentialPublicKeyExists("form3_credential_public_key.test_public_key_single_three", publicKeyIDThree),
+				),
+			},
+		},
+	})
+}
+
+func TestAccCredentialPublicKey_singleKey(t *testing.T) {
+	log.SetOutput(os.Stdout)
+	organisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	publicKeyID := uuid.NewV4().String()
+	userID := uuid.NewV4().String()
+	keyName := "test_public_key"
+
+	resource.Test(t, resource.TestCase{
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
+		CheckDestroy: testAccCheckCredentialPublicKeyDestroy,
+		Steps: []resource.TestStep{
+			{
+				Config: fmt.Sprintf(testForm3CredentialPublicKeyConfigSingle, keyName, publicKeyID, organisationID, userID),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckCredentialPublicKeyExists(fmt.Sprintf("form3_credential_public_key.%s", keyName), publicKeyID)),
 			},
 		},
 	})
@@ -54,7 +88,7 @@ func testAccCheckCredentialPublicKeyDestroy(state *terraform.State) error {
 	return nil
 }
 
-func testAccCheckCredentialPublicKeyExists(resourceKey string, publicKey *models.PublicKey) resource.TestCheckFunc {
+func testAccCheckCredentialPublicKeyExists(resourceKey string, publicKeyID string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceKey]
 
@@ -66,11 +100,11 @@ func testAccCheckCredentialPublicKeyExists(resourceKey string, publicKey *models
 			return fmt.Errorf("no Record ID is set")
 		}
 
-		log.Printf("[INFO] Checking that public key with public key id: %s exists", rs.Primary.ID)
+		log.Printf("[INFO] Checking that public key with public key id: %s exists", publicKeyID)
 		client := testAccProvider.Meta().(*form3.AuthenticatedClient)
 
 		publicKey, err := client.SecurityClient.Users.GetUsersUserIDCredentialsPublicKeyPublicKeyID(users.NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDParams().
-			WithUserID(strfmt.UUID(rs.Primary.Attributes["user_id"])).WithPublicKeyID(strfmt.UUID(rs.Primary.Attributes["public_key_id"])))
+			WithUserID(strfmt.UUID(rs.Primary.Attributes["user_id"])).WithPublicKeyID(strfmt.UUID(publicKeyID)))
 
 		if err != nil {
 			return err
@@ -78,7 +112,7 @@ func testAccCheckCredentialPublicKeyExists(resourceKey string, publicKey *models
 
 		found := false
 
-		if publicKey.Payload.ID.String() == rs.Primary.ID {
+		if publicKey.Payload.ID.String() == publicKeyID {
 			found = true
 		}
 
@@ -90,8 +124,8 @@ func testAccCheckCredentialPublicKeyExists(resourceKey string, publicKey *models
 	}
 }
 
-const testForm3CredentialPublicKeyConfig = `
-resource "form3_credential_public_key" "test_public_key" {
+const testForm3CredentialPublicKeyConfigSingle = `
+resource "form3_credential_public_key" "%s" {
 	user_id 		= "${form3_user.public_key_test_user.user_id}"
 	organisation_id = "${form3_user.public_key_test_user.organisation_id}"
 	public_key_id   = "%s"

@@ -58,7 +58,7 @@ func resourceCredentialPublicKeyCreate(d *schema.ResourceData, meta interface{})
 	createdPublicKey, err := client.SecurityClient.Users.PostUsersUserIDCredentialsPublicKey(createKeyParams)
 
 	if err != nil {
-		return fmt.Errorf("failed to create credential public key: %s", err)
+		return fmt.Errorf("failed to create credential public key with id: %s error: %s", publicKey.ID, err)
 	}
 
 	d.SetId(createdPublicKey.Payload.Data.ID.String())
@@ -90,7 +90,7 @@ func resourceCredentialPublicKeyRead(d *schema.ResourceData, meta interface{}) e
 	d.Set("user_id", userID)
 	d.Set("public_key_id", publicKey.Payload.ID)
 	d.Set("organisation_id", publicKey.Payload.OrganisationID)
-	d.Set("public_Key", publicKey.Payload.Attributes.PublicKey)
+	d.Set("public_key", publicKey.Payload.Attributes.PublicKey)
 	return nil
 }
 
