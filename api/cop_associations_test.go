@@ -39,6 +39,10 @@ func createAssociation(t *testing.T) *associations.PostConfirmationOfPayeeCreate
 				Attributes: &models.CoPAssociationAttributes{
 					OpenBankingOrganisationID: swag.String("1234"),
 					PublicKeyID:               swag.String("5678"),
+					MatchingCriteria: &models.MatchingCriteria{
+						ExactMatchThreshold: swag.String("0.85"),
+						CloseMatchThreshold: swag.String("0.65"),
+					},
 				},
 				Relationships: &models.CoPAssociationRelationships{
 					SigningCertificate: &models.SigningCertificate{
