@@ -202,9 +202,7 @@ func getSubscriptionVersion(client *form3.AuthenticatedClient, subscriptionId st
 	subscription, err := client.NotificationClient.Subscriptions.GetSubscriptionsID(subscriptions.NewGetSubscriptionsIDParams().
 		WithID(subscriptionId))
 	if err != nil {
-		if err != nil {
-			return -1, fmt.Errorf("error reading subscription: %s", err)
-		}
+		return -1, fmt.Errorf("error reading subscription: %s", err)
 	}
 
 	return *subscription.Payload.Data.Version, nil

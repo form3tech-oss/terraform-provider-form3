@@ -8099,11 +8099,14 @@ definitions:
     required:
       - open_banking_organisation_id
       - public_key_id
+      - matching_criteria
     properties:
       open_banking_organisation_id:
         type: string
       public_key_id:
         type: string
+      matching_criteria:
+        $ref: '#/definitions/MatchingCriteria'
 
   CoPAssociationCreation:
     type: object
@@ -8138,4 +8141,16 @@ definitions:
           $ref: '#/definitions/CoPAssociation'
       links:
         $ref: '#/definitions/Links'
+
+  MatchingCriteria:
+    type: object
+    required:
+      - exact_match_threshold
+      - close_match_threshold
+    properties:
+      exact_match_threshold:
+        type: string
+      close_match_threshold:
+        type: string
+
 # open banking - end
