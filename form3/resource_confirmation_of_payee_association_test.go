@@ -32,6 +32,8 @@ func TestAccConfirmationOfPayeeAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_confirmation_of_payee_association.association", "open_banking_public_key_id", "cb9c35c3-de6c-4376-bb23-a5ca2cbdb142"),
 					resource.TestCheckResourceAttr("form3_confirmation_of_payee_association.association", "signing_key_id", "336145dc-587e-47b9-a0c4-61ae25e1f35e"),
 					resource.TestCheckResourceAttr("form3_confirmation_of_payee_association.association", "signing_dn", "SIGNER"),
+					resource.TestCheckResourceAttr("form3_confirmation_of_payee_association.association", "exact_match_threshold", "0.85"),
+					resource.TestCheckResourceAttr("form3_confirmation_of_payee_association.association", "close_match_threshold", "0.65"),
 				),
 			},
 		},
@@ -102,4 +104,6 @@ resource "form3_confirmation_of_payee_association" "association" {
   open_banking_public_key_id       = "cb9c35c3-de6c-4376-bb23-a5ca2cbdb142"
   signing_key_id                   = "336145dc-587e-47b9-a0c4-61ae25e1f35e"
   signing_dn                       = "SIGNER"
+  exact_match_threshold            = "0.85"
+  close_match_threshold            = "0.65"
 }`

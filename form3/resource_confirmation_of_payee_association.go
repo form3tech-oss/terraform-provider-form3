@@ -58,6 +58,16 @@ func resourceForm3ConfirmationOfPayeeAssociation() *schema.Resource {
 				Optional: true,
 				ForceNew: true,
 			},
+			"exact_match_threshold": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
+			"close_match_threshold": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
 		},
 	}
 }
@@ -119,6 +129,8 @@ func resourceConfirmationOfPayeeAssociationRead(d *schema.ResourceData, meta int
 	d.Set("signing_key_id", association.Payload.Data.Relationships.SigningCertificate.Data.KeyID)
 	d.Set("signing_dn", association.Payload.Data.Relationships.SigningCertificate.Data.Dn)
 	d.Set("signing_certificate_id", association.Payload.Data.Relationships.SigningCertificate.Data.ID)
+	d.Set("exact_match_threshold", association.Payload.Data.Attributes.MatchingCriteria.ExactMatchThreshold)
+	d.Set("close_match_threshold", association.Payload.Data.Attributes.MatchingCriteria.CloseMatchThreshold)
 
 	return nil
 }
@@ -195,6 +207,15 @@ func createConfirmationOfPayeeNewAssociationFromResourceData(d *schema.ResourceD
 
 	if attr, ok := d.GetOk("signing_dn"); ok {
 		association.Relationships.SigningCertificate.Data.Dn = swag.String(attr.(string))
+	}
+
+	association.Attributes.MatchingCriteria = &models.MatchingCriteria{}
+	if attr, ok := d.GetOk("exact_match_threshold"); ok {
+		association.Attributes.MatchingCriteria.ExactMatchThreshold = swag.String(attr.(string))
+	}
+
+	if attr, ok := d.GetOk("close_match_threshold"); ok {
+		association.Attributes.MatchingCriteria.CloseMatchThreshold = swag.String(attr.(string))
 	}
 
 	return association, nil

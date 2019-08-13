@@ -17,6 +17,10 @@ import (
 // swagger:model CoPAssociationAttributes
 type CoPAssociationAttributes struct {
 
+	// matching criteria
+	// Required: true
+	MatchingCriteria *MatchingCriteria `json:"matching_criteria"`
+
 	// open banking organisation id
 	// Required: true
 	OpenBankingOrganisationID *string `json:"open_banking_organisation_id"`
@@ -30,6 +34,10 @@ type CoPAssociationAttributes struct {
 func (m *CoPAssociationAttributes) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateMatchingCriteria(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateOpenBankingOrganisationID(formats); err != nil {
 		res = append(res, err)
 	}
@@ -41,6 +49,24 @@ func (m *CoPAssociationAttributes) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *CoPAssociationAttributes) validateMatchingCriteria(formats strfmt.Registry) error {
+
+	if err := validate.Required("matching_criteria", "body", m.MatchingCriteria); err != nil {
+		return err
+	}
+
+	if m.MatchingCriteria != nil {
+		if err := m.MatchingCriteria.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("matching_criteria")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
