@@ -153,8 +153,6 @@ resource "form3_credential_public_key" "test_public_key_multi_one" {
 	organisation_id = "${form3_user.public_key_test_user.organisation_id}"
 	public_key_id   = "%s"
 	public_key      = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4JNqRbybmYHd9jlnbQwu\nw8Rg1O21IC9bns9oeeah5ZU605taCfSJUk/sEd1IKS/n4mqIi8Pm8JLiumvh1sK3\nxnqqPhxGiLLiUt9dnK3xT2WU9YEzlxRY4BbMJV12cAKI4Fu26OKrPfumud0yQLX8\nHEQSBldq0tE9tFxZi7ruzMVP7J0cNRdPtM2F97dFMeLIyh2MzXz5vIzsKprh7jaQ\nUCC2YTrpU+ZKbpvGN5Ql3KTJroiirtqQT/ZxUzLB4ChMfOLkbKTofieeNnsU2hSV\nb1Okcv5i26rzrKW2jjrIhi/QU0R/YLEc5+A06fc9Ua9U9uqyWadHkMso6xszY2Za\nEwIDAQAB\n-----END PUBLIC KEY-----\n"
-
-depends_on = [ "form3_user.public_key_test_user" ]
 }
 
 resource "form3_credential_public_key" "test_public_key_multi_two" {
@@ -163,7 +161,7 @@ resource "form3_credential_public_key" "test_public_key_multi_two" {
 	public_key_id   = "%s"
 	public_key      = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4JNqRbybmYHd9jlnbQwu\nw8Rg1O21IC9bns9oeeah5ZU605taCfSJUk/sEd1IKS/n4mqIi8Pm8JLiumvh1sK3\nxnqqPhxGiLLiUt9dnK3xT2WU9YEzlxRY4BbMJV12cAKI4Fu26OKrPfumud0yQLX8\nHEQSBldq0tE9tFxZi7ruzMVP7J0cNRdPtM2F97dFMeLIyh2MzXz5vIzsKprh7jaQ\nUCC2YTrpU+ZKbpvGN5Ql3KTJroiirtqQT/ZxUzLB4ChMfOLkbKTofieeNnsU2hSV\nb1Okcv5i26rzrKW2jjrIhi/QU0R/YLEc5+A06fc9Ua9U9uqyWadHkMso6xszY2Za\nEwIDAQAB\n-----END PUBLIC KEY-----\n"
 
-depends_on = [ "form3_user.public_key_test_user", "form3_credential_public_key.test_public_key_multi_one" ]
+depends_on = [ "form3_credential_public_key.test_public_key_multi_one" ]
 }
 
 resource "form3_credential_public_key" "test_public_key_multi_three" {
@@ -172,7 +170,7 @@ resource "form3_credential_public_key" "test_public_key_multi_three" {
 	public_key_id   = "%s"
 	public_key      = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4JNqRbybmYHd9jlnbQwu\nw8Rg1O21IC9bns9oeeah5ZU605taCfSJUk/sEd1IKS/n4mqIi8Pm8JLiumvh1sK3\nxnqqPhxGiLLiUt9dnK3xT2WU9YEzlxRY4BbMJV12cAKI4Fu26OKrPfumud0yQLX8\nHEQSBldq0tE9tFxZi7ruzMVP7J0cNRdPtM2F97dFMeLIyh2MzXz5vIzsKprh7jaQ\nUCC2YTrpU+ZKbpvGN5Ql3KTJroiirtqQT/ZxUzLB4ChMfOLkbKTofieeNnsU2hSV\nb1Okcv5i26rzrKW2jjrIhi/QU0R/YLEc5+A06fc9Ua9U9uqyWadHkMso6xszY2Za\nEwIDAQAB\n-----END PUBLIC KEY-----\n"
 
-depends_on = [ "form3_user.public_key_test_user", "form3_credential_public_key.test_public_key_multi_two" ]
+depends_on = [ "form3_credential_public_key.test_public_key_multi_two" ]
 }`
 
 const testForm3CredentialPublicKeyConfigSingle = `
@@ -189,6 +187,4 @@ resource "form3_credential_public_key" "test_public_key_single" {
 	organisation_id = "${form3_user.public_key_test_user.organisation_id}"
 	public_key_id   = "%s"
 	public_key      = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4JNqRbybmYHd9jlnbQwu\nw8Rg1O21IC9bns9oeeah5ZU605taCfSJUk/sEd1IKS/n4mqIi8Pm8JLiumvh1sK3\nxnqqPhxGiLLiUt9dnK3xT2WU9YEzlxRY4BbMJV12cAKI4Fu26OKrPfumud0yQLX8\nHEQSBldq0tE9tFxZi7ruzMVP7J0cNRdPtM2F97dFMeLIyh2MzXz5vIzsKprh7jaQ\nUCC2YTrpU+ZKbpvGN5Ql3KTJroiirtqQT/ZxUzLB4ChMfOLkbKTofieeNnsU2hSV\nb1Okcv5i26rzrKW2jjrIhi/QU0R/YLEc5+A06fc9Ua9U9uqyWadHkMso6xszY2Za\nEwIDAQAB\n-----END PUBLIC KEY-----\n"
-
-depends_on = [ "form3_user.public_key_test_user" ]
 }`
