@@ -38,6 +38,7 @@ func Provider() terraform.ResourceProvider {
 			"form3_bank_id":                           resourceForm3BankID(),
 			"form3_bic":                               resourceForm3Bic(),
 			"form3_credential":                        resourceForm3Credential(),
+			"form3_credential_public_key":             resourceForm3CredentialPublicKey(),
 			"form3_organisation":                      resourceForm3Organisation(),
 			"form3_payport_association":               resourceForm3PayportAssociation(),
 			"form3_role":                              resourceForm3Role(),

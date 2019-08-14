@@ -3435,6 +3435,112 @@ paths:
 
 #mandate-api - end
 
+#public-key - start
+
+  /users/{user_id}/credentials/public_key:
+
+    get:
+      summary: Fetch public key credentials
+      tags:
+        - Users
+      x-access:
+        - Public
+      parameters:
+        - name: user_id
+          in: path
+          description: User Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: List of public keys for user
+          schema:
+            $ref: "#/definitions/UserPublicKeyListResponse"
+
+    post:
+      summary: Generate new public key credential for a user
+      tags:
+        - Users
+      x-access:
+        - Public
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: user_id
+          in: path
+          description: User Id
+          required: true
+          type: string
+          format: uuid
+        - in: body
+          name: PublicKey
+          description: The public key to create.
+          schema:
+            $ref: "#/definitions/PublicKey"
+
+      responses:
+        201:
+          description: Signature Credential creation response
+          schema:
+            $ref: "#/definitions/PublicKeyCreationResponse"
+
+  /users/{user_id}/credentials/public_key/{public_key_id}:
+
+    get:
+      summary: Fetch public key credential
+      tags:
+        - Users
+      x-access:
+        - Public
+      parameters:
+        - name: user_id
+          in: path
+          description: User Id
+          required: true
+          type: string
+          format: uuid
+        - name: public_key_id
+          in: path
+          description: public_key_id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Public key data
+          schema:
+            $ref: "#/definitions/PublicKey"
+
+    delete:
+      summary: Delete public key credential for user
+      tags:
+        - Users
+      x-access:
+        - Public
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: user_id
+          in: path
+          description: User Id
+          required: true
+          type: string
+          format: uuid
+        - name: public_key_id
+          in: path
+          description: public_key_id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        204:
+          description: Public key deleted
+
+#public-key - enc
+
 definitions:
 
   ApiError:
@@ -8154,3 +8260,60 @@ definitions:
         type: string
 
 # open banking - end
+
+
+  #PublicKey
+  PublicKey:
+    type: object
+    x-access:
+      - Public
+    properties:
+      type:
+        type: string
+        description: "Name of the resource type"
+        example: "PublicKey"
+      id:
+        type: string
+        format: uuid
+        example: "7826c3cb-d6fd-41d0-b187-dc23ba928772"
+        description: "Unique resource ID"
+      version:
+        type: integer
+        minimum: 0
+        description: "Version number"
+        example: 0
+      organisation_id:
+        type: string
+        format: uuid
+        example: "ee2fb143-6dfe-4787-b183-ca8ddd4164d2"
+        description: "Unique ID of the organisation this resource is created by"
+      attributes:
+        type: object
+        properties:
+          public_key:
+            type: string
+
+  PublicKeyCreationResponse:
+    type: object
+    x-access:
+      - Public
+    properties:
+      data:
+        $ref: '#/definitions/PublicKey'
+      links:
+        $ref: '#/definitions/Links'
+
+  UserPublicKeyListResponse:
+    type: object
+    x-access:
+      - Public
+    properties:
+      data:
+        type: array
+        items:
+          properties:
+            public_key_id:
+              type: string
+              format: uuid
+      links:
+        $ref: '#/definitions/Links'
