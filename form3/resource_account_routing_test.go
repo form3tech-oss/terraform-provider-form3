@@ -44,6 +44,35 @@ func TestAccAccountRouting_basic(t *testing.T) {
 	})
 }
 
+func TestAccAccountRouting_importBasic(t *testing.T) {
+
+	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationId := uuid.NewV4().String()
+	accountRoutingId := uuid.NewV4().String()
+	accountGenerator := "accountapi"
+	accountProvisioner := "accountapi"
+	match := "*"
+	priority := int64(1)
+
+	resourceName := "form3_account_routing.account_routing"
+
+	resource.Test(t, resource.TestCase{
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
+		CheckDestroy: testAccCheckAccountRoutingDestroy,
+		Steps: []resource.TestStep{
+			{
+				Config: fmt.Sprintf(testForm3AccountRoutingConfigA, organisationId, parentOrganisationId, accountRoutingId, accountGenerator, accountProvisioner, match, priority),
+			},
+			{
+				ResourceName:      resourceName,
+				ImportState:       true,
+				ImportStateVerify: true,
+			},
+		},
+	})
+}
+
 func testAccCheckAccountRoutingExists(resourceKey string, accountRoutingResponse *account_routings.GetAccountRoutingsIDOK) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceKey]
