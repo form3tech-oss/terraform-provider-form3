@@ -1079,6 +1079,107 @@ paths:
         204:
           description: Account deleted
 
+  /account_routings:
+
+    get:
+      summary: List account routings
+      tags:
+        - AccountRoutings
+      x-access:
+        - Public
+      parameters:
+        - name: page[number]
+          in: query
+          description: Which page to select
+          required: false
+          type: string
+        - name: page[size]
+          in: query
+          description: Number of items to select
+          required: false
+          type: integer
+          minimum: 0
+          maximum: 1000
+        - name: filter[organisation_id]
+          in: query
+          description: Filter by organisation id
+          required: false
+          type: array
+          items:
+            type: string
+            format: uuid
+          collectionFormat: csv
+
+      responses:
+        200:
+          description: List of account routing details
+          schema:
+            $ref: "#/definitions/AccountRoutingDetailsListResponse"
+
+    post:
+      summary: Create an account routing entry
+      tags:
+        - AccountRoutings
+      x-access:
+        - Public
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: Account routing creation request
+          in: body
+          schema:
+            $ref: "#/definitions/AccountRoutingCreation"
+
+      responses:
+        201:
+          description: Account routing creation response success
+          schema:
+            $ref: "#/definitions/AccountRoutingCreationResponse"
+
+        409:
+          description: Account routing creation error, constraint violation
+          schema:
+            $ref: "#/definitions/ApiError"
+
+  /account_routings/{id}:
+
+    delete:
+      summary: Delete account routing
+      x-access:
+        - Public
+      tags:
+        - AccountRoutings
+      parameters:
+        - name: id
+          in: path
+          description: Account Routing Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        204:
+          description: Account Routing deleted
+
+    get:
+      summary: Fetch account routing
+      x-access:
+        - Public
+      tags:
+        - AccountRoutings
+      parameters:
+        - name: id
+          in: path
+          description: Account Routing Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Account Routing details
+          schema:
+            $ref: "#/definitions/AccountRoutingDetailsResponse"
+
   /bankids:
 
     post:
@@ -4197,6 +4298,100 @@ definitions:
         type: string
         pattern: ^([A-Z]{6}[A-Z0-9]{2}|[A-Z]{6}[A-Z0-9]{5})$
 
+  AccountRouting:
+    type: object
+    x-access:
+      - Public
+    required:
+      - id
+      - organisation_id
+      - attributes
+    properties:
+      type:
+        type: string
+        pattern: ^[A-Za-z]*$
+        description: "Name of the resource type"
+        example: "account_routings"
+      id:
+        type: string
+        format: uuid
+        example: "7826c3cb-d6fd-41d0-b187-dc23ba928772"
+        description: "Unique resource ID"
+      version:
+        type: integer
+        minimum: 0
+        description: "Version number"
+        example: 0
+      organisation_id:
+        type: string
+        format: uuid
+        example: "ee2fb143-6dfe-4787-b183-ca8ddd4164d2"
+        description: "Unique ID of the organisation this resource is created by"
+      attributes:
+        $ref: "#/definitions/AccountRoutingAttributes"
+
+  AccountRoutingAttributes:
+    type: object
+    x-access:
+      - Public
+    required:
+      - match
+      - priority
+      - account_generator
+      - account_provisioner
+    properties:
+      match:
+        type: string
+      priority:
+        type: integer
+        description: "highest that match is selected first. Must be greater or equal than 0"
+        example: 0
+      account_generator:
+        type: string
+        description: "Service name used to generate the account number"
+        example: "accountapi"
+        enum:
+          - accountapi
+          - lhv-gateway
+      account_provisioner:
+        type: string
+        description: "Service name used to provision the account"
+        example: "accountapi"
+        enum:
+          - accountapi
+          - lhv-gateway
+          - starlinggateway
+
+  AccountRoutingDetailsListResponse:
+    type: object
+    x-access:
+      - Public
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/AccountRouting'
+      links:
+        $ref: '#/definitions/Links'
+
+  AccountRoutingCreation:
+    type: object
+    x-access:
+      - Public
+    properties:
+      data:
+        $ref: '#/definitions/AccountRouting'
+
+  AccountRoutingDetailsResponse:
+    type: object
+    x-access:
+      - Public
+    properties:
+      data:
+        $ref: '#/definitions/AccountRouting'
+      links:
+        $ref: '#/definitions/Links'
+
   AccountCreation:
     type: object
     properties:
@@ -4208,6 +4403,16 @@ definitions:
     properties:
       data:
         $ref: '#/definitions/Account'
+      links:
+        $ref: '#/definitions/Links'
+
+  AccountRoutingCreationResponse:
+    type: object
+    x-access:
+      - Public
+    properties:
+      data:
+        $ref: '#/definitions/AccountRouting'
       links:
         $ref: '#/definitions/Links'
 
