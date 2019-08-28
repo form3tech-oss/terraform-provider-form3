@@ -16,7 +16,9 @@ func resourceForm3AccountRouting() *schema.Resource {
 		Create: resourceAccountRoutingCreate,
 		Read:   resourceAccountRoutingRead,
 		Delete: resourceAccountRoutingDelete,
-
+		Importer: &schema.ResourceImporter{
+			State: schema.ImportStatePassthrough,
+		},
 		Schema: map[string]*schema.Schema{
 			"account_routing_id": &schema.Schema{
 				Type:     schema.TypeString,
