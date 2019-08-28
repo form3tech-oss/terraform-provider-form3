@@ -4,7 +4,6 @@ import (
 	"fmt"
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/account_routings"
-	"github.com/form3tech-oss/terraform-provider-form3/client/accounts"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
@@ -107,11 +106,11 @@ func testAccCheckAccountRoutingDestroy(state *terraform.State) error {
 	client := testAccProvider.Meta().(*form3.AuthenticatedClient)
 
 	for _, rs := range state.RootModule().Resources {
-		if rs.Type != "form3_account" {
+		if rs.Type != "form3_account_routing" {
 			continue
 		}
 
-		response, err := client.AccountClient.Accounts.GetAccountsID(accounts.NewGetAccountsIDParams().
+		response, err := client.AccountClient.AccountRoutings.GetAccountRoutingsID(account_routings.NewGetAccountRoutingsIDParams().
 			WithID(strfmt.UUID(rs.Primary.ID)))
 
 		if err == nil {
