@@ -71,9 +71,8 @@ func resourceAccountRoutingCreate(d *schema.ResourceData, meta interface{}) erro
 		}))
 
 	if err != nil {
-		return fmt.Errorf("failed to create account routing '%#v',err %s", accountRouting, err)
+		return fmt.Errorf("failed to create account routing: %s", err)
 	}
-
 	d.SetId(createdAccountRouting.Payload.Data.ID.String())
 	log.Printf("[INFO] account routing id: %s", d.Id())
 
