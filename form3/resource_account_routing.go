@@ -161,7 +161,7 @@ func createAccountRoutingFromResourceData(d *schema.ResourceData) (*models.Accou
 	}
 
 	if attr, ok := d.GetOk("priority"); ok {
-		gen := attr.(int64)
+		gen := int64(attr.(int))
 		account.Attributes.Priority = &gen
 	}
 	return &account, nil
