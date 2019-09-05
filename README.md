@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/form3tech-oss/terraform-provider-form3.svg?branch=master)](https://travis-ci.org/form3tech-oss/terraform-provider-form3)
+[![Build Status](https://travis-ci.com/form3tech-oss/terraform-provider-form3.svg?branch=master)](https://travis-ci.com/form3tech-oss/terraform-provider-form3)
 # Terraform Form3 Provider
 
 - Website: https://www.terraform.io
