@@ -32,7 +32,7 @@ type AccountRouting struct {
 	OrganisationID *strfmt.UUID `json:"organisation_id"`
 
 	// Name of the resource type
-	// Pattern: ^[A-Za-z]*$
+	// Pattern: ^[A-Za-z_]*$
 	Type string `json:"type,omitempty"`
 
 	// Version number
@@ -120,7 +120,7 @@ func (m *AccountRouting) validateType(formats strfmt.Registry) error {
 		return nil
 	}
 
-	if err := validate.Pattern("type", "body", string(m.Type), `^[A-Za-z]*$`); err != nil {
+	if err := validate.Pattern("type", "body", string(m.Type), `^[A-Za-z_]*$`); err != nil {
 		return err
 	}
 

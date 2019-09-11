@@ -13,6 +13,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -66,6 +67,11 @@ type DeleteAccountRoutingsIDParams struct {
 
 	*/
 	ID strfmt.UUID
+	/*Version
+	  Version
+
+	*/
+	Version int64
 
 	timeout    time.Duration
 	Context    context.Context
@@ -116,6 +122,17 @@ func (o *DeleteAccountRoutingsIDParams) SetID(id strfmt.UUID) {
 	o.ID = id
 }
 
+// WithVersion adds the version to the delete account routings ID params
+func (o *DeleteAccountRoutingsIDParams) WithVersion(version int64) *DeleteAccountRoutingsIDParams {
+	o.SetVersion(version)
+	return o
+}
+
+// SetVersion adds the version to the delete account routings ID params
+func (o *DeleteAccountRoutingsIDParams) SetVersion(version int64) {
+	o.Version = version
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *DeleteAccountRoutingsIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -127,6 +144,15 @@ func (o *DeleteAccountRoutingsIDParams) WriteToRequest(r runtime.ClientRequest, 
 	// path param id
 	if err := r.SetPathParam("id", o.ID.String()); err != nil {
 		return err
+	}
+
+	// query param version
+	qrVersion := o.Version
+	qVersion := swag.FormatInt64(qrVersion)
+	if qVersion != "" {
+		if err := r.SetQueryParam("version", qVersion); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {
