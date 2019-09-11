@@ -13,12 +13,12 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// VocalinkReportCertificateRequest vocalink report certificate request
-// swagger:model VocalinkReportCertificateRequest
-type VocalinkReportCertificateRequest struct {
+// ProductAssociation product association
+// swagger:model ProductAssociation
+type ProductAssociation struct {
 
 	// attributes
-	Attributes *VocalinkReportCertificateRequestAttributes `json:"attributes,omitempty"`
+	Attributes *ProductAssociationAttributes `json:"attributes,omitempty"`
 
 	// id
 	// Format: uuid
@@ -36,8 +36,8 @@ type VocalinkReportCertificateRequest struct {
 	Version *int64 `json:"version,omitempty"`
 }
 
-// Validate validates this vocalink report certificate request
-func (m *VocalinkReportCertificateRequest) Validate(formats strfmt.Registry) error {
+// Validate validates this product association
+func (m *ProductAssociation) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAttributes(formats); err != nil {
@@ -62,7 +62,7 @@ func (m *VocalinkReportCertificateRequest) Validate(formats strfmt.Registry) err
 	return nil
 }
 
-func (m *VocalinkReportCertificateRequest) validateAttributes(formats strfmt.Registry) error {
+func (m *ProductAssociation) validateAttributes(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Attributes) { // not required
 		return nil
@@ -80,7 +80,7 @@ func (m *VocalinkReportCertificateRequest) validateAttributes(formats strfmt.Reg
 	return nil
 }
 
-func (m *VocalinkReportCertificateRequest) validateID(formats strfmt.Registry) error {
+func (m *ProductAssociation) validateID(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.ID) { // not required
 		return nil
@@ -93,7 +93,7 @@ func (m *VocalinkReportCertificateRequest) validateID(formats strfmt.Registry) e
 	return nil
 }
 
-func (m *VocalinkReportCertificateRequest) validateOrganisationID(formats strfmt.Registry) error {
+func (m *ProductAssociation) validateOrganisationID(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.OrganisationID) { // not required
 		return nil
@@ -106,7 +106,7 @@ func (m *VocalinkReportCertificateRequest) validateOrganisationID(formats strfmt
 	return nil
 }
 
-func (m *VocalinkReportCertificateRequest) validateVersion(formats strfmt.Registry) error {
+func (m *ProductAssociation) validateVersion(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Version) { // not required
 		return nil
@@ -120,7 +120,7 @@ func (m *VocalinkReportCertificateRequest) validateVersion(formats strfmt.Regist
 }
 
 // MarshalBinary interface implementation
-func (m *VocalinkReportCertificateRequest) MarshalBinary() ([]byte, error) {
+func (m *ProductAssociation) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -128,8 +128,8 @@ func (m *VocalinkReportCertificateRequest) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *VocalinkReportCertificateRequest) UnmarshalBinary(b []byte) error {
-	var res VocalinkReportCertificateRequest
+func (m *ProductAssociation) UnmarshalBinary(b []byte) error {
+	var res ProductAssociation
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

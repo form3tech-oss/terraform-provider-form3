@@ -12,19 +12,19 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// VocalinkReportCertificateRequestCreationResponse vocalink report certificate request creation response
-// swagger:model VocalinkReportCertificateRequestCreationResponse
-type VocalinkReportCertificateRequestCreationResponse struct {
+// ProductAssociationDetailsResponse product association details response
+// swagger:model ProductAssociationDetailsResponse
+type ProductAssociationDetailsResponse struct {
 
 	// data
-	Data *VocalinkReportCertificateRequest `json:"data,omitempty"`
+	Data *ProductAssociation `json:"data,omitempty"`
 
 	// links
 	Links *Links `json:"links,omitempty"`
 }
 
-// Validate validates this vocalink report certificate request creation response
-func (m *VocalinkReportCertificateRequestCreationResponse) Validate(formats strfmt.Registry) error {
+// Validate validates this product association details response
+func (m *ProductAssociationDetailsResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateData(formats); err != nil {
@@ -41,7 +41,7 @@ func (m *VocalinkReportCertificateRequestCreationResponse) Validate(formats strf
 	return nil
 }
 
-func (m *VocalinkReportCertificateRequestCreationResponse) validateData(formats strfmt.Registry) error {
+func (m *ProductAssociationDetailsResponse) validateData(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Data) { // not required
 		return nil
@@ -59,7 +59,7 @@ func (m *VocalinkReportCertificateRequestCreationResponse) validateData(formats 
 	return nil
 }
 
-func (m *VocalinkReportCertificateRequestCreationResponse) validateLinks(formats strfmt.Registry) error {
+func (m *ProductAssociationDetailsResponse) validateLinks(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Links) { // not required
 		return nil
@@ -78,7 +78,7 @@ func (m *VocalinkReportCertificateRequestCreationResponse) validateLinks(formats
 }
 
 // MarshalBinary interface implementation
-func (m *VocalinkReportCertificateRequestCreationResponse) MarshalBinary() ([]byte, error) {
+func (m *ProductAssociationDetailsResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -86,8 +86,8 @@ func (m *VocalinkReportCertificateRequestCreationResponse) MarshalBinary() ([]by
 }
 
 // UnmarshalBinary interface implementation
-func (m *VocalinkReportCertificateRequestCreationResponse) UnmarshalBinary(b []byte) error {
-	var res VocalinkReportCertificateRequestCreationResponse
+func (m *ProductAssociationDetailsResponse) UnmarshalBinary(b []byte) error {
+	var res ProductAssociationDetailsResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -6,25 +6,27 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 )
 
-// VocalinkReportCertificateDetailsResponse vocalink report certificate details response
-// swagger:model VocalinkReportCertificateDetailsResponse
-type VocalinkReportCertificateDetailsResponse struct {
+// ProductAssociationDetailsListResponse product association details list response
+// swagger:model ProductAssociationDetailsListResponse
+type ProductAssociationDetailsListResponse struct {
 
 	// data
-	Data *VocalinkReportCertificate `json:"data,omitempty"`
+	Data []*ProductAssociation `json:"data"`
 
 	// links
 	Links *Links `json:"links,omitempty"`
 }
 
-// Validate validates this vocalink report certificate details response
-func (m *VocalinkReportCertificateDetailsResponse) Validate(formats strfmt.Registry) error {
+// Validate validates this product association details list response
+func (m *ProductAssociationDetailsListResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateData(formats); err != nil {
@@ -41,25 +43,32 @@ func (m *VocalinkReportCertificateDetailsResponse) Validate(formats strfmt.Regis
 	return nil
 }
 
-func (m *VocalinkReportCertificateDetailsResponse) validateData(formats strfmt.Registry) error {
+func (m *ProductAssociationDetailsListResponse) validateData(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Data) { // not required
 		return nil
 	}
 
-	if m.Data != nil {
-		if err := m.Data.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("data")
-			}
-			return err
+	for i := 0; i < len(m.Data); i++ {
+		if swag.IsZero(m.Data[i]) { // not required
+			continue
 		}
+
+		if m.Data[i] != nil {
+			if err := m.Data[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("data" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
 }
 
-func (m *VocalinkReportCertificateDetailsResponse) validateLinks(formats strfmt.Registry) error {
+func (m *ProductAssociationDetailsListResponse) validateLinks(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Links) { // not required
 		return nil
@@ -78,7 +87,7 @@ func (m *VocalinkReportCertificateDetailsResponse) validateLinks(formats strfmt.
 }
 
 // MarshalBinary interface implementation
-func (m *VocalinkReportCertificateDetailsResponse) MarshalBinary() ([]byte, error) {
+func (m *ProductAssociationDetailsListResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -86,8 +95,8 @@ func (m *VocalinkReportCertificateDetailsResponse) MarshalBinary() ([]byte, erro
 }
 
 // UnmarshalBinary interface implementation
-func (m *VocalinkReportCertificateDetailsResponse) UnmarshalBinary(b []byte) error {
-	var res VocalinkReportCertificateDetailsResponse
+func (m *ProductAssociationDetailsListResponse) UnmarshalBinary(b []byte) error {
+	var res ProductAssociationDetailsListResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
