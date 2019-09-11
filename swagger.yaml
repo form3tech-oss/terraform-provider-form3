@@ -1079,6 +1079,7 @@ paths:
         204:
           description: Account deleted
 
+#account_routing api -start
   /account_routings:
 
     get:
@@ -1157,6 +1158,12 @@ paths:
           required: true
           type: string
           format: uuid
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
       responses:
         204:
           description: Account Routing deleted
@@ -1179,6 +1186,7 @@ paths:
           description: Account Routing details
           schema:
             $ref: "#/definitions/AccountRoutingDetailsResponse"
+# account_routing api end
 
   /bankids:
 
@@ -4309,7 +4317,7 @@ definitions:
     properties:
       type:
         type: string
-        pattern: ^[A-Za-z]*$
+        pattern: ^[A-Za-z_]*$
         description: "Name of the resource type"
         example: "account_routings"
       id:
