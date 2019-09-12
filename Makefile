@@ -20,7 +20,7 @@ build: vet fmtcheck
 	@echo "Build succeeded"
 
 test: fmtcheck
-	go test -i $(TEST) || exit 1
+	go test -i $(TEST) -v || exit 1
 	echo $(TEST) | \
 		xargs -t -n4 go test $(TESTARGS) -count 1 -v -timeout=30s -parallel=4
 
