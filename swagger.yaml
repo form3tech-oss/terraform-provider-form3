@@ -2108,6 +2108,80 @@ paths:
         204:
           description: Association deleted
 
+  /product:
+    post:
+      summary: Create product association
+      tags:
+        - Associations
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: creation request
+          in: body
+          schema:
+            $ref: "#/definitions/ProductAssociationCreation"
+      responses:
+        201:
+          description: creation response
+          schema:
+            $ref: "#/definitions/ProductAssociationCreationResponse"
+    get:
+      summary: List all product associations
+      tags:
+        - Associations
+      parameters:
+        - name: filter[organisation_id]
+          in: query
+          description: Organisation id
+          required: false
+          type: array
+          items:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: List of associations
+          schema:
+            $ref: "#/definitions/ProductAssociationDetailsListResponse"
+
+  /product/{id}:
+    get:
+      summary: Fetch product association
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Associations details
+          schema:
+            $ref: "#/definitions/ProductAssociationDetailsResponse"
+    delete:
+      summary: Delete product association
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+      responses:
+        204:
+          description: Association deleted
 
   /sepasct:
     post:
@@ -5335,6 +5409,78 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/SepaSctAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+  ProductAssociation:
+    type: object
+    properties:
+      type:
+        type: string
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        $ref: "#/definitions/ProductAssociationAttributes"
+
+  NewProductAssociation:
+    type: object
+    properties:
+      type:
+        type: string
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        $ref: "#/definitions/ProductAssociationAttributes"
+
+  ProductAssociationAttributes:
+    type: object
+    properties:
+      product:
+        type: string
+
+  ProductAssociationCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/NewProductAssociation'
+
+  ProductAssociationCreationResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ProductAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+  ProductAssociationDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ProductAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+  ProductAssociationDetailsListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/ProductAssociation'
       links:
         $ref: '#/definitions/Links'
 
