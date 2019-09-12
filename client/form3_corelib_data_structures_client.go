@@ -11,6 +11,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/form3tech-oss/terraform-provider-form3/client/account_routings"
 	"github.com/form3tech-oss/terraform-provider-form3/client/accounts"
 	"github.com/form3tech-oss/terraform-provider-form3/client/ace"
 	"github.com/form3tech-oss/terraform-provider-form3/client/admins"
@@ -69,6 +70,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Form3Corel
 
 	cli := new(Form3CorelibDataStructures)
 	cli.Transport = transport
+
+	cli.AccountRoutings = account_routings.New(transport, formats)
 
 	cli.Accounts = accounts.New(transport, formats)
 
@@ -142,6 +145,8 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 
 // Form3CorelibDataStructures is a client for form3 corelib data structures
 type Form3CorelibDataStructures struct {
+	AccountRoutings *account_routings.Client
+
 	Accounts *accounts.Client
 
 	Ace *ace.Client
@@ -176,6 +181,8 @@ type Form3CorelibDataStructures struct {
 // SetTransport changes the transport on the client and all its subresources
 func (c *Form3CorelibDataStructures) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
+
+	c.AccountRoutings.SetTransport(transport)
 
 	c.Accounts.SetTransport(transport)
 
