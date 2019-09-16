@@ -2184,6 +2184,81 @@ paths:
         204:
           description: Association deleted
 
+  /gocardless:
+    post:
+      summary: Create organisation association for GoCardless gateway
+      tags:
+        - Associations
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: creation request
+          in: body
+          schema:
+            $ref: '#/definitions/GocardlessAssociationCreation'
+      responses:
+        201:
+          description: creation response
+          schema:
+            $ref: '#/definitions/GocardlessAssociationCreationResponse'
+    get:
+      summary: List all organisation gocardless gateway associations
+      tags:
+        - Associations
+      parameters:
+        - name: filter[organisation_id]
+          in: query
+          description: Organisation id
+          required: false
+          type: array
+          items:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: List of gocardless associations
+          schema:
+            $ref: "#/definitions/GocardlessAssociationListResponse"
+
+  /gocardless/{id}:
+    get:
+      summary: Fetch organisation gocardless gateway association
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Associations details
+          schema:
+            $ref: "#/definitions/GocardlessAssociation"
+    delete:
+      summary: Delete gocardless gateway association
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+      responses:
+        204:
+          description: Association deleted successfully
+
   /sepainstant:
 
     post:
@@ -5337,6 +5412,57 @@ definitions:
           $ref: '#/definitions/SepaSctAssociation'
       links:
         $ref: '#/definitions/Links'
+
+  GocardlessAssociation:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      organisation_id:
+        type: string
+        format: uuid
+      type:
+        type: string
+      version:
+        type: integer
+        minimum: 0
+      attributes:
+        $ref: '#/definitions/GocardlessAssociationAttributes'
+
+  GocardlessAssociationAttributes:
+    type: object
+    properties:
+      schemes:
+        type: array
+        items:
+          type: string
+
+  GocardlessAssociationCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/GocardlessAssociation'
+
+  GocardlessAssociationCreationResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/GocardlessAssociation'
+
+  GocardlessAssociationFetchResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/GocardlessAssociation'
+
+  GocardlessAssociationListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/GocardlessAssociation'
 
   LhvAssociation:
     type: object

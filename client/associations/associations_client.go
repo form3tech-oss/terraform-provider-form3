@@ -81,6 +81,34 @@ func (a *Client) DeleteConfirmationOfPayeeID(params *DeleteConfirmationOfPayeeID
 }
 
 /*
+DeleteGocardlessID deletes gocardless gateway association
+*/
+func (a *Client) DeleteGocardlessID(params *DeleteGocardlessIDParams) (*DeleteGocardlessIDNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteGocardlessIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteGocardlessID",
+		Method:             "DELETE",
+		PathPattern:        "/gocardless/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteGocardlessIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteGocardlessIDNoContent), nil
+
+}
+
+/*
 DeleteLhvID deletes organisation lhv association
 */
 func (a *Client) DeleteLhvID(params *DeleteLhvIDParams) (*DeleteLhvIDNoContent, error) {
@@ -357,6 +385,62 @@ func (a *Client) GetConfirmationOfPayeeID(params *GetConfirmationOfPayeeIDParams
 		return nil, err
 	}
 	return result.(*GetConfirmationOfPayeeIDOK), nil
+
+}
+
+/*
+GetGocardless lists all organisation gocardless gateway associations
+*/
+func (a *Client) GetGocardless(params *GetGocardlessParams) (*GetGocardlessOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetGocardlessParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetGocardless",
+		Method:             "GET",
+		PathPattern:        "/gocardless",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetGocardlessReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetGocardlessOK), nil
+
+}
+
+/*
+GetGocardlessID fetches organisation gocardless gateway association
+*/
+func (a *Client) GetGocardlessID(params *GetGocardlessIDParams) (*GetGocardlessIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetGocardlessIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetGocardlessID",
+		Method:             "GET",
+		PathPattern:        "/gocardless/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetGocardlessIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetGocardlessIDOK), nil
 
 }
 
@@ -749,6 +833,34 @@ func (a *Client) PostConfirmationOfPayee(params *PostConfirmationOfPayeeParams) 
 		return nil, err
 	}
 	return result.(*PostConfirmationOfPayeeCreated), nil
+
+}
+
+/*
+PostGocardless creates organisation association for go cardless gateway
+*/
+func (a *Client) PostGocardless(params *PostGocardlessParams) (*PostGocardlessCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostGocardlessParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostGocardless",
+		Method:             "POST",
+		PathPattern:        "/gocardless",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PostGocardlessReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PostGocardlessCreated), nil
 
 }
 
