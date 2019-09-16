@@ -16,7 +16,7 @@ import (
 	"github.com/hashicorp/terraform/helper/schema"
 )
 
-func resourceForm3GocardlessGatewayAssociation() *schema.Resource {
+func resourceForm3GocardlessAssociation() *schema.Resource {
 	return &schema.Resource{
 		Create: resourceGocardlessAssociationCreate,
 		Read:   resourceGocardlessAssociationRead,
