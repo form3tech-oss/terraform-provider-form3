@@ -12,7 +12,7 @@ import (
 	"testing"
 )
 
-func TestAccProductAssociation_basic(t *testing.T) {
+func TestAccProductsAssociation_basic(t *testing.T) {
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.NewV4().String()
 	associationId := uuid.NewV4().String()
@@ -20,30 +20,30 @@ func TestAccProductAssociation_basic(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
 		Providers:    testAccProviders,
-		CheckDestroy: testAccCheckProductAssociationDestroy,
+		CheckDestroy: testAccCheckProductsAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3ProductAssociationConfigA, organisationId, parentOrganisationId, associationId),
+				Config: fmt.Sprintf(testForm3ProductsAssociationConfigA, organisationId, parentOrganisationId, associationId),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckProductAssociationExists("form3_product_association.association"),
-					resource.TestCheckResourceAttr("form3_product_association.association", "association_id", associationId),
-					resource.TestCheckResourceAttr("form3_product_association.association", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_product_association.association", "product", "direct_debits_gocardless"),
+					testAccCheckProductsAssociationExists("form3_products_association.association"),
+					resource.TestCheckResourceAttr("form3_products_association.association", "association_id", associationId),
+					resource.TestCheckResourceAttr("form3_products_association.association", "organisation_id", organisationId),
+					resource.TestCheckResourceAttr("form3_products_association.association", "product", "direct_debits_gocardless"),
 				),
 			},
 		},
 	})
 }
 
-func testAccCheckProductAssociationDestroy(state *terraform.State) error {
+func testAccCheckProductsAssociationDestroy(state *terraform.State) error {
 	client := testAccProvider.Meta().(*form3.AuthenticatedClient)
 
 	for _, rs := range state.RootModule().Resources {
-		if rs.Type != "form3_product_association" {
+		if rs.Type != "form3_products_association" {
 			continue
 		}
 
-		response, err := client.AssociationClient.Associations.GetProductID(associations.NewGetProductIDParams().
+		response, err := client.AssociationClient.Associations.GetProductsID(associations.NewGetProductsIDParams().
 			WithID(strfmt.UUID(rs.Primary.ID)))
 
 		if err == nil {
@@ -54,7 +54,7 @@ func testAccCheckProductAssociationDestroy(state *terraform.State) error {
 	return nil
 }
 
-func testAccCheckProductAssociationExists(resourceKey string) resource.TestCheckFunc {
+func testAccCheckProductsAssociationExists(resourceKey string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceKey]
 
@@ -68,7 +68,7 @@ func testAccCheckProductAssociationExists(resourceKey string) resource.TestCheck
 
 		client := testAccProvider.Meta().(*form3.AuthenticatedClient)
 
-		foundRecord, err := client.AssociationClient.Associations.GetProductID(associations.NewGetProductIDParams().
+		foundRecord, err := client.AssociationClient.Associations.GetProductsID(associations.NewGetProductsIDParams().
 			WithID(strfmt.UUID(rs.Primary.ID)))
 
 		if err != nil {
@@ -83,13 +83,13 @@ func testAccCheckProductAssociationExists(resourceKey string) resource.TestCheck
 	}
 }
 
-const testForm3ProductAssociationConfigA = `
+const testForm3ProductsAssociationConfigA = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
 	name 		               = "terraform-organisation"
 }
-resource "form3_product_association" "association" {
+resource "form3_products_association" "association" {
 	organisation_id        = "${form3_organisation.organisation.organisation_id}"
 	association_id         = "%s"
 	product                = "direct_debits_gocardless"

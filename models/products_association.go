@@ -13,12 +13,12 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// ProductAssociation product association
-// swagger:model ProductAssociation
-type ProductAssociation struct {
+// ProductsAssociation products association
+// swagger:model ProductsAssociation
+type ProductsAssociation struct {
 
 	// attributes
-	Attributes *ProductAssociationAttributes `json:"attributes,omitempty"`
+	Attributes *ProductsAssociationAttributes `json:"attributes,omitempty"`
 
 	// id
 	// Format: uuid
@@ -36,8 +36,8 @@ type ProductAssociation struct {
 	Version *int64 `json:"version,omitempty"`
 }
 
-// Validate validates this product association
-func (m *ProductAssociation) Validate(formats strfmt.Registry) error {
+// Validate validates this products association
+func (m *ProductsAssociation) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAttributes(formats); err != nil {
@@ -62,7 +62,7 @@ func (m *ProductAssociation) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *ProductAssociation) validateAttributes(formats strfmt.Registry) error {
+func (m *ProductsAssociation) validateAttributes(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Attributes) { // not required
 		return nil
@@ -80,7 +80,7 @@ func (m *ProductAssociation) validateAttributes(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *ProductAssociation) validateID(formats strfmt.Registry) error {
+func (m *ProductsAssociation) validateID(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.ID) { // not required
 		return nil
@@ -93,7 +93,7 @@ func (m *ProductAssociation) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *ProductAssociation) validateOrganisationID(formats strfmt.Registry) error {
+func (m *ProductsAssociation) validateOrganisationID(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.OrganisationID) { // not required
 		return nil
@@ -106,7 +106,7 @@ func (m *ProductAssociation) validateOrganisationID(formats strfmt.Registry) err
 	return nil
 }
 
-func (m *ProductAssociation) validateVersion(formats strfmt.Registry) error {
+func (m *ProductsAssociation) validateVersion(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Version) { // not required
 		return nil
@@ -120,7 +120,7 @@ func (m *ProductAssociation) validateVersion(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *ProductAssociation) MarshalBinary() ([]byte, error) {
+func (m *ProductsAssociation) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -128,8 +128,8 @@ func (m *ProductAssociation) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *ProductAssociation) UnmarshalBinary(b []byte) error {
-	var res ProductAssociation
+func (m *ProductsAssociation) UnmarshalBinary(b []byte) error {
+	var res ProductsAssociation
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

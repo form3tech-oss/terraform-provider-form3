@@ -11,21 +11,21 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// ProductAssociationAttributes product association attributes
-// swagger:model ProductAssociationAttributes
-type ProductAssociationAttributes struct {
+// ProductsAssociationAttributes products association attributes
+// swagger:model ProductsAssociationAttributes
+type ProductsAssociationAttributes struct {
 
 	// product
 	Product string `json:"product,omitempty"`
 }
 
-// Validate validates this product association attributes
-func (m *ProductAssociationAttributes) Validate(formats strfmt.Registry) error {
+// Validate validates this products association attributes
+func (m *ProductsAssociationAttributes) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *ProductAssociationAttributes) MarshalBinary() ([]byte, error) {
+func (m *ProductsAssociationAttributes) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -33,8 +33,8 @@ func (m *ProductAssociationAttributes) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *ProductAssociationAttributes) UnmarshalBinary(b []byte) error {
-	var res ProductAssociationAttributes
+func (m *ProductsAssociationAttributes) UnmarshalBinary(b []byte) error {
+	var res ProductsAssociationAttributes
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

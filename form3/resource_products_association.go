@@ -11,11 +11,11 @@ import (
 	"log"
 )
 
-func resourceForm3ProductAssociation() *schema.Resource {
+func resourceForm3ProductsAssociation() *schema.Resource {
 	return &schema.Resource{
-		Create: resourceProductAssociationCreate,
-		Read:   resourceProductAssociationRead,
-		Delete: resourceProductAssociationDelete,
+		Create: resourceProductsAssociationCreate,
+		Read:   resourceProductsAssociationRead,
+		Delete: resourceProductsAssociationDelete,
 
 		Schema: map[string]*schema.Schema{
 			"association_id": {
@@ -37,16 +37,16 @@ func resourceForm3ProductAssociation() *schema.Resource {
 	}
 }
 
-func resourceProductAssociationCreate(d *schema.ResourceData, meta interface{}) error {
+func resourceProductsAssociationCreate(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
 
-	association, err := createProductNewAssociationFromResourceData(d)
+	association, err := createProductsNewAssociationFromResourceData(d)
 	if err != nil {
 		return fmt.Errorf("failed to create product association: %s", err)
 	}
 
-	createdAssociation, err := client.AssociationClient.Associations.PostProduct(associations.NewPostProductParams().
-		WithCreationRequest(&models.ProductAssociationCreation{
+	createdAssociation, err := client.AssociationClient.Associations.PostProducts(associations.NewPostProductsParams().
+		WithCreationRequest(&models.ProductsAssociationCreation{
 			Data: association,
 		}))
 
@@ -57,15 +57,15 @@ func resourceProductAssociationCreate(d *schema.ResourceData, meta interface{}) 
 	d.SetId(createdAssociation.Payload.Data.ID.String())
 	log.Printf("[INFO] product association key: %s", d.Id())
 
-	return resourceProductAssociationRead(d, meta)
+	return resourceProductsAssociationRead(d, meta)
 }
 
-func resourceProductAssociationRead(d *schema.ResourceData, meta interface{}) error {
+func resourceProductsAssociationRead(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
 
 	associationId, _ := GetUUIDOK(d, "association_id")
 
-	productAssociation, err := client.AssociationClient.Associations.GetProductID(associations.NewGetProductIDParams().
+	productAssociation, err := client.AssociationClient.Associations.GetProductsID(associations.NewGetProductsIDParams().
 		WithID(associationId))
 
 	if err != nil {
@@ -83,18 +83,17 @@ func resourceProductAssociationRead(d *schema.ResourceData, meta interface{}) er
 	return nil
 }
 
-func resourceProductAssociationDelete(d *schema.ResourceData, meta interface{}) error {
+func resourceProductsAssociationDelete(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
 
-	productAssociation, err := client.AssociationClient.Associations.GetProductID(associations.NewGetProductIDParams().
+	productAssociation, err := client.AssociationClient.Associations.GetProductsID(associations.NewGetProductsIDParams().
 		WithID(strfmt.UUID(d.Id())))
 	if err != nil {
 		return fmt.Errorf("error deleting product association: %s", err)
 	}
 
-	_, err = client.AssociationClient.Associations.DeleteProductID(associations.NewDeleteProductIDParams().
-		WithID(productAssociation.Payload.Data.ID).
-		WithVersion(*productAssociation.Payload.Data.Version))
+	_, err = client.AssociationClient.Associations.DeleteProductsID(associations.NewDeleteProductsIDParams().
+		WithID(productAssociation.Payload.Data.ID))
 
 	if err != nil {
 		return fmt.Errorf("error deleting product association: %s", err)
@@ -103,10 +102,15 @@ func resourceProductAssociationDelete(d *schema.ResourceData, meta interface{}) 
 	return nil
 }
 
-func createProductNewAssociationFromResourceData(d *schema.ResourceData) (*models.NewProductAssociation, error) {
+func createProductsNewAssociationFromResourceData(d *schema.ResourceData) (*models.NewProductsAssociation, error) {
 
-	association := models.NewProductAssociation{Attributes: &models.ProductAssociationAttributes{}}
+	association := models.NewProductsAssociation{Attributes: &models.ProductsAssociationAttributes{}}
 	association.Type = "product_associations"
+
+	if attr, ok := d.GetOk("organisation_id"); ok {
+		association.OrganisationID = strfmt.UUID(attr.(string))
+	}
+
 	if attr, ok := GetUUIDOK(d, "association_id"); ok {
 		association.ID = attr
 	}

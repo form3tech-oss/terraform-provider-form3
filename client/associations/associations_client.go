@@ -137,30 +137,30 @@ func (a *Client) DeletePayportID(params *DeletePayportIDParams) (*DeletePayportI
 }
 
 /*
-DeleteProductID deletes product association
+DeleteProductsID deletes product association
 */
-func (a *Client) DeleteProductID(params *DeleteProductIDParams) (*DeleteProductIDNoContent, error) {
+func (a *Client) DeleteProductsID(params *DeleteProductsIDParams) (*DeleteProductsIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewDeleteProductIDParams()
+		params = NewDeleteProductsIDParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "DeleteProductID",
+		ID:                 "DeleteProductsID",
 		Method:             "DELETE",
-		PathPattern:        "/product/{id}",
+		PathPattern:        "/products/{id}",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &DeleteProductIDReader{formats: a.formats},
+		Reader:             &DeleteProductsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteProductIDNoContent), nil
+	return result.(*DeleteProductsIDNoContent), nil
 
 }
 
@@ -501,58 +501,58 @@ func (a *Client) GetPayportID(params *GetPayportIDParams) (*GetPayportIDOK, erro
 }
 
 /*
-GetProduct lists all product associations
+GetProducts lists all product associations
 */
-func (a *Client) GetProduct(params *GetProductParams) (*GetProductOK, error) {
+func (a *Client) GetProducts(params *GetProductsParams) (*GetProductsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetProductParams()
+		params = NewGetProductsParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "GetProduct",
+		ID:                 "GetProducts",
 		Method:             "GET",
-		PathPattern:        "/product",
+		PathPattern:        "/products",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &GetProductReader{formats: a.formats},
+		Reader:             &GetProductsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetProductOK), nil
+	return result.(*GetProductsOK), nil
 
 }
 
 /*
-GetProductID fetches product association
+GetProductsID fetches product association
 */
-func (a *Client) GetProductID(params *GetProductIDParams) (*GetProductIDOK, error) {
+func (a *Client) GetProductsID(params *GetProductsIDParams) (*GetProductsIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetProductIDParams()
+		params = NewGetProductsIDParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "GetProductID",
+		ID:                 "GetProductsID",
 		Method:             "GET",
-		PathPattern:        "/product/{id}",
+		PathPattern:        "/products/{id}",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &GetProductIDReader{formats: a.formats},
+		Reader:             &GetProductsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetProductIDOK), nil
+	return result.(*GetProductsIDOK), nil
 
 }
 
@@ -893,30 +893,30 @@ func (a *Client) PostPayport(params *PostPayportParams) (*PostPayportCreated, er
 }
 
 /*
-PostProduct creates product association
+PostProducts creates product association
 */
-func (a *Client) PostProduct(params *PostProductParams) (*PostProductCreated, error) {
+func (a *Client) PostProducts(params *PostProductsParams) (*PostProductsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewPostProductParams()
+		params = NewPostProductsParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "PostProduct",
+		ID:                 "PostProducts",
 		Method:             "POST",
-		PathPattern:        "/product",
+		PathPattern:        "/products",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &PostProductReader{formats: a.formats},
+		Reader:             &PostProductsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostProductCreated), nil
+	return result.(*PostProductsCreated), nil
 
 }
 

@@ -12,19 +12,19 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// ProductAssociationCreationResponse product association creation response
-// swagger:model ProductAssociationCreationResponse
-type ProductAssociationCreationResponse struct {
+// ProductsAssociationCreationResponse products association creation response
+// swagger:model ProductsAssociationCreationResponse
+type ProductsAssociationCreationResponse struct {
 
 	// data
-	Data *ProductAssociation `json:"data,omitempty"`
+	Data *ProductsAssociation `json:"data,omitempty"`
 
 	// links
 	Links *Links `json:"links,omitempty"`
 }
 
-// Validate validates this product association creation response
-func (m *ProductAssociationCreationResponse) Validate(formats strfmt.Registry) error {
+// Validate validates this products association creation response
+func (m *ProductsAssociationCreationResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateData(formats); err != nil {
@@ -41,7 +41,7 @@ func (m *ProductAssociationCreationResponse) Validate(formats strfmt.Registry) e
 	return nil
 }
 
-func (m *ProductAssociationCreationResponse) validateData(formats strfmt.Registry) error {
+func (m *ProductsAssociationCreationResponse) validateData(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Data) { // not required
 		return nil
@@ -59,7 +59,7 @@ func (m *ProductAssociationCreationResponse) validateData(formats strfmt.Registr
 	return nil
 }
 
-func (m *ProductAssociationCreationResponse) validateLinks(formats strfmt.Registry) error {
+func (m *ProductsAssociationCreationResponse) validateLinks(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Links) { // not required
 		return nil
@@ -78,7 +78,7 @@ func (m *ProductAssociationCreationResponse) validateLinks(formats strfmt.Regist
 }
 
 // MarshalBinary interface implementation
-func (m *ProductAssociationCreationResponse) MarshalBinary() ([]byte, error) {
+func (m *ProductsAssociationCreationResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -86,8 +86,8 @@ func (m *ProductAssociationCreationResponse) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *ProductAssociationCreationResponse) UnmarshalBinary(b []byte) error {
-	var res ProductAssociationCreationResponse
+func (m *ProductsAssociationCreationResponse) UnmarshalBinary(b []byte) error {
+	var res ProductsAssociationCreationResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

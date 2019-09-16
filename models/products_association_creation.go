@@ -12,16 +12,16 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// ProductAssociationCreation product association creation
-// swagger:model ProductAssociationCreation
-type ProductAssociationCreation struct {
+// ProductsAssociationCreation products association creation
+// swagger:model ProductsAssociationCreation
+type ProductsAssociationCreation struct {
 
 	// data
-	Data *NewProductAssociation `json:"data,omitempty"`
+	Data *NewProductsAssociation `json:"data,omitempty"`
 }
 
-// Validate validates this product association creation
-func (m *ProductAssociationCreation) Validate(formats strfmt.Registry) error {
+// Validate validates this products association creation
+func (m *ProductsAssociationCreation) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateData(formats); err != nil {
@@ -34,7 +34,7 @@ func (m *ProductAssociationCreation) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *ProductAssociationCreation) validateData(formats strfmt.Registry) error {
+func (m *ProductsAssociationCreation) validateData(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Data) { // not required
 		return nil
@@ -53,7 +53,7 @@ func (m *ProductAssociationCreation) validateData(formats strfmt.Registry) error
 }
 
 // MarshalBinary interface implementation
-func (m *ProductAssociationCreation) MarshalBinary() ([]byte, error) {
+func (m *ProductsAssociationCreation) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -61,8 +61,8 @@ func (m *ProductAssociationCreation) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *ProductAssociationCreation) UnmarshalBinary(b []byte) error {
-	var res ProductAssociationCreation
+func (m *ProductsAssociationCreation) UnmarshalBinary(b []byte) error {
+	var res ProductsAssociationCreation
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -16,17 +16,17 @@ import (
 	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// GetProductIDReader is a Reader for the GetProductID structure.
-type GetProductIDReader struct {
+// GetProductsIDReader is a Reader for the GetProductsID structure.
+type GetProductsIDReader struct {
 	formats strfmt.Registry
 }
 
 // ReadResponse reads a server response into the received o.
-func (o *GetProductIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+func (o *GetProductsIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
-		result := NewGetProductIDOK()
+		result := NewGetProductsIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -37,26 +37,26 @@ func (o *GetProductIDReader) ReadResponse(response runtime.ClientResponse, consu
 	}
 }
 
-// NewGetProductIDOK creates a GetProductIDOK with default headers values
-func NewGetProductIDOK() *GetProductIDOK {
-	return &GetProductIDOK{}
+// NewGetProductsIDOK creates a GetProductsIDOK with default headers values
+func NewGetProductsIDOK() *GetProductsIDOK {
+	return &GetProductsIDOK{}
 }
 
-/*GetProductIDOK handles this case with default header values.
+/*GetProductsIDOK handles this case with default header values.
 
 Associations details
 */
-type GetProductIDOK struct {
-	Payload *models.ProductAssociationDetailsResponse
+type GetProductsIDOK struct {
+	Payload *models.ProductsAssociationDetailsResponse
 }
 
-func (o *GetProductIDOK) Error() string {
-	return fmt.Sprintf("[GET /product/{id}][%d] getProductIdOK  %+v", 200, o.Payload)
+func (o *GetProductsIDOK) Error() string {
+	return fmt.Sprintf("[GET /products/{id}][%d] getProductsIdOK  %+v", 200, o.Payload)
 }
 
-func (o *GetProductIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *GetProductsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.ProductAssociationDetailsResponse)
+	o.Payload = new(models.ProductsAssociationDetailsResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

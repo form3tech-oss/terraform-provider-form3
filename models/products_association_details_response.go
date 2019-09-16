@@ -6,27 +6,25 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"strconv"
-
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 )
 
-// ProductAssociationDetailsListResponse product association details list response
-// swagger:model ProductAssociationDetailsListResponse
-type ProductAssociationDetailsListResponse struct {
+// ProductsAssociationDetailsResponse products association details response
+// swagger:model ProductsAssociationDetailsResponse
+type ProductsAssociationDetailsResponse struct {
 
 	// data
-	Data []*ProductAssociation `json:"data"`
+	Data *ProductsAssociation `json:"data,omitempty"`
 
 	// links
 	Links *Links `json:"links,omitempty"`
 }
 
-// Validate validates this product association details list response
-func (m *ProductAssociationDetailsListResponse) Validate(formats strfmt.Registry) error {
+// Validate validates this products association details response
+func (m *ProductsAssociationDetailsResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateData(formats); err != nil {
@@ -43,32 +41,25 @@ func (m *ProductAssociationDetailsListResponse) Validate(formats strfmt.Registry
 	return nil
 }
 
-func (m *ProductAssociationDetailsListResponse) validateData(formats strfmt.Registry) error {
+func (m *ProductsAssociationDetailsResponse) validateData(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Data) { // not required
 		return nil
 	}
 
-	for i := 0; i < len(m.Data); i++ {
-		if swag.IsZero(m.Data[i]) { // not required
-			continue
-		}
-
-		if m.Data[i] != nil {
-			if err := m.Data[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("data" + "." + strconv.Itoa(i))
-				}
-				return err
+	if m.Data != nil {
+		if err := m.Data.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("data")
 			}
+			return err
 		}
-
 	}
 
 	return nil
 }
 
-func (m *ProductAssociationDetailsListResponse) validateLinks(formats strfmt.Registry) error {
+func (m *ProductsAssociationDetailsResponse) validateLinks(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Links) { // not required
 		return nil
@@ -87,7 +78,7 @@ func (m *ProductAssociationDetailsListResponse) validateLinks(formats strfmt.Reg
 }
 
 // MarshalBinary interface implementation
-func (m *ProductAssociationDetailsListResponse) MarshalBinary() ([]byte, error) {
+func (m *ProductsAssociationDetailsResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -95,8 +86,8 @@ func (m *ProductAssociationDetailsListResponse) MarshalBinary() ([]byte, error) 
 }
 
 // UnmarshalBinary interface implementation
-func (m *ProductAssociationDetailsListResponse) UnmarshalBinary(b []byte) error {
-	var res ProductAssociationDetailsListResponse
+func (m *ProductsAssociationDetailsResponse) UnmarshalBinary(b []byte) error {
+	var res ProductsAssociationDetailsResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

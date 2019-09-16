@@ -2097,7 +2097,7 @@ paths:
           description: Association Id
           required: true
           type: string
-          format: uuid
+          format: uuid1
         - name: version
           in: query
           description: Version
@@ -2108,7 +2108,7 @@ paths:
         204:
           description: Association deleted
 
-  /product:
+  /products:
     post:
       summary: Create product association
       tags:
@@ -2120,12 +2120,12 @@ paths:
         - name: creation request
           in: body
           schema:
-            $ref: "#/definitions/ProductAssociationCreation"
+            $ref: "#/definitions/ProductsAssociationCreation"
       responses:
         201:
           description: creation response
           schema:
-            $ref: "#/definitions/ProductAssociationCreationResponse"
+            $ref: "#/definitions/ProductsAssociationCreationResponse"
     get:
       summary: List all product associations
       tags:
@@ -2143,9 +2143,9 @@ paths:
         200:
           description: List of associations
           schema:
-            $ref: "#/definitions/ProductAssociationDetailsListResponse"
+            $ref: "#/definitions/ProductsAssociationDetailsListResponse"
 
-  /product/{id}:
+  /products/{id}:
     get:
       summary: Fetch product association
       tags:
@@ -2161,7 +2161,7 @@ paths:
         200:
           description: Associations details
           schema:
-            $ref: "#/definitions/ProductAssociationDetailsResponse"
+            $ref: "#/definitions/ProductsAssociationDetailsResponse"
     delete:
       summary: Delete product association
       tags:
@@ -5412,7 +5412,7 @@ definitions:
       links:
         $ref: '#/definitions/Links'
 
-  ProductAssociation:
+  ProductsAssociation:
     type: object
     properties:
       type:
@@ -5427,9 +5427,9 @@ definitions:
         type: string
         format: uuid
       attributes:
-        $ref: "#/definitions/ProductAssociationAttributes"
+        $ref: "#/definitions/ProductsAssociationAttributes"
 
-  NewProductAssociation:
+  NewProductsAssociation:
     type: object
     properties:
       type:
@@ -5444,43 +5444,43 @@ definitions:
         type: string
         format: uuid
       attributes:
-        $ref: "#/definitions/ProductAssociationAttributes"
+        $ref: "#/definitions/ProductsAssociationAttributes"
 
-  ProductAssociationAttributes:
+  ProductsAssociationAttributes:
     type: object
     properties:
       product:
         type: string
 
-  ProductAssociationCreation:
+  ProductsAssociationCreation:
     type: object
     properties:
       data:
-        $ref: '#/definitions/NewProductAssociation'
+        $ref: '#/definitions/NewProductsAssociation'
 
-  ProductAssociationCreationResponse:
+  ProductsAssociationCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ProductAssociation'
+        $ref: '#/definitions/ProductsAssociation'
       links:
         $ref: '#/definitions/Links'
 
-  ProductAssociationDetailsResponse:
+  ProductsAssociationDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ProductAssociation'
+        $ref: '#/definitions/ProductsAssociation'
       links:
         $ref: '#/definitions/Links'
 
-  ProductAssociationDetailsListResponse:
+  ProductsAssociationDetailsListResponse:
     type: object
     properties:
       data:
         type: array
         items:
-          $ref: '#/definitions/ProductAssociation'
+          $ref: '#/definitions/ProductsAssociation'
       links:
         $ref: '#/definitions/Links'
 
