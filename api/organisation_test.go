@@ -7,6 +7,7 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/strfmt"
 	"github.com/nu7hatch/gouuid"
+	"strings"
 	"testing"
 )
 
@@ -24,7 +25,11 @@ func TestAccDeleteOrganisation(t *testing.T) {
 			},
 		}))
 
-	assertNoErrorOccurred(err, t)
+	if err != nil {
+		if !strings.Contains(err.Error(), "409") {
+			assertNoErrorOccurred(err, t)
+		}
+	}
 
 	_, err = auth.OrganisationClient.Organisations.DeleteUnitsID(organisations.NewDeleteUnitsIDParams().
 		WithID(createResponse.Payload.Data.ID),
