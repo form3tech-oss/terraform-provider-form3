@@ -103,7 +103,7 @@ resource "form3_user" "user" {
 	user_id 		= "${uuid()}"
 	user_name 	= "terraform-user"
   email 			= "terraform-user@form3.tech"
-	roles 			= ["32881d6b-a000-4258-b779-56c59970590f"]
+	roles 			= ["5ec84a87-cfc5-4ddf-8dd1-9bfc603f9a27"]
 
   lifecycle {
     ignore_changes = ["user_id"]

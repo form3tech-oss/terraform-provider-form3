@@ -29,7 +29,7 @@ func TestAccDeleteUser(t *testing.T) {
 				Attributes: &models.UserAttributes{
 					Email:    "go-form3@form3.tech",
 					Username: "go-form3",
-					RoleIds:  []strfmt.UUID{strfmt.UUID("32881d6b-a000-4258-b779-56c59970590f")},
+					RoleIds:  []strfmt.UUID{strfmt.UUID("5ec84a87-cfc5-4ddf-8dd1-9bfc603f9a27")},
 				},
 			},
 		}))

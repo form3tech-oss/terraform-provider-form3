@@ -145,7 +145,7 @@ resource "form3_user" "public_key_test_user" {
 	user_id 		= "%s"
 	user_name 	    = "terraform-user"
 	email 			= "terraform-user@form3.tech"
-	roles 			= ["32881d6b-a000-4258-b779-56c59970590f"]
+	roles 			= ["5ec84a87-cfc5-4ddf-8dd1-9bfc603f9a27"]
 }
 
 resource "form3_credential_public_key" "test_public_key_multi_one" {
@@ -179,7 +179,7 @@ resource "form3_user" "public_key_test_user" {
 	user_id 		= "%s"
 	user_name 	    = "terraform-user"
 	email 			= "terraform-user@form3.tech"
-	roles 			= ["32881d6b-a000-4258-b779-56c59970590f"]
+	roles 			= ["5ec84a87-cfc5-4ddf-8dd1-9bfc603f9a27"]
 }
 
 resource "form3_credential_public_key" "test_public_key_single" {
