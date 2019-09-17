@@ -24,7 +24,7 @@ func TestAccDeleteUser(t *testing.T) {
 	roleID := uuid.NewV4().String()
 	parentRoleID := strfmt.UUID(uuid.NewV4().String())
 
-	_, err := auth.AssociationClient.Roles.PostRoles(roles.NewPostRolesParams().
+	_, err := auth.SecurityClient.Roles.PostRoles(roles.NewPostRolesParams().
 		WithRoleCreationRequest(&models.RoleCreation{
 			Data: &models.Role{
 				OrganisationID: organisationId,
@@ -70,7 +70,7 @@ func TestAccDeleteUser(t *testing.T) {
 
 	assertStatusCode(err, t, 404)
 
-	_, err = auth.AssociationClient.Roles.DeleteRolesRoleID(roles.NewDeleteRolesRoleIDParams().
+	_, err = auth.SecurityClient.Roles.DeleteRolesRoleID(roles.NewDeleteRolesRoleIDParams().
 		WithRoleID(strfmt.UUID(roleID)))
 	if err != nil {
 		t.Errorf("failed to delete role %s: %s", roleID, err)
