@@ -7,33 +7,39 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/strfmt"
 	"github.com/nu7hatch/gouuid"
+	"strings"
 	"testing"
 )
 
 func TestAccDeleteOrganisation(t *testing.T) {
+	id := strfmt.UUID("58a78c22-efa6-4f67-b2ec-30c53fd9a438")
 
-	createResponse, err := auth.OrganisationClient.Organisations.PostUnits(organisations.NewPostUnitsParams().
+	_, err := auth.OrganisationClient.Organisations.PostUnits(organisations.NewPostUnitsParams().
 		WithOrganisationCreationRequest(&models.OrganisationCreation{
 			Data: &models.Organisation{
 				OrganisationID: organisationId,
 				Type:           "organisations",
-				ID:             strfmt.UUID("58a78c22-efa6-4f67-b2ec-30c53fd9a438"),
+				ID:             id,
 				Attributes: &models.OrganisationAttributes{
 					Name: "TestOrganisation",
 				},
 			},
 		}))
 
-	assertNoErrorOccurred(err, t)
+	if err != nil {
+		if !strings.Contains(err.Error(), "409") {
+			assertNoErrorOccurred(err, t)
+		}
+	}
 
 	_, err = auth.OrganisationClient.Organisations.DeleteUnitsID(organisations.NewDeleteUnitsIDParams().
-		WithID(createResponse.Payload.Data.ID),
+		WithID(id),
 	)
 
 	assertNoErrorOccurred(err, t)
 
 	_, err = auth.OrganisationClient.Organisations.GetUnitsID(organisations.NewGetUnitsIDParams().
-		WithID(createResponse.Payload.Data.ID))
+		WithID(id))
 
 	assertStatusCode(err, t, 404)
 }
