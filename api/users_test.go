@@ -1,10 +1,12 @@
 package api
 
 import (
+	"github.com/form3tech-oss/terraform-provider-form3/client/roles"
 	"github.com/form3tech-oss/terraform-provider-form3/client/users"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+	uuid "github.com/satori/go.uuid"
 	"testing"
 )
 
@@ -19,6 +21,23 @@ func TestAccGetUsers(t *testing.T) {
 }
 
 func TestAccDeleteUser(t *testing.T) {
+	roleID := uuid.NewV4().String()
+
+	_, err := auth.AssociationClient.Roles.PostRoles(roles.NewPostRolesParams().
+		WithRoleCreationRequest(&models.RoleCreation{
+			Data: &models.Role{
+				OrganisationID: organisationId,
+				Type:           "roles",
+				ID:             strfmt.UUID(roleID),
+				Attributes: &models.RoleAttributes{
+					Name: "terraform-test",
+				},
+			},
+		}),
+	)
+	if err != nil {
+		t.Errorf("failed to create role %s: %s", roleID, err)
+	}
 
 	createResponse, err := auth.SecurityClient.Users.PostUsers(users.NewPostUsersParams().
 		WithUserCreationRequest(&models.UserCreation{
@@ -48,6 +67,12 @@ func TestAccDeleteUser(t *testing.T) {
 		WithUserID(createResponse.Payload.Data.ID))
 
 	assertStatusCode(err, t, 404)
+
+	_, err = auth.AssociationClient.Roles.DeleteRolesRoleID(roles.NewDeleteRolesRoleIDParams().
+		WithRoleID(strfmt.UUID(roleID)))
+	if err != nil {
+		t.Errorf("failed to delete role %s: %s", roleID, err)
+	}
 }
 
 func TestAccGetUserWithIdNotFound(t *testing.T) {
