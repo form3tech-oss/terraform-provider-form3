@@ -22,6 +22,7 @@ func TestAccGetUsers(t *testing.T) {
 
 func TestAccDeleteUser(t *testing.T) {
 	roleID := uuid.NewV4().String()
+	parentRoleID := strfmt.UUID(uuid.NewV4().String())
 
 	_, err := auth.AssociationClient.Roles.PostRoles(roles.NewPostRolesParams().
 		WithRoleCreationRequest(&models.RoleCreation{
@@ -30,7 +31,8 @@ func TestAccDeleteUser(t *testing.T) {
 				Type:           "roles",
 				ID:             strfmt.UUID(roleID),
 				Attributes: &models.RoleAttributes{
-					Name: "terraform-test",
+					Name:         "terraform-test",
+					ParentRoleID: &parentRoleID,
 				},
 			},
 		}),
