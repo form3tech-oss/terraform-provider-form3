@@ -71,6 +71,31 @@ func TestAccCredentialPublicKey_singleKey(t *testing.T) {
 	})
 }
 
+func TestAccCredentialPublicKey_import(t *testing.T) {
+	log.SetOutput(os.Stdout)
+	organisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	publicKeyID := uuid.NewV4().String()
+	userID := uuid.NewV4().String()
+	roleID := uuid.NewV4().String()
+
+	resource.Test(t, resource.TestCase{
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
+		CheckDestroy: testAccCheckCredentialPublicKeyDestroy,
+		Steps: []resource.TestStep{
+			{
+				Config: fmt.Sprintf(testForm3CredentialPublicKeyConfigSingle, organisationID, roleID, organisationID, userID, publicKeyID),
+			},
+			{
+				ResourceName:      "form3_credential_public_key.test_public_key_single",
+				ImportState:       true,
+				ImportStateVerify: true,
+				ImportStateId:     fmt.Sprintf("%s/%s", userID, publicKeyID),
+			},
+		},
+	})
+}
+
 func testAccCheckCredentialPublicKeyDestroy(state *terraform.State) error {
 	client := testAccProvider.Meta().(*form3.AuthenticatedClient)
 
