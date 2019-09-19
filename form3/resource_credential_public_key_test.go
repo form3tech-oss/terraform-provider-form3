@@ -20,6 +20,7 @@ func TestAccCredentialPublicKey_multipleKeys_sequential(t *testing.T) {
 	publicKeyIDTwo := uuid.NewV4().String()
 	publicKeyIDThree := uuid.NewV4().String()
 	userID := uuid.NewV4().String()
+	roleID := uuid.NewV4().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -32,7 +33,7 @@ func TestAccCredentialPublicKey_multipleKeys_sequential(t *testing.T) {
 			// When i add third public key to this user
 			// Then I can see public keys added
 			{
-				Config: fmt.Sprintf(testForm3CredentialPublicKeyConfigMulti, organisationID, userID, publicKeyIDOne, publicKeyIDTwo, publicKeyIDThree),
+				Config: fmt.Sprintf(testForm3CredentialPublicKeyConfigMulti, organisationID, roleID, organisationID, userID, publicKeyIDOne, publicKeyIDTwo, publicKeyIDThree),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckCredentialPublicKeysExists(
 						[]string{
@@ -51,6 +52,7 @@ func TestAccCredentialPublicKey_singleKey(t *testing.T) {
 	organisationID := os.Getenv("FORM3_ORGANISATION_ID")
 	publicKeyID := uuid.NewV4().String()
 	userID := uuid.NewV4().String()
+	roleID := uuid.NewV4().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -61,7 +63,7 @@ func TestAccCredentialPublicKey_singleKey(t *testing.T) {
 			// When i add public key to this user
 			// Then I can see a public key was added
 			{
-				Config: fmt.Sprintf(testForm3CredentialPublicKeyConfigSingle, organisationID, userID, publicKeyID),
+				Config: fmt.Sprintf(testForm3CredentialPublicKeyConfigSingle, organisationID, roleID, organisationID, userID, publicKeyID),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckCredentialPublicKeysExists([]string{"form3_credential_public_key.test_public_key_single"}, []string{publicKeyID})),
 			},
@@ -140,12 +142,17 @@ func testAccCheckCredentialPublicKeysExists(resourceKeys []string, publicKeyIDs 
 }
 
 const testForm3CredentialPublicKeyConfigMulti = `
+resource "form3_role" "role" {
+	organisation_id = "%s"
+	role_id 		= "%s"
+	name     		= "terraform-role"
+}
 resource "form3_user" "public_key_test_user" {
 	organisation_id = "%s"
 	user_id 		= "%s"
 	user_name 	    = "terraform-user"
 	email 			= "terraform-user@form3.tech"
-	roles 			= ["32881d6b-a000-4258-b779-56c59970590f"]
+	roles 			= ["${form3_role.role.role_id}"]
 }
 
 resource "form3_credential_public_key" "test_public_key_multi_one" {
@@ -174,12 +181,18 @@ depends_on = [ "form3_credential_public_key.test_public_key_multi_two" ]
 }`
 
 const testForm3CredentialPublicKeyConfigSingle = `
+resource "form3_role" "role" {
+	organisation_id = "%s"
+	role_id 		= "%s"
+	name     		= "terraform-role"
+}
+
 resource "form3_user" "public_key_test_user" {
 	organisation_id = "%s"
 	user_id 		= "%s"
 	user_name 	    = "terraform-user"
 	email 			= "terraform-user@form3.tech"
-	roles 			= ["32881d6b-a000-4258-b779-56c59970590f"]
+	roles 			= ["${form3_role.role.role_id}"]
 }
 
 resource "form3_credential_public_key" "test_public_key_single" {

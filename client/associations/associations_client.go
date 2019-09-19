@@ -165,6 +165,34 @@ func (a *Client) DeletePayportID(params *DeletePayportIDParams) (*DeletePayportI
 }
 
 /*
+DeleteProductsID deletes product association
+*/
+func (a *Client) DeleteProductsID(params *DeleteProductsIDParams) (*DeleteProductsIDNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteProductsIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteProductsID",
+		Method:             "DELETE",
+		PathPattern:        "/products/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteProductsIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteProductsIDNoContent), nil
+
+}
+
+/*
 DeleteSepainstantID deletes organisation spea instant association
 */
 func (a *Client) DeleteSepainstantID(params *DeleteSepainstantIDParams) (*DeleteSepainstantIDNoContent, error) {
@@ -557,6 +585,62 @@ func (a *Client) GetPayportID(params *GetPayportIDParams) (*GetPayportIDOK, erro
 }
 
 /*
+GetProducts lists all product associations
+*/
+func (a *Client) GetProducts(params *GetProductsParams) (*GetProductsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetProductsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetProducts",
+		Method:             "GET",
+		PathPattern:        "/products",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetProductsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetProductsOK), nil
+
+}
+
+/*
+GetProductsID fetches product association
+*/
+func (a *Client) GetProductsID(params *GetProductsIDParams) (*GetProductsIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetProductsIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetProductsID",
+		Method:             "GET",
+		PathPattern:        "/products/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetProductsIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetProductsIDOK), nil
+
+}
+
+/*
 GetSepainstant lists all organisation sepa instant associations
 */
 func (a *Client) GetSepainstant(params *GetSepainstantParams) (*GetSepainstantOK, error) {
@@ -917,6 +1001,34 @@ func (a *Client) PostPayport(params *PostPayportParams) (*PostPayportCreated, er
 		return nil, err
 	}
 	return result.(*PostPayportCreated), nil
+
+}
+
+/*
+PostProducts creates product association
+*/
+func (a *Client) PostProducts(params *PostProductsParams) (*PostProductsCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostProductsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostProducts",
+		Method:             "POST",
+		PathPattern:        "/products",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PostProductsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PostProductsCreated), nil
 
 }
 

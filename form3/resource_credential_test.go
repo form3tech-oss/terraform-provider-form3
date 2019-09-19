@@ -8,6 +8,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
+	uuid "github.com/satori/go.uuid"
 	"log"
 	"os"
 	"testing"
@@ -16,6 +17,7 @@ import (
 func TestAccCredential_basic(t *testing.T) {
 	var credentialResponse models.Credential
 	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	roleID := uuid.NewV4().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -23,7 +25,7 @@ func TestAccCredential_basic(t *testing.T) {
 		CheckDestroy: testAccCheckCredentialDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3CredentialConfigA, organisationId),
+				Config: fmt.Sprintf(testForm3CredentialConfigA, organisationId, roleID, organisationId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckCredentialExists("form3_credential.credential", &credentialResponse)),
 			},
@@ -94,19 +96,21 @@ func testAccCheckCredentialExists(resourceKey string, credential *models.Credent
 }
 
 const testForm3CredentialConfigA = `
+resource "form3_role" "role" {
+	organisation_id = "%s"
+	role_id 		= "%s"
+	name     		= "terraform-role"
+}
 resource "form3_credential" "credential" {
 	user_id 		= "${form3_user.user.user_id}"
 }
-
 resource "form3_user" "user" {
 	organisation_id = "%s"
 	user_id 		= "${uuid()}"
-	user_name 	= "terraform-user"
-  email 			= "terraform-user@form3.tech"
-	roles 			= ["32881d6b-a000-4258-b779-56c59970590f"]
-
-  lifecycle {
-    ignore_changes = ["user_id"]
-  }
-
+	user_name 		= "terraform-user"
+	email 			= "terraform-user@form3.tech"
+	roles 			= ["${form3_role.role.role_id}"]
+  	lifecycle {
+		ignore_changes = ["user_id"]
+  	}
 }`
