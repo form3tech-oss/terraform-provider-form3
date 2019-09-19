@@ -30,10 +30,6 @@ type NewGocardlessAssociation struct {
 
 	// type
 	Type string `json:"type,omitempty"`
-
-	// version
-	// Minimum: 0
-	Version *int64 `json:"version,omitempty"`
 }
 
 // Validate validates this new gocardless association
@@ -49,10 +45,6 @@ func (m *NewGocardlessAssociation) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateOrganisationID(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateVersion(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -100,19 +92,6 @@ func (m *NewGocardlessAssociation) validateOrganisationID(formats strfmt.Registr
 	}
 
 	if err := validate.FormatOf("organisation_id", "body", "uuid", m.OrganisationID.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *NewGocardlessAssociation) validateVersion(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Version) { // not required
-		return nil
-	}
-
-	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
 		return err
 	}
 

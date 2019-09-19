@@ -17,7 +17,7 @@ import (
 type GocardlessAssociationCreation struct {
 
 	// data
-	Data *GocardlessAssociation `json:"data,omitempty"`
+	Data *NewGocardlessAssociation `json:"data,omitempty"`
 }
 
 // Validate validates this gocardless association creation

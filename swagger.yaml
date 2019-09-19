@@ -2311,7 +2311,7 @@ paths:
         200:
           description: Associations details
           schema:
-            $ref: "#/definitions/GocardlessAssociation"
+            $ref: "#/definitions/GocardlessAssociationFetchResponse"
     delete:
       summary: Delete gocardless gateway association
       tags:
@@ -5576,6 +5576,20 @@ definitions:
       attributes:
         $ref: '#/definitions/GocardlessAssociationAttributes'
 
+  NewGocardlessAssociation:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      organisation_id:
+        type: string
+        format: uuid
+      type:
+        type: string
+      attributes:
+        $ref: '#/definitions/GocardlessAssociationAttributes'
+
   GocardlessAssociationAttributes:
     type: object
     properties:
@@ -5588,7 +5602,7 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/GocardlessAssociation'
+        $ref: '#/definitions/NewGocardlessAssociation'
 
   GocardlessAssociationCreationResponse:
     type: object

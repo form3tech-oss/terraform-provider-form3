@@ -79,8 +79,8 @@ func resourceGocardlessAssociationRead(d *schema.ResourceData, meta interface{})
 		return fmt.Errorf("couldn't find gocardless gateway association: %s", err)
 	}
 
-	_ = d.Set("association_id", gocardlessAssociation.Payload.ID.String())
-	_ = d.Set("schemes", gocardlessAssociation.Payload.Attributes.Schemes)
+	_ = d.Set("association_id", gocardlessAssociation.Payload.Data.ID.String())
+	_ = d.Set("schemes", gocardlessAssociation.Payload.Data.Attributes.Schemes)
 	return nil
 }
 
@@ -94,8 +94,8 @@ func resourceGocardlessAssociationDelete(d *schema.ResourceData, meta interface{
 	}
 
 	_, err = client.AssociationClient.Associations.DeleteGocardlessID(associations.NewDeleteGocardlessIDParams().
-		WithID(gocardlessAssociation.Payload.ID).
-		WithVersion(*gocardlessAssociation.Payload.Version))
+		WithID(gocardlessAssociation.Payload.Data.ID).
+		WithVersion(*gocardlessAssociation.Payload.Data.Version))
 
 	if err != nil {
 		return fmt.Errorf("error deleting gocardless gateway association: %s", err)
@@ -104,8 +104,8 @@ func resourceGocardlessAssociationDelete(d *schema.ResourceData, meta interface{
 	return nil
 }
 
-func createGocardlessAssociationFromResourceData(d *schema.ResourceData) (*models.GocardlessAssociation, error) {
-	association := models.GocardlessAssociation{Attributes: &models.GocardlessAssociationAttributes{}}
+func createGocardlessAssociationFromResourceData(d *schema.ResourceData) (*models.NewGocardlessAssociation, error) {
+	association := models.NewGocardlessAssociation{Attributes: &models.GocardlessAssociationAttributes{}}
 
 	if attr, ok := GetUUIDOK(d, "association_id"); ok {
 		association.ID = attr

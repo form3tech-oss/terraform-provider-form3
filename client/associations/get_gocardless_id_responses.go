@@ -47,7 +47,7 @@ func NewGetGocardlessIDOK() *GetGocardlessIDOK {
 Associations details
 */
 type GetGocardlessIDOK struct {
-	Payload *models.GocardlessAssociation
+	Payload *models.GocardlessAssociationFetchResponse
 }
 
 func (o *GetGocardlessIDOK) Error() string {
@@ -56,7 +56,7 @@ func (o *GetGocardlessIDOK) Error() string {
 
 func (o *GetGocardlessIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.GocardlessAssociation)
+	o.Payload = new(models.GocardlessAssociationFetchResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

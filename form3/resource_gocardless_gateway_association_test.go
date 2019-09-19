@@ -25,7 +25,7 @@ func TestAccGocardlessAssociation_basic(t *testing.T) {
 		CheckDestroy: testAccCheckGocardlessAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3GocardlessAssociationConfigA, organisationId, parentOrganisationId, associationId, "BACS, SEPADD"),
+				Config: fmt.Sprintf(testForm3GocardlessAssociationConfigA, organisationId, parentOrganisationId, associationId, "BACS"),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckGocardlessAssociationExists("form3_gocardless_association.association"),
 					resource.TestCheckResourceAttr("form3_gocardless_association.association", "association_id", associationId),
@@ -77,8 +77,8 @@ func testAccCheckGocardlessAssociationExists(resourceKey string) resource.TestCh
 			return err
 		}
 
-		if foundRecord.Payload.ID.String() != rs.Primary.ID {
-			return fmt.Errorf("gocardless record not found, expected %s but found %s", rs.Primary.ID, foundRecord.Payload.ID.String())
+		if foundRecord.Payload.Data.ID.String() != rs.Primary.ID {
+			return fmt.Errorf("gocardless record not found, expected %s but found %s", rs.Primary.ID, foundRecord.Payload.Data.ID.String())
 		}
 
 		return nil
