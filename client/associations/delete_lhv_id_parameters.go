@@ -66,7 +66,7 @@ type DeleteLhvIDParams struct {
 	  Association Id
 
 	*/
-	ID strfmt.UUID
+	ID string
 	/*Version
 	  Version
 
@@ -112,13 +112,13 @@ func (o *DeleteLhvIDParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithID adds the id to the delete lhv ID params
-func (o *DeleteLhvIDParams) WithID(id strfmt.UUID) *DeleteLhvIDParams {
+func (o *DeleteLhvIDParams) WithID(id string) *DeleteLhvIDParams {
 	o.SetID(id)
 	return o
 }
 
 // SetID adds the id to the delete lhv ID params
-func (o *DeleteLhvIDParams) SetID(id strfmt.UUID) {
+func (o *DeleteLhvIDParams) SetID(id string) {
 	o.ID = id
 }
 
@@ -142,7 +142,7 @@ func (o *DeleteLhvIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 	var res []error
 
 	// path param id
-	if err := r.SetPathParam("id", o.ID.String()); err != nil {
+	if err := r.SetPathParam("id", o.ID); err != nil {
 		return err
 	}
 
