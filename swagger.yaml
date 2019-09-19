@@ -2097,7 +2097,7 @@ paths:
           description: Association Id
           required: true
           type: string
-          format: uuid1
+          format: uuid
         - name: version
           in: query
           description: Version
