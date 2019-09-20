@@ -2,6 +2,7 @@ package form3
 
 import (
 	"fmt"
+	"github.com/cenkalti/backoff"
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
@@ -9,6 +10,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/schema"
 	"log"
+	"time"
 )
 
 func resourceForm3VocalinkReportAssociation() *schema.Resource {
@@ -80,17 +82,26 @@ func resourceVocalinkReportAssociationCreate(d *schema.ResourceData, meta interf
 		return fmt.Errorf("failed to create VocalinkReport association: %s", err)
 	}
 
-	createdAssociation, err := client.AssociationClient.Associations.PostVocalinkreport(associations.NewPostVocalinkreportParams().
-		WithCreationRequest(&models.VocalinkReportAssociationCreation{
-			Data: association,
-		}))
+	createOperation := func() error {
+		createdAssociation, err := client.AssociationClient.Associations.PostVocalinkreport(associations.NewPostVocalinkreportParams().
+			WithCreationRequest(&models.VocalinkReportAssociationCreation{
+				Data: association,
+			}))
 
-	if err != nil {
-		return fmt.Errorf("failed to create VocalinkReport association: %s", err)
+		if err == nil {
+			d.SetId(createdAssociation.Payload.Data.ID.String())
+			log.Printf("[INFO] VocalinkReport association key: %s", d.Id())
+		}
+
+		return err
 	}
 
-	d.SetId(createdAssociation.Payload.Data.ID.String())
-	log.Printf("[INFO] VocalinkReport association key: %s", d.Id())
+	err = backoff.RetryNotify(createOperation, backoff.NewExponentialBackOff(), func(err error, t time.Duration) {
+		log.Printf("[WARN] failed VocalinkReport assocation creation retry after %s miliseconds with error: %s", t, err)
+	})
+	if err != nil {
+		return fmt.Errorf("failed to create VocalinkReport association after multiple retries: %s", err)
+	}
 
 	return resourceVocalinkReportAssociationRead(d, meta)
 }
