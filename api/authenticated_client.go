@@ -145,7 +145,7 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 				}
 				return err
 			}
-			if err := retry.Do(retryableFunc, retry.MaxTries(4), retry.Sleep(500*time.Millisecond)); err != nil {
+			if err := retry.Do(retryableFunc, retry.MaxTries(10), retry.Sleep(500*time.Millisecond)); err != nil {
 				return resp, err
 			}
 
