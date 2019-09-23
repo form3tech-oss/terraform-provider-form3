@@ -6,18 +6,21 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"net/http/httputil"
 	"sync"
 
+	"time"
+
 	"github.com/form3tech-oss/terraform-provider-form3/client"
+	"github.com/giantswarm/retry-go"
 	"github.com/go-openapi/runtime"
 	rc "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/logging"
-	"time"
 )
 
 var tokenCache = sync.Map{}
@@ -48,6 +51,45 @@ type AuthenticatedClientCheckRedirect struct {
 
 type roundTripperFunc func(*http.Request) (*http.Response, error)
 
+type Request struct {
+	Body io.ReadSeeker
+	*http.Request
+}
+
+type ReadSeekerCloserImpl struct {
+	ReederSeeker io.ReadSeeker
+	Closer       io.Closer
+}
+
+func (r *ReadSeekerCloserImpl) Read(p []byte) (n int, err error) {
+	return r.ReederSeeker.Read(p)
+}
+
+func (r *ReadSeekerCloserImpl) Seek(offset int64, whence int) (int64, error) {
+	return r.ReederSeeker.Seek(offset, whence)
+}
+
+func (r *ReadSeekerCloserImpl) Close() error {
+	return nil
+}
+
+type ReadSeekerCloser interface {
+	io.ReadSeeker
+	io.Closer
+}
+
+func NewReaderSeekerCloser(request *http.Request) (ReadSeekerCloser, error) {
+	readerSeekerCloser := ReadSeekerCloserImpl{}
+	if request.Body != nil {
+		bodyBytes, err := ioutil.ReadAll(request.Body)
+		if err != nil {
+			return nil, err
+		}
+		readerSeekerCloser.ReederSeeker = bytes.NewReader(bodyBytes)
+	}
+	return &readerSeekerCloser, nil
+}
+
 func (fn roundTripperFunc) RoundTrip(req *http.Request) (*http.Response, error) {
 	return fn(req)
 }
@@ -63,6 +105,14 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 
 	h := &http.Client{
 		Transport: roundTripperFunc(func(req *http.Request) (*http.Response, error) {
+			if req.Body != nil {
+				rewindableBody, err := NewReaderSeekerCloser(req)
+				if err != nil {
+					return nil, err
+				}
+				req.Body = rewindableBody
+			}
+
 			if len(authClient.AccessToken) > 0 {
 				req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", authClient.AccessToken))
 			}
@@ -76,10 +126,27 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 				log.Printf("[DEBUG] %s %s", req.URL.String(), string(dump))
 			}
 
-			resp, err := http.DefaultTransport.RoundTrip(req)
-
-			if err != nil {
-				return nil, err
+			// In case some API initially responds with 403, retry the request until permissions propagate.
+			var resp *http.Response
+			retryableFunc := func() error {
+				var err error
+				log.Printf("[DEBUG] retrying %s", req.URL)
+				if req.Body != nil {
+					body := req.Body.(ReadSeekerCloser)
+					if body != nil {
+						if _, err := body.Seek(0, 0); err != nil {
+							return errors.New(fmt.Sprintf("failed to seek request body: %s", err))
+						}
+					}
+				}
+				resp, err = http.DefaultTransport.RoundTrip(req)
+				if resp.StatusCode == 403 {
+					return errors.New(fmt.Sprintf("status code: %d", resp.StatusCode))
+				}
+				return err
+			}
+			if err := retry.Do(retryableFunc, retry.MaxTries(10), retry.Sleep(500*time.Millisecond)); err != nil {
+				return resp, err
 			}
 
 			if logging.IsDebugOrHigher() {
@@ -91,7 +158,7 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 				log.Printf("[DEBUG] %s %s", req.URL.String(), string(dump))
 			}
 
-			return resp, err
+			return resp, nil
 		}),
 		CheckRedirect: a.CheckRedirect,
 	}
