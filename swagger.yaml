@@ -2331,7 +2331,7 @@ paths:
           minimum: 0
       responses:
         204:
-          description: Association deleted successfully
+          description: association deleted successfully
 
   /sepainstant:
 
