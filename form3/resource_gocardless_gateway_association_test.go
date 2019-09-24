@@ -25,7 +25,7 @@ func TestAccGocardlessAssociation_basic(t *testing.T) {
 		CheckDestroy: testAccCheckGocardlessAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3GocardlessAssociationConfigA, organisationId, parentOrganisationId, associationId, "BACS"),
+				Config: fmt.Sprintf(testForm3GocardlessAssociationConfigA, organisationId, parentOrganisationId, associationId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckGocardlessAssociationExists("form3_gocardless_association.association"),
 					resource.TestCheckResourceAttr("form3_gocardless_association.association", "association_id", associationId),
@@ -95,5 +95,5 @@ resource "form3_organisation" "organisation" {
 resource "form3_gocardless_association" "association" {
 	organisation_id = "${form3_organisation.organisation.organisation_id}"
 	association_id  = "%s"
-	schemes         = ["%s"]
+	schemes         = ["BACS"]
 }`
