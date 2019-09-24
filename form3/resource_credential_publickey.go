@@ -9,6 +9,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform/helper/schema"
 	"log"
+	"strings"
 )
 
 func resourceForm3CredentialPublicKey() *schema.Resource {
@@ -16,6 +17,9 @@ func resourceForm3CredentialPublicKey() *schema.Resource {
 		Create: resourceCredentialPublicKeyCreate,
 		Read:   resourceCredentialPublicKeyRead,
 		Delete: resourceCredentialPublicKeyDelete,
+		Importer: &schema.ResourceImporter{
+			State: resourceCredentialPublicKeyImport,
+		},
 
 		Schema: map[string]*schema.Schema{
 			"user_id": &schema.Schema{
@@ -40,6 +44,16 @@ func resourceForm3CredentialPublicKey() *schema.Resource {
 			},
 		},
 	}
+}
+
+func resourceCredentialPublicKeyImport(d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+	parts := strings.Split(d.Id(), "/")
+	if len(parts) != 2 {
+		return nil, fmt.Errorf("public key import id must be in form '<userId>/<publicKeyId>'")
+	}
+	d.SetId(parts[1])
+	d.Set("user_id", parts[0])
+	return []*schema.ResourceData{d}, nil
 }
 
 func resourceCredentialPublicKeyCreate(d *schema.ResourceData, meta interface{}) error {
