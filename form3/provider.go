@@ -56,6 +56,7 @@ func Provider() terraform.ResourceProvider {
 			"form3_key":                               resourceForm3Key(),
 			"form3_certificate":                       resourceForm3Certificate(),
 			"form3_confirmation_of_payee_association": resourceForm3ConfirmationOfPayeeAssociation(),
+			"form3_gocardless_association":            resourceForm3GocardlessAssociation(),
 			"form3_products_association":              resourceForm3ProductsAssociation(),
 		},
 
