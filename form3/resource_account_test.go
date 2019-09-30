@@ -54,7 +54,8 @@ func TestAccAccount_basic_with_iban(t *testing.T) {
 	bankResourceId := uuid.NewV4().String()
 	bicId := uuid.NewV4().String()
 	bic := "NWABCD13"
-	iban := "GB65FTHR40000166854176"
+	iban := "GB22ABCD19283712345678"
+	accountNumber := randomAccountNumber()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -62,10 +63,11 @@ func TestAccAccount_basic_with_iban(t *testing.T) {
 		CheckDestroy: testAccCheckAccountDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3AccountConfigWithIbanAndNoAccountNumber, organisationId, parentOrganisationId, accountId, iban, bic, bankResourceId, bicId, bic),
+				Config: fmt.Sprintf(testForm3AccountConfigWithIban, organisationId, parentOrganisationId, accountId, accountNumber, iban, bic, bankResourceId, bicId, bic),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckAccountExists("form3_account.account", &accountResponse),
 					resource.TestCheckResourceAttr("form3_account.account", "account_id", accountId),
+					resource.TestCheckResourceAttr("form3_account.account", "account_number", strconv.Itoa(accountNumber)),
 					resource.TestCheckResourceAttr("form3_account.account", "bank_id", "401005"),
 					resource.TestCheckResourceAttr("form3_account.account", "bank_id_code", "GBDSC"),
 					resource.TestCheckResourceAttr("form3_account.account", "bic", "NWABCD13"),
@@ -123,6 +125,7 @@ func TestAccAccount_import_with_iban(t *testing.T) {
 	bicId := uuid.NewV4().String()
 	bic := "NWABCD14"
 	iban := "GB65FTHR40000166854176"
+	accountNumber := randomAccountNumber()
 
 	resourceName := "form3_account.account"
 
@@ -132,7 +135,7 @@ func TestAccAccount_import_with_iban(t *testing.T) {
 		CheckDestroy: testAccCheckAccountDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3AccountConfigWithIbanAndNoAccountNumber, organisationId, parentOrganisationId, accountId, iban, bic, bankResourceId, bicId, bic),
+				Config: fmt.Sprintf(testForm3AccountConfigWithIban, organisationId, parentOrganisationId, accountId, accountNumber, iban, bic, bankResourceId, bicId, bic),
 			},
 			{
 				ResourceName:      resourceName,
@@ -226,7 +229,7 @@ resource "form3_bic" "bic" {
 }
 `
 
-const testForm3AccountConfigWithIbanAndNoAccountNumber = `
+const testForm3AccountConfigWithIban = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
@@ -236,6 +239,7 @@ resource "form3_organisation" "organisation" {
 resource "form3_account" "account" {
   organisation_id  = "${form3_organisation.organisation.organisation_id}"
   account_id       = "%s"
+  account_number   = "%d"
   iban             = "%s"
   bank_id          = "401005"
   bank_id_code     = "GBDSC"
