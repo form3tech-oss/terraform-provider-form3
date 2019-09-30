@@ -33,7 +33,7 @@ func resourceForm3Account() *schema.Resource {
 			},
 			"account_number": &schema.Schema{
 				Type:     schema.TypeString,
-				Required: true,
+				Optional: true,
 				ForceNew: true,
 			},
 			"bank_id": &schema.Schema{
