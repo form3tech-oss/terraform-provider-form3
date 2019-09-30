@@ -40,6 +40,7 @@ func TestAccAccount_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_account.account", "bank_id_code", "GBDSC"),
 					resource.TestCheckResourceAttr("form3_account.account", "bic", "NWABCD13"),
 					resource.TestCheckResourceAttr("form3_account.account", "country", "GB"),
+					resource.TestCheckResourceAttr("form3_account.account", "iban", "GB65FTHR40000166854176"),
 				),
 			},
 		},
@@ -143,7 +144,8 @@ resource "form3_organisation" "organisation" {
 resource "form3_account" "account" {
 	organisation_id  = "${form3_organisation.organisation.organisation_id}"
   account_id       = "%s"
-	account_number 	 = "%d"
+  account_number   = "%d"
+  iban             = "GB65FTHR40000166854176"
   bank_id          = "401005"
   bank_id_code     = "GBDSC"
   bic              = "%s"
