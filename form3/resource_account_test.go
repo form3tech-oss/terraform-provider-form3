@@ -54,7 +54,6 @@ func TestAccAccount_basic_with_iban(t *testing.T) {
 	bankResourceId := uuid.NewV4().String()
 	bicId := uuid.NewV4().String()
 	bic := "NWABCD13"
-	accountNumber := randomAccountNumber()
 	iban := "GB65FTHR40000166854176"
 
 	resource.Test(t, resource.TestCase{
@@ -63,11 +62,10 @@ func TestAccAccount_basic_with_iban(t *testing.T) {
 		CheckDestroy: testAccCheckAccountDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3AccountConfigWithIban, organisationId, parentOrganisationId, accountId, accountNumber, iban, bic, bankResourceId, bicId, bic),
+				Config: fmt.Sprintf(testForm3AccountConfigWithIbanAndNoAccountNumber, organisationId, parentOrganisationId, accountId, iban, bic, bankResourceId, bicId, bic),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckAccountExists("form3_account.account", &accountResponse),
 					resource.TestCheckResourceAttr("form3_account.account", "account_id", accountId),
-					resource.TestCheckResourceAttr("form3_account.account", "account_number", strconv.Itoa(accountNumber)),
 					resource.TestCheckResourceAttr("form3_account.account", "bank_id", "401005"),
 					resource.TestCheckResourceAttr("form3_account.account", "bank_id_code", "GBDSC"),
 					resource.TestCheckResourceAttr("form3_account.account", "bic", "NWABCD13"),
@@ -124,7 +122,6 @@ func TestAccAccount_import_with_iban(t *testing.T) {
 	bankResourceId := uuid.NewV4().String()
 	bicId := uuid.NewV4().String()
 	bic := "NWABCD14"
-	accountNumber := randomAccountNumber()
 	iban := "GB65FTHR40000166854176"
 
 	resourceName := "form3_account.account"
@@ -135,7 +132,7 @@ func TestAccAccount_import_with_iban(t *testing.T) {
 		CheckDestroy: testAccCheckAccountDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3AccountConfigWithIban, organisationId, parentOrganisationId, accountId, accountNumber, iban, bic, bankResourceId, bicId, bic),
+				Config: fmt.Sprintf(testForm3AccountConfigWithIbanAndNoAccountNumber, organisationId, parentOrganisationId, accountId, iban, bic, bankResourceId, bicId, bic),
 			},
 			{
 				ResourceName:      resourceName,
@@ -204,7 +201,7 @@ resource "form3_organisation" "organisation" {
 }
 
 resource "form3_account" "account" {
-	organisation_id  = "${form3_organisation.organisation.organisation_id}"
+  organisation_id  = "${form3_organisation.organisation.organisation_id}"
   account_id       = "%s"
   account_number   = "%d"
   bank_id          = "401005"
@@ -215,9 +212,9 @@ resource "form3_account" "account" {
 }
 
 resource "form3_bank_id" "bank_id" {
-	organisation_id  = "${form3_organisation.organisation.organisation_id}"
+  organisation_id  = "${form3_organisation.organisation.organisation_id}"
   bank_resource_id = "%s"
-	bank_id       	 = "401005"
+  bank_id       	 = "401005"
   bank_id_code     = "GBDSC"
   country          = "GB" 
 }
@@ -225,11 +222,11 @@ resource "form3_bank_id" "bank_id" {
 resource "form3_bic" "bic" {
 	organisation_id = "${form3_organisation.organisation.organisation_id}"
   bic_id          = "%s"
-	bic       	    = "%s"
+  bic       	    = "%s"
 }
 `
 
-const testForm3AccountConfigWithIban = `
+const testForm3AccountConfigWithIbanAndNoAccountNumber = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
@@ -237,9 +234,8 @@ resource "form3_organisation" "organisation" {
 }
 
 resource "form3_account" "account" {
-	organisation_id  = "${form3_organisation.organisation.organisation_id}"
+  organisation_id  = "${form3_organisation.organisation.organisation_id}"
   account_id       = "%s"
-  account_number   = "%d"
   iban             = "%s"
   bank_id          = "401005"
   bank_id_code     = "GBDSC"
@@ -249,16 +245,16 @@ resource "form3_account" "account" {
 }
 
 resource "form3_bank_id" "bank_id" {
-	organisation_id  = "${form3_organisation.organisation.organisation_id}"
+  organisation_id  = "${form3_organisation.organisation.organisation_id}"
   bank_resource_id = "%s"
-	bank_id       	 = "401005"
+  bank_id       	 = "401005"
   bank_id_code     = "GBDSC"
   country          = "GB" 
 }
 
 resource "form3_bic" "bic" {
 	organisation_id = "${form3_organisation.organisation.organisation_id}"
-  bic_id          = "%s"
+    bic_id          = "%s"
 	bic       	    = "%s"
 }
 `
