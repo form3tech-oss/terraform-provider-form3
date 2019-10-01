@@ -33,7 +33,7 @@ func resourceForm3Account() *schema.Resource {
 			},
 			"account_number": &schema.Schema{
 				Type:     schema.TypeString,
-				Required: true,
+				Optional: true,
 				ForceNew: true,
 			},
 			"bank_id": &schema.Schema{
@@ -54,6 +54,11 @@ func resourceForm3Account() *schema.Resource {
 			"country": &schema.Schema{
 				Type:     schema.TypeString,
 				Required: true,
+				ForceNew: true,
+			},
+			"iban": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
 				ForceNew: true,
 			},
 		},
@@ -121,6 +126,7 @@ func resourceAccountRead(d *schema.ResourceData, meta interface{}) error {
 	d.Set("bank_id_code", account.Payload.Data.Attributes.BankIDCode)
 	d.Set("bic", account.Payload.Data.Attributes.Bic)
 	d.Set("country", account.Payload.Data.Attributes.Country)
+	d.Set("iban", account.Payload.Data.Attributes.Iban)
 	return nil
 }
 
@@ -175,6 +181,10 @@ func createAccountFromResourceData(d *schema.ResourceData) (*models.Account, err
 
 	if attr, ok := d.GetOk("country"); ok {
 		account.Attributes.Country = form3.String(attr.(string))
+	}
+
+	if attr, ok := d.GetOk("iban"); ok {
+		account.Attributes.Iban = attr.(string)
 	}
 
 	return &account, nil
