@@ -128,12 +128,12 @@ func resourceAccountRead(d *schema.ResourceData, meta interface{}) error {
 	if _, ok := d.GetOk("iban"); ok {
 		d.Set("iban", account.Payload.Data.Attributes.Iban)
 	} else {
-		d.Set("iban", nil)
+		d.Set("iban", "")
 	}
 	if _, ok := d.GetOk("account_number"); ok {
 		d.Set("account_number", account.Payload.Data.Attributes.AccountNumber)
 	} else {
-		d.Set("account_number", nil)
+		d.Set("account_number", "")
 	}
 	return nil
 }
