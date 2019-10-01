@@ -59,7 +59,7 @@ func resourceForm3Account() *schema.Resource {
 			"iban": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				ForceNew: true,
+				ForceNew: false,
 			},
 		},
 	}
@@ -127,9 +127,13 @@ func resourceAccountRead(d *schema.ResourceData, meta interface{}) error {
 	d.Set("country", account.Payload.Data.Attributes.Country)
 	if _, ok := d.GetOk("iban"); ok {
 		d.Set("iban", account.Payload.Data.Attributes.Iban)
+	} else {
+		d.Set("iban", nil)
 	}
 	if _, ok := d.GetOk("account_number"); ok {
 		d.Set("account_number", account.Payload.Data.Attributes.AccountNumber)
+	} else {
+		d.Set("account_number", nil)
 	}
 	return nil
 }
