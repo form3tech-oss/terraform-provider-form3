@@ -59,7 +59,7 @@ func resourceForm3Account() *schema.Resource {
 			"iban": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				ForceNew: false,
+				ForceNew: true,
 			},
 		},
 	}
