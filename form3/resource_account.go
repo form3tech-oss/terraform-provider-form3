@@ -19,7 +19,6 @@ func resourceForm3Account() *schema.Resource {
 		Importer: &schema.ResourceImporter{
 			State: schema.ImportStatePassthrough,
 		},
-
 		Schema: map[string]*schema.Schema{
 			"account_id": &schema.Schema{
 				Type:     schema.TypeString,
@@ -34,7 +33,7 @@ func resourceForm3Account() *schema.Resource {
 			"account_number": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				ForceNew: true,
+				Computed: true,
 			},
 			"bank_id": &schema.Schema{
 				Type:     schema.TypeString,
@@ -59,7 +58,7 @@ func resourceForm3Account() *schema.Resource {
 			"iban": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-				ForceNew: true,
+				Computed: true,
 			},
 		},
 	}
@@ -125,16 +124,8 @@ func resourceAccountRead(d *schema.ResourceData, meta interface{}) error {
 	d.Set("bank_id_code", account.Payload.Data.Attributes.BankIDCode)
 	d.Set("bic", account.Payload.Data.Attributes.Bic)
 	d.Set("country", account.Payload.Data.Attributes.Country)
-	if _, ok := d.GetOk("iban"); ok {
-		d.Set("iban", account.Payload.Data.Attributes.Iban)
-	} else {
-		d.Set("iban", "")
-	}
-	if _, ok := d.GetOk("account_number"); ok {
-		d.Set("account_number", account.Payload.Data.Attributes.AccountNumber)
-	} else {
-		d.Set("account_number", "")
-	}
+	d.Set("iban", account.Payload.Data.Attributes.Iban)
+	d.Set("account_number", account.Payload.Data.Attributes.AccountNumber)
 	return nil
 }
 
@@ -213,10 +204,7 @@ func createAccountFromResourceDataWithVersion(d *schema.ResourceData, client *fo
 func getAccountVersion(client *form3.AuthenticatedClient, id strfmt.UUID) (int64, error) {
 	account, err := client.AccountClient.Accounts.GetAccountsID(accounts.NewGetAccountsIDParams().WithID(id))
 	if err != nil {
-		if err != nil {
-			return -1, fmt.Errorf("error reading account: %s", err)
-		}
+		return -1, fmt.Errorf("error reading account: %s", err)
 	}
-
 	return *account.Payload.Data.Version, nil
 }

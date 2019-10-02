@@ -16,7 +16,7 @@ import (
 )
 
 func TestAccAccount_basic(t *testing.T) {
-	var accountResponse accounts.GetAccountsIDOK
+	var before accounts.GetAccountsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.NewV4().String()
 	accountId := uuid.NewV4().String()
@@ -33,14 +33,14 @@ func TestAccAccount_basic(t *testing.T) {
 			{
 				Config: fmt.Sprintf(testForm3AccountConfigA, organisationId, parentOrganisationId, accountId, accountNumber, bic, bankResourceId, bicId, bic),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAccountExists("form3_account.account", &accountResponse),
+					testAccCheckAccountExists("form3_account.account", &before),
 					resource.TestCheckResourceAttr("form3_account.account", "account_id", accountId),
 					resource.TestCheckResourceAttr("form3_account.account", "account_number", strconv.Itoa(accountNumber)),
 					resource.TestCheckResourceAttr("form3_account.account", "bank_id", "401005"),
 					resource.TestCheckResourceAttr("form3_account.account", "bank_id_code", "GBDSC"),
 					resource.TestCheckResourceAttr("form3_account.account", "bic", "NWABCD13"),
 					resource.TestCheckResourceAttr("form3_account.account", "country", "GB"),
-					resource.TestCheckResourceAttr("form3_account.account", "iban", ""),
+					resource.TestCheckResourceAttrSet("form3_account.account", "iban"),
 				),
 			},
 		},
@@ -223,8 +223,7 @@ func testAccCheckAccountExists(resourceKey string, accountResponse *accounts.Get
 			return fmt.Errorf("record not found expected %s found %s", rs.Primary.ID, foundRecord.Payload.Data.ID.String())
 		}
 
-		accountResponse = foundRecord
-
+		*accountResponse = *foundRecord
 		return nil
 	}
 }
@@ -234,6 +233,16 @@ resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
 	name 		               = "terraform-organisation"
+}
+
+resource "form3_account_configuration" "customer_backoffice_configuration" {
+  organisation_id             = "${form3_organisation.organisation.organisation_id}"
+  account_configuration_id    = "${uuid()}"
+  account_generation_enabled  = true
+
+  lifecycle {
+    ignore_changes = ["account_configuration_id"]
+  }
 }
 
 resource "form3_account" "account" {
@@ -303,6 +312,16 @@ resource "form3_organisation" "organisation" {
 	name 		               = "terraform-organisation"
 }
 
+resource "form3_account_configuration" "customer_backoffice_configuration" {
+  organisation_id             = "${form3_organisation.organisation.organisation_id}"
+  account_configuration_id    = "${uuid()}"
+  account_generation_enabled  = true
+
+  lifecycle {
+    ignore_changes = ["account_configuration_id"]
+  }
+}
+
 resource "form3_account" "account" {
   organisation_id  = "${form3_organisation.organisation.organisation_id}"
   account_id       = "%s"
@@ -317,7 +336,7 @@ resource "form3_account" "account" {
 resource "form3_bank_id" "bank_id" {
   organisation_id  = "${form3_organisation.organisation.organisation_id}"
   bank_resource_id = "%s"
-  bank_id       	 = "401005"
+  bank_id          = "401005"
   bank_id_code     = "GBDSC"
   country          = "GB" 
 }
