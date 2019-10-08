@@ -33,6 +33,16 @@ func TestAccGocardlessAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_gocardless_association.association", "schemes.0", "BACS"),
 				),
 			},
+			{
+				Config: fmt.Sprintf(testForm3GocardlessAssociationConfigB, organisationId, parentOrganisationId, associationId),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckGocardlessAssociationExists("form3_gocardless_association.association"),
+					resource.TestCheckResourceAttr("form3_gocardless_association.association", "association_id", associationId),
+					resource.TestCheckResourceAttr("form3_gocardless_association.association", "organisation_id", organisationId),
+					resource.TestCheckResourceAttr("form3_gocardless_association.association", "schemes.0", "BACS"),
+					resource.TestCheckResourceAttr("form3_gocardless_association.association", "schemes.1", "SEPADD"),
+				),
+			},
 		},
 	})
 }
@@ -96,4 +106,17 @@ resource "form3_gocardless_association" "association" {
 	organisation_id = "${form3_organisation.organisation.organisation_id}"
 	association_id  = "%s"
 	schemes         = ["BACS"]
+}`
+
+const testForm3GocardlessAssociationConfigB = `
+resource "form3_organisation" "organisation" {
+	organisation_id        = "%s"
+	parent_organisation_id = "%s"
+	name 		           = "terraform-organisation"
+}
+
+resource "form3_gocardless_association" "association" {
+	organisation_id = "${form3_organisation.organisation.organisation_id}"
+	association_id  = "%s"
+	schemes         = ["BACS", "SEPADD"]
 }`

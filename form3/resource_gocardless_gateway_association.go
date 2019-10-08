@@ -21,6 +21,7 @@ func resourceForm3GocardlessAssociation() *schema.Resource {
 		Create: resourceGocardlessAssociationCreate,
 		Read:   resourceGocardlessAssociationRead,
 		Delete: resourceGocardlessAssociationDelete,
+		Update: resourceGocardlessAssociationUpdate,
 		Schema: map[string]*schema.Schema{
 			"association_id": {
 				Type:     schema.TypeString,
@@ -83,6 +84,27 @@ func resourceGocardlessAssociationRead(d *schema.ResourceData, meta interface{})
 	_ = d.Set("schemes", gocardlessAssociation.Payload.Data.Attributes.Schemes)
 	return nil
 }
+
+func resourceGocardlessAssociationUpdate(d *schema.ResourceData, meta interface{}) error {
+	client := meta.(*form3.AuthenticatedClient)
+
+	association, err := createGocardlessAssociationFromResourceData(d)
+	if err != nil {
+		return fmt.Errorf("failed to create gocardless association: %s", err)
+	}
+
+	createdAssociation, err := client.AssociationClient.Associations.PostGocardless(
+		associations.NewPostGocardlessParams().WithCreationRequest(&models.GocardlessAssociationCreation{Data: association}))
+	if err != nil {
+		return fmt.Errorf("failed to create gocardless association: %s", err)
+	}
+
+	d.SetId(createdAssociation.Payload.Data.ID.String())
+	log.Printf("[INFO] gocardless association key: %s", d.Id())
+
+	return resourceGocardlessAssociationRead(d, meta)
+}
+
 
 func resourceGocardlessAssociationDelete(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
