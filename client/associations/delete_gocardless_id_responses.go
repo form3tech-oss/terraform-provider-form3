@@ -41,7 +41,7 @@ func NewDeleteGocardlessIDNoContent() *DeleteGocardlessIDNoContent {
 
 /*DeleteGocardlessIDNoContent handles this case with default header values.
 
-Association deleted successfully
+association deleted successfully
 */
 type DeleteGocardlessIDNoContent struct {
 }

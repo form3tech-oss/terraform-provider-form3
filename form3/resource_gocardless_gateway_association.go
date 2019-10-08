@@ -37,7 +37,6 @@ func resourceForm3GocardlessAssociation() *schema.Resource {
 				Type:     schema.TypeList,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Required: true,
-				ForceNew: true,
 			},
 		},
 		SchemaVersion: 0,
@@ -93,18 +92,34 @@ func resourceGocardlessAssociationUpdate(d *schema.ResourceData, meta interface{
 		return fmt.Errorf("failed to create gocardless association: %s", err)
 	}
 
-	createdAssociation, err := client.AssociationClient.Associations.PostGocardless(
-		associations.NewPostGocardlessParams().WithCreationRequest(&models.GocardlessAssociationCreation{Data: association}))
+	gocardlessAssociation, err := client.AssociationClient.Associations.GetGocardlessID(
+		associations.NewGetGocardlessIDParams().WithID(association.ID))
+
 	if err != nil {
-		return fmt.Errorf("failed to create gocardless association: %s", err)
+		return fmt.Errorf("could not get gocardless association with id: %s", association.ID.String())
 	}
 
-	d.SetId(createdAssociation.Payload.Data.ID.String())
+	if gocardlessAssociation == nil || gocardlessAssociation.Payload == nil {
+		return fmt.Errorf("gocardless association nil with id: %s", association.ID.String())
+	}
+
+	_, err = client.AssociationClient.Associations.PatchGocardlessID(
+		associations.NewPatchGocardlessIDParams().WithVersion(*gocardlessAssociation.Payload.Data.Version).WithID(association.ID).WithPatchBody(&models.GocardlessAssociationAmendment{
+			Data: &models.GocardlessAssociationUpdate{
+				Attributes: &models.GocardlessAssociationPatchAttributes{
+					Schemes: association.Attributes.Schemes,
+				},
+			},
+		}))
+
+	if err != nil {
+		return fmt.Errorf("failed to patch gocardless association: %s", err)
+	}
+
 	log.Printf("[INFO] gocardless association key: %s", d.Id())
 
 	return resourceGocardlessAssociationRead(d, meta)
 }
-
 
 func resourceGocardlessAssociationDelete(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
