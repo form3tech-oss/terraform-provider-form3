@@ -48,7 +48,7 @@ func TestAccAccount_basic(t *testing.T) {
 	})
 }
 
-func generateRandomIban () string {
+func generateRandomIban() string {
 	s1 := rand.NewSource(time.Now().UnixNano())
 	r1 := rand.New(s1)
 	return fmt.Sprintf("GB22ABCD192837%08d", r1.Intn(100000000))
