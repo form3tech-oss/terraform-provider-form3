@@ -7,6 +7,7 @@ import (
 	"os"
 	"strconv"
 	"testing"
+	"time"
 
 	"github.com/form3tech-oss/terraform-provider-form3/client/accounts"
 	"github.com/go-openapi/strfmt"
@@ -47,6 +48,12 @@ func TestAccAccount_basic(t *testing.T) {
 	})
 }
 
+func generateRandomIban () string {
+	s1 := rand.NewSource(time.Now().UnixNano())
+	r1 := rand.New(s1)
+	return fmt.Sprintf("GB22ABCD192837%08d", r1.Intn(100000000))
+}
+
 func TestAccAccount_basic_with_iban(t *testing.T) {
 	var accountResponse accounts.GetAccountsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
@@ -55,7 +62,7 @@ func TestAccAccount_basic_with_iban(t *testing.T) {
 	bankResourceId := uuid.NewV4().String()
 	bicId := uuid.NewV4().String()
 	bic := "NWABCD13"
-	iban := "GB22ABCD19283712345678"
+	iban := generateRandomIban()
 	accountNumber := randomAccountNumber()
 
 	resource.Test(t, resource.TestCase{
@@ -88,7 +95,7 @@ func TestAccAccount_basic_with_iban_without_account_number(t *testing.T) {
 	bankResourceId := uuid.NewV4().String()
 	bicId := uuid.NewV4().String()
 	bic := "NWABCD13"
-	iban := "GB22ABCD19283712345678"
+	iban := generateRandomIban()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
