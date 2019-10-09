@@ -81,6 +81,34 @@ func (a *Client) DeleteConfirmationOfPayeeID(params *DeleteConfirmationOfPayeeID
 }
 
 /*
+DeleteGocardlessID deletes gocardless gateway association
+*/
+func (a *Client) DeleteGocardlessID(params *DeleteGocardlessIDParams) (*DeleteGocardlessIDNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteGocardlessIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteGocardlessID",
+		Method:             "DELETE",
+		PathPattern:        "/gocardless/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteGocardlessIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteGocardlessIDNoContent), nil
+
+}
+
+/*
 DeleteLhvID deletes organisation lhv association
 */
 func (a *Client) DeleteLhvID(params *DeleteLhvIDParams) (*DeleteLhvIDNoContent, error) {
@@ -133,6 +161,34 @@ func (a *Client) DeletePayportID(params *DeletePayportIDParams) (*DeletePayportI
 		return nil, err
 	}
 	return result.(*DeletePayportIDNoContent), nil
+
+}
+
+/*
+DeleteProductsID deletes product association
+*/
+func (a *Client) DeleteProductsID(params *DeleteProductsIDParams) (*DeleteProductsIDNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteProductsIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteProductsID",
+		Method:             "DELETE",
+		PathPattern:        "/products/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteProductsIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteProductsIDNoContent), nil
 
 }
 
@@ -361,6 +417,62 @@ func (a *Client) GetConfirmationOfPayeeID(params *GetConfirmationOfPayeeIDParams
 }
 
 /*
+GetGocardless lists all organisation gocardless gateway associations
+*/
+func (a *Client) GetGocardless(params *GetGocardlessParams) (*GetGocardlessOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetGocardlessParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetGocardless",
+		Method:             "GET",
+		PathPattern:        "/gocardless",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetGocardlessReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetGocardlessOK), nil
+
+}
+
+/*
+GetGocardlessID fetches organisation gocardless gateway association
+*/
+func (a *Client) GetGocardlessID(params *GetGocardlessIDParams) (*GetGocardlessIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetGocardlessIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetGocardlessID",
+		Method:             "GET",
+		PathPattern:        "/gocardless/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetGocardlessIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetGocardlessIDOK), nil
+
+}
+
+/*
 GetLhv lists all organisation lhv associations
 */
 func (a *Client) GetLhv(params *GetLhvParams) (*GetLhvOK, error) {
@@ -469,6 +581,62 @@ func (a *Client) GetPayportID(params *GetPayportIDParams) (*GetPayportIDOK, erro
 		return nil, err
 	}
 	return result.(*GetPayportIDOK), nil
+
+}
+
+/*
+GetProducts lists all product associations
+*/
+func (a *Client) GetProducts(params *GetProductsParams) (*GetProductsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetProductsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetProducts",
+		Method:             "GET",
+		PathPattern:        "/products",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetProductsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetProductsOK), nil
+
+}
+
+/*
+GetProductsID fetches product association
+*/
+func (a *Client) GetProductsID(params *GetProductsIDParams) (*GetProductsIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetProductsIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetProductsID",
+		Method:             "GET",
+		PathPattern:        "/products/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetProductsIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetProductsIDOK), nil
 
 }
 
@@ -697,6 +865,34 @@ func (a *Client) GetVocalinkreportID(params *GetVocalinkreportIDParams) (*GetVoc
 }
 
 /*
+PatchGocardlessID patches go cardless association by id
+*/
+func (a *Client) PatchGocardlessID(params *PatchGocardlessIDParams) (*PatchGocardlessIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPatchGocardlessIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PatchGocardlessID",
+		Method:             "PATCH",
+		PathPattern:        "/gocardless/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PatchGocardlessIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PatchGocardlessIDOK), nil
+
+}
+
+/*
 PostBacs creates organisation association for b a c s
 */
 func (a *Client) PostBacs(params *PostBacsParams) (*PostBacsCreated, error) {
@@ -753,6 +949,34 @@ func (a *Client) PostConfirmationOfPayee(params *PostConfirmationOfPayeeParams) 
 }
 
 /*
+PostGocardless creates organisation association for go cardless gateway
+*/
+func (a *Client) PostGocardless(params *PostGocardlessParams) (*PostGocardlessCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostGocardlessParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostGocardless",
+		Method:             "POST",
+		PathPattern:        "/gocardless",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PostGocardlessReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PostGocardlessCreated), nil
+
+}
+
+/*
 PostLhv creates organisation association for lhv
 */
 func (a *Client) PostLhv(params *PostLhvParams) (*PostLhvCreated, error) {
@@ -805,6 +1029,34 @@ func (a *Client) PostPayport(params *PostPayportParams) (*PostPayportCreated, er
 		return nil, err
 	}
 	return result.(*PostPayportCreated), nil
+
+}
+
+/*
+PostProducts creates product association
+*/
+func (a *Client) PostProducts(params *PostProductsParams) (*PostProductsCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostProductsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostProducts",
+		Method:             "POST",
+		PathPattern:        "/products",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PostProductsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PostProductsCreated), nil
 
 }
 

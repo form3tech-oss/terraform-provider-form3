@@ -19,7 +19,6 @@ func resourceForm3Account() *schema.Resource {
 		Importer: &schema.ResourceImporter{
 			State: schema.ImportStatePassthrough,
 		},
-
 		Schema: map[string]*schema.Schema{
 			"account_id": &schema.Schema{
 				Type:     schema.TypeString,
@@ -33,8 +32,8 @@ func resourceForm3Account() *schema.Resource {
 			},
 			"account_number": &schema.Schema{
 				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
+				Optional: true,
+				Computed: true,
 			},
 			"bank_id": &schema.Schema{
 				Type:     schema.TypeString,
@@ -55,6 +54,11 @@ func resourceForm3Account() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
+			},
+			"iban": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
 			},
 		},
 	}
@@ -116,11 +120,12 @@ func resourceAccountRead(d *schema.ResourceData, meta interface{}) error {
 
 	d.Set("account_id", account.Payload.Data.ID.String())
 	d.Set("organisation_id", account.Payload.Data.OrganisationID.String())
-	d.Set("account_number", account.Payload.Data.Attributes.AccountNumber)
 	d.Set("bank_id", account.Payload.Data.Attributes.BankID)
 	d.Set("bank_id_code", account.Payload.Data.Attributes.BankIDCode)
 	d.Set("bic", account.Payload.Data.Attributes.Bic)
 	d.Set("country", account.Payload.Data.Attributes.Country)
+	d.Set("iban", account.Payload.Data.Attributes.Iban)
+	d.Set("account_number", account.Payload.Data.Attributes.AccountNumber)
 	return nil
 }
 
@@ -177,6 +182,10 @@ func createAccountFromResourceData(d *schema.ResourceData) (*models.Account, err
 		account.Attributes.Country = form3.String(attr.(string))
 	}
 
+	if attr, ok := d.GetOk("iban"); ok {
+		account.Attributes.Iban = attr.(string)
+	}
+
 	return &account, nil
 }
 
@@ -195,10 +204,7 @@ func createAccountFromResourceDataWithVersion(d *schema.ResourceData, client *fo
 func getAccountVersion(client *form3.AuthenticatedClient, id strfmt.UUID) (int64, error) {
 	account, err := client.AccountClient.Accounts.GetAccountsID(accounts.NewGetAccountsIDParams().WithID(id))
 	if err != nil {
-		if err != nil {
-			return -1, fmt.Errorf("error reading account: %s", err)
-		}
+		return -1, fmt.Errorf("error reading account: %s", err)
 	}
-
 	return *account.Payload.Data.Version, nil
 }
