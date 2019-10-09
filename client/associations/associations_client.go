@@ -865,6 +865,34 @@ func (a *Client) GetVocalinkreportID(params *GetVocalinkreportIDParams) (*GetVoc
 }
 
 /*
+PatchGocardlessID patches go cardless association by id
+*/
+func (a *Client) PatchGocardlessID(params *PatchGocardlessIDParams) (*PatchGocardlessIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPatchGocardlessIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PatchGocardlessID",
+		Method:             "PATCH",
+		PathPattern:        "/gocardless/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PatchGocardlessIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PatchGocardlessIDOK), nil
+
+}
+
+/*
 PostBacs creates organisation association for b a c s
 */
 func (a *Client) PostBacs(params *PostBacsParams) (*PostBacsCreated, error) {

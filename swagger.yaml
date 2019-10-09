@@ -2311,7 +2311,7 @@ paths:
         200:
           description: Associations details
           schema:
-            $ref: "#/definitions/GocardlessAssociationFetchResponse"
+            $ref: "#/definitions/GocardlessAssociationResponse"
     delete:
       summary: Delete gocardless gateway association
       tags:
@@ -2332,6 +2332,44 @@ paths:
       responses:
         204:
           description: association deleted successfully
+    patch:
+      summary: Patch GoCardless association by id
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+        - name: patchBody
+          in: body
+          schema:
+            $ref: '#/definitions/GocardlessAssociationAmendment'
+      responses:
+        200:
+          description: Association updated successfully
+          schema:
+            $ref: "#/definitions/GocardlessAssociationResponse"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ApiError"
+        404:
+          description: Record not found
+          schema:
+            $ref: "#/definitions/ApiError"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/ApiError"
 
   /sepainstant:
 
@@ -5598,6 +5636,18 @@ definitions:
         items:
           type: string
 
+  GocardlessAssociationPatchAttributes:
+    type: object
+    properties:
+      third_party_organisation_id:
+        type: string
+        x-nullable: true
+      schemes:
+        type: array
+        items:
+          type: string
+        x-nullable: true/
+
   GocardlessAssociationCreation:
     type: object
     properties:
@@ -5610,7 +5660,19 @@ definitions:
       data:
         $ref: '#/definitions/GocardlessAssociation'
 
-  GocardlessAssociationFetchResponse:
+  GocardlessAssociationAmendment:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/GocardlessAssociationUpdate'
+
+  GocardlessAssociationUpdate:
+    type: object
+    properties:
+      attributes:
+        $ref: '#/definitions/GocardlessAssociationPatchAttributes'
+
+  GocardlessAssociationResponse:
     type: object
     properties:
       data:
