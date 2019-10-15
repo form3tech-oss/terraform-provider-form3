@@ -239,6 +239,10 @@ func createBacsNewAssociationFromResourceData(d *schema.ResourceData) (*models.B
 		association.Attributes.BankCode = attr.(string)
 	}
 
+	if attr, ok := d.GetOk("centre_number"); ok {
+		association.Attributes.CentreNumber = attr.(string)
+	}
+
 	if attr, ok := d.GetOk("use_test_file_submission"); ok {
 		association.Attributes.UseTestFileSubmission = attr.(bool)
 	}
