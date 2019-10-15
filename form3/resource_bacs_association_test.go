@@ -93,6 +93,27 @@ func TestAccBacsAssociation_withBankIdAndCentre(t *testing.T) {
 	})
 }
 
+func TestAccBacsAssociation_withTestFileSubmissionFlag(t *testing.T) {
+	var bacsResponse associations.GetBacsIDOK
+	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationId := uuid.NewV4().String()
+
+	resource.Test(t, resource.TestCase{
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
+		CheckDestroy: testAccCheckBacsAssociationDestroy,
+		Steps: []resource.TestStep{
+			{
+				Config: fmt.Sprintf(testForm3BacsAssociationConfigC, organisationId, parentOrganisationId),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckBacsAssociationExists("form3_bacs_association.association", &bacsResponse),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "use_test_file_submission", "true"),
+				),
+			},
+		},
+	})
+}
+
 func testAccCheckBacsAssociationDestroy(state *terraform.State) error {
 	client := testAccProvider.Meta().(*form3.AuthenticatedClient)
 
@@ -147,57 +168,58 @@ const testForm3BacsAssociationConfigA = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation"
+	name 		           = "terraform-organisation"
 }
 
 resource "form3_bacs_association" "association" {
 	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
 	association_id                   = "ad5e20e5-800d-4143-9936-ca1007da3a03"
 	service_user_number              = "112238",
-  account_number                   = "12345678",
-  sorting_code                     = "123456",
-  account_type                     = 1
+    account_number                   = "12345678",
+    sorting_code                     = "123456",
+    account_type                     = 1
 
-  input_key_id                     = "8f77e1ba-944e-44f3-a845-f99ba80af63c"
-  input_certificate_id             = "23d4fa5d-ef38-48de-b9e4-22f45004bb50"
+    input_key_id                     = "8f77e1ba-944e-44f3-a845-f99ba80af63c"
+    input_certificate_id             = "23d4fa5d-ef38-48de-b9e4-22f45004bb50"
 
-  messaging_key_id             = "ce3b888b-2328-49ed-9c04-cda0035f8fd0"
-  messaging_certificate_id     = "f79162cb-cbde-4152-b2f0-3bde47da3332"
+    messaging_key_id                 = "ce3b888b-2328-49ed-9c04-cda0035f8fd0"
+    messaging_certificate_id         = "f79162cb-cbde-4152-b2f0-3bde47da3332"
 
-  output_key_id             = "a7984808-a3bb-4951-827c-d4d15d01ac0b"
-  output_certificate_id     = "6dd9ca5d-b64a-4b59-a287-ad4ea82acb4f"
+    output_key_id                    = "a7984808-a3bb-4951-827c-d4d15d01ac0b"
+    output_certificate_id            = "6dd9ca5d-b64a-4b59-a287-ad4ea82acb4f"
 }`
 
 const testForm3BacsAssociationConfigB = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation"
+	name 		           = "terraform-organisation"
 }
 
 resource "form3_bacs_association" "association" {
 	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
 	association_id                   = "ba2283f5-e194-4e12-ac8d-ae9bb08eeddb"
 	service_user_number              = "112233",
-  account_number                   = "87654321",
-  sorting_code                     = "654321",
-  account_type                     = 0
+    account_number                   = "87654321",
+    sorting_code                     = "654321",
+    account_type                     = 0
 }`
 
 const testForm3BacsAssociationConfigC = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation"
+	name 		           = "terraform-organisation"
 }
 
 resource "form3_bacs_association" "association" {
 	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
 	association_id                   = "ba2283f5-e194-4e12-ac8d-ae9bb08eeeee"
 	service_user_number              = "112233",
-  account_number                   = "87654321",
-  sorting_code                     = "654321",
-  account_type                     = 0,
-  bank_code                          = "1234",
-  centre_number                    = "42"
+    account_number                   = "87654321",
+    sorting_code                     = "654321",
+    account_type                     = 0,
+    bank_code                        = "1234",
+    centre_number                    = "42",
+    use_test_file_submission         = true
 }`
