@@ -5055,6 +5055,8 @@ definitions:
       centre_number:
         type: string
         pattern: ^[0-9A-Z]{2}$
+      use_test_file_submission:
+        type: boolean
 
   BacsAssociationRelationships:
     type: object

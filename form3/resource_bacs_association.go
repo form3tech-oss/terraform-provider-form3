@@ -91,6 +91,11 @@ func resourceForm3BacsAssociation() *schema.Resource {
 				Optional: true,
 				ForceNew: true,
 			},
+			"use_test_file_submission": {
+				Type:     schema.TypeBool,
+				Optional: true,
+				ForceNew: true,
+			},
 		},
 	}
 }
@@ -154,6 +159,7 @@ func resourceBacsAssociationRead(d *schema.ResourceData, meta interface{}) error
 	d.Set("account_type", bacsAssociation.Payload.Data.Attributes.AccountType)
 	d.Set("bank_code", bacsAssociation.Payload.Data.Attributes.BankCode)
 	d.Set("centre_number", bacsAssociation.Payload.Data.Attributes.CentreNumber)
+	d.Set("use_test_file_submission", bacsAssociation.Payload.Data.Attributes.UseTestFileSubmission)
 
 	if bacsAssociation.Payload.Data.Relationships != nil {
 		if bacsAssociation.Payload.Data.Relationships.InputCertificate != nil && bacsAssociation.Payload.Data.Relationships.InputCertificate.Data != nil {
@@ -233,8 +239,8 @@ func createBacsNewAssociationFromResourceData(d *schema.ResourceData) (*models.B
 		association.Attributes.BankCode = attr.(string)
 	}
 
-	if attr, ok := d.GetOk("centre_number"); ok {
-		association.Attributes.CentreNumber = attr.(string)
+	if attr, ok := d.GetOk("use_test_file_submission"); ok {
+		association.Attributes.UseTestFileSubmission = attr.(bool)
 	}
 
 	association.Relationships.InputCertificate = buildRelationship(d, "input")
