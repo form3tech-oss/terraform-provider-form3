@@ -107,7 +107,7 @@ func TestAccBacsAssociation_withTestFileSubmissionFlag(t *testing.T) {
 				Config: fmt.Sprintf(testForm3BacsAssociationConfigC, organisationId, parentOrganisationId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBacsAssociationExists("form3_bacs_association.association", &bacsResponse),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "use_test_file_submission", "true"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "test_file_submission", "true"),
 				),
 			},
 		},
@@ -221,5 +221,5 @@ resource "form3_bacs_association" "association" {
     account_type                     = 0,
     bank_code                        = "1234",
     centre_number                    = "42",
-    use_test_file_submission         = true
+    test_file_submission             = true
 }`
