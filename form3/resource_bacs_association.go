@@ -95,6 +95,7 @@ func resourceForm3BacsAssociation() *schema.Resource {
 				Type:     schema.TypeBool,
 				Optional: true,
 				ForceNew: true,
+				Default:  false,
 			},
 		},
 	}

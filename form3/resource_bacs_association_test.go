@@ -24,7 +24,7 @@ func TestAccBacsAssociation_basic(t *testing.T) {
 		CheckDestroy: testAccCheckBacsAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3BacsAssociationConfigA, organisationId, parentOrganisationId),
+				Config: fmt.Sprintf(testForm3BacsAssociationConfigWithCerts, organisationId, parentOrganisationId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBacsAssociationExists("form3_bacs_association.association", &bacsResponse),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "service_user_number", "112238"),
@@ -56,7 +56,7 @@ func TestAccBacsAssociation_zeroAccountType(t *testing.T) {
 		CheckDestroy: testAccCheckBacsAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3BacsAssociationConfigB, organisationId, parentOrganisationId),
+				Config: fmt.Sprintf(testForm3BacsAssociationConfigZeroAccountType, organisationId, parentOrganisationId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBacsAssociationExists("form3_bacs_association.association", &bacsResponse),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "service_user_number", "112233"),
@@ -82,7 +82,7 @@ func TestAccBacsAssociation_withBankIdAndCentre(t *testing.T) {
 		CheckDestroy: testAccCheckBacsAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3BacsAssociationConfigC, organisationId, parentOrganisationId),
+				Config: fmt.Sprintf(testForm3BacsAssociationConfigWithBankIdAndCentre, organisationId, parentOrganisationId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBacsAssociationExists("form3_bacs_association.association", &bacsResponse),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "bank_code", "1234"),
@@ -104,7 +104,7 @@ func TestAccBacsAssociation_withTestFileSubmissionFlag(t *testing.T) {
 		CheckDestroy: testAccCheckBacsAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3BacsAssociationConfigC, organisationId, parentOrganisationId),
+				Config: fmt.Sprintf(testForm3BacsAssociationConfigWithTestFileFlag, organisationId, parentOrganisationId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBacsAssociationExists("form3_bacs_association.association", &bacsResponse),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "test_file_submission", "true"),
@@ -164,7 +164,7 @@ func testAccCheckBacsAssociationExists(resourceKey string, association *associat
 	}
 }
 
-const testForm3BacsAssociationConfigA = `
+const testForm3BacsAssociationConfigWithCerts = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
@@ -189,7 +189,7 @@ resource "form3_bacs_association" "association" {
     output_certificate_id            = "6dd9ca5d-b64a-4b59-a287-ad4ea82acb4f"
 }`
 
-const testForm3BacsAssociationConfigB = `
+const testForm3BacsAssociationConfigZeroAccountType = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
@@ -205,7 +205,25 @@ resource "form3_bacs_association" "association" {
     account_type                     = 0
 }`
 
-const testForm3BacsAssociationConfigC = `
+const testForm3BacsAssociationConfigWithBankIdAndCentre = `
+resource "form3_organisation" "organisation" {
+	organisation_id        = "%s"
+	parent_organisation_id = "%s"
+	name 		           = "terraform-organisation"
+}
+
+resource "form3_bacs_association" "association" {
+	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
+	association_id                   = "ba2283f5-e194-4e12-ac8d-ae9bb08eeeee"
+	service_user_number              = "112233",
+    account_number                   = "87654321",
+    sorting_code                     = "654321",
+    account_type                     = 0,
+    bank_code                        = "1234",
+    centre_number                    = "42"
+}`
+
+const testForm3BacsAssociationConfigWithTestFileFlag = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
