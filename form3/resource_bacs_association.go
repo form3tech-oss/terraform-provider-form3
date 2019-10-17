@@ -245,7 +245,9 @@ func createBacsNewAssociationFromResourceData(d *schema.ResourceData) (*models.B
 	}
 
 	if attr, ok := d.GetOk("test_file_submission"); ok {
-		association.Attributes.TestFileSubmission = attr.(bool)
+		b := attr.(bool)
+
+		association.Attributes.TestFileSubmission = &b
 	}
 
 	association.Relationships.InputCertificate = buildRelationship(d, "input")
