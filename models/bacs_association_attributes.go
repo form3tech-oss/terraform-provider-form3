@@ -39,6 +39,9 @@ type BacsAssociationAttributes struct {
 	// sorting code
 	// Pattern: ^[0-9]{6}$
 	SortingCode string `json:"sorting_code,omitempty"`
+
+	// test file submission
+	TestFileSubmission *bool `json:"test_file_submission,omitempty"`
 }
 
 // Validate validates this bacs association attributes
