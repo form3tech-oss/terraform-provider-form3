@@ -5389,6 +5389,8 @@ definitions:
         format: uuid
       attributes:
         $ref: "#/definitions/SepaInstantAssociationAttributes"
+      relationships:
+        $ref: "#/definitions/SepaInstantAssociationRelationships"
 
   NewSepaInstantAssociation:
     type: object
@@ -5406,6 +5408,8 @@ definitions:
         format: uuid
       attributes:
         $ref: "#/definitions/SepaInstantAssociationAttributes"
+      relationships:
+        $ref: "#/definitions/SepaInstantAssociationRelationships"
 
   SepaInstantAssociationAttributes:
     type: object
@@ -5419,6 +5423,34 @@ definitions:
       simulator_only:
         x-nullable: true
         type: boolean
+
+  SepaInstantAssociationRelationships:
+    type: object
+    x-nullable: true
+    properties:
+      sponsor:
+        type: object
+        x-nullable: false
+        properties:
+          data:
+            $ref: "#/definitions/SepaInstantAssociationReference"
+
+  SepaInstantAssociationReference:
+    type: object
+    x-nullable: false
+    required:
+      - id
+      - type
+    properties:
+      id:
+        x-nullable: false
+        type: string
+        format: uuid
+      type:
+        x-nullable: false
+        type: string
+        enum:
+          - sepainstant_associations
 
   SepaInstantAssociationCreation:
     type: object

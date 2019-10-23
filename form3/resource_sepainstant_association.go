@@ -49,6 +49,12 @@ func resourceForm3SepaInstantAssociation() *schema.Resource {
 				ForceNew: true,
 				Default:  false,
 			},
+			"sponsor_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+				Default:  "",
+			},
 		},
 	}
 }
@@ -99,7 +105,11 @@ func resourceSepaInstantAssociationRead(d *schema.ResourceData, meta interface{}
 	d.Set("transport_profile_id", sepaInstantAssociation.Payload.Data.Attributes.TransportProfileID)
 	d.Set("bic", sepaInstantAssociation.Payload.Data.Attributes.Bic)
 	d.Set("simulator_only", sepaInstantAssociation.Payload.Data.Attributes.SimulatorOnly)
-
+	if sepaInstantAssociation.Payload.Data.Relationships == nil {
+		d.Set("sponsor_id", "")
+	} else {
+		d.Set("sponsor_id", sepaInstantAssociation.Payload.Data.Relationships.Sponsor.Data.ID.String())
+	}
 	return nil
 }
 
@@ -152,5 +162,15 @@ func createSepaInstantNewAssociationFromResourceData(d *schema.ResourceData) (*m
 		association.Attributes.SimulatorOnly = &b
 	}
 
+	if attr, ok := GetUUIDOK(d, "sponsor_id"); ok {
+		association.Relationships = &models.SepaInstantAssociationRelationships{
+			Sponsor: models.SepaInstantAssociationRelationshipsSponsor{
+				Data: models.SepaInstantAssociationReference{
+					ID:   attr,
+					Type: "sepainstant_associations",
+				},
+			},
+		}
+	}
 	return &association, nil
 }
