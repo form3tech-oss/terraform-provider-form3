@@ -42,6 +42,10 @@ type BacsAssociationAttributes struct {
 
 	// test file submission
 	TestFileSubmission *bool `json:"test_file_submission,omitempty"`
+
+	// tsu number
+	// Pattern: ^[0-9A-Z]{6}$
+	TsuNumber string `json:"tsu-number,omitempty"`
 }
 
 // Validate validates this bacs association attributes
@@ -65,6 +69,10 @@ func (m *BacsAssociationAttributes) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateSortingCode(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTsuNumber(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -133,6 +141,19 @@ func (m *BacsAssociationAttributes) validateSortingCode(formats strfmt.Registry)
 	}
 
 	if err := validate.Pattern("sorting_code", "body", string(m.SortingCode), `^[0-9]{6}$`); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BacsAssociationAttributes) validateTsuNumber(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.TsuNumber) { // not required
+		return nil
+	}
+
+	if err := validate.Pattern("tsu-number", "body", string(m.TsuNumber), `^[0-9A-Z]{6}$`); err != nil {
 		return err
 	}
 

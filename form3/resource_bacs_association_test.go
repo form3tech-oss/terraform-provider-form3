@@ -31,6 +31,7 @@ func TestAccBacsAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "account_number", "12345678"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "sorting_code", "123456"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "account_type", "1"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "tsu_number", "B12345"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "organisation_id", organisationId),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "association_id", "ad5e20e5-800d-4143-9936-ca1007da3a03"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "input_key_id", "8f77e1ba-944e-44f3-a845-f99ba80af63c"),
@@ -178,6 +179,7 @@ resource "form3_bacs_association" "association" {
     account_number                   = "12345678",
     sorting_code                     = "123456",
     account_type                     = 1
+	tsu_number                       = "B12345"
 
     input_key_id                     = "8f77e1ba-944e-44f3-a845-f99ba80af63c"
     input_certificate_id             = "23d4fa5d-ef38-48de-b9e4-22f45004bb50"
