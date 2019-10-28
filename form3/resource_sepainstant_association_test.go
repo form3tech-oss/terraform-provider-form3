@@ -15,6 +15,7 @@ import (
 func TestAccSepaInstantAssociation_basic(t *testing.T) {
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.NewV4().String()
+	sponsoredOrganisationId := uuid.NewV4().String()
 	associationId := uuid.NewV4().String()
 	sponsoredAssociationId := uuid.NewV4().String()
 
@@ -24,7 +25,7 @@ func TestAccSepaInstantAssociation_basic(t *testing.T) {
 		CheckDestroy: testAccCheckSepaInstantAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3SepaInstantAssociationConfigA, organisationId, parentOrganisationId, associationId, sponsoredAssociationId),
+				Config: fmt.Sprintf(testForm3SepaInstantAssociationConfigA, organisationId, parentOrganisationId, associationId, sponsoredOrganisationId, sponsoredAssociationId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckSepaInstantAssociationExists("form3_sepainstant_association.association"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "association_id", associationId),
@@ -35,6 +36,10 @@ func TestAccSepaInstantAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "simulator_only", "true"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "sponsor_id", ""),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association_sponsored", "association_id", sponsoredAssociationId),
+					resource.TestCheckResourceAttr("form3_sepainstant_association.association_sponsored", "organisation_id", sponsoredOrganisationId),
+					resource.TestCheckResourceAttr("form3_sepainstant_association.association_sponsored", "business_user_dn", ""),
+					resource.TestCheckResourceAttr("form3_sepainstant_association.association_sponsored", "transport_profile_id", ""),
+					resource.TestCheckResourceAttr("form3_sepainstant_association.association_sponsored", "bic", "TESTBIC9"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association_sponsored", "sponsor_id", associationId),
 				),
 			},
@@ -95,8 +100,10 @@ locals {
 	organisation_id          = "%s"
 	parent_organisation_id   = "%s"
 	association_id           = "%s"
+	organisation_sponsor_id  = "%s"
 	sponsored_association_id = "%s"
 }
+
 resource "form3_organisation" "organisation" {
 	organisation_id        = "${local.organisation_id}"
 	parent_organisation_id = "${local.parent_organisation_id}"
@@ -112,12 +119,18 @@ resource "form3_sepainstant_association" "association" {
 	simulator_only       = true
 }
 
+resource "form3_organisation" "organisation_sponsored" {
+	organisation_id        = "${local.organisation_sponsor_id}"
+	parent_organisation_id = "${local.parent_organisation_id}"
+	name 		           = "terraform-organisation"
+}
+
 resource "form3_sepainstant_association" "association_sponsored" {
-  organisation_id      = "${form3_organisation.organisation.organisation_id}"
+  organisation_id      = "${form3_organisation.organisation_sponsored.organisation_id}"
   association_id       = "${local.sponsored_association_id}"
   business_user_dn     = ""
   transport_profile_id = ""
-  bic                  = "TESTBIC8"
+  bic                  = "TESTBIC9"
   simulator_only       = true
   sponsor_id           = "${form3_sepainstant_association.association.association_id}"	
 
