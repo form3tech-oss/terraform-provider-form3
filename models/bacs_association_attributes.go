@@ -45,7 +45,7 @@ type BacsAssociationAttributes struct {
 
 	// tsu number
 	// Pattern: ^[0-9A-Z]{6}$
-	TsuNumber string `json:"tsu-number,omitempty"`
+	TsuNumber string `json:"tsu_number,omitempty"`
 }
 
 // Validate validates this bacs association attributes
@@ -153,7 +153,7 @@ func (m *BacsAssociationAttributes) validateTsuNumber(formats strfmt.Registry) e
 		return nil
 	}
 
-	if err := validate.Pattern("tsu-number", "body", string(m.TsuNumber), `^[0-9A-Z]{6}$`); err != nil {
+	if err := validate.Pattern("tsu_number", "body", string(m.TsuNumber), `^[0-9A-Z]{6}$`); err != nil {
 		return err
 	}
 

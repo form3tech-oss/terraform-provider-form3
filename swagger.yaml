@@ -5058,7 +5058,7 @@ definitions:
       test_file_submission:
         x-nullable: true
         type: boolean
-      tsu-number:
+      tsu_number:
         type: string
         pattern: ^[0-9A-Z]{6}$
 
