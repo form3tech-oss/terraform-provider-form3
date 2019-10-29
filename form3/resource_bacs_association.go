@@ -168,7 +168,6 @@ func resourceBacsAssociationRead(d *schema.ResourceData, meta interface{}) error
 	d.Set("test_file_submission", bacsAssociation.Payload.Data.Attributes.TestFileSubmission)
 	d.Set("tsu_number", bacsAssociation.Payload.Data.Attributes.TsuNumber)
 
-
 	if bacsAssociation.Payload.Data.Relationships != nil {
 		if bacsAssociation.Payload.Data.Relationships.InputCertificate != nil && bacsAssociation.Payload.Data.Relationships.InputCertificate.Data != nil {
 			d.Set("input_key_id", bacsAssociation.Payload.Data.Relationships.InputCertificate.Data.KeyID)
