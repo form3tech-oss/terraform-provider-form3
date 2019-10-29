@@ -97,6 +97,11 @@ func resourceForm3BacsAssociation() *schema.Resource {
 				ForceNew: true,
 				Default:  false,
 			},
+			"tsu_number": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
 		},
 	}
 }
@@ -161,6 +166,8 @@ func resourceBacsAssociationRead(d *schema.ResourceData, meta interface{}) error
 	d.Set("bank_code", bacsAssociation.Payload.Data.Attributes.BankCode)
 	d.Set("centre_number", bacsAssociation.Payload.Data.Attributes.CentreNumber)
 	d.Set("test_file_submission", bacsAssociation.Payload.Data.Attributes.TestFileSubmission)
+	d.Set("tsu_number", bacsAssociation.Payload.Data.Attributes.TsuNumber)
+
 
 	if bacsAssociation.Payload.Data.Relationships != nil {
 		if bacsAssociation.Payload.Data.Relationships.InputCertificate != nil && bacsAssociation.Payload.Data.Relationships.InputCertificate.Data != nil {
@@ -248,6 +255,10 @@ func createBacsNewAssociationFromResourceData(d *schema.ResourceData) (*models.B
 		b := attr.(bool)
 
 		association.Attributes.TestFileSubmission = &b
+	}
+
+	if attr, ok := d.GetOk("tsu_number"); ok {
+		association.Attributes.TsuNumber = attr.(string)
 	}
 
 	association.Relationships.InputCertificate = buildRelationship(d, "input")
