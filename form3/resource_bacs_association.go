@@ -99,7 +99,7 @@ func resourceForm3BacsAssociation() *schema.Resource {
 			},
 			"tsu_number": {
 				Type:     schema.TypeString,
-				Optional: true,
+				Required: true,
 				ForceNew: true,
 			},
 		},

@@ -175,9 +175,9 @@ resource "form3_organisation" "organisation" {
 resource "form3_bacs_association" "association" {
 	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
 	association_id                   = "ad5e20e5-800d-4143-9936-ca1007da3a03"
-	service_user_number              = "112238",
-    account_number                   = "12345678",
-    sorting_code                     = "123456",
+	service_user_number              = "112238"
+    account_number                   = "12345678"
+    sorting_code                     = "123456"
     account_type                     = 1
 	tsu_number                       = "B12345"
 
@@ -201,10 +201,11 @@ resource "form3_organisation" "organisation" {
 resource "form3_bacs_association" "association" {
 	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
 	association_id                   = "ba2283f5-e194-4e12-ac8d-ae9bb08eeddb"
-	service_user_number              = "112233",
-    account_number                   = "87654321",
-    sorting_code                     = "654321",
+	service_user_number              = "112233"
+    account_number                   = "87654321"
+    sorting_code                     = "654321"
     account_type                     = 0
+	tsu_number                       = "B12345"
 }`
 
 const testForm3BacsAssociationConfigWithBankIdAndCentre = `
@@ -217,12 +218,13 @@ resource "form3_organisation" "organisation" {
 resource "form3_bacs_association" "association" {
 	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
 	association_id                   = "ba2283f5-e194-4e12-ac8d-ae9bb08eeeee"
-	service_user_number              = "112233",
-    account_number                   = "87654321",
-    sorting_code                     = "654321",
-    account_type                     = 0,
-    bank_code                        = "1234",
+	service_user_number              = "112233"
+    account_number                   = "87654321"
+    sorting_code                     = "654321"
+    account_type                     = 0
+    bank_code                        = "1234"
     centre_number                    = "42"
+	tsu_number                       = "B12345"
 }`
 
 const testForm3BacsAssociationConfigWithTestFileFlag = `
@@ -235,11 +237,12 @@ resource "form3_organisation" "organisation" {
 resource "form3_bacs_association" "association" {
 	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
 	association_id                   = "ba2283f5-e194-4e12-ac8d-ae9bb08eeeee"
-	service_user_number              = "112233",
-    account_number                   = "87654321",
-    sorting_code                     = "654321",
-    account_type                     = 0,
-    bank_code                        = "1234",
-    centre_number                    = "42",
+	service_user_number              = "112233"
+    account_number                   = "87654321"
+    sorting_code                     = "654321"
+    account_type                     = 0
+    bank_code                        = "1234"
+    centre_number                    = "42"
     test_file_submission             = true
+	tsu_number                       = "B12345"
 }`
