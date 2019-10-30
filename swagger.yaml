@@ -2375,6 +2375,8 @@ paths:
 
     post:
       summary: Create organisation association for sepa instant
+      x-access:
+        - Private
       tags:
        - Associations
       consumes:
@@ -2395,6 +2397,8 @@ paths:
 
     get:
       summary: List all organisation sepa instant associations
+      x-access:
+        - Private
       tags:
         - Associations
       parameters:
@@ -2417,6 +2421,8 @@ paths:
 
     get:
       summary: Fetch organisation sepa instant association
+      x-access:
+        - Private
       tags:
         - Associations
       parameters:
@@ -2434,6 +2440,8 @@ paths:
 
     delete:
       summary: Delete organisation spea instant association
+      x-access:
+        - Private
       tags:
         - Associations
       parameters:
@@ -5375,6 +5383,8 @@ definitions:
 
   SepaInstantAssociation:
     type: object
+    x-access:
+      - Private
     properties:
       type:
         type: string
@@ -5413,6 +5423,8 @@ definitions:
 
   SepaInstantAssociationAttributes:
     type: object
+    x-access:
+    - Private
     properties:
       business_user_dn:
         type: string
