@@ -236,7 +236,7 @@ resource "form3_organisation" "organisation" {
 
 resource "form3_bacs_association" "association" {
 	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
-	association_id                   = "ba2283f5-e194-4e12-ac8d-ae9bb08eeeee"
+	association_id                   = "e7373962-b030-492f-b73b-68ca1e5c800e"
 	service_user_number              = "112233"
     account_number                   = "87654321"
     sorting_code                     = "654321"
