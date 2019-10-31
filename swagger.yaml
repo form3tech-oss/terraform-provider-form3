@@ -2375,6 +2375,8 @@ paths:
 
     post:
       summary: Create organisation association for sepa instant
+      x-access:
+        - Private
       tags:
        - Associations
       consumes:
@@ -2395,6 +2397,8 @@ paths:
 
     get:
       summary: List all organisation sepa instant associations
+      x-access:
+        - Private
       tags:
         - Associations
       parameters:
@@ -2417,6 +2421,8 @@ paths:
 
     get:
       summary: Fetch organisation sepa instant association
+      x-access:
+        - Private
       tags:
         - Associations
       parameters:
@@ -2434,6 +2440,8 @@ paths:
 
     delete:
       summary: Delete organisation spea instant association
+      x-access:
+        - Private
       tags:
         - Associations
       parameters:
@@ -5375,6 +5383,8 @@ definitions:
 
   SepaInstantAssociation:
     type: object
+    x-access:
+      - Private
     properties:
       type:
         type: string
@@ -5389,6 +5399,8 @@ definitions:
         format: uuid
       attributes:
         $ref: "#/definitions/SepaInstantAssociationAttributes"
+      relationships:
+        $ref: "#/definitions/SepaInstantAssociationRelationships"
 
   NewSepaInstantAssociation:
     type: object
@@ -5406,9 +5418,13 @@ definitions:
         format: uuid
       attributes:
         $ref: "#/definitions/SepaInstantAssociationAttributes"
+      relationships:
+        $ref: "#/definitions/SepaInstantAssociationRelationships"
 
   SepaInstantAssociationAttributes:
     type: object
+    x-access:
+    - Private
     properties:
       business_user_dn:
         type: string
@@ -5419,6 +5435,34 @@ definitions:
       simulator_only:
         x-nullable: true
         type: boolean
+
+  SepaInstantAssociationRelationships:
+    type: object
+    x-nullable: true
+    properties:
+      sponsor:
+        type: object
+        x-nullable: false
+        properties:
+          data:
+            $ref: "#/definitions/SepaInstantAssociationReference"
+
+  SepaInstantAssociationReference:
+    type: object
+    x-nullable: false
+    required:
+      - id
+      - type
+    properties:
+      id:
+        x-nullable: false
+        type: string
+        format: uuid
+      type:
+        x-nullable: false
+        type: string
+        enum:
+          - sepainstant_associations
 
   SepaInstantAssociationCreation:
     type: object

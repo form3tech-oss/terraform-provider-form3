@@ -17,7 +17,7 @@ func TestAccDeleteSubscription(t *testing.T) {
 				ID:             strfmt.UUID("5e950680-1ea2-4898-ba0f-632214f51946"),
 				Attributes: &models.SubscriptionAttributes{
 					CallbackTransport: "queue",
-					CallbackURI:       "https://sqs.eu-west-1.amazonaws.com/134201431238/notification-test",
+					CallbackURI:       "https://sqs.eu-west-1.amazonaws.com/288840537196/notification-test",
 					EventType:         "updated",
 					RecordType:        "payments",
 				},
