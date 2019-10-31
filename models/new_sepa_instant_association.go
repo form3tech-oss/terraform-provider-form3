@@ -28,6 +28,9 @@ type NewSepaInstantAssociation struct {
 	// Format: uuid
 	OrganisationID strfmt.UUID `json:"organisation_id,omitempty"`
 
+	// relationships
+	Relationships *SepaInstantAssociationRelationships `json:"relationships,omitempty"`
+
 	// type
 	Type string `json:"type,omitempty"`
 
@@ -49,6 +52,10 @@ func (m *NewSepaInstantAssociation) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateOrganisationID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRelationships(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -101,6 +108,24 @@ func (m *NewSepaInstantAssociation) validateOrganisationID(formats strfmt.Regist
 
 	if err := validate.FormatOf("organisation_id", "body", "uuid", m.OrganisationID.String(), formats); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *NewSepaInstantAssociation) validateRelationships(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Relationships) { // not required
+		return nil
+	}
+
+	if m.Relationships != nil {
+		if err := m.Relationships.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("relationships")
+			}
+			return err
+		}
 	}
 
 	return nil
