@@ -29,7 +29,7 @@ func TestAccSubscription_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(
 						"form3_subscription.subscription", "callback_transport", "queue"),
 					resource.TestCheckResourceAttr(
-						"form3_subscription.subscription", "callback_uri", "https://sqs.eu-west-1.amazonaws.com/984234431138/terraform-test"),
+						"form3_subscription.subscription", "callback_uri", "https://sqs.eu-west-1.amazonaws.com/288840537196/notification-test"),
 					resource.TestCheckResourceAttr(
 						"form3_subscription.subscription", "event_type", "Updated"),
 					resource.TestCheckResourceAttr(
@@ -41,7 +41,7 @@ func TestAccSubscription_basic(t *testing.T) {
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckSubscriptionExists("form3_subscription.subscription", &subscriptionResponse),
 					resource.TestCheckResourceAttr(
-						"form3_subscription.subscription", "callback_uri", "https://sqs.eu-west-1.amazonaws.com/984234431138/terraform-test-2"),
+						"form3_subscription.subscription", "callback_uri", "https://sqs.eu-west-1.amazonaws.com/288840537196/notification-test-2"),
 				),
 			},
 		},
@@ -128,9 +128,9 @@ resource "form3_subscription" "subscription" {
 	organisation_id    = "%s"
 	subscription_id    = "%s"
 	callback_transport = "queue"
-  callback_uri       = "https://sqs.eu-west-1.amazonaws.com/984234431138/terraform-test"
-  event_type         = "Updated"
-  record_type        = "PaymentAdmission"
+  	callback_uri       = "https://sqs.eu-west-1.amazonaws.com/288840537196/notification-test"
+  	event_type         = "Updated"
+  	record_type        = "PaymentAdmission"
 }`
 
 const testForm3SubscriptionConfigAUpdate = `
@@ -138,7 +138,7 @@ resource "form3_subscription" "subscription" {
 	organisation_id    = "%s"
 	subscription_id    = "%s"
 	callback_transport = "queue"
-  callback_uri       = "https://sqs.eu-west-1.amazonaws.com/984234431138/terraform-test-2"
-  event_type         = "Updated"
-  record_type        = "PaymentAdmission"
+  	callback_uri       = "https://sqs.eu-west-1.amazonaws.com/288840537196/notification-test-2"
+  	event_type         = "Updated"
+  	record_type        = "PaymentAdmission"
 }`
