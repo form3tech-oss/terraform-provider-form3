@@ -196,7 +196,9 @@ func resourceBacsAssociationDelete(d *schema.ResourceData, meta interface{}) err
 		return fmt.Errorf("error deleting Bacs association: %s", err)
 	}
 
-	log.Printf("[INFO] Deleting Bacs association for id: %s service user number: %s", bacsAssociation.Payload.Data.ID, bacsAssociation.Payload.Data.Attributes.ServiceUserNumber)
+	log.Printf("[INFO] Deleting Bacs association for id: %s service user number: %s",
+		bacsAssociation.Payload.Data.ID,
+		bacsAssociation.Payload.Data.Attributes.ServiceUserNumber)
 
 	_, err = client.AssociationClient.Associations.DeleteBacsID(associations.NewDeleteBacsIDParams().
 		WithID(bacsAssociation.Payload.Data.ID).
