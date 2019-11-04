@@ -97,6 +97,11 @@ func resourceForm3BacsAssociation() *schema.Resource {
 				ForceNew: true,
 				Default:  false,
 			},
+			"tsu_number": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
 		},
 	}
 }
@@ -161,6 +166,7 @@ func resourceBacsAssociationRead(d *schema.ResourceData, meta interface{}) error
 	d.Set("bank_code", bacsAssociation.Payload.Data.Attributes.BankCode)
 	d.Set("centre_number", bacsAssociation.Payload.Data.Attributes.CentreNumber)
 	d.Set("test_file_submission", bacsAssociation.Payload.Data.Attributes.TestFileSubmission)
+	d.Set("tsu_number", bacsAssociation.Payload.Data.Attributes.TsuNumber)
 
 	if bacsAssociation.Payload.Data.Relationships != nil {
 		if bacsAssociation.Payload.Data.Relationships.InputCertificate != nil && bacsAssociation.Payload.Data.Relationships.InputCertificate.Data != nil {
@@ -190,7 +196,9 @@ func resourceBacsAssociationDelete(d *schema.ResourceData, meta interface{}) err
 		return fmt.Errorf("error deleting Bacs association: %s", err)
 	}
 
-	log.Printf("[INFO] Deleting Bacs association for id: %s service user number: %s", bacsAssociation.Payload.Data.ID, bacsAssociation.Payload.Data.Attributes.ServiceUserNumber)
+	log.Printf("[INFO] Deleting Bacs association for id: %s service user number: %s",
+		bacsAssociation.Payload.Data.ID,
+		bacsAssociation.Payload.Data.Attributes.ServiceUserNumber)
 
 	_, err = client.AssociationClient.Associations.DeleteBacsID(associations.NewDeleteBacsIDParams().
 		WithID(bacsAssociation.Payload.Data.ID).
@@ -248,6 +256,10 @@ func createBacsNewAssociationFromResourceData(d *schema.ResourceData) (*models.B
 		b := attr.(bool)
 
 		association.Attributes.TestFileSubmission = &b
+	}
+
+	if attr, ok := d.GetOk("tsu_number"); ok {
+		association.Attributes.TsuNumber = attr.(string)
 	}
 
 	association.Relationships.InputCertificate = buildRelationship(d, "input")
