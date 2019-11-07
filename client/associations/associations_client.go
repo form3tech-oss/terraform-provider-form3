@@ -221,6 +221,34 @@ func (a *Client) DeleteSepainstantID(params *DeleteSepainstantIDParams) (*Delete
 }
 
 /*
+DeleteSepareconciliationID deletes organisation association
+*/
+func (a *Client) DeleteSepareconciliationID(params *DeleteSepareconciliationIDParams) (*DeleteSepareconciliationIDNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteSepareconciliationIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteSepareconciliationID",
+		Method:             "DELETE",
+		PathPattern:        "/separeconciliation/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteSepareconciliationIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteSepareconciliationIDNoContent), nil
+
+}
+
+/*
 DeleteSepasctID deletes organisation spea sct association
 */
 func (a *Client) DeleteSepasctID(params *DeleteSepasctIDParams) (*DeleteSepasctIDNoContent, error) {
@@ -697,6 +725,62 @@ func (a *Client) GetSepainstantID(params *GetSepainstantIDParams) (*GetSepainsta
 }
 
 /*
+GetSepareconciliation lists all organisation associations
+*/
+func (a *Client) GetSepareconciliation(params *GetSepareconciliationParams) (*GetSepareconciliationOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetSepareconciliationParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetSepareconciliation",
+		Method:             "GET",
+		PathPattern:        "/separeconciliation",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetSepareconciliationReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetSepareconciliationOK), nil
+
+}
+
+/*
+GetSepareconciliationID fetches organisation association
+*/
+func (a *Client) GetSepareconciliationID(params *GetSepareconciliationIDParams) (*GetSepareconciliationIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetSepareconciliationIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetSepareconciliationID",
+		Method:             "GET",
+		PathPattern:        "/separeconciliation/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetSepareconciliationIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetSepareconciliationIDOK), nil
+
+}
+
+/*
 GetSepasct lists all organisation sepa sct associations
 */
 func (a *Client) GetSepasct(params *GetSepasctParams) (*GetSepasctOK, error) {
@@ -1085,6 +1169,34 @@ func (a *Client) PostSepainstant(params *PostSepainstantParams) (*PostSepainstan
 		return nil, err
 	}
 	return result.(*PostSepainstantCreated), nil
+
+}
+
+/*
+PostSepareconciliation creates organisation association
+*/
+func (a *Client) PostSepareconciliation(params *PostSepareconciliationParams) (*PostSepareconciliationCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostSepareconciliationParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostSepareconciliation",
+		Method:             "POST",
+		PathPattern:        "/separeconciliation",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PostSepareconciliationReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PostSepareconciliationCreated), nil
 
 }
 

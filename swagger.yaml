@@ -2033,6 +2033,134 @@ paths:
         204:
           description: Association deleted
 
+  # separeconciliation start
+
+  /separeconciliation:
+    post:
+      summary: Create organisation association
+      tags:
+        - Associations
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: creation request
+          in: body
+          schema:
+            $ref: "#/definitions/SepaReconciliationAssociationCreation"
+      responses:
+        201:
+          description: creation response
+          schema:
+            $ref: "#/definitions/SepaReconciliationAssociationCreationResponse"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ApiError"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/ApiError"
+        409:
+          description: Conflict
+          schema:
+            $ref: "#/definitions/ApiError"
+
+    get:
+      summary: List all organisation associations
+      tags:
+        - Associations
+      parameters:
+        - name: filter[organisation_id]
+          in: query
+          description: Organisation id
+          required: false
+          type: array
+          items:
+            type: string
+            format: uuid
+
+      responses:
+        200:
+          description: List of associations
+          schema:
+            $ref: "#/definitions/SepaReconciliationAssociationDetailsListResponse"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ApiError"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/ApiError"
+
+  /separeconciliation/{id}:
+    get:
+      summary: Fetch organisation association
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Associations details
+          schema:
+            $ref: "#/definitions/SepaReconciliationAssociationDetailsResponse"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ApiError"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/ApiError"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/ApiError"
+
+    delete:
+      summary: Delete organisation association
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+      responses:
+        204:
+          description: Association deleted
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ApiError"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/ApiError"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/ApiError"
+        409:
+          description: Conflict
+          schema:
+            $ref: "#/definitions/ApiError"
+
   /lhv:
     post:
       summary: Create organisation association for lhv
@@ -5575,6 +5703,7 @@ definitions:
       links:
         $ref: '#/definitions/Links'
 
+
   ProductsAssociation:
     type: object
     properties:
@@ -5821,6 +5950,124 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/LhvAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+  # separeconciliation - start
+
+  SepaReconciliationAssociation:
+    type: object
+    properties:
+      type:
+        type: string
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      created_on:
+        type: string
+        format: date-time
+        readOnly: true
+      modified_on:
+        type: string
+        format: date-time
+        readOnly: true
+      attributes:
+        $ref: "#/definitions/SepaReconciliationAssociationAttributes"
+      relationships:
+        $ref: '#/definitions/SepaReconciliationAssociationRelationships'
+
+  SepaReconciliationAssociationRelationships:
+    type: object
+    x-access:
+      - Public
+    properties:
+      sponsor:
+        description: "ID of the sponsor related to this account"
+        $ref: '#/definitions/RelationshipLinks'
+
+  NewSepaReconciliationAssociation:
+    type: object
+    required:
+      - id
+      - organisation_id
+      - type
+      - attributes
+    properties:
+      type:
+        type: string
+        enum:
+          - separeconciliation_associations
+        x-nullable: false
+      id:
+        type: string
+        format: uuid
+        x-nullable: false
+      organisation_id:
+        type: string
+        format: uuid
+        x-nullable: false
+      attributes:
+        $ref: "#/definitions/SepaReconciliationAssociationAttributes"
+      relationships:
+        $ref: '#/definitions/SepaReconciliationAssociationRelationships'
+
+  SepaReconciliationAssociationAttributes:
+    type: object
+    required:
+      - bic
+    properties:
+      bic:
+        type: string
+        x-nullable: false
+        minLength: 1
+      iban:
+        type: string
+        x-nullable: false
+        minLength: 1
+      country:
+        type: string
+        x-nullable: false
+        minLength: 1
+      name:
+        type: string
+        x-nullable: false
+        minLength: 1
+
+  SepaReconciliationAssociationCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/NewSepaReconciliationAssociation'
+
+  SepaReconciliationAssociationCreationResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/SepaReconciliationAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+  SepaReconciliationAssociationDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/SepaReconciliationAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+  SepaReconciliationAssociationDetailsListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/SepaReconciliationAssociation'
       links:
         $ref: '#/definitions/Links'
 
