@@ -2,7 +2,7 @@ package form3
 
 import (
 	"fmt"
-	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 )
 
 func validateValueFunc(values []string) schema.SchemaValidateFunc {

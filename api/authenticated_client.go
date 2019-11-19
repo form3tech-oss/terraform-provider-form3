@@ -20,7 +20,7 @@ import (
 	"github.com/go-openapi/runtime"
 	rc "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/hashicorp/terraform/helper/logging"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/logging"
 )
 
 var tokenCache = sync.Map{}

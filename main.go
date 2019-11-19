@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/form3tech-oss/terraform-provider-form3/form3"
-	"github.com/hashicorp/terraform/plugin"
+	"github.com/hashicorp/terraform-plugin-sdk/plugin"
 )
 
 func main() {

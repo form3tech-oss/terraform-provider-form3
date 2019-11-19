@@ -13,7 +13,7 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
-	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 )
 
 func resourceForm3GocardlessAssociation() *schema.Resource {
