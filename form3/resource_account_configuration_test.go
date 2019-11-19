@@ -164,7 +164,7 @@ resource "form3_account_configuration" "configuration" {
 	organisation_id            = "${form3_organisation.organisation.organisation_id}"
 	account_configuration_id   = "%s"
 	account_generation_enabled = true
-  account_generation_configuration = [
+    account_generation_configuration = [
         {
             country               = "US"
             valid_account_ranges  = [
@@ -188,7 +188,7 @@ resource "form3_account_configuration" "configuration" {
 	organisation_id            = "${form3_organisation.organisation.organisation_id}"
 	account_configuration_id   = "%s"
 	account_generation_enabled = true
-  account_generation_configuration = [
+    account_generation_configuration = [
         {
             country               = "US"
             bank_id               = "100000000"
