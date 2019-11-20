@@ -1087,7 +1087,7 @@ paths:
       tags:
         - AccountRoutings
       x-access:
-        - Public
+        - Private
       parameters:
         - name: page[number]
           in: query
@@ -1122,7 +1122,7 @@ paths:
       tags:
         - AccountRoutings
       x-access:
-        - Public
+        - Private
       consumes:
         - application/vnd.api+json
         - application/json
@@ -1148,7 +1148,7 @@ paths:
     delete:
       summary: Delete account routing
       x-access:
-        - Public
+        - Private
       tags:
         - AccountRoutings
       parameters:
@@ -1171,7 +1171,7 @@ paths:
     get:
       summary: Fetch account routing
       x-access:
-        - Public
+        - Private
       tags:
         - AccountRoutings
       parameters:
@@ -4504,7 +4504,7 @@ definitions:
   AccountRouting:
     type: object
     x-access:
-      - Public
+      - Private
     required:
       - id
       - organisation_id
@@ -4536,7 +4536,7 @@ definitions:
   AccountRoutingAttributes:
     type: object
     x-access:
-      - Public
+      - Private
     required:
       - match
       - priority
@@ -4568,7 +4568,7 @@ definitions:
   AccountRoutingDetailsListResponse:
     type: object
     x-access:
-      - Public
+      - Private
     properties:
       data:
         type: array
@@ -4580,7 +4580,7 @@ definitions:
   AccountRoutingCreation:
     type: object
     x-access:
-      - Public
+      - Private
     properties:
       data:
         $ref: '#/definitions/AccountRouting'
@@ -4588,7 +4588,7 @@ definitions:
   AccountRoutingDetailsResponse:
     type: object
     x-access:
-      - Public
+      - Private
     properties:
       data:
         $ref: '#/definitions/AccountRouting'
@@ -4612,7 +4612,7 @@ definitions:
   AccountRoutingCreationResponse:
     type: object
     x-access:
-      - Public
+      - Private
     properties:
       data:
         $ref: '#/definitions/AccountRouting'
