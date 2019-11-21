@@ -40,7 +40,6 @@ func resourceForm3AccountConfiguration() *schema.Resource {
 				ForceNew: true,
 			},
 			"account_generation_configuration": &schema.Schema{
-				ConfigMode: schema.SchemaConfigModeAttr,
 				Type:       schema.TypeList,
 				Optional:   true,
 				Elem: &schema.Resource{
