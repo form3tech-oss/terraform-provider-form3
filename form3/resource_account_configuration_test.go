@@ -5,8 +5,8 @@ import (
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/accounts"
 	"github.com/go-openapi/strfmt"
-	"github.com/hashicorp/terraform/helper/resource"
-	"github.com/hashicorp/terraform/terraform"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/terraform"
 	"github.com/satori/go.uuid"
 	"os"
 	"testing"
@@ -164,17 +164,13 @@ resource "form3_account_configuration" "configuration" {
 	organisation_id            = "${form3_organisation.organisation.organisation_id}"
 	account_configuration_id   = "%s"
 	account_generation_enabled = true
-  account_generation_configuration = [
-        {
+    account_generation_configuration {
             country               = "US"
-            valid_account_ranges  = [
-                {
-                   minimum = "8400000000"
-                   maximum = "8409999999"
-                }
-            ]
+            valid_account_ranges {
+			   minimum = "8400000000"
+			   maximum = "8409999999"
+			}
         }
-    ]
 }`
 
 const testForm3AccountConfigurationConfigUpdated = `
@@ -188,28 +184,23 @@ resource "form3_account_configuration" "configuration" {
 	organisation_id            = "${form3_organisation.organisation.organisation_id}"
 	account_configuration_id   = "%s"
 	account_generation_enabled = true
-  account_generation_configuration = [
-        {
-            country               = "US"
-            bank_id               = "100000000"
-			bic                   = "CMFGUS33"
-			base_currency         = "USD"
-			mod_check_enabled	  = true
-            valid_account_ranges  = [
-                {
-                   minimum = "84000000"
-                   maximum = "84099999"
-                }
-            ]
-        },
-        {
-            country               = "NL"
-            valid_account_ranges  = [
-                {
-                   minimum = "2005356441"
-                   maximum = "2005389080"
-                }
-            ]
-        }
-    ]
+    account_generation_configuration {
+		country               = "US"
+		bank_id               = "100000000"
+		bic                   = "CMFGUS33"
+		base_currency         = "USD"
+		mod_check_enabled	  = true
+		valid_account_ranges {
+			   minimum = "84000000"
+			   maximum = "84099999"
+			}
+	}
+    
+	account_generation_configuration {
+		country               = "NL"
+		valid_account_ranges {
+		   minimum = "2005356441"
+		   maximum = "2005389080"
+		}
+	}
 }`

@@ -18,12 +18,12 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"mime/multipart"
 	"net/http"
 	"net/url"
 	"os"
+	"path"
 	"path/filepath"
 	"strings"
 	"time"
@@ -41,6 +41,7 @@ func newRequest(method, pathPattern string, writer runtime.ClientRequestWriter) 
 		header:      make(http.Header),
 		query:       make(url.Values),
 		timeout:     DefaultTimeout,
+		getBody:     getRequestBuffer,
 	}, nil
 }
 
@@ -62,9 +63,12 @@ type request struct {
 	header     http.Header
 	query      url.Values
 	formFields url.Values
-	fileFields map[string]runtime.NamedReadCloser
+	fileFields map[string][]runtime.NamedReadCloser
 	payload    interface{}
 	timeout    time.Duration
+	buf        *bytes.Buffer
+
+	getBody func(r *request) []byte
 }
 
 var (
@@ -72,88 +76,92 @@ var (
 	_ runtime.ClientRequest = new(request)
 )
 
+func (r *request) isMultipart(mediaType string) bool {
+	if len(r.fileFields) > 0 {
+		return true
+	}
+
+	return runtime.MultipartFormMime == mediaType
+}
+
 // BuildHTTP creates a new http request based on the data from the params
-func (r *request) BuildHTTP(mediaType string, producers map[string]runtime.Producer, registry strfmt.Registry) (*http.Request, error) {
+func (r *request) BuildHTTP(mediaType, basePath string, producers map[string]runtime.Producer, registry strfmt.Registry) (*http.Request, error) {
+	return r.buildHTTP(mediaType, basePath, producers, registry, nil)
+}
+
+func (r *request) buildHTTP(mediaType, basePath string, producers map[string]runtime.Producer, registry strfmt.Registry, auth runtime.ClientAuthInfoWriter) (*http.Request, error) {
 	// build the data
 	if err := r.writer.WriteToRequest(r, registry); err != nil {
 		return nil, err
 	}
 
-	// create http request
-	path := r.pathPattern
-	for k, v := range r.pathParams {
-		path = strings.Replace(path, "{"+k+"}", v, -1)
-	}
-
-	var body io.ReadCloser
+	// Our body must be an io.Reader.
+	// When we create the http.Request, if we pass it a
+	// bytes.Buffer then it will wrap it in an io.ReadCloser
+	// and set the content length automatically.
+	var body io.Reader
 	var pr *io.PipeReader
 	var pw *io.PipeWriter
-	buf := bytes.NewBuffer(nil)
+
+	r.buf = bytes.NewBuffer(nil)
 	if r.payload != nil || len(r.formFields) > 0 || len(r.fileFields) > 0 {
-		body = ioutil.NopCloser(buf)
-		if r.fileFields != nil {
+		body = r.buf
+		if r.isMultipart(mediaType) {
 			pr, pw = io.Pipe()
 			body = pr
 		}
 	}
-	req, err := http.NewRequest(r.method, path, body)
-	if err != nil {
-		return nil, err
-	}
-	req.URL.RawQuery = r.query.Encode()
-	req.Header = r.header
 
 	// check if this is a form type request
 	if len(r.formFields) > 0 || len(r.fileFields) > 0 {
-		// check if this is multipart
-		if len(r.fileFields) > 0 {
-			mp := multipart.NewWriter(pw)
-			req.Header.Set(runtime.HeaderContentType, mp.FormDataContentType())
+		if !r.isMultipart(mediaType) {
+			r.header.Set(runtime.HeaderContentType, mediaType)
+			formString := r.formFields.Encode()
+			r.buf.WriteString(formString)
+			goto DoneChoosingBodySource
+		}
 
-			go func() {
-				defer func() {
-					mp.Close()
-					pw.Close()
-				}()
+		mp := multipart.NewWriter(pw)
+		r.header.Set(runtime.HeaderContentType, mangleContentType(mediaType, mp.Boundary()))
 
-				for fn, v := range r.formFields {
-					if len(v) > 0 {
-						if err := mp.WriteField(fn, v[0]); err != nil {
-							pw.CloseWithError(err)
-							log.Println(err)
-						}
+		go func() {
+			defer func() {
+				mp.Close()
+				pw.Close()
+			}()
+
+			for fn, v := range r.formFields {
+				for _, vi := range v {
+					if err := mp.WriteField(fn, vi); err != nil {
+						pw.CloseWithError(err)
+						log.Println(err)
 					}
 				}
+			}
 
-				for fn, f := range r.fileFields {
-					wrtr, err := mp.CreateFormFile(fn, filepath.Base(f.Name()))
+			defer func() {
+				for _, ff := range r.fileFields {
+					for _, ffi := range ff {
+						ffi.Close()
+					}
+				}
+			}()
+			for fn, f := range r.fileFields {
+				for _, fi := range f {
+					wrtr, err := mp.CreateFormFile(fn, filepath.Base(fi.Name()))
 					if err != nil {
 						pw.CloseWithError(err)
 						log.Println(err)
-					}
-					defer func() {
-						for _, ff := range r.fileFields {
-							ff.Close()
-						}
-
-					}()
-					if _, err := io.Copy(wrtr, f); err != nil {
+					} else if _, err := io.Copy(wrtr, fi); err != nil {
 						pw.CloseWithError(err)
 						log.Println(err)
 					}
 				}
+			}
 
-			}()
-			return req, nil
-		}
+		}()
 
-		req.Header.Set(runtime.HeaderContentType, mediaType)
-		formString := r.formFields.Encode()
-		// set content length before writing to the buffer
-		req.ContentLength = int64(len(formString))
-		// write the form values as the body
-		buf.WriteString(formString)
-		return req, nil
+		goto DoneChoosingBodySource
 	}
 
 	// if there is payload, use the producer to write the payload, and then
@@ -161,45 +169,143 @@ func (r *request) BuildHTTP(mediaType string, producers map[string]runtime.Produ
 	if r.payload != nil {
 		// TODO: infer most appropriate content type based on the producer used,
 		// and the `consumers` section of the spec/operation
-		req.Header.Set(runtime.HeaderContentType, mediaType)
+		r.header.Set(runtime.HeaderContentType, mediaType)
 		if rdr, ok := r.payload.(io.ReadCloser); ok {
-			req.Body = rdr
-			return req, nil
+			body = rdr
+			goto DoneChoosingBodySource
 		}
 
 		if rdr, ok := r.payload.(io.Reader); ok {
-			req.Body = ioutil.NopCloser(rdr)
-			return req, nil
+			body = rdr
+			goto DoneChoosingBodySource
 		}
 
-		// set the content length of the request or else a chunked transfer is
-		// declared, and this corrupts outgoing JSON payloads. the content's
-		// length must be set prior to the body being written per the spec at
-		// https://golang.org/pkg/net/http
-		//
-		//     If Body is present, Content-Length is <= 0 and TransferEncoding
-		//     hasn't been set to "identity", Write adds
-		//     "Transfer-Encoding: chunked" to the header. Body is closed
-		//     after it is sent.
-		//
-		// to that end a temporary buffer, b, is created to produce the payload
-		// body, and then its size is used to set the request's content length
-		var b bytes.Buffer
 		producer := producers[mediaType]
-		if err := producer.Produce(&b, r.payload); err != nil {
-			return nil, err
-		}
-		req.ContentLength = int64(b.Len())
-		if _, err := buf.Write(b.Bytes()); err != nil {
+		if err := producer.Produce(r.buf, r.payload); err != nil {
 			return nil, err
 		}
 	}
 
-	if runtime.CanHaveBody(req.Method) && req.Body == nil && req.Header.Get(runtime.HeaderContentType) == "" {
-		req.Header.Set(runtime.HeaderContentType, mediaType)
+DoneChoosingBodySource:
+
+	if runtime.CanHaveBody(r.method) && body == nil && r.header.Get(runtime.HeaderContentType) == "" {
+		r.header.Set(runtime.HeaderContentType, mediaType)
 	}
+
+	if auth != nil {
+
+		// If we're not using r.buf as our http.Request's body,
+		// either the payload is an io.Reader or io.ReadCloser,
+		// or we're doing a multipart form/file.
+		//
+		// In those cases, if the AuthenticateRequest call asks for the body,
+		// we must read it into a buffer and provide that, then use that buffer
+		// as the body of our http.Request.
+		//
+		// This is done in-line with the GetBody() request rather than ahead
+		// of time, because there's no way to know if the AuthenticateRequest
+		// will even ask for the body of the request.
+		//
+		// If for some reason the copy fails, there's no way to return that
+		// error to the GetBody() call, so return it afterwards.
+		//
+		// An error from the copy action is prioritized over any error
+		// from the AuthenticateRequest call, because the mis-read
+		// body may have interfered with the auth.
+		//
+		var copyErr error
+		if buf, ok := body.(*bytes.Buffer); body != nil && (!ok || buf != r.buf) {
+
+			var copied bool
+			r.getBody = func(r *request) []byte {
+
+				if copied {
+					return getRequestBuffer(r)
+				}
+
+				defer func() {
+					copied = true
+				}()
+
+				if _, copyErr = io.Copy(r.buf, body); copyErr != nil {
+					return nil
+				}
+
+				if closer, ok := body.(io.ReadCloser); ok {
+					if copyErr = closer.Close(); copyErr != nil {
+						return nil
+					}
+				}
+
+				body = r.buf
+				return getRequestBuffer(r)
+			}
+		}
+
+		authErr := auth.AuthenticateRequest(r, registry)
+
+		if copyErr != nil {
+			return nil, fmt.Errorf("error retrieving the response body: %v", copyErr)
+		}
+
+		if authErr != nil {
+			return nil, authErr
+		}
+
+	}
+
+	// create http request
+	var reinstateSlash bool
+	if r.pathPattern != "" && r.pathPattern != "/" && r.pathPattern[len(r.pathPattern)-1] == '/' {
+		reinstateSlash = true
+	}
+	urlPath := path.Join(basePath, r.pathPattern)
+	for k, v := range r.pathParams {
+		urlPath = strings.Replace(urlPath, "{"+k+"}", url.PathEscape(v), -1)
+	}
+	if reinstateSlash {
+		urlPath = urlPath + "/"
+	}
+
+	req, err := http.NewRequest(r.method, urlPath, body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.URL.RawQuery = r.query.Encode()
+	req.Header = r.header
 
 	return req, nil
+}
+
+func mangleContentType(mediaType, boundary string) string {
+	if strings.ToLower(mediaType) == runtime.URLencodedFormMime {
+		return fmt.Sprintf("%s; boundary=%s", mediaType, boundary)
+	}
+	return "multipart/form-data; boundary=" + boundary
+}
+
+func (r *request) GetMethod() string {
+	return r.method
+}
+
+func (r *request) GetPath() string {
+	path := r.pathPattern
+	for k, v := range r.pathParams {
+		path = strings.Replace(path, "{"+k+"}", v, -1)
+	}
+	return path
+}
+
+func (r *request) GetBody() []byte {
+	return r.getBody(r)
+}
+
+func getRequestBuffer(r *request) []byte {
+	if r.buf == nil {
+		return nil
+	}
+	return r.buf.Bytes()
 }
 
 // SetHeaderParam adds a header param to the request
@@ -213,6 +319,11 @@ func (r *request) SetHeaderParam(name string, values ...string) error {
 	return nil
 }
 
+// GetHeaderParams returns the all headers currently set for the request
+func (r *request) GetHeaderParams() http.Header {
+	return r.header
+}
+
 // SetQueryParam adds a query param to the request
 // when there is only 1 value provided for the varargs, it will set it.
 // when there are several values provided for the varargs it will add it (no overriding)
@@ -222,6 +333,15 @@ func (r *request) SetQueryParam(name string, values ...string) error {
 	}
 	r.query[name] = values
 	return nil
+}
+
+// GetQueryParams returns a copy of all query params currently set for the request
+func (r *request) GetQueryParams() url.Values {
+	var result = make(url.Values)
+	for key, value := range r.query {
+		result[key] = append([]string{}, value...)
+	}
+	return result
 }
 
 // SetFormParam adds a forn param to the request
@@ -246,26 +366,32 @@ func (r *request) SetPathParam(name string, value string) error {
 }
 
 // SetFileParam adds a file param to the request
-func (r *request) SetFileParam(name string, file runtime.NamedReadCloser) error {
-	if actualFile, ok := file.(*os.File); ok {
-		fi, err := os.Stat(actualFile.Name())
-		if err != nil {
-			return err
-		}
-		if fi.IsDir() {
-			return fmt.Errorf("%q is a directory, only files are supported", file.Name())
+func (r *request) SetFileParam(name string, files ...runtime.NamedReadCloser) error {
+	for _, file := range files {
+		if actualFile, ok := file.(*os.File); ok {
+			fi, err := os.Stat(actualFile.Name())
+			if err != nil {
+				return err
+			}
+			if fi.IsDir() {
+				return fmt.Errorf("%q is a directory, only files are supported", file.Name())
+			}
 		}
 	}
 
 	if r.fileFields == nil {
-		r.fileFields = make(map[string]runtime.NamedReadCloser)
+		r.fileFields = make(map[string][]runtime.NamedReadCloser)
 	}
 	if r.formFields == nil {
 		r.formFields = make(url.Values)
 	}
 
-	r.fileFields[name] = file
+	r.fileFields[name] = files
 	return nil
+}
+
+func (r *request) GetFileParam() map[string][]runtime.NamedReadCloser {
+	return r.fileFields
 }
 
 // SetBodyParam sets a body parameter on the request.
@@ -273,6 +399,10 @@ func (r *request) SetFileParam(name string, file runtime.NamedReadCloser) error 
 func (r *request) SetBodyParam(payload interface{}) error {
 	r.payload = payload
 	return nil
+}
+
+func (r *request) GetBodyParam() interface{} {
+	return r.payload
 }
 
 // SetTimeout sets the timeout for a request

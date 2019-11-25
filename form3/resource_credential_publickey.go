@@ -7,7 +7,7 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 	"log"
 	"strings"
 )
