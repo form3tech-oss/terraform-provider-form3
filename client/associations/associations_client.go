@@ -81,6 +81,34 @@ func (a *Client) DeleteConfirmationOfPayeeID(params *DeleteConfirmationOfPayeeID
 }
 
 /*
+DeleteEburyID deletes ebury gateway association
+*/
+func (a *Client) DeleteEburyID(params *DeleteEburyIDParams) (*DeleteEburyIDNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteEburyIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteEburyID",
+		Method:             "DELETE",
+		PathPattern:        "/ebury/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteEburyIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteEburyIDNoContent), nil
+
+}
+
+/*
 DeleteGocardlessID deletes gocardless gateway association
 */
 func (a *Client) DeleteGocardlessID(params *DeleteGocardlessIDParams) (*DeleteGocardlessIDNoContent, error) {
@@ -413,6 +441,62 @@ func (a *Client) GetConfirmationOfPayeeID(params *GetConfirmationOfPayeeIDParams
 		return nil, err
 	}
 	return result.(*GetConfirmationOfPayeeIDOK), nil
+
+}
+
+/*
+GetEbury lists all organisation ebury gateway associations
+*/
+func (a *Client) GetEbury(params *GetEburyParams) (*GetEburyOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetEburyParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetEbury",
+		Method:             "GET",
+		PathPattern:        "/ebury",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetEburyReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetEburyOK), nil
+
+}
+
+/*
+GetEburyID fetches organisation ebury gateway association
+*/
+func (a *Client) GetEburyID(params *GetEburyIDParams) (*GetEburyIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetEburyIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetEburyID",
+		Method:             "GET",
+		PathPattern:        "/ebury/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetEburyIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetEburyIDOK), nil
 
 }
 
@@ -945,6 +1029,34 @@ func (a *Client) PostConfirmationOfPayee(params *PostConfirmationOfPayeeParams) 
 		return nil, err
 	}
 	return result.(*PostConfirmationOfPayeeCreated), nil
+
+}
+
+/*
+PostEbury creates organisation association for ebury gateway
+*/
+func (a *Client) PostEbury(params *PostEburyParams) (*PostEburyCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostEburyParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostEbury",
+		Method:             "POST",
+		PathPattern:        "/ebury",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PostEburyReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PostEburyCreated), nil
 
 }
 

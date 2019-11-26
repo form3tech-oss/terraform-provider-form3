@@ -2461,6 +2461,81 @@ paths:
         204:
           description: Association deleted
 
+  /ebury:
+    post:
+      summary: Create organisation association for Ebury gateway
+      tags:
+        - Associations
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: creation request
+          in: body
+          schema:
+            $ref: '#/definitions/EburyAssociationCreation'
+      responses:
+        201:
+          description: creation response
+          schema:
+            $ref: '#/definitions/EburyAssociationCreationResponse'
+    get:
+      summary: List all organisation ebury gateway associations
+      tags:
+        - Associations
+      parameters:
+        - name: filter[organisation_id]
+          in: query
+          description: Organisation id
+          required: false
+          type: array
+          items:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: List of ebury associations
+          schema:
+            $ref: "#/definitions/EburyAssociationListResponse"
+
+  /ebury/{id}:
+    get:
+      summary: Fetch organisation ebury gateway association
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Associations details
+          schema:
+            $ref: "#/definitions/EburyAssociationResponse"
+    delete:
+      summary: Delete ebury gateway association
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+      responses:
+        204:
+          description: association deleted successfully
+
 #paymentapi - start
   /payments:
 
@@ -5823,6 +5898,67 @@ definitions:
           $ref: '#/definitions/LhvAssociation'
       links:
         $ref: '#/definitions/Links'
+
+  EburyAssociation:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      organisation_id:
+        type: string
+        format: uuid
+      type:
+        type: string
+      version:
+        type: integer
+        minimum: 0
+      attributes:
+        $ref: '#/definitions/EburyAssociationAttributes'
+
+  NewEburyAssociation:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      organisation_id:
+        type: string
+        format: uuid
+      type:
+        type: string
+      attributes:
+        $ref: '#/definitions/EburyAssociationAttributes'
+
+  EburyAssociationAttributes:
+    type: object
+    properties: {}
+
+  EburyAssociationCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/NewEburyAssociation'
+
+  EburyAssociationCreationResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/EburyAssociation'
+
+  EburyAssociationResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/EburyAssociation'
+
+  EburyAssociationListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/EburyAssociation'
 
   # paymentapi - start
 
