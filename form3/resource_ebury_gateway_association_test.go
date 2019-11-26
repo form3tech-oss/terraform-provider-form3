@@ -88,7 +88,7 @@ const testForm3EburyAssociationConfig = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		           = "terraform-organisation"
+	name 		               = "terraform-organisation"
 }
 
 resource "form3_ebury_association" "association" {
