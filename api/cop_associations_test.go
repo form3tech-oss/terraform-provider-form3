@@ -35,7 +35,7 @@ func createAssociation(t *testing.T) *associations.PostConfirmationOfPayeeCreate
 		WithCreationRequest(&models.CoPAssociationCreation{
 			Data: &models.CoPAssociation{
 				ID:             UUIDtoStrFmtUUID(id),
-				OrganisationID: &organisationId,
+				OrganisationID: &testOrganisationId,
 				Attributes: &models.CoPAssociationAttributes{
 					OpenBankingOrganisationID: swag.String("1234"),
 					PublicKeyID:               swag.String("5678"),
@@ -84,8 +84,8 @@ func TestPostConfirmationOfPayeeAssociation(t *testing.T) {
 	defer deleteAssociation(t, createResponse)
 
 	actualOrganisationId := createResponse.Payload.Data.OrganisationID.String()
-	if actualOrganisationId != organisationId.String() {
-		t.Fatalf("Expected %s, got %s", organisationId.String(), actualOrganisationId)
+	if actualOrganisationId != testOrganisationId.String() {
+		t.Fatalf("Expected %s, got %s", testOrganisationId.String(), actualOrganisationId)
 	}
 
 	assert.Equal(t, "1234", *createResponse.Payload.Data.Attributes.OpenBankingOrganisationID)
