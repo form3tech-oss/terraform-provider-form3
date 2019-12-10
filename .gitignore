@@ -8,3 +8,4 @@ pkg
 plan
 .DS_Store
 dist
+clean_up

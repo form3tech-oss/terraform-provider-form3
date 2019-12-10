@@ -4480,6 +4480,9 @@ definitions:
   NewAssociationAttributes:
     type: object
     properties:
+      starling_account_uid:
+        type: string
+        format: uuid
       starling_account_name:
         type: string
 

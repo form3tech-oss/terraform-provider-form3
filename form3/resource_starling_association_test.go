@@ -5,6 +5,7 @@ import (
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/go-openapi/strfmt"
+	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
 	"os"
@@ -25,6 +26,34 @@ func TestAccStarlingAssociation_basic(t *testing.T) {
 					testAccCheckStarlingAssociationExists("form3_starling_association.association", &starlingResponse),
 					resource.TestCheckResourceAttr(
 						"form3_starling_association.association", "starling_account_name", "account-1"),
+				),
+			},
+		}
+	}
+
+	resource.Test(t, resource.TestCase{
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
+		CheckDestroy: testAccCheckStarlingAssociationDestroy,
+		Steps:        steps,
+	})
+}
+
+func TestAccStarlingAssociation_with_account_uid(t *testing.T) {
+	var starlingResponse associations.GetStarlingIDOK
+	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	accountUid     := uuid.New().String()
+
+	var steps []resource.TestStep
+
+	if os.Getenv("FORM3_STARLING_CONFIGURED") == "1" {
+		steps = []resource.TestStep{
+			{
+				Config: fmt.Sprintf(testForm3StarlingAssociationConfigB, organisationId, accountUid),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckStarlingAssociationExists("form3_starling_association.association", &starlingResponse),
+					resource.TestCheckResourceAttr("form3_starling_association.association", "starling_account_name", "account-1"),
+					resource.TestCheckResourceAttr("form3_starling_association.association", "starling_account_id", accountUid),
 				),
 			},
 		}
@@ -103,4 +132,23 @@ resource "form3_starling_association" "association" {
 	organisation_id       = "${form3_organisation.organisation.organisation_id}"
 	association_id        = "0b2fc31e-b778-448b-977d-1e7f828a81eb"
 	starling_account_name	= "account-1"
+}`
+
+
+const testForm3StarlingAssociationConfigB = `
+resource "form3_organisation" "organisation" {
+	organisation_id        = "${uuid()}"
+	parent_organisation_id = "%s"
+	name 		               = "terraform-organisation"
+
+  lifecycle {
+    ignore_changes = ["organisation_id"]
+  }
+}
+
+resource "form3_starling_association" "association" {
+	organisation_id       = "${form3_organisation.organisation.organisation_id}"
+	association_id        = "0b2fc31e-b778-448b-977d-1e7f828a81eb"
+	starling_account_name = "account-2"
+	starling_account_id   = "%s"
 }`
