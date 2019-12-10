@@ -42,7 +42,7 @@ func TestAccStarlingAssociation_basic(t *testing.T) {
 func TestAccStarlingAssociation_with_account_uid(t *testing.T) {
 	var starlingResponse associations.GetStarlingIDOK
 	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	accountUid     := uuid.New().String()
+	accountUid := uuid.New().String()
 
 	var steps []resource.TestStep
 
@@ -133,7 +133,6 @@ resource "form3_starling_association" "association" {
 	association_id        = "0b2fc31e-b778-448b-977d-1e7f828a81eb"
 	starling_account_name	= "account-1"
 }`
-
 
 const testForm3StarlingAssociationConfigB = `
 resource "form3_organisation" "organisation" {
