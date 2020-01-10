@@ -2,13 +2,14 @@ package form3
 
 import (
 	"fmt"
+	"log"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
 )
 
 func resourceForm3SepaInstantAssociation() *schema.Resource {
@@ -16,6 +17,7 @@ func resourceForm3SepaInstantAssociation() *schema.Resource {
 		Create: resourceSepaInstantAssociationCreate,
 		Read:   resourceSepaInstantAssociationRead,
 		Delete: resourceSepaInstantAssociationDelete,
+		Update: resourceSepaInstantAssociationUpdate,
 
 		Schema: map[string]*schema.Schema{
 			"association_id": {
@@ -54,6 +56,12 @@ func resourceForm3SepaInstantAssociation() *schema.Resource {
 				Optional: true,
 				ForceNew: true,
 				Default:  "",
+			},
+			"disable_outbound_payments": {
+				Type:     schema.TypeBool,
+				Required: false,
+				ForceNew: false,
+				Default:  false,
 			},
 		},
 	}
@@ -133,6 +141,17 @@ func resourceSepaInstantAssociationDelete(d *schema.ResourceData, meta interface
 	return nil
 }
 
+func resourceSepaInstantAssociationUpdate(d *schema.ResourceData, meta interface{}) error {
+	client := meta.(*form3.AuthenticatedClient)
+
+	association, err := createSepaInstantNewAssociationFromResourceData(d)
+	if err != nil {
+		return fmt.Errorf("failed to create sepa instant association: %s", err)
+	}
+
+	return nil
+}
+
 func createSepaInstantNewAssociationFromResourceData(d *schema.ResourceData) (*models.NewSepaInstantAssociation, error) {
 
 	association := models.NewSepaInstantAssociation{Attributes: &models.SepaInstantAssociationAttributes{}}
@@ -160,6 +179,11 @@ func createSepaInstantNewAssociationFromResourceData(d *schema.ResourceData) (*m
 	if attr, ok := d.GetOk("simulator_only"); ok {
 		b := attr.(bool)
 		association.Attributes.SimulatorOnly = &b
+	}
+
+	if attr, ok := d.GetOk("disable_outbound_payments"); ok {
+		b := attr.(bool)
+		association.Attributes.DisableOutboundPayments = &b
 	}
 
 	if attr, ok := GetUUIDOK(d, "sponsor_id"); ok {

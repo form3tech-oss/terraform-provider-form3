@@ -977,6 +977,34 @@ func (a *Client) PatchGocardlessID(params *PatchGocardlessIDParams) (*PatchGocar
 }
 
 /*
+PatchSepainstantID updates sepa instant association
+*/
+func (a *Client) PatchSepainstantID(params *PatchSepainstantIDParams) (*PatchSepainstantIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPatchSepainstantIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PatchSepainstantID",
+		Method:             "PATCH",
+		PathPattern:        "/sepainstant/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PatchSepainstantIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PatchSepainstantIDOK), nil
+
+}
+
+/*
 PostBacs creates organisation association for b a c s
 */
 func (a *Client) PostBacs(params *PostBacsParams) (*PostBacsCreated, error) {
