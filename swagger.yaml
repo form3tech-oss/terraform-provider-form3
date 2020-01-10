@@ -2451,6 +2451,12 @@ paths:
           required: true
           type: string
           format: uuid
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
         - name: payload
           in: body
           description: Association Patch payload

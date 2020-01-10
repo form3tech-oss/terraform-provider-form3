@@ -59,7 +59,7 @@ func resourceForm3SepaInstantAssociation() *schema.Resource {
 			},
 			"disable_outbound_payments": {
 				Type:     schema.TypeBool,
-				Required: false,
+				Optional: true,
 				ForceNew: false,
 				Default:  false,
 			},
@@ -144,12 +144,58 @@ func resourceSepaInstantAssociationDelete(d *schema.ResourceData, meta interface
 func resourceSepaInstantAssociationUpdate(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
 
-	association, err := createSepaInstantNewAssociationFromResourceData(d)
+	association, err := createSepaInstantUpdateAssociationFromResourceData(d)
 	if err != nil {
 		return fmt.Errorf("failed to create sepa instant association: %s", err)
 	}
 
+	existingAssociation, err := client.AssociationClient.Associations.GetSepainstantID(
+		associations.NewGetSepainstantIDParams().WithID(association.ID))
+
+	if err != nil {
+		return fmt.Errorf("could not get sepa instant association with id: %s", association.ID.String())
+	}
+
+	if existingAssociation == nil || existingAssociation.Payload == nil {
+		return fmt.Errorf("sepa instant association with id %s is nil or has a nil payload", association.ID)
+	}
+
+	_, err = client.AssociationClient.Associations.PatchSepainstantID(
+		associations.NewPatchSepainstantIDParams().
+			WithVersion(*existingAssociation.Payload.Data.Version).
+			WithID(association.ID).WithPayload(&models.SepaInstantAssociationPatch{
+			Data: &models.UpdateSepaInstantAssociation{
+				Attributes: &models.UpdateSepaInstantAssociationAttributes{
+					DisableOutboundPayments: association.Attributes.DisableOutboundPayments,
+				},
+			},
+		}))
+	if err != nil {
+		return fmt.Errorf("failed to patch sepa instant association: %s", err)
+	}
+
+	log.Printf("[INFO] sepa instant association key: #{d.ID}")
+
 	return nil
+}
+
+func createSepaInstantUpdateAssociationFromResourceData(d *schema.ResourceData) (*models.UpdateSepaInstantAssociation, error) {
+	association := models.UpdateSepaInstantAssociation{Attributes: &models.UpdateSepaInstantAssociationAttributes{}}
+
+	if attr, ok := GetUUIDOK(d, "association_id"); ok {
+		association.ID = attr
+	}
+
+	if attr, ok := GetUUIDOK(d, "organisation_id"); ok {
+		association.OrganisationID = attr
+	}
+
+	if attr, ok := d.GetOk("disable_outbound_payments"); ok {
+		b := attr.(bool)
+		association.Attributes.DisableOutboundPayments = &b
+	}
+
+	return &association, nil
 }
 
 func createSepaInstantNewAssociationFromResourceData(d *schema.ResourceData) (*models.NewSepaInstantAssociation, error) {

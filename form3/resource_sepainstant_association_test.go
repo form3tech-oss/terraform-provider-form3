@@ -2,14 +2,15 @@ package form3
 
 import (
 	"fmt"
+	"os"
+	"testing"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	"github.com/satori/go.uuid"
-	"os"
-	"testing"
+	uuid "github.com/satori/go.uuid"
 )
 
 func TestAccSepaInstantAssociation_basic(t *testing.T) {
@@ -132,7 +133,7 @@ resource "form3_sepainstant_association" "association_sponsored" {
   transport_profile_id = ""
   bic                  = "TESTBIC9"
   simulator_only       = true
-  sponsor_id           = "${form3_sepainstant_association.association.association_id}"	
+  sponsor_id           = "${form3_sepainstant_association.association.association_id}"
 
   depends_on = [
     "form3_sepainstant_association.association"
