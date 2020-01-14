@@ -2108,6 +2108,81 @@ paths:
         204:
           description: Association deleted
 
+  /separeconciliation:
+    post:
+      summary: Create organisation association for sepa reconciliation
+      tags:
+        - Associations
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: creation request
+          in: body
+          schema:
+            $ref: "#/definitions/SepaReconciliationAssociationCreation"
+      responses:
+        201:
+          description: creation response
+          schema:
+            $ref: "#/definitions/SepaReconciliationAssociationCreationResponse"
+    get:
+      summary: List all organisation sepa reconciliation associations
+      tags:
+        - Associations
+      parameters:
+        - name: filter[organisation_id]
+          in: query
+          description: Organisation id
+          required: false
+          type: array
+          items:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: List of associations
+          schema:
+            $ref: "#/definitions/SepaReconciliationAssociationDetailsListResponse"
+
+  /separeconciliation/{id}:
+    get:
+      summary: Fetch organisation sepa reconciliation association
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Associations details
+          schema:
+            $ref: "#/definitions/SepaReconciliationAssociationDetailsResponse"
+    delete:
+      summary: Delete organisation sepa reconciliation association
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+      responses:
+        204:
+          description: Association deleted
+
   /products:
     post:
       summary: Create product association
@@ -5896,6 +5971,116 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/LhvAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+  SepaReconciliationAssociation:
+    type: object
+    properties:
+      type:
+        type: string
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        $ref: "#/definitions/SepaReconciliationAssociationAttributes"
+
+  NewSepaReconciliationAssociation:
+    type: object
+    properties:
+      type:
+        type: string
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        $ref: "#/definitions/SepaReconciliationAssociationAttributes"
+
+  SepaReconciliationAssociationAttributes:
+    type: object
+    required:
+      - bic
+      - iban
+      - name
+      - address
+    properties:
+      bic:
+        type: string
+        x-nullable: false
+        minLength: 1
+      iban:
+        type: string
+        x-nullable: false
+        minLength: 1
+      address:
+        type: object
+        x-nullable: false
+        required:
+          - country
+        properties:
+          street:
+            type: string
+            minLength: 1
+            maxLength: 70
+          building_number:
+            type: string
+            minLength: 1
+            maxLength: 16
+          city:
+            type: string
+            minLength: 1
+            maxLength: 35
+          country:
+            type: string
+            x-nullable: false
+            minLength: 1
+            maxLength: 70
+      name:
+        type: string
+        x-nullable: false
+        minLength: 1
+
+  SepaReconciliationAssociationCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/NewSepaReconciliationAssociation'
+
+  SepaReconciliationAssociationCreationResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/SepaReconciliationAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+  SepaReconciliationAssociationDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/SepaReconciliationAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+  SepaReconciliationAssociationDetailsListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/SepaReconciliationAssociation'
       links:
         $ref: '#/definitions/Links'
 
