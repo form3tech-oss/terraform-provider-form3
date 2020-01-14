@@ -21,12 +21,18 @@ func TestAccSepaReconciliationAssociation_basic(t *testing.T) {
 	name := uuid.NewV4().String()
 	bic := uuid.NewV4().String()
 	iban := uuid.NewV4().String()
-	address_street := uuid.NewV4().String()
-	address_building_number := uuid.NewV4().String()
-	address_city := uuid.NewV4().String()
-	address_country := uuid.NewV4().String()
 
 	assoc_path := "form3_separeconciliation_association.association"
+
+	config := fmt.Sprintf(
+		testForm3SepaReconciliationAssociationConfigA,
+		organisationId,
+		parentOrganisationId,
+		associationId,
+		name,
+		bic,
+		iban,
+	)
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -34,19 +40,7 @@ func TestAccSepaReconciliationAssociation_basic(t *testing.T) {
 		CheckDestroy: testAccCheckSepaReconciliationAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(
-					testForm3SepaReconciliationAssociationConfigA,
-					organisationId,
-					parentOrganisationId,
-					associationId,
-					name,
-					bic,
-					iban,
-					address_street,
-					address_building_number,
-					address_city,
-					address_country,
-				),
+				Config: config,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckSepaReconciliationAssociationExists(assoc_path),
 					resource.TestCheckResourceAttr(assoc_path, "association_id", associationId),
@@ -54,10 +48,10 @@ func TestAccSepaReconciliationAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(assoc_path, "name", name),
 					resource.TestCheckResourceAttr(assoc_path, "bic", bic),
 					resource.TestCheckResourceAttr(assoc_path, "iban", iban),
-					resource.TestCheckResourceAttr(assoc_path, "address_street", address_street),
-					resource.TestCheckResourceAttr(assoc_path, "address_building_number", address_building_number),
-					resource.TestCheckResourceAttr(assoc_path, "address_city", address_city),
-					resource.TestCheckResourceAttr(assoc_path, "address_country", address_country),
+					resource.TestCheckResourceAttr(assoc_path, "address_street", "Harp Ln"),
+					resource.TestCheckResourceAttr(assoc_path, "address_building_number", "7"),
+					resource.TestCheckResourceAttr(assoc_path, "address_city", "London"),
+					resource.TestCheckResourceAttr(assoc_path, "address_country", "United Kingdom"),
 				),
 			},
 		},
@@ -122,11 +116,11 @@ resource "form3_organisation" "organisation" {
 resource "form3_separeconciliation_association" "association" {
 	organisation_id         = "${form3_organisation.organisation.organisation_id}"
 	association_id          = "%s"
-	name                    = "%s
-	bic                     = "%s
-	iban                    = "%s
-	address_street          = "%s
-	address_building_number = "%s
-	address_city            = "%s
-	address_country         = "%s
+	name                    = "%s"
+	bic                     = "%s"
+	iban                    = "%s"
+	address_street          = "Harp Ln"
+	address_building_number = "7"
+	address_city            = "London"
+	address_country         = "United Kingdom"
 }`
