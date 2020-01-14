@@ -168,6 +168,9 @@ func resourceSepaInstantAssociationUpdate(d *schema.ResourceData, meta interface
 			WithVersion(*existingAssociation.Payload.Data.Version).
 			WithID(association.ID).WithPayload(&models.SepaInstantAssociationPatch{
 			Data: &models.UpdateSepaInstantAssociation{
+				ID:             association.ID,
+				OrganisationID: association.OrganisationID,
+				Type:           models.SepaInstantAssociationReferenceTypeSepainstantAssociations,
 				Attributes: &models.UpdateSepaInstantAssociationAttributes{
 					DisableOutboundPayments: association.Attributes.DisableOutboundPayments,
 				},
