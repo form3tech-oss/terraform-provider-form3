@@ -18,6 +18,9 @@ func resourceForm3SepaInstantAssociation() *schema.Resource {
 		Read:   resourceSepaInstantAssociationRead,
 		Delete: resourceSepaInstantAssociationDelete,
 		Update: resourceSepaInstantAssociationUpdate,
+		Importer: &schema.ResourceImporter{
+			State: schema.ImportStatePassthrough,
+		},
 
 		Schema: map[string]*schema.Schema{
 			"association_id": {
@@ -72,7 +75,7 @@ func resourceSepaInstantAssociationCreate(d *schema.ResourceData, meta interface
 
 	association, err := createSepaInstantNewAssociationFromResourceData(d)
 	if err != nil {
-		return fmt.Errorf("failed to create sepa instant association: %s", err)
+		return fmt.Errorf("failed to create sepa instant association from resource data: %s", err)
 	}
 
 	createdAssociation, err := client.AssociationClient.Associations.PostSepainstant(associations.NewPostSepainstantParams().
@@ -81,7 +84,7 @@ func resourceSepaInstantAssociationCreate(d *schema.ResourceData, meta interface
 		}))
 
 	if err != nil {
-		return fmt.Errorf("failed to create sepa instant association: %s", err)
+		return fmt.Errorf("error when posting new sepa instant association resource: %s", err)
 	}
 
 	d.SetId(createdAssociation.Payload.Data.ID.String())
@@ -146,7 +149,7 @@ func resourceSepaInstantAssociationUpdate(d *schema.ResourceData, meta interface
 
 	association, err := createSepaInstantUpdateAssociationFromResourceData(d)
 	if err != nil {
-		return fmt.Errorf("failed to create sepa instant association: %s", err)
+		return fmt.Errorf("failed to create an updated sepa instant association resource: %s", err)
 	}
 
 	existingAssociation, err := client.AssociationClient.Associations.GetSepainstantID(
