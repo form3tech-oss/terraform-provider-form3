@@ -35,6 +35,7 @@ func TestAccSepaInstantAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "transport_profile_id", "TEST_PROFILE_1"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "bic", "TESTBIC8"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "simulator_only", "true"),
+					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "disable_outbound_payments", "false"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "sponsor_id", ""),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association_sponsored", "association_id", sponsoredAssociationId),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association_sponsored", "organisation_id", sponsoredOrganisationId),
@@ -42,6 +43,20 @@ func TestAccSepaInstantAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association_sponsored", "transport_profile_id", ""),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association_sponsored", "bic", "TESTBIC9"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association_sponsored", "sponsor_id", associationId),
+				),
+			},
+			{
+				Config: fmt.Sprintf(testForm3SepaInstantAssociationUpdatedConfig, organisationId, parentOrganisationId, associationId),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckSepaInstantAssociationExists("form3_sepainstant_association.association"),
+					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "association_id", associationId),
+					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "organisation_id", organisationId),
+					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "business_user_dn", "cn=testbic8,ou=pilot,ou=eba_ips,o=88331,dc=sianet,dc=sia,dc=eu"),
+					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "transport_profile_id", "TEST_PROFILE_1"),
+					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "bic", "TESTBIC8"),
+					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "simulator_only", "true"),
+					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "disable_outbound_payments", "false"),
+					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "sponsor_id", ""),
 				),
 			},
 		},
@@ -138,5 +153,28 @@ resource "form3_sepainstant_association" "association_sponsored" {
   depends_on = [
     "form3_sepainstant_association.association"
   ]
+}
+`
+
+const testForm3SepaInstantAssociationUpdatedConfig = `
+locals {
+	organisation_id          = "%s"
+	parent_organisation_id   = "%s"
+	association_id           = "%s"
+}
+
+resource "form3_organisation" "organisation" {
+	organisation_id        = "${local.organisation_id}"
+	parent_organisation_id = "${local.parent_organisation_id}"
+	name 		           = "terraform-organisation"
+}
+
+resource "form3_sepainstant_association" "association" {
+	organisation_id           = "${form3_organisation.organisation.organisation_id}"
+	association_id            = "${local.association_id}"
+  	business_user_dn          = "cn=testbic8,ou=pilot,ou=eba_ips,o=88331,dc=sianet,dc=sia,dc=eu"
+  	transport_profile_id      = "TEST_PROFILE_1"
+	bic                       = "TESTBIC8"
+	simulator_only       	  = true
 }
 `
