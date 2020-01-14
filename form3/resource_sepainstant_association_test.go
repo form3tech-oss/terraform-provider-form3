@@ -176,6 +176,6 @@ resource "form3_sepainstant_association" "association" {
   	transport_profile_id      = "TEST_PROFILE_1"
 	bic                       = "TESTBIC8"
 	simulator_only            = true
-    disable_outbound_payments = true
+	disable_outbound_payments = true
 }
 `
