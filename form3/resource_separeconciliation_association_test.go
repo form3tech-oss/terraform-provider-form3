@@ -20,8 +20,8 @@ func TestAccSepaReconciliationAssociation_basic(t *testing.T) {
 	sponsorAssociationID := uuid.NewV4().String()
 	sponsoredAssociationID := uuid.NewV4().String()
 
-	sponsor_assoc_path := "form3_separeconciliation_association[0].association"
-	sponsored_assoc_path := "form3_separeconciliation_association[1].association"
+	sponsor_assoc_path := "form3_separeconciliation_association.sponsor_association"
+	sponsored_assoc_path := "form3_separeconciliation_association.sponsored_association"
 
 	config := fmt.Sprintf(
 		testForm3SepaReconciliationAssociationConfigA,
@@ -50,7 +50,7 @@ func TestAccSepaReconciliationAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(sponsor_assoc_path, "address_building_number", "7"),
 					resource.TestCheckResourceAttr(sponsor_assoc_path, "address_city", "London"),
 					resource.TestCheckResourceAttr(sponsor_assoc_path, "address_country", "United Kingdom"),
-					resource.TestCheckResourceAttr(sponsor_assoc_path, "sponsor", ""),
+					resource.TestCheckResourceAttr(sponsor_assoc_path, "sponsor_id", ""),
 
 					testAccCheckSepaReconciliationAssociationExists(sponsored_assoc_path),
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "association_id", sponsoredAssociationID),
@@ -62,7 +62,7 @@ func TestAccSepaReconciliationAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "address_building_number", "7"),
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "address_city", "London"),
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "address_country", "United Kingdom"),
-					resource.TestCheckResourceAttr(sponsored_assoc_path, "sponsor", ""),
+					resource.TestCheckResourceAttr(sponsored_assoc_path, "sponsor_id", sponsorAssociationID),
 				),
 			},
 		},
@@ -102,7 +102,7 @@ func testAccCheckSepaReconciliationAssociationExists(resourceKey string) resourc
 
 		client := testAccProvider.Meta().(*form3.AuthenticatedClient)
 
-		foundRecord, err := client.AssociationClient.Associations.GetLhvID(associations.NewGetLhvIDParams().
+		foundRecord, err := client.AssociationClient.Associations.GetSepaReconciliationID(associations.NewGetSepaReconciliationIDParams().
 			WithID(strfmt.UUID(rs.Primary.ID)))
 
 		if err != nil {
@@ -119,13 +119,13 @@ func testAccCheckSepaReconciliationAssociationExists(resourceKey string) resourc
 
 const testForm3SepaReconciliationAssociationConfigA = `
 locals {
-	parent_organisation_id   = "%s"
+	parent_organisation_id    = "%s"
 	
-	sponsor_organisation_id          = "%s"
-	sponsored_organisation_id          = "%s"
+	sponsor_organisation_id   = "%s"
+	sponsored_organisation_id = "%s"
 	
-	sponsor_association_id           = "%s"
-	sponsored_association_id           = "%s"
+	sponsor_association_id    = "%s"
+	sponsored_association_id  = "%s"
 }
 
 resource "form3_organisation" "sponsor" {
@@ -134,11 +134,11 @@ resource "form3_organisation" "sponsor" {
 	name 		               = "terraform-sponsor-organisation"
 }
 
-// resource "form3_organisation" "sponsored" {
-// 	organisation_id        = "${local.sponsored_organisation_id}"
-// 	parent_organisation_id = "${local.parent_organisation_id}"
-// 	name 		               = "terraform-sponsored-organisation"
-// }
+resource "form3_organisation" "sponsored" {
+	organisation_id        = "${local.sponsored_organisation_id}"
+	parent_organisation_id = "${local.parent_organisation_id}"
+	name 		               = "terraform-sponsored-organisation"
+}
 
 resource "form3_separeconciliation_association" "sponsor_association" {
 	organisation_id         = "${form3_organisation.sponsor.organisation_id}"
@@ -151,16 +151,17 @@ resource "form3_separeconciliation_association" "sponsor_association" {
 	address_city            = "London"
 	address_country         = "United Kingdom"
 }
-// resource "form3_separeconciliation_association" "sponsored_association" {
-// 	organisation_id         = "${form3_organisation.sponsor.organisation_id}"
-// 	association_id          = "${local.sponsor_association_id}"
-// 	name                    = "Sponsored company"
-// 	bic                     = "TESTBIC2"
-// 	iban                    = "GB22ABCD19283700000002"
-// 	address_street          = "Harp Ln"
-// 	address_building_number = "7"
-// 	address_city            = "London"
-// 	address_country         = "United Kingdom"
-// 	sponsor_id              = "${form3_separeconciliation_association.sponsor_association.association_id}"
-// }
+
+resource "form3_separeconciliation_association" "sponsored_association" {
+	organisation_id         = "${form3_organisation.sponsored.organisation_id}"
+	association_id          = "${local.sponsored_association_id}"
+	name                    = "Sponsored company"
+	bic                     = "TESTBIC2"
+	iban                    = "GB22ABCD19283700000002"
+	address_street          = "Harp Ln"
+	address_building_number = "7"
+	address_city            = "London"
+	address_country         = "United Kingdom"
+	sponsor_id              = "${form3_separeconciliation_association.sponsor_association.association_id}"
+}
 `

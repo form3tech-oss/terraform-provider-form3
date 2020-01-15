@@ -2,13 +2,14 @@ package form3
 
 import (
 	"fmt"
+	"log"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
 )
 
 func resourceForm3SepaReconciliationAssociation() *schema.Resource {
@@ -190,5 +191,15 @@ func createSepaReconciliationNewAssociationFromResourceData(d *schema.ResourceDa
 		association.Attributes.Address.Country = attr.(string)
 	}
 
+	if attr, ok := GetUUIDOK(d, "sponsor_id"); ok {
+		association.Relationships = &models.SepaReconciliationAssociationRelationships{
+			Sponsor: models.SepaReconciliationAssociationRelationshipsSponsor{
+				Data: models.SepaReconciliationRelationshipData{
+					ID:   attr,
+					Type: "separeconciliation_associations",
+				},
+			},
+		}
+	}
 	return &association, nil
 }

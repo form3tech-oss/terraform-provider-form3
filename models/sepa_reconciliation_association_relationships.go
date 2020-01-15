@@ -73,7 +73,8 @@ func (m *SepaReconciliationAssociationRelationships) UnmarshalBinary(b []byte) e
 type SepaReconciliationAssociationRelationshipsSponsor struct {
 
 	// data
-	Data SepaReconciliationAssociationReference `json:"data,omitempty"`
+	// Required: true
+	Data SepaReconciliationRelationshipData `json:"data"`
 }
 
 // Validate validates this sepa reconciliation association relationships sponsor
@@ -91,10 +92,6 @@ func (m *SepaReconciliationAssociationRelationshipsSponsor) Validate(formats str
 }
 
 func (m *SepaReconciliationAssociationRelationshipsSponsor) validateData(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Data) { // not required
-		return nil
-	}
 
 	if err := m.Data.Validate(formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {

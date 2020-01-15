@@ -137,14 +137,16 @@ func (m *SepaReconciliationAssociationAttributes) UnmarshalBinary(b []byte) erro
 type SepaReconciliationAssociationAttributesAddress struct {
 
 	// building number
+	// Required: true
 	// Max Length: 16
 	// Min Length: 1
-	BuildingNumber string `json:"building_number,omitempty"`
+	BuildingNumber string `json:"building_number"`
 
 	// city
+	// Required: true
 	// Max Length: 35
 	// Min Length: 1
-	City string `json:"city,omitempty"`
+	City string `json:"city"`
 
 	// country
 	// Required: true
@@ -153,9 +155,10 @@ type SepaReconciliationAssociationAttributesAddress struct {
 	Country string `json:"country"`
 
 	// street
+	// Required: true
 	// Max Length: 70
 	// Min Length: 1
-	Street string `json:"street,omitempty"`
+	Street string `json:"street"`
 }
 
 // Validate validates this sepa reconciliation association attributes address
@@ -186,8 +189,8 @@ func (m *SepaReconciliationAssociationAttributesAddress) Validate(formats strfmt
 
 func (m *SepaReconciliationAssociationAttributesAddress) validateBuildingNumber(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.BuildingNumber) { // not required
-		return nil
+	if err := validate.RequiredString("address"+"."+"building_number", "body", string(m.BuildingNumber)); err != nil {
+		return err
 	}
 
 	if err := validate.MinLength("address"+"."+"building_number", "body", string(m.BuildingNumber), 1); err != nil {
@@ -203,8 +206,8 @@ func (m *SepaReconciliationAssociationAttributesAddress) validateBuildingNumber(
 
 func (m *SepaReconciliationAssociationAttributesAddress) validateCity(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.City) { // not required
-		return nil
+	if err := validate.RequiredString("address"+"."+"city", "body", string(m.City)); err != nil {
+		return err
 	}
 
 	if err := validate.MinLength("address"+"."+"city", "body", string(m.City), 1); err != nil {
@@ -237,8 +240,8 @@ func (m *SepaReconciliationAssociationAttributesAddress) validateCountry(formats
 
 func (m *SepaReconciliationAssociationAttributesAddress) validateStreet(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Street) { // not required
-		return nil
+	if err := validate.RequiredString("address"+"."+"street", "body", string(m.Street)); err != nil {
+		return err
 	}
 
 	if err := validate.MinLength("address"+"."+"street", "body", string(m.Street), 1); err != nil {
