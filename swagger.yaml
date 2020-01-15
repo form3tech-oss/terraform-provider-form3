@@ -2108,7 +2108,7 @@ paths:
         204:
           description: Association deleted
 
-  /separeconciliation:
+  /sepa-reconciliation:
     post:
       summary: Create organisation association for sepa reconciliation
       tags:
@@ -2145,7 +2145,7 @@ paths:
           schema:
             $ref: "#/definitions/SepaReconciliationAssociationDetailsListResponse"
 
-  /separeconciliation/{id}:
+  /sepa-reconciliation/{id}:
     get:
       summary: Fetch organisation sepa reconciliation association
       tags:
@@ -5990,6 +5990,8 @@ definitions:
         format: uuid
       attributes:
         $ref: "#/definitions/SepaReconciliationAssociationAttributes"
+      relationships:
+        $ref: "#/definitions/SepaReconciliationAssociationRelationships"
 
   NewSepaReconciliationAssociation:
     type: object
@@ -6007,6 +6009,8 @@ definitions:
         format: uuid
       attributes:
         $ref: "#/definitions/SepaReconciliationAssociationAttributes"
+      relationships:
+        $ref: "#/definitions/SepaReconciliationAssociationRelationships"
 
   SepaReconciliationAssociationAttributes:
     type: object
@@ -6051,6 +6055,34 @@ definitions:
         type: string
         x-nullable: false
         minLength: 1
+
+  SepaReconciliationAssociationRelationships:
+    type: object
+    properties:
+      sponsor:
+        type: object
+        x-nullable: false
+        properties:
+          data:
+            $ref: "#/definitions/SepaReconciliationAssociationReference"
+
+
+  SepaReconciliationAssociationReference:
+    type: object
+    x-nullable: false
+    required:
+      - id
+      - type
+    properties:
+      id:
+        x-nullable: false
+        type: string
+        format: uuid
+      type:
+        x-nullable: false
+        type: string
+        enum:
+          - separeconciliation_associations
 
   SepaReconciliationAssociationCreation:
     type: object

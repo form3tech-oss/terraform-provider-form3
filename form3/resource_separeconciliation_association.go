@@ -63,6 +63,12 @@ func resourceForm3SepaReconciliationAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
+			"sponsor_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+				Default:  "",
+			},
 		},
 	}
 }
@@ -75,7 +81,7 @@ func resourceSepaReconciliationAssociationCreate(d *schema.ResourceData, meta in
 		return fmt.Errorf("failed to create sepa reconciliation association: %s", err)
 	}
 
-	createdAssociation, err := client.AssociationClient.Associations.PostSepareconciliation(associations.NewPostSepareconciliationParams().
+	createdAssociation, err := client.AssociationClient.Associations.PostSepaReconciliation(associations.NewPostSepaReconciliationParams().
 		WithCreationRequest(&models.SepaReconciliationAssociationCreation{
 			Data: association,
 		}))
@@ -95,7 +101,7 @@ func resourceSepaReconciliationAssociationRead(d *schema.ResourceData, meta inte
 
 	associationId, _ := GetUUIDOK(d, "association_id")
 
-	SepaReconciliationAssociation, err := client.AssociationClient.Associations.GetSepareconciliationID(associations.NewGetSepareconciliationIDParams().
+	sepaReconciliationAssociation, err := client.AssociationClient.Associations.GetSepaReconciliationID(associations.NewGetSepaReconciliationIDParams().
 		WithID(associationId))
 
 	if err != nil {
@@ -108,27 +114,32 @@ func resourceSepaReconciliationAssociationRead(d *schema.ResourceData, meta inte
 		return fmt.Errorf("couldn't find sepa reconciliation assocation: %s", err)
 	}
 
-	_ = d.Set("association_id", SepaReconciliationAssociation.Payload.Data.ID.String())
-	_ = d.Set("name", SepaReconciliationAssociation.Payload.Data.Attributes.Name)
-	_ = d.Set("bic", SepaReconciliationAssociation.Payload.Data.Attributes.Bic)
-	_ = d.Set("iban", SepaReconciliationAssociation.Payload.Data.Attributes.Iban)
-	_ = d.Set("address_street", SepaReconciliationAssociation.Payload.Data.Attributes.Address.Street)
-	_ = d.Set("address_building_number", SepaReconciliationAssociation.Payload.Data.Attributes.Address.BuildingNumber)
-	_ = d.Set("address_city", SepaReconciliationAssociation.Payload.Data.Attributes.Address.City)
-	_ = d.Set("address_country", SepaReconciliationAssociation.Payload.Data.Attributes.Address.Country)
+	_ = d.Set("association_id", sepaReconciliationAssociation.Payload.Data.ID.String())
+	_ = d.Set("name", sepaReconciliationAssociation.Payload.Data.Attributes.Name)
+	_ = d.Set("bic", sepaReconciliationAssociation.Payload.Data.Attributes.Bic)
+	_ = d.Set("iban", sepaReconciliationAssociation.Payload.Data.Attributes.Iban)
+	_ = d.Set("address_street", sepaReconciliationAssociation.Payload.Data.Attributes.Address.Street)
+	_ = d.Set("address_building_number", sepaReconciliationAssociation.Payload.Data.Attributes.Address.BuildingNumber)
+	_ = d.Set("address_city", sepaReconciliationAssociation.Payload.Data.Attributes.Address.City)
+	_ = d.Set("address_country", sepaReconciliationAssociation.Payload.Data.Attributes.Address.Country)
+	if sepaReconciliationAssociation.Payload.Data.Relationships == nil {
+		d.Set("sponsor_id", "")
+	} else {
+		d.Set("sponsor_id", sepaReconciliationAssociation.Payload.Data.Relationships.Sponsor.Data.ID.String())
+	}
 	return nil
 }
 
 func resourceSepaReconciliationAssociationDelete(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
 
-	SepaReconciliationAssociation, err := client.AssociationClient.Associations.GetSepareconciliationID(associations.NewGetSepareconciliationIDParams().
+	SepaReconciliationAssociation, err := client.AssociationClient.Associations.GetSepaReconciliationID(associations.NewGetSepaReconciliationIDParams().
 		WithID(strfmt.UUID(d.Id())))
 	if err != nil {
 		return fmt.Errorf("error deleting sepa reconciliation assocation: %s", err)
 	}
 
-	_, err = client.AssociationClient.Associations.DeleteSepareconciliationID(associations.NewDeleteSepareconciliationIDParams().
+	_, err = client.AssociationClient.Associations.DeleteSepaReconciliationID(associations.NewDeleteSepaReconciliationIDParams().
 		WithID(SepaReconciliationAssociation.Payload.Data.ID).
 		WithVersion(*SepaReconciliationAssociation.Payload.Data.Version))
 
