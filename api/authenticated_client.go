@@ -131,14 +131,14 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 			retryableFunc := func() error {
 				var err error
 				log.Printf("[DEBUG] retrying %s", req.URL)
-				// if req.Body != nil {
-				// 	body := req.Body.(ReadSeekerCloser)
-				// 	if body != nil {
-				// 		if _, err := body.Seek(0, 0); err != nil {
-				// 			return errors.New(fmt.Sprintf("failed to seek request body: %s", err))
-				// 		}
-				// 	}
-				// }
+				if req.Body != nil {
+					body := req.Body.(ReadSeekerCloser)
+					if body != nil {
+						if _, err := body.Seek(0, 0); err != nil {
+							return errors.New(fmt.Sprintf("failed to seek request body: %s", err))
+						}
+					}
+				}
 				resp, err = http.DefaultTransport.RoundTrip(req)
 				if resp.StatusCode == 403 {
 					return errors.New(fmt.Sprintf("status code: %d", resp.StatusCode))
