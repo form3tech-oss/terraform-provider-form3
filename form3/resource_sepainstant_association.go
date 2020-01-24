@@ -36,17 +36,17 @@ func resourceForm3SepaInstantAssociation() *schema.Resource {
 			"business_user_dn": {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
+				ForceNew: false,
 			},
 			"transport_profile_id": {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
+				ForceNew: false,
 			},
 			"bic": {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
+				ForceNew: false,
 			},
 			"simulator_only": {
 				Type:     schema.TypeBool,
