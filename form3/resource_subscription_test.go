@@ -2,14 +2,15 @@ package form3
 
 import (
 	"fmt"
+	"os"
+	"testing"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/subscriptions"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	"github.com/satori/go.uuid"
-	"os"
-	"testing"
+	uuid "github.com/satori/go.uuid"
 )
 
 func TestAccSubscription_basic(t *testing.T) {
@@ -34,6 +35,10 @@ func TestAccSubscription_basic(t *testing.T) {
 						"form3_subscription.subscription", "event_type", "Updated"),
 					resource.TestCheckResourceAttr(
 						"form3_subscription.subscription", "record_type", "PaymentAdmission"),
+					resource.TestCheckResourceAttr(
+						"form3_subscription.subscription", "filter", "data.attributes.payment_scheme: FPS"),
+					resource.TestCheckResourceAttr(
+						"form3_subscription.subscription", "deactivated", "false"),
 				),
 			},
 			{
@@ -42,6 +47,10 @@ func TestAccSubscription_basic(t *testing.T) {
 					testAccCheckSubscriptionExists("form3_subscription.subscription", &subscriptionResponse),
 					resource.TestCheckResourceAttr(
 						"form3_subscription.subscription", "callback_uri", "https://sqs.eu-west-1.amazonaws.com/288840537196/notification-test-2"),
+					resource.TestCheckResourceAttr(
+						"form3_subscription.subscription", "filter", "data.attributes.payment_scheme: FPS"),
+					resource.TestCheckResourceAttr(
+						"form3_subscription.subscription", "deactivated", "false"),
 				),
 			},
 		},
@@ -130,7 +139,9 @@ resource "form3_subscription" "subscription" {
 	callback_transport = "queue"
   	callback_uri       = "https://sqs.eu-west-1.amazonaws.com/288840537196/notification-test"
   	event_type         = "Updated"
-  	record_type        = "PaymentAdmission"
+	record_type        = "PaymentAdmission"
+	filter 			   = "data.attributes.payment_scheme: FPS"
+	deactivated        = false
 }`
 
 const testForm3SubscriptionConfigAUpdate = `
@@ -140,5 +151,7 @@ resource "form3_subscription" "subscription" {
 	callback_transport = "queue"
   	callback_uri       = "https://sqs.eu-west-1.amazonaws.com/288840537196/notification-test-2"
   	event_type         = "Updated"
-  	record_type        = "PaymentAdmission"
+	record_type        = "PaymentAdmission"
+	filter 			   = "data.attributes.payment_scheme: FPS"
+	deactivated        = false
 }`

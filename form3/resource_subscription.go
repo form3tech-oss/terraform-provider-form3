@@ -2,13 +2,14 @@ package form3
 
 import (
 	"fmt"
+	"log"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/subscriptions"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
 )
 
 func resourceForm3Subscription() *schema.Resource {
@@ -48,6 +49,16 @@ func resourceForm3Subscription() *schema.Resource {
 			"record_type": &schema.Schema{
 				Type:     schema.TypeString,
 				Required: true,
+			},
+			"filter": &schema.Schema{
+				Type:     schema.TypeString,
+				Required: false,
+				Optional: true,
+			},
+			"deactivated": &schema.Schema{
+				Type:     schema.TypeBool,
+				Required: false,
+				Optional: true,
 			},
 		},
 	}
@@ -110,6 +121,8 @@ func resourceSubscriptionRead(d *schema.ResourceData, meta interface{}) error {
 	d.Set("callback_uri", subscription.Payload.Data.Attributes.CallbackURI)
 	d.Set("event_type", subscription.Payload.Data.Attributes.EventType)
 	d.Set("record_type", subscription.Payload.Data.Attributes.RecordType)
+	d.Set("filter", subscription.Payload.Data.Attributes.Filter)
+	d.Set("deactivated", subscription.Payload.Data.Attributes.Deactivated)
 
 	return nil
 }
@@ -193,6 +206,14 @@ func createSubscriptionFromResourceData(d *schema.ResourceData) (*models.Subscri
 
 	if attr, ok := d.GetOk("record_type"); ok {
 		subscription.Attributes.RecordType = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("filter"); ok {
+		subscription.Attributes.Filter = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("deactivated"); ok {
+		subscription.Attributes.Deactivated = attr.(bool)
 	}
 
 	return &subscription, nil
