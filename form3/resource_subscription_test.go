@@ -139,9 +139,9 @@ resource "form3_subscription" "subscription" {
 	callback_transport = "queue"
   	callback_uri       = "https://sqs.eu-west-1.amazonaws.com/288840537196/notification-test"
   	event_type         = "Updated"
-    record_type        = "PaymentAdmission"
-    filter 			   = "data.attributes.payment_scheme: FPS"
-    deactivated        = false
+		record_type        = "PaymentAdmission"
+		filter 			   = "data.attributes.payment_scheme: FPS"
+		deactivated        = false
 }`
 
 const testForm3SubscriptionConfigAUpdate = `
@@ -151,7 +151,7 @@ resource "form3_subscription" "subscription" {
 	callback_transport = "queue"
   	callback_uri       = "https://sqs.eu-west-1.amazonaws.com/288840537196/notification-test-2"
   	event_type         = "Updated"
-    record_type        = "PaymentAdmission"
-    filter 			   = "data.attributes.payment_scheme: FPS"
-    deactivated        = false
+    	record_type        = "PaymentAdmission"
+    	filter 			   = "data.attributes.payment_scheme: FPS"
+    	deactivated        = false
 }`
