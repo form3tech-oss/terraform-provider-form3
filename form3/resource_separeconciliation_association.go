@@ -34,12 +34,17 @@ func resourceForm3SepaReconciliationAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
-			"bic": {
+			"technical_bic": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			"iban": {
+			"reconciliation_bic": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
+			"reconciliation_iban": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
@@ -117,8 +122,9 @@ func resourceSepaReconciliationAssociationRead(d *schema.ResourceData, meta inte
 
 	_ = d.Set("association_id", sepaReconciliationAssociation.Payload.Data.ID.String())
 	_ = d.Set("name", sepaReconciliationAssociation.Payload.Data.Attributes.Name)
-	_ = d.Set("bic", sepaReconciliationAssociation.Payload.Data.Attributes.Bic)
-	_ = d.Set("iban", sepaReconciliationAssociation.Payload.Data.Attributes.Iban)
+	_ = d.Set("technical_bic", sepaReconciliationAssociation.Payload.Data.Attributes.TechnicalBic)
+	_ = d.Set("reconciliation_bic", sepaReconciliationAssociation.Payload.Data.Attributes.ReconciliationBic)
+	_ = d.Set("reconciliation_iban", sepaReconciliationAssociation.Payload.Data.Attributes.ReconciliationIban)
 	_ = d.Set("address_street", sepaReconciliationAssociation.Payload.Data.Attributes.Address.Street)
 	_ = d.Set("address_building_number", sepaReconciliationAssociation.Payload.Data.Attributes.Address.BuildingNumber)
 	_ = d.Set("address_city", sepaReconciliationAssociation.Payload.Data.Attributes.Address.City)
@@ -167,12 +173,16 @@ func createSepaReconciliationNewAssociationFromResourceData(d *schema.ResourceDa
 		association.Attributes.Name = attr.(string)
 	}
 
-	if attr, ok := d.GetOk("bic"); ok {
-		association.Attributes.Bic = attr.(string)
+	if attr, ok := d.GetOk("technical_bic"); ok {
+		association.Attributes.TechnicalBic = attr.(string)
 	}
 
-	if attr, ok := d.GetOk("iban"); ok {
-		association.Attributes.Iban = attr.(string)
+	if attr, ok := d.GetOk("reconciliation_bic"); ok {
+		association.Attributes.ReconciliationBic = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("reconciliation_iban"); ok {
+		association.Attributes.ReconciliationIban = attr.(string)
 	}
 
 	if attr, ok := d.GetOk("address_street"); ok {
