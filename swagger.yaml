@@ -6015,16 +6015,21 @@ definitions:
   SepaReconciliationAssociationAttributes:
     type: object
     required:
-      - bic
-      - iban
-      - name
+      - technical_bic
+      - reconciliation_bic
+      - reconciliation_iban
       - address
+      - name
     properties:
-      bic:
+      technical_bic:
         type: string
         x-nullable: false
         minLength: 1
-      iban:
+      reconciliation_bic:
+        type: string
+        x-nullable: false
+        minLength: 1
+      reconciliation_iban:
         type: string
         x-nullable: false
         minLength: 1
