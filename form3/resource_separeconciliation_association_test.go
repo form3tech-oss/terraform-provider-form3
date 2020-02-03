@@ -160,7 +160,7 @@ resource "form3_separeconciliation_association" "sponsored_association" {
 	association_id          = "${local.sponsored_association_id}"
 	name                    = "Sponsored company"
 	technical_bic           = "TESTBIC2"
-	reconciliation_bic      = "RECON000"
+	reconciliation_bic      = "RECON001"
 	reconciliation_iban     = "GB22ABCD19283700000002"
 	address_street          = "Harp Ln"
 	address_building_number = "7"

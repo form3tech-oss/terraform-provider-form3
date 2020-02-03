@@ -24,7 +24,7 @@ resource "form3_user" "admin_user" {
 }
 
 resource "form3_credential" "admin_user_credentials" {
-  user_id 		    = "${form3_user.admin_user.user_id}"
+  user_id = "${form3_user.admin_user.user_id}"
 }
 
 resource "form3_role" "role" {
