@@ -83,6 +83,10 @@ type BacsAssociationCertificateRelationshipData struct {
 	// Format: uuid
 	KeyID strfmt.UUID `json:"key_id,omitempty"`
 
+	// tsu number
+	// Pattern: ^[0-9A-Z]{6}$
+	TsuNumber string `json:"tsu_number,omitempty"`
+
 	// type
 	Type string `json:"type,omitempty"`
 }
@@ -96,6 +100,10 @@ func (m *BacsAssociationCertificateRelationshipData) Validate(formats strfmt.Reg
 	}
 
 	if err := m.validateKeyID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTsuNumber(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -125,6 +133,19 @@ func (m *BacsAssociationCertificateRelationshipData) validateKeyID(formats strfm
 	}
 
 	if err := validate.FormatOf("data"+"."+"key_id", "body", "uuid", m.KeyID.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *BacsAssociationCertificateRelationshipData) validateTsuNumber(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.TsuNumber) { // not required
+		return nil
+	}
+
+	if err := validate.Pattern("data"+"."+"tsu_number", "body", string(m.TsuNumber), `^[0-9A-Z]{6}$`); err != nil {
 		return err
 	}
 
