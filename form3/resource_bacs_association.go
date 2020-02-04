@@ -71,6 +71,11 @@ func resourceForm3BacsAssociation() *schema.Resource {
 				Optional: true,
 				ForceNew: true,
 			},
+			"input_tsu_number": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
 			"output_key_id": {
 				Type:     schema.TypeString,
 				Optional: true,
@@ -81,12 +86,22 @@ func resourceForm3BacsAssociation() *schema.Resource {
 				Optional: true,
 				ForceNew: true,
 			},
+			"output_tsu_number": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
 			"messaging_key_id": {
 				Type:     schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"messaging_certificate_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
+			"messaging_tsu_number": {
 				Type:     schema.TypeString,
 				Optional: true,
 				ForceNew: true,
