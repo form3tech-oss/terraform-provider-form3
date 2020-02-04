@@ -98,7 +98,9 @@ func resourceEburyAssociationDelete(d *schema.ResourceData, meta interface{}) er
 }
 
 func createEburyAssociationFromResourceData(d *schema.ResourceData) (*models.NewEburyAssociation, error) {
-	association := models.NewEburyAssociation{}
+	association := models.NewEburyAssociation{
+		Type: string(models.ResourceTypeEburyAssociations),
+	}
 
 	if attr, ok := GetUUIDOK(d, "association_id"); ok {
 		association.ID = attr
