@@ -97,11 +97,6 @@ func resourceForm3BacsAssociation() *schema.Resource {
 				ForceNew: true,
 				Default:  false,
 			},
-			"tsu_number": {
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
-			},
 		},
 	}
 }
@@ -166,20 +161,22 @@ func resourceBacsAssociationRead(d *schema.ResourceData, meta interface{}) error
 	d.Set("bank_code", bacsAssociation.Payload.Data.Attributes.BankCode)
 	d.Set("centre_number", bacsAssociation.Payload.Data.Attributes.CentreNumber)
 	d.Set("test_file_submission", bacsAssociation.Payload.Data.Attributes.TestFileSubmission)
-	d.Set("tsu_number", bacsAssociation.Payload.Data.Attributes.TsuNumber)
 
 	if bacsAssociation.Payload.Data.Relationships != nil {
 		if bacsAssociation.Payload.Data.Relationships.InputCertificate != nil && bacsAssociation.Payload.Data.Relationships.InputCertificate.Data != nil {
 			d.Set("input_key_id", bacsAssociation.Payload.Data.Relationships.InputCertificate.Data.KeyID)
 			d.Set("input_certificate_id", bacsAssociation.Payload.Data.Relationships.InputCertificate.Data.CertificateID)
+			d.Set("input_tsu_number", bacsAssociation.Payload.Data.Relationships.InputCertificate.Data.TsuNumber)
 		}
 		if bacsAssociation.Payload.Data.Relationships.OutputCertificate != nil && bacsAssociation.Payload.Data.Relationships.OutputCertificate.Data != nil {
 			d.Set("output_key_id", bacsAssociation.Payload.Data.Relationships.OutputCertificate.Data.KeyID)
 			d.Set("output_certificate_id", bacsAssociation.Payload.Data.Relationships.OutputCertificate.Data.CertificateID)
+			d.Set("output_tsu_number", bacsAssociation.Payload.Data.Relationships.OutputCertificate.Data.TsuNumber)
 		}
 		if bacsAssociation.Payload.Data.Relationships.MessagingCertificate != nil && bacsAssociation.Payload.Data.Relationships.MessagingCertificate.Data != nil {
 			d.Set("messaging_key_id", bacsAssociation.Payload.Data.Relationships.MessagingCertificate.Data.KeyID)
 			d.Set("messaging_certificate_id", bacsAssociation.Payload.Data.Relationships.MessagingCertificate.Data.CertificateID)
+			d.Set("messaging_tsu_number", bacsAssociation.Payload.Data.Relationships.MessagingCertificate.Data.TsuNumber)
 		}
 	}
 
@@ -258,10 +255,6 @@ func createBacsNewAssociationFromResourceData(d *schema.ResourceData) (*models.B
 		association.Attributes.TestFileSubmission = &b
 	}
 
-	if attr, ok := d.GetOk("tsu_number"); ok {
-		association.Attributes.TsuNumber = attr.(string)
-	}
-
 	association.Relationships.InputCertificate = buildRelationship(d, "input")
 	association.Relationships.OutputCertificate = buildRelationship(d, "output")
 	association.Relationships.MessagingCertificate = buildRelationship(d, "messaging")
@@ -270,14 +263,18 @@ func createBacsNewAssociationFromResourceData(d *schema.ResourceData) (*models.B
 }
 
 func buildRelationship(d *schema.ResourceData, relation string) *models.BacsAssociationCertificateRelationship {
+	tsuNumber := ""
+	if attr, ok := d.GetOk(relation + "_tsu_number"); ok {
+		tsuNumber = attr.(string)
+	}
 	if keyId, ok := GetUUIDOK(d, relation+"_key_id"); ok {
 		if certId, certOk := GetUUIDOK(d, relation+"_certificate_id"); certOk {
 			return &models.BacsAssociationCertificateRelationship{
-				Data: &models.BacsAssociationCertificateRelationshipData{KeyID: keyId, CertificateID: certId},
+				Data: &models.BacsAssociationCertificateRelationshipData{KeyID: keyId, CertificateID: certId, TsuNumber: tsuNumber},
 			}
 		}
 		return &models.BacsAssociationCertificateRelationship{
-			Data: &models.BacsAssociationCertificateRelationshipData{KeyID: keyId},
+			Data: &models.BacsAssociationCertificateRelationshipData{KeyID: keyId, TsuNumber: tsuNumber},
 		}
 	}
 	return nil

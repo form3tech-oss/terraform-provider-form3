@@ -15,7 +15,6 @@ func TestDeleteBacsAssociation(t *testing.T) {
 	accountNumber := "12345678"
 	sortingCode := "123456"
 	accountType := int64(1)
-	tsuNumber := "B12345"
 
 	id, _ := uuid.NewV4()
 	createResponse, err := auth.AssociationClient.Associations.PostBacs(associations.NewPostBacsParams().
@@ -28,7 +27,6 @@ func TestDeleteBacsAssociation(t *testing.T) {
 					AccountNumber:     accountNumber,
 					SortingCode:       sortingCode,
 					AccountType:       &accountType,
-					TsuNumber:         tsuNumber,
 				},
 			},
 		}))
@@ -61,7 +59,6 @@ func TestGetBacsAssociation(t *testing.T) {
 	accountNumber := "12345678"
 	sortingCode := "123456"
 	accountType := int64(1)
-	tsuNumber := "B12345"
 
 	id, _ := uuid.NewV4()
 	createResponse, err := auth.AssociationClient.Associations.PostBacs(associations.NewPostBacsParams().
@@ -74,7 +71,6 @@ func TestGetBacsAssociation(t *testing.T) {
 					AccountNumber:     accountNumber,
 					SortingCode:       sortingCode,
 					AccountType:       &accountType,
-					TsuNumber:         tsuNumber,
 				},
 			},
 		}))
@@ -108,7 +104,6 @@ func TestPostBacsAssociation(t *testing.T) {
 	serviceUserNumber := "987897"
 	accountNumber := "12345678"
 	sortingCode := "123456"
-	tsuNumber := "B12345"
 	accountType := int64(1)
 
 	id, _ := uuid.NewV4()
@@ -122,7 +117,6 @@ func TestPostBacsAssociation(t *testing.T) {
 					AccountNumber:     accountNumber,
 					SortingCode:       sortingCode,
 					AccountType:       &accountType,
-					TsuNumber:         tsuNumber,
 				},
 			},
 		}))
@@ -150,7 +144,6 @@ func TestPostBacsAssociationIncludingOptionalServiceCentre(t *testing.T) {
 	accountNumber := "12345699"
 	sortingCode := "123456"
 	accountType := int64(1)
-	tsuNumber := "B12345"
 
 	id, _ := uuid.NewV4()
 	createResponse, err := auth.AssociationClient.Associations.PostBacs(associations.NewPostBacsParams().
@@ -165,7 +158,6 @@ func TestPostBacsAssociationIncludingOptionalServiceCentre(t *testing.T) {
 					AccountType:       &accountType,
 					BankCode:          "1234",
 					CentreNumber:      "99",
-					TsuNumber:         tsuNumber,
 				},
 			},
 		}))
@@ -193,7 +185,6 @@ func TestPostBacsAssociation_DoNotIgnoreAccountTypeWhenValueIsZero(t *testing.T)
 	accountNumber := "12345678"
 	sortingCode := "123456"
 	accountType := int64(0)
-	tsuNumber := "B12345"
 
 	id, _ := uuid.NewV4()
 	createResponse, err := auth.AssociationClient.Associations.PostBacs(associations.NewPostBacsParams().
@@ -206,7 +197,6 @@ func TestPostBacsAssociation_DoNotIgnoreAccountTypeWhenValueIsZero(t *testing.T)
 					AccountNumber:     accountNumber,
 					SortingCode:       sortingCode,
 					AccountType:       &accountType,
-					TsuNumber:         tsuNumber,
 				},
 			},
 		}))
@@ -231,7 +221,6 @@ func TestGetBacsAssociationList(t *testing.T) {
 	accountNumber := "12345678"
 	sortingCode := "123456"
 	accountType := int64(1)
-	tsuNumber := "B12345"
 
 	createResponse, err := auth.AssociationClient.Associations.PostBacs(associations.NewPostBacsParams().
 		WithCreationRequest(&models.BacsAssociationCreation{
@@ -243,7 +232,6 @@ func TestGetBacsAssociationList(t *testing.T) {
 					AccountNumber:     accountNumber,
 					SortingCode:       sortingCode,
 					AccountType:       &accountType,
-					TsuNumber:         tsuNumber,
 				},
 			},
 		}))
