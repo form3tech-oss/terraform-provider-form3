@@ -44,8 +44,9 @@ func TestAccSepaReconciliationAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(sponsor_assoc_path, "association_id", sponsorAssociationID),
 					resource.TestCheckResourceAttr(sponsor_assoc_path, "organisation_id", sponsorOrganisationID),
 					resource.TestCheckResourceAttr(sponsor_assoc_path, "name", "Sponsor company"),
-					resource.TestCheckResourceAttr(sponsor_assoc_path, "bic", "TESTBIC1"),
-					resource.TestCheckResourceAttr(sponsor_assoc_path, "iban", "GB22ABCD19283700000001"),
+					resource.TestCheckResourceAttr(sponsor_assoc_path, "technical_bic", "TESTBIC1"),
+					resource.TestCheckResourceAttr(sponsor_assoc_path, "reconciliation_bic", "RECON000"),
+					resource.TestCheckResourceAttr(sponsor_assoc_path, "reconciliation_iban", "GB22ABCD19283700000001"),
 					resource.TestCheckResourceAttr(sponsor_assoc_path, "address_street", "Harp Ln"),
 					resource.TestCheckResourceAttr(sponsor_assoc_path, "address_building_number", "7"),
 					resource.TestCheckResourceAttr(sponsor_assoc_path, "address_city", "London"),
@@ -56,8 +57,9 @@ func TestAccSepaReconciliationAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "association_id", sponsoredAssociationID),
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "organisation_id", sponsoredOrganisationID),
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "name", "Sponsored company"),
-					resource.TestCheckResourceAttr(sponsored_assoc_path, "bic", "TESTBIC2"),
-					resource.TestCheckResourceAttr(sponsored_assoc_path, "iban", "GB22ABCD19283700000002"),
+					resource.TestCheckResourceAttr(sponsored_assoc_path, "technical_bic", "TESTBIC2"),
+					resource.TestCheckResourceAttr(sponsored_assoc_path, "reconciliation_bic", "RECON001"),
+					resource.TestCheckResourceAttr(sponsored_assoc_path, "reconciliation_iban", "GB22ABCD19283700000002"),
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "address_street", "Harp Ln"),
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "address_building_number", "7"),
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "address_city", "London"),
@@ -120,10 +122,10 @@ func testAccCheckSepaReconciliationAssociationExists(resourceKey string) resourc
 const testForm3SepaReconciliationAssociationConfigA = `
 locals {
 	parent_organisation_id    = "%s"
-	
+
 	sponsor_organisation_id   = "%s"
 	sponsored_organisation_id = "%s"
-	
+
 	sponsor_association_id    = "%s"
 	sponsored_association_id  = "%s"
 }
@@ -144,8 +146,9 @@ resource "form3_separeconciliation_association" "sponsor_association" {
 	organisation_id         = "${form3_organisation.sponsor.organisation_id}"
 	association_id          = "${local.sponsor_association_id}"
 	name                    = "Sponsor company"
-	bic                     = "TESTBIC1"
-	iban                    = "GB22ABCD19283700000001"
+	technical_bic           = "TESTBIC1"
+	reconciliation_bic      = "RECON000"
+	reconciliation_iban     = "GB22ABCD19283700000001"
 	address_street          = "Harp Ln"
 	address_building_number = "7"
 	address_city            = "London"
@@ -156,8 +159,9 @@ resource "form3_separeconciliation_association" "sponsored_association" {
 	organisation_id         = "${form3_organisation.sponsored.organisation_id}"
 	association_id          = "${local.sponsored_association_id}"
 	name                    = "Sponsored company"
-	bic                     = "TESTBIC2"
-	iban                    = "GB22ABCD19283700000002"
+	technical_bic           = "TESTBIC2"
+	reconciliation_bic      = "RECON001"
+	reconciliation_iban     = "GB22ABCD19283700000002"
 	address_street          = "Harp Ln"
 	address_building_number = "7"
 	address_city            = "London"

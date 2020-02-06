@@ -21,20 +21,25 @@ type SepaReconciliationAssociationAttributes struct {
 	// Required: true
 	Address SepaReconciliationAssociationAttributesAddress `json:"address"`
 
-	// bic
-	// Required: true
-	// Min Length: 1
-	Bic string `json:"bic"`
-
-	// iban
-	// Required: true
-	// Min Length: 1
-	Iban string `json:"iban"`
-
 	// name
 	// Required: true
 	// Min Length: 1
 	Name string `json:"name"`
+
+	// reconciliation bic
+	// Required: true
+	// Min Length: 1
+	ReconciliationBic string `json:"reconciliation_bic"`
+
+	// reconciliation iban
+	// Required: true
+	// Min Length: 1
+	ReconciliationIban string `json:"reconciliation_iban"`
+
+	// technical bic
+	// Required: true
+	// Min Length: 1
+	TechnicalBic string `json:"technical_bic"`
 }
 
 // Validate validates this sepa reconciliation association attributes
@@ -45,15 +50,19 @@ func (m *SepaReconciliationAssociationAttributes) Validate(formats strfmt.Regist
 		res = append(res, err)
 	}
 
-	if err := m.validateBic(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateIban(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateReconciliationBic(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateReconciliationIban(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTechnicalBic(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -75,32 +84,6 @@ func (m *SepaReconciliationAssociationAttributes) validateAddress(formats strfmt
 	return nil
 }
 
-func (m *SepaReconciliationAssociationAttributes) validateBic(formats strfmt.Registry) error {
-
-	if err := validate.RequiredString("bic", "body", string(m.Bic)); err != nil {
-		return err
-	}
-
-	if err := validate.MinLength("bic", "body", string(m.Bic), 1); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *SepaReconciliationAssociationAttributes) validateIban(formats strfmt.Registry) error {
-
-	if err := validate.RequiredString("iban", "body", string(m.Iban)); err != nil {
-		return err
-	}
-
-	if err := validate.MinLength("iban", "body", string(m.Iban), 1); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *SepaReconciliationAssociationAttributes) validateName(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("name", "body", string(m.Name)); err != nil {
@@ -108,6 +91,45 @@ func (m *SepaReconciliationAssociationAttributes) validateName(formats strfmt.Re
 	}
 
 	if err := validate.MinLength("name", "body", string(m.Name), 1); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *SepaReconciliationAssociationAttributes) validateReconciliationBic(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("reconciliation_bic", "body", string(m.ReconciliationBic)); err != nil {
+		return err
+	}
+
+	if err := validate.MinLength("reconciliation_bic", "body", string(m.ReconciliationBic), 1); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *SepaReconciliationAssociationAttributes) validateReconciliationIban(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("reconciliation_iban", "body", string(m.ReconciliationIban)); err != nil {
+		return err
+	}
+
+	if err := validate.MinLength("reconciliation_iban", "body", string(m.ReconciliationIban), 1); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *SepaReconciliationAssociationAttributes) validateTechnicalBic(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("technical_bic", "body", string(m.TechnicalBic)); err != nil {
+		return err
+	}
+
+	if err := validate.MinLength("technical_bic", "body", string(m.TechnicalBic), 1); err != nil {
 		return err
 	}
 

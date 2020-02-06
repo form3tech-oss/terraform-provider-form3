@@ -31,15 +31,17 @@ func TestAccBacsAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "account_number", "12345678"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "sorting_code", "123456"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "account_type", "1"),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "tsu_number", "B12345"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "organisation_id", organisationId),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "association_id", "ad5e20e5-800d-4143-9936-ca1007da3a03"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "input_key_id", "8f77e1ba-944e-44f3-a845-f99ba80af63c"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "input_certificate_id", "23d4fa5d-ef38-48de-b9e4-22f45004bb50"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "input_tsu_number", "B12345"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "messaging_key_id", "ce3b888b-2328-49ed-9c04-cda0035f8fd0"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "messaging_certificate_id", "f79162cb-cbde-4152-b2f0-3bde47da3332"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "messaging_tsu_number", "B12346"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "output_key_id", "a7984808-a3bb-4951-827c-d4d15d01ac0b"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "output_certificate_id", "6dd9ca5d-b64a-4b59-a287-ad4ea82acb4f"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "output_tsu_number", "B12347"),
 				),
 			},
 		},
@@ -179,16 +181,18 @@ resource "form3_bacs_association" "association" {
     account_number                   = "12345678"
     sorting_code                     = "123456"
     account_type                     = 1
-	tsu_number                       = "B12345"
 
     input_key_id                     = "8f77e1ba-944e-44f3-a845-f99ba80af63c"
     input_certificate_id             = "23d4fa5d-ef38-48de-b9e4-22f45004bb50"
+    input_tsu_number                 = "B12345"
 
     messaging_key_id                 = "ce3b888b-2328-49ed-9c04-cda0035f8fd0"
     messaging_certificate_id         = "f79162cb-cbde-4152-b2f0-3bde47da3332"
+    messaging_tsu_number             = "B12346"
 
     output_key_id                    = "a7984808-a3bb-4951-827c-d4d15d01ac0b"
     output_certificate_id            = "6dd9ca5d-b64a-4b59-a287-ad4ea82acb4f"
+    output_tsu_number                = "B12347"
 }`
 
 const testForm3BacsAssociationConfigZeroAccountType = `
@@ -205,7 +209,6 @@ resource "form3_bacs_association" "association" {
     account_number                   = "87654321"
     sorting_code                     = "654321"
     account_type                     = 0
-	tsu_number                       = "B12345"
 }`
 
 const testForm3BacsAssociationConfigWithBankIdAndCentre = `
@@ -224,7 +227,6 @@ resource "form3_bacs_association" "association" {
     account_type                     = 0
     bank_code                        = "1234"
     centre_number                    = "42"
-	tsu_number                       = "B12345"
 }`
 
 const testForm3BacsAssociationConfigWithTestFileFlag = `
@@ -244,5 +246,4 @@ resource "form3_bacs_association" "association" {
     bank_code                        = "1234"
     centre_number                    = "42"
     test_file_submission             = true
-	tsu_number                       = "B12345"
 }`

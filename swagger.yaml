@@ -85,7 +85,7 @@ paths:
     post:
       summary: Create organisation
       tags:
-       - Organisations
+        - Organisations
       consumes:
         - application/vnd.api+json
         - application/json
@@ -192,7 +192,7 @@ paths:
     post:
       summary: Create user
       tags:
-       - Users
+        - Users
       consumes:
         - application/vnd.api+json
         - application/json
@@ -470,43 +470,43 @@ paths:
           description: User role deleted OK
 
   /payport:
-      post:
-        summary: Create payport service association
-        tags:
-         - Associations
-        consumes:
-          - application/vnd.api+json
-          - application/json
-        parameters:
-          - name: creation request
-            in: body
-            schema:
-              $ref: "#/definitions/PayportAssociationCreation"
+    post:
+      summary: Create payport service association
+      tags:
+        - Associations
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: creation request
+          in: body
+          schema:
+            $ref: "#/definitions/PayportAssociationCreation"
 
-        responses:
-          201:
-            description: creation response
-            schema:
-              $ref: "#/definitions/PayportAssociationCreationResponse"
+      responses:
+        201:
+          description: creation response
+          schema:
+            $ref: "#/definitions/PayportAssociationCreationResponse"
 
 
-      get:
-        summary: List all organisation associations
-        tags:
-          - Associations
-        parameters:
-          - name: filter[organisation_id]
-            in: query
-            description: Organisation id
-            required: false
-            type: string
-            format: uuid
+    get:
+      summary: List all organisation associations
+      tags:
+        - Associations
+      parameters:
+        - name: filter[organisation_id]
+          in: query
+          description: Organisation id
+          required: false
+          type: string
+          format: uuid
 
-        responses:
-          200:
-            description: List of associations
-            schema:
-              $ref: "#/definitions/PayportAssociationDetailsListResponse"
+      responses:
+        200:
+          description: List of associations
+          schema:
+            $ref: "#/definitions/PayportAssociationDetailsListResponse"
 
   /payport/{id}:
 
@@ -553,7 +553,7 @@ paths:
     post:
       summary: Create role
       tags:
-       - Roles
+        - Roles
       consumes:
         - application/vnd.api+json
         - application/json
@@ -640,7 +640,7 @@ paths:
     post:
       summary: Create Access Control Entry
       tags:
-       - Ace
+        - Ace
       consumes:
         - application/vnd.api+json
         - application/json
@@ -735,7 +735,7 @@ paths:
     post:
       summary: Create subscription
       tags:
-       - Subscriptions
+        - Subscriptions
       consumes:
         - application/vnd.api+json
         - application/json
@@ -855,92 +855,92 @@ paths:
 
   /starling:
 
-     post:
-       summary: Create organisation association
-       tags:
+    post:
+      summary: Create organisation association
+      tags:
         - Associations
-       consumes:
-         - application/vnd.api+json
-         - application/json
-       parameters:
-         - name: creation request
-           in: body
-           schema:
-             $ref: "#/definitions/AssociationCreation"
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: creation request
+          in: body
+          schema:
+            $ref: "#/definitions/AssociationCreation"
 
-       responses:
-         201:
-           description: creation response
-           schema:
-             $ref: "#/definitions/AssociationCreationResponse"
+      responses:
+        201:
+          description: creation response
+          schema:
+            $ref: "#/definitions/AssociationCreationResponse"
 
 
-     get:
-       summary: List all organisation associations
-       tags:
-         - Associations
-       parameters:
-         - name: filter[organisation_id]
-           in: query
-           description: Organisation id
-           required: false
-           type: string
-           format: uuid
+    get:
+      summary: List all organisation associations
+      tags:
+        - Associations
+      parameters:
+        - name: filter[organisation_id]
+          in: query
+          description: Organisation id
+          required: false
+          type: string
+          format: uuid
 
-       responses:
-         200:
-           description: List of associations
-           schema:
-             $ref: "#/definitions/AssociationDetailsListResponse"
+      responses:
+        200:
+          description: List of associations
+          schema:
+            $ref: "#/definitions/AssociationDetailsListResponse"
 
   /starling/{id}:
 
-     get:
-       summary: Fetch organisation association
-       tags:
-         - Associations
-       parameters:
-         - name: id
-           in: path
-           description: Association Id
-           required: true
-           type: string
-           format: uuid
-       responses:
-         200:
-           description: Associations details
-           schema:
-             $ref: "#/definitions/AssociationDetailsResponse"
+    get:
+      summary: Fetch organisation association
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Associations details
+          schema:
+            $ref: "#/definitions/AssociationDetailsResponse"
 
-     delete:
-       summary: Delete organisation association
-       tags:
-         - Associations
-       parameters:
-         - name: id
-           in: path
-           description: Association Id
-           required: true
-           type: string
-           format: uuid
-         - name: version
-           in: query
-           description: Version
-           required: true
-           type: integer
-           minimum: 0
-       responses:
-         204:
-           description: Association deleted
-#organisation api - end
+    delete:
+      summary: Delete organisation association
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+      responses:
+        204:
+          description: Association deleted
+  #organisation api - end
 
-#account api -start
+  #account api -start
   /accounts:
 
     post:
       summary: Create account
       tags:
-       - Accounts
+        - Accounts
       consumes:
         - application/vnd.api+json
         - application/json
@@ -1079,7 +1079,7 @@ paths:
         204:
           description: Account deleted
 
-#account_routing api -start
+  #account_routing api -start
   /account_routings:
 
     get:
@@ -1186,14 +1186,14 @@ paths:
           description: Account Routing details
           schema:
             $ref: "#/definitions/AccountRoutingDetailsResponse"
-# account_routing api end
+  # account_routing api end
 
   /bankids:
 
     post:
       summary: Create bank id
       tags:
-       - Accounts
+        - Accounts
       consumes:
         - application/vnd.api+json
         - application/json
@@ -1312,7 +1312,7 @@ paths:
     post:
       summary: Create BIC
       tags:
-       - Accounts
+        - Accounts
       consumes:
         - application/vnd.api+json
         - application/json
@@ -1403,7 +1403,7 @@ paths:
     post:
       summary: Create configuration
       tags:
-       - Accounts
+        - Accounts
       consumes:
         - application/vnd.api+json
         - application/json
@@ -1507,21 +1507,21 @@ paths:
           description: Configuration updated
           schema:
             $ref: "#/definitions/AccountConfigurationDetailsResponse"
-#account api -end
+  #account api -end
 
   /limits:
     post:
       summary: Create a limit
       tags:
-       - Limits
+        - Limits
       consumes:
         - application/vnd.api+json
         - application/json
       parameters:
-      - name: Limit creation request
-        in: body
-        schema:
-          $ref: "#/definitions/LimitCreation"
+        - name: Limit creation request
+          in: body
+          schema:
+            $ref: "#/definitions/LimitCreation"
       responses:
         201:
           description: Limit creation response
@@ -1636,7 +1636,7 @@ paths:
     post:
       summary: Create organisation association for BACS
       tags:
-       - Associations
+        - Associations
       consumes:
         - application/vnd.api+json
         - application/json
@@ -2453,7 +2453,7 @@ paths:
       x-access:
         - Private
       tags:
-       - Associations
+        - Associations
       consumes:
         - application/vnd.api+json
         - application/json
@@ -2642,13 +2642,13 @@ paths:
         204:
           description: association deleted successfully
 
-#paymentapi - start
+  #paymentapi - start
   /payments:
 
     post:
       summary: Create payment
       tags:
-       - Payments
+        - Payments
       consumes:
         - application/vnd.api+json
         - application/json
@@ -2804,7 +2804,7 @@ paths:
     post:
       summary: create admission
       tags:
-       - Payments
+        - Payments
       consumes:
         - application/vnd.api+json
         - application/json
@@ -2861,7 +2861,7 @@ paths:
     post:
       summary: create submission
       tags:
-       - Payments
+        - Payments
       consumes:
         - application/vnd.api+json
         - application/json
@@ -2916,7 +2916,7 @@ paths:
     patch:
       summary: Update submission
       tags:
-       - Payments
+        - Payments
       consumes:
         - application/vnd.api+json
         - application/json
@@ -2987,7 +2987,7 @@ paths:
     post:
       summary: Create return
       tags:
-       - Payments
+        - Payments
       consumes:
         - application/vnd.api+json
         - application/json
@@ -3043,7 +3043,7 @@ paths:
     post:
       summary: create return admission
       tags:
-       - Payments
+        - Payments
       consumes:
         - application/vnd.api+json
         - application/json
@@ -3110,7 +3110,7 @@ paths:
     post:
       summary: create return submission
       tags:
-       - Payments
+        - Payments
       consumes:
         - application/vnd.api+json
         - application/json
@@ -3176,7 +3176,7 @@ paths:
     patch:
       summary: Update return submission
       tags:
-       - Payments
+        - Payments
       consumes:
         - application/vnd.api+json
         - application/json
@@ -3258,7 +3258,7 @@ paths:
     post:
       summary: Create return reversal
       tags:
-       - Payments
+        - Payments
       consumes:
         - application/vnd.api+json
         - application/json
@@ -3326,7 +3326,7 @@ paths:
     post:
       summary: create return reversal admission
       tags:
-       - Payments
+        - Payments
       consumes:
         - application/vnd.api+json
         - application/json
@@ -3405,7 +3405,7 @@ paths:
     post:
       summary: Create reversal
       tags:
-       - Payments
+        - Payments
       consumes:
         - application/vnd.api+json
         - application/json
@@ -3461,7 +3461,7 @@ paths:
     post:
       summary: create reversal admission
       tags:
-       - Payments
+        - Payments
       consumes:
         - application/vnd.api+json
         - application/json
@@ -3539,7 +3539,7 @@ paths:
     post:
       summary: Create the default settings for a payment
       tags:
-      - PaymentDefaults
+        - PaymentDefaults
       consumes:
         - application/vnd.api+json
         - application/json
@@ -3552,7 +3552,7 @@ paths:
         201:
           description: Default settings created
           schema:
-              $ref: "#/definitions/PaymentDefaultsCreateResponse"
+            $ref: "#/definitions/PaymentDefaultsCreateResponse"
         400:
           description: Default settings creation error
           schema:
@@ -3612,7 +3612,7 @@ paths:
     patch:
       summary: Update payment defaults
       tags:
-       - PaymentDefaults
+        - PaymentDefaults
       consumes:
         - application/vnd.api+json
         - application/json
@@ -3657,9 +3657,9 @@ paths:
       responses:
         204:
           description: Payment defaults deleted
-#paymentapi - end
+  #paymentapi - end
 
-#directdebit-api - start
+  #directdebit-api - start
 
   /directdebits:
 
@@ -3775,9 +3775,9 @@ paths:
           schema:
             $ref: "#/definitions/DirectDebitDetailsListResponse"
 
-#directdebit-api - end
+  #directdebit-api - end
 
-#mandate-api - start
+  #mandate-api - start
 
   /mandates:
 
@@ -3918,9 +3918,9 @@ paths:
           schema:
             $ref: "#/definitions/MandateDetailsListResponse"
 
-#mandate-api - end
+  #mandate-api - end
 
-#public-key - start
+  #public-key - start
 
   /users/{user_id}/credentials/public_key:
 
@@ -4547,24 +4547,24 @@ definitions:
       links:
         $ref: '#/definitions/Links'
 
-#Organisation->Associations
+  #Organisation->Associations
 
   Association:
-      type: object
-      properties:
-        type:
-          type: string
-        id:
-          type: string
-          format: uuid
-        version:
-          type: integer
-          minimum: 0
-        organisation_id:
-          type: string
-          format: uuid
-        attributes:
-          $ref: "#/definitions/AssociationAttributes"
+    type: object
+    properties:
+      type:
+        type: string
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        $ref: "#/definitions/AssociationAttributes"
 
   NewAssociation:
     type: object
@@ -4629,7 +4629,7 @@ definitions:
           $ref: '#/definitions/Association'
       links:
         $ref: '#/definitions/Links'
-# account api - start
+  # account api - start
   Account:
     type: object
     required:
@@ -4984,7 +4984,7 @@ definitions:
       valid_account_ranges:
         type: array
         items:
-            $ref: "#/definitions/AccountGenerationConfigurationValidAccountRangesItems"
+          $ref: "#/definitions/AccountGenerationConfigurationValidAccountRangesItems"
 
   AccountGenerationConfigurationValidAccountRangesItems:
     type: object
@@ -5033,7 +5033,7 @@ definitions:
     properties:
       data:
         $ref: '#/definitions/AccountConfiguration'
-# account api - end
+  # account api - end
 
   PayportAssociation:
     type: object
@@ -5105,12 +5105,13 @@ definitions:
         $ref: '#/definitions/Links'
 
   ResourceType:
-     type: string
-     enum:
-       - payport_associations
-       - limits
-       - bacs_associations
-       - confirmation_of_payee_associations
+    type: string
+    enum:
+      - payport_associations
+      - limits
+      - bacs_associations
+      - confirmation_of_payee_associations
+       - ebury_associations
 
   LimitCreation:
     type: object
@@ -5119,10 +5120,10 @@ definitions:
         $ref: '#/definitions/Limit'
 
   LimitCreationResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/definitions/Limit'
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/Limit'
 
   LimitDetailsListResponse:
     type: object
@@ -5186,23 +5187,23 @@ definitions:
 
 
   BacsAssociation:
-      type: object
-      properties:
-        type:
-          type: string
-        id:
-          type: string
-          format: uuid
-        version:
-          type: integer
-          minimum: 0
-        organisation_id:
-          type: string
-          format: uuid
-        attributes:
-          $ref: "#/definitions/BacsAssociationAttributes"
-        relationships:
-          $ref: "#/definitions/BacsAssociationRelationships"
+    type: object
+    properties:
+      type:
+        type: string
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        $ref: "#/definitions/BacsAssociationAttributes"
+      relationships:
+        $ref: "#/definitions/BacsAssociationRelationships"
 
   BacsNewAssociation:
     type: object
@@ -5247,9 +5248,6 @@ definitions:
       test_file_submission:
         x-nullable: true
         type: boolean
-      tsu_number:
-        type: string
-        pattern: ^[0-9A-Z]{6}$
 
   BacsAssociationRelationships:
     type: object
@@ -5275,6 +5273,9 @@ definitions:
           certificate_id:
             type: string
             format: uuid
+          tsu_number:
+            type: string
+            pattern: ^[0-9A-Z]{6}$
 
   BacsAssociationCreation:
     type: object
@@ -5551,7 +5552,7 @@ definitions:
   CertificateAttributes:
     type: object
     required:
-        - certificate
+      - certificate
     properties:
       certificate:
         type: string
@@ -5636,7 +5637,7 @@ definitions:
   SepaInstantAssociationAttributes:
     type: object
     x-access:
-    - Private
+      - Private
     properties:
       business_user_dn:
         type: string
@@ -6089,16 +6090,21 @@ definitions:
   SepaReconciliationAssociationAttributes:
     type: object
     required:
-      - bic
-      - iban
-      - name
+      - technical_bic
+      - reconciliation_bic
+      - reconciliation_iban
       - address
+      - name
     properties:
-      bic:
+      technical_bic:
         type: string
         x-nullable: false
         minLength: 1
-      iban:
+      reconciliation_bic:
+        type: string
+        x-nullable: false
+        minLength: 1
+      reconciliation_iban:
         type: string
         x-nullable: false
         minLength: 1
@@ -8321,22 +8327,22 @@ definitions:
         $ref: '#/definitions/NewReturnSubmission'
 
   ReturnAdmissionCreation:
-      type: object
-      properties:
-        data:
-          $ref: '#/definitions/NewReturnAdmission'
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/NewReturnAdmission'
 
   ReversalAdmissionCreation:
-      type: object
-      properties:
-        data:
-          $ref: '#/definitions/ReversalAdmission'
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ReversalAdmission'
 
   ReturnReversalAdmissionCreation:
-      type: object
-      properties:
-        data:
-          $ref: '#/definitions/ReturnReversalAdmission'
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ReturnReversalAdmission'
 
   PaymentAmendment:
     type: object
@@ -8365,28 +8371,28 @@ definitions:
         $ref: '#/definitions/Links'
 
   ReturnCreationResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/definitions/ReturnPayment'
-        links:
-          $ref: '#/definitions/Links'
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ReturnPayment'
+      links:
+        $ref: '#/definitions/Links'
 
   ReversalCreationResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/definitions/ReversalPayment'
-        links:
-          $ref: '#/definitions/Links'
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ReversalPayment'
+      links:
+        $ref: '#/definitions/Links'
 
   ReturnReversalCreationResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/definitions/ReversalReturn'
-        links:
-          $ref: '#/definitions/Links'
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ReversalReturn'
+      links:
+        $ref: '#/definitions/Links'
 
   PaymentDetailsResponse:
     type: object
@@ -8456,28 +8462,28 @@ definitions:
         $ref: '#/definitions/Links'
 
   ReturnAdmissionCreationResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/definitions/ReturnAdmission'
-        links:
-          $ref: '#/definitions/Links'
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ReturnAdmission'
+      links:
+        $ref: '#/definitions/Links'
 
   ReversalAdmissionCreationResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/definitions/ReversalAdmission'
-        links:
-          $ref: '#/definitions/Links'
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ReversalAdmission'
+      links:
+        $ref: '#/definitions/Links'
 
   ReturnReversalAdmissionCreationResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/definitions/ReturnReversalAdmission'
-        links:
-          $ref: '#/definitions/Links'
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ReturnReversalAdmission'
+      links:
+        $ref: '#/definitions/Links'
 
   PaymentAdmissionDetailsResponse:
     type: object
@@ -8556,18 +8562,18 @@ definitions:
         $ref: '#/definitions/PaymentSubmissionValidation'
 
   ReturnSubmissionValidationCreationResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/definitions/ReturnSubmissionValidation'
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ReturnSubmissionValidation'
 
   RelationshipLinks:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/definitions/RelationshipData'
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/RelationshipData'
 
   PaymentSubmittedEvent:
     type: object
@@ -8825,9 +8831,9 @@ definitions:
           default_payment_scheme:
             type: string
 
-# paymentapi - end
+  # paymentapi - end
 
-# directdebit-api start
+  # directdebit-api start
 
   DirectDebitDetailsListResponse:
     type: object
@@ -8987,9 +8993,9 @@ definitions:
       - bankid_not_provisioned
       - unknown_accountnumber
 
-# directdebit-api end
+  # directdebit-api end
 
-# mandate-api - start
+  # mandate-api - start
 
   MandateDetailsListResponse:
     type: object
@@ -9183,10 +9189,10 @@ definitions:
       - quarterly
       - yearly
 
-# mandate-api - end
+  # mandate-api - end
 
 
-# open banking
+  # open banking
 
   CoPAssociation:
     type: object
@@ -9306,7 +9312,7 @@ definitions:
       close_match_threshold:
         type: string
 
-# open banking - end
+  # open banking - end
 
 
   #PublicKey

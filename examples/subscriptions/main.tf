@@ -1,5 +1,5 @@
 resource "form3_subscription" "subscription" {
-  organisation_id = "${var.organisation_id}"
+  organisation_id    = "${var.organisation_id}"
   subscription_id    = "${uuid()}"
   callback_transport = "${var.callback_transport}"
   callback_uri       = "${var.callback_uri}"
