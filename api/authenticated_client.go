@@ -140,7 +140,7 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 					}
 				}
 				resp, err = http.DefaultTransport.RoundTrip(req)
-				if resp.StatusCode == 403 || resp.StatusCode == 409 {
+				if resp.StatusCode == 403 {
 					return errors.New(fmt.Sprintf("status code: %d", resp.StatusCode))
 				}
 				return err
