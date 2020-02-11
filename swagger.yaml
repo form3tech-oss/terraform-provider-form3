@@ -2513,6 +2513,37 @@ paths:
           schema:
             $ref: "#/definitions/SepaInstantAssociationDetailsResponse"
 
+    patch:
+      summary: Update sepa instant association
+      x-access:
+        - Private
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+        - name: payload
+          in: body
+          description: Association Patch payload
+          required: true
+          schema:
+            $ref: '#/definitions/SepaInstantAssociationPatch'
+      responses:
+        200:
+          description: Associations details
+          schema:
+            $ref: "#/definitions/SepaInstantAssociationDetailsResponse"
+
     delete:
       summary: Delete organisation spea instant association
       x-access:
@@ -5575,6 +5606,34 @@ definitions:
       relationships:
         $ref: "#/definitions/SepaInstantAssociationRelationships"
 
+  UpdateSepaInstantAssociation:
+    type: object
+    required:
+      - id
+      - type
+      - organisation_id
+      - attributes
+    properties:
+      id:
+        type: string
+        format: uuid
+        x-nullable: false
+      type:
+        type: string
+        enum:
+          - sepainstant_associations
+        x-nullable: false
+      version:
+        type: integer
+        minimum: 0
+        x-nullable: false
+      organisation_id:
+        type: string
+        format: uuid
+        x-nullable: false
+      attributes:
+        $ref: '#/definitions/UpdateSepaInstantAssociationAttributes'
+
   SepaInstantAssociationAttributes:
     type: object
     x-access:
@@ -5587,6 +5646,15 @@ definitions:
       bic:
         type: string
       simulator_only:
+        x-nullable: true
+        type: boolean
+      disable_outbound_payments:
+        x-nullable: true
+        type: boolean
+
+  UpdateSepaInstantAssociationAttributes:
+    properties:
+      disable_outbound_payments:
         x-nullable: true
         type: boolean
 
@@ -5623,6 +5691,12 @@ definitions:
     properties:
       data:
         $ref: '#/definitions/NewSepaInstantAssociation'
+
+  SepaInstantAssociationPatch:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/UpdateSepaInstantAssociation'
 
   SepaInstantAssociationCreationResponse:
     type: object

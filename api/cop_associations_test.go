@@ -1,13 +1,15 @@
 package api
 
 import (
+	"testing"
+
+	uuid "github.com/nu7hatch/gouuid"
+
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-	"github.com/nu7hatch/gouuid"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestDeleteConfirmationOfPayeeAssociation(t *testing.T) {
@@ -106,7 +108,6 @@ func TestGetConfirmationOfPayeeAssociationList(t *testing.T) {
 	for _, assoc := range getConfirmationOfPayeeResponse.Payload.Data {
 		if *assoc.ID == *createResponse.Payload.Data.ID {
 			found = true
-			assert.Equal(t, "1234", *assoc.Attributes.OpenBankingOrganisationID)
 			assert.Equal(t, *createResponse.Payload.Data.Relationships.SigningCertificate.Data.KeyID, *assoc.Relationships.SigningCertificate.Data.KeyID)
 		}
 	}

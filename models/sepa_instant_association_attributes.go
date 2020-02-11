@@ -21,6 +21,9 @@ type SepaInstantAssociationAttributes struct {
 	// business user dn
 	BusinessUserDn string `json:"business_user_dn,omitempty"`
 
+	// disable outbound payments
+	DisableOutboundPayments *bool `json:"disable_outbound_payments,omitempty"`
+
 	// simulator only
 	SimulatorOnly *bool `json:"simulator_only,omitempty"`
 

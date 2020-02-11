@@ -2,13 +2,14 @@ package form3
 
 import (
 	"fmt"
+	"log"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
 )
 
 func resourceForm3SepaInstantAssociation() *schema.Resource {
@@ -16,6 +17,10 @@ func resourceForm3SepaInstantAssociation() *schema.Resource {
 		Create: resourceSepaInstantAssociationCreate,
 		Read:   resourceSepaInstantAssociationRead,
 		Delete: resourceSepaInstantAssociationDelete,
+		Update: resourceSepaInstantAssociationUpdate,
+		Importer: &schema.ResourceImporter{
+			State: schema.ImportStatePassthrough,
+		},
 
 		Schema: map[string]*schema.Schema{
 			"association_id": {
@@ -31,17 +36,17 @@ func resourceForm3SepaInstantAssociation() *schema.Resource {
 			"business_user_dn": {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
+				ForceNew: false,
 			},
 			"transport_profile_id": {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
+				ForceNew: false,
 			},
 			"bic": {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
+				ForceNew: false,
 			},
 			"simulator_only": {
 				Type:     schema.TypeBool,
@@ -55,6 +60,12 @@ func resourceForm3SepaInstantAssociation() *schema.Resource {
 				ForceNew: true,
 				Default:  "",
 			},
+			"disable_outbound_payments": {
+				Type:     schema.TypeBool,
+				Optional: true,
+				ForceNew: false,
+				Default:  false,
+			},
 		},
 	}
 }
@@ -64,7 +75,7 @@ func resourceSepaInstantAssociationCreate(d *schema.ResourceData, meta interface
 
 	association, err := createSepaInstantNewAssociationFromResourceData(d)
 	if err != nil {
-		return fmt.Errorf("failed to create sepa instant association: %s", err)
+		return fmt.Errorf("failed to create sepa instant association from resource data: %s", err)
 	}
 
 	createdAssociation, err := client.AssociationClient.Associations.PostSepainstant(associations.NewPostSepainstantParams().
@@ -73,7 +84,7 @@ func resourceSepaInstantAssociationCreate(d *schema.ResourceData, meta interface
 		}))
 
 	if err != nil {
-		return fmt.Errorf("failed to create sepa instant association: %s", err)
+		return fmt.Errorf("error when posting new sepa instant association resource: %s", err)
 	}
 
 	d.SetId(createdAssociation.Payload.Data.ID.String())
@@ -133,6 +144,66 @@ func resourceSepaInstantAssociationDelete(d *schema.ResourceData, meta interface
 	return nil
 }
 
+func resourceSepaInstantAssociationUpdate(d *schema.ResourceData, meta interface{}) error {
+	client := meta.(*form3.AuthenticatedClient)
+
+	association, err := createSepaInstantUpdateAssociationFromResourceData(d)
+	if err != nil {
+		return fmt.Errorf("failed to create an updated sepa instant association resource: %s", err)
+	}
+
+	existingAssociation, err := client.AssociationClient.Associations.GetSepainstantID(
+		associations.NewGetSepainstantIDParams().WithID(association.ID))
+
+	if err != nil {
+		return fmt.Errorf("could not get sepa instant association with id: %s", association.ID.String())
+	}
+
+	if existingAssociation == nil || existingAssociation.Payload == nil {
+		return fmt.Errorf("sepa instant association with id %s is nil or has a nil payload", association.ID)
+	}
+
+	_, err = client.AssociationClient.Associations.PatchSepainstantID(
+		associations.NewPatchSepainstantIDParams().
+			WithVersion(*existingAssociation.Payload.Data.Version).
+			WithID(association.ID).WithPayload(&models.SepaInstantAssociationPatch{
+			Data: &models.UpdateSepaInstantAssociation{
+				ID:             association.ID,
+				OrganisationID: association.OrganisationID,
+				Type:           models.SepaInstantAssociationReferenceTypeSepainstantAssociations,
+				Attributes: &models.UpdateSepaInstantAssociationAttributes{
+					DisableOutboundPayments: association.Attributes.DisableOutboundPayments,
+				},
+			},
+		}))
+	if err != nil {
+		return fmt.Errorf("failed to patch sepa instant association: %s", err)
+	}
+
+	log.Printf("[INFO] sepa instant association key: #{d.ID}")
+
+	return nil
+}
+
+func createSepaInstantUpdateAssociationFromResourceData(d *schema.ResourceData) (*models.UpdateSepaInstantAssociation, error) {
+	association := models.UpdateSepaInstantAssociation{Attributes: &models.UpdateSepaInstantAssociationAttributes{}}
+
+	if attr, ok := GetUUIDOK(d, "association_id"); ok {
+		association.ID = attr
+	}
+
+	if attr, ok := GetUUIDOK(d, "organisation_id"); ok {
+		association.OrganisationID = attr
+	}
+
+	if attr, ok := d.GetOk("disable_outbound_payments"); ok {
+		b := attr.(bool)
+		association.Attributes.DisableOutboundPayments = &b
+	}
+
+	return &association, nil
+}
+
 func createSepaInstantNewAssociationFromResourceData(d *schema.ResourceData) (*models.NewSepaInstantAssociation, error) {
 
 	association := models.NewSepaInstantAssociation{Attributes: &models.SepaInstantAssociationAttributes{}}
@@ -160,6 +231,11 @@ func createSepaInstantNewAssociationFromResourceData(d *schema.ResourceData) (*m
 	if attr, ok := d.GetOk("simulator_only"); ok {
 		b := attr.(bool)
 		association.Attributes.SimulatorOnly = &b
+	}
+
+	if attr, ok := d.GetOk("disable_outbound_payments"); ok {
+		b := attr.(bool)
+		association.Attributes.DisableOutboundPayments = &b
 	}
 
 	if attr, ok := GetUUIDOK(d, "sponsor_id"); ok {
