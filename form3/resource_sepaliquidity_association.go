@@ -36,17 +36,23 @@ func resourceForm3SepaLiquidityAssociation() *schema.Resource {
 			},
 			"technical_bic": {
 				Type:     schema.TypeString,
-				Required: true,
+				Optional: true,
 				ForceNew: true,
 			},
 			"settlement_bic": {
 				Type:     schema.TypeString,
-				Required: true,
+				Optional: true,
 				ForceNew: true,
 			},
 			"settlement_iban": {
 				Type:     schema.TypeString,
 				Required: true,
+				ForceNew: true,
+			},
+			"sponsored_bics": {
+				Type:     schema.TypeList,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
 				ForceNew: true,
 			},
 			"address_street": {
@@ -125,6 +131,7 @@ func resourceSepaLiquidityAssociationRead(d *schema.ResourceData, meta interface
 	_ = d.Set("technical_bic", sepaLiquidityAssociation.Payload.Data.Attributes.TechnicalBic)
 	_ = d.Set("settlement_bic", sepaLiquidityAssociation.Payload.Data.Attributes.SettlementBic)
 	_ = d.Set("settlement_iban", sepaLiquidityAssociation.Payload.Data.Attributes.SettlementIban)
+	_ = d.Set("sponsored_bics", sepaLiquidityAssociation.Payload.Data.Attributes.SponsoredBics)
 	_ = d.Set("address_street", sepaLiquidityAssociation.Payload.Data.Attributes.Address.Street)
 	_ = d.Set("address_building_number", sepaLiquidityAssociation.Payload.Data.Attributes.Address.BuildingNumber)
 	_ = d.Set("address_city", sepaLiquidityAssociation.Payload.Data.Attributes.Address.City)
@@ -183,6 +190,15 @@ func createSepaLiquidityNewAssociationFromResourceData(d *schema.ResourceData) (
 
 	if attr, ok := d.GetOk("settlement_iban"); ok {
 		association.Attributes.SettlementIban = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("sponsored_bics"); ok {
+		arr := attr.([]interface{})
+		var ibans []string
+		for _, v := range arr {
+			ibans = append(ibans, v.(string))
+		}
+		association.Attributes.SponsoredBics = ibans
 	}
 
 	if attr, ok := d.GetOk("address_street"); ok {

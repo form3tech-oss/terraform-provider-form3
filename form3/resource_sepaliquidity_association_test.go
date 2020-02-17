@@ -57,8 +57,7 @@ func TestAccSepaLiquidityAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "association_id", sponsoredAssociationID),
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "organisation_id", sponsoredOrganisationID),
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "name", "Sponsored company"),
-					resource.TestCheckResourceAttr(sponsored_assoc_path, "technical_bic", "TESTBIC2"),
-					resource.TestCheckResourceAttr(sponsored_assoc_path, "settlement_bic", "RECON001"),
+					resource.TestCheckResourceAttr(sponsored_assoc_path, "sponsored_bics", `["SPTESTBIC1", "SPTESTBIC2"]`),
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "settlement_iban", "GB22ABCD19283700000002"),
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "address_street", "Harp Ln"),
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "address_building_number", "7"),
@@ -159,8 +158,7 @@ resource "form3_sepaliquidity_association" "sponsored_association" {
 	organisation_id         = "${form3_organisation.sponsored.organisation_id}"
 	association_id          = "${local.sponsored_association_id}"
 	name                    = "Sponsored company"
-	technical_bic           = "TESTBIC2"
-	settlement_bic          = "RECON001"
+	sponsored_bics          = ["SPTESTBIC1", "SPTESTBIC2"]
 	settlement_iban         = "GB22ABCD19283700000002"
 	address_street          = "Harp Ln"
 	address_building_number = "7"
