@@ -2183,6 +2183,81 @@ paths:
         204:
           description: Association deleted
 
+  /sepa-liquidity:
+    post:
+      summary: Create organisation association for sepa liquidity
+      tags:
+        - Associations
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: creation request
+          in: body
+          schema:
+            $ref: "#/definitions/SepaLiquidityAssociationCreation"
+      responses:
+        201:
+          description: creation response
+          schema:
+            $ref: "#/definitions/SepaLiquidityAssociationCreationResponse"
+    get:
+      summary: List all organisation sepa liquidity associations
+      tags:
+        - Associations
+      parameters:
+        - name: filter[organisation_id]
+          in: query
+          description: Organisation id
+          required: false
+          type: array
+          items:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: List of associations
+          schema:
+            $ref: "#/definitions/SepaLiquidityAssociationDetailsListResponse"
+
+  /sepa-liquidity/{id}:
+    get:
+      summary: Fetch organisation sepa liquidity association
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Associations details
+          schema:
+            $ref: "#/definitions/SepaLiquidityAssociationDetailsResponse"
+    delete:
+      summary: Delete organisation sepa liquidity association
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+      responses:
+        204:
+          description: Association deleted
+
   /products:
     post:
       summary: Create product association
@@ -6202,6 +6277,168 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/SepaReconciliationAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+  SepaLiquidityAssociation:
+    type: object
+    properties:
+      type:
+        type: string
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        $ref: "#/definitions/SepaLiquidityAssociationAttributes"
+      relationships:
+        $ref: "#/definitions/SepaLiquidityAssociationRelationships"
+
+  NewSepaLiquidityAssociation:
+    type: object
+    properties:
+      type:
+        type: string
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        $ref: "#/definitions/SepaLiquidityAssociationAttributes"
+      relationships:
+        $ref: "#/definitions/SepaLiquidityAssociationRelationships"
+
+  SepaLiquidityAssociationAttributes:
+    type: object
+    required:
+      - settlement_iban
+      - address
+      - name
+    properties:
+      technical_bic:
+        x-nullable: false
+        type: string
+      sponsored_bics:
+        x-nullable: false
+        type: array
+        uniqueItems: true
+        items:
+          minItems: 1
+          type: string
+      settlement_bic:
+        x-nullable: false
+        type: string
+      settlement_iban:
+        type: string
+        x-nullable: false
+        minLength: 1
+      address:
+        x-nullable: false
+        $ref: '#/definitions/SepaLiquidityAddress'
+      name:
+        type: string
+        x-nullable: false
+        minLength: 1
+
+  SepaLiquidityAddress:
+    x-nullable: false
+    required:
+      - street
+      - building_number
+      - city
+      - country
+    properties:
+      street:
+        x-nullable: false
+        type: string
+        minLength: 1
+        maxLength: 70
+      building_number:
+        x-nullable: false
+        type: string
+        minLength: 1
+        maxLength: 16
+      city:
+        x-nullable: false
+        type: string
+        minLength: 1
+        maxLength: 35
+      country:
+        type: string
+        x-nullable: false
+        minLength: 1
+        maxLength: 70
+
+  SepaLiquidityAssociationRelationships:
+    type: object
+    properties:
+      sponsor:
+        type: object
+        x-nullable: false
+        required:
+          - data
+        properties:
+          data:
+            x-nullable: false
+            $ref: "#/definitions/SepaLiquidityRelationshipData"
+
+
+  SepaLiquidityRelationshipData:
+    type: object
+    x-nullable: false
+    required:
+      - id
+      - type
+    properties:
+      id:
+        x-nullable: false
+        type: string
+        format: uuid
+      type:
+        x-nullable: false
+        type: string
+        enum:
+          - separeconciliation_associations
+
+  SepaLiquidityAssociationCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/NewSepaLiquidityAssociation'
+
+  SepaLiquidityAssociationCreationResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/SepaLiquidityAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+  SepaLiquidityAssociationDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/SepaLiquidityAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+  SepaLiquidityAssociationDetailsListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/SepaLiquidityAssociation'
       links:
         $ref: '#/definitions/Links'
 

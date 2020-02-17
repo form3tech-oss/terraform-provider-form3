@@ -15,9 +15,9 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// SepaReconciliationAssociationReference sepa reconciliation association reference
-// swagger:model SepaReconciliationAssociationReference
-type SepaReconciliationAssociationReference struct {
+// SepaLiquidityRelationshipData sepa liquidity relationship data
+// swagger:model SepaLiquidityRelationshipData
+type SepaLiquidityRelationshipData struct {
 
 	// id
 	// Required: true
@@ -30,8 +30,8 @@ type SepaReconciliationAssociationReference struct {
 	Type string `json:"type"`
 }
 
-// Validate validates this sepa reconciliation association reference
-func (m *SepaReconciliationAssociationReference) Validate(formats strfmt.Registry) error {
+// Validate validates this sepa liquidity relationship data
+func (m *SepaLiquidityRelationshipData) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateID(formats); err != nil {
@@ -48,7 +48,7 @@ func (m *SepaReconciliationAssociationReference) Validate(formats strfmt.Registr
 	return nil
 }
 
-func (m *SepaReconciliationAssociationReference) validateID(formats strfmt.Registry) error {
+func (m *SepaLiquidityRelationshipData) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", strfmt.UUID(m.ID)); err != nil {
 		return err
@@ -61,7 +61,7 @@ func (m *SepaReconciliationAssociationReference) validateID(formats strfmt.Regis
 	return nil
 }
 
-var sepaReconciliationAssociationReferenceTypeTypePropEnum []interface{}
+var sepaLiquidityRelationshipDataTypeTypePropEnum []interface{}
 
 func init() {
 	var res []string
@@ -69,25 +69,25 @@ func init() {
 		panic(err)
 	}
 	for _, v := range res {
-		sepaReconciliationAssociationReferenceTypeTypePropEnum = append(sepaReconciliationAssociationReferenceTypeTypePropEnum, v)
+		sepaLiquidityRelationshipDataTypeTypePropEnum = append(sepaLiquidityRelationshipDataTypeTypePropEnum, v)
 	}
 }
 
 const (
 
-	// SepaReconciliationAssociationReferenceTypeSepareconciliationAssociations captures enum value "separeconciliation_associations"
-	SepaReconciliationAssociationReferenceTypeSepareconciliationAssociations string = "separeconciliation_associations"
+	// SepaLiquidityRelationshipDataTypeSepareconciliationAssociations captures enum value "separeconciliation_associations"
+	SepaLiquidityRelationshipDataTypeSepareconciliationAssociations string = "separeconciliation_associations"
 )
 
 // prop value enum
-func (m *SepaReconciliationAssociationReference) validateTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, sepaReconciliationAssociationReferenceTypeTypePropEnum); err != nil {
+func (m *SepaLiquidityRelationshipData) validateTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, sepaLiquidityRelationshipDataTypeTypePropEnum); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (m *SepaReconciliationAssociationReference) validateType(formats strfmt.Registry) error {
+func (m *SepaLiquidityRelationshipData) validateType(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("type", "body", string(m.Type)); err != nil {
 		return err
@@ -102,7 +102,7 @@ func (m *SepaReconciliationAssociationReference) validateType(formats strfmt.Reg
 }
 
 // MarshalBinary interface implementation
-func (m *SepaReconciliationAssociationReference) MarshalBinary() ([]byte, error) {
+func (m *SepaLiquidityRelationshipData) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -110,8 +110,8 @@ func (m *SepaReconciliationAssociationReference) MarshalBinary() ([]byte, error)
 }
 
 // UnmarshalBinary interface implementation
-func (m *SepaReconciliationAssociationReference) UnmarshalBinary(b []byte) error {
-	var res SepaReconciliationAssociationReference
+func (m *SepaLiquidityRelationshipData) UnmarshalBinary(b []byte) error {
+	var res SepaLiquidityRelationshipData
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

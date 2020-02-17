@@ -221,6 +221,34 @@ func (a *Client) DeleteProductsID(params *DeleteProductsIDParams) (*DeleteProduc
 }
 
 /*
+DeleteSepaLiquidityID deletes organisation sepa liquidity association
+*/
+func (a *Client) DeleteSepaLiquidityID(params *DeleteSepaLiquidityIDParams) (*DeleteSepaLiquidityIDNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteSepaLiquidityIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteSepaLiquidityID",
+		Method:             "DELETE",
+		PathPattern:        "/sepa-liquidity/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteSepaLiquidityIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteSepaLiquidityIDNoContent), nil
+
+}
+
+/*
 DeleteSepaReconciliationID deletes organisation sepa reconciliation association
 */
 func (a *Client) DeleteSepaReconciliationID(params *DeleteSepaReconciliationIDParams) (*DeleteSepaReconciliationIDNoContent, error) {
@@ -753,6 +781,62 @@ func (a *Client) GetProductsID(params *GetProductsIDParams) (*GetProductsIDOK, e
 }
 
 /*
+GetSepaLiquidity lists all organisation sepa liquidity associations
+*/
+func (a *Client) GetSepaLiquidity(params *GetSepaLiquidityParams) (*GetSepaLiquidityOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetSepaLiquidityParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetSepaLiquidity",
+		Method:             "GET",
+		PathPattern:        "/sepa-liquidity",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetSepaLiquidityReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetSepaLiquidityOK), nil
+
+}
+
+/*
+GetSepaLiquidityID fetches organisation sepa liquidity association
+*/
+func (a *Client) GetSepaLiquidityID(params *GetSepaLiquidityIDParams) (*GetSepaLiquidityIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetSepaLiquidityIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetSepaLiquidityID",
+		Method:             "GET",
+		PathPattern:        "/sepa-liquidity/{id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetSepaLiquidityIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetSepaLiquidityIDOK), nil
+
+}
+
+/*
 GetSepaReconciliation lists all organisation sepa reconciliation associations
 */
 func (a *Client) GetSepaReconciliation(params *GetSepaReconciliationParams) (*GetSepaReconciliationOK, error) {
@@ -1281,6 +1365,34 @@ func (a *Client) PostProducts(params *PostProductsParams) (*PostProductsCreated,
 		return nil, err
 	}
 	return result.(*PostProductsCreated), nil
+
+}
+
+/*
+PostSepaLiquidity creates organisation association for sepa liquidity
+*/
+func (a *Client) PostSepaLiquidity(params *PostSepaLiquidityParams) (*PostSepaLiquidityCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostSepaLiquidityParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostSepaLiquidity",
+		Method:             "POST",
+		PathPattern:        "/sepa-liquidity",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PostSepaLiquidityReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PostSepaLiquidityCreated), nil
 
 }
 
