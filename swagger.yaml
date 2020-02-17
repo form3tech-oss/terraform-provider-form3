@@ -5186,7 +5186,7 @@ definitions:
       - limits
       - bacs_associations
       - confirmation_of_payee_associations
-       - ebury_associations
+      - ebury_associations
 
   LimitCreation:
     type: object
@@ -6408,7 +6408,7 @@ definitions:
         x-nullable: false
         type: string
         enum:
-          - separeconciliation_associations
+          - sepaliquidity_associations
 
   SepaLiquidityAssociationCreation:
     type: object

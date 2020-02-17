@@ -45,7 +45,7 @@ func TestAccSepaLiquidityAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(sponsor_assoc_path, "organisation_id", sponsorOrganisationID),
 					resource.TestCheckResourceAttr(sponsor_assoc_path, "name", "Sponsor company"),
 					resource.TestCheckResourceAttr(sponsor_assoc_path, "technical_bic", "TESTBIC1"),
-					resource.TestCheckResourceAttr(sponsor_assoc_path, "settlement_bic", "RECON000"),
+					resource.TestCheckResourceAttr(sponsor_assoc_path, "settlement_bic", "BICBIC99"),
 					resource.TestCheckResourceAttr(sponsor_assoc_path, "settlement_iban", "GB22ABCD19283700000001"),
 					resource.TestCheckResourceAttr(sponsor_assoc_path, "address_street", "Harp Ln"),
 					resource.TestCheckResourceAttr(sponsor_assoc_path, "address_building_number", "7"),
@@ -57,7 +57,8 @@ func TestAccSepaLiquidityAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "association_id", sponsoredAssociationID),
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "organisation_id", sponsoredOrganisationID),
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "name", "Sponsored company"),
-					resource.TestCheckResourceAttr(sponsored_assoc_path, "sponsored_bics", `["SPTESTBIC1", "SPTESTBIC2"]`),
+					resource.TestCheckResourceAttr(sponsored_assoc_path, "sponsored_bics.0", "BICBIC50XXX"),
+					resource.TestCheckResourceAttr(sponsored_assoc_path, "sponsored_bics.1", "BICBIC51XXX"),
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "settlement_iban", "GB22ABCD19283700000002"),
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "address_street", "Harp Ln"),
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "address_building_number", "7"),
@@ -146,7 +147,7 @@ resource "form3_sepaliquidity_association" "sponsor_association" {
 	association_id          = "${local.sponsor_association_id}"
 	name                    = "Sponsor company"
 	technical_bic           = "TESTBIC1"
-	settlement_bic          = "RECON000"
+	settlement_bic          = "BICBIC99"
 	settlement_iban         = "GB22ABCD19283700000001"
 	address_street          = "Harp Ln"
 	address_building_number = "7"
@@ -158,7 +159,7 @@ resource "form3_sepaliquidity_association" "sponsored_association" {
 	organisation_id         = "${form3_organisation.sponsored.organisation_id}"
 	association_id          = "${local.sponsored_association_id}"
 	name                    = "Sponsored company"
-	sponsored_bics          = ["SPTESTBIC1", "SPTESTBIC2"]
+	sponsored_bics          = ["BICBIC50XXX", "BICBIC51XXX"]
 	settlement_iban         = "GB22ABCD19283700000002"
 	address_street          = "Harp Ln"
 	address_building_number = "7"

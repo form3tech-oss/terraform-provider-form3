@@ -26,7 +26,7 @@ type SepaLiquidityRelationshipData struct {
 
 	// type
 	// Required: true
-	// Enum: [separeconciliation_associations]
+	// Enum: [sepaliquidity_associations]
 	Type string `json:"type"`
 }
 
@@ -65,7 +65,7 @@ var sepaLiquidityRelationshipDataTypeTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["separeconciliation_associations"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["sepaliquidity_associations"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -75,8 +75,8 @@ func init() {
 
 const (
 
-	// SepaLiquidityRelationshipDataTypeSepareconciliationAssociations captures enum value "separeconciliation_associations"
-	SepaLiquidityRelationshipDataTypeSepareconciliationAssociations string = "separeconciliation_associations"
+	// SepaLiquidityRelationshipDataTypeSepaliquidityAssociations captures enum value "sepaliquidity_associations"
+	SepaLiquidityRelationshipDataTypeSepaliquidityAssociations string = "sepaliquidity_associations"
 )
 
 // prop value enum
