@@ -2,6 +2,10 @@ package form3
 
 import (
 	"fmt"
+	"os"
+	"regexp"
+	"testing"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/organisations"
 	"github.com/form3tech-oss/terraform-provider-form3/client/system"
@@ -9,10 +13,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	"github.com/satori/go.uuid"
-	"os"
-	"regexp"
-	"testing"
+	uuid "github.com/satori/go.uuid"
 )
 
 func TestAccKey_basic(t *testing.T) {
@@ -127,6 +128,8 @@ func TestAccKey_withSelfSignedCert(t *testing.T) {
 }
 
 func TestAccKey_importExistingCert(t *testing.T) {
+	testAccPreCheck(t)
+
 	var response models.Key
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.NewV4().String()
