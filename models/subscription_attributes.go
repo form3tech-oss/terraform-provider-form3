@@ -38,6 +38,10 @@ type SubscriptionAttributes struct {
 	// Pattern: ^[A-Za-z_-]*$
 	RecordType string `json:"record_type,omitempty"`
 
+	// filter
+	// Pattern: ^[A-Za-z_-\s\:]*$
+	Filter string `json:"filter,omitempty"`
+
 	// user id
 	// Read Only: true
 	// Format: uuid
@@ -61,6 +65,10 @@ func (m *SubscriptionAttributes) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateRecordType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFilter(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -153,6 +161,19 @@ func (m *SubscriptionAttributes) validateRecordType(formats strfmt.Registry) err
 	}
 
 	if err := validate.Pattern("record_type", "body", string(m.RecordType), `^[A-Za-z_-]*$`); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *SubscriptionAttributes) validateFilter(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.RecordType) { // not required
+		return nil
+	}
+
+	if err := validate.Pattern("filter", "body", string(m.Filter), `^[A-Za-z_-\s\:]*$`); err != nil {
 		return err
 	}
 
