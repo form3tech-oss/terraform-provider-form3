@@ -9147,7 +9147,9 @@ definitions:
 
   EburyAssociationAttributes:
     type: object
-    properties: {}
+    properties:
+      funding_currency:
+        type: string
 
   EburyAssociationCreation:
     type: object
