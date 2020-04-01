@@ -61,6 +61,11 @@ type ReadSeekerCloserImpl struct {
 	Closer       io.Closer
 }
 
+type debugReqResp struct {
+	req string
+	res string
+}
+
 func (r *ReadSeekerCloserImpl) Read(p []byte) (n int, err error) {
 	return r.ReederSeeker.Read(p)
 }
@@ -117,13 +122,25 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 				req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", authClient.AccessToken))
 			}
 
+			debugReqResp := debugReqResp{}
+
 			if logging.IsDebugOrHigher() {
 				dump, errDump := httputil.DumpRequestOut(req, true)
 				if errDump != nil {
 					log.Fatal(errDump)
 				}
 
-				log.Printf("[DEBUG] %s %s", req.URL.String(), string(dump))
+				if req.Body != nil {
+					rewindableBody, err := NewReaderSeekerCloser(req)
+					if err != nil {
+						return nil, err
+					}
+					req.Body = rewindableBody
+				}
+
+				debugReqResp.req = string(dump)
+
+				//log.Printf("[DEBUG] %s %s", req.URL.String(), string(dump))
 			}
 
 			// In case some API initially responds with 403, retry the request until permissions propagate.
@@ -140,6 +157,7 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 					}
 				}
 				resp, err = http.DefaultTransport.RoundTrip(req)
+
 				if resp.StatusCode == 403 {
 					return errors.New(fmt.Sprintf("status code: %d", resp.StatusCode))
 				}
@@ -155,7 +173,9 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 					log.Fatal(errDump)
 				}
 
-				log.Printf("[DEBUG] %s %s", req.URL.String(), string(dump))
+				debugReqResp.res = string(dump)
+
+				log.Printf("[DEBUG] %s\n======= request =======\n%s======= response =======\n%s\n", req.URL, debugReqResp.req, debugReqResp.res)
 			}
 
 			return resp, nil
