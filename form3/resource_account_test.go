@@ -2,12 +2,13 @@ package form3
 
 import (
 	"fmt"
-	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"math/rand"
 	"os"
 	"strconv"
 	"testing"
 	"time"
+
+	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 
 	"github.com/form3tech-oss/terraform-provider-form3/client/accounts"
 	"github.com/go-openapi/strfmt"
@@ -157,15 +158,14 @@ func TestAccAccount_importBasic(t *testing.T) {
 }
 
 func TestAccAccount_import_with_iban(t *testing.T) {
-
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.NewV4().String()
 	accountId := uuid.NewV4().String()
 	bankResourceId := uuid.NewV4().String()
 	bicId := uuid.NewV4().String()
 	bic := "NWABCD14"
-	iban := "GB65FTHR40000166854176"
 	accountNumber := randomAccountNumber()
+	iban := fmt.Sprintf("GB65FTHR400001%d", accountNumber)
 
 	resourceName := "form3_account.account"
 
@@ -268,7 +268,7 @@ resource "form3_bank_id" "bank_id" {
   bank_resource_id = "%s"
   bank_id       	 = "401005"
   bank_id_code     = "GBDSC"
-  country          = "GB" 
+  country          = "GB"
 }
 
 resource "form3_bic" "bic" {
@@ -302,7 +302,7 @@ resource "form3_bank_id" "bank_id" {
   bank_resource_id = "%s"
   bank_id       	 = "401005"
   bank_id_code     = "GBDSC"
-  country          = "GB" 
+  country          = "GB"
 }
 
 resource "form3_bic" "bic" {
@@ -345,7 +345,7 @@ resource "form3_bank_id" "bank_id" {
   bank_resource_id = "%s"
   bank_id          = "401005"
   bank_id_code     = "GBDSC"
-  country          = "GB" 
+  country          = "GB"
 }
 
 resource "form3_bic" "bic" {
