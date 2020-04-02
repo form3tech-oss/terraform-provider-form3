@@ -69,6 +69,7 @@ func TestAccBacsAssociation_zeroAccountType(t *testing.T) {
 	var bacsResponse associations.GetBacsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.NewV4().String()
+	associationId := uuid.NewV4().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -76,7 +77,7 @@ func TestAccBacsAssociation_zeroAccountType(t *testing.T) {
 		CheckDestroy: testAccCheckBacsAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3BacsAssociationConfigZeroAccountType, organisationId, parentOrganisationId),
+				Config: fmt.Sprintf(testForm3BacsAssociationConfigZeroAccountType, organisationId, parentOrganisationId, associationId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBacsAssociationExists("form3_bacs_association.association", &bacsResponse),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "service_user_number", "112233"),
@@ -84,7 +85,7 @@ func TestAccBacsAssociation_zeroAccountType(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "sorting_code", "654321"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "account_type", "0"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "association_id", "ba2283f5-e194-4e12-ac8d-ae9bb08eeddb"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "association_id", associationId),
 				),
 			},
 		},
@@ -242,7 +243,7 @@ resource "form3_organisation" "organisation" {
 
 resource "form3_bacs_association" "association" {
 	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
-	association_id                   = "ba2283f5-e194-4e12-ac8d-ae9bb08eeddb"
+	association_id                   = "%s"
 	service_user_number              = "112233"
     account_number                   = "87654321"
     sorting_code                     = "654321"
