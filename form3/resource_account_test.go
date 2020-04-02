@@ -158,15 +158,14 @@ func TestAccAccount_importBasic(t *testing.T) {
 }
 
 func TestAccAccount_import_with_iban(t *testing.T) {
-
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
 	accountId := uuid.New().String()
 	bankResourceId := uuid.New().String()
 	bicId := uuid.New().String()
 	bic := "NWABCD14"
-	iban := "GB65FTHR40000166854176"
 	accountNumber := randomAccountNumber()
+	iban := fmt.Sprintf("GB65FTHR400001%d", accountNumber)
 
 	resourceName := "form3_account.account"
 
