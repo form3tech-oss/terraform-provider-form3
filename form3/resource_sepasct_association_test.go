@@ -2,20 +2,23 @@ package form3
 
 import (
 	"fmt"
+	"math/rand"
+	"os"
+	"testing"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	"github.com/satori/go.uuid"
-	"os"
-	"testing"
+	uuid "github.com/satori/go.uuid"
 )
 
 func TestAccSepaSctAssociation_basic(t *testing.T) {
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.NewV4().String()
 	associationId := uuid.NewV4().String()
+	bic := fmt.Sprintf("BIC%d", randomNumber(10000, 99999999)) // BIC needs to be 8-11 in length
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -23,12 +26,12 @@ func TestAccSepaSctAssociation_basic(t *testing.T) {
 		CheckDestroy: testAccCheckSepaSctAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3SepaSctAssociationConfigA, organisationId, parentOrganisationId, associationId),
+				Config: fmt.Sprintf(testForm3SepaSctAssociationConfigA, organisationId, parentOrganisationId, associationId, bic),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckSepaSctAssociationExists("form3_sepasct_association.association"),
 					resource.TestCheckResourceAttr("form3_sepasct_association.association", "association_id", associationId),
 					resource.TestCheckResourceAttr("form3_sepasct_association.association", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_sepasct_association.association", "bic", "TESTBIC9"),
+					resource.TestCheckResourceAttr("form3_sepasct_association.association", "bic", bic),
 					resource.TestCheckResourceAttr("form3_sepasct_association.association", "business_user", "PR344567"),
 					resource.TestCheckResourceAttr("form3_sepasct_association.association", "receiver_business_user", "PR344568"),
 				),
@@ -85,6 +88,10 @@ func testAccCheckSepaSctAssociationExists(resourceKey string) resource.TestCheck
 	}
 }
 
+func randomNumber(min, max int) int {
+	return rand.Intn(max-min) + min
+}
+
 const testForm3SepaSctAssociationConfigA = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
@@ -95,7 +102,7 @@ resource "form3_organisation" "organisation" {
 resource "form3_sepasct_association" "association" {
 	organisation_id        = "${form3_organisation.organisation.organisation_id}"
 	association_id         = "%s"
-	bic                    = "TESTBIC9"
+	bic                    = "%s"
   business_user          = "PR344567"
   receiver_business_user = "PR344568"
 }`
