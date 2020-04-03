@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsReader is a Reader for the PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissions structure.
@@ -24,16 +23,56 @@ type PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewPostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewPostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewPostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewPostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewPostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewPostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewPostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewPostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -61,6 +100,10 @@ func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsCreated) Erro
 	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/reversals/{reversalId}/admissions][%d] postPaymentsIdReturnsReturnIdReversalsReversalIdAdmissionsCreated  %+v", 201, o.Payload)
 }
 
+func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsCreated) GetPayload() *models.ReturnReversalAdmissionCreationResponse {
+	return o.Payload
+}
+
 func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ReturnReversalAdmissionCreationResponse)
@@ -80,7 +123,7 @@ func NewPostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsBadRequest() *
 
 /*PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsBadRequest handles this case with default header values.
 
-Reversal admission creation error
+Bad Request
 */
 type PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsBadRequest struct {
 	Payload *models.APIError
@@ -90,7 +133,242 @@ func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsBadRequest) E
 	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/reversals/{reversalId}/admissions][%d] postPaymentsIdReturnsReturnIdReversalsReversalIdAdmissionsBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsUnauthorized creates a PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsUnauthorized with default headers values
+func NewPostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsUnauthorized() *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsUnauthorized {
+	return &PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsUnauthorized{}
+}
+
+/*PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/reversals/{reversalId}/admissions][%d] postPaymentsIdReturnsReturnIdReversalsReversalIdAdmissionsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsForbidden creates a PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsForbidden with default headers values
+func NewPostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsForbidden() *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsForbidden {
+	return &PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsForbidden{}
+}
+
+/*PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsForbidden handles this case with default header values.
+
+Forbidden
+*/
+type PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsForbidden) Error() string {
+	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/reversals/{reversalId}/admissions][%d] postPaymentsIdReturnsReturnIdReversalsReversalIdAdmissionsForbidden  %+v", 403, o.Payload)
+}
+
+func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsNotFound creates a PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsNotFound with default headers values
+func NewPostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsNotFound() *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsNotFound {
+	return &PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsNotFound{}
+}
+
+/*PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsNotFound handles this case with default header values.
+
+Record not found
+*/
+type PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsNotFound) Error() string {
+	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/reversals/{reversalId}/admissions][%d] postPaymentsIdReturnsReturnIdReversalsReversalIdAdmissionsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsConflict creates a PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsConflict with default headers values
+func NewPostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsConflict() *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsConflict {
+	return &PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsConflict{}
+}
+
+/*PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsConflict handles this case with default header values.
+
+Conflict
+*/
+type PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsConflict struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsConflict) Error() string {
+	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/reversals/{reversalId}/admissions][%d] postPaymentsIdReturnsReturnIdReversalsReversalIdAdmissionsConflict  %+v", 409, o.Payload)
+}
+
+func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsTooManyRequests creates a PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsTooManyRequests with default headers values
+func NewPostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsTooManyRequests() *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsTooManyRequests {
+	return &PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsTooManyRequests{}
+}
+
+/*PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsTooManyRequests) Error() string {
+	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/reversals/{reversalId}/admissions][%d] postPaymentsIdReturnsReturnIdReversalsReversalIdAdmissionsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsInternalServerError creates a PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsInternalServerError with default headers values
+func NewPostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsInternalServerError() *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsInternalServerError {
+	return &PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsInternalServerError{}
+}
+
+/*PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/reversals/{reversalId}/admissions][%d] postPaymentsIdReturnsReturnIdReversalsReversalIdAdmissionsInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsServiceUnavailable creates a PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsServiceUnavailable with default headers values
+func NewPostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsServiceUnavailable() *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsServiceUnavailable {
+	return &PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsServiceUnavailable{}
+}
+
+/*PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsServiceUnavailable) Error() string {
+	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/reversals/{reversalId}/admissions][%d] postPaymentsIdReturnsReturnIdReversalsReversalIdAdmissionsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
 

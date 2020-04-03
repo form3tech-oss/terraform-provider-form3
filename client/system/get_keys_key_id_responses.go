@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetKeysKeyIDReader is a Reader for the GetKeysKeyID structure.
@@ -24,13 +23,60 @@ type GetKeysKeyIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetKeysKeyIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetKeysKeyIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetKeysKeyIDBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetKeysKeyIDUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewGetKeysKeyIDForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetKeysKeyIDNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewGetKeysKeyIDConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewGetKeysKeyIDTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetKeysKeyIDInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewGetKeysKeyIDServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -54,9 +100,277 @@ func (o *GetKeysKeyIDOK) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdOK  %+v", 200, o.Payload)
 }
 
+func (o *GetKeysKeyIDOK) GetPayload() *models.KeyDetailsResponse {
+	return o.Payload
+}
+
 func (o *GetKeysKeyIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.KeyDetailsResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetKeysKeyIDBadRequest creates a GetKeysKeyIDBadRequest with default headers values
+func NewGetKeysKeyIDBadRequest() *GetKeysKeyIDBadRequest {
+	return &GetKeysKeyIDBadRequest{}
+}
+
+/*GetKeysKeyIDBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetKeysKeyIDBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetKeysKeyIDBadRequest) Error() string {
+	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetKeysKeyIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetKeysKeyIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetKeysKeyIDUnauthorized creates a GetKeysKeyIDUnauthorized with default headers values
+func NewGetKeysKeyIDUnauthorized() *GetKeysKeyIDUnauthorized {
+	return &GetKeysKeyIDUnauthorized{}
+}
+
+/*GetKeysKeyIDUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetKeysKeyIDUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetKeysKeyIDUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetKeysKeyIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetKeysKeyIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetKeysKeyIDForbidden creates a GetKeysKeyIDForbidden with default headers values
+func NewGetKeysKeyIDForbidden() *GetKeysKeyIDForbidden {
+	return &GetKeysKeyIDForbidden{}
+}
+
+/*GetKeysKeyIDForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetKeysKeyIDForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetKeysKeyIDForbidden) Error() string {
+	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetKeysKeyIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetKeysKeyIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetKeysKeyIDNotFound creates a GetKeysKeyIDNotFound with default headers values
+func NewGetKeysKeyIDNotFound() *GetKeysKeyIDNotFound {
+	return &GetKeysKeyIDNotFound{}
+}
+
+/*GetKeysKeyIDNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetKeysKeyIDNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetKeysKeyIDNotFound) Error() string {
+	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetKeysKeyIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetKeysKeyIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetKeysKeyIDConflict creates a GetKeysKeyIDConflict with default headers values
+func NewGetKeysKeyIDConflict() *GetKeysKeyIDConflict {
+	return &GetKeysKeyIDConflict{}
+}
+
+/*GetKeysKeyIDConflict handles this case with default header values.
+
+Conflict
+*/
+type GetKeysKeyIDConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetKeysKeyIDConflict) Error() string {
+	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetKeysKeyIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetKeysKeyIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetKeysKeyIDTooManyRequests creates a GetKeysKeyIDTooManyRequests with default headers values
+func NewGetKeysKeyIDTooManyRequests() *GetKeysKeyIDTooManyRequests {
+	return &GetKeysKeyIDTooManyRequests{}
+}
+
+/*GetKeysKeyIDTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetKeysKeyIDTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetKeysKeyIDTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetKeysKeyIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetKeysKeyIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetKeysKeyIDInternalServerError creates a GetKeysKeyIDInternalServerError with default headers values
+func NewGetKeysKeyIDInternalServerError() *GetKeysKeyIDInternalServerError {
+	return &GetKeysKeyIDInternalServerError{}
+}
+
+/*GetKeysKeyIDInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetKeysKeyIDInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetKeysKeyIDInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetKeysKeyIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetKeysKeyIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetKeysKeyIDServiceUnavailable creates a GetKeysKeyIDServiceUnavailable with default headers values
+func NewGetKeysKeyIDServiceUnavailable() *GetKeysKeyIDServiceUnavailable {
+	return &GetKeysKeyIDServiceUnavailable{}
+}
+
+/*GetKeysKeyIDServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetKeysKeyIDServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetKeysKeyIDServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetKeysKeyIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetKeysKeyIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

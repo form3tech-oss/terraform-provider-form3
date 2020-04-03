@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetAccountconfigurationsReader is a Reader for the GetAccountconfigurations structure.
@@ -24,13 +23,60 @@ type GetAccountconfigurationsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetAccountconfigurationsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetAccountconfigurationsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetAccountconfigurationsBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetAccountconfigurationsUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewGetAccountconfigurationsForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetAccountconfigurationsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewGetAccountconfigurationsConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewGetAccountconfigurationsTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetAccountconfigurationsInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewGetAccountconfigurationsServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -54,9 +100,277 @@ func (o *GetAccountconfigurationsOK) Error() string {
 	return fmt.Sprintf("[GET /accountconfigurations][%d] getAccountconfigurationsOK  %+v", 200, o.Payload)
 }
 
+func (o *GetAccountconfigurationsOK) GetPayload() *models.AccountConfigurationDetailsListResponse {
+	return o.Payload
+}
+
 func (o *GetAccountconfigurationsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.AccountConfigurationDetailsListResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAccountconfigurationsBadRequest creates a GetAccountconfigurationsBadRequest with default headers values
+func NewGetAccountconfigurationsBadRequest() *GetAccountconfigurationsBadRequest {
+	return &GetAccountconfigurationsBadRequest{}
+}
+
+/*GetAccountconfigurationsBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetAccountconfigurationsBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetAccountconfigurationsBadRequest) Error() string {
+	return fmt.Sprintf("[GET /accountconfigurations][%d] getAccountconfigurationsBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetAccountconfigurationsBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetAccountconfigurationsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAccountconfigurationsUnauthorized creates a GetAccountconfigurationsUnauthorized with default headers values
+func NewGetAccountconfigurationsUnauthorized() *GetAccountconfigurationsUnauthorized {
+	return &GetAccountconfigurationsUnauthorized{}
+}
+
+/*GetAccountconfigurationsUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetAccountconfigurationsUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetAccountconfigurationsUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /accountconfigurations][%d] getAccountconfigurationsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetAccountconfigurationsUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetAccountconfigurationsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAccountconfigurationsForbidden creates a GetAccountconfigurationsForbidden with default headers values
+func NewGetAccountconfigurationsForbidden() *GetAccountconfigurationsForbidden {
+	return &GetAccountconfigurationsForbidden{}
+}
+
+/*GetAccountconfigurationsForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetAccountconfigurationsForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetAccountconfigurationsForbidden) Error() string {
+	return fmt.Sprintf("[GET /accountconfigurations][%d] getAccountconfigurationsForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetAccountconfigurationsForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetAccountconfigurationsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAccountconfigurationsNotFound creates a GetAccountconfigurationsNotFound with default headers values
+func NewGetAccountconfigurationsNotFound() *GetAccountconfigurationsNotFound {
+	return &GetAccountconfigurationsNotFound{}
+}
+
+/*GetAccountconfigurationsNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetAccountconfigurationsNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetAccountconfigurationsNotFound) Error() string {
+	return fmt.Sprintf("[GET /accountconfigurations][%d] getAccountconfigurationsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetAccountconfigurationsNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetAccountconfigurationsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAccountconfigurationsConflict creates a GetAccountconfigurationsConflict with default headers values
+func NewGetAccountconfigurationsConflict() *GetAccountconfigurationsConflict {
+	return &GetAccountconfigurationsConflict{}
+}
+
+/*GetAccountconfigurationsConflict handles this case with default header values.
+
+Conflict
+*/
+type GetAccountconfigurationsConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetAccountconfigurationsConflict) Error() string {
+	return fmt.Sprintf("[GET /accountconfigurations][%d] getAccountconfigurationsConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetAccountconfigurationsConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetAccountconfigurationsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAccountconfigurationsTooManyRequests creates a GetAccountconfigurationsTooManyRequests with default headers values
+func NewGetAccountconfigurationsTooManyRequests() *GetAccountconfigurationsTooManyRequests {
+	return &GetAccountconfigurationsTooManyRequests{}
+}
+
+/*GetAccountconfigurationsTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetAccountconfigurationsTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetAccountconfigurationsTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /accountconfigurations][%d] getAccountconfigurationsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetAccountconfigurationsTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetAccountconfigurationsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAccountconfigurationsInternalServerError creates a GetAccountconfigurationsInternalServerError with default headers values
+func NewGetAccountconfigurationsInternalServerError() *GetAccountconfigurationsInternalServerError {
+	return &GetAccountconfigurationsInternalServerError{}
+}
+
+/*GetAccountconfigurationsInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetAccountconfigurationsInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetAccountconfigurationsInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /accountconfigurations][%d] getAccountconfigurationsInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetAccountconfigurationsInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetAccountconfigurationsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAccountconfigurationsServiceUnavailable creates a GetAccountconfigurationsServiceUnavailable with default headers values
+func NewGetAccountconfigurationsServiceUnavailable() *GetAccountconfigurationsServiceUnavailable {
+	return &GetAccountconfigurationsServiceUnavailable{}
+}
+
+/*GetAccountconfigurationsServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetAccountconfigurationsServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetAccountconfigurationsServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /accountconfigurations][%d] getAccountconfigurationsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetAccountconfigurationsServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetAccountconfigurationsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

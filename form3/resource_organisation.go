@@ -2,13 +2,13 @@ package form3
 
 import (
 	"fmt"
+	"log"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/organisations"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
 )
 
 func resourceForm3Organisation() *schema.Resource {
@@ -56,7 +56,7 @@ func resourceOrganisationCreate(d *schema.ResourceData, meta interface{}) error 
 		WithOrganisationCreationRequest(&models.OrganisationCreation{Data: organisation}))
 
 	if err != nil {
-		return fmt.Errorf("failed to create organisation: %s", err)
+		return fmt.Errorf("failed to create organisation: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	d.SetId(createdOrganisation.Payload.Data.ID.String())
@@ -82,14 +82,11 @@ func resourceOrganisationRead(d *schema.ResourceData, meta interface{}) error {
 		organisations.NewGetUnitsIDParams().WithID(organisationId))
 
 	if err != nil {
-
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find organisation: %s", form3.JsonErrorPrettyPrint(err))
 		}
-
-		return fmt.Errorf("couldn't find organisation: %s", err)
+		d.SetId("")
+		return nil
 	}
 
 	d.Set("organisation_id", organisation.Payload.Data.ID.String())
@@ -105,7 +102,7 @@ func resourceOrganisationUpdate(d *schema.ResourceData, meta interface{}) error 
 		client := meta.(*form3.AuthenticatedClient)
 		organisationFromResource, err := createOrganisationFromResourceDataWithVersion(d, client)
 		if err != nil {
-			return fmt.Errorf("error updating organisation: %s", err)
+			return fmt.Errorf("error updating organisation: %s", form3.JsonErrorPrettyPrint(err))
 		}
 
 		_, err = client.OrganisationClient.Organisations.PatchUnitsID(organisations.NewPatchUnitsIDParams().
@@ -113,7 +110,7 @@ func resourceOrganisationUpdate(d *schema.ResourceData, meta interface{}) error 
 			WithOrganisationUpdateRequest(&models.OrganisationUpdate{Data: organisationFromResource}))
 
 		if err != nil {
-			return fmt.Errorf("error updating organisation: %s", err)
+			return fmt.Errorf("error updating organisation: %s", form3.JsonErrorPrettyPrint(err))
 		}
 	}
 
@@ -125,7 +122,7 @@ func resourceOrganisationDelete(d *schema.ResourceData, meta interface{}) error 
 
 	organisationFromResource, err := createOrganisationFromResourceDataWithVersion(d, client)
 	if err != nil {
-		return fmt.Errorf("error deleting organisation: %s", err)
+		return fmt.Errorf("error deleting organisation: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	log.Printf("[INFO] Deleting organisation for id: %s organisationname: %s",
@@ -136,7 +133,7 @@ func resourceOrganisationDelete(d *schema.ResourceData, meta interface{}) error 
 		WithVersion(*organisationFromResource.Version))
 
 	if err != nil {
-		return fmt.Errorf("error deleting organisation: %s", err)
+		return fmt.Errorf("error deleting organisation: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil
@@ -144,6 +141,10 @@ func resourceOrganisationDelete(d *schema.ResourceData, meta interface{}) error 
 
 func createOrganisationFromResourceDataWithVersion(d *schema.ResourceData, client *form3.AuthenticatedClient) (*models.Organisation, error) {
 	organisation, err := createOrganisationFromResourceData(d)
+	if err != nil {
+		return nil, err
+	}
+
 	version, err := getOrganisationVersion(client, organisation.ID)
 	if err != nil {
 		return nil, err
@@ -178,7 +179,7 @@ func getOrganisationVersion(client *form3.AuthenticatedClient, organisationId st
 		WithID(organisationId))
 	if err != nil {
 		if err != nil {
-			return -1, fmt.Errorf("error reading organisation: %s", err)
+			return -1, fmt.Errorf("error reading organisation: %s", form3.JsonErrorPrettyPrint(err))
 		}
 	}
 

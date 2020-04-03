@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetUsersUserIDCredentialsPublicKeyPublicKeyIDReader is a Reader for the GetUsersUserIDCredentialsPublicKeyPublicKeyID structure.
@@ -24,13 +23,60 @@ type GetUsersUserIDCredentialsPublicKeyPublicKeyIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -54,9 +100,277 @@ func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDOK) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/public_key/{public_key_id}][%d] getUsersUserIdCredentialsPublicKeyPublicKeyIdOK  %+v", 200, o.Payload)
 }
 
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDOK) GetPayload() *models.PublicKey {
+	return o.Payload
+}
+
 func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.PublicKey)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDBadRequest creates a GetUsersUserIDCredentialsPublicKeyPublicKeyIDBadRequest with default headers values
+func NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDBadRequest() *GetUsersUserIDCredentialsPublicKeyPublicKeyIDBadRequest {
+	return &GetUsersUserIDCredentialsPublicKeyPublicKeyIDBadRequest{}
+}
+
+/*GetUsersUserIDCredentialsPublicKeyPublicKeyIDBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetUsersUserIDCredentialsPublicKeyPublicKeyIDBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDBadRequest) Error() string {
+	return fmt.Sprintf("[GET /users/{user_id}/credentials/public_key/{public_key_id}][%d] getUsersUserIdCredentialsPublicKeyPublicKeyIdBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDUnauthorized creates a GetUsersUserIDCredentialsPublicKeyPublicKeyIDUnauthorized with default headers values
+func NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDUnauthorized() *GetUsersUserIDCredentialsPublicKeyPublicKeyIDUnauthorized {
+	return &GetUsersUserIDCredentialsPublicKeyPublicKeyIDUnauthorized{}
+}
+
+/*GetUsersUserIDCredentialsPublicKeyPublicKeyIDUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetUsersUserIDCredentialsPublicKeyPublicKeyIDUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /users/{user_id}/credentials/public_key/{public_key_id}][%d] getUsersUserIdCredentialsPublicKeyPublicKeyIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDForbidden creates a GetUsersUserIDCredentialsPublicKeyPublicKeyIDForbidden with default headers values
+func NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDForbidden() *GetUsersUserIDCredentialsPublicKeyPublicKeyIDForbidden {
+	return &GetUsersUserIDCredentialsPublicKeyPublicKeyIDForbidden{}
+}
+
+/*GetUsersUserIDCredentialsPublicKeyPublicKeyIDForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetUsersUserIDCredentialsPublicKeyPublicKeyIDForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDForbidden) Error() string {
+	return fmt.Sprintf("[GET /users/{user_id}/credentials/public_key/{public_key_id}][%d] getUsersUserIdCredentialsPublicKeyPublicKeyIdForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDNotFound creates a GetUsersUserIDCredentialsPublicKeyPublicKeyIDNotFound with default headers values
+func NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDNotFound() *GetUsersUserIDCredentialsPublicKeyPublicKeyIDNotFound {
+	return &GetUsersUserIDCredentialsPublicKeyPublicKeyIDNotFound{}
+}
+
+/*GetUsersUserIDCredentialsPublicKeyPublicKeyIDNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetUsersUserIDCredentialsPublicKeyPublicKeyIDNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDNotFound) Error() string {
+	return fmt.Sprintf("[GET /users/{user_id}/credentials/public_key/{public_key_id}][%d] getUsersUserIdCredentialsPublicKeyPublicKeyIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDConflict creates a GetUsersUserIDCredentialsPublicKeyPublicKeyIDConflict with default headers values
+func NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDConflict() *GetUsersUserIDCredentialsPublicKeyPublicKeyIDConflict {
+	return &GetUsersUserIDCredentialsPublicKeyPublicKeyIDConflict{}
+}
+
+/*GetUsersUserIDCredentialsPublicKeyPublicKeyIDConflict handles this case with default header values.
+
+Conflict
+*/
+type GetUsersUserIDCredentialsPublicKeyPublicKeyIDConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDConflict) Error() string {
+	return fmt.Sprintf("[GET /users/{user_id}/credentials/public_key/{public_key_id}][%d] getUsersUserIdCredentialsPublicKeyPublicKeyIdConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDTooManyRequests creates a GetUsersUserIDCredentialsPublicKeyPublicKeyIDTooManyRequests with default headers values
+func NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDTooManyRequests() *GetUsersUserIDCredentialsPublicKeyPublicKeyIDTooManyRequests {
+	return &GetUsersUserIDCredentialsPublicKeyPublicKeyIDTooManyRequests{}
+}
+
+/*GetUsersUserIDCredentialsPublicKeyPublicKeyIDTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetUsersUserIDCredentialsPublicKeyPublicKeyIDTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /users/{user_id}/credentials/public_key/{public_key_id}][%d] getUsersUserIdCredentialsPublicKeyPublicKeyIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDInternalServerError creates a GetUsersUserIDCredentialsPublicKeyPublicKeyIDInternalServerError with default headers values
+func NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDInternalServerError() *GetUsersUserIDCredentialsPublicKeyPublicKeyIDInternalServerError {
+	return &GetUsersUserIDCredentialsPublicKeyPublicKeyIDInternalServerError{}
+}
+
+/*GetUsersUserIDCredentialsPublicKeyPublicKeyIDInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetUsersUserIDCredentialsPublicKeyPublicKeyIDInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /users/{user_id}/credentials/public_key/{public_key_id}][%d] getUsersUserIdCredentialsPublicKeyPublicKeyIdInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDServiceUnavailable creates a GetUsersUserIDCredentialsPublicKeyPublicKeyIDServiceUnavailable with default headers values
+func NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDServiceUnavailable() *GetUsersUserIDCredentialsPublicKeyPublicKeyIDServiceUnavailable {
+	return &GetUsersUserIDCredentialsPublicKeyPublicKeyIDServiceUnavailable{}
+}
+
+/*GetUsersUserIDCredentialsPublicKeyPublicKeyIDServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetUsersUserIDCredentialsPublicKeyPublicKeyIDServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /users/{user_id}/credentials/public_key/{public_key_id}][%d] getUsersUserIdCredentialsPublicKeyPublicKeyIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

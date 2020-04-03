@@ -3,14 +3,14 @@ package form3
 import (
 	"errors"
 	"fmt"
+	"log"
+	"strings"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/system"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
-	"strings"
 )
 
 func resourceForm3Certificate() *schema.Resource {
@@ -66,7 +66,7 @@ func importCertificateState(d *schema.ResourceData, m interface{}) ([]*schema.Re
 		return nil, errors.New("certificate Import ID must be in form '<keyId>/<certificateId>'")
 	}
 	d.SetId(parts[1])
-	d.Set("key_id", parts[0])
+	_ = d.Set("key_id", parts[0])
 	return []*schema.ResourceData{d}, nil
 }
 
@@ -77,7 +77,7 @@ func resourceCertificateCreate(d *schema.ResourceData, meta interface{}) error {
 
 	certificate, err := createNewCertificateFromResourceData(d)
 	if err != nil {
-		return fmt.Errorf("failed to create Certificate : %s", err)
+		return fmt.Errorf("failed to create Certificate : %s", form3.JsonErrorPrettyPrint(err))
 	}
 	certRequestId, _ := GetUUIDOK(d, "key_id")
 
@@ -89,7 +89,7 @@ func resourceCertificateCreate(d *schema.ResourceData, meta interface{}) error {
 			}))
 
 	if err != nil {
-		return fmt.Errorf("failed to create certificate : %s", err)
+		return fmt.Errorf("failed to create certificate : %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	d.SetId(createdCertificate.Payload.Data.ID.String())
@@ -117,22 +117,20 @@ func resourceCertificateRead(d *schema.ResourceData, meta interface{}) error {
 			WithKeyID(keyId))
 
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
-		} else {
-			return err
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find certificate: %s", form3.JsonErrorPrettyPrint(err))
 		}
+		d.SetId("")
+		return nil
 	}
 
 	cert := response.Payload.Data
 
-	d.Set("actual_certificate", cert.Attributes.Certificate)
-	d.Set("issuing_certificates", cert.Attributes.IssuingCertificates)
-	d.Set("organisation_id", cert.OrganisationID.String())
-	d.Set("certificate_id", cert.ID.String())
-	d.Set("key_id", keyId.String())
+	_ = d.Set("actual_certificate", cert.Attributes.Certificate)
+	_ = d.Set("issuing_certificates", cert.Attributes.IssuingCertificates)
+	_ = d.Set("organisation_id", cert.OrganisationID.String())
+	_ = d.Set("certificate_id", cert.ID.String())
+	_ = d.Set("key_id", keyId.String())
 
 	return nil
 }
@@ -144,7 +142,11 @@ func resourceCertificateDelete(d *schema.ResourceData, meta interface{}) error {
 
 	response, err := client.SystemClient.System.GetKeysKeyIDCertificates(
 		system.NewGetKeysKeyIDCertificatesParams().
-			WithKeyID(strfmt.UUID(certRequestId)))
+			WithKeyID(certRequestId))
+	if err != nil {
+		return err
+	}
+
 	var cert *models.Certificate
 	for _, certificate := range response.Payload.Data {
 		if strfmt.UUID(d.Id()) == certificate.ID {
@@ -166,7 +168,7 @@ func resourceCertificateDelete(d *schema.ResourceData, meta interface{}) error {
 			WithCertificateID(cert.ID))
 
 	if err != nil {
-		return fmt.Errorf("error deleting Certificate: %s", err)
+		return fmt.Errorf("error deleting Certificate: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil

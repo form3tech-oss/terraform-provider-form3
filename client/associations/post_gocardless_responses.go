@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostGocardlessReader is a Reader for the PostGocardless structure.
@@ -24,13 +23,60 @@ type PostGocardlessReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostGocardlessReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostGocardlessCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewPostGocardlessBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewPostGocardlessUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewPostGocardlessForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewPostGocardlessNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewPostGocardlessConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewPostGocardlessTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewPostGocardlessInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewPostGocardlessServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -54,9 +100,277 @@ func (o *PostGocardlessCreated) Error() string {
 	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessCreated  %+v", 201, o.Payload)
 }
 
+func (o *PostGocardlessCreated) GetPayload() *models.GocardlessAssociationCreationResponse {
+	return o.Payload
+}
+
 func (o *PostGocardlessCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.GocardlessAssociationCreationResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostGocardlessBadRequest creates a PostGocardlessBadRequest with default headers values
+func NewPostGocardlessBadRequest() *PostGocardlessBadRequest {
+	return &PostGocardlessBadRequest{}
+}
+
+/*PostGocardlessBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type PostGocardlessBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *PostGocardlessBadRequest) Error() string {
+	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *PostGocardlessBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostGocardlessBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostGocardlessUnauthorized creates a PostGocardlessUnauthorized with default headers values
+func NewPostGocardlessUnauthorized() *PostGocardlessUnauthorized {
+	return &PostGocardlessUnauthorized{}
+}
+
+/*PostGocardlessUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type PostGocardlessUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *PostGocardlessUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostGocardlessUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostGocardlessUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostGocardlessForbidden creates a PostGocardlessForbidden with default headers values
+func NewPostGocardlessForbidden() *PostGocardlessForbidden {
+	return &PostGocardlessForbidden{}
+}
+
+/*PostGocardlessForbidden handles this case with default header values.
+
+Forbidden
+*/
+type PostGocardlessForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *PostGocardlessForbidden) Error() string {
+	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessForbidden  %+v", 403, o.Payload)
+}
+
+func (o *PostGocardlessForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostGocardlessForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostGocardlessNotFound creates a PostGocardlessNotFound with default headers values
+func NewPostGocardlessNotFound() *PostGocardlessNotFound {
+	return &PostGocardlessNotFound{}
+}
+
+/*PostGocardlessNotFound handles this case with default header values.
+
+Record not found
+*/
+type PostGocardlessNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *PostGocardlessNotFound) Error() string {
+	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostGocardlessNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostGocardlessNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostGocardlessConflict creates a PostGocardlessConflict with default headers values
+func NewPostGocardlessConflict() *PostGocardlessConflict {
+	return &PostGocardlessConflict{}
+}
+
+/*PostGocardlessConflict handles this case with default header values.
+
+Conflict
+*/
+type PostGocardlessConflict struct {
+	Payload *models.APIError
+}
+
+func (o *PostGocardlessConflict) Error() string {
+	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessConflict  %+v", 409, o.Payload)
+}
+
+func (o *PostGocardlessConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostGocardlessConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostGocardlessTooManyRequests creates a PostGocardlessTooManyRequests with default headers values
+func NewPostGocardlessTooManyRequests() *PostGocardlessTooManyRequests {
+	return &PostGocardlessTooManyRequests{}
+}
+
+/*PostGocardlessTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type PostGocardlessTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *PostGocardlessTooManyRequests) Error() string {
+	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostGocardlessTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostGocardlessTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostGocardlessInternalServerError creates a PostGocardlessInternalServerError with default headers values
+func NewPostGocardlessInternalServerError() *PostGocardlessInternalServerError {
+	return &PostGocardlessInternalServerError{}
+}
+
+/*PostGocardlessInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type PostGocardlessInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *PostGocardlessInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *PostGocardlessInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostGocardlessInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostGocardlessServiceUnavailable creates a PostGocardlessServiceUnavailable with default headers values
+func NewPostGocardlessServiceUnavailable() *PostGocardlessServiceUnavailable {
+	return &PostGocardlessServiceUnavailable{}
+}
+
+/*PostGocardlessServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type PostGocardlessServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *PostGocardlessServiceUnavailable) Error() string {
+	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostGocardlessServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostGocardlessServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

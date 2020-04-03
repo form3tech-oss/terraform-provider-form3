@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetUsersUserIDAcesReader is a Reader for the GetUsersUserIDAces structure.
@@ -24,13 +23,60 @@ type GetUsersUserIDAcesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetUsersUserIDAcesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetUsersUserIDAcesOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetUsersUserIDAcesBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetUsersUserIDAcesUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewGetUsersUserIDAcesForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetUsersUserIDAcesNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewGetUsersUserIDAcesConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewGetUsersUserIDAcesTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetUsersUserIDAcesInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewGetUsersUserIDAcesServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -54,9 +100,277 @@ func (o *GetUsersUserIDAcesOK) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesOK  %+v", 200, o.Payload)
 }
 
+func (o *GetUsersUserIDAcesOK) GetPayload() *models.AceDetailsListResponse {
+	return o.Payload
+}
+
 func (o *GetUsersUserIDAcesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.AceDetailsListResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUsersUserIDAcesBadRequest creates a GetUsersUserIDAcesBadRequest with default headers values
+func NewGetUsersUserIDAcesBadRequest() *GetUsersUserIDAcesBadRequest {
+	return &GetUsersUserIDAcesBadRequest{}
+}
+
+/*GetUsersUserIDAcesBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetUsersUserIDAcesBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetUsersUserIDAcesBadRequest) Error() string {
+	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetUsersUserIDAcesBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetUsersUserIDAcesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUsersUserIDAcesUnauthorized creates a GetUsersUserIDAcesUnauthorized with default headers values
+func NewGetUsersUserIDAcesUnauthorized() *GetUsersUserIDAcesUnauthorized {
+	return &GetUsersUserIDAcesUnauthorized{}
+}
+
+/*GetUsersUserIDAcesUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetUsersUserIDAcesUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetUsersUserIDAcesUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetUsersUserIDAcesUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetUsersUserIDAcesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUsersUserIDAcesForbidden creates a GetUsersUserIDAcesForbidden with default headers values
+func NewGetUsersUserIDAcesForbidden() *GetUsersUserIDAcesForbidden {
+	return &GetUsersUserIDAcesForbidden{}
+}
+
+/*GetUsersUserIDAcesForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetUsersUserIDAcesForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetUsersUserIDAcesForbidden) Error() string {
+	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetUsersUserIDAcesForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetUsersUserIDAcesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUsersUserIDAcesNotFound creates a GetUsersUserIDAcesNotFound with default headers values
+func NewGetUsersUserIDAcesNotFound() *GetUsersUserIDAcesNotFound {
+	return &GetUsersUserIDAcesNotFound{}
+}
+
+/*GetUsersUserIDAcesNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetUsersUserIDAcesNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetUsersUserIDAcesNotFound) Error() string {
+	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetUsersUserIDAcesNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetUsersUserIDAcesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUsersUserIDAcesConflict creates a GetUsersUserIDAcesConflict with default headers values
+func NewGetUsersUserIDAcesConflict() *GetUsersUserIDAcesConflict {
+	return &GetUsersUserIDAcesConflict{}
+}
+
+/*GetUsersUserIDAcesConflict handles this case with default header values.
+
+Conflict
+*/
+type GetUsersUserIDAcesConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetUsersUserIDAcesConflict) Error() string {
+	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetUsersUserIDAcesConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetUsersUserIDAcesConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUsersUserIDAcesTooManyRequests creates a GetUsersUserIDAcesTooManyRequests with default headers values
+func NewGetUsersUserIDAcesTooManyRequests() *GetUsersUserIDAcesTooManyRequests {
+	return &GetUsersUserIDAcesTooManyRequests{}
+}
+
+/*GetUsersUserIDAcesTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetUsersUserIDAcesTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetUsersUserIDAcesTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetUsersUserIDAcesTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetUsersUserIDAcesTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUsersUserIDAcesInternalServerError creates a GetUsersUserIDAcesInternalServerError with default headers values
+func NewGetUsersUserIDAcesInternalServerError() *GetUsersUserIDAcesInternalServerError {
+	return &GetUsersUserIDAcesInternalServerError{}
+}
+
+/*GetUsersUserIDAcesInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetUsersUserIDAcesInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetUsersUserIDAcesInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetUsersUserIDAcesInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetUsersUserIDAcesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUsersUserIDAcesServiceUnavailable creates a GetUsersUserIDAcesServiceUnavailable with default headers values
+func NewGetUsersUserIDAcesServiceUnavailable() *GetUsersUserIDAcesServiceUnavailable {
+	return &GetUsersUserIDAcesServiceUnavailable{}
+}
+
+/*GetUsersUserIDAcesServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetUsersUserIDAcesServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetUsersUserIDAcesServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetUsersUserIDAcesServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetUsersUserIDAcesServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

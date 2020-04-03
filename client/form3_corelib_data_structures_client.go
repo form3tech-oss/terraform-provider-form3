@@ -8,8 +8,7 @@ package client
 import (
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
-
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 
 	"github.com/form3tech-oss/terraform-provider-form3/client/account_routings"
 	"github.com/form3tech-oss/terraform-provider-form3/client/accounts"
@@ -70,37 +69,21 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Form3Corel
 
 	cli := new(Form3CorelibDataStructures)
 	cli.Transport = transport
-
 	cli.AccountRoutings = account_routings.New(transport, formats)
-
 	cli.Accounts = accounts.New(transport, formats)
-
 	cli.Ace = ace.New(transport, formats)
-
 	cli.Admins = admins.New(transport, formats)
-
 	cli.Associations = associations.New(transport, formats)
-
 	cli.DirectDebits = direct_debits.New(transport, formats)
-
 	cli.Limits = limits.New(transport, formats)
-
 	cli.Mandates = mandates.New(transport, formats)
-
 	cli.Organisations = organisations.New(transport, formats)
-
 	cli.PaymentDefaults = payment_defaults.New(transport, formats)
-
 	cli.Payments = payments.New(transport, formats)
-
 	cli.Roles = roles.New(transport, formats)
-
 	cli.Subscriptions = subscriptions.New(transport, formats)
-
 	cli.System = system.New(transport, formats)
-
 	cli.Users = users.New(transport, formats)
-
 	return cli
 }
 
@@ -145,35 +128,35 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 
 // Form3CorelibDataStructures is a client for form3 corelib data structures
 type Form3CorelibDataStructures struct {
-	AccountRoutings *account_routings.Client
+	AccountRoutings account_routings.ClientService
 
-	Accounts *accounts.Client
+	Accounts accounts.ClientService
 
-	Ace *ace.Client
+	Ace ace.ClientService
 
-	Admins *admins.Client
+	Admins admins.ClientService
 
-	Associations *associations.Client
+	Associations associations.ClientService
 
-	DirectDebits *direct_debits.Client
+	DirectDebits direct_debits.ClientService
 
-	Limits *limits.Client
+	Limits limits.ClientService
 
-	Mandates *mandates.Client
+	Mandates mandates.ClientService
 
-	Organisations *organisations.Client
+	Organisations organisations.ClientService
 
-	PaymentDefaults *payment_defaults.Client
+	PaymentDefaults payment_defaults.ClientService
 
-	Payments *payments.Client
+	Payments payments.ClientService
 
-	Roles *roles.Client
+	Roles roles.ClientService
 
-	Subscriptions *subscriptions.Client
+	Subscriptions subscriptions.ClientService
 
-	System *system.Client
+	System system.ClientService
 
-	Users *users.Client
+	Users users.ClientService
 
 	Transport runtime.ClientTransport
 }
@@ -181,35 +164,19 @@ type Form3CorelibDataStructures struct {
 // SetTransport changes the transport on the client and all its subresources
 func (c *Form3CorelibDataStructures) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
-
 	c.AccountRoutings.SetTransport(transport)
-
 	c.Accounts.SetTransport(transport)
-
 	c.Ace.SetTransport(transport)
-
 	c.Admins.SetTransport(transport)
-
 	c.Associations.SetTransport(transport)
-
 	c.DirectDebits.SetTransport(transport)
-
 	c.Limits.SetTransport(transport)
-
 	c.Mandates.SetTransport(transport)
-
 	c.Organisations.SetTransport(transport)
-
 	c.PaymentDefaults.SetTransport(transport)
-
 	c.Payments.SetTransport(transport)
-
 	c.Roles.SetTransport(transport)
-
 	c.Subscriptions.SetTransport(transport)
-
 	c.System.SetTransport(transport)
-
 	c.Users.SetTransport(transport)
-
 }

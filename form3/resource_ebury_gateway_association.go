@@ -6,8 +6,6 @@ import (
 
 	"github.com/go-openapi/strfmt"
 
-	"github.com/go-openapi/runtime"
-
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 
 	"github.com/form3tech-oss/terraform-provider-form3/models"
@@ -42,13 +40,13 @@ func resourceEburyAssociationCreate(d *schema.ResourceData, meta interface{}) er
 
 	association, err := createEburyAssociationFromResourceData(d)
 	if err != nil {
-		return fmt.Errorf("failed to create ebury association: %s", err)
+		return fmt.Errorf("failed to create ebury association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	createdAssociation, err := client.AssociationClient.Associations.PostEbury(
 		associations.NewPostEburyParams().WithCreationRequest(&models.EburyAssociationCreation{Data: association}))
 	if err != nil {
-		return fmt.Errorf("failed to create ebury association: %s", err)
+		return fmt.Errorf("failed to create ebury association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	d.SetId(createdAssociation.Payload.Data.ID.String())
@@ -64,13 +62,13 @@ func resourceEburyAssociationRead(d *schema.ResourceData, meta interface{}) erro
 
 	eburyAssociation, err := client.AssociationClient.Associations.GetEburyID(
 		associations.NewGetEburyIDParams().WithID(associationId))
+
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find ebury gateway association: %s", form3.JsonErrorPrettyPrint(err))
 		}
-		return fmt.Errorf("couldn't find ebury gateway association: %s", err)
+		d.SetId("")
+		return nil
 	}
 
 	_ = d.Set("association_id", eburyAssociation.Payload.Data.ID.String())
@@ -83,7 +81,7 @@ func resourceEburyAssociationDelete(d *schema.ResourceData, meta interface{}) er
 	eburyAssociation, err := client.AssociationClient.Associations.GetEburyID(associations.NewGetEburyIDParams().
 		WithID(strfmt.UUID(d.Id())))
 	if err != nil {
-		return fmt.Errorf("error deleting ebury gateway association: %s", err)
+		return fmt.Errorf("error deleting ebury gateway association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	_, err = client.AssociationClient.Associations.DeleteEburyID(associations.NewDeleteEburyIDParams().
@@ -91,7 +89,7 @@ func resourceEburyAssociationDelete(d *schema.ResourceData, meta interface{}) er
 		WithVersion(*eburyAssociation.Payload.Data.Version))
 
 	if err != nil {
-		return fmt.Errorf("error deleting ebury gateway association: %s", err)
+		return fmt.Errorf("error deleting ebury gateway association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil

@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetVocalinkreportReader is a Reader for the GetVocalinkreport structure.
@@ -24,13 +23,60 @@ type GetVocalinkreportReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetVocalinkreportReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetVocalinkreportOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetVocalinkreportBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetVocalinkreportUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewGetVocalinkreportForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetVocalinkreportNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewGetVocalinkreportConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewGetVocalinkreportTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetVocalinkreportInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewGetVocalinkreportServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -54,9 +100,277 @@ func (o *GetVocalinkreportOK) Error() string {
 	return fmt.Sprintf("[GET /vocalinkreport][%d] getVocalinkreportOK  %+v", 200, o.Payload)
 }
 
+func (o *GetVocalinkreportOK) GetPayload() *models.VocalinkReportAssociationDetailsListResponse {
+	return o.Payload
+}
+
 func (o *GetVocalinkreportOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.VocalinkReportAssociationDetailsListResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetVocalinkreportBadRequest creates a GetVocalinkreportBadRequest with default headers values
+func NewGetVocalinkreportBadRequest() *GetVocalinkreportBadRequest {
+	return &GetVocalinkreportBadRequest{}
+}
+
+/*GetVocalinkreportBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetVocalinkreportBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetVocalinkreportBadRequest) Error() string {
+	return fmt.Sprintf("[GET /vocalinkreport][%d] getVocalinkreportBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetVocalinkreportBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetVocalinkreportBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetVocalinkreportUnauthorized creates a GetVocalinkreportUnauthorized with default headers values
+func NewGetVocalinkreportUnauthorized() *GetVocalinkreportUnauthorized {
+	return &GetVocalinkreportUnauthorized{}
+}
+
+/*GetVocalinkreportUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetVocalinkreportUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetVocalinkreportUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /vocalinkreport][%d] getVocalinkreportUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetVocalinkreportUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetVocalinkreportUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetVocalinkreportForbidden creates a GetVocalinkreportForbidden with default headers values
+func NewGetVocalinkreportForbidden() *GetVocalinkreportForbidden {
+	return &GetVocalinkreportForbidden{}
+}
+
+/*GetVocalinkreportForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetVocalinkreportForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetVocalinkreportForbidden) Error() string {
+	return fmt.Sprintf("[GET /vocalinkreport][%d] getVocalinkreportForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetVocalinkreportForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetVocalinkreportForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetVocalinkreportNotFound creates a GetVocalinkreportNotFound with default headers values
+func NewGetVocalinkreportNotFound() *GetVocalinkreportNotFound {
+	return &GetVocalinkreportNotFound{}
+}
+
+/*GetVocalinkreportNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetVocalinkreportNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetVocalinkreportNotFound) Error() string {
+	return fmt.Sprintf("[GET /vocalinkreport][%d] getVocalinkreportNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetVocalinkreportNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetVocalinkreportNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetVocalinkreportConflict creates a GetVocalinkreportConflict with default headers values
+func NewGetVocalinkreportConflict() *GetVocalinkreportConflict {
+	return &GetVocalinkreportConflict{}
+}
+
+/*GetVocalinkreportConflict handles this case with default header values.
+
+Conflict
+*/
+type GetVocalinkreportConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetVocalinkreportConflict) Error() string {
+	return fmt.Sprintf("[GET /vocalinkreport][%d] getVocalinkreportConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetVocalinkreportConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetVocalinkreportConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetVocalinkreportTooManyRequests creates a GetVocalinkreportTooManyRequests with default headers values
+func NewGetVocalinkreportTooManyRequests() *GetVocalinkreportTooManyRequests {
+	return &GetVocalinkreportTooManyRequests{}
+}
+
+/*GetVocalinkreportTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetVocalinkreportTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetVocalinkreportTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /vocalinkreport][%d] getVocalinkreportTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetVocalinkreportTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetVocalinkreportTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetVocalinkreportInternalServerError creates a GetVocalinkreportInternalServerError with default headers values
+func NewGetVocalinkreportInternalServerError() *GetVocalinkreportInternalServerError {
+	return &GetVocalinkreportInternalServerError{}
+}
+
+/*GetVocalinkreportInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetVocalinkreportInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetVocalinkreportInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /vocalinkreport][%d] getVocalinkreportInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetVocalinkreportInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetVocalinkreportInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetVocalinkreportServiceUnavailable creates a GetVocalinkreportServiceUnavailable with default headers values
+func NewGetVocalinkreportServiceUnavailable() *GetVocalinkreportServiceUnavailable {
+	return &GetVocalinkreportServiceUnavailable{}
+}
+
+/*GetVocalinkreportServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetVocalinkreportServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetVocalinkreportServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /vocalinkreport][%d] getVocalinkreportServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetVocalinkreportServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetVocalinkreportServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

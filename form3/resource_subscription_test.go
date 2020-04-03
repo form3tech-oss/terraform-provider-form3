@@ -2,20 +2,21 @@ package form3
 
 import (
 	"fmt"
+	"os"
+	"testing"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/subscriptions"
 	"github.com/go-openapi/strfmt"
+	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	"github.com/satori/go.uuid"
-	"os"
-	"testing"
 )
 
 func TestAccSubscription_basic(t *testing.T) {
 	var subscriptionResponse subscriptions.GetSubscriptionsIDOK
 	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	subscriptionId := uuid.NewV4().String()
+	subscriptionId := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -51,7 +52,7 @@ func TestAccSubscription_basic(t *testing.T) {
 func TestAccSubscription_importBasic(t *testing.T) {
 
 	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	subscriptionId := uuid.NewV4().String()
+	subscriptionId := uuid.New().String()
 
 	resourceName := "form3_subscription.subscription"
 

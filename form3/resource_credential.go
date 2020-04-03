@@ -2,12 +2,12 @@ package form3
 
 import (
 	"fmt"
+	"log"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/users"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
 )
 
 func resourceForm3Credential() *schema.Resource {
@@ -51,7 +51,7 @@ func resourceCredentialCreate(d *schema.ResourceData, meta interface{}) error {
 		WithUserID(userId))
 
 	if err != nil {
-		return fmt.Errorf("failed to create credential: %s", err)
+		return fmt.Errorf("failed to create credential: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	d.SetId(createdCredential.Payload.Data.ClientID.String())
@@ -73,13 +73,11 @@ func resourceCredentialRead(d *schema.ResourceData, meta interface{}) error {
 		WithUserID(userId))
 
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find credential: %s", form3.JsonErrorPrettyPrint(err))
 		}
-
-		return fmt.Errorf("couldn't find credential: %s", err)
+		d.SetId("")
+		return nil
 	}
 
 	for _, element := range credentials.Payload.Data {
@@ -99,7 +97,7 @@ func resourceCredentialDelete(d *schema.ResourceData, meta interface{}) error {
 
 	credential, err := createCredentialFromResourceData(d)
 	if err != nil {
-		return fmt.Errorf("error deleting credential: %s", err)
+		return fmt.Errorf("error deleting credential: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	userId, _ := GetUUIDOK(d, "user_id")
@@ -110,7 +108,7 @@ func resourceCredentialDelete(d *schema.ResourceData, meta interface{}) error {
 		WithClientID(credential.ClientID))
 
 	if err != nil {
-		return fmt.Errorf("error deleting credential: %s", err)
+		return fmt.Errorf("error deleting credential: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil

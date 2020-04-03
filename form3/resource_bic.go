@@ -2,13 +2,13 @@ package form3
 
 import (
 	"fmt"
+	"log"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/accounts"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
 )
 
 func resourceForm3Bic() *schema.Resource {
@@ -60,7 +60,7 @@ func resourceBicCreate(d *schema.ResourceData, meta interface{}) error {
 		}))
 
 	if err != nil {
-		return fmt.Errorf("failed to create bic: %s", err)
+		return fmt.Errorf("failed to create bic: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	d.SetId(createdBic.Payload.Data.ID.String())
@@ -85,18 +85,16 @@ func resourceBicRead(d *schema.ResourceData, meta interface{}) error {
 		WithID(bicID))
 
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find bic: %s", form3.JsonErrorPrettyPrint(err))
 		}
-
-		return fmt.Errorf("couldn't find bic: %s", err)
+		d.SetId("")
+		return nil
 	}
 
-	d.Set("bic_id", bicResponse.Payload.Data.ID.String())
-	d.Set("organisation_id", bicResponse.Payload.Data.OrganisationID.String())
-	d.Set("bic", bicResponse.Payload.Data.Attributes.Bic)
+	_ = d.Set("bic_id", bicResponse.Payload.Data.ID.String())
+	_ = d.Set("organisation_id", bicResponse.Payload.Data.OrganisationID.String())
+	_ = d.Set("bic", bicResponse.Payload.Data.Attributes.Bic)
 	return nil
 }
 
@@ -105,7 +103,7 @@ func resourceBicDelete(d *schema.ResourceData, meta interface{}) error {
 
 	bicFromResource, err := createBicFromResourceDataWithVersion(d, client)
 	if err != nil {
-		return fmt.Errorf("error deleting bic: %s", err)
+		return fmt.Errorf("error deleting bic: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	log.Printf("[INFO] Deleting bic with id: %s bic: %s", bicFromResource.ID, bicFromResource.Attributes.Bic)
@@ -115,7 +113,7 @@ func resourceBicDelete(d *schema.ResourceData, meta interface{}) error {
 		WithVersion(*bicFromResource.Version))
 
 	if err != nil {
-		return fmt.Errorf("error deleting bic: %s", err)
+		return fmt.Errorf("error deleting bic: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil
@@ -141,6 +139,10 @@ func createBicFromResourceData(d *schema.ResourceData) (*models.Bic, error) {
 
 func createBicFromResourceDataWithVersion(d *schema.ResourceData, client *form3.AuthenticatedClient) (*models.Bic, error) {
 	bic, err := createBicFromResourceData(d)
+	if err != nil {
+		return nil, err
+	}
+
 	version, err := getBicVersion(client, bic.ID)
 	if err != nil {
 		return nil, err
@@ -155,7 +157,7 @@ func getBicVersion(client *form3.AuthenticatedClient, id strfmt.UUID) (int64, er
 	bic, err := client.AccountClient.Accounts.GetBicsID(accounts.NewGetBicsIDParams().WithID(id))
 	if err != nil {
 		if err != nil {
-			return -1, fmt.Errorf("error reading bic id: %s", err)
+			return -1, fmt.Errorf("error reading bic id: %s", form3.JsonErrorPrettyPrint(err))
 		}
 	}
 

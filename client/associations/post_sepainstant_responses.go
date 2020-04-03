@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostSepainstantReader is a Reader for the PostSepainstant structure.
@@ -24,13 +23,60 @@ type PostSepainstantReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostSepainstantReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostSepainstantCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewPostSepainstantBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewPostSepainstantUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewPostSepainstantForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewPostSepainstantNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewPostSepainstantConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewPostSepainstantTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewPostSepainstantInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewPostSepainstantServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -54,9 +100,277 @@ func (o *PostSepainstantCreated) Error() string {
 	return fmt.Sprintf("[POST /sepainstant][%d] postSepainstantCreated  %+v", 201, o.Payload)
 }
 
+func (o *PostSepainstantCreated) GetPayload() *models.SepaInstantAssociationCreationResponse {
+	return o.Payload
+}
+
 func (o *PostSepainstantCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.SepaInstantAssociationCreationResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostSepainstantBadRequest creates a PostSepainstantBadRequest with default headers values
+func NewPostSepainstantBadRequest() *PostSepainstantBadRequest {
+	return &PostSepainstantBadRequest{}
+}
+
+/*PostSepainstantBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type PostSepainstantBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *PostSepainstantBadRequest) Error() string {
+	return fmt.Sprintf("[POST /sepainstant][%d] postSepainstantBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *PostSepainstantBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostSepainstantBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostSepainstantUnauthorized creates a PostSepainstantUnauthorized with default headers values
+func NewPostSepainstantUnauthorized() *PostSepainstantUnauthorized {
+	return &PostSepainstantUnauthorized{}
+}
+
+/*PostSepainstantUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type PostSepainstantUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *PostSepainstantUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /sepainstant][%d] postSepainstantUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostSepainstantUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostSepainstantUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostSepainstantForbidden creates a PostSepainstantForbidden with default headers values
+func NewPostSepainstantForbidden() *PostSepainstantForbidden {
+	return &PostSepainstantForbidden{}
+}
+
+/*PostSepainstantForbidden handles this case with default header values.
+
+Forbidden
+*/
+type PostSepainstantForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *PostSepainstantForbidden) Error() string {
+	return fmt.Sprintf("[POST /sepainstant][%d] postSepainstantForbidden  %+v", 403, o.Payload)
+}
+
+func (o *PostSepainstantForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostSepainstantForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostSepainstantNotFound creates a PostSepainstantNotFound with default headers values
+func NewPostSepainstantNotFound() *PostSepainstantNotFound {
+	return &PostSepainstantNotFound{}
+}
+
+/*PostSepainstantNotFound handles this case with default header values.
+
+Record not found
+*/
+type PostSepainstantNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *PostSepainstantNotFound) Error() string {
+	return fmt.Sprintf("[POST /sepainstant][%d] postSepainstantNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostSepainstantNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostSepainstantNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostSepainstantConflict creates a PostSepainstantConflict with default headers values
+func NewPostSepainstantConflict() *PostSepainstantConflict {
+	return &PostSepainstantConflict{}
+}
+
+/*PostSepainstantConflict handles this case with default header values.
+
+Conflict
+*/
+type PostSepainstantConflict struct {
+	Payload *models.APIError
+}
+
+func (o *PostSepainstantConflict) Error() string {
+	return fmt.Sprintf("[POST /sepainstant][%d] postSepainstantConflict  %+v", 409, o.Payload)
+}
+
+func (o *PostSepainstantConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostSepainstantConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostSepainstantTooManyRequests creates a PostSepainstantTooManyRequests with default headers values
+func NewPostSepainstantTooManyRequests() *PostSepainstantTooManyRequests {
+	return &PostSepainstantTooManyRequests{}
+}
+
+/*PostSepainstantTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type PostSepainstantTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *PostSepainstantTooManyRequests) Error() string {
+	return fmt.Sprintf("[POST /sepainstant][%d] postSepainstantTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostSepainstantTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostSepainstantTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostSepainstantInternalServerError creates a PostSepainstantInternalServerError with default headers values
+func NewPostSepainstantInternalServerError() *PostSepainstantInternalServerError {
+	return &PostSepainstantInternalServerError{}
+}
+
+/*PostSepainstantInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type PostSepainstantInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *PostSepainstantInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /sepainstant][%d] postSepainstantInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *PostSepainstantInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostSepainstantInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostSepainstantServiceUnavailable creates a PostSepainstantServiceUnavailable with default headers values
+func NewPostSepainstantServiceUnavailable() *PostSepainstantServiceUnavailable {
+	return &PostSepainstantServiceUnavailable{}
+}
+
+/*PostSepainstantServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type PostSepainstantServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *PostSepainstantServiceUnavailable) Error() string {
+	return fmt.Sprintf("[POST /sepainstant][%d] postSepainstantServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostSepainstantServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostSepainstantServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

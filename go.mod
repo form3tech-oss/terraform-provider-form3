@@ -9,10 +9,9 @@ require (
 	github.com/go-openapi/strfmt v0.19.3
 	github.com/go-openapi/swag v0.19.5
 	github.com/go-openapi/validate v0.19.5
+	github.com/google/uuid v1.1.1
 	github.com/hashicorp/terraform-plugin-sdk v1.0.0
 	github.com/juju/errgo v0.0.0-20140925100237-08cceb5d0b53 // indirect
-	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d
-	github.com/satori/go.uuid v1.2.0
 	github.com/stretchr/testify v1.4.0
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 )

@@ -2,13 +2,14 @@ package api
 
 import (
 	"context"
+	"testing"
+
 	"github.com/form3tech-oss/terraform-provider-form3/client/system"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/swag"
-	"github.com/nu7hatch/gouuid"
+	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
 )
 
 func TestPostKey(t *testing.T) {
@@ -54,11 +55,11 @@ func deleteKey(createResponse *system.PostKeysCreated, t *testing.T) {
 	_, err := auth.SystemClient.System.DeleteKeysKeyID(system.NewDeleteKeysKeyIDParams().
 		WithKeyID(createResponse.Payload.Data.ID).WithVersion(*key.Payload.Data.Version),
 	)
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 }
 
 func createKey(t *testing.T) *system.PostKeysCreated {
-	id, _ := uuid.NewV4()
+	id := uuid.New()
 	createResponse, err := auth.SystemClient.System.PostKeys(system.NewPostKeysParams().
 		WithKeyCreationRequest(&models.KeyCreation{
 			Data: &models.Key{
@@ -70,12 +71,12 @@ func createKey(t *testing.T) *system.PostKeysCreated {
 				},
 			},
 		}))
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 	return createResponse
 }
 
 func createEcKey(t *testing.T) *system.PostKeysCreated {
-	id, _ := uuid.NewV4()
+	id := uuid.New()
 	createResponse, err := auth.SystemClient.System.PostKeys(system.NewPostKeysParams().
 		WithKeyCreationRequest(&models.KeyCreation{
 			Data: &models.Key{
@@ -89,7 +90,7 @@ func createEcKey(t *testing.T) *system.PostKeysCreated {
 				},
 			},
 		}))
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 	return createResponse
 }
 
@@ -154,7 +155,7 @@ func deleteCertificate(keysCreated *system.PostKeysCreated, certCreation *system
 
 	cert, err := auth.SystemClient.System.GetKeysKeyIDCertificatesCertificateID(system.NewGetKeysKeyIDCertificatesCertificateIDParams().WithKeyID(keysCreated.Payload.Data.ID).
 		WithCertificateID(certCreation.Payload.Data.ID))
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
 	_, err = auth.SystemClient.System.DeleteKeysKeyIDCertificatesCertificateID(&system.DeleteKeysKeyIDCertificatesCertificateIDParams{
 		KeyID:         keysCreated.Payload.Data.ID,
@@ -162,11 +163,11 @@ func deleteCertificate(keysCreated *system.PostKeysCreated, certCreation *system
 		Version:       *cert.Payload.Data.Version,
 		Context:       context.Background(),
 	})
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 }
 
 func createCertificate(createResponse *system.PostKeysCreated, t *testing.T) *system.PostKeysKeyIDCertificatesCreated {
-	id, _ := uuid.NewV4()
+	id := uuid.New()
 	certName := "Test Cert"
 	createCertResponse, err := auth.SystemClient.System.PostKeysKeyIDCertificates(system.NewPostKeysKeyIDCertificatesParams().
 		WithKeyID(createResponse.Payload.Data.ID).
@@ -180,6 +181,6 @@ func createCertificate(createResponse *system.PostKeysCreated, t *testing.T) *sy
 				},
 			},
 		}))
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 	return createCertResponse
 }

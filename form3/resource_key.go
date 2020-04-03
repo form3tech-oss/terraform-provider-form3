@@ -2,13 +2,13 @@ package form3
 
 import (
 	"fmt"
+	"log"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/system"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
 )
 
 func resourceForm3Key() *schema.Resource {
@@ -81,7 +81,7 @@ func resourceKeyCreate(d *schema.ResourceData, meta interface{}) error {
 
 	certificateRequest, err := createKeyFromResourceData(d)
 	if err != nil {
-		return fmt.Errorf("failed to create Key: %s", err)
+		return fmt.Errorf("failed to create Key: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	createdKey, err := client.SystemClient.System.PostKeys(
@@ -91,7 +91,7 @@ func resourceKeyCreate(d *schema.ResourceData, meta interface{}) error {
 			}))
 
 	if err != nil {
-		return fmt.Errorf("failed to create Key: %s", err)
+		return fmt.Errorf("failed to create Key: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	d.SetId(createdKey.Payload.Data.ID.String())
@@ -116,13 +116,11 @@ func resourceKeyRead(d *schema.ResourceData, meta interface{}) error {
 		system.NewGetKeysKeyIDParams().WithKeyID(keyId))
 
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
-		} else {
-			return err
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find key: %s", form3.JsonErrorPrettyPrint(err))
 		}
+		d.SetId("")
+		return nil
 	}
 
 	d.Set("key_id", response.Payload.Data.ID.String())
@@ -145,7 +143,7 @@ func resourceKeyDelete(d *schema.ResourceData, meta interface{}) error {
 		system.NewGetKeysKeyIDParams().WithKeyID(strfmt.UUID(d.Id())))
 
 	if err != nil {
-		return fmt.Errorf("error deleting Key: %s", err)
+		return fmt.Errorf("error deleting Key: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	log.Printf("[INFO] Deleting Key for id: %s ", response.Payload.Data.ID)
@@ -156,7 +154,7 @@ func resourceKeyDelete(d *schema.ResourceData, meta interface{}) error {
 			WithVersion(*response.Payload.Data.Version))
 
 	if err != nil {
-		return fmt.Errorf("error deleting Key: %s", err)
+		return fmt.Errorf("error deleting Key: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil

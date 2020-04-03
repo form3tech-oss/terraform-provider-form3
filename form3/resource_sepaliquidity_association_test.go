@@ -8,17 +8,17 @@ import (
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/go-openapi/strfmt"
+	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	uuid "github.com/satori/go.uuid"
 )
 
 func TestAccSepaLiquidityAssociation_basic(t *testing.T) {
 	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
-	sponsorOrganisationID := uuid.NewV4().String()
-	sponsoredOrganisationID := uuid.NewV4().String()
-	sponsorAssociationID := uuid.NewV4().String()
-	sponsoredAssociationID := uuid.NewV4().String()
+	sponsorOrganisationID := uuid.New().String()
+	sponsoredOrganisationID := uuid.New().String()
+	sponsorAssociationID := uuid.New().String()
+	sponsoredAssociationID := uuid.New().String()
 
 	sponsor_assoc_path := "form3_sepaliquidity_association.sponsor_association"
 	sponsored_assoc_path := "form3_sepaliquidity_association.sponsored_association"

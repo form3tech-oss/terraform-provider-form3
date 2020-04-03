@@ -28,6 +28,22 @@ paths:
           description: List of admin credentials for user
           schema:
             $ref: "#/definitions/UserCredentialListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     post:
       summary: Generate new admin credentials for a user
@@ -50,6 +66,22 @@ paths:
           description: Credential creation response
           schema:
             $ref: "#/definitions/CredentialCreationResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /admins/{user_id}/credentials/{client_id}:
 
@@ -77,8 +109,22 @@ paths:
       responses:
         204:
           description: Credential deleted
-
-
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /units:
 
@@ -100,7 +146,22 @@ paths:
           description: Organisation creation response
           schema:
             $ref: "#/definitions/OrganisationCreationResponse"
-
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     get:
       summary: List all organisations
@@ -119,6 +180,22 @@ paths:
           description: List of organisation details
           schema:
             $ref: "#/definitions/OrganisationDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /units/{id}:
 
@@ -138,6 +215,22 @@ paths:
           description: Organisation details
           schema:
             $ref: "#/definitions/OrganisationDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     delete:
       summary: Delete organisation
@@ -162,6 +255,22 @@ paths:
       responses:
         204:
           description: Organisation deleted
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     patch:
       summary: Update organisation
@@ -186,6 +295,22 @@ paths:
           description: Organisation details
           schema:
             $ref: "#/definitions/OrganisationDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /users:
 
@@ -207,7 +332,22 @@ paths:
           description: User creation response
           schema:
             $ref: "#/definitions/UserCreationResponse"
-
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     get:
       summary: List all users
@@ -234,6 +374,22 @@ paths:
           description: List of user details
           schema:
             $ref: "#/definitions/UserDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /users/{user_id}:
 
@@ -253,6 +409,22 @@ paths:
           description: User details
           schema:
             $ref: "#/definitions/UserDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     patch:
       summary: Edit user details
@@ -278,6 +450,22 @@ paths:
           description: User details
           schema:
             $ref: "#/definitions/UserDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     delete:
       summary: Delete user
@@ -302,6 +490,22 @@ paths:
       responses:
         204:
           description: User deleted
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /users/{user_id}/aces:
 
@@ -334,6 +538,22 @@ paths:
           description: List of access control entries for this user
           schema:
             $ref: "#/definitions/AceDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /users/{user_id}/roles:
 
@@ -353,6 +573,22 @@ paths:
           description: List of roles for user
           schema:
             $ref: "#/definitions/UserRoleListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /users/{user_id}/credentials:
 
@@ -372,6 +608,22 @@ paths:
           description: List of credentials for user
           schema:
             $ref: "#/definitions/UserCredentialListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     post:
       summary: Add credentials to user
@@ -392,6 +644,22 @@ paths:
           description: Credential creation response
           schema:
             $ref: "#/definitions/CredentialCreationResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /users/{user_id}/credentials/{client_id}:
 
@@ -418,6 +686,22 @@ paths:
       responses:
         204:
           description: Credential deleted
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /users/{user_id}/roles/{role_id}:
 
@@ -444,6 +728,22 @@ paths:
       responses:
         201:
           description: Role set OK
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     delete:
       summary: Remove role from user
@@ -468,6 +768,22 @@ paths:
       responses:
         204:
           description: User role deleted OK
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /payport:
     post:
@@ -488,7 +804,22 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/PayportAssociationCreationResponse"
-
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     get:
       summary: List all organisation associations
@@ -507,6 +838,22 @@ paths:
           description: List of associations
           schema:
             $ref: "#/definitions/PayportAssociationDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /payport/{id}:
 
@@ -526,6 +873,22 @@ paths:
           description: Associations details
           schema:
             $ref: "#/definitions/PayportAssociationDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     delete:
       summary: Delete service association
@@ -547,6 +910,22 @@ paths:
       responses:
         204:
           description: Association deleted
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /roles:
 
@@ -568,7 +947,22 @@ paths:
           description: Role creation response
           schema:
             $ref: "#/definitions/RoleCreationResponse"
-
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     get:
       summary: List all roles
@@ -594,6 +988,22 @@ paths:
           description: List of role details
           schema:
             $ref: "#/definitions/RoleDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /roles/{role_id}:
 
@@ -613,6 +1023,22 @@ paths:
           description: Role details
           schema:
             $ref: "#/definitions/RoleDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     delete:
       summary: Delete role
@@ -661,7 +1087,22 @@ paths:
           description: Ace creation response
           schema:
             $ref: "#/definitions/AceCreationResponse"
-
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     get:
       summary: List all Access Controls for role
@@ -680,6 +1121,22 @@ paths:
           description: List of Ace details
           schema:
             $ref: "#/definitions/AceDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /roles/{role_id}/aces/{ace_id}:
 
@@ -705,6 +1162,22 @@ paths:
           description: Ace details
           schema:
             $ref: "#/definitions/AceDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     delete:
       summary: Delete Access Control Entry
@@ -750,7 +1223,22 @@ paths:
           description: Subscription creation response
           schema:
             $ref: "#/definitions/SubscriptionCreationResponse"
-
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     get:
       summary: List all subscriptions
@@ -784,6 +1272,22 @@ paths:
           description: List of subscription details
           schema:
             $ref: "#/definitions/SubscriptionDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /subscriptions/{id}:
 
@@ -803,6 +1307,22 @@ paths:
           description: Subscription details
           schema:
             $ref: "#/definitions/SubscriptionDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     patch:
       summary: Edit subscription details
@@ -828,6 +1348,22 @@ paths:
           description: Subscription details
           schema:
             $ref: "#/definitions/SubscriptionDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     delete:
       summary: Deletes a subscription
@@ -852,6 +1388,22 @@ paths:
       responses:
         204:
           description: Subscription deleted OK. No body content will be returned
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /starling:
 
@@ -873,7 +1425,22 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/AssociationCreationResponse"
-
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     get:
       summary: List all organisation associations
@@ -892,6 +1459,22 @@ paths:
           description: List of associations
           schema:
             $ref: "#/definitions/AssociationDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /starling/{id}:
 
@@ -911,6 +1494,22 @@ paths:
           description: Associations details
           schema:
             $ref: "#/definitions/AssociationDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     delete:
       summary: Delete organisation association
@@ -932,6 +1531,22 @@ paths:
       responses:
         204:
           description: Association deleted
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
   #organisation api - end
 
   #account api -start
@@ -955,7 +1570,22 @@ paths:
           description: Account creation response
           schema:
             $ref: "#/definitions/AccountCreationResponse"
-
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     get:
       summary: List accounts
@@ -1038,6 +1668,22 @@ paths:
           description: List of account details
           schema:
             $ref: "#/definitions/AccountDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /accounts/{id}:
 
@@ -1057,6 +1703,22 @@ paths:
           description: Account details
           schema:
             $ref: "#/definitions/AccountDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     delete:
       summary: Delete account
@@ -1078,6 +1740,22 @@ paths:
       responses:
         204:
           description: Account deleted
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   #account_routing api -start
   /account_routings:
@@ -1116,6 +1794,22 @@ paths:
           description: List of account routing details
           schema:
             $ref: "#/definitions/AccountRoutingDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     post:
       summary: Create an account routing entry
@@ -1137,11 +1831,22 @@ paths:
           description: Account routing creation response success
           schema:
             $ref: "#/definitions/AccountRoutingCreationResponse"
-
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
         409:
-          description: Account routing creation error, constraint violation
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /account_routings/{id}:
 
@@ -1167,6 +1872,22 @@ paths:
       responses:
         204:
           description: Account Routing deleted
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     get:
       summary: Fetch account routing
@@ -1186,6 +1907,22 @@ paths:
           description: Account Routing details
           schema:
             $ref: "#/definitions/AccountRoutingDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
   # account_routing api end
 
   /bankids:
@@ -1208,6 +1945,22 @@ paths:
           description: BankId creation response
           schema:
             $ref: "#/definitions/BankIdCreationResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     get:
       summary: List bankIds
@@ -1266,6 +2019,22 @@ paths:
           description: List of bankId details
           schema:
             $ref: "#/definitions/BankIdDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /bankids/{id}:
 
@@ -1285,6 +2054,22 @@ paths:
           description: BankId details
           schema:
             $ref: "#/definitions/BankIdDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     delete:
       summary: Delete bankId
@@ -1306,6 +2091,22 @@ paths:
       responses:
         204:
           description: BankId deleted
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /bics:
 
@@ -1327,6 +2128,22 @@ paths:
           description: Bic creation response
           schema:
             $ref: "#/definitions/BicCreationResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     get:
       summary: List bics
@@ -1357,6 +2174,22 @@ paths:
           description: List of bic details
           schema:
             $ref: "#/definitions/BicDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /bics/{id}:
 
@@ -1376,6 +2209,22 @@ paths:
           description: Bic details
           schema:
             $ref: "#/definitions/BicDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     delete:
       summary: Delete BIC
@@ -1397,6 +2246,22 @@ paths:
       responses:
         204:
           description: Bic deleted
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /accountconfigurations:
 
@@ -1418,6 +2283,22 @@ paths:
           description: AccountConfiguration creation response
           schema:
             $ref: "#/definitions/AccountConfigurationCreationResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     get:
       summary: List configurations
@@ -1443,6 +2324,22 @@ paths:
           description: List of configuration details
           schema:
             $ref: "#/definitions/AccountConfigurationDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /accountconfigurations/{id}:
 
@@ -1462,6 +2359,22 @@ paths:
           description: AccountConfiguration details
           schema:
             $ref: "#/definitions/AccountConfigurationDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     delete:
       summary: Delete config
@@ -1483,6 +2396,22 @@ paths:
       responses:
         204:
           description: AccountConfiguration deleted
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     patch:
       summary: Amend config
@@ -1507,6 +2436,22 @@ paths:
           description: Configuration updated
           schema:
             $ref: "#/definitions/AccountConfigurationDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
   #account api -end
 
   /limits:
@@ -1527,11 +2472,22 @@ paths:
           description: Limit creation response
           schema:
             $ref: "#/definitions/LimitCreationResponse"
-
         400:
-          description: Limit creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     get:
       summary: List limits
@@ -1566,6 +2522,22 @@ paths:
           description: List of limit details
           schema:
             $ref: "#/definitions/LimitDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /limits/{id}:
 
@@ -1585,6 +2557,22 @@ paths:
           description: Limit details
           schema:
             $ref: "#/definitions/LimitDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     patch:
       summary: Amend limit
@@ -1609,6 +2597,22 @@ paths:
           description: Limit updated
           schema:
             $ref: "#/definitions/LimitDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     delete:
       summary: Delete limit
@@ -1630,6 +2634,22 @@ paths:
       responses:
         204:
           description: Limit deleted
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /bacs:
 
@@ -1651,7 +2671,22 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/BacsAssociationCreationResponse"
-
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     get:
       summary: List all organisation associations for BACS
@@ -1670,6 +2705,22 @@ paths:
           description: List of associations for BACS
           schema:
             $ref: "#/definitions/BacsAssociationDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /bacs/{id}:
 
@@ -1689,6 +2740,22 @@ paths:
           description: Associations details for BACS
           schema:
             $ref: "#/definitions/BacsAssociationDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     delete:
       summary: Delete organisation association for BACS
@@ -1710,6 +2777,22 @@ paths:
       responses:
         204:
           description: Association deleted
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /vocalinkreport:
     post:
@@ -1730,6 +2813,22 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/VocalinkReportAssociationCreationResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     get:
       summary: List all organisation associations
@@ -1750,6 +2849,22 @@ paths:
           description: List of associations
           schema:
             $ref: "#/definitions/VocalinkReportAssociationDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /vocalinkreport/{id}:
     get:
@@ -1768,6 +2883,22 @@ paths:
           description: Associations details
           schema:
             $ref: "#/definitions/VocalinkReportAssociationDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     delete:
       summary: Delete organisation association
@@ -1789,6 +2920,22 @@ paths:
       responses:
         204:
           description: Association deleted
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /keys:
     post:
@@ -1808,6 +2955,22 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/KeyCreationResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     get:
       summary: List all Keys
@@ -1818,6 +2981,22 @@ paths:
           description: List of Keys
           schema:
             $ref: "#/definitions/KeyDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /keys/{key_id}:
     get:
@@ -1836,6 +3015,22 @@ paths:
           description: Key details
           schema:
             $ref: "#/definitions/KeyDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     delete:
       summary: Delete Key
@@ -1857,6 +3052,22 @@ paths:
       responses:
         204:
           description: Key deleted
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /keys/{key_id}/certificates:
     post:
@@ -1882,6 +3093,22 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/CertificateCreationResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     get:
       summary: List all certificates
@@ -1899,6 +3126,22 @@ paths:
           description: List of certificates
           schema:
             $ref: "#/definitions/CertificateDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /keys/{key_id}/certificates/{certificate_id}:
     get:
@@ -1923,6 +3166,22 @@ paths:
           description: Certificate details
           schema:
             $ref: "#/definitions/CertificateDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     delete:
       summary: Delete certificate
@@ -1950,6 +3209,22 @@ paths:
       responses:
         204:
           description: Certificate deleted
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /confirmation-of-payee:
     post:
@@ -1972,6 +3247,22 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/CoPAssociationCreationResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     get:
       summary: List all organisation associations
@@ -1992,6 +3283,22 @@ paths:
           description: List of associations
           schema:
             $ref: "#/definitions/CoPAssociationDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /confirmation-of-payee/{id}:
 
@@ -2011,6 +3318,22 @@ paths:
           description: Associations details
           schema:
             $ref: "#/definitions/CoPAssociationDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     delete:
       summary: Delete organisation association
@@ -2032,6 +3355,22 @@ paths:
       responses:
         204:
           description: Association deleted
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /lhv:
     post:
@@ -2051,6 +3390,23 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/LhvAssociationCreationResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
+
     get:
       summary: List all organisation lhv associations
       tags:
@@ -2069,14 +3425,30 @@ paths:
           description: List of associations
           schema:
             $ref: "#/definitions/LhvAssociationDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
-  /lhv/{id}:
+  /lhv/{associationId}:
     get:
       summary: Fetch organisation lhv association
       tags:
         - Associations
       parameters:
-        - name: id
+        - name: associationId
           in: path
           description: Association Id
           required: true
@@ -2087,12 +3459,68 @@ paths:
           description: Associations details
           schema:
             $ref: "#/definitions/LhvAssociationDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
+
+    patch:
+      summary: Patch organisation lhv association
+      tags:
+        - Associations
+      parameters:
+        - name: associationId
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+        - name: payload
+          in: body
+          description: LHV Association Patch payload
+          required: true
+          schema:
+            $ref: '#/definitions/LhvAssociationPatch'
+      responses:
+        200:
+          description: Associations details
+          schema:
+            $ref: "#/definitions/LhvAssociationDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
+
     delete:
       summary: Delete organisation lhv association
       tags:
         - Associations
       parameters:
-        - name: id
+        - name: associationId
           in: path
           description: Association Id
           required: true
@@ -2107,6 +3535,159 @@ paths:
       responses:
         204:
           description: Association deleted
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
+
+  /lhv/{associationId}/master_accounts:
+    parameters:
+      - name: associationId
+        in: path
+        description: Association Id
+        required: true
+        type: string
+        format: uuid
+    get:
+      summary: List master accounts
+      tags:
+        - Associations
+      responses:
+        200:
+          description: List of configuration details
+          schema:
+            $ref: "#/definitions/LhvMasterAccountListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
+
+    post:
+      summary: Create organisation association master account
+      tags:
+        - Associations
+      parameters:
+        - name: creation request
+          in: body
+          schema:
+            $ref: "#/definitions/LhvMasterAccountCreation"
+      responses:
+        201:
+          description: creation response
+          schema:
+            $ref: "#/definitions/LhvMasterAccountResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
+
+  /lhv/{associationId}/master_accounts/{masterAccountId}:
+    parameters:
+      - name: associationId
+        in: path
+        description: Association Id
+        required: true
+        type: string
+        format: uuid
+      - name: masterAccountId
+        in: path
+        description: Master Account Id
+        required: true
+        type: string
+        format: uuid
+
+    get:
+      summary: Fetch Master Account
+      tags:
+        - Associations
+      responses:
+        200:
+          description: Master Account details
+          schema:
+            $ref: "#/definitions/LhvMasterAccountResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
+
+    delete:
+      summary: Delete organisation association master account
+      tags:
+        - Associations
+      parameters:
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+      responses:
+        204:
+          description: Association master account deleted
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /sepa-reconciliation:
     post:
@@ -2126,6 +3707,23 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/SepaReconciliationAssociationCreationResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
+
     get:
       summary: List all organisation sepa reconciliation associations
       tags:
@@ -2144,6 +3742,22 @@ paths:
           description: List of associations
           schema:
             $ref: "#/definitions/SepaReconciliationAssociationDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /sepa-reconciliation/{id}:
     get:
@@ -2162,6 +3776,23 @@ paths:
           description: Associations details
           schema:
             $ref: "#/definitions/SepaReconciliationAssociationDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
+
     delete:
       summary: Delete organisation sepa reconciliation association
       tags:
@@ -2182,6 +3813,22 @@ paths:
       responses:
         204:
           description: Association deleted
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /sepa-liquidity:
     post:
@@ -2201,6 +3848,23 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/SepaLiquidityAssociationCreationResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
+
     get:
       summary: List all organisation sepa liquidity associations
       tags:
@@ -2219,6 +3883,22 @@ paths:
           description: List of associations
           schema:
             $ref: "#/definitions/SepaLiquidityAssociationDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /sepa-liquidity/{id}:
     get:
@@ -2237,6 +3917,23 @@ paths:
           description: Associations details
           schema:
             $ref: "#/definitions/SepaLiquidityAssociationDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
+
     delete:
       summary: Delete organisation sepa liquidity association
       tags:
@@ -2257,6 +3954,22 @@ paths:
       responses:
         204:
           description: Association deleted
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /products:
     post:
@@ -2276,6 +3989,23 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/ProductsAssociationCreationResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
+
     get:
       summary: List all product associations
       tags:
@@ -2294,6 +4024,22 @@ paths:
           description: List of associations
           schema:
             $ref: "#/definitions/ProductsAssociationDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /products/{id}:
     get:
@@ -2312,6 +4058,23 @@ paths:
           description: Associations details
           schema:
             $ref: "#/definitions/ProductsAssociationDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
+
     delete:
       summary: Delete product association
       tags:
@@ -2332,6 +4095,22 @@ paths:
       responses:
         204:
           description: Association deleted
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /sepasct:
     post:
@@ -2351,6 +4130,23 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/SepaSctAssociationCreationResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
+
     get:
       summary: List all organisation sepa sct associations
       tags:
@@ -2369,6 +4165,22 @@ paths:
           description: List of associations
           schema:
             $ref: "#/definitions/SepaSctAssociationDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /sepasct/{id}:
     get:
@@ -2387,6 +4199,23 @@ paths:
           description: Associations details
           schema:
             $ref: "#/definitions/SepaSctAssociationDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
+
     delete:
       summary: Delete organisation spea sct association
       tags:
@@ -2407,6 +4236,22 @@ paths:
       responses:
         204:
           description: Association deleted
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /gocardless:
     post:
@@ -2426,6 +4271,23 @@ paths:
           description: creation response
           schema:
             $ref: '#/definitions/GocardlessAssociationCreationResponse'
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
+
     get:
       summary: List all organisation gocardless gateway associations
       tags:
@@ -2444,6 +4306,22 @@ paths:
           description: List of gocardless associations
           schema:
             $ref: "#/definitions/GocardlessAssociationListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /gocardless/{id}:
     get:
@@ -2462,6 +4340,23 @@ paths:
           description: Associations details
           schema:
             $ref: "#/definitions/GocardlessAssociationResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
+
     delete:
       summary: Delete gocardless gateway association
       tags:
@@ -2482,6 +4377,23 @@ paths:
       responses:
         204:
           description: association deleted successfully
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
+
     patch:
       summary: Patch GoCardless association by id
       tags:
@@ -2509,17 +4421,21 @@ paths:
           schema:
             $ref: "#/definitions/GocardlessAssociationResponse"
         400:
-          description: Bad Request
-          schema:
-            $ref: "#/definitions/ApiError"
-        404:
-          description: Record not found
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
         403:
-          description: Forbidden
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /sepainstant:
 
@@ -2543,7 +4459,22 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/SepaInstantAssociationCreationResponse"
-
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     get:
       summary: List all organisation sepa instant associations
@@ -2566,6 +4497,22 @@ paths:
           description: List of associations
           schema:
             $ref: "#/definitions/SepaInstantAssociationDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /sepainstant/{id}:
 
@@ -2587,6 +4534,22 @@ paths:
           description: Associations details
           schema:
             $ref: "#/definitions/SepaInstantAssociationDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     patch:
       summary: Update sepa instant association
@@ -2618,6 +4581,22 @@ paths:
           description: Associations details
           schema:
             $ref: "#/definitions/SepaInstantAssociationDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     delete:
       summary: Delete organisation spea instant association
@@ -2641,6 +4620,22 @@ paths:
       responses:
         204:
           description: Association deleted
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /ebury:
     post:
@@ -2660,6 +4655,23 @@ paths:
           description: creation response
           schema:
             $ref: '#/definitions/EburyAssociationCreationResponse'
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
+
     get:
       summary: List all organisation ebury gateway associations
       tags:
@@ -2678,6 +4690,22 @@ paths:
           description: List of ebury associations
           schema:
             $ref: "#/definitions/EburyAssociationListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /ebury/{id}:
     get:
@@ -2696,6 +4724,23 @@ paths:
           description: Associations details
           schema:
             $ref: "#/definitions/EburyAssociationResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
+
     delete:
       summary: Delete ebury gateway association
       tags:
@@ -2716,6 +4761,22 @@ paths:
       responses:
         204:
           description: association deleted successfully
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   #paymentapi - start
   /payments:
@@ -2738,11 +4799,22 @@ paths:
           description: Payment creation response
           schema:
             $ref: "#/definitions/PaymentCreationResponse"
-
         400:
-          description: Payment creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     get:
       summary: List payments
@@ -2873,6 +4945,22 @@ paths:
           description: List of payment details
           schema:
             $ref: "#/definitions/PaymentDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /payments/{id}/admissions:
 
@@ -2900,11 +4988,22 @@ paths:
           description: Admission creation response
           schema:
             $ref: "#/definitions/PaymentAdmissionCreationResponse"
-
         400:
-          description: Admission creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /payments/{id}/admissions/{admissionId}:
 
@@ -2930,6 +5029,22 @@ paths:
           description: Admission details
           schema:
             $ref: "#/definitions/PaymentAdmissionDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /payments/{id}/submissions:
 
@@ -2957,11 +5072,22 @@ paths:
           description: Submission creation response
           schema:
             $ref: "#/definitions/PaymentSubmissionCreationResponse"
-
         400:
-          description: Submission creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /payments/{id}/submissions/{submissionId}:
 
@@ -2987,6 +5113,22 @@ paths:
           description: Submission details
           schema:
             $ref: "#/definitions/PaymentSubmissionDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     patch:
       summary: Update submission
@@ -3018,11 +5160,22 @@ paths:
           description: Submission update response
           schema:
             $ref: "#/definitions/PaymentSubmissionDetailsResponse"
-
         400:
-          description: Error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /payments/{id}/submissions/{submissionId}/validations:
 
@@ -3052,11 +5205,22 @@ paths:
           description: Payment submission validation creation response
           schema:
             $ref: "#/definitions/PaymentSubmissionValidationCreationResponse"
-
         400:
-          description: Payment submission validation creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /payments/{id}/returns:
     post:
@@ -3083,11 +5247,22 @@ paths:
           description: Return creation response
           schema:
             $ref: "#/definitions/ReturnCreationResponse"
-
         400:
-          description: Return creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /payments/{id}/returns/{returnId}:
 
@@ -3113,6 +5288,22 @@ paths:
           description: Return details
           schema:
             $ref: "#/definitions/ReturnDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /payments/{id}/returns/{returnId}/admissions:
     post:
@@ -3145,11 +5336,22 @@ paths:
           description: Return admission creation response
           schema:
             $ref: "#/definitions/ReturnAdmissionCreationResponse"
-
         400:
-          description: Return admission creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /payments/{id}/returns/{returnId}/admissions/{admissionId}:
     get:
@@ -3180,6 +5382,22 @@ paths:
           description: Return admission details
           schema:
             $ref: "#/definitions/ReturnAdmissionDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /payments/{id}/returns/{returnId}/submissions:
     post:
@@ -3212,11 +5430,22 @@ paths:
           description: Return submission creation response
           schema:
             $ref: "#/definitions/ReturnSubmissionCreationResponse"
-
         400:
-          description: Return submission creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /payments/{id}/returns/{returnId}/submissions/{submissionId}:
     get:
@@ -3247,6 +5476,22 @@ paths:
           description: Return submission details
           schema:
             $ref: "#/definitions/ReturnSubmissionDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     patch:
       summary: Update return submission
@@ -3284,11 +5529,22 @@ paths:
           description: Return submission update response
           schema:
             $ref: "#/definitions/ReturnSubmissionDetailsResponse"
-
         400:
-          description: Error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /payments/{id}/returns/{returnId}/submissions/{returnSubmissionId}/validations:
     post:
@@ -3323,11 +5579,22 @@ paths:
           description: Return submission validation creation response
           schema:
             $ref: "#/definitions/ReturnSubmissionValidationCreationResponse"
-
         400:
-          description: Return submission validation creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /payments/{id}/returns/{returnId}/reversals:
     post:
@@ -3360,11 +5627,22 @@ paths:
           description: Reversal creation response
           schema:
             $ref: "#/definitions/ReturnReversalCreationResponse"
-
         400:
-          description: Reversal creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /payments/{id}/returns/{returnId}/reversals/{reversalId}:
 
@@ -3396,6 +5674,22 @@ paths:
           description: Return reversal details
           schema:
             $ref: "#/definitions/ReturnReversalDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /payments/{id}/returns/{returnId}/reversals/{reversalId}/admissions:
     post:
@@ -3434,11 +5728,22 @@ paths:
           description: Return reversal admission creation response
           schema:
             $ref: "#/definitions/ReturnReversalAdmissionCreationResponse"
-
         400:
-          description: Reversal admission creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /payments/{id}/returns/{returnId}/reversals/{reversalId}/admissions/{admissionId}:
     get:
@@ -3475,6 +5780,22 @@ paths:
           description: Return reversal admission details
           schema:
             $ref: "#/definitions/ReturnReversalAdmissionDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /payments/{id}/reversals:
     post:
@@ -3501,11 +5822,22 @@ paths:
           description: Reversal creation response
           schema:
             $ref: "#/definitions/ReversalCreationResponse"
-
         400:
-          description: Reversal creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /payments/{id}/reversals/{reversalId}:
 
@@ -3531,6 +5863,22 @@ paths:
           description: Reversal details
           schema:
             $ref: "#/definitions/ReversalDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /payments/{id}/reversals/{reversalId}/admissions:
     post:
@@ -3563,11 +5911,22 @@ paths:
           description: Reversal admission creation response
           schema:
             $ref: "#/definitions/ReversalAdmissionCreationResponse"
-
         400:
-          description: Reversal admission creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /payments/{id}/reversals/{reversalId}/admissions/{admissionId}:
     get:
@@ -3598,6 +5957,22 @@ paths:
           description: Reversal admission details
           schema:
             $ref: "#/definitions/ReversalAdmissionDetailsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /positions:
     get:
@@ -3609,6 +5984,22 @@ paths:
           description: List of position details
           schema:
             $ref: "#/definitions/PositionDetailsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /paymentdefaults:
     post:
@@ -3629,9 +6020,22 @@ paths:
           schema:
             $ref: "#/definitions/PaymentDefaultsCreateResponse"
         400:
-          description: Default settings creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
+
     get:
       summary: List default settings for payments
       tags:
@@ -3665,6 +6069,22 @@ paths:
           description: List of payment defaults
           schema:
             $ref: "#/definitions/PaymentDefaultsListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /paymentdefaults/{id}:
     get:
@@ -3683,6 +6103,22 @@ paths:
           description: Payment default details
           schema:
             $ref: "#/definitions/PaymentDefaultsResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     patch:
       summary: Update payment defaults
@@ -3708,9 +6144,21 @@ paths:
           schema:
             $ref: "#/definitions/PaymentDefaultsResponse"
         400:
-          description: Error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     delete:
       summary: Delete payment defaults
@@ -3732,6 +6180,22 @@ paths:
       responses:
         204:
           description: Payment defaults deleted
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
   #paymentapi - end
 
   #directdebit-api - start
@@ -3849,7 +6313,22 @@ paths:
           description: List of direct debit details
           schema:
             $ref: "#/definitions/DirectDebitDetailsListResponse"
-
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
   #directdebit-api - end
 
   #mandate-api - start
@@ -3992,7 +6471,22 @@ paths:
           description: List of mandates details
           schema:
             $ref: "#/definitions/MandateDetailsListResponse"
-
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
   #mandate-api - end
 
   #public-key - start
@@ -4017,6 +6511,22 @@ paths:
           description: List of public keys for user
           schema:
             $ref: "#/definitions/UserPublicKeyListResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     post:
       summary: Generate new public key credential for a user
@@ -4045,6 +6555,22 @@ paths:
           description: Signature Credential creation response
           schema:
             $ref: "#/definitions/PublicKeyCreationResponse"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
   /users/{user_id}/credentials/public_key/{public_key_id}:
 
@@ -4072,6 +6598,22 @@ paths:
           description: Public key data
           schema:
             $ref: "#/definitions/PublicKey"
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 
     delete:
       summary: Delete public key credential for user
@@ -4098,13 +6640,29 @@ paths:
       responses:
         204:
           description: Public key deleted
-
+        400:
+          $ref: '#/responses/400BadRequest'
+        401:
+          $ref: '#/responses/401Unauthorized'
+        403:
+          $ref: '#/responses/403Forbidden'
+        404:
+          $ref: '#/responses/404NotFound'
+        409:
+          $ref: '#/responses/409Conflict'
+        429:
+          $ref: '#/responses/429TooManyRequests'
+        500:
+          $ref: '#/responses/500InternalServerError'
+        503:
+          $ref: '#/responses/503ServiceUnavailable'
 #public-key - enc
 
 definitions:
 
   ApiError:
     type: object
+    additionalProperties: true
     properties:
       error_message:
         type: string
@@ -6041,6 +8599,10 @@ definitions:
     properties:
       type:
         type: string
+        x-nullable: false
+        description: "Name of the resource type"
+        enum:
+          - lhvgateway_associations
       id:
         type: string
         format: uuid
@@ -6052,6 +8614,14 @@ definitions:
         format: uuid
       attributes:
         $ref: "#/definitions/LhvAssociationAttributes"
+
+  LhvAssociationWithRelationships:
+    allOf:
+      - $ref: "#/definitions/LhvAssociation"
+      - type: object
+        properties:
+          relationships:
+            $ref: '#/definitions/LhvMasterAccountRelationship'
 
   NewLhvAssociation:
     type: object
@@ -6073,10 +8643,14 @@ definitions:
   LhvAssociationAttributes:
     type: object
     required:
+      - name
       - client_code
       - client_country
-      - master_ibans
     properties:
+      name:
+        type: string
+        x-nullable: false
+        minLength: 1
       client_code:
         type: string
         x-nullable: false
@@ -6085,18 +8659,58 @@ definitions:
         type: string
         x-nullable: false
         minLength: 1
-      master_ibans:
-        type: array
+
+  LhvUpdateAssociation:
+    type: object
+    required:
+      - id
+      - version
+      - type
+      - organisation_id
+      - attributes
+    properties:
+      id:
+        type: string
+        format: uuid
         x-nullable: false
+      type:
+        type: string
+        x-nullable: false
+      version:
+        type: integer
+        minimum: 0
+        x-nullable: true
+      organisation_id:
+        type: string
+        format: uuid
+        x-nullable: false
+      attributes:
+        $ref: '#/definitions/LhvUpdateAssociationAttributes'
+
+  LhvUpdateAssociationAttributes:
+    properties:
+      name:
+        type: string
         minLength: 1
-        items:
-          type: string
+      client_code:
+        type: string
+        minLength: 1
+      client_country:
+        type: string
+        minLength: 1
+
 
   LhvAssociationCreation:
     type: object
     properties:
       data:
         $ref: '#/definitions/NewLhvAssociation'
+
+  LhvAssociationPatch:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/LhvUpdateAssociation'
 
   LhvAssociationCreationResponse:
     type: object
@@ -6110,7 +8724,7 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/LhvAssociation'
+        $ref: '#/definitions/LhvAssociationWithRelationships'
       links:
         $ref: '#/definitions/Links'
 
@@ -6123,6 +8737,109 @@ definitions:
           $ref: '#/definitions/LhvAssociation'
       links:
         $ref: '#/definitions/Links'
+
+  LhvMasterAccountRelationship:
+    type: object
+    properties:
+      master_accounts:
+        type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/definitions/LhvMasterAccount'
+
+  LhvMasterAccountListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/LhvMasterAccount'
+      links:
+        $ref: '#/definitions/Links'
+
+  LhvMasterAccountResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/LhvMasterAccount'
+      links:
+        $ref: '#/definitions/Links'
+
+  LhvMasterAccountCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/LhvMasterAccount'
+
+  LhvMasterAccount:
+    type: object
+    required:
+      - id
+      - type
+      - version
+      - attributes
+      - organisation_id
+    properties:
+      id:
+        type: string
+        x-nullable: false
+        format: uuid
+      type:
+        type: string
+        x-nullable: false
+        description: "Name of the resource type"
+        enum:
+          - lhvgateway_master_accounts
+      version:
+        type: integer
+        x-nullable: false
+        default: 0
+      organisation_id:
+        format: uuid
+        x-nullable: false
+        type: string
+      created_on:
+        type: string
+        format: date-time
+        readOnly: true
+      modified_on:
+        type: string
+        format: date-time
+        readOnly: true
+      attributes:
+        $ref: "#/definitions/LhvMasterAccountAttributes"
+
+  LhvMasterAccountAttributes:
+    type: object
+    required:
+      - iban
+      - bic
+      - country
+    x-nullable: false
+    properties:
+      iban:
+        type: string
+        x-nullable: false
+        pattern: ^[A-Z]{2}[0-9]{2}[A-Z0-9]{0,64}$
+        description: "master account iban."
+        example: "GB11NWBK40030041426819"
+      bic:
+        type: string
+        x-nullable: false
+        pattern: ^([A-Z]{6}[A-Z0-9]{2}|[A-Z]{6}[A-Z0-9]{5})$
+        description: "SWIFT BIC in either 8 or 11 character format"
+        example: "NWBKGB22"
+      country:
+        type: string
+        x-nullable: false
+        pattern: ^[A-Z]{2}$
+        example: "GB"
+      requires_direct_account:
+        type: boolean
+        default: false
+        description: "requires a direct account preprovisioned under LHV organisation."
 
   SepaReconciliationAssociation:
     type: object
@@ -9607,3 +12324,37 @@ definitions:
               format: uuid
       links:
         $ref: '#/definitions/Links'
+
+responses:
+  400BadRequest:
+    description: Bad Request
+    schema:
+      $ref: "#/definitions/ApiError"
+  401Unauthorized:
+    description: Authentication credentials were missing or incorrect
+    schema:
+      $ref: "#/definitions/ApiError"
+  403Forbidden:
+    description: Forbidden
+    schema:
+      $ref: "#/definitions/ApiError"
+  404NotFound:
+    description: Record not found
+    schema:
+      $ref: "#/definitions/ApiError"
+  409Conflict:
+    description: Conflict
+    schema:
+      $ref: "#/definitions/ApiError"
+  429TooManyRequests:
+    description: The request cannot be served due to the application’s rate limit
+    schema:
+      $ref: "#/definitions/ApiError"
+  500InternalServerError:
+    description: Internal Server Error
+    schema:
+      $ref: "#/definitions/ApiError"
+  503ServiceUnavailable:
+    description: The server is up, but overloaded with requests. Try again later.
+    schema:
+      $ref: "#/definitions/ApiError"

@@ -6,14 +6,14 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // VocalinkReportAssociationCertificateRelationship vocalink report association certificate relationship
+//
 // swagger:model VocalinkReportAssociationCertificateRelationship
 type VocalinkReportAssociationCertificateRelationship struct {
 
@@ -72,6 +72,7 @@ func (m *VocalinkReportAssociationCertificateRelationship) UnmarshalBinary(b []b
 }
 
 // VocalinkReportAssociationCertificateRelationshipData vocalink report association certificate relationship data
+//
 // swagger:model VocalinkReportAssociationCertificateRelationshipData
 type VocalinkReportAssociationCertificateRelationshipData struct {
 

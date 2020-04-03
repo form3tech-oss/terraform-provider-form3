@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostUsersUserIDCredentialsPublicKeyReader is a Reader for the PostUsersUserIDCredentialsPublicKey structure.
@@ -24,13 +23,60 @@ type PostUsersUserIDCredentialsPublicKeyReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostUsersUserIDCredentialsPublicKeyReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostUsersUserIDCredentialsPublicKeyCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewPostUsersUserIDCredentialsPublicKeyBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewPostUsersUserIDCredentialsPublicKeyUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewPostUsersUserIDCredentialsPublicKeyForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewPostUsersUserIDCredentialsPublicKeyNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewPostUsersUserIDCredentialsPublicKeyConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewPostUsersUserIDCredentialsPublicKeyTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewPostUsersUserIDCredentialsPublicKeyInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewPostUsersUserIDCredentialsPublicKeyServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -54,9 +100,277 @@ func (o *PostUsersUserIDCredentialsPublicKeyCreated) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/public_key][%d] postUsersUserIdCredentialsPublicKeyCreated  %+v", 201, o.Payload)
 }
 
+func (o *PostUsersUserIDCredentialsPublicKeyCreated) GetPayload() *models.PublicKeyCreationResponse {
+	return o.Payload
+}
+
 func (o *PostUsersUserIDCredentialsPublicKeyCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.PublicKeyCreationResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostUsersUserIDCredentialsPublicKeyBadRequest creates a PostUsersUserIDCredentialsPublicKeyBadRequest with default headers values
+func NewPostUsersUserIDCredentialsPublicKeyBadRequest() *PostUsersUserIDCredentialsPublicKeyBadRequest {
+	return &PostUsersUserIDCredentialsPublicKeyBadRequest{}
+}
+
+/*PostUsersUserIDCredentialsPublicKeyBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type PostUsersUserIDCredentialsPublicKeyBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *PostUsersUserIDCredentialsPublicKeyBadRequest) Error() string {
+	return fmt.Sprintf("[POST /users/{user_id}/credentials/public_key][%d] postUsersUserIdCredentialsPublicKeyBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *PostUsersUserIDCredentialsPublicKeyBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostUsersUserIDCredentialsPublicKeyBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostUsersUserIDCredentialsPublicKeyUnauthorized creates a PostUsersUserIDCredentialsPublicKeyUnauthorized with default headers values
+func NewPostUsersUserIDCredentialsPublicKeyUnauthorized() *PostUsersUserIDCredentialsPublicKeyUnauthorized {
+	return &PostUsersUserIDCredentialsPublicKeyUnauthorized{}
+}
+
+/*PostUsersUserIDCredentialsPublicKeyUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type PostUsersUserIDCredentialsPublicKeyUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *PostUsersUserIDCredentialsPublicKeyUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /users/{user_id}/credentials/public_key][%d] postUsersUserIdCredentialsPublicKeyUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostUsersUserIDCredentialsPublicKeyUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostUsersUserIDCredentialsPublicKeyUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostUsersUserIDCredentialsPublicKeyForbidden creates a PostUsersUserIDCredentialsPublicKeyForbidden with default headers values
+func NewPostUsersUserIDCredentialsPublicKeyForbidden() *PostUsersUserIDCredentialsPublicKeyForbidden {
+	return &PostUsersUserIDCredentialsPublicKeyForbidden{}
+}
+
+/*PostUsersUserIDCredentialsPublicKeyForbidden handles this case with default header values.
+
+Forbidden
+*/
+type PostUsersUserIDCredentialsPublicKeyForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *PostUsersUserIDCredentialsPublicKeyForbidden) Error() string {
+	return fmt.Sprintf("[POST /users/{user_id}/credentials/public_key][%d] postUsersUserIdCredentialsPublicKeyForbidden  %+v", 403, o.Payload)
+}
+
+func (o *PostUsersUserIDCredentialsPublicKeyForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostUsersUserIDCredentialsPublicKeyForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostUsersUserIDCredentialsPublicKeyNotFound creates a PostUsersUserIDCredentialsPublicKeyNotFound with default headers values
+func NewPostUsersUserIDCredentialsPublicKeyNotFound() *PostUsersUserIDCredentialsPublicKeyNotFound {
+	return &PostUsersUserIDCredentialsPublicKeyNotFound{}
+}
+
+/*PostUsersUserIDCredentialsPublicKeyNotFound handles this case with default header values.
+
+Record not found
+*/
+type PostUsersUserIDCredentialsPublicKeyNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *PostUsersUserIDCredentialsPublicKeyNotFound) Error() string {
+	return fmt.Sprintf("[POST /users/{user_id}/credentials/public_key][%d] postUsersUserIdCredentialsPublicKeyNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostUsersUserIDCredentialsPublicKeyNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostUsersUserIDCredentialsPublicKeyNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostUsersUserIDCredentialsPublicKeyConflict creates a PostUsersUserIDCredentialsPublicKeyConflict with default headers values
+func NewPostUsersUserIDCredentialsPublicKeyConflict() *PostUsersUserIDCredentialsPublicKeyConflict {
+	return &PostUsersUserIDCredentialsPublicKeyConflict{}
+}
+
+/*PostUsersUserIDCredentialsPublicKeyConflict handles this case with default header values.
+
+Conflict
+*/
+type PostUsersUserIDCredentialsPublicKeyConflict struct {
+	Payload *models.APIError
+}
+
+func (o *PostUsersUserIDCredentialsPublicKeyConflict) Error() string {
+	return fmt.Sprintf("[POST /users/{user_id}/credentials/public_key][%d] postUsersUserIdCredentialsPublicKeyConflict  %+v", 409, o.Payload)
+}
+
+func (o *PostUsersUserIDCredentialsPublicKeyConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostUsersUserIDCredentialsPublicKeyConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostUsersUserIDCredentialsPublicKeyTooManyRequests creates a PostUsersUserIDCredentialsPublicKeyTooManyRequests with default headers values
+func NewPostUsersUserIDCredentialsPublicKeyTooManyRequests() *PostUsersUserIDCredentialsPublicKeyTooManyRequests {
+	return &PostUsersUserIDCredentialsPublicKeyTooManyRequests{}
+}
+
+/*PostUsersUserIDCredentialsPublicKeyTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type PostUsersUserIDCredentialsPublicKeyTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *PostUsersUserIDCredentialsPublicKeyTooManyRequests) Error() string {
+	return fmt.Sprintf("[POST /users/{user_id}/credentials/public_key][%d] postUsersUserIdCredentialsPublicKeyTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostUsersUserIDCredentialsPublicKeyTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostUsersUserIDCredentialsPublicKeyTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostUsersUserIDCredentialsPublicKeyInternalServerError creates a PostUsersUserIDCredentialsPublicKeyInternalServerError with default headers values
+func NewPostUsersUserIDCredentialsPublicKeyInternalServerError() *PostUsersUserIDCredentialsPublicKeyInternalServerError {
+	return &PostUsersUserIDCredentialsPublicKeyInternalServerError{}
+}
+
+/*PostUsersUserIDCredentialsPublicKeyInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type PostUsersUserIDCredentialsPublicKeyInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *PostUsersUserIDCredentialsPublicKeyInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /users/{user_id}/credentials/public_key][%d] postUsersUserIdCredentialsPublicKeyInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *PostUsersUserIDCredentialsPublicKeyInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostUsersUserIDCredentialsPublicKeyInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostUsersUserIDCredentialsPublicKeyServiceUnavailable creates a PostUsersUserIDCredentialsPublicKeyServiceUnavailable with default headers values
+func NewPostUsersUserIDCredentialsPublicKeyServiceUnavailable() *PostUsersUserIDCredentialsPublicKeyServiceUnavailable {
+	return &PostUsersUserIDCredentialsPublicKeyServiceUnavailable{}
+}
+
+/*PostUsersUserIDCredentialsPublicKeyServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type PostUsersUserIDCredentialsPublicKeyServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *PostUsersUserIDCredentialsPublicKeyServiceUnavailable) Error() string {
+	return fmt.Sprintf("[POST /users/{user_id}/credentials/public_key][%d] postUsersUserIdCredentialsPublicKeyServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostUsersUserIDCredentialsPublicKeyServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostUsersUserIDCredentialsPublicKeyServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

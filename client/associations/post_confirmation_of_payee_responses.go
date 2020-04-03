@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostConfirmationOfPayeeReader is a Reader for the PostConfirmationOfPayee structure.
@@ -24,13 +23,60 @@ type PostConfirmationOfPayeeReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostConfirmationOfPayeeReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostConfirmationOfPayeeCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewPostConfirmationOfPayeeBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewPostConfirmationOfPayeeUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewPostConfirmationOfPayeeForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewPostConfirmationOfPayeeNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewPostConfirmationOfPayeeConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewPostConfirmationOfPayeeTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewPostConfirmationOfPayeeInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewPostConfirmationOfPayeeServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -54,9 +100,277 @@ func (o *PostConfirmationOfPayeeCreated) Error() string {
 	return fmt.Sprintf("[POST /confirmation-of-payee][%d] postConfirmationOfPayeeCreated  %+v", 201, o.Payload)
 }
 
+func (o *PostConfirmationOfPayeeCreated) GetPayload() *models.CoPAssociationCreationResponse {
+	return o.Payload
+}
+
 func (o *PostConfirmationOfPayeeCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.CoPAssociationCreationResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostConfirmationOfPayeeBadRequest creates a PostConfirmationOfPayeeBadRequest with default headers values
+func NewPostConfirmationOfPayeeBadRequest() *PostConfirmationOfPayeeBadRequest {
+	return &PostConfirmationOfPayeeBadRequest{}
+}
+
+/*PostConfirmationOfPayeeBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type PostConfirmationOfPayeeBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *PostConfirmationOfPayeeBadRequest) Error() string {
+	return fmt.Sprintf("[POST /confirmation-of-payee][%d] postConfirmationOfPayeeBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *PostConfirmationOfPayeeBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostConfirmationOfPayeeBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostConfirmationOfPayeeUnauthorized creates a PostConfirmationOfPayeeUnauthorized with default headers values
+func NewPostConfirmationOfPayeeUnauthorized() *PostConfirmationOfPayeeUnauthorized {
+	return &PostConfirmationOfPayeeUnauthorized{}
+}
+
+/*PostConfirmationOfPayeeUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type PostConfirmationOfPayeeUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *PostConfirmationOfPayeeUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /confirmation-of-payee][%d] postConfirmationOfPayeeUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostConfirmationOfPayeeUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostConfirmationOfPayeeUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostConfirmationOfPayeeForbidden creates a PostConfirmationOfPayeeForbidden with default headers values
+func NewPostConfirmationOfPayeeForbidden() *PostConfirmationOfPayeeForbidden {
+	return &PostConfirmationOfPayeeForbidden{}
+}
+
+/*PostConfirmationOfPayeeForbidden handles this case with default header values.
+
+Forbidden
+*/
+type PostConfirmationOfPayeeForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *PostConfirmationOfPayeeForbidden) Error() string {
+	return fmt.Sprintf("[POST /confirmation-of-payee][%d] postConfirmationOfPayeeForbidden  %+v", 403, o.Payload)
+}
+
+func (o *PostConfirmationOfPayeeForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostConfirmationOfPayeeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostConfirmationOfPayeeNotFound creates a PostConfirmationOfPayeeNotFound with default headers values
+func NewPostConfirmationOfPayeeNotFound() *PostConfirmationOfPayeeNotFound {
+	return &PostConfirmationOfPayeeNotFound{}
+}
+
+/*PostConfirmationOfPayeeNotFound handles this case with default header values.
+
+Record not found
+*/
+type PostConfirmationOfPayeeNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *PostConfirmationOfPayeeNotFound) Error() string {
+	return fmt.Sprintf("[POST /confirmation-of-payee][%d] postConfirmationOfPayeeNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostConfirmationOfPayeeNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostConfirmationOfPayeeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostConfirmationOfPayeeConflict creates a PostConfirmationOfPayeeConflict with default headers values
+func NewPostConfirmationOfPayeeConflict() *PostConfirmationOfPayeeConflict {
+	return &PostConfirmationOfPayeeConflict{}
+}
+
+/*PostConfirmationOfPayeeConflict handles this case with default header values.
+
+Conflict
+*/
+type PostConfirmationOfPayeeConflict struct {
+	Payload *models.APIError
+}
+
+func (o *PostConfirmationOfPayeeConflict) Error() string {
+	return fmt.Sprintf("[POST /confirmation-of-payee][%d] postConfirmationOfPayeeConflict  %+v", 409, o.Payload)
+}
+
+func (o *PostConfirmationOfPayeeConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostConfirmationOfPayeeConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostConfirmationOfPayeeTooManyRequests creates a PostConfirmationOfPayeeTooManyRequests with default headers values
+func NewPostConfirmationOfPayeeTooManyRequests() *PostConfirmationOfPayeeTooManyRequests {
+	return &PostConfirmationOfPayeeTooManyRequests{}
+}
+
+/*PostConfirmationOfPayeeTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type PostConfirmationOfPayeeTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *PostConfirmationOfPayeeTooManyRequests) Error() string {
+	return fmt.Sprintf("[POST /confirmation-of-payee][%d] postConfirmationOfPayeeTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostConfirmationOfPayeeTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostConfirmationOfPayeeTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostConfirmationOfPayeeInternalServerError creates a PostConfirmationOfPayeeInternalServerError with default headers values
+func NewPostConfirmationOfPayeeInternalServerError() *PostConfirmationOfPayeeInternalServerError {
+	return &PostConfirmationOfPayeeInternalServerError{}
+}
+
+/*PostConfirmationOfPayeeInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type PostConfirmationOfPayeeInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *PostConfirmationOfPayeeInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /confirmation-of-payee][%d] postConfirmationOfPayeeInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *PostConfirmationOfPayeeInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostConfirmationOfPayeeInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostConfirmationOfPayeeServiceUnavailable creates a PostConfirmationOfPayeeServiceUnavailable with default headers values
+func NewPostConfirmationOfPayeeServiceUnavailable() *PostConfirmationOfPayeeServiceUnavailable {
+	return &PostConfirmationOfPayeeServiceUnavailable{}
+}
+
+/*PostConfirmationOfPayeeServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type PostConfirmationOfPayeeServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *PostConfirmationOfPayeeServiceUnavailable) Error() string {
+	return fmt.Sprintf("[POST /confirmation-of-payee][%d] postConfirmationOfPayeeServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostConfirmationOfPayeeServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostConfirmationOfPayeeServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

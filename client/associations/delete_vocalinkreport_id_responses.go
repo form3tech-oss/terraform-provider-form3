@@ -7,10 +7,12 @@ package associations
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteVocalinkreportIDReader is a Reader for the DeleteVocalinkreportID structure.
@@ -21,13 +23,60 @@ type DeleteVocalinkreportIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteVocalinkreportIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewDeleteVocalinkreportIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDeleteVocalinkreportIDBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewDeleteVocalinkreportIDUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewDeleteVocalinkreportIDForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewDeleteVocalinkreportIDNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewDeleteVocalinkreportIDConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewDeleteVocalinkreportIDTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewDeleteVocalinkreportIDInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewDeleteVocalinkreportIDServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -51,6 +100,270 @@ func (o *DeleteVocalinkreportIDNoContent) Error() string {
 }
 
 func (o *DeleteVocalinkreportIDNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	return nil
+}
+
+// NewDeleteVocalinkreportIDBadRequest creates a DeleteVocalinkreportIDBadRequest with default headers values
+func NewDeleteVocalinkreportIDBadRequest() *DeleteVocalinkreportIDBadRequest {
+	return &DeleteVocalinkreportIDBadRequest{}
+}
+
+/*DeleteVocalinkreportIDBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type DeleteVocalinkreportIDBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteVocalinkreportIDBadRequest) Error() string {
+	return fmt.Sprintf("[DELETE /vocalinkreport/{id}][%d] deleteVocalinkreportIdBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DeleteVocalinkreportIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteVocalinkreportIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteVocalinkreportIDUnauthorized creates a DeleteVocalinkreportIDUnauthorized with default headers values
+func NewDeleteVocalinkreportIDUnauthorized() *DeleteVocalinkreportIDUnauthorized {
+	return &DeleteVocalinkreportIDUnauthorized{}
+}
+
+/*DeleteVocalinkreportIDUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type DeleteVocalinkreportIDUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteVocalinkreportIDUnauthorized) Error() string {
+	return fmt.Sprintf("[DELETE /vocalinkreport/{id}][%d] deleteVocalinkreportIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *DeleteVocalinkreportIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteVocalinkreportIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteVocalinkreportIDForbidden creates a DeleteVocalinkreportIDForbidden with default headers values
+func NewDeleteVocalinkreportIDForbidden() *DeleteVocalinkreportIDForbidden {
+	return &DeleteVocalinkreportIDForbidden{}
+}
+
+/*DeleteVocalinkreportIDForbidden handles this case with default header values.
+
+Forbidden
+*/
+type DeleteVocalinkreportIDForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteVocalinkreportIDForbidden) Error() string {
+	return fmt.Sprintf("[DELETE /vocalinkreport/{id}][%d] deleteVocalinkreportIdForbidden  %+v", 403, o.Payload)
+}
+
+func (o *DeleteVocalinkreportIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteVocalinkreportIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteVocalinkreportIDNotFound creates a DeleteVocalinkreportIDNotFound with default headers values
+func NewDeleteVocalinkreportIDNotFound() *DeleteVocalinkreportIDNotFound {
+	return &DeleteVocalinkreportIDNotFound{}
+}
+
+/*DeleteVocalinkreportIDNotFound handles this case with default header values.
+
+Record not found
+*/
+type DeleteVocalinkreportIDNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteVocalinkreportIDNotFound) Error() string {
+	return fmt.Sprintf("[DELETE /vocalinkreport/{id}][%d] deleteVocalinkreportIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteVocalinkreportIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteVocalinkreportIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteVocalinkreportIDConflict creates a DeleteVocalinkreportIDConflict with default headers values
+func NewDeleteVocalinkreportIDConflict() *DeleteVocalinkreportIDConflict {
+	return &DeleteVocalinkreportIDConflict{}
+}
+
+/*DeleteVocalinkreportIDConflict handles this case with default header values.
+
+Conflict
+*/
+type DeleteVocalinkreportIDConflict struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteVocalinkreportIDConflict) Error() string {
+	return fmt.Sprintf("[DELETE /vocalinkreport/{id}][%d] deleteVocalinkreportIdConflict  %+v", 409, o.Payload)
+}
+
+func (o *DeleteVocalinkreportIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteVocalinkreportIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteVocalinkreportIDTooManyRequests creates a DeleteVocalinkreportIDTooManyRequests with default headers values
+func NewDeleteVocalinkreportIDTooManyRequests() *DeleteVocalinkreportIDTooManyRequests {
+	return &DeleteVocalinkreportIDTooManyRequests{}
+}
+
+/*DeleteVocalinkreportIDTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type DeleteVocalinkreportIDTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteVocalinkreportIDTooManyRequests) Error() string {
+	return fmt.Sprintf("[DELETE /vocalinkreport/{id}][%d] deleteVocalinkreportIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *DeleteVocalinkreportIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteVocalinkreportIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteVocalinkreportIDInternalServerError creates a DeleteVocalinkreportIDInternalServerError with default headers values
+func NewDeleteVocalinkreportIDInternalServerError() *DeleteVocalinkreportIDInternalServerError {
+	return &DeleteVocalinkreportIDInternalServerError{}
+}
+
+/*DeleteVocalinkreportIDInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type DeleteVocalinkreportIDInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteVocalinkreportIDInternalServerError) Error() string {
+	return fmt.Sprintf("[DELETE /vocalinkreport/{id}][%d] deleteVocalinkreportIdInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *DeleteVocalinkreportIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteVocalinkreportIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteVocalinkreportIDServiceUnavailable creates a DeleteVocalinkreportIDServiceUnavailable with default headers values
+func NewDeleteVocalinkreportIDServiceUnavailable() *DeleteVocalinkreportIDServiceUnavailable {
+	return &DeleteVocalinkreportIDServiceUnavailable{}
+}
+
+/*DeleteVocalinkreportIDServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type DeleteVocalinkreportIDServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteVocalinkreportIDServiceUnavailable) Error() string {
+	return fmt.Sprintf("[DELETE /vocalinkreport/{id}][%d] deleteVocalinkreportIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *DeleteVocalinkreportIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteVocalinkreportIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

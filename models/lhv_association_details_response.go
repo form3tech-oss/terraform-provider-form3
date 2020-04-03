@@ -6,18 +6,18 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // LhvAssociationDetailsResponse lhv association details response
+//
 // swagger:model LhvAssociationDetailsResponse
 type LhvAssociationDetailsResponse struct {
 
 	// data
-	Data *LhvAssociation `json:"data,omitempty"`
+	Data *LhvAssociationWithRelationships `json:"data,omitempty"`
 
 	// links
 	Links *Links `json:"links,omitempty"`

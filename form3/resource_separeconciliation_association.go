@@ -7,7 +7,6 @@ import (
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 )
@@ -84,7 +83,7 @@ func resourceSepaReconciliationAssociationCreate(d *schema.ResourceData, meta in
 
 	association, err := createSepaReconciliationNewAssociationFromResourceData(d)
 	if err != nil {
-		return fmt.Errorf("failed to create sepa reconciliation association: %s", err)
+		return fmt.Errorf("failed to create sepa reconciliation association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	createdAssociation, err := client.AssociationClient.Associations.PostSepaReconciliation(associations.NewPostSepaReconciliationParams().
@@ -93,7 +92,7 @@ func resourceSepaReconciliationAssociationCreate(d *schema.ResourceData, meta in
 		}))
 
 	if err != nil {
-		return fmt.Errorf("failed to create sepa reconciliation association: %s", err)
+		return fmt.Errorf("failed to create sepa reconciliation association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	d.SetId(createdAssociation.Payload.Data.ID.String())
@@ -111,13 +110,11 @@ func resourceSepaReconciliationAssociationRead(d *schema.ResourceData, meta inte
 		WithID(associationId))
 
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find sepa reconciliation assocation: %s", form3.JsonErrorPrettyPrint(err))
 		}
-
-		return fmt.Errorf("couldn't find sepa reconciliation assocation: %s", err)
+		d.SetId("")
+		return nil
 	}
 
 	_ = d.Set("association_id", sepaReconciliationAssociation.Payload.Data.ID.String())
@@ -143,7 +140,7 @@ func resourceSepaReconciliationAssociationDelete(d *schema.ResourceData, meta in
 	SepaReconciliationAssociation, err := client.AssociationClient.Associations.GetSepaReconciliationID(associations.NewGetSepaReconciliationIDParams().
 		WithID(strfmt.UUID(d.Id())))
 	if err != nil {
-		return fmt.Errorf("error deleting sepa reconciliation assocation: %s", err)
+		return fmt.Errorf("error deleting sepa reconciliation assocation: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	_, err = client.AssociationClient.Associations.DeleteSepaReconciliationID(associations.NewDeleteSepaReconciliationIDParams().
@@ -151,7 +148,7 @@ func resourceSepaReconciliationAssociationDelete(d *schema.ResourceData, meta in
 		WithVersion(*SepaReconciliationAssociation.Payload.Data.Version))
 
 	if err != nil {
-		return fmt.Errorf("error deleting sepa reconciliation assocation: %s", err)
+		return fmt.Errorf("error deleting sepa reconciliation assocation: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil

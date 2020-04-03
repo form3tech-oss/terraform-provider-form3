@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostSepasctReader is a Reader for the PostSepasct structure.
@@ -24,13 +23,60 @@ type PostSepasctReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostSepasctReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostSepasctCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewPostSepasctBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewPostSepasctUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewPostSepasctForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewPostSepasctNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewPostSepasctConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewPostSepasctTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewPostSepasctInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewPostSepasctServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -54,9 +100,277 @@ func (o *PostSepasctCreated) Error() string {
 	return fmt.Sprintf("[POST /sepasct][%d] postSepasctCreated  %+v", 201, o.Payload)
 }
 
+func (o *PostSepasctCreated) GetPayload() *models.SepaSctAssociationCreationResponse {
+	return o.Payload
+}
+
 func (o *PostSepasctCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.SepaSctAssociationCreationResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostSepasctBadRequest creates a PostSepasctBadRequest with default headers values
+func NewPostSepasctBadRequest() *PostSepasctBadRequest {
+	return &PostSepasctBadRequest{}
+}
+
+/*PostSepasctBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type PostSepasctBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *PostSepasctBadRequest) Error() string {
+	return fmt.Sprintf("[POST /sepasct][%d] postSepasctBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *PostSepasctBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostSepasctBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostSepasctUnauthorized creates a PostSepasctUnauthorized with default headers values
+func NewPostSepasctUnauthorized() *PostSepasctUnauthorized {
+	return &PostSepasctUnauthorized{}
+}
+
+/*PostSepasctUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type PostSepasctUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *PostSepasctUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /sepasct][%d] postSepasctUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostSepasctUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostSepasctUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostSepasctForbidden creates a PostSepasctForbidden with default headers values
+func NewPostSepasctForbidden() *PostSepasctForbidden {
+	return &PostSepasctForbidden{}
+}
+
+/*PostSepasctForbidden handles this case with default header values.
+
+Forbidden
+*/
+type PostSepasctForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *PostSepasctForbidden) Error() string {
+	return fmt.Sprintf("[POST /sepasct][%d] postSepasctForbidden  %+v", 403, o.Payload)
+}
+
+func (o *PostSepasctForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostSepasctForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostSepasctNotFound creates a PostSepasctNotFound with default headers values
+func NewPostSepasctNotFound() *PostSepasctNotFound {
+	return &PostSepasctNotFound{}
+}
+
+/*PostSepasctNotFound handles this case with default header values.
+
+Record not found
+*/
+type PostSepasctNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *PostSepasctNotFound) Error() string {
+	return fmt.Sprintf("[POST /sepasct][%d] postSepasctNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostSepasctNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostSepasctNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostSepasctConflict creates a PostSepasctConflict with default headers values
+func NewPostSepasctConflict() *PostSepasctConflict {
+	return &PostSepasctConflict{}
+}
+
+/*PostSepasctConflict handles this case with default header values.
+
+Conflict
+*/
+type PostSepasctConflict struct {
+	Payload *models.APIError
+}
+
+func (o *PostSepasctConflict) Error() string {
+	return fmt.Sprintf("[POST /sepasct][%d] postSepasctConflict  %+v", 409, o.Payload)
+}
+
+func (o *PostSepasctConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostSepasctConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostSepasctTooManyRequests creates a PostSepasctTooManyRequests with default headers values
+func NewPostSepasctTooManyRequests() *PostSepasctTooManyRequests {
+	return &PostSepasctTooManyRequests{}
+}
+
+/*PostSepasctTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type PostSepasctTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *PostSepasctTooManyRequests) Error() string {
+	return fmt.Sprintf("[POST /sepasct][%d] postSepasctTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostSepasctTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostSepasctTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostSepasctInternalServerError creates a PostSepasctInternalServerError with default headers values
+func NewPostSepasctInternalServerError() *PostSepasctInternalServerError {
+	return &PostSepasctInternalServerError{}
+}
+
+/*PostSepasctInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type PostSepasctInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *PostSepasctInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /sepasct][%d] postSepasctInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *PostSepasctInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostSepasctInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostSepasctServiceUnavailable creates a PostSepasctServiceUnavailable with default headers values
+func NewPostSepasctServiceUnavailable() *PostSepasctServiceUnavailable {
+	return &PostSepasctServiceUnavailable{}
+}
+
+/*PostSepasctServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type PostSepasctServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *PostSepasctServiceUnavailable) Error() string {
+	return fmt.Sprintf("[POST /sepasct][%d] postSepasctServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostSepasctServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostSepasctServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

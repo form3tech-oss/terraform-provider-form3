@@ -1,31 +1,33 @@
 .DEFAULT_GOAL := default
+GOFILES = $(shell go list ./...)
+swagger_codegen_version := "v0.23.0"
 
-swagger_codegen_version := "v0.19.0"
+export GOFLAGS=-mod=vendor
 
-ifeq (${platform},Darwin)
+ifeq ($(shell uname),Darwin)
 swagger_binary := "swagger_darwin_amd64"
 else
 swagger_binary := "swagger_linux_amd64"
 endif
 
-TEST?=$$(go list ./... |grep -v 'vendor')
-GOFMT_FILES?=$$(find . -name '*.go' |grep -v vendor)
-
 default: build test testacc
 
-build: vet fmtcheck
+env:
+	@go env
+
+build: env vet fmtcheck
 	@go install
 	@mkdir -p ~/.terraform.d/plugins/
 	@cp $(GOPATH)/bin/terraform-provider-form3 ~/.terraform.d/plugins/
 	@echo "Build succeeded"
 
 test: fmtcheck
-	go test -v -i $(TEST) || exit 1
-	echo $(TEST) | \
-		xargs -t -n4 go test $(TESTARGS) -count 1 -v -timeout=30s -parallel=4
+	go test -v -i $(GOFILES) || exit 1
+	echo $(GOFILES) | \
+		xargs -t -n4 go test -count 1 -v -timeout=30s -parallel=4
 
 testacc: fmtcheck
-	TF_ACC=1 FORM3_ACC=1 go test $(TEST) $(TESTARGS) -v -count 1 -timeout 120m
+	TF_ACC=1 FORM3_ACC=1 go test -v -timeout 120m $(GOFILES)
 
 install-swagger:
 	@sudo curl -o /usr/local/bin/swagger -L'#' https://github.com/go-swagger/go-swagger/releases/download/${swagger_codegen_version}/${swagger_binary} && chmod +x /usr/local/bin/swagger; \
@@ -35,7 +37,7 @@ generate-swagger-model:
 
 vet:
 	@echo "go vet ."
-	@go vet $$(go list ./... | grep -v vendor/) ; if [ $$? -eq 1 ]; then \
+	@go vet $(GOFILES) ; if [ $$? -eq 1 ]; then \
 		echo ""; \
 		echo "Vet found suspicious constructs. Please check the reported constructs"; \
 		echo "and fix them if necessary before submitting the code for review."; \
@@ -51,8 +53,9 @@ fmtcheck:
 errcheck:
 	@sh -c "'$(CURDIR)/scripts/errcheck.sh'"
 
-vendor-status:
-	@govendor status
+.PHONY: vendor
+vendor:
+	@go mod tidy && go mod vendor && go mod verify
 
 test-compile:
 	@if [ "$(TEST)" = "./..." ]; then \

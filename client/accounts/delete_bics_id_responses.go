@@ -7,10 +7,12 @@ package accounts
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteBicsIDReader is a Reader for the DeleteBicsID structure.
@@ -21,13 +23,60 @@ type DeleteBicsIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteBicsIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewDeleteBicsIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDeleteBicsIDBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewDeleteBicsIDUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewDeleteBicsIDForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewDeleteBicsIDNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewDeleteBicsIDConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewDeleteBicsIDTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewDeleteBicsIDInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewDeleteBicsIDServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -51,6 +100,270 @@ func (o *DeleteBicsIDNoContent) Error() string {
 }
 
 func (o *DeleteBicsIDNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	return nil
+}
+
+// NewDeleteBicsIDBadRequest creates a DeleteBicsIDBadRequest with default headers values
+func NewDeleteBicsIDBadRequest() *DeleteBicsIDBadRequest {
+	return &DeleteBicsIDBadRequest{}
+}
+
+/*DeleteBicsIDBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type DeleteBicsIDBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteBicsIDBadRequest) Error() string {
+	return fmt.Sprintf("[DELETE /bics/{id}][%d] deleteBicsIdBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DeleteBicsIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteBicsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteBicsIDUnauthorized creates a DeleteBicsIDUnauthorized with default headers values
+func NewDeleteBicsIDUnauthorized() *DeleteBicsIDUnauthorized {
+	return &DeleteBicsIDUnauthorized{}
+}
+
+/*DeleteBicsIDUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type DeleteBicsIDUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteBicsIDUnauthorized) Error() string {
+	return fmt.Sprintf("[DELETE /bics/{id}][%d] deleteBicsIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *DeleteBicsIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteBicsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteBicsIDForbidden creates a DeleteBicsIDForbidden with default headers values
+func NewDeleteBicsIDForbidden() *DeleteBicsIDForbidden {
+	return &DeleteBicsIDForbidden{}
+}
+
+/*DeleteBicsIDForbidden handles this case with default header values.
+
+Forbidden
+*/
+type DeleteBicsIDForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteBicsIDForbidden) Error() string {
+	return fmt.Sprintf("[DELETE /bics/{id}][%d] deleteBicsIdForbidden  %+v", 403, o.Payload)
+}
+
+func (o *DeleteBicsIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteBicsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteBicsIDNotFound creates a DeleteBicsIDNotFound with default headers values
+func NewDeleteBicsIDNotFound() *DeleteBicsIDNotFound {
+	return &DeleteBicsIDNotFound{}
+}
+
+/*DeleteBicsIDNotFound handles this case with default header values.
+
+Record not found
+*/
+type DeleteBicsIDNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteBicsIDNotFound) Error() string {
+	return fmt.Sprintf("[DELETE /bics/{id}][%d] deleteBicsIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteBicsIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteBicsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteBicsIDConflict creates a DeleteBicsIDConflict with default headers values
+func NewDeleteBicsIDConflict() *DeleteBicsIDConflict {
+	return &DeleteBicsIDConflict{}
+}
+
+/*DeleteBicsIDConflict handles this case with default header values.
+
+Conflict
+*/
+type DeleteBicsIDConflict struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteBicsIDConflict) Error() string {
+	return fmt.Sprintf("[DELETE /bics/{id}][%d] deleteBicsIdConflict  %+v", 409, o.Payload)
+}
+
+func (o *DeleteBicsIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteBicsIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteBicsIDTooManyRequests creates a DeleteBicsIDTooManyRequests with default headers values
+func NewDeleteBicsIDTooManyRequests() *DeleteBicsIDTooManyRequests {
+	return &DeleteBicsIDTooManyRequests{}
+}
+
+/*DeleteBicsIDTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type DeleteBicsIDTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteBicsIDTooManyRequests) Error() string {
+	return fmt.Sprintf("[DELETE /bics/{id}][%d] deleteBicsIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *DeleteBicsIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteBicsIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteBicsIDInternalServerError creates a DeleteBicsIDInternalServerError with default headers values
+func NewDeleteBicsIDInternalServerError() *DeleteBicsIDInternalServerError {
+	return &DeleteBicsIDInternalServerError{}
+}
+
+/*DeleteBicsIDInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type DeleteBicsIDInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteBicsIDInternalServerError) Error() string {
+	return fmt.Sprintf("[DELETE /bics/{id}][%d] deleteBicsIdInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *DeleteBicsIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteBicsIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteBicsIDServiceUnavailable creates a DeleteBicsIDServiceUnavailable with default headers values
+func NewDeleteBicsIDServiceUnavailable() *DeleteBicsIDServiceUnavailable {
+	return &DeleteBicsIDServiceUnavailable{}
+}
+
+/*DeleteBicsIDServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type DeleteBicsIDServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteBicsIDServiceUnavailable) Error() string {
+	return fmt.Sprintf("[DELETE /bics/{id}][%d] deleteBicsIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *DeleteBicsIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteBicsIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

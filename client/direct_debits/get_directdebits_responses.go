@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetDirectdebitsReader is a Reader for the GetDirectdebits structure.
@@ -24,13 +23,60 @@ type GetDirectdebitsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetDirectdebitsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetDirectdebitsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetDirectdebitsBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetDirectdebitsUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewGetDirectdebitsForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetDirectdebitsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewGetDirectdebitsConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewGetDirectdebitsTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetDirectdebitsInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewGetDirectdebitsServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -54,9 +100,277 @@ func (o *GetDirectdebitsOK) Error() string {
 	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsOK  %+v", 200, o.Payload)
 }
 
+func (o *GetDirectdebitsOK) GetPayload() *models.DirectDebitDetailsListResponse {
+	return o.Payload
+}
+
 func (o *GetDirectdebitsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.DirectDebitDetailsListResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDirectdebitsBadRequest creates a GetDirectdebitsBadRequest with default headers values
+func NewGetDirectdebitsBadRequest() *GetDirectdebitsBadRequest {
+	return &GetDirectdebitsBadRequest{}
+}
+
+/*GetDirectdebitsBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetDirectdebitsBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetDirectdebitsBadRequest) Error() string {
+	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetDirectdebitsBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetDirectdebitsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDirectdebitsUnauthorized creates a GetDirectdebitsUnauthorized with default headers values
+func NewGetDirectdebitsUnauthorized() *GetDirectdebitsUnauthorized {
+	return &GetDirectdebitsUnauthorized{}
+}
+
+/*GetDirectdebitsUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetDirectdebitsUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetDirectdebitsUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetDirectdebitsUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetDirectdebitsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDirectdebitsForbidden creates a GetDirectdebitsForbidden with default headers values
+func NewGetDirectdebitsForbidden() *GetDirectdebitsForbidden {
+	return &GetDirectdebitsForbidden{}
+}
+
+/*GetDirectdebitsForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetDirectdebitsForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetDirectdebitsForbidden) Error() string {
+	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetDirectdebitsForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetDirectdebitsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDirectdebitsNotFound creates a GetDirectdebitsNotFound with default headers values
+func NewGetDirectdebitsNotFound() *GetDirectdebitsNotFound {
+	return &GetDirectdebitsNotFound{}
+}
+
+/*GetDirectdebitsNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetDirectdebitsNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetDirectdebitsNotFound) Error() string {
+	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetDirectdebitsNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetDirectdebitsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDirectdebitsConflict creates a GetDirectdebitsConflict with default headers values
+func NewGetDirectdebitsConflict() *GetDirectdebitsConflict {
+	return &GetDirectdebitsConflict{}
+}
+
+/*GetDirectdebitsConflict handles this case with default header values.
+
+Conflict
+*/
+type GetDirectdebitsConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetDirectdebitsConflict) Error() string {
+	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetDirectdebitsConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetDirectdebitsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDirectdebitsTooManyRequests creates a GetDirectdebitsTooManyRequests with default headers values
+func NewGetDirectdebitsTooManyRequests() *GetDirectdebitsTooManyRequests {
+	return &GetDirectdebitsTooManyRequests{}
+}
+
+/*GetDirectdebitsTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetDirectdebitsTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetDirectdebitsTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetDirectdebitsTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetDirectdebitsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDirectdebitsInternalServerError creates a GetDirectdebitsInternalServerError with default headers values
+func NewGetDirectdebitsInternalServerError() *GetDirectdebitsInternalServerError {
+	return &GetDirectdebitsInternalServerError{}
+}
+
+/*GetDirectdebitsInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetDirectdebitsInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetDirectdebitsInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetDirectdebitsInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetDirectdebitsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDirectdebitsServiceUnavailable creates a GetDirectdebitsServiceUnavailable with default headers values
+func NewGetDirectdebitsServiceUnavailable() *GetDirectdebitsServiceUnavailable {
+	return &GetDirectdebitsServiceUnavailable{}
+}
+
+/*GetDirectdebitsServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetDirectdebitsServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetDirectdebitsServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetDirectdebitsServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetDirectdebitsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -1,9 +1,10 @@
 package api
 
 import (
+	"testing"
+
 	"github.com/form3tech-oss/terraform-provider-form3/client/payments"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"testing"
 )
 
 func TestAccPostTransactionsPayment(t *testing.T) {
@@ -19,7 +20,7 @@ func TestAccPostTransactionsPayment(t *testing.T) {
 				Data: payment,
 			}))
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 }
 
 func TestAccPostTransactionsPaymentSubmission(t *testing.T) {
@@ -35,7 +36,7 @@ func TestAccPostTransactionsPaymentSubmission(t *testing.T) {
 				Data: payment,
 			}))
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
 	_, err = auth.TransactionClient.Payments.PostPaymentsIDSubmissions(
 		payments.NewPostPaymentsIDSubmissionsParams().
@@ -51,5 +52,5 @@ func TestAccPostTransactionsPaymentSubmission(t *testing.T) {
 			),
 	)
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 }

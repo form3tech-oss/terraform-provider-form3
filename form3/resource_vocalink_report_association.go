@@ -2,13 +2,13 @@ package form3
 
 import (
 	"fmt"
+	"log"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
 )
 
 func resourceForm3VocalinkReportAssociation() *schema.Resource {
@@ -77,7 +77,7 @@ func resourceVocalinkReportAssociationCreate(d *schema.ResourceData, meta interf
 
 	association, err := createVocalinkReportNewAssociationFromResourceData(d)
 	if err != nil {
-		return fmt.Errorf("failed to create VocalinkReport association: %s", err)
+		return fmt.Errorf("failed to create VocalinkReport association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	createdAssociation, err := client.AssociationClient.Associations.PostVocalinkreport(associations.NewPostVocalinkreportParams().
@@ -86,7 +86,7 @@ func resourceVocalinkReportAssociationCreate(d *schema.ResourceData, meta interf
 		}))
 
 	if err != nil {
-		return fmt.Errorf("failed to create VocalinkReport association: %s", err)
+		return fmt.Errorf("failed to create VocalinkReport association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	d.SetId(createdAssociation.Payload.Data.ID.String())
@@ -111,13 +111,11 @@ func resourceVocalinkReportAssociationRead(d *schema.ResourceData, meta interfac
 		WithID(associationId))
 
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
-		} else {
-			return err
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find vocalink report association: %s", form3.JsonErrorPrettyPrint(err))
 		}
+		d.SetId("")
+		return nil
 	}
 
 	d.Set("association_id", bacsAssociation.Payload.Data.ID.String())
@@ -149,7 +147,7 @@ func resourceVocalinkReportAssociationDelete(d *schema.ResourceData, meta interf
 		WithID(strfmt.UUID(d.Id())))
 
 	if err != nil {
-		return fmt.Errorf("error deleting VocalinkReport association: %s", err)
+		return fmt.Errorf("error deleting VocalinkReport association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	log.Printf("[INFO] Deleting VocalinkReport association for id: %s ", bacsAssociation.Payload.Data.ID)
@@ -159,7 +157,7 @@ func resourceVocalinkReportAssociationDelete(d *schema.ResourceData, meta interf
 		WithVersion(*bacsAssociation.Payload.Data.Version))
 
 	if err != nil {
-		return fmt.Errorf("error deleting VocalinkReport association: %s", err)
+		return fmt.Errorf("error deleting VocalinkReport association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil

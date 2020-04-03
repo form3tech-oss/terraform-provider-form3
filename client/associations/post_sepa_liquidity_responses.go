@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostSepaLiquidityReader is a Reader for the PostSepaLiquidity structure.
@@ -24,13 +23,60 @@ type PostSepaLiquidityReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostSepaLiquidityReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostSepaLiquidityCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewPostSepaLiquidityBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewPostSepaLiquidityUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewPostSepaLiquidityForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewPostSepaLiquidityNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewPostSepaLiquidityConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewPostSepaLiquidityTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewPostSepaLiquidityInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewPostSepaLiquidityServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -54,9 +100,277 @@ func (o *PostSepaLiquidityCreated) Error() string {
 	return fmt.Sprintf("[POST /sepa-liquidity][%d] postSepaLiquidityCreated  %+v", 201, o.Payload)
 }
 
+func (o *PostSepaLiquidityCreated) GetPayload() *models.SepaLiquidityAssociationCreationResponse {
+	return o.Payload
+}
+
 func (o *PostSepaLiquidityCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.SepaLiquidityAssociationCreationResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostSepaLiquidityBadRequest creates a PostSepaLiquidityBadRequest with default headers values
+func NewPostSepaLiquidityBadRequest() *PostSepaLiquidityBadRequest {
+	return &PostSepaLiquidityBadRequest{}
+}
+
+/*PostSepaLiquidityBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type PostSepaLiquidityBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *PostSepaLiquidityBadRequest) Error() string {
+	return fmt.Sprintf("[POST /sepa-liquidity][%d] postSepaLiquidityBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *PostSepaLiquidityBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostSepaLiquidityBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostSepaLiquidityUnauthorized creates a PostSepaLiquidityUnauthorized with default headers values
+func NewPostSepaLiquidityUnauthorized() *PostSepaLiquidityUnauthorized {
+	return &PostSepaLiquidityUnauthorized{}
+}
+
+/*PostSepaLiquidityUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type PostSepaLiquidityUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *PostSepaLiquidityUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /sepa-liquidity][%d] postSepaLiquidityUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostSepaLiquidityUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostSepaLiquidityUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostSepaLiquidityForbidden creates a PostSepaLiquidityForbidden with default headers values
+func NewPostSepaLiquidityForbidden() *PostSepaLiquidityForbidden {
+	return &PostSepaLiquidityForbidden{}
+}
+
+/*PostSepaLiquidityForbidden handles this case with default header values.
+
+Forbidden
+*/
+type PostSepaLiquidityForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *PostSepaLiquidityForbidden) Error() string {
+	return fmt.Sprintf("[POST /sepa-liquidity][%d] postSepaLiquidityForbidden  %+v", 403, o.Payload)
+}
+
+func (o *PostSepaLiquidityForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostSepaLiquidityForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostSepaLiquidityNotFound creates a PostSepaLiquidityNotFound with default headers values
+func NewPostSepaLiquidityNotFound() *PostSepaLiquidityNotFound {
+	return &PostSepaLiquidityNotFound{}
+}
+
+/*PostSepaLiquidityNotFound handles this case with default header values.
+
+Record not found
+*/
+type PostSepaLiquidityNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *PostSepaLiquidityNotFound) Error() string {
+	return fmt.Sprintf("[POST /sepa-liquidity][%d] postSepaLiquidityNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostSepaLiquidityNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostSepaLiquidityNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostSepaLiquidityConflict creates a PostSepaLiquidityConflict with default headers values
+func NewPostSepaLiquidityConflict() *PostSepaLiquidityConflict {
+	return &PostSepaLiquidityConflict{}
+}
+
+/*PostSepaLiquidityConflict handles this case with default header values.
+
+Conflict
+*/
+type PostSepaLiquidityConflict struct {
+	Payload *models.APIError
+}
+
+func (o *PostSepaLiquidityConflict) Error() string {
+	return fmt.Sprintf("[POST /sepa-liquidity][%d] postSepaLiquidityConflict  %+v", 409, o.Payload)
+}
+
+func (o *PostSepaLiquidityConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostSepaLiquidityConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostSepaLiquidityTooManyRequests creates a PostSepaLiquidityTooManyRequests with default headers values
+func NewPostSepaLiquidityTooManyRequests() *PostSepaLiquidityTooManyRequests {
+	return &PostSepaLiquidityTooManyRequests{}
+}
+
+/*PostSepaLiquidityTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type PostSepaLiquidityTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *PostSepaLiquidityTooManyRequests) Error() string {
+	return fmt.Sprintf("[POST /sepa-liquidity][%d] postSepaLiquidityTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostSepaLiquidityTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostSepaLiquidityTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostSepaLiquidityInternalServerError creates a PostSepaLiquidityInternalServerError with default headers values
+func NewPostSepaLiquidityInternalServerError() *PostSepaLiquidityInternalServerError {
+	return &PostSepaLiquidityInternalServerError{}
+}
+
+/*PostSepaLiquidityInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type PostSepaLiquidityInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *PostSepaLiquidityInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /sepa-liquidity][%d] postSepaLiquidityInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *PostSepaLiquidityInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostSepaLiquidityInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostSepaLiquidityServiceUnavailable creates a PostSepaLiquidityServiceUnavailable with default headers values
+func NewPostSepaLiquidityServiceUnavailable() *PostSepaLiquidityServiceUnavailable {
+	return &PostSepaLiquidityServiceUnavailable{}
+}
+
+/*PostSepaLiquidityServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type PostSepaLiquidityServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *PostSepaLiquidityServiceUnavailable) Error() string {
+	return fmt.Sprintf("[POST /sepa-liquidity][%d] postSepaLiquidityServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostSepaLiquidityServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostSepaLiquidityServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

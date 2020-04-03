@@ -2,18 +2,19 @@ package api
 
 import (
 	"errors"
+	"flag"
+	"log"
+	"os"
+	"sync"
+	"testing"
+
+	"github.com/hashicorp/terraform-plugin-sdk/helper/logging"
+
 	"github.com/form3tech-oss/terraform-provider-form3/client"
 	"github.com/form3tech-oss/terraform-provider-form3/client/organisations"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-	"github.com/nu7hatch/gouuid"
-	"io/ioutil"
-	"log"
-	"os"
-	"reflect"
-	"sync"
-	"testing"
+	"github.com/google/uuid"
 )
 
 var organisationId strfmt.UUID
@@ -24,6 +25,12 @@ var authOnce = new(sync.Once)
 var config = client.DefaultTransportConfig()
 
 func TestMain(m *testing.M) {
+	flag.Parse()
+
+	if testing.Verbose() {
+		logging.SetOutput()
+	}
+
 	skip := len(os.Getenv("FORM3_ACC")) == 0
 	if skip {
 		log.Println("Client tests skipped as FORM3_ACC environment variable not set")
@@ -32,7 +39,6 @@ func TestMain(m *testing.M) {
 
 	if err := testPreCheck(); err != nil {
 		log.Fatalf("[FATAL] Error initializing test run: %+v", err)
-		os.Exit(-1)
 	}
 
 	if v := os.Getenv("FORM3_HOST"); v != "" {
@@ -42,15 +48,13 @@ func TestMain(m *testing.M) {
 	createClient(config)
 	log.Println("[INFO] Starting tests")
 	if err := createOrganisation(); err != nil {
-		log.Fatalf("[FATAL] Error creating test organisation: %+v", err)
-		os.Exit(-1)
+		log.Fatalf("[FATAL] Error creating test organisation: %s", JsonErrorPrettyPrint(err))
 	}
 
 	code := m.Run()
 
 	if err := deleteOrganisation(); err != nil {
-		log.Printf("[WARN] Error deleting test organisation: %+v\n", err)
-		os.Exit(-1)
+		log.Fatalf("[WARN] Error deleting test organisation: %+v\n", err)
 	}
 
 	log.Println("[INFO] Stopping tests")
@@ -59,8 +63,11 @@ func TestMain(m *testing.M) {
 }
 
 func createOrganisation() error {
-	ensureAuthenticated()
-	newId, _ := uuid.NewV4()
+	if err := ensureAuthenticated(); err != nil {
+		return err
+	}
+
+	newId := uuid.New()
 	testOrganisationId = strfmt.UUID(newId.String())
 	_, err := auth.OrganisationClient.Organisations.PostUnits(organisations.NewPostUnitsParams().
 		WithOrganisationCreationRequest(&models.OrganisationCreation{
@@ -81,7 +88,7 @@ func deleteOrganisation() error {
 	log.Printf("[INFO] Deleting test organisation %v", testOrganisationId)
 
 	if _, err := auth.OrganisationClient.Organisations.DeleteUnitsID(organisations.NewDeleteUnitsIDParams().
-		WithID(testOrganisationId)); err != nil {
+		WithID(testOrganisationId).WithVersion(0)); err != nil {
 		return err
 	}
 
@@ -96,49 +103,26 @@ func createClient(config *client.TransportConfig) {
 	})
 }
 
-func ensureAuthenticated() {
+func ensureAuthenticated() error {
 	if auth.AccessToken == "" {
-		auth.Authenticate(os.Getenv("FORM3_CLIENT_ID"), os.Getenv("FORM3_CLIENT_SECRET"))
+		return auth.Authenticate(os.Getenv("FORM3_CLIENT_ID"), os.Getenv("FORM3_CLIENT_SECRET"))
 	}
+	return nil
 }
 
-func assertNoErrorOccurred(err error, t *testing.T) {
+func assertNoErrorOccurred(t *testing.T, err error) {
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok {
-			response, ok := apiError.Response.(runtime.ClientResponse)
-			if ok {
-				bodyBytes, _ := ioutil.ReadAll(response.Body())
-				body := string(bodyBytes)
-				t.Fatalf("%v %v %v", response.Message(), response.Code(), body)
-			}
-			t.Fatalf("%s", getType(apiError.Response))
-		}
-
-		t.Fatal(err)
+		t.Fatalf(JsonErrorPrettyPrint(err))
 	}
 }
 
-func assertStatusCode(err error, t *testing.T, code int) {
+func assertStatusCode(t *testing.T, err error, code int) {
 	if err == nil {
 		t.Fatal("No error, expected an api error")
 	}
 
-	apiError, ok := err.(*runtime.APIError)
-	if !ok {
-		t.Fatalf("Expected api error, got %+v", err)
-	}
-
-	if apiError.Code != code {
-		t.Fatalf("Expected %d got %d", code, apiError.Code)
-	}
-}
-
-func getType(myvar interface{}) string {
-	if t := reflect.TypeOf(myvar); t.Kind() == reflect.Ptr {
-		return "*" + t.Elem().Name()
-	} else {
-		return t.Name()
+	if !IsJsonErrorStatusCode(err, code) {
+		t.Fatalf("Expected api error, got %+v", JsonErrorPrettyPrint(err))
 	}
 }
 

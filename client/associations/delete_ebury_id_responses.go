@@ -7,10 +7,12 @@ package associations
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteEburyIDReader is a Reader for the DeleteEburyID structure.
@@ -21,13 +23,60 @@ type DeleteEburyIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteEburyIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewDeleteEburyIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDeleteEburyIDBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewDeleteEburyIDUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewDeleteEburyIDForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewDeleteEburyIDNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewDeleteEburyIDConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewDeleteEburyIDTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewDeleteEburyIDInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewDeleteEburyIDServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -51,6 +100,270 @@ func (o *DeleteEburyIDNoContent) Error() string {
 }
 
 func (o *DeleteEburyIDNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	return nil
+}
+
+// NewDeleteEburyIDBadRequest creates a DeleteEburyIDBadRequest with default headers values
+func NewDeleteEburyIDBadRequest() *DeleteEburyIDBadRequest {
+	return &DeleteEburyIDBadRequest{}
+}
+
+/*DeleteEburyIDBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type DeleteEburyIDBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteEburyIDBadRequest) Error() string {
+	return fmt.Sprintf("[DELETE /ebury/{id}][%d] deleteEburyIdBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DeleteEburyIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteEburyIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteEburyIDUnauthorized creates a DeleteEburyIDUnauthorized with default headers values
+func NewDeleteEburyIDUnauthorized() *DeleteEburyIDUnauthorized {
+	return &DeleteEburyIDUnauthorized{}
+}
+
+/*DeleteEburyIDUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type DeleteEburyIDUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteEburyIDUnauthorized) Error() string {
+	return fmt.Sprintf("[DELETE /ebury/{id}][%d] deleteEburyIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *DeleteEburyIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteEburyIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteEburyIDForbidden creates a DeleteEburyIDForbidden with default headers values
+func NewDeleteEburyIDForbidden() *DeleteEburyIDForbidden {
+	return &DeleteEburyIDForbidden{}
+}
+
+/*DeleteEburyIDForbidden handles this case with default header values.
+
+Forbidden
+*/
+type DeleteEburyIDForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteEburyIDForbidden) Error() string {
+	return fmt.Sprintf("[DELETE /ebury/{id}][%d] deleteEburyIdForbidden  %+v", 403, o.Payload)
+}
+
+func (o *DeleteEburyIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteEburyIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteEburyIDNotFound creates a DeleteEburyIDNotFound with default headers values
+func NewDeleteEburyIDNotFound() *DeleteEburyIDNotFound {
+	return &DeleteEburyIDNotFound{}
+}
+
+/*DeleteEburyIDNotFound handles this case with default header values.
+
+Record not found
+*/
+type DeleteEburyIDNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteEburyIDNotFound) Error() string {
+	return fmt.Sprintf("[DELETE /ebury/{id}][%d] deleteEburyIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteEburyIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteEburyIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteEburyIDConflict creates a DeleteEburyIDConflict with default headers values
+func NewDeleteEburyIDConflict() *DeleteEburyIDConflict {
+	return &DeleteEburyIDConflict{}
+}
+
+/*DeleteEburyIDConflict handles this case with default header values.
+
+Conflict
+*/
+type DeleteEburyIDConflict struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteEburyIDConflict) Error() string {
+	return fmt.Sprintf("[DELETE /ebury/{id}][%d] deleteEburyIdConflict  %+v", 409, o.Payload)
+}
+
+func (o *DeleteEburyIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteEburyIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteEburyIDTooManyRequests creates a DeleteEburyIDTooManyRequests with default headers values
+func NewDeleteEburyIDTooManyRequests() *DeleteEburyIDTooManyRequests {
+	return &DeleteEburyIDTooManyRequests{}
+}
+
+/*DeleteEburyIDTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type DeleteEburyIDTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteEburyIDTooManyRequests) Error() string {
+	return fmt.Sprintf("[DELETE /ebury/{id}][%d] deleteEburyIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *DeleteEburyIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteEburyIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteEburyIDInternalServerError creates a DeleteEburyIDInternalServerError with default headers values
+func NewDeleteEburyIDInternalServerError() *DeleteEburyIDInternalServerError {
+	return &DeleteEburyIDInternalServerError{}
+}
+
+/*DeleteEburyIDInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type DeleteEburyIDInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteEburyIDInternalServerError) Error() string {
+	return fmt.Sprintf("[DELETE /ebury/{id}][%d] deleteEburyIdInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *DeleteEburyIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteEburyIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteEburyIDServiceUnavailable creates a DeleteEburyIDServiceUnavailable with default headers values
+func NewDeleteEburyIDServiceUnavailable() *DeleteEburyIDServiceUnavailable {
+	return &DeleteEburyIDServiceUnavailable{}
+}
+
+/*DeleteEburyIDServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type DeleteEburyIDServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteEburyIDServiceUnavailable) Error() string {
+	return fmt.Sprintf("[DELETE /ebury/{id}][%d] deleteEburyIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *DeleteEburyIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteEburyIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

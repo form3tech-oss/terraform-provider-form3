@@ -8,17 +8,17 @@ import (
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/go-openapi/strfmt"
+	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	uuid "github.com/satori/go.uuid"
 )
 
 func TestAccSepaInstantAssociation_basic(t *testing.T) {
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.NewV4().String()
-	sponsoredOrganisationId := uuid.NewV4().String()
-	associationId := uuid.NewV4().String()
-	sponsoredAssociationId := uuid.NewV4().String()
+	organisationId := uuid.New().String()
+	sponsoredOrganisationId := uuid.New().String()
+	associationId := uuid.New().String()
+	sponsoredAssociationId := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },

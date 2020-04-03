@@ -7,7 +7,6 @@ import (
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 )
@@ -75,7 +74,7 @@ func resourceSepaInstantAssociationCreate(d *schema.ResourceData, meta interface
 
 	association, err := createSepaInstantNewAssociationFromResourceData(d)
 	if err != nil {
-		return fmt.Errorf("failed to create sepa instant association from resource data: %s", err)
+		return fmt.Errorf("failed to create sepa instant association from resource data: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	createdAssociation, err := client.AssociationClient.Associations.PostSepainstant(associations.NewPostSepainstantParams().
@@ -84,7 +83,7 @@ func resourceSepaInstantAssociationCreate(d *schema.ResourceData, meta interface
 		}))
 
 	if err != nil {
-		return fmt.Errorf("error when posting new sepa instant association resource: %s", err)
+		return fmt.Errorf("error when posting new sepa instant association resource: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	d.SetId(createdAssociation.Payload.Data.ID.String())
@@ -102,13 +101,11 @@ func resourceSepaInstantAssociationRead(d *schema.ResourceData, meta interface{}
 		WithID(associationId))
 
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find sepa instant association: %s", form3.JsonErrorPrettyPrint(err))
 		}
-
-		return fmt.Errorf("couldn't find sepa instant association: %s", err)
+		d.SetId("")
+		return nil
 	}
 
 	d.Set("association_id", sepaInstantAssociation.Payload.Data.ID.String())
@@ -130,7 +127,7 @@ func resourceSepaInstantAssociationDelete(d *schema.ResourceData, meta interface
 	sepaInstantAssociation, err := client.AssociationClient.Associations.GetSepainstantID(associations.NewGetSepainstantIDParams().
 		WithID(strfmt.UUID(d.Id())))
 	if err != nil {
-		return fmt.Errorf("error deleting sepa instant association: %s", err)
+		return fmt.Errorf("error deleting sepa instant association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	_, err = client.AssociationClient.Associations.DeleteSepainstantID(associations.NewDeleteSepainstantIDParams().
@@ -138,7 +135,7 @@ func resourceSepaInstantAssociationDelete(d *schema.ResourceData, meta interface
 		WithVersion(*sepaInstantAssociation.Payload.Data.Version))
 
 	if err != nil {
-		return fmt.Errorf("error deleting sepa instant association: %s", err)
+		return fmt.Errorf("error deleting sepa instant association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil
@@ -149,7 +146,7 @@ func resourceSepaInstantAssociationUpdate(d *schema.ResourceData, meta interface
 
 	association, err := createSepaInstantUpdateAssociationFromResourceData(d)
 	if err != nil {
-		return fmt.Errorf("failed to create an updated sepa instant association resource: %s", err)
+		return fmt.Errorf("failed to create an updated sepa instant association resource: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	existingAssociation, err := client.AssociationClient.Associations.GetSepainstantID(
@@ -177,7 +174,7 @@ func resourceSepaInstantAssociationUpdate(d *schema.ResourceData, meta interface
 			},
 		}))
 	if err != nil {
-		return fmt.Errorf("failed to patch sepa instant association: %s", err)
+		return fmt.Errorf("failed to patch sepa instant association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	log.Printf("[INFO] sepa instant association key: #{d.ID}")

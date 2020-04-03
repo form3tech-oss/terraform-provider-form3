@@ -2,25 +2,23 @@ package api
 
 import (
 	"github.com/go-openapi/strfmt"
-	"github.com/nu7hatch/gouuid"
+	"github.com/google/uuid"
 )
 
 func UUID(s strfmt.UUID) *strfmt.UUID { return &s }
 
 func UUIDValue(s *strfmt.UUID) strfmt.UUID { return *s }
 
-func UUIDtoStrFmtUUID(s *uuid.UUID) *strfmt.UUID {
+func UUIDtoStrFmtUUID(s uuid.UUID) *strfmt.UUID {
 	return UUID(strfmt.UUID(s.String()))
 }
 
 func NewUUID() *strfmt.UUID {
-	id, _ := uuid.NewV4()
-	return UUIDtoStrFmtUUID(id)
+	return UUIDtoStrFmtUUID(uuid.New())
 }
 
 func NewUUIDValue() strfmt.UUID {
-	id, _ := uuid.NewV4()
-	return *UUIDtoStrFmtUUID(id)
+	return *UUIDtoStrFmtUUID(uuid.New())
 }
 
 // String returns a pointer to the string value passed in.

@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetMandatesReader is a Reader for the GetMandates structure.
@@ -24,13 +23,60 @@ type GetMandatesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetMandatesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetMandatesOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetMandatesBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetMandatesUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewGetMandatesForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetMandatesNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewGetMandatesConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewGetMandatesTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetMandatesInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewGetMandatesServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -54,9 +100,277 @@ func (o *GetMandatesOK) Error() string {
 	return fmt.Sprintf("[GET /mandates][%d] getMandatesOK  %+v", 200, o.Payload)
 }
 
+func (o *GetMandatesOK) GetPayload() *models.MandateDetailsListResponse {
+	return o.Payload
+}
+
 func (o *GetMandatesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.MandateDetailsListResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetMandatesBadRequest creates a GetMandatesBadRequest with default headers values
+func NewGetMandatesBadRequest() *GetMandatesBadRequest {
+	return &GetMandatesBadRequest{}
+}
+
+/*GetMandatesBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetMandatesBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetMandatesBadRequest) Error() string {
+	return fmt.Sprintf("[GET /mandates][%d] getMandatesBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetMandatesBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetMandatesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetMandatesUnauthorized creates a GetMandatesUnauthorized with default headers values
+func NewGetMandatesUnauthorized() *GetMandatesUnauthorized {
+	return &GetMandatesUnauthorized{}
+}
+
+/*GetMandatesUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetMandatesUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetMandatesUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /mandates][%d] getMandatesUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetMandatesUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetMandatesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetMandatesForbidden creates a GetMandatesForbidden with default headers values
+func NewGetMandatesForbidden() *GetMandatesForbidden {
+	return &GetMandatesForbidden{}
+}
+
+/*GetMandatesForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetMandatesForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetMandatesForbidden) Error() string {
+	return fmt.Sprintf("[GET /mandates][%d] getMandatesForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetMandatesForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetMandatesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetMandatesNotFound creates a GetMandatesNotFound with default headers values
+func NewGetMandatesNotFound() *GetMandatesNotFound {
+	return &GetMandatesNotFound{}
+}
+
+/*GetMandatesNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetMandatesNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetMandatesNotFound) Error() string {
+	return fmt.Sprintf("[GET /mandates][%d] getMandatesNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetMandatesNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetMandatesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetMandatesConflict creates a GetMandatesConflict with default headers values
+func NewGetMandatesConflict() *GetMandatesConflict {
+	return &GetMandatesConflict{}
+}
+
+/*GetMandatesConflict handles this case with default header values.
+
+Conflict
+*/
+type GetMandatesConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetMandatesConflict) Error() string {
+	return fmt.Sprintf("[GET /mandates][%d] getMandatesConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetMandatesConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetMandatesConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetMandatesTooManyRequests creates a GetMandatesTooManyRequests with default headers values
+func NewGetMandatesTooManyRequests() *GetMandatesTooManyRequests {
+	return &GetMandatesTooManyRequests{}
+}
+
+/*GetMandatesTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetMandatesTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetMandatesTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /mandates][%d] getMandatesTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetMandatesTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetMandatesTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetMandatesInternalServerError creates a GetMandatesInternalServerError with default headers values
+func NewGetMandatesInternalServerError() *GetMandatesInternalServerError {
+	return &GetMandatesInternalServerError{}
+}
+
+/*GetMandatesInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetMandatesInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetMandatesInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /mandates][%d] getMandatesInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetMandatesInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetMandatesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetMandatesServiceUnavailable creates a GetMandatesServiceUnavailable with default headers values
+func NewGetMandatesServiceUnavailable() *GetMandatesServiceUnavailable {
+	return &GetMandatesServiceUnavailable{}
+}
+
+/*GetMandatesServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetMandatesServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetMandatesServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /mandates][%d] getMandatesServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetMandatesServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetMandatesServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

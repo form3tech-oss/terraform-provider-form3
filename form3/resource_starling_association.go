@@ -2,13 +2,13 @@ package form3
 
 import (
 	"fmt"
+	"log"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
 )
 
 func resourceForm3StarlingAssociation() *schema.Resource {
@@ -49,7 +49,7 @@ func resourceStarlingAssociationCreate(d *schema.ResourceData, meta interface{})
 
 	association, err := createNewAssociationFromResourceData(d)
 	if err != nil {
-		return fmt.Errorf("failed to create association: %s", err)
+		return fmt.Errorf("failed to create association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	createdAssociation, err := client.AssociationClient.Associations.PostStarling(associations.NewPostStarlingParams().
@@ -58,7 +58,7 @@ func resourceStarlingAssociationCreate(d *schema.ResourceData, meta interface{})
 		}))
 
 	if err != nil {
-		return fmt.Errorf("failed to create association: %s", err)
+		return fmt.Errorf("failed to create association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	d.SetId(createdAssociation.Payload.Data.ID.String())
@@ -79,13 +79,11 @@ func resourceStarlingAssociationRead(d *schema.ResourceData, meta interface{}) e
 		WithID(associationId))
 
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find association: %s", form3.JsonErrorPrettyPrint(err))
 		}
-
-		return fmt.Errorf("couldn't find association: %s", err)
+		d.SetId("")
+		return nil
 	}
 
 	d.Set("association_id", association.Payload.Data.ID.String())
@@ -99,7 +97,7 @@ func resourceStarlingAssociationDelete(d *schema.ResourceData, meta interface{})
 
 	associationFromResource, err := createAssociationFromResourceDataWithVersion(d, client)
 	if err != nil {
-		return fmt.Errorf("error deleting association: %s", err)
+		return fmt.Errorf("error deleting association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	log.Printf("[INFO] Deleting association for id: %s account name: %s", associationFromResource.ID, associationFromResource.Attributes.StarlingAccountName)
@@ -109,7 +107,7 @@ func resourceStarlingAssociationDelete(d *schema.ResourceData, meta interface{})
 		WithVersion(*associationFromResource.Version))
 
 	if err != nil {
-		return fmt.Errorf("error deleting association: %s", err)
+		return fmt.Errorf("error deleting association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil
@@ -117,6 +115,9 @@ func resourceStarlingAssociationDelete(d *schema.ResourceData, meta interface{})
 
 func createAssociationFromResourceDataWithVersion(d *schema.ResourceData, client *form3.AuthenticatedClient) (*models.Association, error) {
 	association, err := createAssociationFromResourceData(d)
+	if err != nil {
+		return nil, err
+	}
 	version, err := getAssociationVersion(client, association.ID)
 	if err != nil {
 		return nil, err
@@ -173,7 +174,7 @@ func getAssociationVersion(client *form3.AuthenticatedClient, associationId strf
 	association, err := client.AssociationClient.Associations.GetStarlingID(associations.NewGetStarlingIDParams().WithID(associationId))
 	if err != nil {
 		if err != nil {
-			return -1, fmt.Errorf("error reading association: %s", err)
+			return -1, fmt.Errorf("error reading association: %s", form3.JsonErrorPrettyPrint(err))
 		}
 	}
 

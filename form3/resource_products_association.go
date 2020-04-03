@@ -2,13 +2,13 @@ package form3
 
 import (
 	"fmt"
+	"log"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
 )
 
 func resourceForm3ProductsAssociation() *schema.Resource {
@@ -42,7 +42,7 @@ func resourceProductsAssociationCreate(d *schema.ResourceData, meta interface{})
 
 	association, err := createProductsNewAssociationFromResourceData(d)
 	if err != nil {
-		return fmt.Errorf("failed to create product association: %s", err)
+		return fmt.Errorf("failed to create product association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	createdAssociation, err := client.AssociationClient.Associations.PostProducts(associations.NewPostProductsParams().
@@ -51,7 +51,7 @@ func resourceProductsAssociationCreate(d *schema.ResourceData, meta interface{})
 		}))
 
 	if err != nil {
-		return fmt.Errorf("failed to create product association: %s", err)
+		return fmt.Errorf("failed to create product association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	d.SetId(createdAssociation.Payload.Data.ID.String())
@@ -69,12 +69,11 @@ func resourceProductsAssociationRead(d *schema.ResourceData, meta interface{}) e
 		WithID(associationId))
 
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find product association: %s", form3.JsonErrorPrettyPrint(err))
 		}
-		return fmt.Errorf("couldn't find product association: %s", err)
+		d.SetId("")
+		return nil
 	}
 
 	_ = d.Set("association_id", productAssociation.Payload.Data.ID.String())
@@ -89,14 +88,14 @@ func resourceProductsAssociationDelete(d *schema.ResourceData, meta interface{})
 	productAssociation, err := client.AssociationClient.Associations.GetProductsID(associations.NewGetProductsIDParams().
 		WithID(strfmt.UUID(d.Id())))
 	if err != nil {
-		return fmt.Errorf("error deleting product association: %s", err)
+		return fmt.Errorf("error deleting product association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	_, err = client.AssociationClient.Associations.DeleteProductsID(associations.NewDeleteProductsIDParams().
 		WithID(productAssociation.Payload.Data.ID))
 
 	if err != nil {
-		return fmt.Errorf("error deleting product association: %s", err)
+		return fmt.Errorf("error deleting product association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil

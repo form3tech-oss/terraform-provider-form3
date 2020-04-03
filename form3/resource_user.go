@@ -2,13 +2,13 @@ package form3
 
 import (
 	"fmt"
+	"log"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/users"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
 )
 
 func resourceForm3User() *schema.Resource {
@@ -66,7 +66,7 @@ func resourceUserCreate(d *schema.ResourceData, meta interface{}) error {
 		WithUserCreationRequest(&models.UserCreation{Data: user}))
 
 	if err != nil {
-		return fmt.Errorf("failed to create user: %s", err)
+		return fmt.Errorf("failed to create user: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	d.SetId(createdUser.Payload.Data.ID.String())
@@ -91,13 +91,11 @@ func resourceUserRead(d *schema.ResourceData, meta interface{}) error {
 
 	user, err := client.SecurityClient.Users.GetUsersUserID(users.NewGetUsersUserIDParams().WithUserID(userId))
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find user: %s", form3.JsonErrorPrettyPrint(err))
 		}
-
-		return fmt.Errorf("couldn't find user: %s", err)
+		d.SetId("")
+		return nil
 	}
 
 	d.Set("user_id", user.Payload.Data.ID.String())
@@ -115,7 +113,7 @@ func resourceUserUpdate(d *schema.ResourceData, meta interface{}) error {
 		client := meta.(*form3.AuthenticatedClient)
 		userFromResource, err := createUserFromResourceDataWithVersion(d, client)
 		if err != nil {
-			return fmt.Errorf("error updating user: %s", err)
+			return fmt.Errorf("error updating user: %s", form3.JsonErrorPrettyPrint(err))
 		}
 
 		_, err = client.SecurityClient.Users.PatchUsersUserID(users.NewPatchUsersUserIDParams().
@@ -123,7 +121,7 @@ func resourceUserUpdate(d *schema.ResourceData, meta interface{}) error {
 			WithUserUpdateRequest(&models.UserCreation{Data: userFromResource}))
 
 		if err != nil {
-			return fmt.Errorf("error updating user: %s", err)
+			return fmt.Errorf("error updating user: %s", form3.JsonErrorPrettyPrint(err))
 		}
 	}
 
@@ -135,7 +133,7 @@ func resourceUserDelete(d *schema.ResourceData, meta interface{}) error {
 
 	userFromResource, err := createUserFromResourceDataWithVersion(d, client)
 	if err != nil {
-		return fmt.Errorf("error deleting user: %s", err)
+		return fmt.Errorf("error deleting user: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	log.Printf("[INFO] Deleting user for id: %s username: %s", userFromResource.ID, userFromResource.Attributes.Username)
@@ -145,7 +143,7 @@ func resourceUserDelete(d *schema.ResourceData, meta interface{}) error {
 		WithVersion(*userFromResource.Version))
 
 	if err != nil {
-		return fmt.Errorf("error deleting user: %s", err)
+		return fmt.Errorf("error deleting user: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil
@@ -153,6 +151,10 @@ func resourceUserDelete(d *schema.ResourceData, meta interface{}) error {
 
 func createUserFromResourceDataWithVersion(d *schema.ResourceData, client *form3.AuthenticatedClient) (*models.User, error) {
 	user, err := createUserFromResourceData(d)
+	if err != nil {
+		return nil, err
+	}
+
 	version, err := getUserVersion(client, user.ID)
 	if err != nil {
 		return nil, err
@@ -201,7 +203,7 @@ func getUserVersion(client *form3.AuthenticatedClient, userId strfmt.UUID) (int6
 	user, err := client.SecurityClient.Users.GetUsersUserID(users.NewGetUsersUserIDParams().WithUserID(userId))
 	if err != nil {
 		if err != nil {
-			return -1, fmt.Errorf("error reading user: %s", err)
+			return -1, fmt.Errorf("error reading user: %s", form3.JsonErrorPrettyPrint(err))
 		}
 	}
 

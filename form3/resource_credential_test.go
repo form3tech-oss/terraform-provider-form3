@@ -2,22 +2,23 @@ package form3
 
 import (
 	"fmt"
+	"log"
+	"os"
+	"testing"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/users"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/strfmt"
+	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	uuid "github.com/satori/go.uuid"
-	"log"
-	"os"
-	"testing"
 )
 
 func TestAccCredential_basic(t *testing.T) {
 	var credentialResponse models.Credential
 	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	roleID := uuid.NewV4().String()
+	roleID := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -45,7 +46,7 @@ func testAccCheckCredentialDestroy(state *terraform.State) error {
 			WithUserID(strfmt.UUID(strfmt.UUID(rs.Primary.Attributes["user_id"]))))
 
 		if err == nil {
-			return fmt.Errorf("error listing credentials: %s", err)
+			return fmt.Errorf("error listing credentials: %s", form3.JsonErrorPrettyPrint(err))
 		}
 	}
 

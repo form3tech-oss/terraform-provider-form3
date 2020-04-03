@@ -8,13 +8,13 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/validate"
 )
 
 // DirectDebitAdmissionStatus direct debit admission status
+//
 // swagger:model DirectDebitAdmissionStatus
 type DirectDebitAdmissionStatus string
 

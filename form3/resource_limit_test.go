@@ -2,23 +2,24 @@ package form3
 
 import (
 	"fmt"
-	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"os"
 	"testing"
 
+	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
+
 	"github.com/form3tech-oss/terraform-provider-form3/client/limits"
 	"github.com/go-openapi/strfmt"
+	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	uuid "github.com/satori/go.uuid"
 )
 
 func TestAccLimit_basic(t *testing.T) {
 	var limitResponse limits.GetLimitsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.NewV4().String()
+	organisationId := uuid.New().String()
 
-	limitId := uuid.NewV4().String()
+	limitId := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -41,8 +42,8 @@ func TestAccLimit_basic(t *testing.T) {
 
 func TestAccLimit_importBasic(t *testing.T) {
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.NewV4().String()
-	limitId := uuid.NewV4().String()
+	organisationId := uuid.New().String()
+	limitId := uuid.New().String()
 
 	resourceName := "form3_limit.limit"
 

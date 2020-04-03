@@ -2,13 +2,13 @@ package form3
 
 import (
 	"fmt"
+	"log"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/payment_defaults"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
 )
 
 func resourceForm3PaymentDefaults() *schema.Resource {
@@ -45,7 +45,7 @@ func resourcePaymentDefaultsCreate(d *schema.ResourceData, meta interface{}) err
 
 	paymentDefaults, err := createPaymentDefaultsFromResourceData(d)
 	if err != nil {
-		return fmt.Errorf("failed to create Payment Defaults: %s", err)
+		return fmt.Errorf("failed to create Payment Defaults: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	postPaymentdefaultsParams := payment_defaults.NewPostPaymentdefaultsParams().WithDefaultConfiguration(&models.PaymentDefaultsCreate{
@@ -55,7 +55,7 @@ func resourcePaymentDefaultsCreate(d *schema.ResourceData, meta interface{}) err
 	createdPaymentDefaults, err := client.PaymentdefaultsClient.PaymentDefaults.PostPaymentdefaults(postPaymentdefaultsParams)
 
 	if err != nil {
-		return fmt.Errorf("failed to create Payment Defaults: %s", err)
+		return fmt.Errorf("failed to create Payment Defaults: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	d.SetId(createdPaymentDefaults.Payload.Data.ID.String())
@@ -76,13 +76,11 @@ func resourcePaymentDefaultsRead(d *schema.ResourceData, meta interface{}) error
 		WithID(paymentDefaultsId))
 
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find Payment Defaults: %s", form3.JsonErrorPrettyPrint(err))
 		}
-
-		return fmt.Errorf("couldn't find Payment Defaults: %s", err)
+		d.SetId("")
+		return nil
 	}
 
 	d.Set("payment_defaults_id", paymentdefaultsIDOK.Payload.Data.ID.String())
@@ -95,7 +93,7 @@ func resourcePaymentDefaultsDelete(d *schema.ResourceData, meta interface{}) err
 
 	paymentDefaultsFromResource, err := createPaymentDefaultsFromResourceDataWithVersion(d, client)
 	if err != nil {
-		return fmt.Errorf("error deleting Payment Defaults: %s", err)
+		return fmt.Errorf("error deleting Payment Defaults: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	log.Printf("[INFO] Deleting Payment Defaults for id: %s default payment scheme: %s", paymentDefaultsFromResource.ID, paymentDefaultsFromResource.Attributes.DefaultPaymentScheme)
@@ -105,7 +103,7 @@ func resourcePaymentDefaultsDelete(d *schema.ResourceData, meta interface{}) err
 		WithVersion(*paymentDefaultsFromResource.Version))
 
 	if err != nil {
-		return fmt.Errorf("error deleting Payment Defaults: %s", err)
+		return fmt.Errorf("error deleting Payment Defaults: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil
@@ -113,6 +111,9 @@ func resourcePaymentDefaultsDelete(d *schema.ResourceData, meta interface{}) err
 
 func createPaymentDefaultsFromResourceDataWithVersion(d *schema.ResourceData, client *form3.AuthenticatedClient) (*models.PaymentDefaults, error) {
 	paymentDefaults, err := createPaymentDefaultsFromResourceData(d)
+	if err != nil {
+		return nil, err
+	}
 	version, err := getPaymentDefaults(client, paymentDefaults.ID)
 	if err != nil {
 		return nil, err
@@ -147,7 +148,7 @@ func getPaymentDefaults(client *form3.AuthenticatedClient, paymentDefaultsId str
 		WithID(paymentDefaultsId))
 	if err != nil {
 		if err != nil {
-			return -1, fmt.Errorf("error reading Payment Defaults: %s", err)
+			return -1, fmt.Errorf("error reading Payment Defaults: %s", form3.JsonErrorPrettyPrint(err))
 		}
 	}
 

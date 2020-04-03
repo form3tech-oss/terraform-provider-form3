@@ -2,14 +2,14 @@ package form3
 
 import (
 	"fmt"
+	"log"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
 )
 
 func resourceForm3ConfirmationOfPayeeAssociation() *schema.Resource {
@@ -79,7 +79,7 @@ func resourceConfirmationOfPayeeAssociationCreate(d *schema.ResourceData, meta i
 
 	association, err := createConfirmationOfPayeeNewAssociationFromResourceData(d)
 	if err != nil {
-		return fmt.Errorf("failed to create ConfirmationOfPayee association: %s", err)
+		return fmt.Errorf("failed to create ConfirmationOfPayee association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	createdAssociation, err := client.AssociationClient.Associations.PostConfirmationOfPayee(associations.NewPostConfirmationOfPayeeParams().
@@ -88,7 +88,7 @@ func resourceConfirmationOfPayeeAssociationCreate(d *schema.ResourceData, meta i
 		}))
 
 	if err != nil {
-		return fmt.Errorf("failed to create ConfirmationOfPayee association: %s", err)
+		return fmt.Errorf("failed to create ConfirmationOfPayee association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	d.SetId(createdAssociation.Payload.Data.ID.String())
@@ -113,24 +113,22 @@ func resourceConfirmationOfPayeeAssociationRead(d *schema.ResourceData, meta int
 		WithID(associationId))
 
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
-		} else {
-			return err
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find confirmation of payee association: %s", form3.JsonErrorPrettyPrint(err))
 		}
+		d.SetId("")
+		return nil
 	}
 
-	d.Set("association_id", association.Payload.Data.ID.String())
-	d.Set("organisation_id", association.Payload.Data.OrganisationID.String())
-	d.Set("open_banking_organisation_id", association.Payload.Data.Attributes.OpenBankingOrganisationID)
-	d.Set("open_banking_public_key_id", association.Payload.Data.Attributes.PublicKeyID)
-	d.Set("signing_key_id", association.Payload.Data.Relationships.SigningCertificate.Data.KeyID)
-	d.Set("signing_dn", association.Payload.Data.Relationships.SigningCertificate.Data.Dn)
-	d.Set("signing_certificate_id", association.Payload.Data.Relationships.SigningCertificate.Data.ID)
-	d.Set("exact_match_threshold", association.Payload.Data.Attributes.MatchingCriteria.ExactMatchThreshold)
-	d.Set("close_match_threshold", association.Payload.Data.Attributes.MatchingCriteria.CloseMatchThreshold)
+	_ = d.Set("association_id", association.Payload.Data.ID.String())
+	_ = d.Set("organisation_id", association.Payload.Data.OrganisationID.String())
+	_ = d.Set("open_banking_organisation_id", association.Payload.Data.Attributes.OpenBankingOrganisationID)
+	_ = d.Set("open_banking_public_key_id", association.Payload.Data.Attributes.PublicKeyID)
+	_ = d.Set("signing_key_id", association.Payload.Data.Relationships.SigningCertificate.Data.KeyID)
+	_ = d.Set("signing_dn", association.Payload.Data.Relationships.SigningCertificate.Data.Dn)
+	_ = d.Set("signing_certificate_id", association.Payload.Data.Relationships.SigningCertificate.Data.ID)
+	_ = d.Set("exact_match_threshold", association.Payload.Data.Attributes.MatchingCriteria.ExactMatchThreshold)
+	_ = d.Set("close_match_threshold", association.Payload.Data.Attributes.MatchingCriteria.CloseMatchThreshold)
 
 	return nil
 }
@@ -142,7 +140,7 @@ func resourceConfirmationOfPayeeAssociationDelete(d *schema.ResourceData, meta i
 		WithID(strfmt.UUID(d.Id())))
 
 	if err != nil {
-		return fmt.Errorf("error deleting ConfirmationOfPayee association: %s", err)
+		return fmt.Errorf("error deleting ConfirmationOfPayee association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	log.Printf("[INFO] Deleting ConfirmationOfPayee association for id: %s ", association.Payload.Data.ID)
@@ -157,7 +155,7 @@ func resourceConfirmationOfPayeeAssociationDelete(d *schema.ResourceData, meta i
 	_, err = client.AssociationClient.Associations.DeleteConfirmationOfPayeeID(params)
 
 	if err != nil {
-		return fmt.Errorf("error deleting ConfirmationOfPayee association: %s", err)
+		return fmt.Errorf("error deleting ConfirmationOfPayee association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil

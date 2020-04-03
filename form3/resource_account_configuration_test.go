@@ -2,21 +2,22 @@ package form3
 
 import (
 	"fmt"
+	"os"
+	"testing"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/accounts"
 	"github.com/go-openapi/strfmt"
+	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	"github.com/satori/go.uuid"
-	"os"
-	"testing"
 )
 
 func TestAccAccountConfigurationBasic(t *testing.T) {
 	var accountResponse accounts.GetAccountconfigurationsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.NewV4().String()
-	accountConfigurationId := uuid.NewV4().String()
+	organisationId := uuid.New().String()
+	accountConfigurationId := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -82,8 +83,8 @@ func TestAccAccountConfigurationBasic(t *testing.T) {
 func TestAccAccountConfigurationImportBasic(t *testing.T) {
 
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.NewV4().String()
-	accountConfigurationId := uuid.NewV4().String()
+	organisationId := uuid.New().String()
+	accountConfigurationId := uuid.New().String()
 	resourceName := "form3_account_configuration.configuration"
 
 	resource.Test(t, resource.TestCase{
@@ -195,7 +196,7 @@ resource "form3_account_configuration" "configuration" {
 			   maximum = "84099999"
 			}
 	}
-    
+
 	account_generation_configuration {
 		country               = "NL"
 		valid_account_ranges {

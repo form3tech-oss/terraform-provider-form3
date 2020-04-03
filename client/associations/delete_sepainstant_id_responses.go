@@ -7,10 +7,12 @@ package associations
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteSepainstantIDReader is a Reader for the DeleteSepainstantID structure.
@@ -21,13 +23,60 @@ type DeleteSepainstantIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteSepainstantIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewDeleteSepainstantIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDeleteSepainstantIDBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewDeleteSepainstantIDUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewDeleteSepainstantIDForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewDeleteSepainstantIDNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewDeleteSepainstantIDConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewDeleteSepainstantIDTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewDeleteSepainstantIDInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewDeleteSepainstantIDServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -51,6 +100,270 @@ func (o *DeleteSepainstantIDNoContent) Error() string {
 }
 
 func (o *DeleteSepainstantIDNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	return nil
+}
+
+// NewDeleteSepainstantIDBadRequest creates a DeleteSepainstantIDBadRequest with default headers values
+func NewDeleteSepainstantIDBadRequest() *DeleteSepainstantIDBadRequest {
+	return &DeleteSepainstantIDBadRequest{}
+}
+
+/*DeleteSepainstantIDBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type DeleteSepainstantIDBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteSepainstantIDBadRequest) Error() string {
+	return fmt.Sprintf("[DELETE /sepainstant/{id}][%d] deleteSepainstantIdBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DeleteSepainstantIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteSepainstantIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteSepainstantIDUnauthorized creates a DeleteSepainstantIDUnauthorized with default headers values
+func NewDeleteSepainstantIDUnauthorized() *DeleteSepainstantIDUnauthorized {
+	return &DeleteSepainstantIDUnauthorized{}
+}
+
+/*DeleteSepainstantIDUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type DeleteSepainstantIDUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteSepainstantIDUnauthorized) Error() string {
+	return fmt.Sprintf("[DELETE /sepainstant/{id}][%d] deleteSepainstantIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *DeleteSepainstantIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteSepainstantIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteSepainstantIDForbidden creates a DeleteSepainstantIDForbidden with default headers values
+func NewDeleteSepainstantIDForbidden() *DeleteSepainstantIDForbidden {
+	return &DeleteSepainstantIDForbidden{}
+}
+
+/*DeleteSepainstantIDForbidden handles this case with default header values.
+
+Forbidden
+*/
+type DeleteSepainstantIDForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteSepainstantIDForbidden) Error() string {
+	return fmt.Sprintf("[DELETE /sepainstant/{id}][%d] deleteSepainstantIdForbidden  %+v", 403, o.Payload)
+}
+
+func (o *DeleteSepainstantIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteSepainstantIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteSepainstantIDNotFound creates a DeleteSepainstantIDNotFound with default headers values
+func NewDeleteSepainstantIDNotFound() *DeleteSepainstantIDNotFound {
+	return &DeleteSepainstantIDNotFound{}
+}
+
+/*DeleteSepainstantIDNotFound handles this case with default header values.
+
+Record not found
+*/
+type DeleteSepainstantIDNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteSepainstantIDNotFound) Error() string {
+	return fmt.Sprintf("[DELETE /sepainstant/{id}][%d] deleteSepainstantIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteSepainstantIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteSepainstantIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteSepainstantIDConflict creates a DeleteSepainstantIDConflict with default headers values
+func NewDeleteSepainstantIDConflict() *DeleteSepainstantIDConflict {
+	return &DeleteSepainstantIDConflict{}
+}
+
+/*DeleteSepainstantIDConflict handles this case with default header values.
+
+Conflict
+*/
+type DeleteSepainstantIDConflict struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteSepainstantIDConflict) Error() string {
+	return fmt.Sprintf("[DELETE /sepainstant/{id}][%d] deleteSepainstantIdConflict  %+v", 409, o.Payload)
+}
+
+func (o *DeleteSepainstantIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteSepainstantIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteSepainstantIDTooManyRequests creates a DeleteSepainstantIDTooManyRequests with default headers values
+func NewDeleteSepainstantIDTooManyRequests() *DeleteSepainstantIDTooManyRequests {
+	return &DeleteSepainstantIDTooManyRequests{}
+}
+
+/*DeleteSepainstantIDTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type DeleteSepainstantIDTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteSepainstantIDTooManyRequests) Error() string {
+	return fmt.Sprintf("[DELETE /sepainstant/{id}][%d] deleteSepainstantIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *DeleteSepainstantIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteSepainstantIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteSepainstantIDInternalServerError creates a DeleteSepainstantIDInternalServerError with default headers values
+func NewDeleteSepainstantIDInternalServerError() *DeleteSepainstantIDInternalServerError {
+	return &DeleteSepainstantIDInternalServerError{}
+}
+
+/*DeleteSepainstantIDInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type DeleteSepainstantIDInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteSepainstantIDInternalServerError) Error() string {
+	return fmt.Sprintf("[DELETE /sepainstant/{id}][%d] deleteSepainstantIdInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *DeleteSepainstantIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteSepainstantIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteSepainstantIDServiceUnavailable creates a DeleteSepainstantIDServiceUnavailable with default headers values
+func NewDeleteSepainstantIDServiceUnavailable() *DeleteSepainstantIDServiceUnavailable {
+	return &DeleteSepainstantIDServiceUnavailable{}
+}
+
+/*DeleteSepainstantIDServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type DeleteSepainstantIDServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteSepainstantIDServiceUnavailable) Error() string {
+	return fmt.Sprintf("[DELETE /sepainstant/{id}][%d] deleteSepainstantIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *DeleteSepainstantIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteSepainstantIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

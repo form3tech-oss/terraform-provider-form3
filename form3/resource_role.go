@@ -2,13 +2,13 @@ package form3
 
 import (
 	"fmt"
+	"log"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/roles"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
 )
 
 func resourceForm3Role() *schema.Resource {
@@ -64,7 +64,7 @@ func resourceRoleCreate(d *schema.ResourceData, meta interface{}) error {
 		}))
 
 	if err != nil {
-		return fmt.Errorf("failed to create role: %s", err)
+		return fmt.Errorf("failed to create role: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	d.SetId(createdRole.Payload.Data.ID.String())
@@ -89,13 +89,11 @@ func resourceRoleRead(d *schema.ResourceData, meta interface{}) error {
 
 	role, err := client.SecurityClient.Roles.GetRolesRoleID(roles.NewGetRolesRoleIDParams().WithRoleID(roleId))
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find role: %s", form3.JsonErrorPrettyPrint(err))
 		}
-
-		return fmt.Errorf("couldn't find role: %s", err)
+		d.SetId("")
+		return nil
 	}
 
 	d.Set("role_id", role.Payload.Data.ID.String())
@@ -114,7 +112,7 @@ func resourceRoleDelete(d *schema.ResourceData, meta interface{}) error {
 
 	roleFromResource, err := createRoleFromResourceDataWithVersion(d, client)
 	if err != nil {
-		return fmt.Errorf("error deleting role: %s", err)
+		return fmt.Errorf("error deleting role: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	log.Printf("[INFO] Deleting role for id: %s rolename: %s", roleFromResource.ID, roleFromResource.Attributes.Name)
@@ -124,7 +122,7 @@ func resourceRoleDelete(d *schema.ResourceData, meta interface{}) error {
 		WithVersion(*roleFromResource.Version))
 
 	if err != nil {
-		return fmt.Errorf("error deleting role: %s", err)
+		return fmt.Errorf("error deleting role: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil
@@ -132,6 +130,9 @@ func resourceRoleDelete(d *schema.ResourceData, meta interface{}) error {
 
 func createRoleFromResourceDataWithVersion(d *schema.ResourceData, client *form3.AuthenticatedClient) (*models.Role, error) {
 	role, err := createRoleFromResourceData(d)
+	if err != nil {
+		return nil, err
+	}
 	version, err := getRoleVersion(client, role.ID)
 	if err != nil {
 		return nil, err
@@ -169,7 +170,7 @@ func getRoleVersion(client *form3.AuthenticatedClient, roleId strfmt.UUID) (int6
 	role, err := client.SecurityClient.Roles.GetRolesRoleID(roles.NewGetRolesRoleIDParams().WithRoleID(roleId))
 	if err != nil {
 		if err != nil {
-			return -1, fmt.Errorf("error reading role: %s", err)
+			return -1, fmt.Errorf("error reading role: %s", form3.JsonErrorPrettyPrint(err))
 		}
 	}
 

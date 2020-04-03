@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetSepaReconciliationReader is a Reader for the GetSepaReconciliation structure.
@@ -24,13 +23,60 @@ type GetSepaReconciliationReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetSepaReconciliationReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetSepaReconciliationOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetSepaReconciliationBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetSepaReconciliationUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewGetSepaReconciliationForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetSepaReconciliationNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewGetSepaReconciliationConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewGetSepaReconciliationTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetSepaReconciliationInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewGetSepaReconciliationServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -54,9 +100,277 @@ func (o *GetSepaReconciliationOK) Error() string {
 	return fmt.Sprintf("[GET /sepa-reconciliation][%d] getSepaReconciliationOK  %+v", 200, o.Payload)
 }
 
+func (o *GetSepaReconciliationOK) GetPayload() *models.SepaReconciliationAssociationDetailsListResponse {
+	return o.Payload
+}
+
 func (o *GetSepaReconciliationOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.SepaReconciliationAssociationDetailsListResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSepaReconciliationBadRequest creates a GetSepaReconciliationBadRequest with default headers values
+func NewGetSepaReconciliationBadRequest() *GetSepaReconciliationBadRequest {
+	return &GetSepaReconciliationBadRequest{}
+}
+
+/*GetSepaReconciliationBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetSepaReconciliationBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetSepaReconciliationBadRequest) Error() string {
+	return fmt.Sprintf("[GET /sepa-reconciliation][%d] getSepaReconciliationBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetSepaReconciliationBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetSepaReconciliationBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSepaReconciliationUnauthorized creates a GetSepaReconciliationUnauthorized with default headers values
+func NewGetSepaReconciliationUnauthorized() *GetSepaReconciliationUnauthorized {
+	return &GetSepaReconciliationUnauthorized{}
+}
+
+/*GetSepaReconciliationUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetSepaReconciliationUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetSepaReconciliationUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /sepa-reconciliation][%d] getSepaReconciliationUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetSepaReconciliationUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetSepaReconciliationUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSepaReconciliationForbidden creates a GetSepaReconciliationForbidden with default headers values
+func NewGetSepaReconciliationForbidden() *GetSepaReconciliationForbidden {
+	return &GetSepaReconciliationForbidden{}
+}
+
+/*GetSepaReconciliationForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetSepaReconciliationForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetSepaReconciliationForbidden) Error() string {
+	return fmt.Sprintf("[GET /sepa-reconciliation][%d] getSepaReconciliationForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetSepaReconciliationForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetSepaReconciliationForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSepaReconciliationNotFound creates a GetSepaReconciliationNotFound with default headers values
+func NewGetSepaReconciliationNotFound() *GetSepaReconciliationNotFound {
+	return &GetSepaReconciliationNotFound{}
+}
+
+/*GetSepaReconciliationNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetSepaReconciliationNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetSepaReconciliationNotFound) Error() string {
+	return fmt.Sprintf("[GET /sepa-reconciliation][%d] getSepaReconciliationNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetSepaReconciliationNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetSepaReconciliationNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSepaReconciliationConflict creates a GetSepaReconciliationConflict with default headers values
+func NewGetSepaReconciliationConflict() *GetSepaReconciliationConflict {
+	return &GetSepaReconciliationConflict{}
+}
+
+/*GetSepaReconciliationConflict handles this case with default header values.
+
+Conflict
+*/
+type GetSepaReconciliationConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetSepaReconciliationConflict) Error() string {
+	return fmt.Sprintf("[GET /sepa-reconciliation][%d] getSepaReconciliationConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetSepaReconciliationConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetSepaReconciliationConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSepaReconciliationTooManyRequests creates a GetSepaReconciliationTooManyRequests with default headers values
+func NewGetSepaReconciliationTooManyRequests() *GetSepaReconciliationTooManyRequests {
+	return &GetSepaReconciliationTooManyRequests{}
+}
+
+/*GetSepaReconciliationTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetSepaReconciliationTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetSepaReconciliationTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /sepa-reconciliation][%d] getSepaReconciliationTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetSepaReconciliationTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetSepaReconciliationTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSepaReconciliationInternalServerError creates a GetSepaReconciliationInternalServerError with default headers values
+func NewGetSepaReconciliationInternalServerError() *GetSepaReconciliationInternalServerError {
+	return &GetSepaReconciliationInternalServerError{}
+}
+
+/*GetSepaReconciliationInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetSepaReconciliationInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetSepaReconciliationInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /sepa-reconciliation][%d] getSepaReconciliationInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetSepaReconciliationInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetSepaReconciliationInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSepaReconciliationServiceUnavailable creates a GetSepaReconciliationServiceUnavailable with default headers values
+func NewGetSepaReconciliationServiceUnavailable() *GetSepaReconciliationServiceUnavailable {
+	return &GetSepaReconciliationServiceUnavailable{}
+}
+
+/*GetSepaReconciliationServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetSepaReconciliationServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetSepaReconciliationServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /sepa-reconciliation][%d] getSepaReconciliationServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetSepaReconciliationServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetSepaReconciliationServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

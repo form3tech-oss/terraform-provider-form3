@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostPaymentsIDSubmissionsSubmissionIDValidationsReader is a Reader for the PostPaymentsIDSubmissionsSubmissionIDValidations structure.
@@ -24,16 +23,56 @@ type PostPaymentsIDSubmissionsSubmissionIDValidationsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostPaymentsIDSubmissionsSubmissionIDValidationsCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewPostPaymentsIDSubmissionsSubmissionIDValidationsBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewPostPaymentsIDSubmissionsSubmissionIDValidationsUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewPostPaymentsIDSubmissionsSubmissionIDValidationsForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewPostPaymentsIDSubmissionsSubmissionIDValidationsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewPostPaymentsIDSubmissionsSubmissionIDValidationsConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewPostPaymentsIDSubmissionsSubmissionIDValidationsTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewPostPaymentsIDSubmissionsSubmissionIDValidationsInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewPostPaymentsIDSubmissionsSubmissionIDValidationsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -61,6 +100,10 @@ func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsCreated) Error() string
 	return fmt.Sprintf("[POST /payments/{id}/submissions/{submissionId}/validations][%d] postPaymentsIdSubmissionsSubmissionIdValidationsCreated  %+v", 201, o.Payload)
 }
 
+func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsCreated) GetPayload() *models.PaymentSubmissionValidationCreationResponse {
+	return o.Payload
+}
+
 func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.PaymentSubmissionValidationCreationResponse)
@@ -80,7 +123,7 @@ func NewPostPaymentsIDSubmissionsSubmissionIDValidationsBadRequest() *PostPaymen
 
 /*PostPaymentsIDSubmissionsSubmissionIDValidationsBadRequest handles this case with default header values.
 
-Payment submission validation creation error
+Bad Request
 */
 type PostPaymentsIDSubmissionsSubmissionIDValidationsBadRequest struct {
 	Payload *models.APIError
@@ -90,7 +133,242 @@ func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsBadRequest) Error() str
 	return fmt.Sprintf("[POST /payments/{id}/submissions/{submissionId}/validations][%d] postPaymentsIdSubmissionsSubmissionIdValidationsBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentsIDSubmissionsSubmissionIDValidationsUnauthorized creates a PostPaymentsIDSubmissionsSubmissionIDValidationsUnauthorized with default headers values
+func NewPostPaymentsIDSubmissionsSubmissionIDValidationsUnauthorized() *PostPaymentsIDSubmissionsSubmissionIDValidationsUnauthorized {
+	return &PostPaymentsIDSubmissionsSubmissionIDValidationsUnauthorized{}
+}
+
+/*PostPaymentsIDSubmissionsSubmissionIDValidationsUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type PostPaymentsIDSubmissionsSubmissionIDValidationsUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /payments/{id}/submissions/{submissionId}/validations][%d] postPaymentsIdSubmissionsSubmissionIdValidationsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentsIDSubmissionsSubmissionIDValidationsForbidden creates a PostPaymentsIDSubmissionsSubmissionIDValidationsForbidden with default headers values
+func NewPostPaymentsIDSubmissionsSubmissionIDValidationsForbidden() *PostPaymentsIDSubmissionsSubmissionIDValidationsForbidden {
+	return &PostPaymentsIDSubmissionsSubmissionIDValidationsForbidden{}
+}
+
+/*PostPaymentsIDSubmissionsSubmissionIDValidationsForbidden handles this case with default header values.
+
+Forbidden
+*/
+type PostPaymentsIDSubmissionsSubmissionIDValidationsForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsForbidden) Error() string {
+	return fmt.Sprintf("[POST /payments/{id}/submissions/{submissionId}/validations][%d] postPaymentsIdSubmissionsSubmissionIdValidationsForbidden  %+v", 403, o.Payload)
+}
+
+func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentsIDSubmissionsSubmissionIDValidationsNotFound creates a PostPaymentsIDSubmissionsSubmissionIDValidationsNotFound with default headers values
+func NewPostPaymentsIDSubmissionsSubmissionIDValidationsNotFound() *PostPaymentsIDSubmissionsSubmissionIDValidationsNotFound {
+	return &PostPaymentsIDSubmissionsSubmissionIDValidationsNotFound{}
+}
+
+/*PostPaymentsIDSubmissionsSubmissionIDValidationsNotFound handles this case with default header values.
+
+Record not found
+*/
+type PostPaymentsIDSubmissionsSubmissionIDValidationsNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsNotFound) Error() string {
+	return fmt.Sprintf("[POST /payments/{id}/submissions/{submissionId}/validations][%d] postPaymentsIdSubmissionsSubmissionIdValidationsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentsIDSubmissionsSubmissionIDValidationsConflict creates a PostPaymentsIDSubmissionsSubmissionIDValidationsConflict with default headers values
+func NewPostPaymentsIDSubmissionsSubmissionIDValidationsConflict() *PostPaymentsIDSubmissionsSubmissionIDValidationsConflict {
+	return &PostPaymentsIDSubmissionsSubmissionIDValidationsConflict{}
+}
+
+/*PostPaymentsIDSubmissionsSubmissionIDValidationsConflict handles this case with default header values.
+
+Conflict
+*/
+type PostPaymentsIDSubmissionsSubmissionIDValidationsConflict struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsConflict) Error() string {
+	return fmt.Sprintf("[POST /payments/{id}/submissions/{submissionId}/validations][%d] postPaymentsIdSubmissionsSubmissionIdValidationsConflict  %+v", 409, o.Payload)
+}
+
+func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentsIDSubmissionsSubmissionIDValidationsTooManyRequests creates a PostPaymentsIDSubmissionsSubmissionIDValidationsTooManyRequests with default headers values
+func NewPostPaymentsIDSubmissionsSubmissionIDValidationsTooManyRequests() *PostPaymentsIDSubmissionsSubmissionIDValidationsTooManyRequests {
+	return &PostPaymentsIDSubmissionsSubmissionIDValidationsTooManyRequests{}
+}
+
+/*PostPaymentsIDSubmissionsSubmissionIDValidationsTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type PostPaymentsIDSubmissionsSubmissionIDValidationsTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsTooManyRequests) Error() string {
+	return fmt.Sprintf("[POST /payments/{id}/submissions/{submissionId}/validations][%d] postPaymentsIdSubmissionsSubmissionIdValidationsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentsIDSubmissionsSubmissionIDValidationsInternalServerError creates a PostPaymentsIDSubmissionsSubmissionIDValidationsInternalServerError with default headers values
+func NewPostPaymentsIDSubmissionsSubmissionIDValidationsInternalServerError() *PostPaymentsIDSubmissionsSubmissionIDValidationsInternalServerError {
+	return &PostPaymentsIDSubmissionsSubmissionIDValidationsInternalServerError{}
+}
+
+/*PostPaymentsIDSubmissionsSubmissionIDValidationsInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type PostPaymentsIDSubmissionsSubmissionIDValidationsInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /payments/{id}/submissions/{submissionId}/validations][%d] postPaymentsIdSubmissionsSubmissionIdValidationsInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentsIDSubmissionsSubmissionIDValidationsServiceUnavailable creates a PostPaymentsIDSubmissionsSubmissionIDValidationsServiceUnavailable with default headers values
+func NewPostPaymentsIDSubmissionsSubmissionIDValidationsServiceUnavailable() *PostPaymentsIDSubmissionsSubmissionIDValidationsServiceUnavailable {
+	return &PostPaymentsIDSubmissionsSubmissionIDValidationsServiceUnavailable{}
+}
+
+/*PostPaymentsIDSubmissionsSubmissionIDValidationsServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type PostPaymentsIDSubmissionsSubmissionIDValidationsServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsServiceUnavailable) Error() string {
+	return fmt.Sprintf("[POST /payments/{id}/submissions/{submissionId}/validations][%d] postPaymentsIdSubmissionsSubmissionIdValidationsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
 

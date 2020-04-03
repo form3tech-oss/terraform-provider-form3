@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetSepainstantIDReader is a Reader for the GetSepainstantID structure.
@@ -24,13 +23,60 @@ type GetSepainstantIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetSepainstantIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetSepainstantIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetSepainstantIDBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetSepainstantIDUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewGetSepainstantIDForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetSepainstantIDNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewGetSepainstantIDConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewGetSepainstantIDTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetSepainstantIDInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewGetSepainstantIDServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -54,9 +100,277 @@ func (o *GetSepainstantIDOK) Error() string {
 	return fmt.Sprintf("[GET /sepainstant/{id}][%d] getSepainstantIdOK  %+v", 200, o.Payload)
 }
 
+func (o *GetSepainstantIDOK) GetPayload() *models.SepaInstantAssociationDetailsResponse {
+	return o.Payload
+}
+
 func (o *GetSepainstantIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.SepaInstantAssociationDetailsResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSepainstantIDBadRequest creates a GetSepainstantIDBadRequest with default headers values
+func NewGetSepainstantIDBadRequest() *GetSepainstantIDBadRequest {
+	return &GetSepainstantIDBadRequest{}
+}
+
+/*GetSepainstantIDBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetSepainstantIDBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetSepainstantIDBadRequest) Error() string {
+	return fmt.Sprintf("[GET /sepainstant/{id}][%d] getSepainstantIdBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetSepainstantIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetSepainstantIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSepainstantIDUnauthorized creates a GetSepainstantIDUnauthorized with default headers values
+func NewGetSepainstantIDUnauthorized() *GetSepainstantIDUnauthorized {
+	return &GetSepainstantIDUnauthorized{}
+}
+
+/*GetSepainstantIDUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetSepainstantIDUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetSepainstantIDUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /sepainstant/{id}][%d] getSepainstantIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetSepainstantIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetSepainstantIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSepainstantIDForbidden creates a GetSepainstantIDForbidden with default headers values
+func NewGetSepainstantIDForbidden() *GetSepainstantIDForbidden {
+	return &GetSepainstantIDForbidden{}
+}
+
+/*GetSepainstantIDForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetSepainstantIDForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetSepainstantIDForbidden) Error() string {
+	return fmt.Sprintf("[GET /sepainstant/{id}][%d] getSepainstantIdForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetSepainstantIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetSepainstantIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSepainstantIDNotFound creates a GetSepainstantIDNotFound with default headers values
+func NewGetSepainstantIDNotFound() *GetSepainstantIDNotFound {
+	return &GetSepainstantIDNotFound{}
+}
+
+/*GetSepainstantIDNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetSepainstantIDNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetSepainstantIDNotFound) Error() string {
+	return fmt.Sprintf("[GET /sepainstant/{id}][%d] getSepainstantIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetSepainstantIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetSepainstantIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSepainstantIDConflict creates a GetSepainstantIDConflict with default headers values
+func NewGetSepainstantIDConflict() *GetSepainstantIDConflict {
+	return &GetSepainstantIDConflict{}
+}
+
+/*GetSepainstantIDConflict handles this case with default header values.
+
+Conflict
+*/
+type GetSepainstantIDConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetSepainstantIDConflict) Error() string {
+	return fmt.Sprintf("[GET /sepainstant/{id}][%d] getSepainstantIdConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetSepainstantIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetSepainstantIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSepainstantIDTooManyRequests creates a GetSepainstantIDTooManyRequests with default headers values
+func NewGetSepainstantIDTooManyRequests() *GetSepainstantIDTooManyRequests {
+	return &GetSepainstantIDTooManyRequests{}
+}
+
+/*GetSepainstantIDTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetSepainstantIDTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetSepainstantIDTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /sepainstant/{id}][%d] getSepainstantIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetSepainstantIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetSepainstantIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSepainstantIDInternalServerError creates a GetSepainstantIDInternalServerError with default headers values
+func NewGetSepainstantIDInternalServerError() *GetSepainstantIDInternalServerError {
+	return &GetSepainstantIDInternalServerError{}
+}
+
+/*GetSepainstantIDInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetSepainstantIDInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetSepainstantIDInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /sepainstant/{id}][%d] getSepainstantIdInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetSepainstantIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetSepainstantIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSepainstantIDServiceUnavailable creates a GetSepainstantIDServiceUnavailable with default headers values
+func NewGetSepainstantIDServiceUnavailable() *GetSepainstantIDServiceUnavailable {
+	return &GetSepainstantIDServiceUnavailable{}
+}
+
+/*GetSepainstantIDServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetSepainstantIDServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetSepainstantIDServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /sepainstant/{id}][%d] getSepainstantIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetSepainstantIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetSepainstantIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
