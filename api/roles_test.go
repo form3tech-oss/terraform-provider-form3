@@ -1,22 +1,24 @@
 package api
 
 import (
+	"testing"
+
 	"github.com/form3tech-oss/terraform-provider-form3/client/ace"
 	"github.com/form3tech-oss/terraform-provider-form3/client/roles"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/strfmt"
-	"github.com/nu7hatch/gouuid"
-	"testing"
+	uuid "github.com/nu7hatch/gouuid"
 )
 
 func TestAccDeleteRole(t *testing.T) {
 
+	id := NewUUID()
 	createResponse, err := auth.SecurityClient.Roles.PostRoles(roles.NewPostRolesParams().
 		WithRoleCreationRequest(&models.RoleCreation{
 			Data: &models.Role{
 				OrganisationID: organisationId,
 				Type:           "roles",
-				ID:             strfmt.UUID("f6679900-10d2-44a1-9a46-2d972f4bf457"),
+				ID:             *id,
 				Attributes: &models.RoleAttributes{
 					Name: "TestRole",
 				},

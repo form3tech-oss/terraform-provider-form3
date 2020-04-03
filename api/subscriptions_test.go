@@ -1,20 +1,22 @@
 package api
 
 import (
+	"testing"
+
 	"github.com/form3tech-oss/terraform-provider-form3/client/subscriptions"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/strfmt"
-	"testing"
 )
 
 func TestAccDeleteSubscription(t *testing.T) {
+
+	id := NewUUID()
 
 	createResponse, err := auth.NotificationClient.Subscriptions.PostSubscriptions(subscriptions.NewPostSubscriptionsParams().
 		WithSubscriptionCreationRequest(&models.SubscriptionCreation{
 			Data: &models.Subscription{
 				OrganisationID: testOrganisationId,
 				Type:           "subscriptions",
-				ID:             strfmt.UUID("5e950680-1ea2-4898-ba0f-632214f51946"),
+				ID:             *id,
 				Attributes: &models.SubscriptionAttributes{
 					CallbackTransport: "queue",
 					CallbackURI:       "https://sqs.eu-west-1.amazonaws.com/288840537196/notification-test",
