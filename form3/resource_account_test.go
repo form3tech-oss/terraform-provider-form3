@@ -163,7 +163,7 @@ func TestAccAccount_import_with_iban(t *testing.T) {
 	accountId := uuid.New().String()
 	bankResourceId := uuid.New().String()
 	bicId := uuid.New().String()
-	bic := "NWABCD14"
+	bic := generateTestBic()
 	accountNumber := randomAccountNumber()
 	iban := fmt.Sprintf("GB65FTHR400001%d", accountNumber)
 
