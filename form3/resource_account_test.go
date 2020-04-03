@@ -24,7 +24,7 @@ func TestAccAccount_basic(t *testing.T) {
 	accountId := uuid.NewV4().String()
 	bankResourceId := uuid.NewV4().String()
 	bicId := uuid.NewV4().String()
-	bic := "NWABCD13"
+	bic := fmt.Sprintf("TESTBIC%d", randomNumber(1000, 9999))
 	accountNumber := randomAccountNumber()
 
 	resource.Test(t, resource.TestCase{
@@ -40,7 +40,7 @@ func TestAccAccount_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_account.account", "account_number", strconv.Itoa(accountNumber)),
 					resource.TestCheckResourceAttr("form3_account.account", "bank_id", "401005"),
 					resource.TestCheckResourceAttr("form3_account.account", "bank_id_code", "GBDSC"),
-					resource.TestCheckResourceAttr("form3_account.account", "bic", "NWABCD13"),
+					resource.TestCheckResourceAttr("form3_account.account", "bic", bic),
 					resource.TestCheckResourceAttr("form3_account.account", "country", "GB"),
 					resource.TestCheckResourceAttrSet("form3_account.account", "iban"),
 				),
@@ -62,7 +62,7 @@ func TestAccAccount_basic_with_iban(t *testing.T) {
 	accountId := uuid.NewV4().String()
 	bankResourceId := uuid.NewV4().String()
 	bicId := uuid.NewV4().String()
-	bic := "NWABCD13"
+	bic := fmt.Sprintf("TESTBIC%d", randomNumber(1000, 9999))
 	iban := generateRandomIban()
 	accountNumber := randomAccountNumber()
 
@@ -79,7 +79,7 @@ func TestAccAccount_basic_with_iban(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_account.account", "account_number", strconv.Itoa(accountNumber)),
 					resource.TestCheckResourceAttr("form3_account.account", "bank_id", "401005"),
 					resource.TestCheckResourceAttr("form3_account.account", "bank_id_code", "GBDSC"),
-					resource.TestCheckResourceAttr("form3_account.account", "bic", "NWABCD13"),
+					resource.TestCheckResourceAttr("form3_account.account", "bic", bic),
 					resource.TestCheckResourceAttr("form3_account.account", "country", "GB"),
 					resource.TestCheckResourceAttr("form3_account.account", "iban", iban),
 				),
@@ -95,7 +95,7 @@ func TestAccAccount_basic_with_iban_without_account_number(t *testing.T) {
 	accountId := uuid.NewV4().String()
 	bankResourceId := uuid.NewV4().String()
 	bicId := uuid.NewV4().String()
-	bic := "NWABCD13"
+	bic := fmt.Sprintf("TESTBIC%d", randomNumber(1000, 9999))
 	iban := generateRandomIban()
 
 	resource.Test(t, resource.TestCase{
@@ -111,7 +111,7 @@ func TestAccAccount_basic_with_iban_without_account_number(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_account.account", "account_number", ""),
 					resource.TestCheckResourceAttr("form3_account.account", "bank_id", "401005"),
 					resource.TestCheckResourceAttr("form3_account.account", "bank_id_code", "GBDSC"),
-					resource.TestCheckResourceAttr("form3_account.account", "bic", "NWABCD13"),
+					resource.TestCheckResourceAttr("form3_account.account", "bic", bic),
 					resource.TestCheckResourceAttr("form3_account.account", "country", "GB"),
 					resource.TestCheckResourceAttr("form3_account.account", "iban", iban),
 				),
@@ -135,7 +135,7 @@ func TestAccAccount_importBasic(t *testing.T) {
 	accountId := uuid.NewV4().String()
 	bankResourceId := uuid.NewV4().String()
 	bicId := uuid.NewV4().String()
-	bic := "NWABCD14"
+	bic := fmt.Sprintf("TESTBIC%d", randomNumber(1000, 9999))
 	accountNumber := randomAccountNumber()
 
 	resourceName := "form3_account.account"
@@ -163,7 +163,7 @@ func TestAccAccount_import_with_iban(t *testing.T) {
 	accountId := uuid.NewV4().String()
 	bankResourceId := uuid.NewV4().String()
 	bicId := uuid.NewV4().String()
-	bic := "NWABCD14"
+	bic := fmt.Sprintf("TESTBIC%d", randomNumber(1000, 9999))
 	accountNumber := randomAccountNumber()
 	iban := fmt.Sprintf("GB65FTHR400001%d", accountNumber)
 

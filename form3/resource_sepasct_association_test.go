@@ -18,7 +18,7 @@ func TestAccSepaSctAssociation_basic(t *testing.T) {
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.NewV4().String()
 	associationId := uuid.NewV4().String()
-	bic := fmt.Sprintf("BIC%d", randomNumber(10000, 99999999)) // BIC needs to be 8-11 in length
+	bic := fmt.Sprintf("TESTBIC%d", randomNumber(1000, 9999))
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
