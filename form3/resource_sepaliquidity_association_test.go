@@ -23,6 +23,13 @@ func TestAccSepaLiquidityAssociation_basic(t *testing.T) {
 	sponsor_assoc_path := "form3_sepaliquidity_association.sponsor_association"
 	sponsored_assoc_path := "form3_sepaliquidity_association.sponsored_association"
 
+	sponsorAssociationTechnicalBic := fmt.Sprintf("BICBIC%d", randomNumber(20, 99))
+	sponsorAssociationSettlementBic := fmt.Sprintf("BICBIC%d", randomNumber(20, 99))
+	sponsorAssociationSettlementIban := generateRandomIban()
+	sponsoredAssociationSponsoredBic0 := fmt.Sprintf("BICBIC%d", randomNumber(20000, 99999))
+	sponsoredAssociationSponsoredBic1 := fmt.Sprintf("BICBIC%d", randomNumber(20000, 99999))
+	sponsoredAssociationSettlementIban := generateRandomIban()
+
 	config := fmt.Sprintf(
 		testForm3SepaLiquidityAssociationConfigA,
 		parentOrganisationID,
@@ -30,6 +37,13 @@ func TestAccSepaLiquidityAssociation_basic(t *testing.T) {
 		sponsoredOrganisationID,
 		sponsorAssociationID,
 		sponsoredAssociationID,
+
+		sponsorAssociationTechnicalBic,
+		sponsorAssociationSettlementBic,
+		sponsorAssociationSettlementIban,
+		sponsoredAssociationSponsoredBic0,
+		sponsoredAssociationSponsoredBic1,
+		sponsoredAssociationSettlementIban,
 	)
 
 	resource.Test(t, resource.TestCase{
@@ -44,9 +58,9 @@ func TestAccSepaLiquidityAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(sponsor_assoc_path, "association_id", sponsorAssociationID),
 					resource.TestCheckResourceAttr(sponsor_assoc_path, "organisation_id", sponsorOrganisationID),
 					resource.TestCheckResourceAttr(sponsor_assoc_path, "name", "Sponsor company"),
-					resource.TestCheckResourceAttr(sponsor_assoc_path, "technical_bic", "TESTBIC1"),
-					resource.TestCheckResourceAttr(sponsor_assoc_path, "settlement_bic", "BICBIC99"),
-					resource.TestCheckResourceAttr(sponsor_assoc_path, "settlement_iban", "GB22ABCD19283700000001"),
+					resource.TestCheckResourceAttr(sponsor_assoc_path, "technical_bic", sponsorAssociationTechnicalBic),
+					resource.TestCheckResourceAttr(sponsor_assoc_path, "settlement_bic", sponsorAssociationSettlementBic),
+					resource.TestCheckResourceAttr(sponsor_assoc_path, "settlement_iban", sponsorAssociationSettlementIban),
 					resource.TestCheckResourceAttr(sponsor_assoc_path, "address_street", "Harp Ln"),
 					resource.TestCheckResourceAttr(sponsor_assoc_path, "address_building_number", "7"),
 					resource.TestCheckResourceAttr(sponsor_assoc_path, "address_city", "London"),
@@ -57,9 +71,9 @@ func TestAccSepaLiquidityAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "association_id", sponsoredAssociationID),
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "organisation_id", sponsoredOrganisationID),
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "name", "Sponsored company"),
-					resource.TestCheckResourceAttr(sponsored_assoc_path, "sponsored_bics.0", "BICBIC50XXX"),
-					resource.TestCheckResourceAttr(sponsored_assoc_path, "sponsored_bics.1", "BICBIC51XXX"),
-					resource.TestCheckResourceAttr(sponsored_assoc_path, "settlement_iban", "GB22ABCD19283700000002"),
+					resource.TestCheckResourceAttr(sponsored_assoc_path, "sponsored_bics.0", sponsoredAssociationSponsoredBic0),
+					resource.TestCheckResourceAttr(sponsored_assoc_path, "sponsored_bics.1", sponsoredAssociationSponsoredBic1),
+					resource.TestCheckResourceAttr(sponsored_assoc_path, "settlement_iban", sponsoredAssociationSettlementIban),
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "address_street", "Harp Ln"),
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "address_building_number", "7"),
 					resource.TestCheckResourceAttr(sponsored_assoc_path, "address_city", "London"),
@@ -128,6 +142,15 @@ locals {
 
 	sponsor_association_id    = "%s"
 	sponsored_association_id  = "%s"
+
+	sponsor_association_technical_bic 	= "%s"
+	sponsor_association_settlement_bic 	= "%s"
+	sponsor_association_settlement_iban = "%s"
+		
+	sponsored_association_sponsored_bic_0 = "%s"
+	sponsored_association_sponsored_bic_1 = "%s"
+	sponsored_association_settlement_iban = "%s"
+
 }
 
 resource "form3_organisation" "sponsor" {
@@ -146,9 +169,9 @@ resource "form3_sepaliquidity_association" "sponsor_association" {
 	organisation_id         = "${form3_organisation.sponsor.organisation_id}"
 	association_id          = "${local.sponsor_association_id}"
 	name                    = "Sponsor company"
-	technical_bic           = "TESTBIC1"
-	settlement_bic          = "BICBIC99"
-	settlement_iban         = "GB22ABCD19283700000001"
+	technical_bic           = "${local.sponsor_association_technical_bic}"
+	settlement_bic          = "${local.sponsor_association_settlement_bic}"
+	settlement_iban         = "${local.sponsor_association_settlement_iban}"
 	address_street          = "Harp Ln"
 	address_building_number = "7"
 	address_city            = "London"
@@ -159,8 +182,8 @@ resource "form3_sepaliquidity_association" "sponsored_association" {
 	organisation_id         = "${form3_organisation.sponsored.organisation_id}"
 	association_id          = "${local.sponsored_association_id}"
 	name                    = "Sponsored company"
-	sponsored_bics          = ["BICBIC50XXX", "BICBIC51XXX"]
-	settlement_iban         = "GB22ABCD19283700000002"
+	sponsored_bics          = ["${local.sponsored_association_sponsored_bic_0}", "${local.sponsored_association_sponsored_bic_1}"]
+	settlement_iban         = "${local.sponsored_association_settlement_iban}"
 	address_street          = "Harp Ln"
 	address_building_number = "7"
 	address_city            = "London"
