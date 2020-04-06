@@ -1,13 +1,14 @@
 package api
 
 import (
+	"testing"
+
 	"github.com/form3tech-oss/terraform-provider-form3/client/roles"
 	"github.com/form3tech-oss/terraform-provider-form3/client/users"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	uuid "github.com/satori/go.uuid"
-	"testing"
 )
 
 func TestAccGetUsers(t *testing.T) {
@@ -22,6 +23,7 @@ func TestAccGetUsers(t *testing.T) {
 
 func TestAccDeleteUser(t *testing.T) {
 	roleID := uuid.NewV4().String()
+	userID := uuid.NewV4().String()
 
 	_, err := auth.SecurityClient.Roles.PostRoles(roles.NewPostRolesParams().
 		WithRoleCreationRequest(&models.RoleCreation{
@@ -44,7 +46,7 @@ func TestAccDeleteUser(t *testing.T) {
 			Data: &models.User{
 				OrganisationID: organisationId,
 				Type:           "users",
-				ID:             strfmt.UUID("8d1abeff-ec82-44b8-a9d4-5080756ebf4f"),
+				ID:             strfmt.UUID(userID),
 				Attributes: &models.UserAttributes{
 					Email:    "go-form3@form3.tech",
 					Username: "go-form3",
