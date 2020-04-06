@@ -2,20 +2,29 @@ package form3
 
 import (
 	"fmt"
+	"os"
+	"testing"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	"github.com/satori/go.uuid"
-	"os"
-	"testing"
+	uuid "github.com/satori/go.uuid"
 )
 
 func TestAccVocalinkReportAssociation_basic(t *testing.T) {
 	var response associations.GetVocalinkreportIDOK
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.NewV4().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.NewV4().String()
+	associationID := uuid.NewV4().String()
+
+	bacsMemberKeyID := uuid.NewV4().String()
+	bacsMemberCertificateID := uuid.NewV4().String()
+	fpsMemberKeyID := uuid.NewV4().String()
+	fpsMemberCertificateID := uuid.NewV4().String()
+	bacsServiceUserKeyID := uuid.NewV4().String()
+	bacsServiceUserCertificateID := uuid.NewV4().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -23,17 +32,27 @@ func TestAccVocalinkReportAssociation_basic(t *testing.T) {
 		CheckDestroy: testAccCheckVocalinkReportAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3VocalinkReportAssociationConfigA, organisationId, parentOrganisationId),
+				Config: fmt.Sprintf(testForm3VocalinkReportAssociationConfigA,
+					organisationID,
+					parentOrganisationID,
+					associationID,
+					bacsMemberKeyID,
+					bacsMemberCertificateID,
+					fpsMemberKeyID,
+					fpsMemberCertificateID,
+					bacsServiceUserKeyID,
+					bacsServiceUserCertificateID,
+				),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckVocalinkReportAssociationExists("form3_vocalink_report_association.association", &response),
-					resource.TestCheckResourceAttr("form3_vocalink_report_association.association", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_vocalink_report_association.association", "association_id", "ad5e20e5-800d-4143-9936-ca1007da3a03"),
-					resource.TestCheckResourceAttr("form3_vocalink_report_association.association", "bacs_member_key_id", "43bdb305-e4b8-4eeb-9b26-b9cb0cad1ae5"),
-					resource.TestCheckResourceAttr("form3_vocalink_report_association.association", "bacs_member_certificate_id", "cb9c35c3-de6c-4376-bb23-a5ca2cbdb142"),
-					resource.TestCheckResourceAttr("form3_vocalink_report_association.association", "fps_member_key_id", "336145dc-587e-47b9-a0c4-61ae25e1f35e"),
-					resource.TestCheckResourceAttr("form3_vocalink_report_association.association", "fps_member_certificate_id", "7a7a0f00-c507-49c1-ba89-30fd8521173b"),
-					resource.TestCheckResourceAttr("form3_vocalink_report_association.association", "bacs_service_user_key_id", "33b06551-e9f0-4e84-b1a0-ab23f6ea5611"),
-					resource.TestCheckResourceAttr("form3_vocalink_report_association.association", "bacs_service_user_certificate_id", "f9962c0c-992a-4ce7-a6d5-8e8b6222ad65"),
+					resource.TestCheckResourceAttr("form3_vocalink_report_association.association", "organisation_id", organisationID),
+					resource.TestCheckResourceAttr("form3_vocalink_report_association.association", "association_id", associationID),
+					resource.TestCheckResourceAttr("form3_vocalink_report_association.association", "bacs_member_key_id", bacsMemberKeyID),
+					resource.TestCheckResourceAttr("form3_vocalink_report_association.association", "bacs_member_certificate_id", bacsMemberCertificateID),
+					resource.TestCheckResourceAttr("form3_vocalink_report_association.association", "fps_member_key_id", fpsMemberKeyID),
+					resource.TestCheckResourceAttr("form3_vocalink_report_association.association", "fps_member_certificate_id", fpsMemberCertificateID),
+					resource.TestCheckResourceAttr("form3_vocalink_report_association.association", "bacs_service_user_key_id", bacsServiceUserKeyID),
+					resource.TestCheckResourceAttr("form3_vocalink_report_association.association", "bacs_service_user_certificate_id", bacsServiceUserCertificateID),
 					resource.TestCheckResourceAttr("form3_vocalink_report_association.association", "bacs_service_user_number", "998877"),
 				),
 			},
@@ -98,14 +117,24 @@ resource "form3_organisation" "organisation" {
 	name 		               = "terraform-organisation"
 }
 
+locals {
+	association_id							= "%s"
+	bacs_member_key_id						= "%s"
+	bacs_member_certificate_id				= "%s"
+	fps_member_key_id						= "%s"
+	fps_member_certificate_id				= "%s"
+	bacs_service_user_key_id				= "%s"
+	bacs_service_user_certificate_id        = "%s"
+}
+
 resource "form3_vocalink_report_association" "association" {
 	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
-	association_id                   = "ad5e20e5-800d-4143-9936-ca1007da3a03"
-  bacs_member_key_id               = "43bdb305-e4b8-4eeb-9b26-b9cb0cad1ae5"
-  bacs_member_certificate_id       = "cb9c35c3-de6c-4376-bb23-a5ca2cbdb142"
-  fps_member_key_id                = "336145dc-587e-47b9-a0c4-61ae25e1f35e"
-  fps_member_certificate_id        = "7a7a0f00-c507-49c1-ba89-30fd8521173b"
+	association_id                   = "${local.association_id}"
+  bacs_member_key_id               = "${local.bacs_member_key_id}"
+  bacs_member_certificate_id       = "${local.bacs_member_certificate_id}"
+  fps_member_key_id                = "${local.fps_member_key_id}"
+  fps_member_certificate_id        = "${local.fps_member_certificate_id}"
   bacs_service_user_number         = "998877"
-  bacs_service_user_key_id         = "33b06551-e9f0-4e84-b1a0-ab23f6ea5611"
-  bacs_service_user_certificate_id = "f9962c0c-992a-4ce7-a6d5-8e8b6222ad65"
+  bacs_service_user_key_id         = "${local.bacs_service_user_key_id}"
+  bacs_service_user_certificate_id = "${local.bacs_service_user_certificate_id}"
 }`
