@@ -121,7 +121,7 @@ resource "form3_lhv_association" "association" {
 
 resource "form3_lhv_master_account" "master_account" {
 	organisation_id         = "${form3_organisation.organisation.organisation_id}"
-	association_id          = "${form3_organisation.association.association_id}"
+	association_id          = "${form3_lhv_association.association.association_id}"
 	master_account_id       = "${local.masterAccountId}"
 	iban                    = "${local.iban}"
 	bic                     = "${local.bic}"

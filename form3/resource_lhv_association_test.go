@@ -30,9 +30,9 @@ func TestAccLhvAssociation_basic(t *testing.T) {
 					testAccCheckLhvAssociationExists("form3_lhv_association.association"),
 					resource.TestCheckResourceAttr("form3_lhv_association.association", "association_id", associationId),
 					resource.TestCheckResourceAttr("form3_lhv_association.association", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_lhv_association.association", "name", "foobar"),
+					resource.TestCheckResourceAttr("form3_lhv_association.association", "name", "terraform-association"),
 					resource.TestCheckResourceAttr("form3_lhv_association.association", "client_code", clientCode),
-					resource.TestCheckResourceAttr("form3_lhv_association.association", "client_country", "UK"),
+					resource.TestCheckResourceAttr("form3_lhv_association.association", "client_country", "GB"),
 				),
 			},
 		},
@@ -100,8 +100,8 @@ resource "form3_organisation" "organisation" {
 
 resource "form3_lhv_association" "association" {
 	organisation_id  = "${form3_organisation.organisation.organisation_id}"
-    name             = "foobar"
+    name             = "terraform-association"
 	association_id   = "%s"
 	client_code      = "%s"
-    client_country   = "UK"
+    client_country   = "GB"
 }`
