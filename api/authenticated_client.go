@@ -140,8 +140,6 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 				}
 
 				debugReqResp.req = string(dump)
-
-				//log.Printf("[DEBUG] %s %s", req.URL.String(), string(dump))
 			}
 
 			// In case some API initially responds with 403, retry the request until permissions propagate.
