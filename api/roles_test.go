@@ -76,6 +76,8 @@ func TestAccDeleteRoleAce(t *testing.T) {
 			},
 		}))
 
+	assertNoErrorOccurred(err, t)
+
 	_, err = auth.SecurityClient.Ace.DeleteRolesRoleIDAcesAceID(ace.NewDeleteRolesRoleIDAcesAceIDParams().
 		WithRoleID(createAceResponse.Payload.Data.Attributes.RoleID).
 		WithAceID(createAceResponse.Payload.Data.ID))
@@ -83,7 +85,8 @@ func TestAccDeleteRoleAce(t *testing.T) {
 	assertNoErrorOccurred(err, t)
 
 	_, err = auth.SecurityClient.Roles.DeleteRolesRoleID(roles.NewDeleteRolesRoleIDParams().
-		WithRoleID(createRoleResponse.Payload.Data.ID),
+		WithRoleID(createRoleResponse.Payload.Data.ID).
+		WithVersion(0),
 	)
 
 	assertNoErrorOccurred(err, t)
