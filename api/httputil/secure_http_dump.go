@@ -10,6 +10,8 @@ import (
 	"regexp"
 )
 
+const secureMask = "******"
+
 var (
 	tokenRe = regexp.MustCompile(`"((?i)access_token|(?i)refresh_token)":\s*?".*?"`)
 )
@@ -28,7 +30,9 @@ func SecureDumpRequest(req *http.Request) ([]byte, error) {
 
 	reqClone := req.Clone(req.Context())
 
-	reqClone.Header.Del("Authorization")
+	if v := reqClone.Header.Get("Authorization"); len(v) > 0 {
+		reqClone.Header.Set("Authorization", secureMask)
+	}
 
 	dump, err := httputil.DumpRequestOut(reqClone, true)
 	return dump, err
@@ -42,7 +46,7 @@ func SecureDumpResponse(res *http.Response) ([]byte, error) {
 	}
 
 	text := string(data)
-	text = tokenRe.ReplaceAllString(text, `"$1": "******"`)
+	text = tokenRe.ReplaceAllString(text, fmt.Sprintf(`"$1": "%s"`, secureMask))
 	return []byte(text), nil
 }
 

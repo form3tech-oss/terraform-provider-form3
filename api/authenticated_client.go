@@ -9,11 +9,10 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"net/http/httputil"
 	"sync"
-
 	"time"
 
+	"github.com/form3tech-oss/terraform-provider-form3/api/httputil"
 	"github.com/form3tech-oss/terraform-provider-form3/client"
 	"github.com/giantswarm/retry-go"
 	"github.com/go-openapi/runtime"
@@ -126,7 +125,7 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 			debugReqResp := debugReqResp{}
 
 			if logging.IsDebugOrHigher() {
-				dump, errDump := httputil.DumpRequestOut(req, true)
+				dump, errDump := httputil.SecureDumpRequest(req)
 				if errDump != nil {
 					log.Fatal(errDump)
 				}
@@ -170,7 +169,7 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 			}
 
 			if logging.IsDebugOrHigher() {
-				dump, errDump := httputil.DumpResponse(resp, true)
+				dump, errDump := httputil.SecureDumpResponse(resp)
 				if errDump != nil {
 					log.Fatal(errDump)
 				}
@@ -277,7 +276,7 @@ func (r *AuthenticatedClient) Authenticate(clientId string, clientSecret string)
 	req.Header.Set("Authorization", "Basic "+base64.StdEncoding.EncodeToString([]byte(clientId+":"+clientSecret)))
 
 	if logging.IsDebugOrHigher() {
-		dump, errDump := httputil.DumpRequestOut(req, true)
+		dump, errDump := httputil.SecureDumpRequest(req)
 		if errDump != nil {
 			log.Fatal(errDump)
 		}
@@ -299,7 +298,7 @@ func (r *AuthenticatedClient) Authenticate(clientId string, clientSecret string)
 	defer resp.Body.Close()
 
 	if logging.IsDebugOrHigher() {
-		dump, errDump := httputil.DumpResponse(resp, true)
+		dump, errDump := httputil.SecureDumpResponse(resp)
 		if errDump != nil {
 			log.Fatal(errDump)
 		}

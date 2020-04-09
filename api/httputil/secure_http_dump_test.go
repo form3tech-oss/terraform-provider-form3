@@ -3,6 +3,7 @@ package httputil_test
 import (
 	"bytes"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
@@ -39,7 +40,7 @@ func TestSecureDumpRequest(t *testing.T) {
 				}
 				return nil
 			},
-			expectedInDump:   []string{"special header", "the body"},
+			expectedInDump:   []string{"Authorization", "******", "special header", "the body"},
 			unexpectedInDump: []string{"secret value"},
 		},
 
@@ -183,7 +184,10 @@ func TestSecureDumpResponse(t *testing.T) {
 			mockServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 				defer req.Body.Close()
 				w.WriteHeader(http.StatusOK)
-				req.Write(w)
+				_, err := io.Copy(w, req.Body)
+				if err != nil {
+					t.Fatalf("copy failed: %v", err)
+				}
 			}))
 			defer mockServer.Close()
 			url, err := url.Parse(mockServer.URL)
