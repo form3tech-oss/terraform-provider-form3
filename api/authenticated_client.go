@@ -164,19 +164,22 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 
 				return nil
 			}
-			if err := retry.Do(retryableFunc, retry.MaxTries(10), retry.Sleep(500*time.Millisecond)); err != nil {
-				return resp, err
-			}
+			err := retry.Do(retryableFunc, retry.MaxTries(10), retry.Sleep(500*time.Millisecond))
 
 			if logging.IsDebugOrHigher() {
-				dump, errDump := httputil.SecureDumpResponse(resp)
-				if errDump != nil {
-					log.Fatal(errDump)
+				if resp != nil {
+					dump, errDump := httputil.SecureDumpResponse(resp)
+					if errDump != nil {
+						log.Fatal(errDump)
+					}
+
+					debugReqResp.res = string(dump)
 				}
-
-				debugReqResp.res = string(dump)
-
 				log.Printf("[DEBUG] %s\n======= request =======\n%s======= response =======\n%s\n", req.URL, debugReqResp.req, debugReqResp.res)
+			}
+
+			if err != nil {
+				return resp, err
 			}
 
 			return resp, nil
