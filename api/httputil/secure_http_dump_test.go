@@ -24,7 +24,7 @@ func TestSecureDumpRequest(t *testing.T) {
 		unexpectedInDump  []string
 	}{
 		{
-			it: "removes Authorization header from request",
+			it: "masks Authorization header in request",
 			req: func() *http.Request {
 				req, err := http.NewRequest(http.MethodPost, "", bytes.NewBuffer([]byte("the body")))
 				if err != nil {
