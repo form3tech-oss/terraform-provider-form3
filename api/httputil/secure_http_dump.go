@@ -10,6 +10,10 @@ import (
 	"regexp"
 )
 
+var (
+	tokenRe = regexp.MustCompile(`"((?i)access_token|(?i)refresh_token)":\s*?".*?"`)
+)
+
 // SecureDumpRequest does a security aware dump of a given HTTP request.
 func SecureDumpRequest(req *http.Request) ([]byte, error) {
 	var err error
@@ -38,14 +42,7 @@ func SecureDumpResponse(res *http.Response) ([]byte, error) {
 	}
 
 	text := string(data)
-
-	// TODO: cache regexps, make it configurable, support
-	// variable whitespace between key and value, case insensitive
-	// fields
-	re := regexp.MustCompile(`"access_token":".*?"`)
-	text = re.ReplaceAllString(text, `"access_token": "******"`)
-	re = regexp.MustCompile(`"refresh_token":".*?"`)
-	text = re.ReplaceAllString(text, `"refresh_token": "******"`)
+	text = tokenRe.ReplaceAllString(text, `"$1": "******"`)
 	return []byte(text), nil
 }
 
