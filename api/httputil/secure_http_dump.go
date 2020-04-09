@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/http/httputil"
+	"regexp"
 )
 
 // SecureDumpRequest does a security aware dump of a given HTTP request.
@@ -31,8 +32,21 @@ func SecureDumpRequest(req *http.Request) ([]byte, error) {
 
 // SecureDumpResponse does a security aware dump of a given HTTP response.
 func SecureDumpResponse(res *http.Response) ([]byte, error) {
-	// TODO
-	return nil, nil
+	data, err := httputil.DumpResponse(res, true)
+	if err != nil {
+		return nil, err
+	}
+
+	text := string(data)
+
+	// TODO: cache regexps, make it configurable, support
+	// variable whitespace between key and value, case insensitive
+	// fields
+	re := regexp.MustCompile(`"access_token":".*?"`)
+	text = re.ReplaceAllString(text, `"access_token": "******"`)
+	re = regexp.MustCompile(`"refresh_token":".*?"`)
+	text = re.ReplaceAllString(text, `"refresh_token": "******"`)
+	return []byte(text), nil
 }
 
 // drainBody copied from net/http/httputil/dump.go

@@ -142,3 +142,78 @@ func TestSecureDumpRequest(t *testing.T) {
 		})
 	}
 }
+
+func TestSecureDumpResponse(t *testing.T) {
+	cases := []struct {
+		it                 string
+		req                *http.Request
+		checkRespAfterDump func(*http.Response) error
+		expectedInDump     []string
+		unexpectedInDump   []string
+	}{
+
+		{
+			it: "removes 'access_token' and 'refresh_token' fields from response",
+			req: func() *http.Request {
+				body := []byte(`{"access_token":"secret value","refresh_token":"secret value","other":"ok"}`)
+				req, err := http.NewRequest(http.MethodPost, "", bytes.NewBuffer(body))
+				if err != nil {
+					t.Fatalf("create request failed: %v", err)
+				}
+
+				return req
+			}(),
+			checkRespAfterDump: func(resp *http.Response) error {
+				return nil
+			},
+			expectedInDump:   []string{"ok"},
+			unexpectedInDump: []string{"secret value"},
+		},
+	}
+
+	for _, tc := range cases {
+		t.Run(tc.it, func(t *testing.T) {
+			mockServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+				defer req.Body.Close()
+				w.WriteHeader(http.StatusOK)
+				req.Write(w)
+			}))
+			defer mockServer.Close()
+			url, err := url.Parse(mockServer.URL)
+			if err != nil {
+				t.Fatalf("unexpected error: %v", err)
+			}
+			tc.req.URL = url
+
+			resp, err := http.DefaultClient.Do(tc.req)
+			if err != nil {
+				t.Fatalf("unexpected error %v", err)
+			}
+
+			dump, err := httputil.SecureDumpResponse(resp)
+			if err != nil {
+				t.Fatalf("unexpected error %v", err)
+			}
+
+			if tc.checkRespAfterDump != nil {
+				err = tc.checkRespAfterDump(resp)
+				if err != nil {
+					t.Errorf("check of orginal request failed: %v", err)
+				}
+			}
+
+			dumpString := string(dump)
+			for _, v := range tc.expectedInDump {
+				if !strings.Contains(dumpString, v) {
+					t.Errorf("expected %q in dump:\n%s\n", v, dumpString)
+				}
+			}
+			for _, uv := range tc.unexpectedInDump {
+				if strings.Contains(dumpString, uv) {
+					t.Errorf("unexpected %q in dump:\n%s\n", uv, dumpString)
+				}
+			}
+
+		})
+	}
+}
