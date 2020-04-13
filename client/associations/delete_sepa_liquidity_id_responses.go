@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteSepaLiquidityIDReader is a Reader for the DeleteSepaLiquidityID structure.
@@ -23,54 +24,63 @@ type DeleteSepaLiquidityIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteSepaLiquidityIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 204:
 		result := NewDeleteSepaLiquidityIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewDeleteSepaLiquidityIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewDeleteSepaLiquidityIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewDeleteSepaLiquidityIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewDeleteSepaLiquidityIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewDeleteSepaLiquidityIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewDeleteSepaLiquidityIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewDeleteSepaLiquidityIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewDeleteSepaLiquidityIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -121,10 +131,6 @@ func (o *DeleteSepaLiquidityIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /sepa-liquidity/{id}][%d] deleteSepaLiquidityIdBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *DeleteSepaLiquidityIDBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteSepaLiquidityIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -152,10 +158,6 @@ type DeleteSepaLiquidityIDUnauthorized struct {
 
 func (o *DeleteSepaLiquidityIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /sepa-liquidity/{id}][%d] deleteSepaLiquidityIdUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *DeleteSepaLiquidityIDUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteSepaLiquidityIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -187,10 +189,6 @@ func (o *DeleteSepaLiquidityIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /sepa-liquidity/{id}][%d] deleteSepaLiquidityIdForbidden  %+v", 403, o.Payload)
 }
 
-func (o *DeleteSepaLiquidityIDForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteSepaLiquidityIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -218,10 +216,6 @@ type DeleteSepaLiquidityIDNotFound struct {
 
 func (o *DeleteSepaLiquidityIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /sepa-liquidity/{id}][%d] deleteSepaLiquidityIdNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteSepaLiquidityIDNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteSepaLiquidityIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -253,10 +247,6 @@ func (o *DeleteSepaLiquidityIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /sepa-liquidity/{id}][%d] deleteSepaLiquidityIdConflict  %+v", 409, o.Payload)
 }
 
-func (o *DeleteSepaLiquidityIDConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteSepaLiquidityIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -284,10 +274,6 @@ type DeleteSepaLiquidityIDTooManyRequests struct {
 
 func (o *DeleteSepaLiquidityIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /sepa-liquidity/{id}][%d] deleteSepaLiquidityIdTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *DeleteSepaLiquidityIDTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteSepaLiquidityIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -319,10 +305,6 @@ func (o *DeleteSepaLiquidityIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /sepa-liquidity/{id}][%d] deleteSepaLiquidityIdInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *DeleteSepaLiquidityIDInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteSepaLiquidityIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -350,10 +332,6 @@ type DeleteSepaLiquidityIDServiceUnavailable struct {
 
 func (o *DeleteSepaLiquidityIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /sepa-liquidity/{id}][%d] deleteSepaLiquidityIdServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *DeleteSepaLiquidityIDServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteSepaLiquidityIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

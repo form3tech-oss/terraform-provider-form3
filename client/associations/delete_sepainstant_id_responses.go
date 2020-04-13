@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteSepainstantIDReader is a Reader for the DeleteSepainstantID structure.
@@ -23,54 +24,63 @@ type DeleteSepainstantIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteSepainstantIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 204:
 		result := NewDeleteSepainstantIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewDeleteSepainstantIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewDeleteSepainstantIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewDeleteSepainstantIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewDeleteSepainstantIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewDeleteSepainstantIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewDeleteSepainstantIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewDeleteSepainstantIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewDeleteSepainstantIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -121,10 +131,6 @@ func (o *DeleteSepainstantIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /sepainstant/{id}][%d] deleteSepainstantIdBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *DeleteSepainstantIDBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteSepainstantIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -152,10 +158,6 @@ type DeleteSepainstantIDUnauthorized struct {
 
 func (o *DeleteSepainstantIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /sepainstant/{id}][%d] deleteSepainstantIdUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *DeleteSepainstantIDUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteSepainstantIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -187,10 +189,6 @@ func (o *DeleteSepainstantIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /sepainstant/{id}][%d] deleteSepainstantIdForbidden  %+v", 403, o.Payload)
 }
 
-func (o *DeleteSepainstantIDForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteSepainstantIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -218,10 +216,6 @@ type DeleteSepainstantIDNotFound struct {
 
 func (o *DeleteSepainstantIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /sepainstant/{id}][%d] deleteSepainstantIdNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteSepainstantIDNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteSepainstantIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -253,10 +247,6 @@ func (o *DeleteSepainstantIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /sepainstant/{id}][%d] deleteSepainstantIdConflict  %+v", 409, o.Payload)
 }
 
-func (o *DeleteSepainstantIDConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteSepainstantIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -284,10 +274,6 @@ type DeleteSepainstantIDTooManyRequests struct {
 
 func (o *DeleteSepainstantIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /sepainstant/{id}][%d] deleteSepainstantIdTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *DeleteSepainstantIDTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteSepainstantIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -319,10 +305,6 @@ func (o *DeleteSepainstantIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /sepainstant/{id}][%d] deleteSepainstantIdInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *DeleteSepainstantIDInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteSepainstantIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -350,10 +332,6 @@ type DeleteSepainstantIDServiceUnavailable struct {
 
 func (o *DeleteSepainstantIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /sepainstant/{id}][%d] deleteSepainstantIdServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *DeleteSepainstantIDServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteSepainstantIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

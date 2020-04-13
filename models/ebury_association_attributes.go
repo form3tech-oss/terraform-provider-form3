@@ -6,6 +6,5 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 // EburyAssociationAttributes ebury association attributes
-//
 // swagger:model EburyAssociationAttributes
 type EburyAssociationAttributes interface{}

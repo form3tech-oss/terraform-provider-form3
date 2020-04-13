@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteVocalinkreportIDReader is a Reader for the DeleteVocalinkreportID structure.
@@ -23,54 +24,63 @@ type DeleteVocalinkreportIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteVocalinkreportIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 204:
 		result := NewDeleteVocalinkreportIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewDeleteVocalinkreportIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewDeleteVocalinkreportIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewDeleteVocalinkreportIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewDeleteVocalinkreportIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewDeleteVocalinkreportIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewDeleteVocalinkreportIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewDeleteVocalinkreportIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewDeleteVocalinkreportIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -121,10 +131,6 @@ func (o *DeleteVocalinkreportIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /vocalinkreport/{id}][%d] deleteVocalinkreportIdBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *DeleteVocalinkreportIDBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteVocalinkreportIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -152,10 +158,6 @@ type DeleteVocalinkreportIDUnauthorized struct {
 
 func (o *DeleteVocalinkreportIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /vocalinkreport/{id}][%d] deleteVocalinkreportIdUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *DeleteVocalinkreportIDUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteVocalinkreportIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -187,10 +189,6 @@ func (o *DeleteVocalinkreportIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /vocalinkreport/{id}][%d] deleteVocalinkreportIdForbidden  %+v", 403, o.Payload)
 }
 
-func (o *DeleteVocalinkreportIDForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteVocalinkreportIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -218,10 +216,6 @@ type DeleteVocalinkreportIDNotFound struct {
 
 func (o *DeleteVocalinkreportIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /vocalinkreport/{id}][%d] deleteVocalinkreportIdNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteVocalinkreportIDNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteVocalinkreportIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -253,10 +247,6 @@ func (o *DeleteVocalinkreportIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /vocalinkreport/{id}][%d] deleteVocalinkreportIdConflict  %+v", 409, o.Payload)
 }
 
-func (o *DeleteVocalinkreportIDConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteVocalinkreportIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -284,10 +274,6 @@ type DeleteVocalinkreportIDTooManyRequests struct {
 
 func (o *DeleteVocalinkreportIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /vocalinkreport/{id}][%d] deleteVocalinkreportIdTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *DeleteVocalinkreportIDTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteVocalinkreportIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -319,10 +305,6 @@ func (o *DeleteVocalinkreportIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /vocalinkreport/{id}][%d] deleteVocalinkreportIdInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *DeleteVocalinkreportIDInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteVocalinkreportIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -350,10 +332,6 @@ type DeleteVocalinkreportIDServiceUnavailable struct {
 
 func (o *DeleteVocalinkreportIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /vocalinkreport/{id}][%d] deleteVocalinkreportIdServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *DeleteVocalinkreportIDServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteVocalinkreportIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

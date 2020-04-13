@@ -6,14 +6,14 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	strfmt "github.com/go-openapi/strfmt"
+
 	"github.com/go-openapi/errors"
-	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // LhvUpdateAssociationAttributes lhv update association attributes
-//
 // swagger:model LhvUpdateAssociationAttributes
 type LhvUpdateAssociationAttributes struct {
 
@@ -28,6 +28,9 @@ type LhvUpdateAssociationAttributes struct {
 	// name
 	// Min Length: 1
 	Name string `json:"name,omitempty"`
+
+	// use simulator
+	UseSimulator *bool `json:"use_simulator,omitempty"`
 }
 
 // Validate validates this lhv update association attributes

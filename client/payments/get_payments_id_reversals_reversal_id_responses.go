@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetPaymentsIDReversalsReversalIDReader is a Reader for the GetPaymentsIDReversalsReversalID structure.
@@ -23,54 +24,63 @@ type GetPaymentsIDReversalsReversalIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetPaymentsIDReversalsReversalIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 200:
 		result := NewGetPaymentsIDReversalsReversalIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewGetPaymentsIDReversalsReversalIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewGetPaymentsIDReversalsReversalIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewGetPaymentsIDReversalsReversalIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewGetPaymentsIDReversalsReversalIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewGetPaymentsIDReversalsReversalIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewGetPaymentsIDReversalsReversalIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewGetPaymentsIDReversalsReversalIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewGetPaymentsIDReversalsReversalIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type GetPaymentsIDReversalsReversalIDOK struct {
 
 func (o *GetPaymentsIDReversalsReversalIDOK) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}][%d] getPaymentsIdReversalsReversalIdOK  %+v", 200, o.Payload)
-}
-
-func (o *GetPaymentsIDReversalsReversalIDOK) GetPayload() *models.ReversalDetailsResponse {
-	return o.Payload
 }
 
 func (o *GetPaymentsIDReversalsReversalIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *GetPaymentsIDReversalsReversalIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}][%d] getPaymentsIdReversalsReversalIdBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *GetPaymentsIDReversalsReversalIDBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetPaymentsIDReversalsReversalIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type GetPaymentsIDReversalsReversalIDUnauthorized struct {
 
 func (o *GetPaymentsIDReversalsReversalIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}][%d] getPaymentsIdReversalsReversalIdUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetPaymentsIDReversalsReversalIDUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetPaymentsIDReversalsReversalIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *GetPaymentsIDReversalsReversalIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}][%d] getPaymentsIdReversalsReversalIdForbidden  %+v", 403, o.Payload)
 }
 
-func (o *GetPaymentsIDReversalsReversalIDForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetPaymentsIDReversalsReversalIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type GetPaymentsIDReversalsReversalIDNotFound struct {
 
 func (o *GetPaymentsIDReversalsReversalIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}][%d] getPaymentsIdReversalsReversalIdNotFound  %+v", 404, o.Payload)
-}
-
-func (o *GetPaymentsIDReversalsReversalIDNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetPaymentsIDReversalsReversalIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *GetPaymentsIDReversalsReversalIDConflict) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}][%d] getPaymentsIdReversalsReversalIdConflict  %+v", 409, o.Payload)
 }
 
-func (o *GetPaymentsIDReversalsReversalIDConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetPaymentsIDReversalsReversalIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type GetPaymentsIDReversalsReversalIDTooManyRequests struct {
 
 func (o *GetPaymentsIDReversalsReversalIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}][%d] getPaymentsIdReversalsReversalIdTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *GetPaymentsIDReversalsReversalIDTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetPaymentsIDReversalsReversalIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *GetPaymentsIDReversalsReversalIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}][%d] getPaymentsIdReversalsReversalIdInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetPaymentsIDReversalsReversalIDInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetPaymentsIDReversalsReversalIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type GetPaymentsIDReversalsReversalIDServiceUnavailable struct {
 
 func (o *GetPaymentsIDReversalsReversalIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}][%d] getPaymentsIdReversalsReversalIdServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *GetPaymentsIDReversalsReversalIDServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetPaymentsIDReversalsReversalIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

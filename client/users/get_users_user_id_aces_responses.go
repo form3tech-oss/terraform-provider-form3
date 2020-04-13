@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetUsersUserIDAcesReader is a Reader for the GetUsersUserIDAces structure.
@@ -23,54 +24,63 @@ type GetUsersUserIDAcesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetUsersUserIDAcesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 200:
 		result := NewGetUsersUserIDAcesOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewGetUsersUserIDAcesBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewGetUsersUserIDAcesUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewGetUsersUserIDAcesForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewGetUsersUserIDAcesNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewGetUsersUserIDAcesConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewGetUsersUserIDAcesTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewGetUsersUserIDAcesInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewGetUsersUserIDAcesServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type GetUsersUserIDAcesOK struct {
 
 func (o *GetUsersUserIDAcesOK) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesOK  %+v", 200, o.Payload)
-}
-
-func (o *GetUsersUserIDAcesOK) GetPayload() *models.AceDetailsListResponse {
-	return o.Payload
 }
 
 func (o *GetUsersUserIDAcesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *GetUsersUserIDAcesBadRequest) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *GetUsersUserIDAcesBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetUsersUserIDAcesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type GetUsersUserIDAcesUnauthorized struct {
 
 func (o *GetUsersUserIDAcesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetUsersUserIDAcesUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetUsersUserIDAcesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *GetUsersUserIDAcesForbidden) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesForbidden  %+v", 403, o.Payload)
 }
 
-func (o *GetUsersUserIDAcesForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetUsersUserIDAcesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type GetUsersUserIDAcesNotFound struct {
 
 func (o *GetUsersUserIDAcesNotFound) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesNotFound  %+v", 404, o.Payload)
-}
-
-func (o *GetUsersUserIDAcesNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetUsersUserIDAcesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *GetUsersUserIDAcesConflict) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesConflict  %+v", 409, o.Payload)
 }
 
-func (o *GetUsersUserIDAcesConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetUsersUserIDAcesConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type GetUsersUserIDAcesTooManyRequests struct {
 
 func (o *GetUsersUserIDAcesTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *GetUsersUserIDAcesTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetUsersUserIDAcesTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *GetUsersUserIDAcesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetUsersUserIDAcesInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetUsersUserIDAcesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type GetUsersUserIDAcesServiceUnavailable struct {
 
 func (o *GetUsersUserIDAcesServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *GetUsersUserIDAcesServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetUsersUserIDAcesServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

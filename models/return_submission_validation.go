@@ -6,14 +6,14 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	strfmt "github.com/go-openapi/strfmt"
+
 	"github.com/go-openapi/errors"
-	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ReturnSubmissionValidation return submission validation
-//
 // swagger:model ReturnSubmissionValidation
 type ReturnSubmissionValidation struct {
 
@@ -158,7 +158,6 @@ func (m *ReturnSubmissionValidation) UnmarshalBinary(b []byte) error {
 }
 
 // ReturnSubmissionValidationAttributes return submission validation attributes
-//
 // swagger:model ReturnSubmissionValidationAttributes
 type ReturnSubmissionValidationAttributes struct {
 

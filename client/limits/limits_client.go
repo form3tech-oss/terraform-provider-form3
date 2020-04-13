@@ -6,14 +6,13 @@ package limits
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"fmt"
-
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
+
+	strfmt "github.com/go-openapi/strfmt"
 )
 
 // New creates a new limits API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -25,23 +24,8 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-// ClientService is the interface for Client methods
-type ClientService interface {
-	DeleteLimitsID(params *DeleteLimitsIDParams) (*DeleteLimitsIDNoContent, error)
-
-	GetLimits(params *GetLimitsParams) (*GetLimitsOK, error)
-
-	GetLimitsID(params *GetLimitsIDParams) (*GetLimitsIDOK, error)
-
-	PatchLimitsID(params *PatchLimitsIDParams) (*PatchLimitsIDOK, error)
-
-	PostLimits(params *PostLimitsParams) (*PostLimitsCreated, error)
-
-	SetTransport(transport runtime.ClientTransport)
-}
-
 /*
-  DeleteLimitsID deletes limit
+DeleteLimitsID deletes limit
 */
 func (a *Client) DeleteLimitsID(params *DeleteLimitsIDParams) (*DeleteLimitsIDNoContent, error) {
 	// TODO: Validate the params before sending
@@ -53,8 +37,8 @@ func (a *Client) DeleteLimitsID(params *DeleteLimitsIDParams) (*DeleteLimitsIDNo
 		ID:                 "DeleteLimitsID",
 		Method:             "DELETE",
 		PathPattern:        "/limits/{id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteLimitsIDReader{formats: a.formats},
@@ -64,18 +48,12 @@ func (a *Client) DeleteLimitsID(params *DeleteLimitsIDParams) (*DeleteLimitsIDNo
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*DeleteLimitsIDNoContent)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for DeleteLimitsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*DeleteLimitsIDNoContent), nil
+
 }
 
 /*
-  GetLimits lists limits
+GetLimits lists limits
 */
 func (a *Client) GetLimits(params *GetLimitsParams) (*GetLimitsOK, error) {
 	// TODO: Validate the params before sending
@@ -87,8 +65,8 @@ func (a *Client) GetLimits(params *GetLimitsParams) (*GetLimitsOK, error) {
 		ID:                 "GetLimits",
 		Method:             "GET",
 		PathPattern:        "/limits",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetLimitsReader{formats: a.formats},
@@ -98,18 +76,12 @@ func (a *Client) GetLimits(params *GetLimitsParams) (*GetLimitsOK, error) {
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetLimitsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetLimits: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*GetLimitsOK), nil
+
 }
 
 /*
-  GetLimitsID fetches limit
+GetLimitsID fetches limit
 */
 func (a *Client) GetLimitsID(params *GetLimitsIDParams) (*GetLimitsIDOK, error) {
 	// TODO: Validate the params before sending
@@ -121,8 +93,8 @@ func (a *Client) GetLimitsID(params *GetLimitsIDParams) (*GetLimitsIDOK, error) 
 		ID:                 "GetLimitsID",
 		Method:             "GET",
 		PathPattern:        "/limits/{id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetLimitsIDReader{formats: a.formats},
@@ -132,18 +104,12 @@ func (a *Client) GetLimitsID(params *GetLimitsIDParams) (*GetLimitsIDOK, error) 
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetLimitsIDOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetLimitsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*GetLimitsIDOK), nil
+
 }
 
 /*
-  PatchLimitsID amends limit
+PatchLimitsID amends limit
 */
 func (a *Client) PatchLimitsID(params *PatchLimitsIDParams) (*PatchLimitsIDOK, error) {
 	// TODO: Validate the params before sending
@@ -155,7 +121,7 @@ func (a *Client) PatchLimitsID(params *PatchLimitsIDParams) (*PatchLimitsIDOK, e
 		ID:                 "PatchLimitsID",
 		Method:             "PATCH",
 		PathPattern:        "/limits/{id}",
-		ProducesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -166,18 +132,12 @@ func (a *Client) PatchLimitsID(params *PatchLimitsIDParams) (*PatchLimitsIDOK, e
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*PatchLimitsIDOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PatchLimitsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*PatchLimitsIDOK), nil
+
 }
 
 /*
-  PostLimits creates a limit
+PostLimits creates a limit
 */
 func (a *Client) PostLimits(params *PostLimitsParams) (*PostLimitsCreated, error) {
 	// TODO: Validate the params before sending
@@ -189,7 +149,7 @@ func (a *Client) PostLimits(params *PostLimitsParams) (*PostLimitsCreated, error
 		ID:                 "PostLimits",
 		Method:             "POST",
 		PathPattern:        "/limits",
-		ProducesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -200,14 +160,8 @@ func (a *Client) PostLimits(params *PostLimitsParams) (*PostLimitsCreated, error
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*PostLimitsCreated)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PostLimits: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*PostLimitsCreated), nil
+
 }
 
 // SetTransport changes the transport on the client

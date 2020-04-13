@@ -8,13 +8,13 @@ package models
 import (
 	"encoding/json"
 
+	strfmt "github.com/go-openapi/strfmt"
+
 	"github.com/go-openapi/errors"
-	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/validate"
 )
 
 // AccountNumberCode account number code
-//
 // swagger:model AccountNumberCode
 type AccountNumberCode string
 

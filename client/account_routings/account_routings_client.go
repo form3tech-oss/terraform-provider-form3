@@ -6,14 +6,13 @@ package account_routings
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"fmt"
-
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
+
+	strfmt "github.com/go-openapi/strfmt"
 )
 
 // New creates a new account routings API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -25,21 +24,8 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-// ClientService is the interface for Client methods
-type ClientService interface {
-	DeleteAccountRoutingsID(params *DeleteAccountRoutingsIDParams) (*DeleteAccountRoutingsIDNoContent, error)
-
-	GetAccountRoutings(params *GetAccountRoutingsParams) (*GetAccountRoutingsOK, error)
-
-	GetAccountRoutingsID(params *GetAccountRoutingsIDParams) (*GetAccountRoutingsIDOK, error)
-
-	PostAccountRoutings(params *PostAccountRoutingsParams) (*PostAccountRoutingsCreated, error)
-
-	SetTransport(transport runtime.ClientTransport)
-}
-
 /*
-  DeleteAccountRoutingsID deletes account routing
+DeleteAccountRoutingsID deletes account routing
 */
 func (a *Client) DeleteAccountRoutingsID(params *DeleteAccountRoutingsIDParams) (*DeleteAccountRoutingsIDNoContent, error) {
 	// TODO: Validate the params before sending
@@ -51,8 +37,8 @@ func (a *Client) DeleteAccountRoutingsID(params *DeleteAccountRoutingsIDParams) 
 		ID:                 "DeleteAccountRoutingsID",
 		Method:             "DELETE",
 		PathPattern:        "/account_routings/{id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteAccountRoutingsIDReader{formats: a.formats},
@@ -62,18 +48,12 @@ func (a *Client) DeleteAccountRoutingsID(params *DeleteAccountRoutingsIDParams) 
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*DeleteAccountRoutingsIDNoContent)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for DeleteAccountRoutingsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*DeleteAccountRoutingsIDNoContent), nil
+
 }
 
 /*
-  GetAccountRoutings lists account routings
+GetAccountRoutings lists account routings
 */
 func (a *Client) GetAccountRoutings(params *GetAccountRoutingsParams) (*GetAccountRoutingsOK, error) {
 	// TODO: Validate the params before sending
@@ -85,8 +65,8 @@ func (a *Client) GetAccountRoutings(params *GetAccountRoutingsParams) (*GetAccou
 		ID:                 "GetAccountRoutings",
 		Method:             "GET",
 		PathPattern:        "/account_routings",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetAccountRoutingsReader{formats: a.formats},
@@ -96,18 +76,12 @@ func (a *Client) GetAccountRoutings(params *GetAccountRoutingsParams) (*GetAccou
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetAccountRoutingsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetAccountRoutings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*GetAccountRoutingsOK), nil
+
 }
 
 /*
-  GetAccountRoutingsID fetches account routing
+GetAccountRoutingsID fetches account routing
 */
 func (a *Client) GetAccountRoutingsID(params *GetAccountRoutingsIDParams) (*GetAccountRoutingsIDOK, error) {
 	// TODO: Validate the params before sending
@@ -119,8 +93,8 @@ func (a *Client) GetAccountRoutingsID(params *GetAccountRoutingsIDParams) (*GetA
 		ID:                 "GetAccountRoutingsID",
 		Method:             "GET",
 		PathPattern:        "/account_routings/{id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetAccountRoutingsIDReader{formats: a.formats},
@@ -130,18 +104,12 @@ func (a *Client) GetAccountRoutingsID(params *GetAccountRoutingsIDParams) (*GetA
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetAccountRoutingsIDOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetAccountRoutingsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*GetAccountRoutingsIDOK), nil
+
 }
 
 /*
-  PostAccountRoutings creates an account routing entry
+PostAccountRoutings creates an account routing entry
 */
 func (a *Client) PostAccountRoutings(params *PostAccountRoutingsParams) (*PostAccountRoutingsCreated, error) {
 	// TODO: Validate the params before sending
@@ -153,7 +121,7 @@ func (a *Client) PostAccountRoutings(params *PostAccountRoutingsParams) (*PostAc
 		ID:                 "PostAccountRoutings",
 		Method:             "POST",
 		PathPattern:        "/account_routings",
-		ProducesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -164,14 +132,8 @@ func (a *Client) PostAccountRoutings(params *PostAccountRoutingsParams) (*PostAc
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*PostAccountRoutingsCreated)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PostAccountRoutings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*PostAccountRoutingsCreated), nil
+
 }
 
 // SetTransport changes the transport on the client

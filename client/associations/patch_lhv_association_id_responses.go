@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PatchLhvAssociationIDReader is a Reader for the PatchLhvAssociationID structure.
@@ -23,54 +24,63 @@ type PatchLhvAssociationIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PatchLhvAssociationIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 200:
 		result := NewPatchLhvAssociationIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewPatchLhvAssociationIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewPatchLhvAssociationIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewPatchLhvAssociationIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewPatchLhvAssociationIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewPatchLhvAssociationIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewPatchLhvAssociationIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewPatchLhvAssociationIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewPatchLhvAssociationIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type PatchLhvAssociationIDOK struct {
 
 func (o *PatchLhvAssociationIDOK) Error() string {
 	return fmt.Sprintf("[PATCH /lhv/{associationId}][%d] patchLhvAssociationIdOK  %+v", 200, o.Payload)
-}
-
-func (o *PatchLhvAssociationIDOK) GetPayload() *models.LhvAssociationDetailsResponse {
-	return o.Payload
 }
 
 func (o *PatchLhvAssociationIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *PatchLhvAssociationIDBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /lhv/{associationId}][%d] patchLhvAssociationIdBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *PatchLhvAssociationIDBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PatchLhvAssociationIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type PatchLhvAssociationIDUnauthorized struct {
 
 func (o *PatchLhvAssociationIDUnauthorized) Error() string {
 	return fmt.Sprintf("[PATCH /lhv/{associationId}][%d] patchLhvAssociationIdUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *PatchLhvAssociationIDUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PatchLhvAssociationIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *PatchLhvAssociationIDForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /lhv/{associationId}][%d] patchLhvAssociationIdForbidden  %+v", 403, o.Payload)
 }
 
-func (o *PatchLhvAssociationIDForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PatchLhvAssociationIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type PatchLhvAssociationIDNotFound struct {
 
 func (o *PatchLhvAssociationIDNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /lhv/{associationId}][%d] patchLhvAssociationIdNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PatchLhvAssociationIDNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PatchLhvAssociationIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *PatchLhvAssociationIDConflict) Error() string {
 	return fmt.Sprintf("[PATCH /lhv/{associationId}][%d] patchLhvAssociationIdConflict  %+v", 409, o.Payload)
 }
 
-func (o *PatchLhvAssociationIDConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PatchLhvAssociationIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type PatchLhvAssociationIDTooManyRequests struct {
 
 func (o *PatchLhvAssociationIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[PATCH /lhv/{associationId}][%d] patchLhvAssociationIdTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *PatchLhvAssociationIDTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PatchLhvAssociationIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *PatchLhvAssociationIDInternalServerError) Error() string {
 	return fmt.Sprintf("[PATCH /lhv/{associationId}][%d] patchLhvAssociationIdInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *PatchLhvAssociationIDInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PatchLhvAssociationIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type PatchLhvAssociationIDServiceUnavailable struct {
 
 func (o *PatchLhvAssociationIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[PATCH /lhv/{associationId}][%d] patchLhvAssociationIdServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *PatchLhvAssociationIDServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PatchLhvAssociationIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

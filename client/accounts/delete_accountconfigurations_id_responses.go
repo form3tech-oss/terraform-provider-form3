@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteAccountconfigurationsIDReader is a Reader for the DeleteAccountconfigurationsID structure.
@@ -23,54 +24,63 @@ type DeleteAccountconfigurationsIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteAccountconfigurationsIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 204:
 		result := NewDeleteAccountconfigurationsIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewDeleteAccountconfigurationsIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewDeleteAccountconfigurationsIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewDeleteAccountconfigurationsIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewDeleteAccountconfigurationsIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewDeleteAccountconfigurationsIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewDeleteAccountconfigurationsIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewDeleteAccountconfigurationsIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewDeleteAccountconfigurationsIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -121,10 +131,6 @@ func (o *DeleteAccountconfigurationsIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /accountconfigurations/{id}][%d] deleteAccountconfigurationsIdBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *DeleteAccountconfigurationsIDBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteAccountconfigurationsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -152,10 +158,6 @@ type DeleteAccountconfigurationsIDUnauthorized struct {
 
 func (o *DeleteAccountconfigurationsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /accountconfigurations/{id}][%d] deleteAccountconfigurationsIdUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *DeleteAccountconfigurationsIDUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteAccountconfigurationsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -187,10 +189,6 @@ func (o *DeleteAccountconfigurationsIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /accountconfigurations/{id}][%d] deleteAccountconfigurationsIdForbidden  %+v", 403, o.Payload)
 }
 
-func (o *DeleteAccountconfigurationsIDForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteAccountconfigurationsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -218,10 +216,6 @@ type DeleteAccountconfigurationsIDNotFound struct {
 
 func (o *DeleteAccountconfigurationsIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /accountconfigurations/{id}][%d] deleteAccountconfigurationsIdNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteAccountconfigurationsIDNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteAccountconfigurationsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -253,10 +247,6 @@ func (o *DeleteAccountconfigurationsIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /accountconfigurations/{id}][%d] deleteAccountconfigurationsIdConflict  %+v", 409, o.Payload)
 }
 
-func (o *DeleteAccountconfigurationsIDConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteAccountconfigurationsIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -284,10 +274,6 @@ type DeleteAccountconfigurationsIDTooManyRequests struct {
 
 func (o *DeleteAccountconfigurationsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /accountconfigurations/{id}][%d] deleteAccountconfigurationsIdTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *DeleteAccountconfigurationsIDTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteAccountconfigurationsIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -319,10 +305,6 @@ func (o *DeleteAccountconfigurationsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /accountconfigurations/{id}][%d] deleteAccountconfigurationsIdInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *DeleteAccountconfigurationsIDInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteAccountconfigurationsIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -350,10 +332,6 @@ type DeleteAccountconfigurationsIDServiceUnavailable struct {
 
 func (o *DeleteAccountconfigurationsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /accountconfigurations/{id}][%d] deleteAccountconfigurationsIdServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *DeleteAccountconfigurationsIDServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteAccountconfigurationsIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

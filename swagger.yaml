@@ -8659,6 +8659,11 @@ definitions:
         type: string
         x-nullable: false
         minLength: 1
+      use_simulator:
+        type: boolean
+        x-nullable: false
+        default: false
+
 
   LhvUpdateAssociation:
     type: object
@@ -8698,6 +8703,9 @@ definitions:
       client_country:
         type: string
         minLength: 1
+      use_simulator:
+        type: boolean
+        x-nullable: true
 
 
   LhvAssociationCreation:

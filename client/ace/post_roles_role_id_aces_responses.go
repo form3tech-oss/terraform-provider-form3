@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostRolesRoleIDAcesReader is a Reader for the PostRolesRoleIDAces structure.
@@ -23,54 +24,63 @@ type PostRolesRoleIDAcesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostRolesRoleIDAcesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 201:
 		result := NewPostRolesRoleIDAcesCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewPostRolesRoleIDAcesBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewPostRolesRoleIDAcesUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewPostRolesRoleIDAcesForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewPostRolesRoleIDAcesNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewPostRolesRoleIDAcesConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewPostRolesRoleIDAcesTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewPostRolesRoleIDAcesInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewPostRolesRoleIDAcesServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type PostRolesRoleIDAcesCreated struct {
 
 func (o *PostRolesRoleIDAcesCreated) Error() string {
 	return fmt.Sprintf("[POST /roles/{role_id}/aces][%d] postRolesRoleIdAcesCreated  %+v", 201, o.Payload)
-}
-
-func (o *PostRolesRoleIDAcesCreated) GetPayload() *models.AceCreationResponse {
-	return o.Payload
 }
 
 func (o *PostRolesRoleIDAcesCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *PostRolesRoleIDAcesBadRequest) Error() string {
 	return fmt.Sprintf("[POST /roles/{role_id}/aces][%d] postRolesRoleIdAcesBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *PostRolesRoleIDAcesBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostRolesRoleIDAcesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type PostRolesRoleIDAcesUnauthorized struct {
 
 func (o *PostRolesRoleIDAcesUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /roles/{role_id}/aces][%d] postRolesRoleIdAcesUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *PostRolesRoleIDAcesUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostRolesRoleIDAcesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *PostRolesRoleIDAcesForbidden) Error() string {
 	return fmt.Sprintf("[POST /roles/{role_id}/aces][%d] postRolesRoleIdAcesForbidden  %+v", 403, o.Payload)
 }
 
-func (o *PostRolesRoleIDAcesForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostRolesRoleIDAcesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type PostRolesRoleIDAcesNotFound struct {
 
 func (o *PostRolesRoleIDAcesNotFound) Error() string {
 	return fmt.Sprintf("[POST /roles/{role_id}/aces][%d] postRolesRoleIdAcesNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PostRolesRoleIDAcesNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostRolesRoleIDAcesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *PostRolesRoleIDAcesConflict) Error() string {
 	return fmt.Sprintf("[POST /roles/{role_id}/aces][%d] postRolesRoleIdAcesConflict  %+v", 409, o.Payload)
 }
 
-func (o *PostRolesRoleIDAcesConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostRolesRoleIDAcesConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type PostRolesRoleIDAcesTooManyRequests struct {
 
 func (o *PostRolesRoleIDAcesTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /roles/{role_id}/aces][%d] postRolesRoleIdAcesTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *PostRolesRoleIDAcesTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostRolesRoleIDAcesTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *PostRolesRoleIDAcesInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /roles/{role_id}/aces][%d] postRolesRoleIdAcesInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *PostRolesRoleIDAcesInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostRolesRoleIDAcesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type PostRolesRoleIDAcesServiceUnavailable struct {
 
 func (o *PostRolesRoleIDAcesServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /roles/{role_id}/aces][%d] postRolesRoleIdAcesServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *PostRolesRoleIDAcesServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostRolesRoleIDAcesServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

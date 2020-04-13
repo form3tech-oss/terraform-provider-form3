@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteKeysKeyIDCertificatesCertificateIDReader is a Reader for the DeleteKeysKeyIDCertificatesCertificateID structure.
@@ -23,54 +24,63 @@ type DeleteKeysKeyIDCertificatesCertificateIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteKeysKeyIDCertificatesCertificateIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 204:
 		result := NewDeleteKeysKeyIDCertificatesCertificateIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewDeleteKeysKeyIDCertificatesCertificateIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewDeleteKeysKeyIDCertificatesCertificateIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewDeleteKeysKeyIDCertificatesCertificateIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewDeleteKeysKeyIDCertificatesCertificateIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewDeleteKeysKeyIDCertificatesCertificateIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewDeleteKeysKeyIDCertificatesCertificateIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewDeleteKeysKeyIDCertificatesCertificateIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewDeleteKeysKeyIDCertificatesCertificateIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -121,10 +131,6 @@ func (o *DeleteKeysKeyIDCertificatesCertificateIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}/certificates/{certificate_id}][%d] deleteKeysKeyIdCertificatesCertificateIdBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *DeleteKeysKeyIDCertificatesCertificateIDBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteKeysKeyIDCertificatesCertificateIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -152,10 +158,6 @@ type DeleteKeysKeyIDCertificatesCertificateIDUnauthorized struct {
 
 func (o *DeleteKeysKeyIDCertificatesCertificateIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}/certificates/{certificate_id}][%d] deleteKeysKeyIdCertificatesCertificateIdUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *DeleteKeysKeyIDCertificatesCertificateIDUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteKeysKeyIDCertificatesCertificateIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -187,10 +189,6 @@ func (o *DeleteKeysKeyIDCertificatesCertificateIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}/certificates/{certificate_id}][%d] deleteKeysKeyIdCertificatesCertificateIdForbidden  %+v", 403, o.Payload)
 }
 
-func (o *DeleteKeysKeyIDCertificatesCertificateIDForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteKeysKeyIDCertificatesCertificateIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -218,10 +216,6 @@ type DeleteKeysKeyIDCertificatesCertificateIDNotFound struct {
 
 func (o *DeleteKeysKeyIDCertificatesCertificateIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}/certificates/{certificate_id}][%d] deleteKeysKeyIdCertificatesCertificateIdNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteKeysKeyIDCertificatesCertificateIDNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteKeysKeyIDCertificatesCertificateIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -253,10 +247,6 @@ func (o *DeleteKeysKeyIDCertificatesCertificateIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}/certificates/{certificate_id}][%d] deleteKeysKeyIdCertificatesCertificateIdConflict  %+v", 409, o.Payload)
 }
 
-func (o *DeleteKeysKeyIDCertificatesCertificateIDConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteKeysKeyIDCertificatesCertificateIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -284,10 +274,6 @@ type DeleteKeysKeyIDCertificatesCertificateIDTooManyRequests struct {
 
 func (o *DeleteKeysKeyIDCertificatesCertificateIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}/certificates/{certificate_id}][%d] deleteKeysKeyIdCertificatesCertificateIdTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *DeleteKeysKeyIDCertificatesCertificateIDTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteKeysKeyIDCertificatesCertificateIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -319,10 +305,6 @@ func (o *DeleteKeysKeyIDCertificatesCertificateIDInternalServerError) Error() st
 	return fmt.Sprintf("[DELETE /keys/{key_id}/certificates/{certificate_id}][%d] deleteKeysKeyIdCertificatesCertificateIdInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *DeleteKeysKeyIDCertificatesCertificateIDInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteKeysKeyIDCertificatesCertificateIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -350,10 +332,6 @@ type DeleteKeysKeyIDCertificatesCertificateIDServiceUnavailable struct {
 
 func (o *DeleteKeysKeyIDCertificatesCertificateIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}/certificates/{certificate_id}][%d] deleteKeysKeyIdCertificatesCertificateIdServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *DeleteKeysKeyIDCertificatesCertificateIDServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteKeysKeyIDCertificatesCertificateIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

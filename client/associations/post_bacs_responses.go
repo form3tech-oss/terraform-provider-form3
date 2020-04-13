@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostBacsReader is a Reader for the PostBacs structure.
@@ -23,54 +24,63 @@ type PostBacsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostBacsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 201:
 		result := NewPostBacsCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewPostBacsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewPostBacsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewPostBacsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewPostBacsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewPostBacsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewPostBacsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewPostBacsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewPostBacsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type PostBacsCreated struct {
 
 func (o *PostBacsCreated) Error() string {
 	return fmt.Sprintf("[POST /bacs][%d] postBacsCreated  %+v", 201, o.Payload)
-}
-
-func (o *PostBacsCreated) GetPayload() *models.BacsAssociationCreationResponse {
-	return o.Payload
 }
 
 func (o *PostBacsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *PostBacsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /bacs][%d] postBacsBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *PostBacsBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostBacsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type PostBacsUnauthorized struct {
 
 func (o *PostBacsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /bacs][%d] postBacsUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *PostBacsUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostBacsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *PostBacsForbidden) Error() string {
 	return fmt.Sprintf("[POST /bacs][%d] postBacsForbidden  %+v", 403, o.Payload)
 }
 
-func (o *PostBacsForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostBacsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type PostBacsNotFound struct {
 
 func (o *PostBacsNotFound) Error() string {
 	return fmt.Sprintf("[POST /bacs][%d] postBacsNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PostBacsNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostBacsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *PostBacsConflict) Error() string {
 	return fmt.Sprintf("[POST /bacs][%d] postBacsConflict  %+v", 409, o.Payload)
 }
 
-func (o *PostBacsConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostBacsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type PostBacsTooManyRequests struct {
 
 func (o *PostBacsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /bacs][%d] postBacsTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *PostBacsTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostBacsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *PostBacsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /bacs][%d] postBacsInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *PostBacsInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostBacsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type PostBacsServiceUnavailable struct {
 
 func (o *PostBacsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /bacs][%d] postBacsServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *PostBacsServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostBacsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

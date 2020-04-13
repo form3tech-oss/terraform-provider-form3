@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PatchPaymentsIDSubmissionsSubmissionIDReader is a Reader for the PatchPaymentsIDSubmissionsSubmissionID structure.
@@ -23,54 +24,63 @@ type PatchPaymentsIDSubmissionsSubmissionIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PatchPaymentsIDSubmissionsSubmissionIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 200:
 		result := NewPatchPaymentsIDSubmissionsSubmissionIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewPatchPaymentsIDSubmissionsSubmissionIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewPatchPaymentsIDSubmissionsSubmissionIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewPatchPaymentsIDSubmissionsSubmissionIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewPatchPaymentsIDSubmissionsSubmissionIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewPatchPaymentsIDSubmissionsSubmissionIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewPatchPaymentsIDSubmissionsSubmissionIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewPatchPaymentsIDSubmissionsSubmissionIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewPatchPaymentsIDSubmissionsSubmissionIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type PatchPaymentsIDSubmissionsSubmissionIDOK struct {
 
 func (o *PatchPaymentsIDSubmissionsSubmissionIDOK) Error() string {
 	return fmt.Sprintf("[PATCH /payments/{id}/submissions/{submissionId}][%d] patchPaymentsIdSubmissionsSubmissionIdOK  %+v", 200, o.Payload)
-}
-
-func (o *PatchPaymentsIDSubmissionsSubmissionIDOK) GetPayload() *models.PaymentSubmissionDetailsResponse {
-	return o.Payload
 }
 
 func (o *PatchPaymentsIDSubmissionsSubmissionIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *PatchPaymentsIDSubmissionsSubmissionIDBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /payments/{id}/submissions/{submissionId}][%d] patchPaymentsIdSubmissionsSubmissionIdBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *PatchPaymentsIDSubmissionsSubmissionIDBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PatchPaymentsIDSubmissionsSubmissionIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type PatchPaymentsIDSubmissionsSubmissionIDUnauthorized struct {
 
 func (o *PatchPaymentsIDSubmissionsSubmissionIDUnauthorized) Error() string {
 	return fmt.Sprintf("[PATCH /payments/{id}/submissions/{submissionId}][%d] patchPaymentsIdSubmissionsSubmissionIdUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *PatchPaymentsIDSubmissionsSubmissionIDUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PatchPaymentsIDSubmissionsSubmissionIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *PatchPaymentsIDSubmissionsSubmissionIDForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /payments/{id}/submissions/{submissionId}][%d] patchPaymentsIdSubmissionsSubmissionIdForbidden  %+v", 403, o.Payload)
 }
 
-func (o *PatchPaymentsIDSubmissionsSubmissionIDForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PatchPaymentsIDSubmissionsSubmissionIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type PatchPaymentsIDSubmissionsSubmissionIDNotFound struct {
 
 func (o *PatchPaymentsIDSubmissionsSubmissionIDNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /payments/{id}/submissions/{submissionId}][%d] patchPaymentsIdSubmissionsSubmissionIdNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PatchPaymentsIDSubmissionsSubmissionIDNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PatchPaymentsIDSubmissionsSubmissionIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *PatchPaymentsIDSubmissionsSubmissionIDConflict) Error() string {
 	return fmt.Sprintf("[PATCH /payments/{id}/submissions/{submissionId}][%d] patchPaymentsIdSubmissionsSubmissionIdConflict  %+v", 409, o.Payload)
 }
 
-func (o *PatchPaymentsIDSubmissionsSubmissionIDConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PatchPaymentsIDSubmissionsSubmissionIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type PatchPaymentsIDSubmissionsSubmissionIDTooManyRequests struct {
 
 func (o *PatchPaymentsIDSubmissionsSubmissionIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[PATCH /payments/{id}/submissions/{submissionId}][%d] patchPaymentsIdSubmissionsSubmissionIdTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *PatchPaymentsIDSubmissionsSubmissionIDTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PatchPaymentsIDSubmissionsSubmissionIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *PatchPaymentsIDSubmissionsSubmissionIDInternalServerError) Error() stri
 	return fmt.Sprintf("[PATCH /payments/{id}/submissions/{submissionId}][%d] patchPaymentsIdSubmissionsSubmissionIdInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *PatchPaymentsIDSubmissionsSubmissionIDInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PatchPaymentsIDSubmissionsSubmissionIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type PatchPaymentsIDSubmissionsSubmissionIDServiceUnavailable struct {
 
 func (o *PatchPaymentsIDSubmissionsSubmissionIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[PATCH /payments/{id}/submissions/{submissionId}][%d] patchPaymentsIdSubmissionsSubmissionIdServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *PatchPaymentsIDSubmissionsSubmissionIDServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PatchPaymentsIDSubmissionsSubmissionIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

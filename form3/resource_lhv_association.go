@@ -44,6 +44,11 @@ func resourceForm3LhvAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: false,
 			},
+			"use_simulator": {
+				Type:     schema.TypeBool,
+				Optional: true,
+				ForceNew: true,
+			},
 		},
 	}
 }
@@ -173,7 +178,9 @@ func createLhvNewAssociationFromResourceData(d *schema.ResourceData) (*models.Ne
 	if attr, ok := d.GetOk("client_country"); ok {
 		association.Attributes.ClientCountry = attr.(string)
 	}
-
+	if attr, ok := d.GetOk("use_simulator"); ok {
+		association.Attributes.UseSimulator = attr.(bool)
+	}
 	return &association, nil
 }
 
@@ -202,6 +209,9 @@ func createLhvUpdateAssociationFromResourceData(d *schema.ResourceData) (*models
 	if attr, ok := d.GetOk("client_country"); ok {
 		association.Attributes.ClientCountry = attr.(string)
 	}
-
+	if attr, ok := d.GetOk("use_simulator"); ok {
+		res := attr.(bool)
+		association.Attributes.UseSimulator = &res
+	}
 	return &association, nil
 }

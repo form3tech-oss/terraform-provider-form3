@@ -8,13 +8,13 @@ package models
 import (
 	"strconv"
 
+	strfmt "github.com/go-openapi/strfmt"
+
 	"github.com/go-openapi/errors"
-	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // BankIDDetailsListResponse bank Id details list response
-//
 // swagger:model BankIdDetailsListResponse
 type BankIDDetailsListResponse struct {
 
