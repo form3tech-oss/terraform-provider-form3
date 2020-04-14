@@ -96,6 +96,7 @@ func TestAccBacsAssociation_withBankIdAndCentre(t *testing.T) {
 	var bacsResponse associations.GetBacsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.NewV4().String()
+	associationId := uuid.NewV4().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -103,7 +104,7 @@ func TestAccBacsAssociation_withBankIdAndCentre(t *testing.T) {
 		CheckDestroy: testAccCheckBacsAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3BacsAssociationConfigWithBankIdAndCentre, organisationId, parentOrganisationId),
+				Config: fmt.Sprintf(testForm3BacsAssociationConfigWithBankIdAndCentre, organisationId, parentOrganisationId, associationId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBacsAssociationExists("form3_bacs_association.association", &bacsResponse),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "bank_code", "1234"),
@@ -259,7 +260,7 @@ resource "form3_organisation" "organisation" {
 
 resource "form3_bacs_association" "association" {
 	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
-	association_id                   = "ba2283f5-e194-4e12-ac8d-ae9bb08eeeee"
+	association_id                   = "%s"
 	service_user_number              = "112233"
     account_number                   = "87654321"
     sorting_code                     = "654321"
