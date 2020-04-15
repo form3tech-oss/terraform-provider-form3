@@ -144,6 +144,7 @@ resource "form3_lhv_master_account" "master_account" {
 	master_account_id       = "${local.masterAccountId}"
 	iban                    = "${local.iban}"
 	bic                     = "${local.bic}"
+	bank_id                 = "${form3_bank_id.bank_id.bank_id}"
 	country                 = "GB"
 	requires_direct_account = false
 }
