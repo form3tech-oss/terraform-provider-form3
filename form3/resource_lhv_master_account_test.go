@@ -147,5 +147,11 @@ resource "form3_lhv_master_account" "master_account" {
 	bank_id                 = "${form3_bank_id.bank_id.bank_id}"
 	country                 = "GB"
 	requires_direct_account = false
+
+	lifecycle {
+		ignore_changes = [
+			bank_id
+		]
+	}
 }
 `
