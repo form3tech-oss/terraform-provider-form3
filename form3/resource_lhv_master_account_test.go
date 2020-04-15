@@ -39,7 +39,7 @@ func TestAccLhvMasterAccount_basic(t *testing.T) {
 					//resource.TestCheckResourceAttr("form3_lhv_master_account.master_account", "bank_id", "999999"),
 					resource.TestCheckResourceAttr("form3_lhv_master_account.master_account", "iban", iban),
 					resource.TestCheckResourceAttr("form3_lhv_master_account.master_account", "bic", bic),
-					resource.TestCheckResourceAttr("form3_lhv_master_account.master_account", "country", "UK"),
+					resource.TestCheckResourceAttr("form3_lhv_master_account.master_account", "country", "GB"),
 					resource.TestCheckResourceAttr("form3_lhv_master_account.master_account", "requires_direct_account", "false"),
 				),
 			},
@@ -121,7 +121,7 @@ resource "form3_lhv_association" "association" {
 	association_id  = "${local.associationId}"
 	name            = "terraform-association"
 	client_code     = "${local.clientCode}"
-	client_country  = "UK"
+	client_country  = "GB"
 }
 
 resource "form3_bic" "bic" {
@@ -135,7 +135,7 @@ resource "form3_bank_id" "bank_id" {
 	bank_resource_id = "${local.bankid_id}"
 	bank_id       	 = "999999"
 	bank_id_code     = "GBDSC"
-	country          = "UK"
+	country          = "GB"
 }
 
 resource "form3_lhv_master_account" "master_account" {
