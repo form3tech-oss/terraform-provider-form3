@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostGocardlessReader is a Reader for the PostGocardless structure.
@@ -24,63 +23,54 @@ type PostGocardlessReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostGocardlessReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostGocardlessCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewPostGocardlessBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewPostGocardlessUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewPostGocardlessForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewPostGocardlessNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewPostGocardlessConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewPostGocardlessTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewPostGocardlessInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewPostGocardlessServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type PostGocardlessCreated struct {
 
 func (o *PostGocardlessCreated) Error() string {
 	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessCreated  %+v", 201, o.Payload)
+}
+
+func (o *PostGocardlessCreated) GetPayload() *models.GocardlessAssociationCreationResponse {
+	return o.Payload
 }
 
 func (o *PostGocardlessCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *PostGocardlessBadRequest) Error() string {
 	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *PostGocardlessBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostGocardlessBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type PostGocardlessUnauthorized struct {
 
 func (o *PostGocardlessUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostGocardlessUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostGocardlessUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *PostGocardlessForbidden) Error() string {
 	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessForbidden  %+v", 403, o.Payload)
 }
 
+func (o *PostGocardlessForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostGocardlessForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type PostGocardlessNotFound struct {
 
 func (o *PostGocardlessNotFound) Error() string {
 	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostGocardlessNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostGocardlessNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *PostGocardlessConflict) Error() string {
 	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessConflict  %+v", 409, o.Payload)
 }
 
+func (o *PostGocardlessConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostGocardlessConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type PostGocardlessTooManyRequests struct {
 
 func (o *PostGocardlessTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostGocardlessTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostGocardlessTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *PostGocardlessInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *PostGocardlessInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostGocardlessInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type PostGocardlessServiceUnavailable struct {
 
 func (o *PostGocardlessServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostGocardlessServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostGocardlessServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

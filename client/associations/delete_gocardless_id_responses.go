@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteGocardlessIDReader is a Reader for the DeleteGocardlessID structure.
@@ -24,63 +23,54 @@ type DeleteGocardlessIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteGocardlessIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewDeleteGocardlessIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewDeleteGocardlessIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewDeleteGocardlessIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewDeleteGocardlessIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewDeleteGocardlessIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewDeleteGocardlessIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewDeleteGocardlessIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewDeleteGocardlessIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewDeleteGocardlessIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -131,6 +121,10 @@ func (o *DeleteGocardlessIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /gocardless/{id}][%d] deleteGocardlessIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *DeleteGocardlessIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteGocardlessIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -158,6 +152,10 @@ type DeleteGocardlessIDUnauthorized struct {
 
 func (o *DeleteGocardlessIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /gocardless/{id}][%d] deleteGocardlessIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *DeleteGocardlessIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteGocardlessIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -189,6 +187,10 @@ func (o *DeleteGocardlessIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /gocardless/{id}][%d] deleteGocardlessIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *DeleteGocardlessIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteGocardlessIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -216,6 +218,10 @@ type DeleteGocardlessIDNotFound struct {
 
 func (o *DeleteGocardlessIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /gocardless/{id}][%d] deleteGocardlessIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteGocardlessIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteGocardlessIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -247,6 +253,10 @@ func (o *DeleteGocardlessIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /gocardless/{id}][%d] deleteGocardlessIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *DeleteGocardlessIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteGocardlessIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -274,6 +284,10 @@ type DeleteGocardlessIDTooManyRequests struct {
 
 func (o *DeleteGocardlessIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /gocardless/{id}][%d] deleteGocardlessIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *DeleteGocardlessIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteGocardlessIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -305,6 +319,10 @@ func (o *DeleteGocardlessIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /gocardless/{id}][%d] deleteGocardlessIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *DeleteGocardlessIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteGocardlessIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -332,6 +350,10 @@ type DeleteGocardlessIDServiceUnavailable struct {
 
 func (o *DeleteGocardlessIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /gocardless/{id}][%d] deleteGocardlessIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *DeleteGocardlessIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteGocardlessIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

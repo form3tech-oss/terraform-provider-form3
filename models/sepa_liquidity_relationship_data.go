@@ -8,14 +8,14 @@ package models
 import (
 	"encoding/json"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // SepaLiquidityRelationshipData sepa liquidity relationship data
+//
 // swagger:model SepaLiquidityRelationshipData
 type SepaLiquidityRelationshipData struct {
 

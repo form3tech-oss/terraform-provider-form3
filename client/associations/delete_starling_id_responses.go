@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteStarlingIDReader is a Reader for the DeleteStarlingID structure.
@@ -24,63 +23,54 @@ type DeleteStarlingIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteStarlingIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewDeleteStarlingIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewDeleteStarlingIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewDeleteStarlingIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewDeleteStarlingIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewDeleteStarlingIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewDeleteStarlingIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewDeleteStarlingIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewDeleteStarlingIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewDeleteStarlingIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -131,6 +121,10 @@ func (o *DeleteStarlingIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /starling/{id}][%d] deleteStarlingIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *DeleteStarlingIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteStarlingIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -158,6 +152,10 @@ type DeleteStarlingIDUnauthorized struct {
 
 func (o *DeleteStarlingIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /starling/{id}][%d] deleteStarlingIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *DeleteStarlingIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteStarlingIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -189,6 +187,10 @@ func (o *DeleteStarlingIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /starling/{id}][%d] deleteStarlingIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *DeleteStarlingIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteStarlingIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -216,6 +218,10 @@ type DeleteStarlingIDNotFound struct {
 
 func (o *DeleteStarlingIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /starling/{id}][%d] deleteStarlingIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteStarlingIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteStarlingIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -247,6 +253,10 @@ func (o *DeleteStarlingIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /starling/{id}][%d] deleteStarlingIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *DeleteStarlingIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteStarlingIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -274,6 +284,10 @@ type DeleteStarlingIDTooManyRequests struct {
 
 func (o *DeleteStarlingIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /starling/{id}][%d] deleteStarlingIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *DeleteStarlingIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteStarlingIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -305,6 +319,10 @@ func (o *DeleteStarlingIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /starling/{id}][%d] deleteStarlingIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *DeleteStarlingIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteStarlingIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -332,6 +350,10 @@ type DeleteStarlingIDServiceUnavailable struct {
 
 func (o *DeleteStarlingIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /starling/{id}][%d] deleteStarlingIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *DeleteStarlingIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteStarlingIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

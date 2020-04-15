@@ -6,14 +6,14 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // PaymentAdmission payment admission
+//
 // swagger:model PaymentAdmission
 type PaymentAdmission struct {
 
@@ -183,6 +183,7 @@ func (m *PaymentAdmission) UnmarshalBinary(b []byte) error {
 }
 
 // PaymentAdmissionAttributes payment admission attributes
+//
 // swagger:model PaymentAdmissionAttributes
 type PaymentAdmissionAttributes struct {
 
@@ -329,6 +330,7 @@ func (m *PaymentAdmissionAttributes) UnmarshalBinary(b []byte) error {
 }
 
 // PaymentAdmissionRelationships payment admission relationships
+//
 // swagger:model PaymentAdmissionRelationships
 type PaymentAdmissionRelationships struct {
 

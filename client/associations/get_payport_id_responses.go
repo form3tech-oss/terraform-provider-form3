@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetPayportIDReader is a Reader for the GetPayportID structure.
@@ -24,63 +23,54 @@ type GetPayportIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetPayportIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetPayportIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetPayportIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetPayportIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetPayportIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetPayportIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetPayportIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetPayportIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetPayportIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetPayportIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetPayportIDOK struct {
 
 func (o *GetPayportIDOK) Error() string {
 	return fmt.Sprintf("[GET /payport/{id}][%d] getPayportIdOK  %+v", 200, o.Payload)
+}
+
+func (o *GetPayportIDOK) GetPayload() *models.PayportAssociationDetailsResponse {
+	return o.Payload
 }
 
 func (o *GetPayportIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetPayportIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /payport/{id}][%d] getPayportIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetPayportIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetPayportIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetPayportIDUnauthorized struct {
 
 func (o *GetPayportIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /payport/{id}][%d] getPayportIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetPayportIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetPayportIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetPayportIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /payport/{id}][%d] getPayportIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetPayportIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetPayportIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetPayportIDNotFound struct {
 
 func (o *GetPayportIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /payport/{id}][%d] getPayportIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetPayportIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetPayportIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetPayportIDConflict) Error() string {
 	return fmt.Sprintf("[GET /payport/{id}][%d] getPayportIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetPayportIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetPayportIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetPayportIDTooManyRequests struct {
 
 func (o *GetPayportIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /payport/{id}][%d] getPayportIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetPayportIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetPayportIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetPayportIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /payport/{id}][%d] getPayportIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetPayportIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetPayportIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetPayportIDServiceUnavailable struct {
 
 func (o *GetPayportIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /payport/{id}][%d] getPayportIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetPayportIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetPayportIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteSepaReconciliationIDReader is a Reader for the DeleteSepaReconciliationID structure.
@@ -24,63 +23,54 @@ type DeleteSepaReconciliationIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteSepaReconciliationIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewDeleteSepaReconciliationIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewDeleteSepaReconciliationIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewDeleteSepaReconciliationIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewDeleteSepaReconciliationIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewDeleteSepaReconciliationIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewDeleteSepaReconciliationIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewDeleteSepaReconciliationIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewDeleteSepaReconciliationIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewDeleteSepaReconciliationIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -131,6 +121,10 @@ func (o *DeleteSepaReconciliationIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /sepa-reconciliation/{id}][%d] deleteSepaReconciliationIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *DeleteSepaReconciliationIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteSepaReconciliationIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -158,6 +152,10 @@ type DeleteSepaReconciliationIDUnauthorized struct {
 
 func (o *DeleteSepaReconciliationIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /sepa-reconciliation/{id}][%d] deleteSepaReconciliationIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *DeleteSepaReconciliationIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteSepaReconciliationIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -189,6 +187,10 @@ func (o *DeleteSepaReconciliationIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /sepa-reconciliation/{id}][%d] deleteSepaReconciliationIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *DeleteSepaReconciliationIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteSepaReconciliationIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -216,6 +218,10 @@ type DeleteSepaReconciliationIDNotFound struct {
 
 func (o *DeleteSepaReconciliationIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /sepa-reconciliation/{id}][%d] deleteSepaReconciliationIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteSepaReconciliationIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteSepaReconciliationIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -247,6 +253,10 @@ func (o *DeleteSepaReconciliationIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /sepa-reconciliation/{id}][%d] deleteSepaReconciliationIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *DeleteSepaReconciliationIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteSepaReconciliationIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -274,6 +284,10 @@ type DeleteSepaReconciliationIDTooManyRequests struct {
 
 func (o *DeleteSepaReconciliationIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /sepa-reconciliation/{id}][%d] deleteSepaReconciliationIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *DeleteSepaReconciliationIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteSepaReconciliationIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -305,6 +319,10 @@ func (o *DeleteSepaReconciliationIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /sepa-reconciliation/{id}][%d] deleteSepaReconciliationIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *DeleteSepaReconciliationIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteSepaReconciliationIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -332,6 +350,10 @@ type DeleteSepaReconciliationIDServiceUnavailable struct {
 
 func (o *DeleteSepaReconciliationIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /sepa-reconciliation/{id}][%d] deleteSepaReconciliationIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *DeleteSepaReconciliationIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteSepaReconciliationIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

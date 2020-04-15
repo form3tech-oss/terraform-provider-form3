@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetGocardlessIDReader is a Reader for the GetGocardlessID structure.
@@ -24,63 +23,54 @@ type GetGocardlessIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetGocardlessIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetGocardlessIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetGocardlessIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetGocardlessIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetGocardlessIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetGocardlessIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetGocardlessIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetGocardlessIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetGocardlessIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetGocardlessIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetGocardlessIDOK struct {
 
 func (o *GetGocardlessIDOK) Error() string {
 	return fmt.Sprintf("[GET /gocardless/{id}][%d] getGocardlessIdOK  %+v", 200, o.Payload)
+}
+
+func (o *GetGocardlessIDOK) GetPayload() *models.GocardlessAssociationResponse {
+	return o.Payload
 }
 
 func (o *GetGocardlessIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetGocardlessIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /gocardless/{id}][%d] getGocardlessIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetGocardlessIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetGocardlessIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetGocardlessIDUnauthorized struct {
 
 func (o *GetGocardlessIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /gocardless/{id}][%d] getGocardlessIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetGocardlessIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetGocardlessIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetGocardlessIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /gocardless/{id}][%d] getGocardlessIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetGocardlessIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetGocardlessIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetGocardlessIDNotFound struct {
 
 func (o *GetGocardlessIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /gocardless/{id}][%d] getGocardlessIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetGocardlessIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetGocardlessIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetGocardlessIDConflict) Error() string {
 	return fmt.Sprintf("[GET /gocardless/{id}][%d] getGocardlessIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetGocardlessIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetGocardlessIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetGocardlessIDTooManyRequests struct {
 
 func (o *GetGocardlessIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /gocardless/{id}][%d] getGocardlessIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetGocardlessIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetGocardlessIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetGocardlessIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /gocardless/{id}][%d] getGocardlessIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetGocardlessIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetGocardlessIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetGocardlessIDServiceUnavailable struct {
 
 func (o *GetGocardlessIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /gocardless/{id}][%d] getGocardlessIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetGocardlessIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetGocardlessIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

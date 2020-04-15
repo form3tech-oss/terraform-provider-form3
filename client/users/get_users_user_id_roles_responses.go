@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetUsersUserIDRolesReader is a Reader for the GetUsersUserIDRoles structure.
@@ -24,63 +23,54 @@ type GetUsersUserIDRolesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetUsersUserIDRolesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetUsersUserIDRolesOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetUsersUserIDRolesBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetUsersUserIDRolesUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetUsersUserIDRolesForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetUsersUserIDRolesNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetUsersUserIDRolesConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetUsersUserIDRolesTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetUsersUserIDRolesInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetUsersUserIDRolesServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetUsersUserIDRolesOK struct {
 
 func (o *GetUsersUserIDRolesOK) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/roles][%d] getUsersUserIdRolesOK  %+v", 200, o.Payload)
+}
+
+func (o *GetUsersUserIDRolesOK) GetPayload() *models.UserRoleListResponse {
+	return o.Payload
 }
 
 func (o *GetUsersUserIDRolesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetUsersUserIDRolesBadRequest) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/roles][%d] getUsersUserIdRolesBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetUsersUserIDRolesBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetUsersUserIDRolesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetUsersUserIDRolesUnauthorized struct {
 
 func (o *GetUsersUserIDRolesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/roles][%d] getUsersUserIdRolesUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetUsersUserIDRolesUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetUsersUserIDRolesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetUsersUserIDRolesForbidden) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/roles][%d] getUsersUserIdRolesForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetUsersUserIDRolesForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetUsersUserIDRolesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetUsersUserIDRolesNotFound struct {
 
 func (o *GetUsersUserIDRolesNotFound) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/roles][%d] getUsersUserIdRolesNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetUsersUserIDRolesNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetUsersUserIDRolesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetUsersUserIDRolesConflict) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/roles][%d] getUsersUserIdRolesConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetUsersUserIDRolesConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetUsersUserIDRolesConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetUsersUserIDRolesTooManyRequests struct {
 
 func (o *GetUsersUserIDRolesTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/roles][%d] getUsersUserIdRolesTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetUsersUserIDRolesTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetUsersUserIDRolesTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetUsersUserIDRolesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/roles][%d] getUsersUserIdRolesInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetUsersUserIDRolesInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetUsersUserIDRolesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetUsersUserIDRolesServiceUnavailable struct {
 
 func (o *GetUsersUserIDRolesServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/roles][%d] getUsersUserIdRolesServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetUsersUserIDRolesServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetUsersUserIDRolesServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

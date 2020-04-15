@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostKeysReader is a Reader for the PostKeys structure.
@@ -24,63 +23,54 @@ type PostKeysReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostKeysReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostKeysCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewPostKeysBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewPostKeysUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewPostKeysForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewPostKeysNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewPostKeysConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewPostKeysTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewPostKeysInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewPostKeysServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type PostKeysCreated struct {
 
 func (o *PostKeysCreated) Error() string {
 	return fmt.Sprintf("[POST /keys][%d] postKeysCreated  %+v", 201, o.Payload)
+}
+
+func (o *PostKeysCreated) GetPayload() *models.KeyCreationResponse {
+	return o.Payload
 }
 
 func (o *PostKeysCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *PostKeysBadRequest) Error() string {
 	return fmt.Sprintf("[POST /keys][%d] postKeysBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *PostKeysBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostKeysBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type PostKeysUnauthorized struct {
 
 func (o *PostKeysUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /keys][%d] postKeysUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostKeysUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostKeysUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *PostKeysForbidden) Error() string {
 	return fmt.Sprintf("[POST /keys][%d] postKeysForbidden  %+v", 403, o.Payload)
 }
 
+func (o *PostKeysForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostKeysForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type PostKeysNotFound struct {
 
 func (o *PostKeysNotFound) Error() string {
 	return fmt.Sprintf("[POST /keys][%d] postKeysNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostKeysNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostKeysNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *PostKeysConflict) Error() string {
 	return fmt.Sprintf("[POST /keys][%d] postKeysConflict  %+v", 409, o.Payload)
 }
 
+func (o *PostKeysConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostKeysConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type PostKeysTooManyRequests struct {
 
 func (o *PostKeysTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /keys][%d] postKeysTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostKeysTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostKeysTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *PostKeysInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /keys][%d] postKeysInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *PostKeysInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostKeysInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type PostKeysServiceUnavailable struct {
 
 func (o *PostKeysServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /keys][%d] postKeysServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostKeysServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostKeysServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostEburyReader is a Reader for the PostEbury structure.
@@ -24,63 +23,54 @@ type PostEburyReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostEburyReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostEburyCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewPostEburyBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewPostEburyUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewPostEburyForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewPostEburyNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewPostEburyConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewPostEburyTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewPostEburyInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewPostEburyServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type PostEburyCreated struct {
 
 func (o *PostEburyCreated) Error() string {
 	return fmt.Sprintf("[POST /ebury][%d] postEburyCreated  %+v", 201, o.Payload)
+}
+
+func (o *PostEburyCreated) GetPayload() *models.EburyAssociationCreationResponse {
+	return o.Payload
 }
 
 func (o *PostEburyCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *PostEburyBadRequest) Error() string {
 	return fmt.Sprintf("[POST /ebury][%d] postEburyBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *PostEburyBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostEburyBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type PostEburyUnauthorized struct {
 
 func (o *PostEburyUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /ebury][%d] postEburyUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostEburyUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostEburyUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *PostEburyForbidden) Error() string {
 	return fmt.Sprintf("[POST /ebury][%d] postEburyForbidden  %+v", 403, o.Payload)
 }
 
+func (o *PostEburyForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostEburyForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type PostEburyNotFound struct {
 
 func (o *PostEburyNotFound) Error() string {
 	return fmt.Sprintf("[POST /ebury][%d] postEburyNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostEburyNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostEburyNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *PostEburyConflict) Error() string {
 	return fmt.Sprintf("[POST /ebury][%d] postEburyConflict  %+v", 409, o.Payload)
 }
 
+func (o *PostEburyConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostEburyConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type PostEburyTooManyRequests struct {
 
 func (o *PostEburyTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /ebury][%d] postEburyTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostEburyTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostEburyTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *PostEburyInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /ebury][%d] postEburyInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *PostEburyInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostEburyInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type PostEburyServiceUnavailable struct {
 
 func (o *PostEburyServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /ebury][%d] postEburyServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostEburyServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostEburyServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

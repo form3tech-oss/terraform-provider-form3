@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostRolesReader is a Reader for the PostRoles structure.
@@ -24,63 +23,54 @@ type PostRolesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostRolesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostRolesCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewPostRolesBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewPostRolesUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewPostRolesForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewPostRolesNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewPostRolesConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewPostRolesTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewPostRolesInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewPostRolesServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type PostRolesCreated struct {
 
 func (o *PostRolesCreated) Error() string {
 	return fmt.Sprintf("[POST /roles][%d] postRolesCreated  %+v", 201, o.Payload)
+}
+
+func (o *PostRolesCreated) GetPayload() *models.RoleCreationResponse {
+	return o.Payload
 }
 
 func (o *PostRolesCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *PostRolesBadRequest) Error() string {
 	return fmt.Sprintf("[POST /roles][%d] postRolesBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *PostRolesBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostRolesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type PostRolesUnauthorized struct {
 
 func (o *PostRolesUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /roles][%d] postRolesUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostRolesUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostRolesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *PostRolesForbidden) Error() string {
 	return fmt.Sprintf("[POST /roles][%d] postRolesForbidden  %+v", 403, o.Payload)
 }
 
+func (o *PostRolesForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostRolesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type PostRolesNotFound struct {
 
 func (o *PostRolesNotFound) Error() string {
 	return fmt.Sprintf("[POST /roles][%d] postRolesNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostRolesNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostRolesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *PostRolesConflict) Error() string {
 	return fmt.Sprintf("[POST /roles][%d] postRolesConflict  %+v", 409, o.Payload)
 }
 
+func (o *PostRolesConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostRolesConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type PostRolesTooManyRequests struct {
 
 func (o *PostRolesTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /roles][%d] postRolesTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostRolesTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostRolesTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *PostRolesInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /roles][%d] postRolesInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *PostRolesInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostRolesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type PostRolesServiceUnavailable struct {
 
 func (o *PostRolesServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /roles][%d] postRolesServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostRolesServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostRolesServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

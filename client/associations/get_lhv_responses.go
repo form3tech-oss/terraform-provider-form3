@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetLhvReader is a Reader for the GetLhv structure.
@@ -24,63 +23,54 @@ type GetLhvReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetLhvReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetLhvOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetLhvBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetLhvUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetLhvForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetLhvNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetLhvConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetLhvTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetLhvInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetLhvServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetLhvOK struct {
 
 func (o *GetLhvOK) Error() string {
 	return fmt.Sprintf("[GET /lhv][%d] getLhvOK  %+v", 200, o.Payload)
+}
+
+func (o *GetLhvOK) GetPayload() *models.LhvAssociationDetailsListResponse {
+	return o.Payload
 }
 
 func (o *GetLhvOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetLhvBadRequest) Error() string {
 	return fmt.Sprintf("[GET /lhv][%d] getLhvBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetLhvBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetLhvBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetLhvUnauthorized struct {
 
 func (o *GetLhvUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /lhv][%d] getLhvUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetLhvUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetLhvUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetLhvForbidden) Error() string {
 	return fmt.Sprintf("[GET /lhv][%d] getLhvForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetLhvForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetLhvForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetLhvNotFound struct {
 
 func (o *GetLhvNotFound) Error() string {
 	return fmt.Sprintf("[GET /lhv][%d] getLhvNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetLhvNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetLhvNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetLhvConflict) Error() string {
 	return fmt.Sprintf("[GET /lhv][%d] getLhvConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetLhvConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetLhvConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetLhvTooManyRequests struct {
 
 func (o *GetLhvTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /lhv][%d] getLhvTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetLhvTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetLhvTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetLhvInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /lhv][%d] getLhvInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetLhvInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetLhvInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetLhvServiceUnavailable struct {
 
 func (o *GetLhvServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /lhv][%d] getLhvServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetLhvServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetLhvServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

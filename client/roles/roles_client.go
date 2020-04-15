@@ -6,13 +6,14 @@ package roles
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new roles API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +25,21 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	DeleteRolesRoleID(params *DeleteRolesRoleIDParams) (*DeleteRolesRoleIDNoContent, error)
+
+	GetRoles(params *GetRolesParams) (*GetRolesOK, error)
+
+	GetRolesRoleID(params *GetRolesRoleIDParams) (*GetRolesRoleIDOK, error)
+
+	PostRoles(params *PostRolesParams) (*PostRolesCreated, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-DeleteRolesRoleID deletes role
+  DeleteRolesRoleID deletes role
 */
 func (a *Client) DeleteRolesRoleID(params *DeleteRolesRoleIDParams) (*DeleteRolesRoleIDNoContent, error) {
 	// TODO: Validate the params before sending
@@ -37,8 +51,8 @@ func (a *Client) DeleteRolesRoleID(params *DeleteRolesRoleIDParams) (*DeleteRole
 		ID:                 "DeleteRolesRoleID",
 		Method:             "DELETE",
 		PathPattern:        "/roles/{role_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteRolesRoleIDReader{formats: a.formats},
@@ -48,12 +62,18 @@ func (a *Client) DeleteRolesRoleID(params *DeleteRolesRoleIDParams) (*DeleteRole
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteRolesRoleIDNoContent), nil
-
+	success, ok := result.(*DeleteRolesRoleIDNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteRolesRoleID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetRoles lists all roles
+  GetRoles lists all roles
 */
 func (a *Client) GetRoles(params *GetRolesParams) (*GetRolesOK, error) {
 	// TODO: Validate the params before sending
@@ -65,8 +85,8 @@ func (a *Client) GetRoles(params *GetRolesParams) (*GetRolesOK, error) {
 		ID:                 "GetRoles",
 		Method:             "GET",
 		PathPattern:        "/roles",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetRolesReader{formats: a.formats},
@@ -76,12 +96,18 @@ func (a *Client) GetRoles(params *GetRolesParams) (*GetRolesOK, error) {
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetRolesOK), nil
-
+	success, ok := result.(*GetRolesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetRoles: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetRolesRoleID fetches role
+  GetRolesRoleID fetches role
 */
 func (a *Client) GetRolesRoleID(params *GetRolesRoleIDParams) (*GetRolesRoleIDOK, error) {
 	// TODO: Validate the params before sending
@@ -93,8 +119,8 @@ func (a *Client) GetRolesRoleID(params *GetRolesRoleIDParams) (*GetRolesRoleIDOK
 		ID:                 "GetRolesRoleID",
 		Method:             "GET",
 		PathPattern:        "/roles/{role_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetRolesRoleIDReader{formats: a.formats},
@@ -104,12 +130,18 @@ func (a *Client) GetRolesRoleID(params *GetRolesRoleIDParams) (*GetRolesRoleIDOK
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetRolesRoleIDOK), nil
-
+	success, ok := result.(*GetRolesRoleIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetRolesRoleID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostRoles creates role
+  PostRoles creates role
 */
 func (a *Client) PostRoles(params *PostRolesParams) (*PostRolesCreated, error) {
 	// TODO: Validate the params before sending
@@ -121,7 +153,7 @@ func (a *Client) PostRoles(params *PostRolesParams) (*PostRolesCreated, error) {
 		ID:                 "PostRoles",
 		Method:             "POST",
 		PathPattern:        "/roles",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -132,8 +164,14 @@ func (a *Client) PostRoles(params *PostRolesParams) (*PostRolesCreated, error) {
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostRolesCreated), nil
-
+	success, ok := result.(*PostRolesCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostRoles: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

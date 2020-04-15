@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDReader is a Reader for the GetPaymentsIDReversalsReversalIDAdmissionsAdmissionID structure.
@@ -24,63 +23,54 @@ type GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDOK struct {
 
 func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDOK) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}/admissions/{admissionId}][%d] getPaymentsIdReversalsReversalIdAdmissionsAdmissionIdOK  %+v", 200, o.Payload)
+}
+
+func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDOK) GetPayload() *models.ReversalAdmissionDetailsResponse {
+	return o.Payload
 }
 
 func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDBadRequest) Error(
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}/admissions/{admissionId}][%d] getPaymentsIdReversalsReversalIdAdmissionsAdmissionIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDUnauthorized struct {
 
 func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}/admissions/{admissionId}][%d] getPaymentsIdReversalsReversalIdAdmissionsAdmissionIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDForbidden) Error()
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}/admissions/{admissionId}][%d] getPaymentsIdReversalsReversalIdAdmissionsAdmissionIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDNotFound struct {
 
 func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}/admissions/{admissionId}][%d] getPaymentsIdReversalsReversalIdAdmissionsAdmissionIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDConflict) Error() 
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}/admissions/{admissionId}][%d] getPaymentsIdReversalsReversalIdAdmissionsAdmissionIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDTooManyRequests struct
 
 func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}/admissions/{admissionId}][%d] getPaymentsIdReversalsReversalIdAdmissionsAdmissionIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDInternalServerErro
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}/admissions/{admissionId}][%d] getPaymentsIdReversalsReversalIdAdmissionsAdmissionIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDServiceUnavailable str
 
 func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}/admissions/{admissionId}][%d] getPaymentsIdReversalsReversalIdAdmissionsAdmissionIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

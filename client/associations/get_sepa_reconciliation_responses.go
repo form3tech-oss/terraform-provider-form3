@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetSepaReconciliationReader is a Reader for the GetSepaReconciliation structure.
@@ -24,63 +23,54 @@ type GetSepaReconciliationReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetSepaReconciliationReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetSepaReconciliationOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetSepaReconciliationBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetSepaReconciliationUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetSepaReconciliationForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetSepaReconciliationNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetSepaReconciliationConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetSepaReconciliationTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetSepaReconciliationInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetSepaReconciliationServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetSepaReconciliationOK struct {
 
 func (o *GetSepaReconciliationOK) Error() string {
 	return fmt.Sprintf("[GET /sepa-reconciliation][%d] getSepaReconciliationOK  %+v", 200, o.Payload)
+}
+
+func (o *GetSepaReconciliationOK) GetPayload() *models.SepaReconciliationAssociationDetailsListResponse {
+	return o.Payload
 }
 
 func (o *GetSepaReconciliationOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetSepaReconciliationBadRequest) Error() string {
 	return fmt.Sprintf("[GET /sepa-reconciliation][%d] getSepaReconciliationBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetSepaReconciliationBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetSepaReconciliationBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetSepaReconciliationUnauthorized struct {
 
 func (o *GetSepaReconciliationUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /sepa-reconciliation][%d] getSepaReconciliationUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetSepaReconciliationUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetSepaReconciliationUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetSepaReconciliationForbidden) Error() string {
 	return fmt.Sprintf("[GET /sepa-reconciliation][%d] getSepaReconciliationForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetSepaReconciliationForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetSepaReconciliationForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetSepaReconciliationNotFound struct {
 
 func (o *GetSepaReconciliationNotFound) Error() string {
 	return fmt.Sprintf("[GET /sepa-reconciliation][%d] getSepaReconciliationNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetSepaReconciliationNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetSepaReconciliationNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetSepaReconciliationConflict) Error() string {
 	return fmt.Sprintf("[GET /sepa-reconciliation][%d] getSepaReconciliationConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetSepaReconciliationConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetSepaReconciliationConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetSepaReconciliationTooManyRequests struct {
 
 func (o *GetSepaReconciliationTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /sepa-reconciliation][%d] getSepaReconciliationTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetSepaReconciliationTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetSepaReconciliationTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetSepaReconciliationInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /sepa-reconciliation][%d] getSepaReconciliationInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetSepaReconciliationInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetSepaReconciliationInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetSepaReconciliationServiceUnavailable struct {
 
 func (o *GetSepaReconciliationServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /sepa-reconciliation][%d] getSepaReconciliationServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetSepaReconciliationServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetSepaReconciliationServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

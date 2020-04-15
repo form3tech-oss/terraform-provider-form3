@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostProductsReader is a Reader for the PostProducts structure.
@@ -24,63 +23,54 @@ type PostProductsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostProductsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostProductsCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewPostProductsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewPostProductsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewPostProductsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewPostProductsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewPostProductsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewPostProductsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewPostProductsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewPostProductsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type PostProductsCreated struct {
 
 func (o *PostProductsCreated) Error() string {
 	return fmt.Sprintf("[POST /products][%d] postProductsCreated  %+v", 201, o.Payload)
+}
+
+func (o *PostProductsCreated) GetPayload() *models.ProductsAssociationCreationResponse {
+	return o.Payload
 }
 
 func (o *PostProductsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *PostProductsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /products][%d] postProductsBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *PostProductsBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostProductsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type PostProductsUnauthorized struct {
 
 func (o *PostProductsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /products][%d] postProductsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostProductsUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostProductsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *PostProductsForbidden) Error() string {
 	return fmt.Sprintf("[POST /products][%d] postProductsForbidden  %+v", 403, o.Payload)
 }
 
+func (o *PostProductsForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostProductsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type PostProductsNotFound struct {
 
 func (o *PostProductsNotFound) Error() string {
 	return fmt.Sprintf("[POST /products][%d] postProductsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostProductsNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostProductsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *PostProductsConflict) Error() string {
 	return fmt.Sprintf("[POST /products][%d] postProductsConflict  %+v", 409, o.Payload)
 }
 
+func (o *PostProductsConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostProductsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type PostProductsTooManyRequests struct {
 
 func (o *PostProductsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /products][%d] postProductsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostProductsTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostProductsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *PostProductsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /products][%d] postProductsInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *PostProductsInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostProductsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type PostProductsServiceUnavailable struct {
 
 func (o *PostProductsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /products][%d] postProductsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostProductsServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostProductsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
