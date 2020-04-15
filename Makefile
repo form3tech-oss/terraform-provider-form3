@@ -13,6 +13,8 @@ GOFMT_FILES?=$$(find . -name '*.go' |grep -v vendor)
 
 default: build test testacc
 
+
+
 build: vet fmtcheck
 	@go install
 	@mkdir -p ~/.terraform.d/plugins/
