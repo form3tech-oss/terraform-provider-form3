@@ -19,7 +19,7 @@ func TestAccLhvMasterAccount_basic(t *testing.T) {
 	associationId := uuid.New().String()
 	clientCode := uuid.New().String()
 	masterAccountId := uuid.New().String()
-	iban := uuid.New().String()
+	iban := generateRandomIban()
 	bic := generateTestBic()
 	bicID := uuid.New().String()
 	bankidID := uuid.New().String()
@@ -99,8 +99,8 @@ func testAccCheckLhvMasterAccountExists(resourceKey string) resource.TestCheckFu
 
 const testForm3LhvMasterAccountConfigA = `
 locals {
-	parentId        = "%s"
 	organisationId  = "%s"
+	parentId        = "%s"
 	associationId   = "%s"
 	masterAccountId = "%s"
 	clientCode      = "%s"

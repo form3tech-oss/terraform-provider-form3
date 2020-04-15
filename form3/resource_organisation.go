@@ -156,7 +156,6 @@ func createOrganisationFromResourceDataWithVersion(d *schema.ResourceData, clien
 }
 
 func createOrganisationFromResourceData(d *schema.ResourceData) (*models.Organisation, error) {
-
 	organisation := models.Organisation{Attributes: &models.OrganisationAttributes{}}
 	organisation.Type = "organisations"
 	if attr, ok := GetUUIDOK(d, "organisation_id"); ok {
