@@ -147,5 +147,9 @@ func createLhvNewAssociationFromResourceData(d *schema.ResourceData) (*models.Ne
 		association.Attributes.UseSimulator = attr.(bool)
 	}
 
+	if attr, ok := d.GetOk("name"); ok {
+		association.Attributes.Name = attr.(string)
+	}
+
 	return &association, nil
 }

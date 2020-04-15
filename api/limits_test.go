@@ -1,11 +1,11 @@
 package api
 
 import (
+	"testing"
+
 	"github.com/form3tech-oss/terraform-provider-form3/client/limits"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-	"testing"
 )
 
 func TestAccPostLimit(t *testing.T) {
@@ -105,16 +105,7 @@ func TestAccDeleteLimit(t *testing.T) {
 func TestAccGetLimitWithIdNotFound(t *testing.T) {
 
 	_, err := auth.LimitsClient.Limits.GetLimitsID(limits.NewGetLimitsIDParams().WithID(strfmt.UUID("8ea57253-aea2-409b-ab59-e9f0a96adc12")))
-	if err == nil {
-		t.Error("Expected error to occur")
-	}
 
-	apiError := err.(*runtime.APIError)
-	if apiError == nil {
-		t.Errorf("Expected API Error not %+v", err)
-	}
+	assertStatusCode(err, t, 404)
 
-	if apiError.Code != 404 {
-		t.Errorf("Expected 404 Not Found not %v", apiError.Code)
-	}
 }

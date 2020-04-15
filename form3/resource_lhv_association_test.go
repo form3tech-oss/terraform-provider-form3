@@ -97,6 +97,7 @@ resource "form3_organisation" "organisation" {
 resource "form3_lhv_association" "association" {
 	organisation_id        = "${form3_organisation.organisation.organisation_id}"
 	association_id         = "%s"
+	name									 = "terraform-association"
 	client_code            = "%s"
   client_country         = "GB"
 }`

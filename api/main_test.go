@@ -2,18 +2,21 @@ package api
 
 import (
 	"errors"
+	"fmt"
+	"io/ioutil"
+	"log"
+	"os"
+	"reflect"
+	"strings"
+	"sync"
+	"testing"
+
 	"github.com/form3tech-oss/terraform-provider-form3/client"
 	"github.com/form3tech-oss/terraform-provider-form3/client/organisations"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-	"github.com/nu7hatch/gouuid"
-	"io/ioutil"
-	"log"
-	"os"
-	"reflect"
-	"sync"
-	"testing"
+	uuid "github.com/nu7hatch/gouuid"
 )
 
 var organisationId strfmt.UUID
@@ -124,14 +127,20 @@ func assertStatusCode(err error, t *testing.T, code int) {
 		t.Fatal("No error, expected an api error")
 	}
 
-	apiError, ok := err.(*runtime.APIError)
-	if !ok {
-		t.Fatalf("Expected api error, got %+v", err)
+	//apiError, ok := err.(*runtime.APIError)
+	//if !ok {
+	//	t.Fatalf("Expected api error, got %+v", err)
+	//}
+
+	errMessage := err.Error()
+	pattern := fmt.Sprintf("[%d]", code)
+	if !strings.Contains(errMessage, pattern) {
+		t.Fatalf("Expected %q to contain %q", errMessage, pattern)
 	}
 
-	if apiError.Code != code {
-		t.Fatalf("Expected %d got %d", code, apiError.Code)
-	}
+	//if apiError.Code != code {
+	//	t.Fatalf("Expected %d got %d", code, apiError.Code)
+	//}
 }
 
 func getType(myvar interface{}) string {

@@ -1,11 +1,13 @@
 package api
 
 import (
+	"fmt"
+	"testing"
+
 	"github.com/form3tech-oss/terraform-provider-form3/client/accounts"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/strfmt"
-	"github.com/nu7hatch/gouuid"
-	"testing"
+	uuid "github.com/nu7hatch/gouuid"
 )
 
 var accountConfigurationVersion = int64(0)
@@ -116,6 +118,7 @@ func TestAccountConfigurationDelete(t *testing.T) {
 
 	err = getAccountConfiguration(err, createResponse.Payload.Data.ID)
 
+	fmt.Printf("Error type: %T", err)
 	assertStatusCode(err, t, 404)
 }
 
