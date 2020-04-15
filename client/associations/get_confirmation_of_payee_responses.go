@@ -32,6 +32,62 @@ func (o *GetConfirmationOfPayeeReader) ReadResponse(response runtime.ClientRespo
 		}
 		return result, nil
 
+	case 400:
+		result := NewGetConfirmationOfPayeeBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 401:
+		result := NewGetConfirmationOfPayeeUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewGetConfirmationOfPayeeForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewGetConfirmationOfPayeeNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewGetConfirmationOfPayeeConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 429:
+		result := NewGetConfirmationOfPayeeTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewGetConfirmationOfPayeeInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 503:
+		result := NewGetConfirmationOfPayeeServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -57,6 +113,238 @@ func (o *GetConfirmationOfPayeeOK) Error() string {
 func (o *GetConfirmationOfPayeeOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.CoPAssociationDetailsListResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetConfirmationOfPayeeBadRequest creates a GetConfirmationOfPayeeBadRequest with default headers values
+func NewGetConfirmationOfPayeeBadRequest() *GetConfirmationOfPayeeBadRequest {
+	return &GetConfirmationOfPayeeBadRequest{}
+}
+
+/*GetConfirmationOfPayeeBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetConfirmationOfPayeeBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetConfirmationOfPayeeBadRequest) Error() string {
+	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetConfirmationOfPayeeBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetConfirmationOfPayeeUnauthorized creates a GetConfirmationOfPayeeUnauthorized with default headers values
+func NewGetConfirmationOfPayeeUnauthorized() *GetConfirmationOfPayeeUnauthorized {
+	return &GetConfirmationOfPayeeUnauthorized{}
+}
+
+/*GetConfirmationOfPayeeUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetConfirmationOfPayeeUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetConfirmationOfPayeeUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetConfirmationOfPayeeUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetConfirmationOfPayeeForbidden creates a GetConfirmationOfPayeeForbidden with default headers values
+func NewGetConfirmationOfPayeeForbidden() *GetConfirmationOfPayeeForbidden {
+	return &GetConfirmationOfPayeeForbidden{}
+}
+
+/*GetConfirmationOfPayeeForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetConfirmationOfPayeeForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetConfirmationOfPayeeForbidden) Error() string {
+	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetConfirmationOfPayeeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetConfirmationOfPayeeNotFound creates a GetConfirmationOfPayeeNotFound with default headers values
+func NewGetConfirmationOfPayeeNotFound() *GetConfirmationOfPayeeNotFound {
+	return &GetConfirmationOfPayeeNotFound{}
+}
+
+/*GetConfirmationOfPayeeNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetConfirmationOfPayeeNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetConfirmationOfPayeeNotFound) Error() string {
+	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetConfirmationOfPayeeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetConfirmationOfPayeeConflict creates a GetConfirmationOfPayeeConflict with default headers values
+func NewGetConfirmationOfPayeeConflict() *GetConfirmationOfPayeeConflict {
+	return &GetConfirmationOfPayeeConflict{}
+}
+
+/*GetConfirmationOfPayeeConflict handles this case with default header values.
+
+Conflict
+*/
+type GetConfirmationOfPayeeConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetConfirmationOfPayeeConflict) Error() string {
+	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetConfirmationOfPayeeConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetConfirmationOfPayeeTooManyRequests creates a GetConfirmationOfPayeeTooManyRequests with default headers values
+func NewGetConfirmationOfPayeeTooManyRequests() *GetConfirmationOfPayeeTooManyRequests {
+	return &GetConfirmationOfPayeeTooManyRequests{}
+}
+
+/*GetConfirmationOfPayeeTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetConfirmationOfPayeeTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetConfirmationOfPayeeTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetConfirmationOfPayeeTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetConfirmationOfPayeeInternalServerError creates a GetConfirmationOfPayeeInternalServerError with default headers values
+func NewGetConfirmationOfPayeeInternalServerError() *GetConfirmationOfPayeeInternalServerError {
+	return &GetConfirmationOfPayeeInternalServerError{}
+}
+
+/*GetConfirmationOfPayeeInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetConfirmationOfPayeeInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetConfirmationOfPayeeInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetConfirmationOfPayeeInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetConfirmationOfPayeeServiceUnavailable creates a GetConfirmationOfPayeeServiceUnavailable with default headers values
+func NewGetConfirmationOfPayeeServiceUnavailable() *GetConfirmationOfPayeeServiceUnavailable {
+	return &GetConfirmationOfPayeeServiceUnavailable{}
+}
+
+/*GetConfirmationOfPayeeServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetConfirmationOfPayeeServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetConfirmationOfPayeeServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetConfirmationOfPayeeServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

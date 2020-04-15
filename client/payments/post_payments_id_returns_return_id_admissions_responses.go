@@ -39,6 +39,55 @@ func (o *PostPaymentsIDReturnsReturnIDAdmissionsReader) ReadResponse(response ru
 		}
 		return nil, result
 
+	case 401:
+		result := NewPostPaymentsIDReturnsReturnIDAdmissionsUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewPostPaymentsIDReturnsReturnIDAdmissionsForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewPostPaymentsIDReturnsReturnIDAdmissionsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewPostPaymentsIDReturnsReturnIDAdmissionsConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 429:
+		result := NewPostPaymentsIDReturnsReturnIDAdmissionsTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewPostPaymentsIDReturnsReturnIDAdmissionsInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 503:
+		result := NewPostPaymentsIDReturnsReturnIDAdmissionsServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -80,7 +129,7 @@ func NewPostPaymentsIDReturnsReturnIDAdmissionsBadRequest() *PostPaymentsIDRetur
 
 /*PostPaymentsIDReturnsReturnIDAdmissionsBadRequest handles this case with default header values.
 
-Return admission creation error
+Bad Request
 */
 type PostPaymentsIDReturnsReturnIDAdmissionsBadRequest struct {
 	Payload *models.APIError
@@ -91,6 +140,209 @@ func (o *PostPaymentsIDReturnsReturnIDAdmissionsBadRequest) Error() string {
 }
 
 func (o *PostPaymentsIDReturnsReturnIDAdmissionsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentsIDReturnsReturnIDAdmissionsUnauthorized creates a PostPaymentsIDReturnsReturnIDAdmissionsUnauthorized with default headers values
+func NewPostPaymentsIDReturnsReturnIDAdmissionsUnauthorized() *PostPaymentsIDReturnsReturnIDAdmissionsUnauthorized {
+	return &PostPaymentsIDReturnsReturnIDAdmissionsUnauthorized{}
+}
+
+/*PostPaymentsIDReturnsReturnIDAdmissionsUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type PostPaymentsIDReturnsReturnIDAdmissionsUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentsIDReturnsReturnIDAdmissionsUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/admissions][%d] postPaymentsIdReturnsReturnIdAdmissionsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostPaymentsIDReturnsReturnIDAdmissionsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentsIDReturnsReturnIDAdmissionsForbidden creates a PostPaymentsIDReturnsReturnIDAdmissionsForbidden with default headers values
+func NewPostPaymentsIDReturnsReturnIDAdmissionsForbidden() *PostPaymentsIDReturnsReturnIDAdmissionsForbidden {
+	return &PostPaymentsIDReturnsReturnIDAdmissionsForbidden{}
+}
+
+/*PostPaymentsIDReturnsReturnIDAdmissionsForbidden handles this case with default header values.
+
+Forbidden
+*/
+type PostPaymentsIDReturnsReturnIDAdmissionsForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentsIDReturnsReturnIDAdmissionsForbidden) Error() string {
+	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/admissions][%d] postPaymentsIdReturnsReturnIdAdmissionsForbidden  %+v", 403, o.Payload)
+}
+
+func (o *PostPaymentsIDReturnsReturnIDAdmissionsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentsIDReturnsReturnIDAdmissionsNotFound creates a PostPaymentsIDReturnsReturnIDAdmissionsNotFound with default headers values
+func NewPostPaymentsIDReturnsReturnIDAdmissionsNotFound() *PostPaymentsIDReturnsReturnIDAdmissionsNotFound {
+	return &PostPaymentsIDReturnsReturnIDAdmissionsNotFound{}
+}
+
+/*PostPaymentsIDReturnsReturnIDAdmissionsNotFound handles this case with default header values.
+
+Record not found
+*/
+type PostPaymentsIDReturnsReturnIDAdmissionsNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentsIDReturnsReturnIDAdmissionsNotFound) Error() string {
+	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/admissions][%d] postPaymentsIdReturnsReturnIdAdmissionsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostPaymentsIDReturnsReturnIDAdmissionsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentsIDReturnsReturnIDAdmissionsConflict creates a PostPaymentsIDReturnsReturnIDAdmissionsConflict with default headers values
+func NewPostPaymentsIDReturnsReturnIDAdmissionsConflict() *PostPaymentsIDReturnsReturnIDAdmissionsConflict {
+	return &PostPaymentsIDReturnsReturnIDAdmissionsConflict{}
+}
+
+/*PostPaymentsIDReturnsReturnIDAdmissionsConflict handles this case with default header values.
+
+Conflict
+*/
+type PostPaymentsIDReturnsReturnIDAdmissionsConflict struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentsIDReturnsReturnIDAdmissionsConflict) Error() string {
+	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/admissions][%d] postPaymentsIdReturnsReturnIdAdmissionsConflict  %+v", 409, o.Payload)
+}
+
+func (o *PostPaymentsIDReturnsReturnIDAdmissionsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentsIDReturnsReturnIDAdmissionsTooManyRequests creates a PostPaymentsIDReturnsReturnIDAdmissionsTooManyRequests with default headers values
+func NewPostPaymentsIDReturnsReturnIDAdmissionsTooManyRequests() *PostPaymentsIDReturnsReturnIDAdmissionsTooManyRequests {
+	return &PostPaymentsIDReturnsReturnIDAdmissionsTooManyRequests{}
+}
+
+/*PostPaymentsIDReturnsReturnIDAdmissionsTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type PostPaymentsIDReturnsReturnIDAdmissionsTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentsIDReturnsReturnIDAdmissionsTooManyRequests) Error() string {
+	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/admissions][%d] postPaymentsIdReturnsReturnIdAdmissionsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostPaymentsIDReturnsReturnIDAdmissionsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentsIDReturnsReturnIDAdmissionsInternalServerError creates a PostPaymentsIDReturnsReturnIDAdmissionsInternalServerError with default headers values
+func NewPostPaymentsIDReturnsReturnIDAdmissionsInternalServerError() *PostPaymentsIDReturnsReturnIDAdmissionsInternalServerError {
+	return &PostPaymentsIDReturnsReturnIDAdmissionsInternalServerError{}
+}
+
+/*PostPaymentsIDReturnsReturnIDAdmissionsInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type PostPaymentsIDReturnsReturnIDAdmissionsInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentsIDReturnsReturnIDAdmissionsInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/admissions][%d] postPaymentsIdReturnsReturnIdAdmissionsInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *PostPaymentsIDReturnsReturnIDAdmissionsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentsIDReturnsReturnIDAdmissionsServiceUnavailable creates a PostPaymentsIDReturnsReturnIDAdmissionsServiceUnavailable with default headers values
+func NewPostPaymentsIDReturnsReturnIDAdmissionsServiceUnavailable() *PostPaymentsIDReturnsReturnIDAdmissionsServiceUnavailable {
+	return &PostPaymentsIDReturnsReturnIDAdmissionsServiceUnavailable{}
+}
+
+/*PostPaymentsIDReturnsReturnIDAdmissionsServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type PostPaymentsIDReturnsReturnIDAdmissionsServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentsIDReturnsReturnIDAdmissionsServiceUnavailable) Error() string {
+	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/admissions][%d] postPaymentsIdReturnsReturnIdAdmissionsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostPaymentsIDReturnsReturnIDAdmissionsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
 

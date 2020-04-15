@@ -32,6 +32,62 @@ func (o *GetUnitsIDReader) ReadResponse(response runtime.ClientResponse, consume
 		}
 		return result, nil
 
+	case 400:
+		result := NewGetUnitsIDBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 401:
+		result := NewGetUnitsIDUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewGetUnitsIDForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewGetUnitsIDNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewGetUnitsIDConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 429:
+		result := NewGetUnitsIDTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewGetUnitsIDInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 503:
+		result := NewGetUnitsIDServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -57,6 +113,238 @@ func (o *GetUnitsIDOK) Error() string {
 func (o *GetUnitsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.OrganisationDetailsResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUnitsIDBadRequest creates a GetUnitsIDBadRequest with default headers values
+func NewGetUnitsIDBadRequest() *GetUnitsIDBadRequest {
+	return &GetUnitsIDBadRequest{}
+}
+
+/*GetUnitsIDBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetUnitsIDBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetUnitsIDBadRequest) Error() string {
+	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetUnitsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUnitsIDUnauthorized creates a GetUnitsIDUnauthorized with default headers values
+func NewGetUnitsIDUnauthorized() *GetUnitsIDUnauthorized {
+	return &GetUnitsIDUnauthorized{}
+}
+
+/*GetUnitsIDUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetUnitsIDUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetUnitsIDUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetUnitsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUnitsIDForbidden creates a GetUnitsIDForbidden with default headers values
+func NewGetUnitsIDForbidden() *GetUnitsIDForbidden {
+	return &GetUnitsIDForbidden{}
+}
+
+/*GetUnitsIDForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetUnitsIDForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetUnitsIDForbidden) Error() string {
+	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetUnitsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUnitsIDNotFound creates a GetUnitsIDNotFound with default headers values
+func NewGetUnitsIDNotFound() *GetUnitsIDNotFound {
+	return &GetUnitsIDNotFound{}
+}
+
+/*GetUnitsIDNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetUnitsIDNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetUnitsIDNotFound) Error() string {
+	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetUnitsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUnitsIDConflict creates a GetUnitsIDConflict with default headers values
+func NewGetUnitsIDConflict() *GetUnitsIDConflict {
+	return &GetUnitsIDConflict{}
+}
+
+/*GetUnitsIDConflict handles this case with default header values.
+
+Conflict
+*/
+type GetUnitsIDConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetUnitsIDConflict) Error() string {
+	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetUnitsIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUnitsIDTooManyRequests creates a GetUnitsIDTooManyRequests with default headers values
+func NewGetUnitsIDTooManyRequests() *GetUnitsIDTooManyRequests {
+	return &GetUnitsIDTooManyRequests{}
+}
+
+/*GetUnitsIDTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetUnitsIDTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetUnitsIDTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetUnitsIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUnitsIDInternalServerError creates a GetUnitsIDInternalServerError with default headers values
+func NewGetUnitsIDInternalServerError() *GetUnitsIDInternalServerError {
+	return &GetUnitsIDInternalServerError{}
+}
+
+/*GetUnitsIDInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetUnitsIDInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetUnitsIDInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetUnitsIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUnitsIDServiceUnavailable creates a GetUnitsIDServiceUnavailable with default headers values
+func NewGetUnitsIDServiceUnavailable() *GetUnitsIDServiceUnavailable {
+	return &GetUnitsIDServiceUnavailable{}
+}
+
+/*GetUnitsIDServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetUnitsIDServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetUnitsIDServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetUnitsIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

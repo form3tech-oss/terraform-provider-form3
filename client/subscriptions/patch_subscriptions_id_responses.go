@@ -32,6 +32,62 @@ func (o *PatchSubscriptionsIDReader) ReadResponse(response runtime.ClientRespons
 		}
 		return result, nil
 
+	case 400:
+		result := NewPatchSubscriptionsIDBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 401:
+		result := NewPatchSubscriptionsIDUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewPatchSubscriptionsIDForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewPatchSubscriptionsIDNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewPatchSubscriptionsIDConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 429:
+		result := NewPatchSubscriptionsIDTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewPatchSubscriptionsIDInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 503:
+		result := NewPatchSubscriptionsIDServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -57,6 +113,238 @@ func (o *PatchSubscriptionsIDOK) Error() string {
 func (o *PatchSubscriptionsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.SubscriptionDetailsResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchSubscriptionsIDBadRequest creates a PatchSubscriptionsIDBadRequest with default headers values
+func NewPatchSubscriptionsIDBadRequest() *PatchSubscriptionsIDBadRequest {
+	return &PatchSubscriptionsIDBadRequest{}
+}
+
+/*PatchSubscriptionsIDBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type PatchSubscriptionsIDBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *PatchSubscriptionsIDBadRequest) Error() string {
+	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *PatchSubscriptionsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchSubscriptionsIDUnauthorized creates a PatchSubscriptionsIDUnauthorized with default headers values
+func NewPatchSubscriptionsIDUnauthorized() *PatchSubscriptionsIDUnauthorized {
+	return &PatchSubscriptionsIDUnauthorized{}
+}
+
+/*PatchSubscriptionsIDUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type PatchSubscriptionsIDUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *PatchSubscriptionsIDUnauthorized) Error() string {
+	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PatchSubscriptionsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchSubscriptionsIDForbidden creates a PatchSubscriptionsIDForbidden with default headers values
+func NewPatchSubscriptionsIDForbidden() *PatchSubscriptionsIDForbidden {
+	return &PatchSubscriptionsIDForbidden{}
+}
+
+/*PatchSubscriptionsIDForbidden handles this case with default header values.
+
+Forbidden
+*/
+type PatchSubscriptionsIDForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *PatchSubscriptionsIDForbidden) Error() string {
+	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdForbidden  %+v", 403, o.Payload)
+}
+
+func (o *PatchSubscriptionsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchSubscriptionsIDNotFound creates a PatchSubscriptionsIDNotFound with default headers values
+func NewPatchSubscriptionsIDNotFound() *PatchSubscriptionsIDNotFound {
+	return &PatchSubscriptionsIDNotFound{}
+}
+
+/*PatchSubscriptionsIDNotFound handles this case with default header values.
+
+Record not found
+*/
+type PatchSubscriptionsIDNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *PatchSubscriptionsIDNotFound) Error() string {
+	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PatchSubscriptionsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchSubscriptionsIDConflict creates a PatchSubscriptionsIDConflict with default headers values
+func NewPatchSubscriptionsIDConflict() *PatchSubscriptionsIDConflict {
+	return &PatchSubscriptionsIDConflict{}
+}
+
+/*PatchSubscriptionsIDConflict handles this case with default header values.
+
+Conflict
+*/
+type PatchSubscriptionsIDConflict struct {
+	Payload *models.APIError
+}
+
+func (o *PatchSubscriptionsIDConflict) Error() string {
+	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdConflict  %+v", 409, o.Payload)
+}
+
+func (o *PatchSubscriptionsIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchSubscriptionsIDTooManyRequests creates a PatchSubscriptionsIDTooManyRequests with default headers values
+func NewPatchSubscriptionsIDTooManyRequests() *PatchSubscriptionsIDTooManyRequests {
+	return &PatchSubscriptionsIDTooManyRequests{}
+}
+
+/*PatchSubscriptionsIDTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type PatchSubscriptionsIDTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *PatchSubscriptionsIDTooManyRequests) Error() string {
+	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PatchSubscriptionsIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchSubscriptionsIDInternalServerError creates a PatchSubscriptionsIDInternalServerError with default headers values
+func NewPatchSubscriptionsIDInternalServerError() *PatchSubscriptionsIDInternalServerError {
+	return &PatchSubscriptionsIDInternalServerError{}
+}
+
+/*PatchSubscriptionsIDInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type PatchSubscriptionsIDInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *PatchSubscriptionsIDInternalServerError) Error() string {
+	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *PatchSubscriptionsIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchSubscriptionsIDServiceUnavailable creates a PatchSubscriptionsIDServiceUnavailable with default headers values
+func NewPatchSubscriptionsIDServiceUnavailable() *PatchSubscriptionsIDServiceUnavailable {
+	return &PatchSubscriptionsIDServiceUnavailable{}
+}
+
+/*PatchSubscriptionsIDServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type PatchSubscriptionsIDServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *PatchSubscriptionsIDServiceUnavailable) Error() string {
+	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PatchSubscriptionsIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

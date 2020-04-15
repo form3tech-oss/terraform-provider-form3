@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -23,6 +25,99 @@ type APIError struct {
 
 	// error message
 	ErrorMessage string `json:"error_message,omitempty"`
+
+	// Api error additional properties
+	APIErrorAdditionalProperties map[string]interface{} `json:"-"`
+}
+
+// UnmarshalJSON unmarshals this object with additional properties from JSON
+func (m *APIError) UnmarshalJSON(data []byte) error {
+	// stage 1, bind the properties
+	var stage1 struct {
+
+		// error code
+		// Format: uuid
+		ErrorCode strfmt.UUID `json:"error_code,omitempty"`
+
+		// error message
+		ErrorMessage string `json:"error_message,omitempty"`
+	}
+	if err := json.Unmarshal(data, &stage1); err != nil {
+		return err
+	}
+	var rcv APIError
+
+	rcv.ErrorCode = stage1.ErrorCode
+
+	rcv.ErrorMessage = stage1.ErrorMessage
+
+	*m = rcv
+
+	// stage 2, remove properties and add to map
+	stage2 := make(map[string]json.RawMessage)
+	if err := json.Unmarshal(data, &stage2); err != nil {
+		return err
+	}
+
+	delete(stage2, "error_code")
+
+	delete(stage2, "error_message")
+
+	// stage 3, add additional properties values
+	if len(stage2) > 0 {
+		result := make(map[string]interface{})
+		for k, v := range stage2 {
+			var toadd interface{}
+			if err := json.Unmarshal(v, &toadd); err != nil {
+				return err
+			}
+			result[k] = toadd
+		}
+		m.APIErrorAdditionalProperties = result
+	}
+
+	return nil
+}
+
+// MarshalJSON marshals this object with additional properties into a JSON object
+func (m APIError) MarshalJSON() ([]byte, error) {
+	var stage1 struct {
+
+		// error code
+		// Format: uuid
+		ErrorCode strfmt.UUID `json:"error_code,omitempty"`
+
+		// error message
+		ErrorMessage string `json:"error_message,omitempty"`
+	}
+
+	stage1.ErrorCode = m.ErrorCode
+
+	stage1.ErrorMessage = m.ErrorMessage
+
+	// make JSON object for known properties
+	props, err := json.Marshal(stage1)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(m.APIErrorAdditionalProperties) == 0 {
+		return props, nil
+	}
+
+	// make JSON object for the additional properties
+	additional, err := json.Marshal(m.APIErrorAdditionalProperties)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(props) < 3 {
+		return additional, nil
+	}
+
+	// concatenate the 2 objects
+	props[len(props)-1] = ','
+	return append(props, additional[1:]...), nil
 }
 
 // Validate validates this Api error

@@ -32,6 +32,62 @@ func (o *PostLhvReader) ReadResponse(response runtime.ClientResponse, consumer r
 		}
 		return result, nil
 
+	case 400:
+		result := NewPostLhvBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 401:
+		result := NewPostLhvUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewPostLhvForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewPostLhvNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewPostLhvConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 429:
+		result := NewPostLhvTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewPostLhvInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 503:
+		result := NewPostLhvServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -57,6 +113,238 @@ func (o *PostLhvCreated) Error() string {
 func (o *PostLhvCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.LhvAssociationCreationResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostLhvBadRequest creates a PostLhvBadRequest with default headers values
+func NewPostLhvBadRequest() *PostLhvBadRequest {
+	return &PostLhvBadRequest{}
+}
+
+/*PostLhvBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type PostLhvBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *PostLhvBadRequest) Error() string {
+	return fmt.Sprintf("[POST /lhv][%d] postLhvBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *PostLhvBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostLhvUnauthorized creates a PostLhvUnauthorized with default headers values
+func NewPostLhvUnauthorized() *PostLhvUnauthorized {
+	return &PostLhvUnauthorized{}
+}
+
+/*PostLhvUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type PostLhvUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *PostLhvUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /lhv][%d] postLhvUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostLhvUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostLhvForbidden creates a PostLhvForbidden with default headers values
+func NewPostLhvForbidden() *PostLhvForbidden {
+	return &PostLhvForbidden{}
+}
+
+/*PostLhvForbidden handles this case with default header values.
+
+Forbidden
+*/
+type PostLhvForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *PostLhvForbidden) Error() string {
+	return fmt.Sprintf("[POST /lhv][%d] postLhvForbidden  %+v", 403, o.Payload)
+}
+
+func (o *PostLhvForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostLhvNotFound creates a PostLhvNotFound with default headers values
+func NewPostLhvNotFound() *PostLhvNotFound {
+	return &PostLhvNotFound{}
+}
+
+/*PostLhvNotFound handles this case with default header values.
+
+Record not found
+*/
+type PostLhvNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *PostLhvNotFound) Error() string {
+	return fmt.Sprintf("[POST /lhv][%d] postLhvNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostLhvNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostLhvConflict creates a PostLhvConflict with default headers values
+func NewPostLhvConflict() *PostLhvConflict {
+	return &PostLhvConflict{}
+}
+
+/*PostLhvConflict handles this case with default header values.
+
+Conflict
+*/
+type PostLhvConflict struct {
+	Payload *models.APIError
+}
+
+func (o *PostLhvConflict) Error() string {
+	return fmt.Sprintf("[POST /lhv][%d] postLhvConflict  %+v", 409, o.Payload)
+}
+
+func (o *PostLhvConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostLhvTooManyRequests creates a PostLhvTooManyRequests with default headers values
+func NewPostLhvTooManyRequests() *PostLhvTooManyRequests {
+	return &PostLhvTooManyRequests{}
+}
+
+/*PostLhvTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type PostLhvTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *PostLhvTooManyRequests) Error() string {
+	return fmt.Sprintf("[POST /lhv][%d] postLhvTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostLhvTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostLhvInternalServerError creates a PostLhvInternalServerError with default headers values
+func NewPostLhvInternalServerError() *PostLhvInternalServerError {
+	return &PostLhvInternalServerError{}
+}
+
+/*PostLhvInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type PostLhvInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *PostLhvInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /lhv][%d] postLhvInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *PostLhvInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostLhvServiceUnavailable creates a PostLhvServiceUnavailable with default headers values
+func NewPostLhvServiceUnavailable() *PostLhvServiceUnavailable {
+	return &PostLhvServiceUnavailable{}
+}
+
+/*PostLhvServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type PostLhvServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *PostLhvServiceUnavailable) Error() string {
+	return fmt.Sprintf("[POST /lhv][%d] postLhvServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostLhvServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

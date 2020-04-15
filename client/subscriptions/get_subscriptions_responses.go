@@ -32,6 +32,62 @@ func (o *GetSubscriptionsReader) ReadResponse(response runtime.ClientResponse, c
 		}
 		return result, nil
 
+	case 400:
+		result := NewGetSubscriptionsBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 401:
+		result := NewGetSubscriptionsUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewGetSubscriptionsForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewGetSubscriptionsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewGetSubscriptionsConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 429:
+		result := NewGetSubscriptionsTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewGetSubscriptionsInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 503:
+		result := NewGetSubscriptionsServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -57,6 +113,238 @@ func (o *GetSubscriptionsOK) Error() string {
 func (o *GetSubscriptionsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.SubscriptionDetailsListResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSubscriptionsBadRequest creates a GetSubscriptionsBadRequest with default headers values
+func NewGetSubscriptionsBadRequest() *GetSubscriptionsBadRequest {
+	return &GetSubscriptionsBadRequest{}
+}
+
+/*GetSubscriptionsBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetSubscriptionsBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetSubscriptionsBadRequest) Error() string {
+	return fmt.Sprintf("[GET /subscriptions][%d] getSubscriptionsBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetSubscriptionsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSubscriptionsUnauthorized creates a GetSubscriptionsUnauthorized with default headers values
+func NewGetSubscriptionsUnauthorized() *GetSubscriptionsUnauthorized {
+	return &GetSubscriptionsUnauthorized{}
+}
+
+/*GetSubscriptionsUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetSubscriptionsUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetSubscriptionsUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /subscriptions][%d] getSubscriptionsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetSubscriptionsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSubscriptionsForbidden creates a GetSubscriptionsForbidden with default headers values
+func NewGetSubscriptionsForbidden() *GetSubscriptionsForbidden {
+	return &GetSubscriptionsForbidden{}
+}
+
+/*GetSubscriptionsForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetSubscriptionsForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetSubscriptionsForbidden) Error() string {
+	return fmt.Sprintf("[GET /subscriptions][%d] getSubscriptionsForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetSubscriptionsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSubscriptionsNotFound creates a GetSubscriptionsNotFound with default headers values
+func NewGetSubscriptionsNotFound() *GetSubscriptionsNotFound {
+	return &GetSubscriptionsNotFound{}
+}
+
+/*GetSubscriptionsNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetSubscriptionsNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetSubscriptionsNotFound) Error() string {
+	return fmt.Sprintf("[GET /subscriptions][%d] getSubscriptionsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetSubscriptionsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSubscriptionsConflict creates a GetSubscriptionsConflict with default headers values
+func NewGetSubscriptionsConflict() *GetSubscriptionsConflict {
+	return &GetSubscriptionsConflict{}
+}
+
+/*GetSubscriptionsConflict handles this case with default header values.
+
+Conflict
+*/
+type GetSubscriptionsConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetSubscriptionsConflict) Error() string {
+	return fmt.Sprintf("[GET /subscriptions][%d] getSubscriptionsConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetSubscriptionsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSubscriptionsTooManyRequests creates a GetSubscriptionsTooManyRequests with default headers values
+func NewGetSubscriptionsTooManyRequests() *GetSubscriptionsTooManyRequests {
+	return &GetSubscriptionsTooManyRequests{}
+}
+
+/*GetSubscriptionsTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetSubscriptionsTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetSubscriptionsTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /subscriptions][%d] getSubscriptionsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetSubscriptionsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSubscriptionsInternalServerError creates a GetSubscriptionsInternalServerError with default headers values
+func NewGetSubscriptionsInternalServerError() *GetSubscriptionsInternalServerError {
+	return &GetSubscriptionsInternalServerError{}
+}
+
+/*GetSubscriptionsInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetSubscriptionsInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetSubscriptionsInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /subscriptions][%d] getSubscriptionsInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetSubscriptionsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSubscriptionsServiceUnavailable creates a GetSubscriptionsServiceUnavailable with default headers values
+func NewGetSubscriptionsServiceUnavailable() *GetSubscriptionsServiceUnavailable {
+	return &GetSubscriptionsServiceUnavailable{}
+}
+
+/*GetSubscriptionsServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetSubscriptionsServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetSubscriptionsServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /subscriptions][%d] getSubscriptionsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetSubscriptionsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

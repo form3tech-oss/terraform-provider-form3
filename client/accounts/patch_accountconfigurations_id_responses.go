@@ -32,6 +32,62 @@ func (o *PatchAccountconfigurationsIDReader) ReadResponse(response runtime.Clien
 		}
 		return result, nil
 
+	case 400:
+		result := NewPatchAccountconfigurationsIDBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 401:
+		result := NewPatchAccountconfigurationsIDUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewPatchAccountconfigurationsIDForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewPatchAccountconfigurationsIDNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewPatchAccountconfigurationsIDConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 429:
+		result := NewPatchAccountconfigurationsIDTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewPatchAccountconfigurationsIDInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 503:
+		result := NewPatchAccountconfigurationsIDServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -57,6 +113,238 @@ func (o *PatchAccountconfigurationsIDOK) Error() string {
 func (o *PatchAccountconfigurationsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.AccountConfigurationDetailsResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchAccountconfigurationsIDBadRequest creates a PatchAccountconfigurationsIDBadRequest with default headers values
+func NewPatchAccountconfigurationsIDBadRequest() *PatchAccountconfigurationsIDBadRequest {
+	return &PatchAccountconfigurationsIDBadRequest{}
+}
+
+/*PatchAccountconfigurationsIDBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type PatchAccountconfigurationsIDBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *PatchAccountconfigurationsIDBadRequest) Error() string {
+	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *PatchAccountconfigurationsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchAccountconfigurationsIDUnauthorized creates a PatchAccountconfigurationsIDUnauthorized with default headers values
+func NewPatchAccountconfigurationsIDUnauthorized() *PatchAccountconfigurationsIDUnauthorized {
+	return &PatchAccountconfigurationsIDUnauthorized{}
+}
+
+/*PatchAccountconfigurationsIDUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type PatchAccountconfigurationsIDUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *PatchAccountconfigurationsIDUnauthorized) Error() string {
+	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PatchAccountconfigurationsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchAccountconfigurationsIDForbidden creates a PatchAccountconfigurationsIDForbidden with default headers values
+func NewPatchAccountconfigurationsIDForbidden() *PatchAccountconfigurationsIDForbidden {
+	return &PatchAccountconfigurationsIDForbidden{}
+}
+
+/*PatchAccountconfigurationsIDForbidden handles this case with default header values.
+
+Forbidden
+*/
+type PatchAccountconfigurationsIDForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *PatchAccountconfigurationsIDForbidden) Error() string {
+	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdForbidden  %+v", 403, o.Payload)
+}
+
+func (o *PatchAccountconfigurationsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchAccountconfigurationsIDNotFound creates a PatchAccountconfigurationsIDNotFound with default headers values
+func NewPatchAccountconfigurationsIDNotFound() *PatchAccountconfigurationsIDNotFound {
+	return &PatchAccountconfigurationsIDNotFound{}
+}
+
+/*PatchAccountconfigurationsIDNotFound handles this case with default header values.
+
+Record not found
+*/
+type PatchAccountconfigurationsIDNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *PatchAccountconfigurationsIDNotFound) Error() string {
+	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PatchAccountconfigurationsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchAccountconfigurationsIDConflict creates a PatchAccountconfigurationsIDConflict with default headers values
+func NewPatchAccountconfigurationsIDConflict() *PatchAccountconfigurationsIDConflict {
+	return &PatchAccountconfigurationsIDConflict{}
+}
+
+/*PatchAccountconfigurationsIDConflict handles this case with default header values.
+
+Conflict
+*/
+type PatchAccountconfigurationsIDConflict struct {
+	Payload *models.APIError
+}
+
+func (o *PatchAccountconfigurationsIDConflict) Error() string {
+	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdConflict  %+v", 409, o.Payload)
+}
+
+func (o *PatchAccountconfigurationsIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchAccountconfigurationsIDTooManyRequests creates a PatchAccountconfigurationsIDTooManyRequests with default headers values
+func NewPatchAccountconfigurationsIDTooManyRequests() *PatchAccountconfigurationsIDTooManyRequests {
+	return &PatchAccountconfigurationsIDTooManyRequests{}
+}
+
+/*PatchAccountconfigurationsIDTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type PatchAccountconfigurationsIDTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *PatchAccountconfigurationsIDTooManyRequests) Error() string {
+	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PatchAccountconfigurationsIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchAccountconfigurationsIDInternalServerError creates a PatchAccountconfigurationsIDInternalServerError with default headers values
+func NewPatchAccountconfigurationsIDInternalServerError() *PatchAccountconfigurationsIDInternalServerError {
+	return &PatchAccountconfigurationsIDInternalServerError{}
+}
+
+/*PatchAccountconfigurationsIDInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type PatchAccountconfigurationsIDInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *PatchAccountconfigurationsIDInternalServerError) Error() string {
+	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *PatchAccountconfigurationsIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchAccountconfigurationsIDServiceUnavailable creates a PatchAccountconfigurationsIDServiceUnavailable with default headers values
+func NewPatchAccountconfigurationsIDServiceUnavailable() *PatchAccountconfigurationsIDServiceUnavailable {
+	return &PatchAccountconfigurationsIDServiceUnavailable{}
+}
+
+/*PatchAccountconfigurationsIDServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type PatchAccountconfigurationsIDServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *PatchAccountconfigurationsIDServiceUnavailable) Error() string {
+	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PatchAccountconfigurationsIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

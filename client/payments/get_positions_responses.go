@@ -32,6 +32,62 @@ func (o *GetPositionsReader) ReadResponse(response runtime.ClientResponse, consu
 		}
 		return result, nil
 
+	case 400:
+		result := NewGetPositionsBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 401:
+		result := NewGetPositionsUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewGetPositionsForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewGetPositionsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewGetPositionsConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 429:
+		result := NewGetPositionsTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewGetPositionsInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 503:
+		result := NewGetPositionsServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -57,6 +113,238 @@ func (o *GetPositionsOK) Error() string {
 func (o *GetPositionsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.PositionDetailsListResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetPositionsBadRequest creates a GetPositionsBadRequest with default headers values
+func NewGetPositionsBadRequest() *GetPositionsBadRequest {
+	return &GetPositionsBadRequest{}
+}
+
+/*GetPositionsBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetPositionsBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetPositionsBadRequest) Error() string {
+	return fmt.Sprintf("[GET /positions][%d] getPositionsBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetPositionsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetPositionsUnauthorized creates a GetPositionsUnauthorized with default headers values
+func NewGetPositionsUnauthorized() *GetPositionsUnauthorized {
+	return &GetPositionsUnauthorized{}
+}
+
+/*GetPositionsUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetPositionsUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetPositionsUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /positions][%d] getPositionsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetPositionsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetPositionsForbidden creates a GetPositionsForbidden with default headers values
+func NewGetPositionsForbidden() *GetPositionsForbidden {
+	return &GetPositionsForbidden{}
+}
+
+/*GetPositionsForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetPositionsForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetPositionsForbidden) Error() string {
+	return fmt.Sprintf("[GET /positions][%d] getPositionsForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetPositionsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetPositionsNotFound creates a GetPositionsNotFound with default headers values
+func NewGetPositionsNotFound() *GetPositionsNotFound {
+	return &GetPositionsNotFound{}
+}
+
+/*GetPositionsNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetPositionsNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetPositionsNotFound) Error() string {
+	return fmt.Sprintf("[GET /positions][%d] getPositionsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetPositionsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetPositionsConflict creates a GetPositionsConflict with default headers values
+func NewGetPositionsConflict() *GetPositionsConflict {
+	return &GetPositionsConflict{}
+}
+
+/*GetPositionsConflict handles this case with default header values.
+
+Conflict
+*/
+type GetPositionsConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetPositionsConflict) Error() string {
+	return fmt.Sprintf("[GET /positions][%d] getPositionsConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetPositionsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetPositionsTooManyRequests creates a GetPositionsTooManyRequests with default headers values
+func NewGetPositionsTooManyRequests() *GetPositionsTooManyRequests {
+	return &GetPositionsTooManyRequests{}
+}
+
+/*GetPositionsTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetPositionsTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetPositionsTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /positions][%d] getPositionsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetPositionsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetPositionsInternalServerError creates a GetPositionsInternalServerError with default headers values
+func NewGetPositionsInternalServerError() *GetPositionsInternalServerError {
+	return &GetPositionsInternalServerError{}
+}
+
+/*GetPositionsInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetPositionsInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetPositionsInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /positions][%d] getPositionsInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetPositionsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetPositionsServiceUnavailable creates a GetPositionsServiceUnavailable with default headers values
+func NewGetPositionsServiceUnavailable() *GetPositionsServiceUnavailable {
+	return &GetPositionsServiceUnavailable{}
+}
+
+/*GetPositionsServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetPositionsServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetPositionsServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /positions][%d] getPositionsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetPositionsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

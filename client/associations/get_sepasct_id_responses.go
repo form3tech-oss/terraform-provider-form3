@@ -32,6 +32,62 @@ func (o *GetSepasctIDReader) ReadResponse(response runtime.ClientResponse, consu
 		}
 		return result, nil
 
+	case 400:
+		result := NewGetSepasctIDBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 401:
+		result := NewGetSepasctIDUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewGetSepasctIDForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewGetSepasctIDNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewGetSepasctIDConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 429:
+		result := NewGetSepasctIDTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewGetSepasctIDInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 503:
+		result := NewGetSepasctIDServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -57,6 +113,238 @@ func (o *GetSepasctIDOK) Error() string {
 func (o *GetSepasctIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.SepaSctAssociationDetailsResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSepasctIDBadRequest creates a GetSepasctIDBadRequest with default headers values
+func NewGetSepasctIDBadRequest() *GetSepasctIDBadRequest {
+	return &GetSepasctIDBadRequest{}
+}
+
+/*GetSepasctIDBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetSepasctIDBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetSepasctIDBadRequest) Error() string {
+	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetSepasctIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSepasctIDUnauthorized creates a GetSepasctIDUnauthorized with default headers values
+func NewGetSepasctIDUnauthorized() *GetSepasctIDUnauthorized {
+	return &GetSepasctIDUnauthorized{}
+}
+
+/*GetSepasctIDUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetSepasctIDUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetSepasctIDUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetSepasctIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSepasctIDForbidden creates a GetSepasctIDForbidden with default headers values
+func NewGetSepasctIDForbidden() *GetSepasctIDForbidden {
+	return &GetSepasctIDForbidden{}
+}
+
+/*GetSepasctIDForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetSepasctIDForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetSepasctIDForbidden) Error() string {
+	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetSepasctIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSepasctIDNotFound creates a GetSepasctIDNotFound with default headers values
+func NewGetSepasctIDNotFound() *GetSepasctIDNotFound {
+	return &GetSepasctIDNotFound{}
+}
+
+/*GetSepasctIDNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetSepasctIDNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetSepasctIDNotFound) Error() string {
+	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetSepasctIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSepasctIDConflict creates a GetSepasctIDConflict with default headers values
+func NewGetSepasctIDConflict() *GetSepasctIDConflict {
+	return &GetSepasctIDConflict{}
+}
+
+/*GetSepasctIDConflict handles this case with default header values.
+
+Conflict
+*/
+type GetSepasctIDConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetSepasctIDConflict) Error() string {
+	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetSepasctIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSepasctIDTooManyRequests creates a GetSepasctIDTooManyRequests with default headers values
+func NewGetSepasctIDTooManyRequests() *GetSepasctIDTooManyRequests {
+	return &GetSepasctIDTooManyRequests{}
+}
+
+/*GetSepasctIDTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetSepasctIDTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetSepasctIDTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetSepasctIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSepasctIDInternalServerError creates a GetSepasctIDInternalServerError with default headers values
+func NewGetSepasctIDInternalServerError() *GetSepasctIDInternalServerError {
+	return &GetSepasctIDInternalServerError{}
+}
+
+/*GetSepasctIDInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetSepasctIDInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetSepasctIDInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetSepasctIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetSepasctIDServiceUnavailable creates a GetSepasctIDServiceUnavailable with default headers values
+func NewGetSepasctIDServiceUnavailable() *GetSepasctIDServiceUnavailable {
+	return &GetSepasctIDServiceUnavailable{}
+}
+
+/*GetSepasctIDServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetSepasctIDServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetSepasctIDServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetSepasctIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

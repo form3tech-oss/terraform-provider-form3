@@ -7,10 +7,13 @@ package associations
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteBacsIDReader is a Reader for the DeleteBacsID structure.
@@ -28,6 +31,62 @@ func (o *DeleteBacsIDReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return result, nil
+
+	case 400:
+		result := NewDeleteBacsIDBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 401:
+		result := NewDeleteBacsIDUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewDeleteBacsIDForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewDeleteBacsIDNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewDeleteBacsIDConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 429:
+		result := NewDeleteBacsIDTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewDeleteBacsIDInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 503:
+		result := NewDeleteBacsIDServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -51,6 +110,238 @@ func (o *DeleteBacsIDNoContent) Error() string {
 }
 
 func (o *DeleteBacsIDNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	return nil
+}
+
+// NewDeleteBacsIDBadRequest creates a DeleteBacsIDBadRequest with default headers values
+func NewDeleteBacsIDBadRequest() *DeleteBacsIDBadRequest {
+	return &DeleteBacsIDBadRequest{}
+}
+
+/*DeleteBacsIDBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type DeleteBacsIDBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteBacsIDBadRequest) Error() string {
+	return fmt.Sprintf("[DELETE /bacs/{id}][%d] deleteBacsIdBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DeleteBacsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteBacsIDUnauthorized creates a DeleteBacsIDUnauthorized with default headers values
+func NewDeleteBacsIDUnauthorized() *DeleteBacsIDUnauthorized {
+	return &DeleteBacsIDUnauthorized{}
+}
+
+/*DeleteBacsIDUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type DeleteBacsIDUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteBacsIDUnauthorized) Error() string {
+	return fmt.Sprintf("[DELETE /bacs/{id}][%d] deleteBacsIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *DeleteBacsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteBacsIDForbidden creates a DeleteBacsIDForbidden with default headers values
+func NewDeleteBacsIDForbidden() *DeleteBacsIDForbidden {
+	return &DeleteBacsIDForbidden{}
+}
+
+/*DeleteBacsIDForbidden handles this case with default header values.
+
+Forbidden
+*/
+type DeleteBacsIDForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteBacsIDForbidden) Error() string {
+	return fmt.Sprintf("[DELETE /bacs/{id}][%d] deleteBacsIdForbidden  %+v", 403, o.Payload)
+}
+
+func (o *DeleteBacsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteBacsIDNotFound creates a DeleteBacsIDNotFound with default headers values
+func NewDeleteBacsIDNotFound() *DeleteBacsIDNotFound {
+	return &DeleteBacsIDNotFound{}
+}
+
+/*DeleteBacsIDNotFound handles this case with default header values.
+
+Record not found
+*/
+type DeleteBacsIDNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteBacsIDNotFound) Error() string {
+	return fmt.Sprintf("[DELETE /bacs/{id}][%d] deleteBacsIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteBacsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteBacsIDConflict creates a DeleteBacsIDConflict with default headers values
+func NewDeleteBacsIDConflict() *DeleteBacsIDConflict {
+	return &DeleteBacsIDConflict{}
+}
+
+/*DeleteBacsIDConflict handles this case with default header values.
+
+Conflict
+*/
+type DeleteBacsIDConflict struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteBacsIDConflict) Error() string {
+	return fmt.Sprintf("[DELETE /bacs/{id}][%d] deleteBacsIdConflict  %+v", 409, o.Payload)
+}
+
+func (o *DeleteBacsIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteBacsIDTooManyRequests creates a DeleteBacsIDTooManyRequests with default headers values
+func NewDeleteBacsIDTooManyRequests() *DeleteBacsIDTooManyRequests {
+	return &DeleteBacsIDTooManyRequests{}
+}
+
+/*DeleteBacsIDTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type DeleteBacsIDTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteBacsIDTooManyRequests) Error() string {
+	return fmt.Sprintf("[DELETE /bacs/{id}][%d] deleteBacsIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *DeleteBacsIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteBacsIDInternalServerError creates a DeleteBacsIDInternalServerError with default headers values
+func NewDeleteBacsIDInternalServerError() *DeleteBacsIDInternalServerError {
+	return &DeleteBacsIDInternalServerError{}
+}
+
+/*DeleteBacsIDInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type DeleteBacsIDInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteBacsIDInternalServerError) Error() string {
+	return fmt.Sprintf("[DELETE /bacs/{id}][%d] deleteBacsIdInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *DeleteBacsIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteBacsIDServiceUnavailable creates a DeleteBacsIDServiceUnavailable with default headers values
+func NewDeleteBacsIDServiceUnavailable() *DeleteBacsIDServiceUnavailable {
+	return &DeleteBacsIDServiceUnavailable{}
+}
+
+/*DeleteBacsIDServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type DeleteBacsIDServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteBacsIDServiceUnavailable) Error() string {
+	return fmt.Sprintf("[DELETE /bacs/{id}][%d] deleteBacsIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *DeleteBacsIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

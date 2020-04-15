@@ -32,6 +32,62 @@ func (o *GetRolesRoleIDAcesReader) ReadResponse(response runtime.ClientResponse,
 		}
 		return result, nil
 
+	case 400:
+		result := NewGetRolesRoleIDAcesBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 401:
+		result := NewGetRolesRoleIDAcesUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewGetRolesRoleIDAcesForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewGetRolesRoleIDAcesNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewGetRolesRoleIDAcesConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 429:
+		result := NewGetRolesRoleIDAcesTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewGetRolesRoleIDAcesInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 503:
+		result := NewGetRolesRoleIDAcesServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -57,6 +113,238 @@ func (o *GetRolesRoleIDAcesOK) Error() string {
 func (o *GetRolesRoleIDAcesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.AceDetailsListResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetRolesRoleIDAcesBadRequest creates a GetRolesRoleIDAcesBadRequest with default headers values
+func NewGetRolesRoleIDAcesBadRequest() *GetRolesRoleIDAcesBadRequest {
+	return &GetRolesRoleIDAcesBadRequest{}
+}
+
+/*GetRolesRoleIDAcesBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetRolesRoleIDAcesBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetRolesRoleIDAcesBadRequest) Error() string {
+	return fmt.Sprintf("[GET /roles/{role_id}/aces][%d] getRolesRoleIdAcesBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetRolesRoleIDAcesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetRolesRoleIDAcesUnauthorized creates a GetRolesRoleIDAcesUnauthorized with default headers values
+func NewGetRolesRoleIDAcesUnauthorized() *GetRolesRoleIDAcesUnauthorized {
+	return &GetRolesRoleIDAcesUnauthorized{}
+}
+
+/*GetRolesRoleIDAcesUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetRolesRoleIDAcesUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetRolesRoleIDAcesUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /roles/{role_id}/aces][%d] getRolesRoleIdAcesUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetRolesRoleIDAcesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetRolesRoleIDAcesForbidden creates a GetRolesRoleIDAcesForbidden with default headers values
+func NewGetRolesRoleIDAcesForbidden() *GetRolesRoleIDAcesForbidden {
+	return &GetRolesRoleIDAcesForbidden{}
+}
+
+/*GetRolesRoleIDAcesForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetRolesRoleIDAcesForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetRolesRoleIDAcesForbidden) Error() string {
+	return fmt.Sprintf("[GET /roles/{role_id}/aces][%d] getRolesRoleIdAcesForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetRolesRoleIDAcesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetRolesRoleIDAcesNotFound creates a GetRolesRoleIDAcesNotFound with default headers values
+func NewGetRolesRoleIDAcesNotFound() *GetRolesRoleIDAcesNotFound {
+	return &GetRolesRoleIDAcesNotFound{}
+}
+
+/*GetRolesRoleIDAcesNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetRolesRoleIDAcesNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetRolesRoleIDAcesNotFound) Error() string {
+	return fmt.Sprintf("[GET /roles/{role_id}/aces][%d] getRolesRoleIdAcesNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetRolesRoleIDAcesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetRolesRoleIDAcesConflict creates a GetRolesRoleIDAcesConflict with default headers values
+func NewGetRolesRoleIDAcesConflict() *GetRolesRoleIDAcesConflict {
+	return &GetRolesRoleIDAcesConflict{}
+}
+
+/*GetRolesRoleIDAcesConflict handles this case with default header values.
+
+Conflict
+*/
+type GetRolesRoleIDAcesConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetRolesRoleIDAcesConflict) Error() string {
+	return fmt.Sprintf("[GET /roles/{role_id}/aces][%d] getRolesRoleIdAcesConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetRolesRoleIDAcesConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetRolesRoleIDAcesTooManyRequests creates a GetRolesRoleIDAcesTooManyRequests with default headers values
+func NewGetRolesRoleIDAcesTooManyRequests() *GetRolesRoleIDAcesTooManyRequests {
+	return &GetRolesRoleIDAcesTooManyRequests{}
+}
+
+/*GetRolesRoleIDAcesTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetRolesRoleIDAcesTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetRolesRoleIDAcesTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /roles/{role_id}/aces][%d] getRolesRoleIdAcesTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetRolesRoleIDAcesTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetRolesRoleIDAcesInternalServerError creates a GetRolesRoleIDAcesInternalServerError with default headers values
+func NewGetRolesRoleIDAcesInternalServerError() *GetRolesRoleIDAcesInternalServerError {
+	return &GetRolesRoleIDAcesInternalServerError{}
+}
+
+/*GetRolesRoleIDAcesInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetRolesRoleIDAcesInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetRolesRoleIDAcesInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /roles/{role_id}/aces][%d] getRolesRoleIdAcesInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetRolesRoleIDAcesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetRolesRoleIDAcesServiceUnavailable creates a GetRolesRoleIDAcesServiceUnavailable with default headers values
+func NewGetRolesRoleIDAcesServiceUnavailable() *GetRolesRoleIDAcesServiceUnavailable {
+	return &GetRolesRoleIDAcesServiceUnavailable{}
+}
+
+/*GetRolesRoleIDAcesServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetRolesRoleIDAcesServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetRolesRoleIDAcesServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /roles/{role_id}/aces][%d] getRolesRoleIdAcesServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetRolesRoleIDAcesServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

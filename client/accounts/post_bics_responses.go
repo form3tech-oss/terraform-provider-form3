@@ -32,6 +32,62 @@ func (o *PostBicsReader) ReadResponse(response runtime.ClientResponse, consumer 
 		}
 		return result, nil
 
+	case 400:
+		result := NewPostBicsBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 401:
+		result := NewPostBicsUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewPostBicsForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewPostBicsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewPostBicsConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 429:
+		result := NewPostBicsTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewPostBicsInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 503:
+		result := NewPostBicsServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -57,6 +113,238 @@ func (o *PostBicsCreated) Error() string {
 func (o *PostBicsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BicCreationResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostBicsBadRequest creates a PostBicsBadRequest with default headers values
+func NewPostBicsBadRequest() *PostBicsBadRequest {
+	return &PostBicsBadRequest{}
+}
+
+/*PostBicsBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type PostBicsBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *PostBicsBadRequest) Error() string {
+	return fmt.Sprintf("[POST /bics][%d] postBicsBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *PostBicsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostBicsUnauthorized creates a PostBicsUnauthorized with default headers values
+func NewPostBicsUnauthorized() *PostBicsUnauthorized {
+	return &PostBicsUnauthorized{}
+}
+
+/*PostBicsUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type PostBicsUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *PostBicsUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /bics][%d] postBicsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostBicsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostBicsForbidden creates a PostBicsForbidden with default headers values
+func NewPostBicsForbidden() *PostBicsForbidden {
+	return &PostBicsForbidden{}
+}
+
+/*PostBicsForbidden handles this case with default header values.
+
+Forbidden
+*/
+type PostBicsForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *PostBicsForbidden) Error() string {
+	return fmt.Sprintf("[POST /bics][%d] postBicsForbidden  %+v", 403, o.Payload)
+}
+
+func (o *PostBicsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostBicsNotFound creates a PostBicsNotFound with default headers values
+func NewPostBicsNotFound() *PostBicsNotFound {
+	return &PostBicsNotFound{}
+}
+
+/*PostBicsNotFound handles this case with default header values.
+
+Record not found
+*/
+type PostBicsNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *PostBicsNotFound) Error() string {
+	return fmt.Sprintf("[POST /bics][%d] postBicsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostBicsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostBicsConflict creates a PostBicsConflict with default headers values
+func NewPostBicsConflict() *PostBicsConflict {
+	return &PostBicsConflict{}
+}
+
+/*PostBicsConflict handles this case with default header values.
+
+Conflict
+*/
+type PostBicsConflict struct {
+	Payload *models.APIError
+}
+
+func (o *PostBicsConflict) Error() string {
+	return fmt.Sprintf("[POST /bics][%d] postBicsConflict  %+v", 409, o.Payload)
+}
+
+func (o *PostBicsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostBicsTooManyRequests creates a PostBicsTooManyRequests with default headers values
+func NewPostBicsTooManyRequests() *PostBicsTooManyRequests {
+	return &PostBicsTooManyRequests{}
+}
+
+/*PostBicsTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type PostBicsTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *PostBicsTooManyRequests) Error() string {
+	return fmt.Sprintf("[POST /bics][%d] postBicsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostBicsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostBicsInternalServerError creates a PostBicsInternalServerError with default headers values
+func NewPostBicsInternalServerError() *PostBicsInternalServerError {
+	return &PostBicsInternalServerError{}
+}
+
+/*PostBicsInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type PostBicsInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *PostBicsInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /bics][%d] postBicsInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *PostBicsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostBicsServiceUnavailable creates a PostBicsServiceUnavailable with default headers values
+func NewPostBicsServiceUnavailable() *PostBicsServiceUnavailable {
+	return &PostBicsServiceUnavailable{}
+}
+
+/*PostBicsServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type PostBicsServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *PostBicsServiceUnavailable) Error() string {
+	return fmt.Sprintf("[POST /bics][%d] postBicsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostBicsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

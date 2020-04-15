@@ -32,6 +32,62 @@ func (o *GetEburyIDReader) ReadResponse(response runtime.ClientResponse, consume
 		}
 		return result, nil
 
+	case 400:
+		result := NewGetEburyIDBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 401:
+		result := NewGetEburyIDUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewGetEburyIDForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewGetEburyIDNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewGetEburyIDConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 429:
+		result := NewGetEburyIDTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewGetEburyIDInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 503:
+		result := NewGetEburyIDServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -57,6 +113,238 @@ func (o *GetEburyIDOK) Error() string {
 func (o *GetEburyIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EburyAssociationResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetEburyIDBadRequest creates a GetEburyIDBadRequest with default headers values
+func NewGetEburyIDBadRequest() *GetEburyIDBadRequest {
+	return &GetEburyIDBadRequest{}
+}
+
+/*GetEburyIDBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetEburyIDBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetEburyIDBadRequest) Error() string {
+	return fmt.Sprintf("[GET /ebury/{id}][%d] getEburyIdBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetEburyIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetEburyIDUnauthorized creates a GetEburyIDUnauthorized with default headers values
+func NewGetEburyIDUnauthorized() *GetEburyIDUnauthorized {
+	return &GetEburyIDUnauthorized{}
+}
+
+/*GetEburyIDUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetEburyIDUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetEburyIDUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /ebury/{id}][%d] getEburyIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetEburyIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetEburyIDForbidden creates a GetEburyIDForbidden with default headers values
+func NewGetEburyIDForbidden() *GetEburyIDForbidden {
+	return &GetEburyIDForbidden{}
+}
+
+/*GetEburyIDForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetEburyIDForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetEburyIDForbidden) Error() string {
+	return fmt.Sprintf("[GET /ebury/{id}][%d] getEburyIdForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetEburyIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetEburyIDNotFound creates a GetEburyIDNotFound with default headers values
+func NewGetEburyIDNotFound() *GetEburyIDNotFound {
+	return &GetEburyIDNotFound{}
+}
+
+/*GetEburyIDNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetEburyIDNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetEburyIDNotFound) Error() string {
+	return fmt.Sprintf("[GET /ebury/{id}][%d] getEburyIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetEburyIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetEburyIDConflict creates a GetEburyIDConflict with default headers values
+func NewGetEburyIDConflict() *GetEburyIDConflict {
+	return &GetEburyIDConflict{}
+}
+
+/*GetEburyIDConflict handles this case with default header values.
+
+Conflict
+*/
+type GetEburyIDConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetEburyIDConflict) Error() string {
+	return fmt.Sprintf("[GET /ebury/{id}][%d] getEburyIdConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetEburyIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetEburyIDTooManyRequests creates a GetEburyIDTooManyRequests with default headers values
+func NewGetEburyIDTooManyRequests() *GetEburyIDTooManyRequests {
+	return &GetEburyIDTooManyRequests{}
+}
+
+/*GetEburyIDTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetEburyIDTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetEburyIDTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /ebury/{id}][%d] getEburyIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetEburyIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetEburyIDInternalServerError creates a GetEburyIDInternalServerError with default headers values
+func NewGetEburyIDInternalServerError() *GetEburyIDInternalServerError {
+	return &GetEburyIDInternalServerError{}
+}
+
+/*GetEburyIDInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetEburyIDInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetEburyIDInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /ebury/{id}][%d] getEburyIdInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetEburyIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetEburyIDServiceUnavailable creates a GetEburyIDServiceUnavailable with default headers values
+func NewGetEburyIDServiceUnavailable() *GetEburyIDServiceUnavailable {
+	return &GetEburyIDServiceUnavailable{}
+}
+
+/*GetEburyIDServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetEburyIDServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetEburyIDServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /ebury/{id}][%d] getEburyIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetEburyIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

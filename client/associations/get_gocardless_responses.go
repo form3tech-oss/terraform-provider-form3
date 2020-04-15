@@ -32,6 +32,62 @@ func (o *GetGocardlessReader) ReadResponse(response runtime.ClientResponse, cons
 		}
 		return result, nil
 
+	case 400:
+		result := NewGetGocardlessBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 401:
+		result := NewGetGocardlessUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewGetGocardlessForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewGetGocardlessNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewGetGocardlessConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 429:
+		result := NewGetGocardlessTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewGetGocardlessInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 503:
+		result := NewGetGocardlessServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -57,6 +113,238 @@ func (o *GetGocardlessOK) Error() string {
 func (o *GetGocardlessOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.GocardlessAssociationListResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetGocardlessBadRequest creates a GetGocardlessBadRequest with default headers values
+func NewGetGocardlessBadRequest() *GetGocardlessBadRequest {
+	return &GetGocardlessBadRequest{}
+}
+
+/*GetGocardlessBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetGocardlessBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetGocardlessBadRequest) Error() string {
+	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetGocardlessBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetGocardlessUnauthorized creates a GetGocardlessUnauthorized with default headers values
+func NewGetGocardlessUnauthorized() *GetGocardlessUnauthorized {
+	return &GetGocardlessUnauthorized{}
+}
+
+/*GetGocardlessUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetGocardlessUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetGocardlessUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetGocardlessUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetGocardlessForbidden creates a GetGocardlessForbidden with default headers values
+func NewGetGocardlessForbidden() *GetGocardlessForbidden {
+	return &GetGocardlessForbidden{}
+}
+
+/*GetGocardlessForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetGocardlessForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetGocardlessForbidden) Error() string {
+	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetGocardlessForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetGocardlessNotFound creates a GetGocardlessNotFound with default headers values
+func NewGetGocardlessNotFound() *GetGocardlessNotFound {
+	return &GetGocardlessNotFound{}
+}
+
+/*GetGocardlessNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetGocardlessNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetGocardlessNotFound) Error() string {
+	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetGocardlessNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetGocardlessConflict creates a GetGocardlessConflict with default headers values
+func NewGetGocardlessConflict() *GetGocardlessConflict {
+	return &GetGocardlessConflict{}
+}
+
+/*GetGocardlessConflict handles this case with default header values.
+
+Conflict
+*/
+type GetGocardlessConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetGocardlessConflict) Error() string {
+	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetGocardlessConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetGocardlessTooManyRequests creates a GetGocardlessTooManyRequests with default headers values
+func NewGetGocardlessTooManyRequests() *GetGocardlessTooManyRequests {
+	return &GetGocardlessTooManyRequests{}
+}
+
+/*GetGocardlessTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetGocardlessTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetGocardlessTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetGocardlessTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetGocardlessInternalServerError creates a GetGocardlessInternalServerError with default headers values
+func NewGetGocardlessInternalServerError() *GetGocardlessInternalServerError {
+	return &GetGocardlessInternalServerError{}
+}
+
+/*GetGocardlessInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetGocardlessInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetGocardlessInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetGocardlessInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetGocardlessServiceUnavailable creates a GetGocardlessServiceUnavailable with default headers values
+func NewGetGocardlessServiceUnavailable() *GetGocardlessServiceUnavailable {
+	return &GetGocardlessServiceUnavailable{}
+}
+
+/*GetGocardlessServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetGocardlessServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetGocardlessServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetGocardlessServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

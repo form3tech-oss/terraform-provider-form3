@@ -32,6 +32,62 @@ func (o *GetAccountsIDReader) ReadResponse(response runtime.ClientResponse, cons
 		}
 		return result, nil
 
+	case 400:
+		result := NewGetAccountsIDBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 401:
+		result := NewGetAccountsIDUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewGetAccountsIDForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewGetAccountsIDNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewGetAccountsIDConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 429:
+		result := NewGetAccountsIDTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewGetAccountsIDInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 503:
+		result := NewGetAccountsIDServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -57,6 +113,238 @@ func (o *GetAccountsIDOK) Error() string {
 func (o *GetAccountsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.AccountDetailsResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAccountsIDBadRequest creates a GetAccountsIDBadRequest with default headers values
+func NewGetAccountsIDBadRequest() *GetAccountsIDBadRequest {
+	return &GetAccountsIDBadRequest{}
+}
+
+/*GetAccountsIDBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetAccountsIDBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetAccountsIDBadRequest) Error() string {
+	return fmt.Sprintf("[GET /accounts/{id}][%d] getAccountsIdBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetAccountsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAccountsIDUnauthorized creates a GetAccountsIDUnauthorized with default headers values
+func NewGetAccountsIDUnauthorized() *GetAccountsIDUnauthorized {
+	return &GetAccountsIDUnauthorized{}
+}
+
+/*GetAccountsIDUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetAccountsIDUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetAccountsIDUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /accounts/{id}][%d] getAccountsIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetAccountsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAccountsIDForbidden creates a GetAccountsIDForbidden with default headers values
+func NewGetAccountsIDForbidden() *GetAccountsIDForbidden {
+	return &GetAccountsIDForbidden{}
+}
+
+/*GetAccountsIDForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetAccountsIDForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetAccountsIDForbidden) Error() string {
+	return fmt.Sprintf("[GET /accounts/{id}][%d] getAccountsIdForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetAccountsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAccountsIDNotFound creates a GetAccountsIDNotFound with default headers values
+func NewGetAccountsIDNotFound() *GetAccountsIDNotFound {
+	return &GetAccountsIDNotFound{}
+}
+
+/*GetAccountsIDNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetAccountsIDNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetAccountsIDNotFound) Error() string {
+	return fmt.Sprintf("[GET /accounts/{id}][%d] getAccountsIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetAccountsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAccountsIDConflict creates a GetAccountsIDConflict with default headers values
+func NewGetAccountsIDConflict() *GetAccountsIDConflict {
+	return &GetAccountsIDConflict{}
+}
+
+/*GetAccountsIDConflict handles this case with default header values.
+
+Conflict
+*/
+type GetAccountsIDConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetAccountsIDConflict) Error() string {
+	return fmt.Sprintf("[GET /accounts/{id}][%d] getAccountsIdConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetAccountsIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAccountsIDTooManyRequests creates a GetAccountsIDTooManyRequests with default headers values
+func NewGetAccountsIDTooManyRequests() *GetAccountsIDTooManyRequests {
+	return &GetAccountsIDTooManyRequests{}
+}
+
+/*GetAccountsIDTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetAccountsIDTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetAccountsIDTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /accounts/{id}][%d] getAccountsIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetAccountsIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAccountsIDInternalServerError creates a GetAccountsIDInternalServerError with default headers values
+func NewGetAccountsIDInternalServerError() *GetAccountsIDInternalServerError {
+	return &GetAccountsIDInternalServerError{}
+}
+
+/*GetAccountsIDInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetAccountsIDInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetAccountsIDInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /accounts/{id}][%d] getAccountsIdInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetAccountsIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAccountsIDServiceUnavailable creates a GetAccountsIDServiceUnavailable with default headers values
+func NewGetAccountsIDServiceUnavailable() *GetAccountsIDServiceUnavailable {
+	return &GetAccountsIDServiceUnavailable{}
+}
+
+/*GetAccountsIDServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetAccountsIDServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetAccountsIDServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /accounts/{id}][%d] getAccountsIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetAccountsIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

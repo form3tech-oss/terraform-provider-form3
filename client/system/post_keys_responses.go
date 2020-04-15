@@ -32,6 +32,62 @@ func (o *PostKeysReader) ReadResponse(response runtime.ClientResponse, consumer 
 		}
 		return result, nil
 
+	case 400:
+		result := NewPostKeysBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 401:
+		result := NewPostKeysUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewPostKeysForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewPostKeysNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewPostKeysConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 429:
+		result := NewPostKeysTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewPostKeysInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 503:
+		result := NewPostKeysServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -57,6 +113,238 @@ func (o *PostKeysCreated) Error() string {
 func (o *PostKeysCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.KeyCreationResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostKeysBadRequest creates a PostKeysBadRequest with default headers values
+func NewPostKeysBadRequest() *PostKeysBadRequest {
+	return &PostKeysBadRequest{}
+}
+
+/*PostKeysBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type PostKeysBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *PostKeysBadRequest) Error() string {
+	return fmt.Sprintf("[POST /keys][%d] postKeysBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *PostKeysBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostKeysUnauthorized creates a PostKeysUnauthorized with default headers values
+func NewPostKeysUnauthorized() *PostKeysUnauthorized {
+	return &PostKeysUnauthorized{}
+}
+
+/*PostKeysUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type PostKeysUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *PostKeysUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /keys][%d] postKeysUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostKeysUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostKeysForbidden creates a PostKeysForbidden with default headers values
+func NewPostKeysForbidden() *PostKeysForbidden {
+	return &PostKeysForbidden{}
+}
+
+/*PostKeysForbidden handles this case with default header values.
+
+Forbidden
+*/
+type PostKeysForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *PostKeysForbidden) Error() string {
+	return fmt.Sprintf("[POST /keys][%d] postKeysForbidden  %+v", 403, o.Payload)
+}
+
+func (o *PostKeysForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostKeysNotFound creates a PostKeysNotFound with default headers values
+func NewPostKeysNotFound() *PostKeysNotFound {
+	return &PostKeysNotFound{}
+}
+
+/*PostKeysNotFound handles this case with default header values.
+
+Record not found
+*/
+type PostKeysNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *PostKeysNotFound) Error() string {
+	return fmt.Sprintf("[POST /keys][%d] postKeysNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostKeysNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostKeysConflict creates a PostKeysConflict with default headers values
+func NewPostKeysConflict() *PostKeysConflict {
+	return &PostKeysConflict{}
+}
+
+/*PostKeysConflict handles this case with default header values.
+
+Conflict
+*/
+type PostKeysConflict struct {
+	Payload *models.APIError
+}
+
+func (o *PostKeysConflict) Error() string {
+	return fmt.Sprintf("[POST /keys][%d] postKeysConflict  %+v", 409, o.Payload)
+}
+
+func (o *PostKeysConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostKeysTooManyRequests creates a PostKeysTooManyRequests with default headers values
+func NewPostKeysTooManyRequests() *PostKeysTooManyRequests {
+	return &PostKeysTooManyRequests{}
+}
+
+/*PostKeysTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type PostKeysTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *PostKeysTooManyRequests) Error() string {
+	return fmt.Sprintf("[POST /keys][%d] postKeysTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostKeysTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostKeysInternalServerError creates a PostKeysInternalServerError with default headers values
+func NewPostKeysInternalServerError() *PostKeysInternalServerError {
+	return &PostKeysInternalServerError{}
+}
+
+/*PostKeysInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type PostKeysInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *PostKeysInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /keys][%d] postKeysInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *PostKeysInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostKeysServiceUnavailable creates a PostKeysServiceUnavailable with default headers values
+func NewPostKeysServiceUnavailable() *PostKeysServiceUnavailable {
+	return &PostKeysServiceUnavailable{}
+}
+
+/*PostKeysServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type PostKeysServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *PostKeysServiceUnavailable) Error() string {
+	return fmt.Sprintf("[POST /keys][%d] postKeysServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostKeysServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

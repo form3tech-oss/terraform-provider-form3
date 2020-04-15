@@ -32,6 +32,62 @@ func (o *PatchUnitsIDReader) ReadResponse(response runtime.ClientResponse, consu
 		}
 		return result, nil
 
+	case 400:
+		result := NewPatchUnitsIDBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 401:
+		result := NewPatchUnitsIDUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewPatchUnitsIDForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewPatchUnitsIDNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewPatchUnitsIDConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 429:
+		result := NewPatchUnitsIDTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewPatchUnitsIDInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 503:
+		result := NewPatchUnitsIDServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -57,6 +113,238 @@ func (o *PatchUnitsIDOK) Error() string {
 func (o *PatchUnitsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.OrganisationDetailsResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchUnitsIDBadRequest creates a PatchUnitsIDBadRequest with default headers values
+func NewPatchUnitsIDBadRequest() *PatchUnitsIDBadRequest {
+	return &PatchUnitsIDBadRequest{}
+}
+
+/*PatchUnitsIDBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type PatchUnitsIDBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *PatchUnitsIDBadRequest) Error() string {
+	return fmt.Sprintf("[PATCH /units/{id}][%d] patchUnitsIdBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *PatchUnitsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchUnitsIDUnauthorized creates a PatchUnitsIDUnauthorized with default headers values
+func NewPatchUnitsIDUnauthorized() *PatchUnitsIDUnauthorized {
+	return &PatchUnitsIDUnauthorized{}
+}
+
+/*PatchUnitsIDUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type PatchUnitsIDUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *PatchUnitsIDUnauthorized) Error() string {
+	return fmt.Sprintf("[PATCH /units/{id}][%d] patchUnitsIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PatchUnitsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchUnitsIDForbidden creates a PatchUnitsIDForbidden with default headers values
+func NewPatchUnitsIDForbidden() *PatchUnitsIDForbidden {
+	return &PatchUnitsIDForbidden{}
+}
+
+/*PatchUnitsIDForbidden handles this case with default header values.
+
+Forbidden
+*/
+type PatchUnitsIDForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *PatchUnitsIDForbidden) Error() string {
+	return fmt.Sprintf("[PATCH /units/{id}][%d] patchUnitsIdForbidden  %+v", 403, o.Payload)
+}
+
+func (o *PatchUnitsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchUnitsIDNotFound creates a PatchUnitsIDNotFound with default headers values
+func NewPatchUnitsIDNotFound() *PatchUnitsIDNotFound {
+	return &PatchUnitsIDNotFound{}
+}
+
+/*PatchUnitsIDNotFound handles this case with default header values.
+
+Record not found
+*/
+type PatchUnitsIDNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *PatchUnitsIDNotFound) Error() string {
+	return fmt.Sprintf("[PATCH /units/{id}][%d] patchUnitsIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PatchUnitsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchUnitsIDConflict creates a PatchUnitsIDConflict with default headers values
+func NewPatchUnitsIDConflict() *PatchUnitsIDConflict {
+	return &PatchUnitsIDConflict{}
+}
+
+/*PatchUnitsIDConflict handles this case with default header values.
+
+Conflict
+*/
+type PatchUnitsIDConflict struct {
+	Payload *models.APIError
+}
+
+func (o *PatchUnitsIDConflict) Error() string {
+	return fmt.Sprintf("[PATCH /units/{id}][%d] patchUnitsIdConflict  %+v", 409, o.Payload)
+}
+
+func (o *PatchUnitsIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchUnitsIDTooManyRequests creates a PatchUnitsIDTooManyRequests with default headers values
+func NewPatchUnitsIDTooManyRequests() *PatchUnitsIDTooManyRequests {
+	return &PatchUnitsIDTooManyRequests{}
+}
+
+/*PatchUnitsIDTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type PatchUnitsIDTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *PatchUnitsIDTooManyRequests) Error() string {
+	return fmt.Sprintf("[PATCH /units/{id}][%d] patchUnitsIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PatchUnitsIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchUnitsIDInternalServerError creates a PatchUnitsIDInternalServerError with default headers values
+func NewPatchUnitsIDInternalServerError() *PatchUnitsIDInternalServerError {
+	return &PatchUnitsIDInternalServerError{}
+}
+
+/*PatchUnitsIDInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type PatchUnitsIDInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *PatchUnitsIDInternalServerError) Error() string {
+	return fmt.Sprintf("[PATCH /units/{id}][%d] patchUnitsIdInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *PatchUnitsIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchUnitsIDServiceUnavailable creates a PatchUnitsIDServiceUnavailable with default headers values
+func NewPatchUnitsIDServiceUnavailable() *PatchUnitsIDServiceUnavailable {
+	return &PatchUnitsIDServiceUnavailable{}
+}
+
+/*PatchUnitsIDServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type PatchUnitsIDServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *PatchUnitsIDServiceUnavailable) Error() string {
+	return fmt.Sprintf("[PATCH /units/{id}][%d] patchUnitsIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PatchUnitsIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

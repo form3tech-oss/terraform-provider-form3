@@ -32,6 +32,62 @@ func (o *PostStarlingReader) ReadResponse(response runtime.ClientResponse, consu
 		}
 		return result, nil
 
+	case 400:
+		result := NewPostStarlingBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 401:
+		result := NewPostStarlingUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewPostStarlingForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewPostStarlingNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewPostStarlingConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 429:
+		result := NewPostStarlingTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewPostStarlingInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 503:
+		result := NewPostStarlingServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -57,6 +113,238 @@ func (o *PostStarlingCreated) Error() string {
 func (o *PostStarlingCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.AssociationCreationResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostStarlingBadRequest creates a PostStarlingBadRequest with default headers values
+func NewPostStarlingBadRequest() *PostStarlingBadRequest {
+	return &PostStarlingBadRequest{}
+}
+
+/*PostStarlingBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type PostStarlingBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *PostStarlingBadRequest) Error() string {
+	return fmt.Sprintf("[POST /starling][%d] postStarlingBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *PostStarlingBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostStarlingUnauthorized creates a PostStarlingUnauthorized with default headers values
+func NewPostStarlingUnauthorized() *PostStarlingUnauthorized {
+	return &PostStarlingUnauthorized{}
+}
+
+/*PostStarlingUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type PostStarlingUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *PostStarlingUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /starling][%d] postStarlingUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostStarlingUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostStarlingForbidden creates a PostStarlingForbidden with default headers values
+func NewPostStarlingForbidden() *PostStarlingForbidden {
+	return &PostStarlingForbidden{}
+}
+
+/*PostStarlingForbidden handles this case with default header values.
+
+Forbidden
+*/
+type PostStarlingForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *PostStarlingForbidden) Error() string {
+	return fmt.Sprintf("[POST /starling][%d] postStarlingForbidden  %+v", 403, o.Payload)
+}
+
+func (o *PostStarlingForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostStarlingNotFound creates a PostStarlingNotFound with default headers values
+func NewPostStarlingNotFound() *PostStarlingNotFound {
+	return &PostStarlingNotFound{}
+}
+
+/*PostStarlingNotFound handles this case with default header values.
+
+Record not found
+*/
+type PostStarlingNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *PostStarlingNotFound) Error() string {
+	return fmt.Sprintf("[POST /starling][%d] postStarlingNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostStarlingNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostStarlingConflict creates a PostStarlingConflict with default headers values
+func NewPostStarlingConflict() *PostStarlingConflict {
+	return &PostStarlingConflict{}
+}
+
+/*PostStarlingConflict handles this case with default header values.
+
+Conflict
+*/
+type PostStarlingConflict struct {
+	Payload *models.APIError
+}
+
+func (o *PostStarlingConflict) Error() string {
+	return fmt.Sprintf("[POST /starling][%d] postStarlingConflict  %+v", 409, o.Payload)
+}
+
+func (o *PostStarlingConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostStarlingTooManyRequests creates a PostStarlingTooManyRequests with default headers values
+func NewPostStarlingTooManyRequests() *PostStarlingTooManyRequests {
+	return &PostStarlingTooManyRequests{}
+}
+
+/*PostStarlingTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type PostStarlingTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *PostStarlingTooManyRequests) Error() string {
+	return fmt.Sprintf("[POST /starling][%d] postStarlingTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostStarlingTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostStarlingInternalServerError creates a PostStarlingInternalServerError with default headers values
+func NewPostStarlingInternalServerError() *PostStarlingInternalServerError {
+	return &PostStarlingInternalServerError{}
+}
+
+/*PostStarlingInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type PostStarlingInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *PostStarlingInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /starling][%d] postStarlingInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *PostStarlingInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostStarlingServiceUnavailable creates a PostStarlingServiceUnavailable with default headers values
+func NewPostStarlingServiceUnavailable() *PostStarlingServiceUnavailable {
+	return &PostStarlingServiceUnavailable{}
+}
+
+/*PostStarlingServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type PostStarlingServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *PostStarlingServiceUnavailable) Error() string {
+	return fmt.Sprintf("[POST /starling][%d] postStarlingServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostStarlingServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

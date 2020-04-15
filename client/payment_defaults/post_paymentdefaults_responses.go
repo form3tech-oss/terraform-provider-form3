@@ -39,6 +39,55 @@ func (o *PostPaymentdefaultsReader) ReadResponse(response runtime.ClientResponse
 		}
 		return nil, result
 
+	case 401:
+		result := NewPostPaymentdefaultsUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewPostPaymentdefaultsForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewPostPaymentdefaultsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewPostPaymentdefaultsConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 429:
+		result := NewPostPaymentdefaultsTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewPostPaymentdefaultsInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 503:
+		result := NewPostPaymentdefaultsServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -80,7 +129,7 @@ func NewPostPaymentdefaultsBadRequest() *PostPaymentdefaultsBadRequest {
 
 /*PostPaymentdefaultsBadRequest handles this case with default header values.
 
-Default settings creation error
+Bad Request
 */
 type PostPaymentdefaultsBadRequest struct {
 	Payload *models.APIError
@@ -91,6 +140,209 @@ func (o *PostPaymentdefaultsBadRequest) Error() string {
 }
 
 func (o *PostPaymentdefaultsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentdefaultsUnauthorized creates a PostPaymentdefaultsUnauthorized with default headers values
+func NewPostPaymentdefaultsUnauthorized() *PostPaymentdefaultsUnauthorized {
+	return &PostPaymentdefaultsUnauthorized{}
+}
+
+/*PostPaymentdefaultsUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type PostPaymentdefaultsUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentdefaultsUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /paymentdefaults][%d] postPaymentdefaultsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostPaymentdefaultsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentdefaultsForbidden creates a PostPaymentdefaultsForbidden with default headers values
+func NewPostPaymentdefaultsForbidden() *PostPaymentdefaultsForbidden {
+	return &PostPaymentdefaultsForbidden{}
+}
+
+/*PostPaymentdefaultsForbidden handles this case with default header values.
+
+Forbidden
+*/
+type PostPaymentdefaultsForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentdefaultsForbidden) Error() string {
+	return fmt.Sprintf("[POST /paymentdefaults][%d] postPaymentdefaultsForbidden  %+v", 403, o.Payload)
+}
+
+func (o *PostPaymentdefaultsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentdefaultsNotFound creates a PostPaymentdefaultsNotFound with default headers values
+func NewPostPaymentdefaultsNotFound() *PostPaymentdefaultsNotFound {
+	return &PostPaymentdefaultsNotFound{}
+}
+
+/*PostPaymentdefaultsNotFound handles this case with default header values.
+
+Record not found
+*/
+type PostPaymentdefaultsNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentdefaultsNotFound) Error() string {
+	return fmt.Sprintf("[POST /paymentdefaults][%d] postPaymentdefaultsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostPaymentdefaultsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentdefaultsConflict creates a PostPaymentdefaultsConflict with default headers values
+func NewPostPaymentdefaultsConflict() *PostPaymentdefaultsConflict {
+	return &PostPaymentdefaultsConflict{}
+}
+
+/*PostPaymentdefaultsConflict handles this case with default header values.
+
+Conflict
+*/
+type PostPaymentdefaultsConflict struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentdefaultsConflict) Error() string {
+	return fmt.Sprintf("[POST /paymentdefaults][%d] postPaymentdefaultsConflict  %+v", 409, o.Payload)
+}
+
+func (o *PostPaymentdefaultsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentdefaultsTooManyRequests creates a PostPaymentdefaultsTooManyRequests with default headers values
+func NewPostPaymentdefaultsTooManyRequests() *PostPaymentdefaultsTooManyRequests {
+	return &PostPaymentdefaultsTooManyRequests{}
+}
+
+/*PostPaymentdefaultsTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type PostPaymentdefaultsTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentdefaultsTooManyRequests) Error() string {
+	return fmt.Sprintf("[POST /paymentdefaults][%d] postPaymentdefaultsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostPaymentdefaultsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentdefaultsInternalServerError creates a PostPaymentdefaultsInternalServerError with default headers values
+func NewPostPaymentdefaultsInternalServerError() *PostPaymentdefaultsInternalServerError {
+	return &PostPaymentdefaultsInternalServerError{}
+}
+
+/*PostPaymentdefaultsInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type PostPaymentdefaultsInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentdefaultsInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /paymentdefaults][%d] postPaymentdefaultsInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *PostPaymentdefaultsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostPaymentdefaultsServiceUnavailable creates a PostPaymentdefaultsServiceUnavailable with default headers values
+func NewPostPaymentdefaultsServiceUnavailable() *PostPaymentdefaultsServiceUnavailable {
+	return &PostPaymentdefaultsServiceUnavailable{}
+}
+
+/*PostPaymentdefaultsServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type PostPaymentdefaultsServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *PostPaymentdefaultsServiceUnavailable) Error() string {
+	return fmt.Sprintf("[POST /paymentdefaults][%d] postPaymentdefaultsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostPaymentdefaultsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
 

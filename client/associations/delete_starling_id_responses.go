@@ -7,10 +7,13 @@ package associations
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteStarlingIDReader is a Reader for the DeleteStarlingID structure.
@@ -28,6 +31,62 @@ func (o *DeleteStarlingIDReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return result, nil
+
+	case 400:
+		result := NewDeleteStarlingIDBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 401:
+		result := NewDeleteStarlingIDUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewDeleteStarlingIDForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewDeleteStarlingIDNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewDeleteStarlingIDConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 429:
+		result := NewDeleteStarlingIDTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewDeleteStarlingIDInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 503:
+		result := NewDeleteStarlingIDServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -51,6 +110,238 @@ func (o *DeleteStarlingIDNoContent) Error() string {
 }
 
 func (o *DeleteStarlingIDNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	return nil
+}
+
+// NewDeleteStarlingIDBadRequest creates a DeleteStarlingIDBadRequest with default headers values
+func NewDeleteStarlingIDBadRequest() *DeleteStarlingIDBadRequest {
+	return &DeleteStarlingIDBadRequest{}
+}
+
+/*DeleteStarlingIDBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type DeleteStarlingIDBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteStarlingIDBadRequest) Error() string {
+	return fmt.Sprintf("[DELETE /starling/{id}][%d] deleteStarlingIdBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DeleteStarlingIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteStarlingIDUnauthorized creates a DeleteStarlingIDUnauthorized with default headers values
+func NewDeleteStarlingIDUnauthorized() *DeleteStarlingIDUnauthorized {
+	return &DeleteStarlingIDUnauthorized{}
+}
+
+/*DeleteStarlingIDUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type DeleteStarlingIDUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteStarlingIDUnauthorized) Error() string {
+	return fmt.Sprintf("[DELETE /starling/{id}][%d] deleteStarlingIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *DeleteStarlingIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteStarlingIDForbidden creates a DeleteStarlingIDForbidden with default headers values
+func NewDeleteStarlingIDForbidden() *DeleteStarlingIDForbidden {
+	return &DeleteStarlingIDForbidden{}
+}
+
+/*DeleteStarlingIDForbidden handles this case with default header values.
+
+Forbidden
+*/
+type DeleteStarlingIDForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteStarlingIDForbidden) Error() string {
+	return fmt.Sprintf("[DELETE /starling/{id}][%d] deleteStarlingIdForbidden  %+v", 403, o.Payload)
+}
+
+func (o *DeleteStarlingIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteStarlingIDNotFound creates a DeleteStarlingIDNotFound with default headers values
+func NewDeleteStarlingIDNotFound() *DeleteStarlingIDNotFound {
+	return &DeleteStarlingIDNotFound{}
+}
+
+/*DeleteStarlingIDNotFound handles this case with default header values.
+
+Record not found
+*/
+type DeleteStarlingIDNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteStarlingIDNotFound) Error() string {
+	return fmt.Sprintf("[DELETE /starling/{id}][%d] deleteStarlingIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteStarlingIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteStarlingIDConflict creates a DeleteStarlingIDConflict with default headers values
+func NewDeleteStarlingIDConflict() *DeleteStarlingIDConflict {
+	return &DeleteStarlingIDConflict{}
+}
+
+/*DeleteStarlingIDConflict handles this case with default header values.
+
+Conflict
+*/
+type DeleteStarlingIDConflict struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteStarlingIDConflict) Error() string {
+	return fmt.Sprintf("[DELETE /starling/{id}][%d] deleteStarlingIdConflict  %+v", 409, o.Payload)
+}
+
+func (o *DeleteStarlingIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteStarlingIDTooManyRequests creates a DeleteStarlingIDTooManyRequests with default headers values
+func NewDeleteStarlingIDTooManyRequests() *DeleteStarlingIDTooManyRequests {
+	return &DeleteStarlingIDTooManyRequests{}
+}
+
+/*DeleteStarlingIDTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type DeleteStarlingIDTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteStarlingIDTooManyRequests) Error() string {
+	return fmt.Sprintf("[DELETE /starling/{id}][%d] deleteStarlingIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *DeleteStarlingIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteStarlingIDInternalServerError creates a DeleteStarlingIDInternalServerError with default headers values
+func NewDeleteStarlingIDInternalServerError() *DeleteStarlingIDInternalServerError {
+	return &DeleteStarlingIDInternalServerError{}
+}
+
+/*DeleteStarlingIDInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type DeleteStarlingIDInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteStarlingIDInternalServerError) Error() string {
+	return fmt.Sprintf("[DELETE /starling/{id}][%d] deleteStarlingIdInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *DeleteStarlingIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteStarlingIDServiceUnavailable creates a DeleteStarlingIDServiceUnavailable with default headers values
+func NewDeleteStarlingIDServiceUnavailable() *DeleteStarlingIDServiceUnavailable {
+	return &DeleteStarlingIDServiceUnavailable{}
+}
+
+/*DeleteStarlingIDServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type DeleteStarlingIDServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteStarlingIDServiceUnavailable) Error() string {
+	return fmt.Sprintf("[DELETE /starling/{id}][%d] deleteStarlingIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *DeleteStarlingIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

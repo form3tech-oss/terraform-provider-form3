@@ -32,6 +32,62 @@ func (o *GetProductsReader) ReadResponse(response runtime.ClientResponse, consum
 		}
 		return result, nil
 
+	case 400:
+		result := NewGetProductsBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 401:
+		result := NewGetProductsUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewGetProductsForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewGetProductsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewGetProductsConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 429:
+		result := NewGetProductsTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewGetProductsInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 503:
+		result := NewGetProductsServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -57,6 +113,238 @@ func (o *GetProductsOK) Error() string {
 func (o *GetProductsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ProductsAssociationDetailsListResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetProductsBadRequest creates a GetProductsBadRequest with default headers values
+func NewGetProductsBadRequest() *GetProductsBadRequest {
+	return &GetProductsBadRequest{}
+}
+
+/*GetProductsBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetProductsBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetProductsBadRequest) Error() string {
+	return fmt.Sprintf("[GET /products][%d] getProductsBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetProductsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetProductsUnauthorized creates a GetProductsUnauthorized with default headers values
+func NewGetProductsUnauthorized() *GetProductsUnauthorized {
+	return &GetProductsUnauthorized{}
+}
+
+/*GetProductsUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetProductsUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetProductsUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /products][%d] getProductsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetProductsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetProductsForbidden creates a GetProductsForbidden with default headers values
+func NewGetProductsForbidden() *GetProductsForbidden {
+	return &GetProductsForbidden{}
+}
+
+/*GetProductsForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetProductsForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetProductsForbidden) Error() string {
+	return fmt.Sprintf("[GET /products][%d] getProductsForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetProductsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetProductsNotFound creates a GetProductsNotFound with default headers values
+func NewGetProductsNotFound() *GetProductsNotFound {
+	return &GetProductsNotFound{}
+}
+
+/*GetProductsNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetProductsNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetProductsNotFound) Error() string {
+	return fmt.Sprintf("[GET /products][%d] getProductsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetProductsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetProductsConflict creates a GetProductsConflict with default headers values
+func NewGetProductsConflict() *GetProductsConflict {
+	return &GetProductsConflict{}
+}
+
+/*GetProductsConflict handles this case with default header values.
+
+Conflict
+*/
+type GetProductsConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetProductsConflict) Error() string {
+	return fmt.Sprintf("[GET /products][%d] getProductsConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetProductsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetProductsTooManyRequests creates a GetProductsTooManyRequests with default headers values
+func NewGetProductsTooManyRequests() *GetProductsTooManyRequests {
+	return &GetProductsTooManyRequests{}
+}
+
+/*GetProductsTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetProductsTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetProductsTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /products][%d] getProductsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetProductsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetProductsInternalServerError creates a GetProductsInternalServerError with default headers values
+func NewGetProductsInternalServerError() *GetProductsInternalServerError {
+	return &GetProductsInternalServerError{}
+}
+
+/*GetProductsInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetProductsInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetProductsInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /products][%d] getProductsInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetProductsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetProductsServiceUnavailable creates a GetProductsServiceUnavailable with default headers values
+func NewGetProductsServiceUnavailable() *GetProductsServiceUnavailable {
+	return &GetProductsServiceUnavailable{}
+}
+
+/*GetProductsServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetProductsServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetProductsServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /products][%d] getProductsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetProductsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

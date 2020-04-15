@@ -2,13 +2,14 @@ package form3
 
 import (
 	"fmt"
+	"log"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
 )
 
 func resourceForm3LhvAssociation() *schema.Resource {
@@ -28,6 +29,11 @@ func resourceForm3LhvAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
+			"name": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
 			"client_code": {
 				Type:     schema.TypeString,
 				Required: true,
@@ -38,10 +44,9 @@ func resourceForm3LhvAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
-			"master_ibans": {
-				Type:     schema.TypeList,
-				Elem:     &schema.Schema{Type: schema.TypeString},
-				Required: true,
+			"use_simulator": {
+				Type:     schema.TypeBool,
+				Optional: true,
 				ForceNew: true,
 			},
 		},
@@ -76,8 +81,8 @@ func resourceLhvAssociationRead(d *schema.ResourceData, meta interface{}) error 
 
 	associationId, _ := GetUUIDOK(d, "association_id")
 
-	lhvAssociation, err := client.AssociationClient.Associations.GetLhvID(associations.NewGetLhvIDParams().
-		WithID(associationId))
+	lhvAssociation, err := client.AssociationClient.Associations.GetLhvAssociationID(associations.NewGetLhvAssociationIDParams().
+		WithAssociationID(associationId))
 
 	if err != nil {
 		apiError, ok := err.(*runtime.APIError)
@@ -90,23 +95,23 @@ func resourceLhvAssociationRead(d *schema.ResourceData, meta interface{}) error 
 	}
 
 	_ = d.Set("association_id", lhvAssociation.Payload.Data.ID.String())
+	_ = d.Set("name", lhvAssociation.Payload.Data.Attributes.Name)
 	_ = d.Set("client_code", lhvAssociation.Payload.Data.Attributes.ClientCode)
 	_ = d.Set("client_country", lhvAssociation.Payload.Data.Attributes.ClientCountry)
-	_ = d.Set("master_ibans", lhvAssociation.Payload.Data.Attributes.MasterIbans)
 	return nil
 }
 
 func resourceLhvAssociationDelete(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
 
-	lhvAssociation, err := client.AssociationClient.Associations.GetLhvID(associations.NewGetLhvIDParams().
-		WithID(strfmt.UUID(d.Id())))
+	lhvAssociation, err := client.AssociationClient.Associations.GetLhvAssociationID(associations.NewGetLhvAssociationIDParams().
+		WithAssociationID(strfmt.UUID(d.Id())))
 	if err != nil {
 		return fmt.Errorf("error deleting lhv sct association: %s", err)
 	}
 
-	_, err = client.AssociationClient.Associations.DeleteLhvID(associations.NewDeleteLhvIDParams().
-		WithID(lhvAssociation.Payload.Data.ID).
+	_, err = client.AssociationClient.Associations.DeleteLhvAssociationID(associations.NewDeleteLhvAssociationIDParams().
+		WithAssociationID(lhvAssociation.Payload.Data.ID).
 		WithVersion(*lhvAssociation.Payload.Data.Version))
 
 	if err != nil {
@@ -118,8 +123,11 @@ func resourceLhvAssociationDelete(d *schema.ResourceData, meta interface{}) erro
 
 func createLhvNewAssociationFromResourceData(d *schema.ResourceData) (*models.NewLhvAssociation, error) {
 
-	association := models.NewLhvAssociation{Attributes: &models.LhvAssociationAttributes{}}
-	association.Type = "lhvgateway_associations"
+	association := models.NewLhvAssociation{
+		Type:       models.LhvAssociationTypeLhvgatewayAssociations,
+		Attributes: &models.LhvAssociationAttributes{},
+	}
+
 	if attr, ok := GetUUIDOK(d, "association_id"); ok {
 		association.ID = attr
 	}
@@ -134,13 +142,9 @@ func createLhvNewAssociationFromResourceData(d *schema.ResourceData) (*models.Ne
 	if attr, ok := d.GetOk("client_country"); ok {
 		association.Attributes.ClientCountry = attr.(string)
 	}
-	if attr, ok := d.GetOk("master_ibans"); ok {
-		arr := attr.([]interface{})
-		var ibans []string
-		for _, v := range arr {
-			ibans = append(ibans, v.(string))
-		}
-		association.Attributes.MasterIbans = ibans
+
+	if attr, ok := d.GetOk("use_simulator"); ok {
+		association.Attributes.UseSimulator = attr.(bool)
 	}
 
 	return &association, nil

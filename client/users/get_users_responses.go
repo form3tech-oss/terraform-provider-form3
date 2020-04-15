@@ -32,6 +32,62 @@ func (o *GetUsersReader) ReadResponse(response runtime.ClientResponse, consumer 
 		}
 		return result, nil
 
+	case 400:
+		result := NewGetUsersBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 401:
+		result := NewGetUsersUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewGetUsersForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewGetUsersNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewGetUsersConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 429:
+		result := NewGetUsersTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewGetUsersInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 503:
+		result := NewGetUsersServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -57,6 +113,238 @@ func (o *GetUsersOK) Error() string {
 func (o *GetUsersOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.UserDetailsListResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUsersBadRequest creates a GetUsersBadRequest with default headers values
+func NewGetUsersBadRequest() *GetUsersBadRequest {
+	return &GetUsersBadRequest{}
+}
+
+/*GetUsersBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetUsersBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetUsersBadRequest) Error() string {
+	return fmt.Sprintf("[GET /users][%d] getUsersBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetUsersBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUsersUnauthorized creates a GetUsersUnauthorized with default headers values
+func NewGetUsersUnauthorized() *GetUsersUnauthorized {
+	return &GetUsersUnauthorized{}
+}
+
+/*GetUsersUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetUsersUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetUsersUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /users][%d] getUsersUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetUsersUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUsersForbidden creates a GetUsersForbidden with default headers values
+func NewGetUsersForbidden() *GetUsersForbidden {
+	return &GetUsersForbidden{}
+}
+
+/*GetUsersForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetUsersForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetUsersForbidden) Error() string {
+	return fmt.Sprintf("[GET /users][%d] getUsersForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetUsersForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUsersNotFound creates a GetUsersNotFound with default headers values
+func NewGetUsersNotFound() *GetUsersNotFound {
+	return &GetUsersNotFound{}
+}
+
+/*GetUsersNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetUsersNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetUsersNotFound) Error() string {
+	return fmt.Sprintf("[GET /users][%d] getUsersNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetUsersNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUsersConflict creates a GetUsersConflict with default headers values
+func NewGetUsersConflict() *GetUsersConflict {
+	return &GetUsersConflict{}
+}
+
+/*GetUsersConflict handles this case with default header values.
+
+Conflict
+*/
+type GetUsersConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetUsersConflict) Error() string {
+	return fmt.Sprintf("[GET /users][%d] getUsersConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetUsersConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUsersTooManyRequests creates a GetUsersTooManyRequests with default headers values
+func NewGetUsersTooManyRequests() *GetUsersTooManyRequests {
+	return &GetUsersTooManyRequests{}
+}
+
+/*GetUsersTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetUsersTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetUsersTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /users][%d] getUsersTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetUsersTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUsersInternalServerError creates a GetUsersInternalServerError with default headers values
+func NewGetUsersInternalServerError() *GetUsersInternalServerError {
+	return &GetUsersInternalServerError{}
+}
+
+/*GetUsersInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetUsersInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetUsersInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /users][%d] getUsersInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetUsersInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUsersServiceUnavailable creates a GetUsersServiceUnavailable with default headers values
+func NewGetUsersServiceUnavailable() *GetUsersServiceUnavailable {
+	return &GetUsersServiceUnavailable{}
+}
+
+/*GetUsersServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetUsersServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetUsersServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /users][%d] getUsersServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetUsersServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

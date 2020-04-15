@@ -32,6 +32,62 @@ func (o *GetAdminsUserIDCredentialsReader) ReadResponse(response runtime.ClientR
 		}
 		return result, nil
 
+	case 400:
+		result := NewGetAdminsUserIDCredentialsBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 401:
+		result := NewGetAdminsUserIDCredentialsUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewGetAdminsUserIDCredentialsForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewGetAdminsUserIDCredentialsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewGetAdminsUserIDCredentialsConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 429:
+		result := NewGetAdminsUserIDCredentialsTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewGetAdminsUserIDCredentialsInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 503:
+		result := NewGetAdminsUserIDCredentialsServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -57,6 +113,238 @@ func (o *GetAdminsUserIDCredentialsOK) Error() string {
 func (o *GetAdminsUserIDCredentialsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.UserCredentialListResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAdminsUserIDCredentialsBadRequest creates a GetAdminsUserIDCredentialsBadRequest with default headers values
+func NewGetAdminsUserIDCredentialsBadRequest() *GetAdminsUserIDCredentialsBadRequest {
+	return &GetAdminsUserIDCredentialsBadRequest{}
+}
+
+/*GetAdminsUserIDCredentialsBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetAdminsUserIDCredentialsBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetAdminsUserIDCredentialsBadRequest) Error() string {
+	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetAdminsUserIDCredentialsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAdminsUserIDCredentialsUnauthorized creates a GetAdminsUserIDCredentialsUnauthorized with default headers values
+func NewGetAdminsUserIDCredentialsUnauthorized() *GetAdminsUserIDCredentialsUnauthorized {
+	return &GetAdminsUserIDCredentialsUnauthorized{}
+}
+
+/*GetAdminsUserIDCredentialsUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetAdminsUserIDCredentialsUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetAdminsUserIDCredentialsUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetAdminsUserIDCredentialsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAdminsUserIDCredentialsForbidden creates a GetAdminsUserIDCredentialsForbidden with default headers values
+func NewGetAdminsUserIDCredentialsForbidden() *GetAdminsUserIDCredentialsForbidden {
+	return &GetAdminsUserIDCredentialsForbidden{}
+}
+
+/*GetAdminsUserIDCredentialsForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetAdminsUserIDCredentialsForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetAdminsUserIDCredentialsForbidden) Error() string {
+	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetAdminsUserIDCredentialsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAdminsUserIDCredentialsNotFound creates a GetAdminsUserIDCredentialsNotFound with default headers values
+func NewGetAdminsUserIDCredentialsNotFound() *GetAdminsUserIDCredentialsNotFound {
+	return &GetAdminsUserIDCredentialsNotFound{}
+}
+
+/*GetAdminsUserIDCredentialsNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetAdminsUserIDCredentialsNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetAdminsUserIDCredentialsNotFound) Error() string {
+	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetAdminsUserIDCredentialsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAdminsUserIDCredentialsConflict creates a GetAdminsUserIDCredentialsConflict with default headers values
+func NewGetAdminsUserIDCredentialsConflict() *GetAdminsUserIDCredentialsConflict {
+	return &GetAdminsUserIDCredentialsConflict{}
+}
+
+/*GetAdminsUserIDCredentialsConflict handles this case with default header values.
+
+Conflict
+*/
+type GetAdminsUserIDCredentialsConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetAdminsUserIDCredentialsConflict) Error() string {
+	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetAdminsUserIDCredentialsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAdminsUserIDCredentialsTooManyRequests creates a GetAdminsUserIDCredentialsTooManyRequests with default headers values
+func NewGetAdminsUserIDCredentialsTooManyRequests() *GetAdminsUserIDCredentialsTooManyRequests {
+	return &GetAdminsUserIDCredentialsTooManyRequests{}
+}
+
+/*GetAdminsUserIDCredentialsTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetAdminsUserIDCredentialsTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetAdminsUserIDCredentialsTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetAdminsUserIDCredentialsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAdminsUserIDCredentialsInternalServerError creates a GetAdminsUserIDCredentialsInternalServerError with default headers values
+func NewGetAdminsUserIDCredentialsInternalServerError() *GetAdminsUserIDCredentialsInternalServerError {
+	return &GetAdminsUserIDCredentialsInternalServerError{}
+}
+
+/*GetAdminsUserIDCredentialsInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetAdminsUserIDCredentialsInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetAdminsUserIDCredentialsInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetAdminsUserIDCredentialsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetAdminsUserIDCredentialsServiceUnavailable creates a GetAdminsUserIDCredentialsServiceUnavailable with default headers values
+func NewGetAdminsUserIDCredentialsServiceUnavailable() *GetAdminsUserIDCredentialsServiceUnavailable {
+	return &GetAdminsUserIDCredentialsServiceUnavailable{}
+}
+
+/*GetAdminsUserIDCredentialsServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetAdminsUserIDCredentialsServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetAdminsUserIDCredentialsServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetAdminsUserIDCredentialsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

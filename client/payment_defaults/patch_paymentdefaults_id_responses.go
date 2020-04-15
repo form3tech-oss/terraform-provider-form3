@@ -39,6 +39,55 @@ func (o *PatchPaymentdefaultsIDReader) ReadResponse(response runtime.ClientRespo
 		}
 		return nil, result
 
+	case 401:
+		result := NewPatchPaymentdefaultsIDUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewPatchPaymentdefaultsIDForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewPatchPaymentdefaultsIDNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewPatchPaymentdefaultsIDConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 429:
+		result := NewPatchPaymentdefaultsIDTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewPatchPaymentdefaultsIDInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 503:
+		result := NewPatchPaymentdefaultsIDServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -80,7 +129,7 @@ func NewPatchPaymentdefaultsIDBadRequest() *PatchPaymentdefaultsIDBadRequest {
 
 /*PatchPaymentdefaultsIDBadRequest handles this case with default header values.
 
-Error
+Bad Request
 */
 type PatchPaymentdefaultsIDBadRequest struct {
 	Payload *models.APIError
@@ -91,6 +140,209 @@ func (o *PatchPaymentdefaultsIDBadRequest) Error() string {
 }
 
 func (o *PatchPaymentdefaultsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchPaymentdefaultsIDUnauthorized creates a PatchPaymentdefaultsIDUnauthorized with default headers values
+func NewPatchPaymentdefaultsIDUnauthorized() *PatchPaymentdefaultsIDUnauthorized {
+	return &PatchPaymentdefaultsIDUnauthorized{}
+}
+
+/*PatchPaymentdefaultsIDUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type PatchPaymentdefaultsIDUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *PatchPaymentdefaultsIDUnauthorized) Error() string {
+	return fmt.Sprintf("[PATCH /paymentdefaults/{id}][%d] patchPaymentdefaultsIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PatchPaymentdefaultsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchPaymentdefaultsIDForbidden creates a PatchPaymentdefaultsIDForbidden with default headers values
+func NewPatchPaymentdefaultsIDForbidden() *PatchPaymentdefaultsIDForbidden {
+	return &PatchPaymentdefaultsIDForbidden{}
+}
+
+/*PatchPaymentdefaultsIDForbidden handles this case with default header values.
+
+Forbidden
+*/
+type PatchPaymentdefaultsIDForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *PatchPaymentdefaultsIDForbidden) Error() string {
+	return fmt.Sprintf("[PATCH /paymentdefaults/{id}][%d] patchPaymentdefaultsIdForbidden  %+v", 403, o.Payload)
+}
+
+func (o *PatchPaymentdefaultsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchPaymentdefaultsIDNotFound creates a PatchPaymentdefaultsIDNotFound with default headers values
+func NewPatchPaymentdefaultsIDNotFound() *PatchPaymentdefaultsIDNotFound {
+	return &PatchPaymentdefaultsIDNotFound{}
+}
+
+/*PatchPaymentdefaultsIDNotFound handles this case with default header values.
+
+Record not found
+*/
+type PatchPaymentdefaultsIDNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *PatchPaymentdefaultsIDNotFound) Error() string {
+	return fmt.Sprintf("[PATCH /paymentdefaults/{id}][%d] patchPaymentdefaultsIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PatchPaymentdefaultsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchPaymentdefaultsIDConflict creates a PatchPaymentdefaultsIDConflict with default headers values
+func NewPatchPaymentdefaultsIDConflict() *PatchPaymentdefaultsIDConflict {
+	return &PatchPaymentdefaultsIDConflict{}
+}
+
+/*PatchPaymentdefaultsIDConflict handles this case with default header values.
+
+Conflict
+*/
+type PatchPaymentdefaultsIDConflict struct {
+	Payload *models.APIError
+}
+
+func (o *PatchPaymentdefaultsIDConflict) Error() string {
+	return fmt.Sprintf("[PATCH /paymentdefaults/{id}][%d] patchPaymentdefaultsIdConflict  %+v", 409, o.Payload)
+}
+
+func (o *PatchPaymentdefaultsIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchPaymentdefaultsIDTooManyRequests creates a PatchPaymentdefaultsIDTooManyRequests with default headers values
+func NewPatchPaymentdefaultsIDTooManyRequests() *PatchPaymentdefaultsIDTooManyRequests {
+	return &PatchPaymentdefaultsIDTooManyRequests{}
+}
+
+/*PatchPaymentdefaultsIDTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type PatchPaymentdefaultsIDTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *PatchPaymentdefaultsIDTooManyRequests) Error() string {
+	return fmt.Sprintf("[PATCH /paymentdefaults/{id}][%d] patchPaymentdefaultsIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PatchPaymentdefaultsIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchPaymentdefaultsIDInternalServerError creates a PatchPaymentdefaultsIDInternalServerError with default headers values
+func NewPatchPaymentdefaultsIDInternalServerError() *PatchPaymentdefaultsIDInternalServerError {
+	return &PatchPaymentdefaultsIDInternalServerError{}
+}
+
+/*PatchPaymentdefaultsIDInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type PatchPaymentdefaultsIDInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *PatchPaymentdefaultsIDInternalServerError) Error() string {
+	return fmt.Sprintf("[PATCH /paymentdefaults/{id}][%d] patchPaymentdefaultsIdInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *PatchPaymentdefaultsIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPatchPaymentdefaultsIDServiceUnavailable creates a PatchPaymentdefaultsIDServiceUnavailable with default headers values
+func NewPatchPaymentdefaultsIDServiceUnavailable() *PatchPaymentdefaultsIDServiceUnavailable {
+	return &PatchPaymentdefaultsIDServiceUnavailable{}
+}
+
+/*PatchPaymentdefaultsIDServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type PatchPaymentdefaultsIDServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *PatchPaymentdefaultsIDServiceUnavailable) Error() string {
+	return fmt.Sprintf("[PATCH /paymentdefaults/{id}][%d] patchPaymentdefaultsIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PatchPaymentdefaultsIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
 

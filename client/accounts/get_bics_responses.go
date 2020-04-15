@@ -32,6 +32,62 @@ func (o *GetBicsReader) ReadResponse(response runtime.ClientResponse, consumer r
 		}
 		return result, nil
 
+	case 400:
+		result := NewGetBicsBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 401:
+		result := NewGetBicsUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewGetBicsForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewGetBicsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 409:
+		result := NewGetBicsConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 429:
+		result := NewGetBicsTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewGetBicsInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 503:
+		result := NewGetBicsServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -57,6 +113,238 @@ func (o *GetBicsOK) Error() string {
 func (o *GetBicsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BicDetailsListResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetBicsBadRequest creates a GetBicsBadRequest with default headers values
+func NewGetBicsBadRequest() *GetBicsBadRequest {
+	return &GetBicsBadRequest{}
+}
+
+/*GetBicsBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetBicsBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetBicsBadRequest) Error() string {
+	return fmt.Sprintf("[GET /bics][%d] getBicsBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetBicsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetBicsUnauthorized creates a GetBicsUnauthorized with default headers values
+func NewGetBicsUnauthorized() *GetBicsUnauthorized {
+	return &GetBicsUnauthorized{}
+}
+
+/*GetBicsUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetBicsUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetBicsUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /bics][%d] getBicsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetBicsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetBicsForbidden creates a GetBicsForbidden with default headers values
+func NewGetBicsForbidden() *GetBicsForbidden {
+	return &GetBicsForbidden{}
+}
+
+/*GetBicsForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetBicsForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetBicsForbidden) Error() string {
+	return fmt.Sprintf("[GET /bics][%d] getBicsForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetBicsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetBicsNotFound creates a GetBicsNotFound with default headers values
+func NewGetBicsNotFound() *GetBicsNotFound {
+	return &GetBicsNotFound{}
+}
+
+/*GetBicsNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetBicsNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetBicsNotFound) Error() string {
+	return fmt.Sprintf("[GET /bics][%d] getBicsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetBicsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetBicsConflict creates a GetBicsConflict with default headers values
+func NewGetBicsConflict() *GetBicsConflict {
+	return &GetBicsConflict{}
+}
+
+/*GetBicsConflict handles this case with default header values.
+
+Conflict
+*/
+type GetBicsConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetBicsConflict) Error() string {
+	return fmt.Sprintf("[GET /bics][%d] getBicsConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetBicsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetBicsTooManyRequests creates a GetBicsTooManyRequests with default headers values
+func NewGetBicsTooManyRequests() *GetBicsTooManyRequests {
+	return &GetBicsTooManyRequests{}
+}
+
+/*GetBicsTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetBicsTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetBicsTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /bics][%d] getBicsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetBicsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetBicsInternalServerError creates a GetBicsInternalServerError with default headers values
+func NewGetBicsInternalServerError() *GetBicsInternalServerError {
+	return &GetBicsInternalServerError{}
+}
+
+/*GetBicsInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetBicsInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetBicsInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /bics][%d] getBicsInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetBicsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetBicsServiceUnavailable creates a GetBicsServiceUnavailable with default headers values
+func NewGetBicsServiceUnavailable() *GetBicsServiceUnavailable {
+	return &GetBicsServiceUnavailable{}
+}
+
+/*GetBicsServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetBicsServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetBicsServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /bics][%d] getBicsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetBicsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -17,7 +17,7 @@ import (
 type LhvAssociationDetailsResponse struct {
 
 	// data
-	Data *LhvAssociation `json:"data,omitempty"`
+	Data *LhvAssociationWithRelationships `json:"data,omitempty"`
 
 	// links
 	Links *Links `json:"links,omitempty"`

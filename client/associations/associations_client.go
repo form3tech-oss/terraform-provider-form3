@@ -137,30 +137,58 @@ func (a *Client) DeleteGocardlessID(params *DeleteGocardlessIDParams) (*DeleteGo
 }
 
 /*
-DeleteLhvID deletes organisation lhv association
+DeleteLhvAssociationID deletes organisation lhv association
 */
-func (a *Client) DeleteLhvID(params *DeleteLhvIDParams) (*DeleteLhvIDNoContent, error) {
+func (a *Client) DeleteLhvAssociationID(params *DeleteLhvAssociationIDParams) (*DeleteLhvAssociationIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewDeleteLhvIDParams()
+		params = NewDeleteLhvAssociationIDParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "DeleteLhvID",
+		ID:                 "DeleteLhvAssociationID",
 		Method:             "DELETE",
-		PathPattern:        "/lhv/{id}",
+		PathPattern:        "/lhv/{associationId}",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &DeleteLhvIDReader{formats: a.formats},
+		Reader:             &DeleteLhvAssociationIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteLhvIDNoContent), nil
+	return result.(*DeleteLhvAssociationIDNoContent), nil
+
+}
+
+/*
+DeleteLhvAssociationIDMasterAccountsMasterAccountID deletes organisation association master account
+*/
+func (a *Client) DeleteLhvAssociationIDMasterAccountsMasterAccountID(params *DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams) (*DeleteLhvAssociationIDMasterAccountsMasterAccountIDNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteLhvAssociationIDMasterAccountsMasterAccountID",
+		Method:             "DELETE",
+		PathPattern:        "/lhv/{associationId}/master_accounts/{masterAccountId}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteLhvAssociationIDMasterAccountsMasterAccountIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteLhvAssociationIDMasterAccountsMasterAccountIDNoContent), nil
 
 }
 
@@ -641,30 +669,86 @@ func (a *Client) GetLhv(params *GetLhvParams) (*GetLhvOK, error) {
 }
 
 /*
-GetLhvID fetches organisation lhv association
+GetLhvAssociationID fetches organisation lhv association
 */
-func (a *Client) GetLhvID(params *GetLhvIDParams) (*GetLhvIDOK, error) {
+func (a *Client) GetLhvAssociationID(params *GetLhvAssociationIDParams) (*GetLhvAssociationIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
-		params = NewGetLhvIDParams()
+		params = NewGetLhvAssociationIDParams()
 	}
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "GetLhvID",
+		ID:                 "GetLhvAssociationID",
 		Method:             "GET",
-		PathPattern:        "/lhv/{id}",
+		PathPattern:        "/lhv/{associationId}",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
-		Reader:             &GetLhvIDReader{formats: a.formats},
+		Reader:             &GetLhvAssociationIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetLhvIDOK), nil
+	return result.(*GetLhvAssociationIDOK), nil
+
+}
+
+/*
+GetLhvAssociationIDMasterAccounts lists master accounts
+*/
+func (a *Client) GetLhvAssociationIDMasterAccounts(params *GetLhvAssociationIDMasterAccountsParams) (*GetLhvAssociationIDMasterAccountsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetLhvAssociationIDMasterAccountsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetLhvAssociationIDMasterAccounts",
+		Method:             "GET",
+		PathPattern:        "/lhv/{associationId}/master_accounts",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetLhvAssociationIDMasterAccountsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetLhvAssociationIDMasterAccountsOK), nil
+
+}
+
+/*
+GetLhvAssociationIDMasterAccountsMasterAccountID fetches master account
+*/
+func (a *Client) GetLhvAssociationIDMasterAccountsMasterAccountID(params *GetLhvAssociationIDMasterAccountsMasterAccountIDParams) (*GetLhvAssociationIDMasterAccountsMasterAccountIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetLhvAssociationIDMasterAccountsMasterAccountIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetLhvAssociationIDMasterAccountsMasterAccountID",
+		Method:             "GET",
+		PathPattern:        "/lhv/{associationId}/master_accounts/{masterAccountId}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetLhvAssociationIDMasterAccountsMasterAccountIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetLhvAssociationIDMasterAccountsMasterAccountIDOK), nil
 
 }
 
@@ -1145,6 +1229,34 @@ func (a *Client) PatchGocardlessID(params *PatchGocardlessIDParams) (*PatchGocar
 }
 
 /*
+PatchLhvAssociationID patches organisation lhv association
+*/
+func (a *Client) PatchLhvAssociationID(params *PatchLhvAssociationIDParams) (*PatchLhvAssociationIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPatchLhvAssociationIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PatchLhvAssociationID",
+		Method:             "PATCH",
+		PathPattern:        "/lhv/{associationId}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PatchLhvAssociationIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PatchLhvAssociationIDOK), nil
+
+}
+
+/*
 PatchSepainstantID updates sepa instant association
 */
 func (a *Client) PatchSepainstantID(params *PatchSepainstantIDParams) (*PatchSepainstantIDOK, error) {
@@ -1309,6 +1421,34 @@ func (a *Client) PostLhv(params *PostLhvParams) (*PostLhvCreated, error) {
 		return nil, err
 	}
 	return result.(*PostLhvCreated), nil
+
+}
+
+/*
+PostLhvAssociationIDMasterAccounts creates organisation association master account
+*/
+func (a *Client) PostLhvAssociationIDMasterAccounts(params *PostLhvAssociationIDMasterAccountsParams) (*PostLhvAssociationIDMasterAccountsCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostLhvAssociationIDMasterAccountsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostLhvAssociationIDMasterAccounts",
+		Method:             "POST",
+		PathPattern:        "/lhv/{associationId}/master_accounts",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PostLhvAssociationIDMasterAccountsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PostLhvAssociationIDMasterAccountsCreated), nil
 
 }
 
