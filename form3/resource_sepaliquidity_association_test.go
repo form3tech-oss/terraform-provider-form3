@@ -133,7 +133,7 @@ locals {
 resource "form3_organisation" "sponsor" {
 	organisation_id        = "${local.sponsor_organisation_id}"
 	parent_organisation_id = "${local.parent_organisation_id}"
-	name 		               = "terraform-sponsor-organisation"
+	name 		           = "terraform-sponsor-organisation"
 }
 
 resource "form3_organisation" "sponsored" {

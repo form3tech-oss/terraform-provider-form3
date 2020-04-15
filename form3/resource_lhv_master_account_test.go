@@ -135,7 +135,7 @@ resource "form3_bank_id" "bank_id" {
 	bank_resource_id = "${local.bankid_id}"
 	bank_id       	 = "999999"
 	bank_id_code     = "GBDSC"
-	country          = "GB"
+	country          = "UK"
 }
 
 resource "form3_lhv_master_account" "master_account" {
