@@ -2,13 +2,13 @@ package form3
 
 import (
 	"fmt"
+	"log"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/accounts"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
 )
 
 func resourceForm3BankID() *schema.Resource {
@@ -70,7 +70,7 @@ func resourceBankIDCreate(d *schema.ResourceData, meta interface{}) error {
 		}))
 
 	if err != nil {
-		return fmt.Errorf("failed to create bank id: %s", err)
+		return fmt.Errorf("failed to create bank id: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	d.SetId(createdBankID.Payload.Data.ID.String())
@@ -95,20 +95,18 @@ func resourceBankIDRead(d *schema.ResourceData, meta interface{}) error {
 		WithID(bankResourceID))
 
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find bank id: %s", form3.JsonErrorPrettyPrint(err))
 		}
-
-		return fmt.Errorf("couldn't find bank id: %s", err)
+		d.SetId("")
+		return nil
 	}
 
-	d.Set("bank_resource_id", bankIDResponse.Payload.Data.ID.String())
-	d.Set("organisation_id", bankIDResponse.Payload.Data.OrganisationID.String())
-	d.Set("bank_id", bankIDResponse.Payload.Data.Attributes.BankID)
-	d.Set("bank_id_code", bankIDResponse.Payload.Data.Attributes.BankIDCode)
-	d.Set("country", bankIDResponse.Payload.Data.Attributes.Country)
+	_ = d.Set("bank_resource_id", bankIDResponse.Payload.Data.ID.String())
+	_ = d.Set("organisation_id", bankIDResponse.Payload.Data.OrganisationID.String())
+	_ = d.Set("bank_id", bankIDResponse.Payload.Data.Attributes.BankID)
+	_ = d.Set("bank_id_code", bankIDResponse.Payload.Data.Attributes.BankIDCode)
+	_ = d.Set("country", bankIDResponse.Payload.Data.Attributes.Country)
 	return nil
 }
 
@@ -117,7 +115,7 @@ func resourceBankIDDelete(d *schema.ResourceData, meta interface{}) error {
 
 	bankIdFromResource, err := createbBankIDFromResourceDataWithVersion(d, client)
 	if err != nil {
-		return fmt.Errorf("error deleting bankId: %s", err)
+		return fmt.Errorf("error deleting bankId: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	log.Printf("[INFO] Deleting bank id with resource id: %s bank id: %s", bankIdFromResource.ID, bankIdFromResource.Attributes.BankID)
@@ -127,7 +125,7 @@ func resourceBankIDDelete(d *schema.ResourceData, meta interface{}) error {
 		WithVersion(*bankIdFromResource.Version))
 
 	if err != nil {
-		return fmt.Errorf("error deleting bankId: %s", err)
+		return fmt.Errorf("error deleting bankId: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil
@@ -162,6 +160,10 @@ func createBankIDFromResourceData(d *schema.ResourceData) (*models.BankID, error
 
 func createbBankIDFromResourceDataWithVersion(d *schema.ResourceData, client *form3.AuthenticatedClient) (*models.BankID, error) {
 	bankID, err := createBankIDFromResourceData(d)
+	if err != nil {
+		return nil, err
+	}
+
 	version, err := getBankVersion(client, bankID.ID)
 	if err != nil {
 		return nil, err
@@ -176,7 +178,7 @@ func getBankVersion(client *form3.AuthenticatedClient, id strfmt.UUID) (int64, e
 	bankID, err := client.AccountClient.Accounts.GetBankidsID(accounts.NewGetBankidsIDParams().WithID(id))
 	if err != nil {
 		if err != nil {
-			return -1, fmt.Errorf("error reading bankd id: %s", err)
+			return -1, fmt.Errorf("error reading bankd id: %s", form3.JsonErrorPrettyPrint(err))
 		}
 	}
 

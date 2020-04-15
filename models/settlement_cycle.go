@@ -6,14 +6,14 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // SettlementCycle settlement cycle
+//
 // swagger:model SettlementCycle
 type SettlementCycle struct {
 
@@ -95,6 +95,7 @@ func (m *SettlementCycle) UnmarshalBinary(b []byte) error {
 }
 
 // SettlementCycleAttributes settlement cycle attributes
+//
 // swagger:model SettlementCycleAttributes
 type SettlementCycleAttributes struct {
 

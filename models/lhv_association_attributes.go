@@ -6,14 +6,14 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // LhvAssociationAttributes lhv association attributes
+//
 // swagger:model LhvAssociationAttributes
 type LhvAssociationAttributes struct {
 
@@ -27,10 +27,13 @@ type LhvAssociationAttributes struct {
 	// Min Length: 1
 	ClientCountry string `json:"client_country"`
 
-	// master ibans
+	// name
 	// Required: true
 	// Min Length: 1
-	MasterIbans []string `json:"master_ibans"`
+	Name string `json:"name"`
+
+	// use simulator
+	UseSimulator bool `json:"use_simulator,omitempty"`
 }
 
 // Validate validates this lhv association attributes
@@ -45,7 +48,7 @@ func (m *LhvAssociationAttributes) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateMasterIbans(formats); err != nil {
+	if err := m.validateName(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -81,9 +84,13 @@ func (m *LhvAssociationAttributes) validateClientCountry(formats strfmt.Registry
 	return nil
 }
 
-func (m *LhvAssociationAttributes) validateMasterIbans(formats strfmt.Registry) error {
+func (m *LhvAssociationAttributes) validateName(formats strfmt.Registry) error {
 
-	if err := validate.Required("master_ibans", "body", m.MasterIbans); err != nil {
+	if err := validate.RequiredString("name", "body", string(m.Name)); err != nil {
+		return err
+	}
+
+	if err := validate.MinLength("name", "body", string(m.Name), 1); err != nil {
 		return err
 	}
 

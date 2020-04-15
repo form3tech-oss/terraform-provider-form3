@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostBankidsReader is a Reader for the PostBankids structure.
@@ -24,13 +23,60 @@ type PostBankidsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostBankidsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostBankidsCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewPostBankidsBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewPostBankidsUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewPostBankidsForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewPostBankidsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewPostBankidsConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewPostBankidsTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewPostBankidsInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewPostBankidsServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -54,9 +100,277 @@ func (o *PostBankidsCreated) Error() string {
 	return fmt.Sprintf("[POST /bankids][%d] postBankidsCreated  %+v", 201, o.Payload)
 }
 
+func (o *PostBankidsCreated) GetPayload() *models.BankIDCreationResponse {
+	return o.Payload
+}
+
 func (o *PostBankidsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BankIDCreationResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostBankidsBadRequest creates a PostBankidsBadRequest with default headers values
+func NewPostBankidsBadRequest() *PostBankidsBadRequest {
+	return &PostBankidsBadRequest{}
+}
+
+/*PostBankidsBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type PostBankidsBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *PostBankidsBadRequest) Error() string {
+	return fmt.Sprintf("[POST /bankids][%d] postBankidsBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *PostBankidsBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostBankidsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostBankidsUnauthorized creates a PostBankidsUnauthorized with default headers values
+func NewPostBankidsUnauthorized() *PostBankidsUnauthorized {
+	return &PostBankidsUnauthorized{}
+}
+
+/*PostBankidsUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type PostBankidsUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *PostBankidsUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /bankids][%d] postBankidsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostBankidsUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostBankidsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostBankidsForbidden creates a PostBankidsForbidden with default headers values
+func NewPostBankidsForbidden() *PostBankidsForbidden {
+	return &PostBankidsForbidden{}
+}
+
+/*PostBankidsForbidden handles this case with default header values.
+
+Forbidden
+*/
+type PostBankidsForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *PostBankidsForbidden) Error() string {
+	return fmt.Sprintf("[POST /bankids][%d] postBankidsForbidden  %+v", 403, o.Payload)
+}
+
+func (o *PostBankidsForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostBankidsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostBankidsNotFound creates a PostBankidsNotFound with default headers values
+func NewPostBankidsNotFound() *PostBankidsNotFound {
+	return &PostBankidsNotFound{}
+}
+
+/*PostBankidsNotFound handles this case with default header values.
+
+Record not found
+*/
+type PostBankidsNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *PostBankidsNotFound) Error() string {
+	return fmt.Sprintf("[POST /bankids][%d] postBankidsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostBankidsNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostBankidsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostBankidsConflict creates a PostBankidsConflict with default headers values
+func NewPostBankidsConflict() *PostBankidsConflict {
+	return &PostBankidsConflict{}
+}
+
+/*PostBankidsConflict handles this case with default header values.
+
+Conflict
+*/
+type PostBankidsConflict struct {
+	Payload *models.APIError
+}
+
+func (o *PostBankidsConflict) Error() string {
+	return fmt.Sprintf("[POST /bankids][%d] postBankidsConflict  %+v", 409, o.Payload)
+}
+
+func (o *PostBankidsConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostBankidsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostBankidsTooManyRequests creates a PostBankidsTooManyRequests with default headers values
+func NewPostBankidsTooManyRequests() *PostBankidsTooManyRequests {
+	return &PostBankidsTooManyRequests{}
+}
+
+/*PostBankidsTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type PostBankidsTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *PostBankidsTooManyRequests) Error() string {
+	return fmt.Sprintf("[POST /bankids][%d] postBankidsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostBankidsTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostBankidsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostBankidsInternalServerError creates a PostBankidsInternalServerError with default headers values
+func NewPostBankidsInternalServerError() *PostBankidsInternalServerError {
+	return &PostBankidsInternalServerError{}
+}
+
+/*PostBankidsInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type PostBankidsInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *PostBankidsInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /bankids][%d] postBankidsInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *PostBankidsInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostBankidsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostBankidsServiceUnavailable creates a PostBankidsServiceUnavailable with default headers values
+func NewPostBankidsServiceUnavailable() *PostBankidsServiceUnavailable {
+	return &PostBankidsServiceUnavailable{}
+}
+
+/*PostBankidsServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type PostBankidsServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *PostBankidsServiceUnavailable) Error() string {
+	return fmt.Sprintf("[POST /bankids][%d] postBankidsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostBankidsServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostBankidsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

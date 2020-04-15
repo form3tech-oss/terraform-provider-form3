@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostBacsReader is a Reader for the PostBacs structure.
@@ -24,13 +23,60 @@ type PostBacsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostBacsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostBacsCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewPostBacsBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewPostBacsUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewPostBacsForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewPostBacsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewPostBacsConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewPostBacsTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewPostBacsInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewPostBacsServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -54,9 +100,277 @@ func (o *PostBacsCreated) Error() string {
 	return fmt.Sprintf("[POST /bacs][%d] postBacsCreated  %+v", 201, o.Payload)
 }
 
+func (o *PostBacsCreated) GetPayload() *models.BacsAssociationCreationResponse {
+	return o.Payload
+}
+
 func (o *PostBacsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BacsAssociationCreationResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostBacsBadRequest creates a PostBacsBadRequest with default headers values
+func NewPostBacsBadRequest() *PostBacsBadRequest {
+	return &PostBacsBadRequest{}
+}
+
+/*PostBacsBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type PostBacsBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *PostBacsBadRequest) Error() string {
+	return fmt.Sprintf("[POST /bacs][%d] postBacsBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *PostBacsBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostBacsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostBacsUnauthorized creates a PostBacsUnauthorized with default headers values
+func NewPostBacsUnauthorized() *PostBacsUnauthorized {
+	return &PostBacsUnauthorized{}
+}
+
+/*PostBacsUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type PostBacsUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *PostBacsUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /bacs][%d] postBacsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostBacsUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostBacsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostBacsForbidden creates a PostBacsForbidden with default headers values
+func NewPostBacsForbidden() *PostBacsForbidden {
+	return &PostBacsForbidden{}
+}
+
+/*PostBacsForbidden handles this case with default header values.
+
+Forbidden
+*/
+type PostBacsForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *PostBacsForbidden) Error() string {
+	return fmt.Sprintf("[POST /bacs][%d] postBacsForbidden  %+v", 403, o.Payload)
+}
+
+func (o *PostBacsForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostBacsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostBacsNotFound creates a PostBacsNotFound with default headers values
+func NewPostBacsNotFound() *PostBacsNotFound {
+	return &PostBacsNotFound{}
+}
+
+/*PostBacsNotFound handles this case with default header values.
+
+Record not found
+*/
+type PostBacsNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *PostBacsNotFound) Error() string {
+	return fmt.Sprintf("[POST /bacs][%d] postBacsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostBacsNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostBacsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostBacsConflict creates a PostBacsConflict with default headers values
+func NewPostBacsConflict() *PostBacsConflict {
+	return &PostBacsConflict{}
+}
+
+/*PostBacsConflict handles this case with default header values.
+
+Conflict
+*/
+type PostBacsConflict struct {
+	Payload *models.APIError
+}
+
+func (o *PostBacsConflict) Error() string {
+	return fmt.Sprintf("[POST /bacs][%d] postBacsConflict  %+v", 409, o.Payload)
+}
+
+func (o *PostBacsConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostBacsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostBacsTooManyRequests creates a PostBacsTooManyRequests with default headers values
+func NewPostBacsTooManyRequests() *PostBacsTooManyRequests {
+	return &PostBacsTooManyRequests{}
+}
+
+/*PostBacsTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type PostBacsTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *PostBacsTooManyRequests) Error() string {
+	return fmt.Sprintf("[POST /bacs][%d] postBacsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostBacsTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostBacsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostBacsInternalServerError creates a PostBacsInternalServerError with default headers values
+func NewPostBacsInternalServerError() *PostBacsInternalServerError {
+	return &PostBacsInternalServerError{}
+}
+
+/*PostBacsInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type PostBacsInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *PostBacsInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /bacs][%d] postBacsInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *PostBacsInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostBacsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostBacsServiceUnavailable creates a PostBacsServiceUnavailable with default headers values
+func NewPostBacsServiceUnavailable() *PostBacsServiceUnavailable {
+	return &PostBacsServiceUnavailable{}
+}
+
+/*PostBacsServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type PostBacsServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *PostBacsServiceUnavailable) Error() string {
+	return fmt.Sprintf("[POST /bacs][%d] postBacsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostBacsServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostBacsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

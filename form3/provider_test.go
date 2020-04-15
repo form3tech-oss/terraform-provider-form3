@@ -4,6 +4,7 @@ import (
 	"os"
 	"testing"
 
+	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
 )
@@ -21,7 +22,7 @@ func init() {
 
 func TestProvider(t *testing.T) {
 	if err := Provider().(*schema.Provider).InternalValidate(); err != nil {
-		t.Fatalf("err: %s", err)
+		t.Fatalf("err: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 }

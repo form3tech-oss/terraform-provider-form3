@@ -7,7 +7,6 @@ import (
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 )
@@ -69,7 +68,7 @@ func resourcePayportAssociationCreate(d *schema.ResourceData, meta interface{}) 
 
 	association, err := createPayportAssociationFromResourceData(d)
 	if err != nil {
-		return fmt.Errorf("failed to create payport association: %s", err)
+		return fmt.Errorf("failed to create payport association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	createdAssociation, err := client.AssociationClient.Associations.PostPayport(associations.NewPostPayportParams().
@@ -78,7 +77,7 @@ func resourcePayportAssociationCreate(d *schema.ResourceData, meta interface{}) 
 		}))
 
 	if err != nil {
-		return fmt.Errorf("failed to create payport association: %s", err)
+		return fmt.Errorf("failed to create payport association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	d.SetId(createdAssociation.Payload.Data.ID.String())
@@ -105,13 +104,11 @@ func resourcePayportAssociationRead(d *schema.ResourceData, meta interface{}) er
 		WithID(associationId))
 
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find payport association: %s", form3.JsonErrorPrettyPrint(err))
 		}
-
-		return fmt.Errorf("couldn't find payport association: %s", err)
+		d.SetId("")
+		return nil
 	}
 
 	d.Set("payport_association_id", association.Payload.Data.ID.String())
@@ -129,7 +126,7 @@ func resourcePayportAssociationDelete(d *schema.ResourceData, meta interface{}) 
 
 	associationFromResource, err := createPayportAssociationFromResourceDataWithVersion(d, client)
 	if err != nil {
-		return fmt.Errorf("error deleting payport association: %s", err)
+		return fmt.Errorf("error deleting payport association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	log.Printf("[INFO] Deleting payport association for id: %s participant id: %s", associationFromResource.ID, associationFromResource.Attributes.ParticipantID)
@@ -139,7 +136,7 @@ func resourcePayportAssociationDelete(d *schema.ResourceData, meta interface{}) 
 		WithVersion(*associationFromResource.Version))
 
 	if err != nil {
-		return fmt.Errorf("error deleting payport association: %s", err)
+		return fmt.Errorf("error deleting payport association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil
@@ -147,6 +144,9 @@ func resourcePayportAssociationDelete(d *schema.ResourceData, meta interface{}) 
 
 func createPayportAssociationFromResourceDataWithVersion(d *schema.ResourceData, client *form3.AuthenticatedClient) (*models.PayportAssociation, error) {
 	association, err := createPayportAssociationFromResourceData(d)
+	if err != nil {
+		return nil, err
+	}
 	version, err := getPayportAssociationVersion(client, association.ID)
 	if err != nil {
 		return nil, err
@@ -196,7 +196,7 @@ func getPayportAssociationVersion(client *form3.AuthenticatedClient, association
 	association, err := client.AssociationClient.Associations.GetPayportID(associations.NewGetPayportIDParams().WithID(associationId))
 	if err != nil {
 		if err != nil {
-			return -1, fmt.Errorf("error reading payport association: %s", err)
+			return -1, fmt.Errorf("error reading payport association: %s", form3.JsonErrorPrettyPrint(err))
 		}
 	}
 

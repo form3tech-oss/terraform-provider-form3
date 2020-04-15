@@ -7,10 +7,12 @@ package users
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDReader is a Reader for the DeleteUsersUserIDCredentialsPublicKeyPublicKeyID structure.
@@ -21,13 +23,60 @@ type DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -51,6 +100,270 @@ func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDNoContent) Error() stri
 }
 
 func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	return nil
+}
+
+// NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDBadRequest creates a DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDBadRequest with default headers values
+func NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDBadRequest() *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDBadRequest {
+	return &DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDBadRequest{}
+}
+
+/*DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDBadRequest) Error() string {
+	return fmt.Sprintf("[DELETE /users/{user_id}/credentials/public_key/{public_key_id}][%d] deleteUsersUserIdCredentialsPublicKeyPublicKeyIdBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDUnauthorized creates a DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDUnauthorized with default headers values
+func NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDUnauthorized() *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDUnauthorized {
+	return &DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDUnauthorized{}
+}
+
+/*DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDUnauthorized) Error() string {
+	return fmt.Sprintf("[DELETE /users/{user_id}/credentials/public_key/{public_key_id}][%d] deleteUsersUserIdCredentialsPublicKeyPublicKeyIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDForbidden creates a DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDForbidden with default headers values
+func NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDForbidden() *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDForbidden {
+	return &DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDForbidden{}
+}
+
+/*DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDForbidden handles this case with default header values.
+
+Forbidden
+*/
+type DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDForbidden) Error() string {
+	return fmt.Sprintf("[DELETE /users/{user_id}/credentials/public_key/{public_key_id}][%d] deleteUsersUserIdCredentialsPublicKeyPublicKeyIdForbidden  %+v", 403, o.Payload)
+}
+
+func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDNotFound creates a DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDNotFound with default headers values
+func NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDNotFound() *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDNotFound {
+	return &DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDNotFound{}
+}
+
+/*DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDNotFound handles this case with default header values.
+
+Record not found
+*/
+type DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDNotFound) Error() string {
+	return fmt.Sprintf("[DELETE /users/{user_id}/credentials/public_key/{public_key_id}][%d] deleteUsersUserIdCredentialsPublicKeyPublicKeyIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDConflict creates a DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDConflict with default headers values
+func NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDConflict() *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDConflict {
+	return &DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDConflict{}
+}
+
+/*DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDConflict handles this case with default header values.
+
+Conflict
+*/
+type DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDConflict struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDConflict) Error() string {
+	return fmt.Sprintf("[DELETE /users/{user_id}/credentials/public_key/{public_key_id}][%d] deleteUsersUserIdCredentialsPublicKeyPublicKeyIdConflict  %+v", 409, o.Payload)
+}
+
+func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDTooManyRequests creates a DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDTooManyRequests with default headers values
+func NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDTooManyRequests() *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDTooManyRequests {
+	return &DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDTooManyRequests{}
+}
+
+/*DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDTooManyRequests) Error() string {
+	return fmt.Sprintf("[DELETE /users/{user_id}/credentials/public_key/{public_key_id}][%d] deleteUsersUserIdCredentialsPublicKeyPublicKeyIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDInternalServerError creates a DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDInternalServerError with default headers values
+func NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDInternalServerError() *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDInternalServerError {
+	return &DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDInternalServerError{}
+}
+
+/*DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDInternalServerError) Error() string {
+	return fmt.Sprintf("[DELETE /users/{user_id}/credentials/public_key/{public_key_id}][%d] deleteUsersUserIdCredentialsPublicKeyPublicKeyIdInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDServiceUnavailable creates a DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDServiceUnavailable with default headers values
+func NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDServiceUnavailable() *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDServiceUnavailable {
+	return &DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDServiceUnavailable{}
+}
+
+/*DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDServiceUnavailable) Error() string {
+	return fmt.Sprintf("[DELETE /users/{user_id}/credentials/public_key/{public_key_id}][%d] deleteUsersUserIdCredentialsPublicKeyPublicKeyIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

@@ -2,25 +2,26 @@ package form3
 
 import (
 	"fmt"
-	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
-	"github.com/form3tech-oss/terraform-provider-form3/client/users"
-	"github.com/go-openapi/strfmt"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
-	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	"github.com/satori/go.uuid"
 	"log"
 	"os"
 	"testing"
+
+	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
+	"github.com/form3tech-oss/terraform-provider-form3/client/users"
+	"github.com/go-openapi/strfmt"
+	"github.com/google/uuid"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/terraform"
 )
 
 func TestAccCredentialPublicKey_multipleKeys_sequential(t *testing.T) {
 	log.SetOutput(os.Stdout)
 	organisationID := os.Getenv("FORM3_ORGANISATION_ID")
-	publicKeyIDOne := uuid.NewV4().String()
-	publicKeyIDTwo := uuid.NewV4().String()
-	publicKeyIDThree := uuid.NewV4().String()
-	userID := uuid.NewV4().String()
-	roleID := uuid.NewV4().String()
+	publicKeyIDOne := uuid.New().String()
+	publicKeyIDTwo := uuid.New().String()
+	publicKeyIDThree := uuid.New().String()
+	userID := uuid.New().String()
+	roleID := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -50,9 +51,9 @@ func TestAccCredentialPublicKey_multipleKeys_sequential(t *testing.T) {
 func TestAccCredentialPublicKey_singleKey(t *testing.T) {
 	log.SetOutput(os.Stdout)
 	organisationID := os.Getenv("FORM3_ORGANISATION_ID")
-	publicKeyID := uuid.NewV4().String()
-	userID := uuid.NewV4().String()
-	roleID := uuid.NewV4().String()
+	publicKeyID := uuid.New().String()
+	userID := uuid.New().String()
+	roleID := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -74,9 +75,9 @@ func TestAccCredentialPublicKey_singleKey(t *testing.T) {
 func TestAccCredentialPublicKey_import(t *testing.T) {
 	log.SetOutput(os.Stdout)
 	organisationID := os.Getenv("FORM3_ORGANISATION_ID")
-	publicKeyID := uuid.NewV4().String()
-	userID := uuid.NewV4().String()
-	roleID := uuid.NewV4().String()
+	publicKeyID := uuid.New().String()
+	userID := uuid.New().String()
+	roleID := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },

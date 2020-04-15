@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetKeysReader is a Reader for the GetKeys structure.
@@ -24,13 +23,60 @@ type GetKeysReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetKeysReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetKeysOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetKeysBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetKeysUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewGetKeysForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetKeysNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewGetKeysConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewGetKeysTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetKeysInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewGetKeysServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -54,9 +100,277 @@ func (o *GetKeysOK) Error() string {
 	return fmt.Sprintf("[GET /keys][%d] getKeysOK  %+v", 200, o.Payload)
 }
 
+func (o *GetKeysOK) GetPayload() *models.KeyDetailsListResponse {
+	return o.Payload
+}
+
 func (o *GetKeysOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.KeyDetailsListResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetKeysBadRequest creates a GetKeysBadRequest with default headers values
+func NewGetKeysBadRequest() *GetKeysBadRequest {
+	return &GetKeysBadRequest{}
+}
+
+/*GetKeysBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetKeysBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetKeysBadRequest) Error() string {
+	return fmt.Sprintf("[GET /keys][%d] getKeysBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetKeysBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetKeysBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetKeysUnauthorized creates a GetKeysUnauthorized with default headers values
+func NewGetKeysUnauthorized() *GetKeysUnauthorized {
+	return &GetKeysUnauthorized{}
+}
+
+/*GetKeysUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetKeysUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetKeysUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /keys][%d] getKeysUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetKeysUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetKeysUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetKeysForbidden creates a GetKeysForbidden with default headers values
+func NewGetKeysForbidden() *GetKeysForbidden {
+	return &GetKeysForbidden{}
+}
+
+/*GetKeysForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetKeysForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetKeysForbidden) Error() string {
+	return fmt.Sprintf("[GET /keys][%d] getKeysForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetKeysForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetKeysForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetKeysNotFound creates a GetKeysNotFound with default headers values
+func NewGetKeysNotFound() *GetKeysNotFound {
+	return &GetKeysNotFound{}
+}
+
+/*GetKeysNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetKeysNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetKeysNotFound) Error() string {
+	return fmt.Sprintf("[GET /keys][%d] getKeysNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetKeysNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetKeysNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetKeysConflict creates a GetKeysConflict with default headers values
+func NewGetKeysConflict() *GetKeysConflict {
+	return &GetKeysConflict{}
+}
+
+/*GetKeysConflict handles this case with default header values.
+
+Conflict
+*/
+type GetKeysConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetKeysConflict) Error() string {
+	return fmt.Sprintf("[GET /keys][%d] getKeysConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetKeysConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetKeysConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetKeysTooManyRequests creates a GetKeysTooManyRequests with default headers values
+func NewGetKeysTooManyRequests() *GetKeysTooManyRequests {
+	return &GetKeysTooManyRequests{}
+}
+
+/*GetKeysTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetKeysTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetKeysTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /keys][%d] getKeysTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetKeysTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetKeysTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetKeysInternalServerError creates a GetKeysInternalServerError with default headers values
+func NewGetKeysInternalServerError() *GetKeysInternalServerError {
+	return &GetKeysInternalServerError{}
+}
+
+/*GetKeysInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetKeysInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetKeysInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /keys][%d] getKeysInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetKeysInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetKeysInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetKeysServiceUnavailable creates a GetKeysServiceUnavailable with default headers values
+func NewGetKeysServiceUnavailable() *GetKeysServiceUnavailable {
+	return &GetKeysServiceUnavailable{}
+}
+
+/*GetKeysServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetKeysServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetKeysServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /keys][%d] getKeysServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetKeysServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetKeysServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

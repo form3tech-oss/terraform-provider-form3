@@ -2,21 +2,22 @@ package form3
 
 import (
 	"fmt"
+	"os"
+	"testing"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/accounts"
 	"github.com/go-openapi/strfmt"
+	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	"github.com/satori/go.uuid"
-	"os"
-	"testing"
 )
 
 func TestAccBankID_basic(t *testing.T) {
 	var bankIDResponse accounts.GetBankidsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.NewV4().String()
-	bankResourceId := uuid.NewV4().String()
+	organisationId := uuid.New().String()
+	bankResourceId := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -42,8 +43,8 @@ func TestAccBankID_basic(t *testing.T) {
 func TestAccBankID_importBasic(t *testing.T) {
 
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.NewV4().String()
-	bankResourceId := uuid.NewV4().String()
+	organisationId := uuid.New().String()
+	bankResourceId := uuid.New().String()
 
 	resourceName := "form3_bank_id.bank_id"
 

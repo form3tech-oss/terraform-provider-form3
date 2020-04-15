@@ -1,11 +1,11 @@
 package api
 
 import (
+	"testing"
+
 	"github.com/form3tech-oss/terraform-provider-form3/client/accounts"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/strfmt"
-	"github.com/nu7hatch/gouuid"
-	"testing"
 )
 
 var accountConfigurationVersion = int64(0)
@@ -13,53 +13,53 @@ var accountConfigurationVersion = int64(0)
 func TestAccountConfigurationPost(t *testing.T) {
 	createResponse, err := createAccountConfiguration()
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
-	err = getAccountConfiguration(err, createResponse.Payload.Data.ID)
+	err = getAccountConfiguration(createResponse.Payload.Data.ID)
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
-	err = deleteAccountConfiguration(err, createResponse.Payload.Data.ID)
+	err = deleteAccountConfiguration(createResponse.Payload.Data.ID)
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 }
 
 func TestAccountConfigurationGetList(t *testing.T) {
 	createResponse, err := createAccountConfiguration()
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
 	getAllResponse, err := auth.AccountClient.Accounts.GetAccountconfigurations(accounts.NewGetAccountconfigurationsParams())
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
 	if len(getAllResponse.Payload.Data) == 0 {
 		t.Error("expected at least one account configuration")
 	}
 
-	err = deleteAccountConfiguration(err, createResponse.Payload.Data.ID)
+	err = deleteAccountConfiguration(createResponse.Payload.Data.ID)
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 }
 
 func TestAccountConfigurationGetID(t *testing.T) {
 	createResponse, err := createAccountConfiguration()
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
-	err = getAccountConfiguration(err, createResponse.Payload.Data.ID)
+	err = getAccountConfiguration(createResponse.Payload.Data.ID)
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
-	err = deleteAccountConfiguration(err, createResponse.Payload.Data.ID)
+	err = deleteAccountConfiguration(createResponse.Payload.Data.ID)
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 }
 
 func TestAccountConfigurationUpdate(t *testing.T) {
 	createResponse, err := createAccountConfiguration()
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
 	var existingAccountGenerationConfiguration = createResponse.Payload.Data.Attributes.AccountGenerationConfiguration[0]
 	var newAccountGenerationConfiguration = &models.AccountGenerationConfiguration{
@@ -89,10 +89,12 @@ func TestAccountConfigurationUpdate(t *testing.T) {
 		}),
 	)
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
 	getConfigurationResponse, err := auth.AccountClient.Accounts.GetAccountconfigurationsID(accounts.NewGetAccountconfigurationsIDParams().
-		WithID(strfmt.UUID(createResponse.Payload.Data.ID)))
+		WithID(createResponse.Payload.Data.ID))
+
+	assertNoErrorOccurred(t, err)
 
 	if len(getConfigurationResponse.Payload.Data.Attributes.AccountGenerationConfiguration) != 2 {
 		t.Error("expected to have two account generation configurations")
@@ -100,33 +102,33 @@ func TestAccountConfigurationUpdate(t *testing.T) {
 
 	accountConfigurationVersion = *getConfigurationResponse.Payload.Data.Version
 
-	err = deleteAccountConfiguration(err, createResponse.Payload.Data.ID)
+	err = deleteAccountConfiguration(createResponse.Payload.Data.ID)
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 }
 
 func TestAccountConfigurationDelete(t *testing.T) {
 	createResponse, err := createAccountConfiguration()
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
-	err = deleteAccountConfiguration(err, createResponse.Payload.Data.ID)
+	err = deleteAccountConfiguration(createResponse.Payload.Data.ID)
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
-	err = getAccountConfiguration(err, createResponse.Payload.Data.ID)
+	err = getAccountConfiguration(createResponse.Payload.Data.ID)
 
-	assertStatusCode(err, t, 404)
+	assertStatusCode(t, err, 404)
 }
 
-func getAccountConfiguration(err error, accountConfigurationId strfmt.UUID) error {
-	_, err = auth.AccountClient.Accounts.GetAccountconfigurationsID(accounts.NewGetAccountconfigurationsIDParams().
-		WithID(strfmt.UUID(accountConfigurationId)))
+func getAccountConfiguration(accountConfigurationId strfmt.UUID) error {
+	_, err := auth.AccountClient.Accounts.GetAccountconfigurationsID(accounts.NewGetAccountconfigurationsIDParams().
+		WithID(accountConfigurationId))
 	return err
 }
 
-func deleteAccountConfiguration(err error, accountConfigurationId strfmt.UUID) error {
-	_, err = auth.AccountClient.Accounts.DeleteAccountconfigurationsID(accounts.NewDeleteAccountconfigurationsIDParams().
+func deleteAccountConfiguration(accountConfigurationId strfmt.UUID) error {
+	_, err := auth.AccountClient.Accounts.DeleteAccountconfigurationsID(accounts.NewDeleteAccountconfigurationsIDParams().
 		WithID(accountConfigurationId).
 		WithVersion(accountConfigurationVersion),
 	)
@@ -134,7 +136,7 @@ func deleteAccountConfiguration(err error, accountConfigurationId strfmt.UUID) e
 }
 
 func createAccountConfiguration() (*accounts.PostAccountconfigurationsCreated, error) {
-	newId, _ := uuid.NewV4()
+	newId := NewUUID()
 
 	createResponse, err := auth.AccountClient.Accounts.PostAccountconfigurations(accounts.NewPostAccountconfigurationsParams().
 		WithAccountConfigurationCreationRequest(&models.AccountConfigurationCreation{
@@ -142,7 +144,7 @@ func createAccountConfiguration() (*accounts.PostAccountconfigurationsCreated, e
 				OrganisationID: testOrganisationId,
 				Type:           "account_configurations",
 				Version:        &accountConfigurationVersion,
-				ID:             strfmt.UUID(newId.String()),
+				ID:             *newId,
 				Attributes: &models.AccountConfigurationAttributes{
 					AccountGenerationEnabled: true,
 					AccountGenerationConfiguration: []*models.AccountGenerationConfiguration{

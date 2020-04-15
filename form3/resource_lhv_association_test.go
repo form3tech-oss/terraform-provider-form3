@@ -2,22 +2,22 @@ package form3
 
 import (
 	"fmt"
+	"os"
+	"testing"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/go-openapi/strfmt"
+	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	"github.com/satori/go.uuid"
-	"os"
-	"testing"
 )
 
 func TestAccLhvAssociation_basic(t *testing.T) {
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.NewV4().String()
-	associationId := uuid.NewV4().String()
-	clientCode := uuid.NewV4().String()
-	iban := uuid.NewV4().String()
+	organisationId := uuid.New().String()
+	associationId := uuid.New().String()
+	clientCode := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -25,14 +25,14 @@ func TestAccLhvAssociation_basic(t *testing.T) {
 		CheckDestroy: testAccCheckLhvAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3LhvAssociationConfigA, organisationId, parentOrganisationId, associationId, clientCode, iban),
+				Config: fmt.Sprintf(testForm3LhvAssociationConfigA, organisationId, parentOrganisationId, associationId, clientCode),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckLhvAssociationExists("form3_lhv_association.association"),
 					resource.TestCheckResourceAttr("form3_lhv_association.association", "association_id", associationId),
 					resource.TestCheckResourceAttr("form3_lhv_association.association", "organisation_id", organisationId),
+					resource.TestCheckResourceAttr("form3_lhv_association.association", "name", "terraform-association"),
 					resource.TestCheckResourceAttr("form3_lhv_association.association", "client_code", clientCode),
-					resource.TestCheckResourceAttr("form3_lhv_association.association", "client_country", "UK"),
-					resource.TestCheckResourceAttr("form3_lhv_association.association", "master_ibans.0", iban),
+					resource.TestCheckResourceAttr("form3_lhv_association.association", "client_country", "GB"),
 				),
 			},
 		},
@@ -47,8 +47,10 @@ func testAccCheckLhvAssociationDestroy(state *terraform.State) error {
 			continue
 		}
 
-		response, err := client.AssociationClient.Associations.GetLhvID(associations.NewGetLhvIDParams().
-			WithID(strfmt.UUID(rs.Primary.ID)))
+		response, err := client.AssociationClient.Associations.GetLhvAssociationID(
+			associations.NewGetLhvAssociationIDParams().
+				WithAssociationID(strfmt.UUID(rs.Primary.ID)),
+		)
 
 		if err == nil {
 			return fmt.Errorf("lhv record %s still exists, %+v", rs.Primary.ID, response)
@@ -72,8 +74,10 @@ func testAccCheckLhvAssociationExists(resourceKey string) resource.TestCheckFunc
 
 		client := testAccProvider.Meta().(*form3.AuthenticatedClient)
 
-		foundRecord, err := client.AssociationClient.Associations.GetLhvID(associations.NewGetLhvIDParams().
-			WithID(strfmt.UUID(rs.Primary.ID)))
+		foundRecord, err := client.AssociationClient.Associations.GetLhvAssociationID(
+			associations.NewGetLhvAssociationIDParams().
+				WithAssociationID(strfmt.UUID(rs.Primary.ID)),
+		)
 
 		if err != nil {
 			return err
@@ -91,13 +95,13 @@ const testForm3LhvAssociationConfigA = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation"
+	name 		              = "terraform-organisation"
 }
 
 resource "form3_lhv_association" "association" {
-	organisation_id        = "${form3_organisation.organisation.organisation_id}"
-	association_id         = "%s"
-	client_code            = "%s"
-    client_country         = "UK"
-    master_ibans           = ["%s"]
+	organisation_id  = "${form3_organisation.organisation.organisation_id}"
+    name             = "terraform-association"
+	association_id   = "%s"
+	client_code      = "%s"
+    client_country   = "GB"
 }`

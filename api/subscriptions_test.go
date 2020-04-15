@@ -1,20 +1,34 @@
 package api
 
 import (
+	"log"
+	"testing"
+
 	"github.com/form3tech-oss/terraform-provider-form3/client/subscriptions"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/strfmt"
-	"testing"
 )
 
 func TestAccDeleteSubscription(t *testing.T) {
+	id := NewUUID()
+
+	defer func() {
+		if t.Failed() {
+			if _, err := auth.NotificationClient.Subscriptions.DeleteSubscriptionsID(subscriptions.NewDeleteSubscriptionsIDParams().
+				WithID(*id).WithVersion(0),
+			); err != nil {
+				log.Printf("[CLEANUP] Did not delete subscription id, error %s\n", JsonErrorPrettyPrint(err))
+			} else {
+				log.Printf("[CLEANUP] Successfully subscription id\n")
+			}
+		}
+	}()
 
 	createResponse, err := auth.NotificationClient.Subscriptions.PostSubscriptions(subscriptions.NewPostSubscriptionsParams().
 		WithSubscriptionCreationRequest(&models.SubscriptionCreation{
 			Data: &models.Subscription{
 				OrganisationID: testOrganisationId,
 				Type:           "subscriptions",
-				ID:             strfmt.UUID("5e950680-1ea2-4898-ba0f-632214f51946"),
+				ID:             *id,
 				Attributes: &models.SubscriptionAttributes{
 					CallbackTransport: "queue",
 					CallbackURI:       "https://sqs.eu-west-1.amazonaws.com/288840537196/notification-test",
@@ -24,18 +38,16 @@ func TestAccDeleteSubscription(t *testing.T) {
 			},
 		}))
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
 	_, err = auth.NotificationClient.Subscriptions.DeleteSubscriptionsID(subscriptions.NewDeleteSubscriptionsIDParams().
-		WithID(createResponse.Payload.Data.ID),
+		WithID(createResponse.Payload.Data.ID).WithVersion(0),
 	)
 
-	if err != nil {
-		t.Error(err)
-	}
+	assertNoErrorOccurred(t, err)
 
 	_, err = auth.NotificationClient.Subscriptions.GetSubscriptionsID(subscriptions.NewGetSubscriptionsIDParams().
 		WithID(createResponse.Payload.Data.ID))
 
-	assertStatusCode(err, t, 404)
+	assertStatusCode(t, err, 404)
 }

@@ -3,7 +3,7 @@ package api
 import (
 	"testing"
 
-	uuid "github.com/nu7hatch/gouuid"
+	"github.com/google/uuid"
 
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
@@ -20,19 +20,19 @@ func TestDeleteConfirmationOfPayeeAssociation(t *testing.T) {
 	_, err := auth.AssociationClient.Associations.GetConfirmationOfPayeeID(associations.NewGetConfirmationOfPayeeIDParams().
 		WithID(*createResponse.Payload.Data.ID))
 
-	assertStatusCode(err, t, 404)
+	assertStatusCode(t, err, 404)
 }
 
 func deleteAssociation(t *testing.T, createResponse *associations.PostConfirmationOfPayeeCreated) {
 	_, err := auth.AssociationClient.Associations.DeleteConfirmationOfPayeeID(associations.NewDeleteConfirmationOfPayeeIDParams().
 		WithID(*createResponse.Payload.Data.ID),
 	)
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 }
 
 func createAssociation(t *testing.T) *associations.PostConfirmationOfPayeeCreated {
-	id, _ := uuid.NewV4()
-	keyId, _ := uuid.NewV4()
+	id := uuid.New()
+	keyId := uuid.New()
 	createResponse, err := auth.AssociationClient.Associations.PostConfirmationOfPayee(associations.NewPostConfirmationOfPayeeParams().
 		WithCreationRequest(&models.CoPAssociationCreation{
 			Data: &models.CoPAssociation{
@@ -56,18 +56,18 @@ func createAssociation(t *testing.T) *associations.PostConfirmationOfPayeeCreate
 				},
 			},
 		}))
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 	return createResponse
 }
 
 func TestGetConfirmationOfPayeeForNonExistingAssociation(t *testing.T) {
-	randomId, _ := uuid.NewV4()
+	randomId := uuid.New()
 	randomUUID := strfmt.UUID(randomId.String())
 
 	_, err := auth.AssociationClient.Associations.GetConfirmationOfPayeeID(associations.NewGetConfirmationOfPayeeIDParams().
 		WithID(randomUUID))
 
-	assertStatusCode(err, t, 404)
+	assertStatusCode(t, err, 404)
 }
 
 func TestGetConfirmationOfPayeeAssociation(t *testing.T) {
@@ -78,7 +78,7 @@ func TestGetConfirmationOfPayeeAssociation(t *testing.T) {
 		WithID(*createResponse.Payload.Data.ID),
 	)
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 }
 
 func TestPostConfirmationOfPayeeAssociation(t *testing.T) {
@@ -101,7 +101,7 @@ func TestGetConfirmationOfPayeeAssociationList(t *testing.T) {
 	getConfirmationOfPayeeResponse, err := auth.AssociationClient.Associations.GetConfirmationOfPayee(associations.NewGetConfirmationOfPayeeParams().
 		WithFilterOrganisationID([]strfmt.UUID{*createResponse.Payload.Data.OrganisationID}))
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 	assert.True(t, len(getConfirmationOfPayeeResponse.Payload.Data) > 0)
 
 	found := false

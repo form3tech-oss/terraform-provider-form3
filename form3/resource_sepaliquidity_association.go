@@ -7,7 +7,6 @@ import (
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 )
@@ -90,7 +89,7 @@ func resourceSepaLiquidityAssociationCreate(d *schema.ResourceData, meta interfa
 
 	association, err := createSepaLiquidityNewAssociationFromResourceData(d)
 	if err != nil {
-		return fmt.Errorf("failed to create sepa liquidity association: %s", err)
+		return fmt.Errorf("failed to create sepa liquidity association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	createdAssociation, err := client.AssociationClient.Associations.PostSepaLiquidity(associations.NewPostSepaLiquidityParams().
@@ -99,7 +98,7 @@ func resourceSepaLiquidityAssociationCreate(d *schema.ResourceData, meta interfa
 		}))
 
 	if err != nil {
-		return fmt.Errorf("failed to create sepa liquidity association: %s", err)
+		return fmt.Errorf("failed to create sepa liquidity association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	d.SetId(createdAssociation.Payload.Data.ID.String())
@@ -117,13 +116,11 @@ func resourceSepaLiquidityAssociationRead(d *schema.ResourceData, meta interface
 		WithID(associationId))
 
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find sepa liquidity assocation: %s", form3.JsonErrorPrettyPrint(err))
 		}
-
-		return fmt.Errorf("couldn't find sepa liquidity assocation: %s", err)
+		d.SetId("")
+		return nil
 	}
 
 	_ = d.Set("association_id", sepaLiquidityAssociation.Payload.Data.ID.String())
@@ -150,7 +147,7 @@ func resourceSepaLiquidityAssociationDelete(d *schema.ResourceData, meta interfa
 	SepaLiquidityAssociation, err := client.AssociationClient.Associations.GetSepaLiquidityID(associations.NewGetSepaLiquidityIDParams().
 		WithID(strfmt.UUID(d.Id())))
 	if err != nil {
-		return fmt.Errorf("error deleting sepa liquidity assocation: %s", err)
+		return fmt.Errorf("error deleting sepa liquidity assocation: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	_, err = client.AssociationClient.Associations.DeleteSepaLiquidityID(associations.NewDeleteSepaLiquidityIDParams().
@@ -158,7 +155,7 @@ func resourceSepaLiquidityAssociationDelete(d *schema.ResourceData, meta interfa
 		WithVersion(*SepaLiquidityAssociation.Payload.Data.Version))
 
 	if err != nil {
-		return fmt.Errorf("error deleting sepa liquidity assocation: %s", err)
+		return fmt.Errorf("error deleting sepa liquidity assocation: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil

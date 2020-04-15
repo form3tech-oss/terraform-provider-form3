@@ -6,13 +6,14 @@ package organisations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new organisations API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +25,23 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	DeleteUnitsID(params *DeleteUnitsIDParams) (*DeleteUnitsIDNoContent, error)
+
+	GetUnits(params *GetUnitsParams) (*GetUnitsOK, error)
+
+	GetUnitsID(params *GetUnitsIDParams) (*GetUnitsIDOK, error)
+
+	PatchUnitsID(params *PatchUnitsIDParams) (*PatchUnitsIDOK, error)
+
+	PostUnits(params *PostUnitsParams) (*PostUnitsCreated, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-DeleteUnitsID deletes organisation
+  DeleteUnitsID deletes organisation
 */
 func (a *Client) DeleteUnitsID(params *DeleteUnitsIDParams) (*DeleteUnitsIDNoContent, error) {
 	// TODO: Validate the params before sending
@@ -37,7 +53,7 @@ func (a *Client) DeleteUnitsID(params *DeleteUnitsIDParams) (*DeleteUnitsIDNoCon
 		ID:                 "DeleteUnitsID",
 		Method:             "DELETE",
 		PathPattern:        "/units/{id}",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -48,12 +64,18 @@ func (a *Client) DeleteUnitsID(params *DeleteUnitsIDParams) (*DeleteUnitsIDNoCon
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteUnitsIDNoContent), nil
-
+	success, ok := result.(*DeleteUnitsIDNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteUnitsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetUnits lists all organisations
+  GetUnits lists all organisations
 */
 func (a *Client) GetUnits(params *GetUnitsParams) (*GetUnitsOK, error) {
 	// TODO: Validate the params before sending
@@ -65,8 +87,8 @@ func (a *Client) GetUnits(params *GetUnitsParams) (*GetUnitsOK, error) {
 		ID:                 "GetUnits",
 		Method:             "GET",
 		PathPattern:        "/units",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetUnitsReader{formats: a.formats},
@@ -76,12 +98,18 @@ func (a *Client) GetUnits(params *GetUnitsParams) (*GetUnitsOK, error) {
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetUnitsOK), nil
-
+	success, ok := result.(*GetUnitsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetUnits: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetUnitsID fetches organisation
+  GetUnitsID fetches organisation
 */
 func (a *Client) GetUnitsID(params *GetUnitsIDParams) (*GetUnitsIDOK, error) {
 	// TODO: Validate the params before sending
@@ -93,8 +121,8 @@ func (a *Client) GetUnitsID(params *GetUnitsIDParams) (*GetUnitsIDOK, error) {
 		ID:                 "GetUnitsID",
 		Method:             "GET",
 		PathPattern:        "/units/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetUnitsIDReader{formats: a.formats},
@@ -104,12 +132,18 @@ func (a *Client) GetUnitsID(params *GetUnitsIDParams) (*GetUnitsIDOK, error) {
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetUnitsIDOK), nil
-
+	success, ok := result.(*GetUnitsIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetUnitsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PatchUnitsID updates organisation
+  PatchUnitsID updates organisation
 */
 func (a *Client) PatchUnitsID(params *PatchUnitsIDParams) (*PatchUnitsIDOK, error) {
 	// TODO: Validate the params before sending
@@ -121,7 +155,7 @@ func (a *Client) PatchUnitsID(params *PatchUnitsIDParams) (*PatchUnitsIDOK, erro
 		ID:                 "PatchUnitsID",
 		Method:             "PATCH",
 		PathPattern:        "/units/{id}",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -132,12 +166,18 @@ func (a *Client) PatchUnitsID(params *PatchUnitsIDParams) (*PatchUnitsIDOK, erro
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PatchUnitsIDOK), nil
-
+	success, ok := result.(*PatchUnitsIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PatchUnitsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostUnits creates organisation
+  PostUnits creates organisation
 */
 func (a *Client) PostUnits(params *PostUnitsParams) (*PostUnitsCreated, error) {
 	// TODO: Validate the params before sending
@@ -149,7 +189,7 @@ func (a *Client) PostUnits(params *PostUnitsParams) (*PostUnitsCreated, error) {
 		ID:                 "PostUnits",
 		Method:             "POST",
 		PathPattern:        "/units",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -160,8 +200,14 @@ func (a *Client) PostUnits(params *PostUnitsParams) (*PostUnitsCreated, error) {
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostUnitsCreated), nil
-
+	success, ok := result.(*PostUnitsCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostUnits: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

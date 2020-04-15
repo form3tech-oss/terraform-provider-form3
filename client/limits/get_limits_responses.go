@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetLimitsReader is a Reader for the GetLimits structure.
@@ -24,13 +23,60 @@ type GetLimitsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetLimitsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetLimitsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetLimitsBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetLimitsUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewGetLimitsForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetLimitsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewGetLimitsConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewGetLimitsTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetLimitsInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewGetLimitsServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -54,9 +100,277 @@ func (o *GetLimitsOK) Error() string {
 	return fmt.Sprintf("[GET /limits][%d] getLimitsOK  %+v", 200, o.Payload)
 }
 
+func (o *GetLimitsOK) GetPayload() *models.LimitDetailsListResponse {
+	return o.Payload
+}
+
 func (o *GetLimitsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.LimitDetailsListResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetLimitsBadRequest creates a GetLimitsBadRequest with default headers values
+func NewGetLimitsBadRequest() *GetLimitsBadRequest {
+	return &GetLimitsBadRequest{}
+}
+
+/*GetLimitsBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetLimitsBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetLimitsBadRequest) Error() string {
+	return fmt.Sprintf("[GET /limits][%d] getLimitsBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetLimitsBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetLimitsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetLimitsUnauthorized creates a GetLimitsUnauthorized with default headers values
+func NewGetLimitsUnauthorized() *GetLimitsUnauthorized {
+	return &GetLimitsUnauthorized{}
+}
+
+/*GetLimitsUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetLimitsUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetLimitsUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /limits][%d] getLimitsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetLimitsUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetLimitsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetLimitsForbidden creates a GetLimitsForbidden with default headers values
+func NewGetLimitsForbidden() *GetLimitsForbidden {
+	return &GetLimitsForbidden{}
+}
+
+/*GetLimitsForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetLimitsForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetLimitsForbidden) Error() string {
+	return fmt.Sprintf("[GET /limits][%d] getLimitsForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetLimitsForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetLimitsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetLimitsNotFound creates a GetLimitsNotFound with default headers values
+func NewGetLimitsNotFound() *GetLimitsNotFound {
+	return &GetLimitsNotFound{}
+}
+
+/*GetLimitsNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetLimitsNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetLimitsNotFound) Error() string {
+	return fmt.Sprintf("[GET /limits][%d] getLimitsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetLimitsNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetLimitsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetLimitsConflict creates a GetLimitsConflict with default headers values
+func NewGetLimitsConflict() *GetLimitsConflict {
+	return &GetLimitsConflict{}
+}
+
+/*GetLimitsConflict handles this case with default header values.
+
+Conflict
+*/
+type GetLimitsConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetLimitsConflict) Error() string {
+	return fmt.Sprintf("[GET /limits][%d] getLimitsConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetLimitsConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetLimitsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetLimitsTooManyRequests creates a GetLimitsTooManyRequests with default headers values
+func NewGetLimitsTooManyRequests() *GetLimitsTooManyRequests {
+	return &GetLimitsTooManyRequests{}
+}
+
+/*GetLimitsTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetLimitsTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetLimitsTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /limits][%d] getLimitsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetLimitsTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetLimitsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetLimitsInternalServerError creates a GetLimitsInternalServerError with default headers values
+func NewGetLimitsInternalServerError() *GetLimitsInternalServerError {
+	return &GetLimitsInternalServerError{}
+}
+
+/*GetLimitsInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetLimitsInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetLimitsInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /limits][%d] getLimitsInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetLimitsInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetLimitsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetLimitsServiceUnavailable creates a GetLimitsServiceUnavailable with default headers values
+func NewGetLimitsServiceUnavailable() *GetLimitsServiceUnavailable {
+	return &GetLimitsServiceUnavailable{}
+}
+
+/*GetLimitsServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetLimitsServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetLimitsServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /limits][%d] getLimitsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetLimitsServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetLimitsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

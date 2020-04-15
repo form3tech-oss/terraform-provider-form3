@@ -2,54 +2,123 @@ package api
 
 import (
 	"log"
+	"math/rand"
+	"strings"
+	"time"
+
+	"testing"
 
 	"github.com/form3tech-oss/terraform-provider-form3/client/accounts"
 	"github.com/form3tech-oss/terraform-provider-form3/client/organisations"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"testing"
 )
 
-func TestAccDeleteAccount(t *testing.T) {
+func bicGenerator(r *rand.Rand) string {
+	var (
+		chars  = []rune("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+		digits = []rune("0123456789")
+		b      strings.Builder
+	)
 
-	createdBankID, err := auth.AccountClient.Accounts.PostBankids(accounts.NewPostBankidsParams().
+	for i := 0; i < 6; i++ {
+		b.WriteRune(chars[r.Intn(len(chars))])
+	}
+
+	for i := 0; i < 5; i++ {
+		b.WriteRune(digits[r.Intn(len(digits))])
+	}
+
+	return b.String()
+}
+
+func bankIdGenerator(r *rand.Rand) string {
+	var (
+		b      strings.Builder
+		digits = []rune("0123456789")
+	)
+
+	for i := 0; i < 6; i++ {
+		b.WriteRune(digits[r.Intn(len(digits))])
+	}
+
+	return b.String()
+}
+
+func TestAccDeleteAccount(t *testing.T) {
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+
+	bankIdUUID := NewUUIDValue()
+	bic := bicGenerator(r)
+	bankID := bankIdGenerator(r)
+
+	defer func() {
+		if t.Failed() {
+			if _, err := auth.AccountClient.Accounts.DeleteBankidsID(accounts.NewDeleteBankidsIDParams().WithID(bankIdUUID)); err != nil {
+				log.Printf("[CLEANUP] Did not delete bank id, error %s\n", JsonErrorPrettyPrint(err))
+			} else {
+				log.Printf("[CLEANUP] Successfully deleted bank id\n")
+			}
+		}
+	}()
+
+	_, err := auth.AccountClient.Accounts.PostBankids(accounts.NewPostBankidsParams().
 		WithBankIDCreationRequest(&models.BankIDCreation{
 			Data: &models.BankID{
 				Type:           "bankids",
-				ID:             NewUUIDValue(),
+				ID:             bankIdUUID,
 				OrganisationID: organisationId,
 				Attributes: &models.BankIDAttributes{
 					Country:    "GB",
 					BankIDCode: "GBDSC",
-					BankID:     "100202",
+					BankID:     bankID,
 				},
 			},
 		}))
 
+	assertNoErrorOccurred(t, err)
+
+	bicIdUUID := NewUUIDValue()
+
 	defer func() {
-		if _, err := auth.AccountClient.Accounts.DeleteBankidsID(accounts.NewDeleteBankidsIDParams().WithID(createdBankID.Payload.Data.ID)); err != nil {
-			log.Printf("[WARN] Did not delete bank id, error %s\n", err.Error())
-		} else {
-			log.Printf("[INFO] Successfully deleted bank id\n")
+		if t.Failed() {
+			if _, err := auth.AccountClient.Accounts.DeleteBicsID(accounts.NewDeleteBicsIDParams().
+				WithID(bicIdUUID).
+				WithVersion(0),
+			); err != nil {
+				log.Printf("[CLEANUP] Did not delete bic id, error %s\n", JsonErrorPrettyPrint(err))
+			} else {
+				log.Printf("[CLEANUP] Successfully deleted bic\n")
+			}
 		}
 	}()
 
-	createdBicID, err := auth.AccountClient.Accounts.PostBics(accounts.NewPostBicsParams().
+	_, err = auth.AccountClient.Accounts.PostBics(accounts.NewPostBicsParams().
 		WithBicCreationRequest(&models.BicCreation{
 			Data: &models.Bic{
 				Type:           "bankids",
-				ID:             NewUUIDValue(),
+				ID:             bicIdUUID,
 				OrganisationID: organisationId,
 				Attributes: &models.BicAttributes{
-					Bic: "NWABCD12",
+					Bic: bic,
 				},
 			},
 		}))
 
+	assertNoErrorOccurred(t, err)
+
+	accountIdUUID := NewUUID()
+
 	defer func() {
-		if _, err := auth.AccountClient.Accounts.DeleteBicsID(accounts.NewDeleteBicsIDParams().WithID(createdBicID.Payload.Data.ID)); err != nil {
-			log.Printf("[WARN] Did not delete bic id, error %s\n", err.Error())
-		} else {
-			log.Printf("[INFO] Successfully deleted bic\n")
+		if t.Failed() {
+			if _, err := auth.AccountClient.Accounts.DeleteAccountsID(
+				accounts.NewDeleteAccountsIDParams().
+					WithID(*accountIdUUID).
+					WithVersion(1),
+			); err != nil {
+				log.Printf("[CLEANUP] Did not delete account id, error %s\n", JsonErrorPrettyPrint(err))
+			} else {
+				log.Printf("[CLEANUP] Successfully deleted account\n")
+			}
 		}
 	}()
 
@@ -61,24 +130,24 @@ func TestAccDeleteAccount(t *testing.T) {
 				ID:             NewUUID(),
 				Attributes: &models.AccountAttributes{
 					AccountNumber: "12345678",
-					BankID:        "100202",
-					Bic:           "NWABCD12",
+					BankID:        bankID,
+					Bic:           bic,
 					BankIDCode:    "GBDSC",
 					Country:       String("GB"),
 				},
 			},
 		}))
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
 	_, err = auth.AccountClient.Accounts.DeleteAccountsID(accounts.NewDeleteAccountsIDParams().
-		WithID(UUIDValue(createResponse.Payload.Data.ID)),
+		WithID(UUIDValue(createResponse.Payload.Data.ID)).WithVersion(1),
 	)
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
 	_, err = auth.AccountClient.Organisations.GetUnitsID(organisations.NewGetUnitsIDParams().
 		WithID(UUIDValue(createResponse.Payload.Data.ID)))
 
-	assertStatusCode(err, t, 404)
+	assertStatusCode(t, err, 404)
 }

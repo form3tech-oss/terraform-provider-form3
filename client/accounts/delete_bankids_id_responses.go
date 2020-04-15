@@ -7,10 +7,12 @@ package accounts
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteBankidsIDReader is a Reader for the DeleteBankidsID structure.
@@ -21,13 +23,60 @@ type DeleteBankidsIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteBankidsIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewDeleteBankidsIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDeleteBankidsIDBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewDeleteBankidsIDUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewDeleteBankidsIDForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewDeleteBankidsIDNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewDeleteBankidsIDConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewDeleteBankidsIDTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewDeleteBankidsIDInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewDeleteBankidsIDServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -51,6 +100,270 @@ func (o *DeleteBankidsIDNoContent) Error() string {
 }
 
 func (o *DeleteBankidsIDNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	return nil
+}
+
+// NewDeleteBankidsIDBadRequest creates a DeleteBankidsIDBadRequest with default headers values
+func NewDeleteBankidsIDBadRequest() *DeleteBankidsIDBadRequest {
+	return &DeleteBankidsIDBadRequest{}
+}
+
+/*DeleteBankidsIDBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type DeleteBankidsIDBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteBankidsIDBadRequest) Error() string {
+	return fmt.Sprintf("[DELETE /bankids/{id}][%d] deleteBankidsIdBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DeleteBankidsIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteBankidsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteBankidsIDUnauthorized creates a DeleteBankidsIDUnauthorized with default headers values
+func NewDeleteBankidsIDUnauthorized() *DeleteBankidsIDUnauthorized {
+	return &DeleteBankidsIDUnauthorized{}
+}
+
+/*DeleteBankidsIDUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type DeleteBankidsIDUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteBankidsIDUnauthorized) Error() string {
+	return fmt.Sprintf("[DELETE /bankids/{id}][%d] deleteBankidsIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *DeleteBankidsIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteBankidsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteBankidsIDForbidden creates a DeleteBankidsIDForbidden with default headers values
+func NewDeleteBankidsIDForbidden() *DeleteBankidsIDForbidden {
+	return &DeleteBankidsIDForbidden{}
+}
+
+/*DeleteBankidsIDForbidden handles this case with default header values.
+
+Forbidden
+*/
+type DeleteBankidsIDForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteBankidsIDForbidden) Error() string {
+	return fmt.Sprintf("[DELETE /bankids/{id}][%d] deleteBankidsIdForbidden  %+v", 403, o.Payload)
+}
+
+func (o *DeleteBankidsIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteBankidsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteBankidsIDNotFound creates a DeleteBankidsIDNotFound with default headers values
+func NewDeleteBankidsIDNotFound() *DeleteBankidsIDNotFound {
+	return &DeleteBankidsIDNotFound{}
+}
+
+/*DeleteBankidsIDNotFound handles this case with default header values.
+
+Record not found
+*/
+type DeleteBankidsIDNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteBankidsIDNotFound) Error() string {
+	return fmt.Sprintf("[DELETE /bankids/{id}][%d] deleteBankidsIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteBankidsIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteBankidsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteBankidsIDConflict creates a DeleteBankidsIDConflict with default headers values
+func NewDeleteBankidsIDConflict() *DeleteBankidsIDConflict {
+	return &DeleteBankidsIDConflict{}
+}
+
+/*DeleteBankidsIDConflict handles this case with default header values.
+
+Conflict
+*/
+type DeleteBankidsIDConflict struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteBankidsIDConflict) Error() string {
+	return fmt.Sprintf("[DELETE /bankids/{id}][%d] deleteBankidsIdConflict  %+v", 409, o.Payload)
+}
+
+func (o *DeleteBankidsIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteBankidsIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteBankidsIDTooManyRequests creates a DeleteBankidsIDTooManyRequests with default headers values
+func NewDeleteBankidsIDTooManyRequests() *DeleteBankidsIDTooManyRequests {
+	return &DeleteBankidsIDTooManyRequests{}
+}
+
+/*DeleteBankidsIDTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type DeleteBankidsIDTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteBankidsIDTooManyRequests) Error() string {
+	return fmt.Sprintf("[DELETE /bankids/{id}][%d] deleteBankidsIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *DeleteBankidsIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteBankidsIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteBankidsIDInternalServerError creates a DeleteBankidsIDInternalServerError with default headers values
+func NewDeleteBankidsIDInternalServerError() *DeleteBankidsIDInternalServerError {
+	return &DeleteBankidsIDInternalServerError{}
+}
+
+/*DeleteBankidsIDInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type DeleteBankidsIDInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteBankidsIDInternalServerError) Error() string {
+	return fmt.Sprintf("[DELETE /bankids/{id}][%d] deleteBankidsIdInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *DeleteBankidsIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteBankidsIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteBankidsIDServiceUnavailable creates a DeleteBankidsIDServiceUnavailable with default headers values
+func NewDeleteBankidsIDServiceUnavailable() *DeleteBankidsIDServiceUnavailable {
+	return &DeleteBankidsIDServiceUnavailable{}
+}
+
+/*DeleteBankidsIDServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type DeleteBankidsIDServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *DeleteBankidsIDServiceUnavailable) Error() string {
+	return fmt.Sprintf("[DELETE /bankids/{id}][%d] deleteBankidsIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *DeleteBankidsIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *DeleteBankidsIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

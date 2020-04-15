@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetBacsIDReader is a Reader for the GetBacsID structure.
@@ -24,13 +23,60 @@ type GetBacsIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetBacsIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetBacsIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetBacsIDBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetBacsIDUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewGetBacsIDForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetBacsIDNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewGetBacsIDConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewGetBacsIDTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetBacsIDInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewGetBacsIDServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -54,9 +100,277 @@ func (o *GetBacsIDOK) Error() string {
 	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdOK  %+v", 200, o.Payload)
 }
 
+func (o *GetBacsIDOK) GetPayload() *models.BacsAssociationDetailsResponse {
+	return o.Payload
+}
+
 func (o *GetBacsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BacsAssociationDetailsResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetBacsIDBadRequest creates a GetBacsIDBadRequest with default headers values
+func NewGetBacsIDBadRequest() *GetBacsIDBadRequest {
+	return &GetBacsIDBadRequest{}
+}
+
+/*GetBacsIDBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetBacsIDBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetBacsIDBadRequest) Error() string {
+	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetBacsIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetBacsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetBacsIDUnauthorized creates a GetBacsIDUnauthorized with default headers values
+func NewGetBacsIDUnauthorized() *GetBacsIDUnauthorized {
+	return &GetBacsIDUnauthorized{}
+}
+
+/*GetBacsIDUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetBacsIDUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetBacsIDUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetBacsIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetBacsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetBacsIDForbidden creates a GetBacsIDForbidden with default headers values
+func NewGetBacsIDForbidden() *GetBacsIDForbidden {
+	return &GetBacsIDForbidden{}
+}
+
+/*GetBacsIDForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetBacsIDForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetBacsIDForbidden) Error() string {
+	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetBacsIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetBacsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetBacsIDNotFound creates a GetBacsIDNotFound with default headers values
+func NewGetBacsIDNotFound() *GetBacsIDNotFound {
+	return &GetBacsIDNotFound{}
+}
+
+/*GetBacsIDNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetBacsIDNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetBacsIDNotFound) Error() string {
+	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetBacsIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetBacsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetBacsIDConflict creates a GetBacsIDConflict with default headers values
+func NewGetBacsIDConflict() *GetBacsIDConflict {
+	return &GetBacsIDConflict{}
+}
+
+/*GetBacsIDConflict handles this case with default header values.
+
+Conflict
+*/
+type GetBacsIDConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetBacsIDConflict) Error() string {
+	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetBacsIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetBacsIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetBacsIDTooManyRequests creates a GetBacsIDTooManyRequests with default headers values
+func NewGetBacsIDTooManyRequests() *GetBacsIDTooManyRequests {
+	return &GetBacsIDTooManyRequests{}
+}
+
+/*GetBacsIDTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetBacsIDTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetBacsIDTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetBacsIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetBacsIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetBacsIDInternalServerError creates a GetBacsIDInternalServerError with default headers values
+func NewGetBacsIDInternalServerError() *GetBacsIDInternalServerError {
+	return &GetBacsIDInternalServerError{}
+}
+
+/*GetBacsIDInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetBacsIDInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetBacsIDInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetBacsIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetBacsIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetBacsIDServiceUnavailable creates a GetBacsIDServiceUnavailable with default headers values
+func NewGetBacsIDServiceUnavailable() *GetBacsIDServiceUnavailable {
+	return &GetBacsIDServiceUnavailable{}
+}
+
+/*GetBacsIDServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetBacsIDServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetBacsIDServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetBacsIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetBacsIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

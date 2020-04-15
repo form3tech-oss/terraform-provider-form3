@@ -2,20 +2,21 @@ package form3
 
 import (
 	"fmt"
+	"os"
+	"testing"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/roles"
 	"github.com/go-openapi/strfmt"
+	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	"github.com/satori/go.uuid"
-	"os"
-	"testing"
 )
 
 func TestAccRole_basic(t *testing.T) {
 	var roleResponse roles.GetRolesRoleIDOK
 	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	roleId := uuid.NewV4().String()
+	roleId := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -37,7 +38,7 @@ func TestAccRole_basic(t *testing.T) {
 func TestAccRole_importBasic(t *testing.T) {
 
 	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	roleId := uuid.NewV4().String()
+	roleId := uuid.New().String()
 
 	resourceName := "form3_role.role"
 

@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostAccountRoutingsReader is a Reader for the PostAccountRoutings structure.
@@ -24,16 +23,56 @@ type PostAccountRoutingsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostAccountRoutingsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostAccountRoutingsCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
+	case 400:
+		result := NewPostAccountRoutingsBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewPostAccountRoutingsUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewPostAccountRoutingsForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewPostAccountRoutingsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 409:
 		result := NewPostAccountRoutingsConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewPostAccountRoutingsTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewPostAccountRoutingsInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewPostAccountRoutingsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -61,9 +100,145 @@ func (o *PostAccountRoutingsCreated) Error() string {
 	return fmt.Sprintf("[POST /account_routings][%d] postAccountRoutingsCreated  %+v", 201, o.Payload)
 }
 
+func (o *PostAccountRoutingsCreated) GetPayload() *models.AccountRoutingCreationResponse {
+	return o.Payload
+}
+
 func (o *PostAccountRoutingsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.AccountRoutingCreationResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostAccountRoutingsBadRequest creates a PostAccountRoutingsBadRequest with default headers values
+func NewPostAccountRoutingsBadRequest() *PostAccountRoutingsBadRequest {
+	return &PostAccountRoutingsBadRequest{}
+}
+
+/*PostAccountRoutingsBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type PostAccountRoutingsBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *PostAccountRoutingsBadRequest) Error() string {
+	return fmt.Sprintf("[POST /account_routings][%d] postAccountRoutingsBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *PostAccountRoutingsBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostAccountRoutingsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostAccountRoutingsUnauthorized creates a PostAccountRoutingsUnauthorized with default headers values
+func NewPostAccountRoutingsUnauthorized() *PostAccountRoutingsUnauthorized {
+	return &PostAccountRoutingsUnauthorized{}
+}
+
+/*PostAccountRoutingsUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type PostAccountRoutingsUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *PostAccountRoutingsUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /account_routings][%d] postAccountRoutingsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostAccountRoutingsUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostAccountRoutingsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostAccountRoutingsForbidden creates a PostAccountRoutingsForbidden with default headers values
+func NewPostAccountRoutingsForbidden() *PostAccountRoutingsForbidden {
+	return &PostAccountRoutingsForbidden{}
+}
+
+/*PostAccountRoutingsForbidden handles this case with default header values.
+
+Forbidden
+*/
+type PostAccountRoutingsForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *PostAccountRoutingsForbidden) Error() string {
+	return fmt.Sprintf("[POST /account_routings][%d] postAccountRoutingsForbidden  %+v", 403, o.Payload)
+}
+
+func (o *PostAccountRoutingsForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostAccountRoutingsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostAccountRoutingsNotFound creates a PostAccountRoutingsNotFound with default headers values
+func NewPostAccountRoutingsNotFound() *PostAccountRoutingsNotFound {
+	return &PostAccountRoutingsNotFound{}
+}
+
+/*PostAccountRoutingsNotFound handles this case with default header values.
+
+Record not found
+*/
+type PostAccountRoutingsNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *PostAccountRoutingsNotFound) Error() string {
+	return fmt.Sprintf("[POST /account_routings][%d] postAccountRoutingsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostAccountRoutingsNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostAccountRoutingsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -80,7 +255,7 @@ func NewPostAccountRoutingsConflict() *PostAccountRoutingsConflict {
 
 /*PostAccountRoutingsConflict handles this case with default header values.
 
-Account routing creation error, constraint violation
+Conflict
 */
 type PostAccountRoutingsConflict struct {
 	Payload *models.APIError
@@ -90,7 +265,110 @@ func (o *PostAccountRoutingsConflict) Error() string {
 	return fmt.Sprintf("[POST /account_routings][%d] postAccountRoutingsConflict  %+v", 409, o.Payload)
 }
 
+func (o *PostAccountRoutingsConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostAccountRoutingsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostAccountRoutingsTooManyRequests creates a PostAccountRoutingsTooManyRequests with default headers values
+func NewPostAccountRoutingsTooManyRequests() *PostAccountRoutingsTooManyRequests {
+	return &PostAccountRoutingsTooManyRequests{}
+}
+
+/*PostAccountRoutingsTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type PostAccountRoutingsTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *PostAccountRoutingsTooManyRequests) Error() string {
+	return fmt.Sprintf("[POST /account_routings][%d] postAccountRoutingsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostAccountRoutingsTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostAccountRoutingsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostAccountRoutingsInternalServerError creates a PostAccountRoutingsInternalServerError with default headers values
+func NewPostAccountRoutingsInternalServerError() *PostAccountRoutingsInternalServerError {
+	return &PostAccountRoutingsInternalServerError{}
+}
+
+/*PostAccountRoutingsInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type PostAccountRoutingsInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *PostAccountRoutingsInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /account_routings][%d] postAccountRoutingsInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *PostAccountRoutingsInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostAccountRoutingsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPostAccountRoutingsServiceUnavailable creates a PostAccountRoutingsServiceUnavailable with default headers values
+func NewPostAccountRoutingsServiceUnavailable() *PostAccountRoutingsServiceUnavailable {
+	return &PostAccountRoutingsServiceUnavailable{}
+}
+
+/*PostAccountRoutingsServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type PostAccountRoutingsServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *PostAccountRoutingsServiceUnavailable) Error() string {
+	return fmt.Sprintf("[POST /account_routings][%d] postAccountRoutingsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostAccountRoutingsServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *PostAccountRoutingsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
 

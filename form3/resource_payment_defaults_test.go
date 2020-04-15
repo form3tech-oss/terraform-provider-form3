@@ -2,21 +2,22 @@ package form3
 
 import (
 	"fmt"
+	"os"
+	"testing"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/payment_defaults"
 	"github.com/go-openapi/strfmt"
+	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	"github.com/satori/go.uuid"
-	"os"
-	"testing"
 )
 
 func TestAccPaymentDefaults_basic(t *testing.T) {
 	var paymentDefaultsResponse payment_defaults.GetPaymentdefaultsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.NewV4().String()
-	id := uuid.NewV4().String()
+	organisationId := uuid.New().String()
+	id := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },

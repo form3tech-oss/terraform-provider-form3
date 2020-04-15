@@ -1,12 +1,12 @@
 package api
 
 import (
-	"fmt"
+	"testing"
+
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/strfmt"
-	"github.com/nu7hatch/gouuid"
-	"testing"
+	"github.com/google/uuid"
 )
 
 func TestDeleteBacsAssociation(t *testing.T) {
@@ -16,7 +16,7 @@ func TestDeleteBacsAssociation(t *testing.T) {
 	sortingCode := "123456"
 	accountType := int64(1)
 
-	id, _ := uuid.NewV4()
+	id := uuid.New()
 	createResponse, err := auth.AssociationClient.Associations.PostBacs(associations.NewPostBacsParams().
 		WithCreationRequest(&models.BacsAssociationCreation{
 			Data: &models.BacsNewAssociation{
@@ -31,27 +31,27 @@ func TestDeleteBacsAssociation(t *testing.T) {
 			},
 		}))
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 	_, err = auth.AssociationClient.Associations.DeleteBacsID(associations.NewDeleteBacsIDParams().
 		WithID(createResponse.Payload.Data.ID),
 	)
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
 	_, err = auth.AssociationClient.Associations.GetBacsID(associations.NewGetBacsIDParams().
 		WithID(createResponse.Payload.Data.ID))
 
-	assertStatusCode(err, t, 404)
+	assertStatusCode(t, err, 404)
 }
 
 func TestGetBacsForNonExistingAssociation(t *testing.T) {
-	randomId, _ := uuid.NewV4()
+	randomId := uuid.New()
 	randomUUID := strfmt.UUID(randomId.String())
 
 	_, err := auth.AssociationClient.Associations.GetBacsID(associations.NewGetBacsIDParams().
 		WithID(randomUUID))
 
-	assertStatusCode(err, t, 404)
+	assertStatusCode(t, err, 404)
 }
 
 func TestGetBacsAssociation(t *testing.T) {
@@ -60,7 +60,7 @@ func TestGetBacsAssociation(t *testing.T) {
 	sortingCode := "123456"
 	accountType := int64(1)
 
-	id, _ := uuid.NewV4()
+	id := uuid.New()
 	createResponse, err := auth.AssociationClient.Associations.PostBacs(associations.NewPostBacsParams().
 		WithCreationRequest(&models.BacsAssociationCreation{
 			Data: &models.BacsNewAssociation{
@@ -75,13 +75,13 @@ func TestGetBacsAssociation(t *testing.T) {
 			},
 		}))
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
 	bacsAssociation, err := auth.AssociationClient.Associations.GetBacsID(associations.NewGetBacsIDParams().
 		WithID(createResponse.Payload.Data.ID),
 	)
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
 	actualServiceUserNumber := bacsAssociation.Payload.Data.Attributes.ServiceUserNumber
 	actualOrganisationId := bacsAssociation.Payload.Data.OrganisationID
@@ -97,7 +97,7 @@ func TestGetBacsAssociation(t *testing.T) {
 		WithID(createResponse.Payload.Data.ID),
 	)
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 }
 
 func TestPostBacsAssociation(t *testing.T) {
@@ -106,7 +106,7 @@ func TestPostBacsAssociation(t *testing.T) {
 	sortingCode := "123456"
 	accountType := int64(1)
 
-	id, _ := uuid.NewV4()
+	id := uuid.New()
 	createResponse, err := auth.AssociationClient.Associations.PostBacs(associations.NewPostBacsParams().
 		WithCreationRequest(&models.BacsAssociationCreation{
 			Data: &models.BacsNewAssociation{
@@ -121,7 +121,7 @@ func TestPostBacsAssociation(t *testing.T) {
 			},
 		}))
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 	actualOrganisationId := createResponse.Payload.Data.OrganisationID.String()
 	actualServiceUserNumber := createResponse.Payload.Data.Attributes.ServiceUserNumber
 	if actualOrganisationId != testOrganisationId.String() {
@@ -135,7 +135,7 @@ func TestPostBacsAssociation(t *testing.T) {
 		WithID(createResponse.Payload.Data.ID),
 	)
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
 }
 
@@ -145,7 +145,7 @@ func TestPostBacsAssociationIncludingOptionalServiceCentre(t *testing.T) {
 	sortingCode := "123456"
 	accountType := int64(1)
 
-	id, _ := uuid.NewV4()
+	id := uuid.New()
 	createResponse, err := auth.AssociationClient.Associations.PostBacs(associations.NewPostBacsParams().
 		WithCreationRequest(&models.BacsAssociationCreation{
 			Data: &models.BacsNewAssociation{
@@ -162,7 +162,7 @@ func TestPostBacsAssociationIncludingOptionalServiceCentre(t *testing.T) {
 			},
 		}))
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 	actualBankCode := createResponse.Payload.Data.Attributes.BankCode
 	actualCentreNumber := createResponse.Payload.Data.Attributes.CentreNumber
 	if actualBankCode != "1234" {
@@ -176,7 +176,7 @@ func TestPostBacsAssociationIncludingOptionalServiceCentre(t *testing.T) {
 		WithID(createResponse.Payload.Data.ID),
 	)
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
 }
 
@@ -186,7 +186,7 @@ func TestPostBacsAssociation_DoNotIgnoreAccountTypeWhenValueIsZero(t *testing.T)
 	sortingCode := "123456"
 	accountType := int64(0)
 
-	id, _ := uuid.NewV4()
+	id := uuid.New()
 	createResponse, err := auth.AssociationClient.Associations.PostBacs(associations.NewPostBacsParams().
 		WithCreationRequest(&models.BacsAssociationCreation{
 			Data: &models.BacsNewAssociation{
@@ -201,7 +201,7 @@ func TestPostBacsAssociation_DoNotIgnoreAccountTypeWhenValueIsZero(t *testing.T)
 			},
 		}))
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 	actualAccountType := createResponse.Payload.Data.Attributes.AccountType
 	if *actualAccountType != accountType {
 		t.Fatalf("Expected %v, got %v", accountType, *actualAccountType)
@@ -211,11 +211,11 @@ func TestPostBacsAssociation_DoNotIgnoreAccountTypeWhenValueIsZero(t *testing.T)
 		WithID(createResponse.Payload.Data.ID),
 	)
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 }
 
 func TestGetBacsAssociationList(t *testing.T) {
-	id, _ := uuid.NewV4()
+	id := uuid.New()
 	organisationIdUUID := strfmt.UUID(testOrganisationId.String())
 	serviceUserNumber := "123456"
 	accountNumber := "12345678"
@@ -236,18 +236,16 @@ func TestGetBacsAssociationList(t *testing.T) {
 			},
 		}))
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
-	getBacsResponse, err := auth.AssociationClient.Associations.GetBacs(associations.NewGetBacsParams().
+	_, err = auth.AssociationClient.Associations.GetBacs(associations.NewGetBacsParams().
 		WithFilterOrganisationID(&organisationIdUUID))
 
-	fmt.Println(getBacsResponse)
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
 	_, err = auth.AssociationClient.Associations.DeleteBacsID(associations.NewDeleteBacsIDParams().
 		WithID(createResponse.Payload.Data.ID),
 	)
 
-	assertNoErrorOccurred(err, t)
-
+	assertNoErrorOccurred(t, err)
 }

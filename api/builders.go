@@ -2,12 +2,13 @@ package api
 
 import (
 	"fmt"
-	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/strfmt"
-	"github.com/nu7hatch/gouuid"
 	"math"
 	"math/rand"
 	"time"
+
+	"github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/go-openapi/strfmt"
+	"github.com/google/uuid"
 )
 
 type PaymentBuilder struct {
@@ -15,8 +16,8 @@ type PaymentBuilder struct {
 }
 
 func (b *PaymentBuilder) WithDefaults() *PaymentBuilder {
-	id, _ := uuid.NewV4()
-	organisationId, _ := uuid.NewV4()
+	id := uuid.New()
+	organisationId := uuid.New()
 	b.payment = models.Payment{
 		ID:             UUIDtoStrFmtUUID(id),
 		OrganisationID: UUIDtoStrFmtUUID(organisationId),

@@ -2,13 +2,13 @@ package form3
 
 import (
 	"fmt"
+	"log"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/account_routings"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
 )
 
 func resourceForm3AccountRouting() *schema.Resource {
@@ -73,7 +73,7 @@ func resourceAccountRoutingCreate(d *schema.ResourceData, meta interface{}) erro
 		}))
 
 	if err != nil {
-		return fmt.Errorf("failed to create account routing: %s", err)
+		return fmt.Errorf("failed to create account routing: %s", form3.JsonErrorPrettyPrint(err))
 	}
 	d.SetId(createdAccountRouting.Payload.Data.ID.String())
 	log.Printf("[INFO] account routing id: %s", d.Id())
@@ -97,21 +97,19 @@ func resourceAccountRoutingRead(d *schema.ResourceData, meta interface{}) error 
 		WithID(accountRoutingResourceID))
 
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find account routing : %s", form3.JsonErrorPrettyPrint(err))
 		}
-
-		return fmt.Errorf("couldn't find account routing : %s", err)
+		d.SetId("")
+		return nil
 	}
 
-	d.Set("account_routing_id", account.Payload.Data.ID.String())
-	d.Set("organisation_id", account.Payload.Data.OrganisationID.String())
-	d.Set("account_generator", account.Payload.Data.Attributes.AccountGenerator)
-	d.Set("account_provisioner", account.Payload.Data.Attributes.AccountProvisioner)
-	d.Set("match", account.Payload.Data.Attributes.Match)
-	d.Set("priority", account.Payload.Data.Attributes.Priority)
+	_ = d.Set("account_routing_id", account.Payload.Data.ID.String())
+	_ = d.Set("organisation_id", account.Payload.Data.OrganisationID.String())
+	_ = d.Set("account_generator", account.Payload.Data.Attributes.AccountGenerator)
+	_ = d.Set("account_provisioner", account.Payload.Data.Attributes.AccountProvisioner)
+	_ = d.Set("match", account.Payload.Data.Attributes.Match)
+	_ = d.Set("priority", account.Payload.Data.Attributes.Priority)
 	return nil
 }
 
@@ -128,7 +126,7 @@ func resourceAccountRoutingDelete(d *schema.ResourceData, meta interface{}) erro
 		WithID(form3.UUIDValue(accountRouting.ID)))
 
 	if err != nil {
-		return fmt.Errorf("error deleting account routing: %s", err)
+		return fmt.Errorf("error deleting account routing: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil

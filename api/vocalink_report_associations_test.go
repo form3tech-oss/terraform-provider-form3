@@ -1,16 +1,16 @@
 package api
 
 import (
-	"fmt"
+	"testing"
+
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/strfmt"
-	"github.com/nu7hatch/gouuid"
-	"testing"
+	"github.com/google/uuid"
 )
 
 func TestDeleteVocalinkreportAssociation(t *testing.T) {
-	id, _ := uuid.NewV4()
+	id := uuid.New()
 	createResponse, err := auth.AssociationClient.Associations.PostVocalinkreport(associations.NewPostVocalinkreportParams().
 		WithCreationRequest(&models.VocalinkReportAssociationCreation{
 			Data: &models.NewVocalinkReportAssociation{
@@ -20,32 +20,32 @@ func TestDeleteVocalinkreportAssociation(t *testing.T) {
 			},
 		}))
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 	_, err = auth.AssociationClient.Associations.DeleteVocalinkreportID(associations.NewDeleteVocalinkreportIDParams().
 		WithID(createResponse.Payload.Data.ID),
 	)
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
 	_, err = auth.AssociationClient.Associations.GetVocalinkreportID(associations.NewGetVocalinkreportIDParams().
 		WithID(createResponse.Payload.Data.ID))
 
-	assertStatusCode(err, t, 404)
+	assertStatusCode(t, err, 404)
 }
 
 func TestGetVocalinkreportForNonExistingAssociation(t *testing.T) {
-	randomId, _ := uuid.NewV4()
+	randomId := uuid.New()
 	randomUUID := strfmt.UUID(randomId.String())
 
 	_, err := auth.AssociationClient.Associations.GetVocalinkreportID(associations.NewGetVocalinkreportIDParams().
 		WithID(randomUUID))
 
-	assertStatusCode(err, t, 404)
+	assertStatusCode(t, err, 404)
 }
 
 func TestGetVocalinkreportAssociation(t *testing.T) {
 
-	id, _ := uuid.NewV4()
+	id := uuid.New()
 	createResponse, err := auth.AssociationClient.Associations.PostVocalinkreport(associations.NewPostVocalinkreportParams().
 		WithCreationRequest(&models.VocalinkReportAssociationCreation{
 			Data: &models.NewVocalinkReportAssociation{
@@ -55,24 +55,24 @@ func TestGetVocalinkreportAssociation(t *testing.T) {
 			},
 		}))
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
 	_, err = auth.AssociationClient.Associations.GetVocalinkreportID(associations.NewGetVocalinkreportIDParams().
 		WithID(createResponse.Payload.Data.ID),
 	)
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
 	_, err = auth.AssociationClient.Associations.DeleteVocalinkreportID(associations.NewDeleteVocalinkreportIDParams().
 		WithID(createResponse.Payload.Data.ID),
 	)
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 }
 
 func TestPostVocalinkreportAssociation(t *testing.T) {
 
-	id, _ := uuid.NewV4()
+	id := uuid.New()
 	createResponse, err := auth.AssociationClient.Associations.PostVocalinkreport(associations.NewPostVocalinkreportParams().
 		WithCreationRequest(&models.VocalinkReportAssociationCreation{
 			Data: &models.NewVocalinkReportAssociation{
@@ -85,7 +85,7 @@ func TestPostVocalinkreportAssociation(t *testing.T) {
 			},
 		}))
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 	actualOrganisationId := createResponse.Payload.Data.OrganisationID.String()
 	if actualOrganisationId != organisationId.String() {
 		t.Fatalf("Expected %s, got %s", organisationId.String(), actualOrganisationId)
@@ -100,35 +100,34 @@ func TestPostVocalinkreportAssociation(t *testing.T) {
 		WithID(createResponse.Payload.Data.ID),
 	)
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
 }
 
 func TestGetVocalinkreportAssociationList(t *testing.T) {
-	id, _ := uuid.NewV4()
+	id := NewUUID()
 	organisationIdUUID := strfmt.UUID(organisationId.String())
 
-	createResponse, err := auth.AssociationClient.Associations.PostVocalinkreport(associations.NewPostVocalinkreportParams().
+	defer func() {
+		_, err := auth.AssociationClient.Associations.DeleteVocalinkreportID(associations.NewDeleteVocalinkreportIDParams().
+			WithID(*id).WithVersion(0),
+		)
+		assertNoErrorOccurred(t, err)
+	}()
+
+	_, err := auth.AssociationClient.Associations.PostVocalinkreport(associations.NewPostVocalinkreportParams().
 		WithCreationRequest(&models.VocalinkReportAssociationCreation{
 			Data: &models.NewVocalinkReportAssociation{
-				ID:             UUIDtoStrFmtUUID(id),
+				ID:             id,
 				OrganisationID: &organisationId,
 				Relationships:  &models.VocalinkReportAssociationRelationships{},
 			},
 		}))
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
-	getVocalinkreportResponse, err := auth.AssociationClient.Associations.GetVocalinkreport(associations.NewGetVocalinkreportParams().
+	_, err = auth.AssociationClient.Associations.GetVocalinkreport(associations.NewGetVocalinkreportParams().
 		WithFilterOrganisationID([]strfmt.UUID{organisationIdUUID}))
 
-	fmt.Println(getVocalinkreportResponse)
-	assertNoErrorOccurred(err, t)
-
-	_, err = auth.AssociationClient.Associations.DeleteVocalinkreportID(associations.NewDeleteVocalinkreportIDParams().
-		WithID(createResponse.Payload.Data.ID),
-	)
-
-	assertNoErrorOccurred(err, t)
-
+	assertNoErrorOccurred(t, err)
 }

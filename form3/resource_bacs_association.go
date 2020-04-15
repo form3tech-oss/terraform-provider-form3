@@ -2,13 +2,13 @@ package form3
 
 import (
 	"fmt"
+	"log"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
 )
 
 func resourceForm3BacsAssociation() *schema.Resource {
@@ -124,7 +124,7 @@ func resourceBacsAssociationCreate(d *schema.ResourceData, meta interface{}) err
 
 	association, err := createBacsNewAssociationFromResourceData(d)
 	if err != nil {
-		return fmt.Errorf("failed to create Bacs association: %s", err)
+		return fmt.Errorf("failed to create Bacs association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	createdAssociation, err := client.AssociationClient.Associations.PostBacs(associations.NewPostBacsParams().
@@ -133,7 +133,7 @@ func resourceBacsAssociationCreate(d *schema.ResourceData, meta interface{}) err
 		}))
 
 	if err != nil {
-		return fmt.Errorf("failed to create Bacs association: %s", err)
+		return fmt.Errorf("failed to create Bacs association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	d.SetId(createdAssociation.Payload.Data.ID.String())
@@ -158,40 +158,38 @@ func resourceBacsAssociationRead(d *schema.ResourceData, meta interface{}) error
 		WithID(associationId))
 
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
-		} else {
-			return err
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find bacs association: %s", form3.JsonErrorPrettyPrint(err))
 		}
+		d.SetId("")
+		return nil
 	}
 
-	d.Set("association_id", bacsAssociation.Payload.Data.ID.String())
-	d.Set("organisation_id", bacsAssociation.Payload.Data.OrganisationID.String())
-	d.Set("service_user_number", bacsAssociation.Payload.Data.Attributes.ServiceUserNumber)
-	d.Set("account_number", bacsAssociation.Payload.Data.Attributes.AccountNumber)
-	d.Set("sorting_code", bacsAssociation.Payload.Data.Attributes.SortingCode)
-	d.Set("account_type", bacsAssociation.Payload.Data.Attributes.AccountType)
-	d.Set("bank_code", bacsAssociation.Payload.Data.Attributes.BankCode)
-	d.Set("centre_number", bacsAssociation.Payload.Data.Attributes.CentreNumber)
-	d.Set("test_file_submission", bacsAssociation.Payload.Data.Attributes.TestFileSubmission)
+	_ = d.Set("association_id", bacsAssociation.Payload.Data.ID.String())
+	_ = d.Set("organisation_id", bacsAssociation.Payload.Data.OrganisationID.String())
+	_ = d.Set("sorting_code", bacsAssociation.Payload.Data.Attributes.SortingCode)
+	_ = d.Set("account_type", bacsAssociation.Payload.Data.Attributes.AccountType)
+	_ = d.Set("bank_code", bacsAssociation.Payload.Data.Attributes.BankCode)
+	_ = d.Set("centre_number", bacsAssociation.Payload.Data.Attributes.CentreNumber)
+	_ = d.Set("account_number", bacsAssociation.Payload.Data.Attributes.AccountNumber)
+	_ = d.Set("test_file_submission", bacsAssociation.Payload.Data.Attributes.TestFileSubmission)
 
 	if bacsAssociation.Payload.Data.Relationships != nil {
 		if bacsAssociation.Payload.Data.Relationships.InputCertificate != nil && bacsAssociation.Payload.Data.Relationships.InputCertificate.Data != nil {
-			d.Set("input_key_id", bacsAssociation.Payload.Data.Relationships.InputCertificate.Data.KeyID)
-			d.Set("input_certificate_id", bacsAssociation.Payload.Data.Relationships.InputCertificate.Data.CertificateID)
-			d.Set("input_tsu_number", bacsAssociation.Payload.Data.Relationships.InputCertificate.Data.TsuNumber)
+			_ = d.Set("service_user_number", bacsAssociation.Payload.Data.Attributes.ServiceUserNumber)
+			_ = d.Set("input_key_id", bacsAssociation.Payload.Data.Relationships.InputCertificate.Data.KeyID)
+			_ = d.Set("input_certificate_id", bacsAssociation.Payload.Data.Relationships.InputCertificate.Data.CertificateID)
+			_ = d.Set("input_tsu_number", bacsAssociation.Payload.Data.Relationships.InputCertificate.Data.TsuNumber)
 		}
 		if bacsAssociation.Payload.Data.Relationships.OutputCertificate != nil && bacsAssociation.Payload.Data.Relationships.OutputCertificate.Data != nil {
-			d.Set("output_key_id", bacsAssociation.Payload.Data.Relationships.OutputCertificate.Data.KeyID)
-			d.Set("output_certificate_id", bacsAssociation.Payload.Data.Relationships.OutputCertificate.Data.CertificateID)
-			d.Set("output_tsu_number", bacsAssociation.Payload.Data.Relationships.OutputCertificate.Data.TsuNumber)
+			_ = d.Set("output_key_id", bacsAssociation.Payload.Data.Relationships.OutputCertificate.Data.KeyID)
+			_ = d.Set("output_certificate_id", bacsAssociation.Payload.Data.Relationships.OutputCertificate.Data.CertificateID)
+			_ = d.Set("output_tsu_number", bacsAssociation.Payload.Data.Relationships.OutputCertificate.Data.TsuNumber)
 		}
 		if bacsAssociation.Payload.Data.Relationships.MessagingCertificate != nil && bacsAssociation.Payload.Data.Relationships.MessagingCertificate.Data != nil {
-			d.Set("messaging_key_id", bacsAssociation.Payload.Data.Relationships.MessagingCertificate.Data.KeyID)
-			d.Set("messaging_certificate_id", bacsAssociation.Payload.Data.Relationships.MessagingCertificate.Data.CertificateID)
-			d.Set("messaging_tsu_number", bacsAssociation.Payload.Data.Relationships.MessagingCertificate.Data.TsuNumber)
+			_ = d.Set("messaging_key_id", bacsAssociation.Payload.Data.Relationships.MessagingCertificate.Data.KeyID)
+			_ = d.Set("messaging_certificate_id", bacsAssociation.Payload.Data.Relationships.MessagingCertificate.Data.CertificateID)
+			_ = d.Set("messaging_tsu_number", bacsAssociation.Payload.Data.Relationships.MessagingCertificate.Data.TsuNumber)
 		}
 	}
 
@@ -205,7 +203,7 @@ func resourceBacsAssociationDelete(d *schema.ResourceData, meta interface{}) err
 		WithID(strfmt.UUID(d.Id())))
 
 	if err != nil {
-		return fmt.Errorf("error deleting Bacs association: %s", err)
+		return fmt.Errorf("error deleting Bacs association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	log.Printf("[INFO] Deleting Bacs association for id: %s service user number: %s",
@@ -217,7 +215,7 @@ func resourceBacsAssociationDelete(d *schema.ResourceData, meta interface{}) err
 		WithVersion(*bacsAssociation.Payload.Data.Version))
 
 	if err != nil {
-		return fmt.Errorf("error deleting Bacs association: %s", err)
+		return fmt.Errorf("error deleting Bacs association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil

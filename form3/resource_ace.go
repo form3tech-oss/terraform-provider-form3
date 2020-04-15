@@ -2,12 +2,13 @@ package form3
 
 import (
 	"fmt"
+	"log"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/ace"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/runtime"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
 )
 
 func resourceForm3Ace() *schema.Resource {
@@ -65,7 +66,7 @@ func resourceAceCreate(d *schema.ResourceData, meta interface{}) error {
 		}))
 
 	if err != nil {
-		return fmt.Errorf("failed to create ace: %s", err)
+		return fmt.Errorf("failed to create ace: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	d.SetId(createdRole.Payload.Data.ID.String())
@@ -85,20 +86,19 @@ func resourceAceRead(d *schema.ResourceData, meta interface{}) error {
 	aceResponse, err := client.SecurityClient.Ace.GetRolesRoleIDAcesAceID(ace.NewGetRolesRoleIDAcesAceIDParams().
 		WithAceID(aceId).
 		WithRoleID(roleId))
-	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
-		}
 
-		return fmt.Errorf("couldn't find ace: %s", err)
+	if err != nil {
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find ace: %s", form3.JsonErrorPrettyPrint(err))
+		}
+		d.SetId("")
+		return nil
 	}
 
-	d.Set("ace_id", aceResponse.Payload.Data.ID.String())
-	d.Set("role_id", aceResponse.Payload.Data.Attributes.RoleID.String())
-	d.Set("record_type", aceResponse.Payload.Data.Attributes.RecordType)
-	d.Set("action", aceResponse.Payload.Data.Attributes.Action)
+	_ = d.Set("ace_id", aceResponse.Payload.Data.ID.String())
+	_ = d.Set("role_id", aceResponse.Payload.Data.Attributes.RoleID.String())
+	_ = d.Set("record_type", aceResponse.Payload.Data.Attributes.RecordType)
+	_ = d.Set("action", aceResponse.Payload.Data.Attributes.Action)
 	return nil
 }
 
@@ -107,7 +107,7 @@ func resourceAceDelete(d *schema.ResourceData, meta interface{}) error {
 
 	aceFromResource, err := createRoleAceFromResourceData(d)
 	if err != nil {
-		return fmt.Errorf("error deleting ace: %s", err)
+		return fmt.Errorf("error deleting ace: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	log.Printf("[INFO] Deleting ace for id: %s role id: %s", aceFromResource.ID, aceFromResource.Attributes.RoleID)
@@ -122,7 +122,7 @@ func resourceAceDelete(d *schema.ResourceData, meta interface{}) error {
 	}
 
 	if err != nil {
-		return fmt.Errorf("error deleting ace: %s", err)
+		return fmt.Errorf("error deleting ace: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil

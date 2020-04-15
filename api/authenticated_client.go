@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/base64"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -56,26 +55,28 @@ type Request struct {
 	*http.Request
 }
 
+type ReadSeekerCloser interface {
+	io.ReadSeeker
+	io.Closer
+}
+
+var _ ReadSeekerCloser = (*ReadSeekerCloserImpl)(nil)
+
 type ReadSeekerCloserImpl struct {
-	ReederSeeker io.ReadSeeker
-	Closer       io.Closer
+	ReadSeeker io.ReadSeeker
+	Closer     io.Closer
 }
 
 func (r *ReadSeekerCloserImpl) Read(p []byte) (n int, err error) {
-	return r.ReederSeeker.Read(p)
+	return r.ReadSeeker.Read(p)
 }
 
 func (r *ReadSeekerCloserImpl) Seek(offset int64, whence int) (int64, error) {
-	return r.ReederSeeker.Seek(offset, whence)
+	return r.ReadSeeker.Seek(offset, whence)
 }
 
 func (r *ReadSeekerCloserImpl) Close() error {
 	return nil
-}
-
-type ReadSeekerCloser interface {
-	io.ReadSeeker
-	io.Closer
 }
 
 func NewReaderSeekerCloser(request *http.Request) (ReadSeekerCloser, error) {
@@ -85,7 +86,7 @@ func NewReaderSeekerCloser(request *http.Request) (ReadSeekerCloser, error) {
 		if err != nil {
 			return nil, err
 		}
-		readerSeekerCloser.ReederSeeker = bytes.NewReader(bodyBytes)
+		readerSeekerCloser.ReadSeeker = bytes.NewReader(bodyBytes)
 	}
 	return &readerSeekerCloser, nil
 }
@@ -105,7 +106,7 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 
 	h := &http.Client{
 		Transport: roundTripperFunc(func(req *http.Request) (*http.Response, error) {
-			if req.Body != nil {
+			if req.Body != nil && req.Body != http.NoBody {
 				rewindableBody, err := NewReaderSeekerCloser(req)
 				if err != nil {
 					return nil, err
@@ -130,19 +131,24 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 			var resp *http.Response
 			retryableFunc := func() error {
 				var err error
-				log.Printf("[DEBUG] retrying %s", req.URL)
-				if req.Body != nil {
-					body := req.Body.(ReadSeekerCloser)
-					if body != nil {
+				log.Printf("[DEBUG] retrying %s %s", req.Method, req.URL)
+				if req.Body != nil && req.Body != http.NoBody {
+					if body, ok := req.Body.(ReadSeekerCloser); ok {
 						if _, err := body.Seek(0, 0); err != nil {
-							return errors.New(fmt.Sprintf("failed to seek request body: %s", err))
+							return fmt.Errorf("failed to seek request body: %s", err)
 						}
 					}
 				}
+
 				resp, err = http.DefaultTransport.RoundTrip(req)
-				if resp.StatusCode == 403 {
-					return errors.New(fmt.Sprintf("status code: %d", resp.StatusCode))
+				if err != nil {
+					return err
 				}
+
+				if resp.StatusCode == 403 {
+					return fmt.Errorf("status code: %d", resp.StatusCode)
+				}
+
 				return err
 			}
 			if err := retry.Do(retryableFunc, retry.MaxTries(10), retry.Sleep(500*time.Millisecond)); err != nil {
@@ -155,7 +161,7 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 					log.Fatal(errDump)
 				}
 
-				log.Printf("[DEBUG] %s %s", req.URL.String(), string(dump))
+				log.Printf("[DEBUG] %s %s %s", req.Method, req.URL.String(), string(dump))
 			}
 
 			return resp, nil
@@ -225,7 +231,17 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 
 	return authClient
 }
+
 func configureRuntime(rt *rc.Runtime, authClient *AuthenticatedClient) {
+	consumer := runtime.ConsumerFunc(func(reader io.Reader, data interface{}) error {
+		b, _ := ioutil.ReadAll(reader)
+
+		return fmt.Errorf("[ERROR] non json error: %s", string(b))
+	})
+
+	rt.Consumers[runtime.HTMLMime] = consumer
+	rt.Consumers[runtime.TextMime] = consumer
+	rt.Consumers[runtime.DefaultMime] = consumer
 	rt.Consumers["application/vnd.api+json;charset=UTF-8"] = runtime.JSONConsumer()
 	rt.Consumers["application/vnd.api+json"] = runtime.JSONConsumer()
 }
@@ -260,7 +276,7 @@ func (r *AuthenticatedClient) Authenticate(clientId string, clientSecret string)
 	}
 
 	if resp.StatusCode != 200 {
-		err = errors.New(fmt.Sprintf("Error returned while authenticating, response code was %v", resp.StatusCode))
+		err = fmt.Errorf("Error returned while authenticating, response code was %v", resp.StatusCode)
 		return err
 	}
 

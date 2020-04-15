@@ -1,11 +1,11 @@
 package api
 
 import (
+	"testing"
+
 	"github.com/form3tech-oss/terraform-provider-form3/client/limits"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-	"testing"
 )
 
 func TestAccPostLimit(t *testing.T) {
@@ -25,15 +25,15 @@ func TestAccPostLimit(t *testing.T) {
 			},
 		}))
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
 	_, err = auth.LimitsClient.Limits.GetLimitsID(limits.NewGetLimitsIDParams().WithID(strfmt.UUID(createResponse.Payload.Data.ID)))
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
 	_, err = auth.LimitsClient.Limits.DeleteLimitsID(limits.NewDeleteLimitsIDParams().
 		WithID(createResponse.Payload.Data.ID),
 	)
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
 }
 
@@ -54,14 +54,15 @@ func TestAccGetLimits(t *testing.T) {
 			},
 		}))
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
 	response, err := auth.LimitsClient.Limits.GetLimits(limits.NewGetLimitsParams())
+	assertNoErrorOccurred(t, err)
 
 	_, err = auth.LimitsClient.Limits.DeleteLimitsID(limits.NewDeleteLimitsIDParams().
 		WithID(createResponse.Payload.Data.ID),
 	)
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
 	if len(response.Payload.Data) == 0 {
 		t.Error("Expected at least one limit")
@@ -86,7 +87,7 @@ func TestAccDeleteLimit(t *testing.T) {
 			},
 		}))
 
-	assertNoErrorOccurred(err, t)
+	assertNoErrorOccurred(t, err)
 
 	_, err = auth.LimitsClient.Limits.DeleteLimitsID(limits.NewDeleteLimitsIDParams().
 		WithID(createResponse.Payload.Data.ID),
@@ -99,22 +100,10 @@ func TestAccDeleteLimit(t *testing.T) {
 	_, err = auth.LimitsClient.Limits.GetLimitsID(limits.NewGetLimitsIDParams().
 		WithID(createResponse.Payload.Data.ID))
 
-	assertStatusCode(err, t, 404)
+	assertStatusCode(t, err, 404)
 }
 
 func TestAccGetLimitWithIdNotFound(t *testing.T) {
-
 	_, err := auth.LimitsClient.Limits.GetLimitsID(limits.NewGetLimitsIDParams().WithID(strfmt.UUID("8ea57253-aea2-409b-ab59-e9f0a96adc12")))
-	if err == nil {
-		t.Error("Expected error to occur")
-	}
-
-	apiError := err.(*runtime.APIError)
-	if apiError == nil {
-		t.Errorf("Expected API Error not %+v", err)
-	}
-
-	if apiError.Code != 404 {
-		t.Errorf("Expected 404 Not Found not %v", apiError.Code)
-	}
+	assertStatusCode(t, err, 404)
 }

@@ -2,13 +2,13 @@ package form3
 
 import (
 	"fmt"
+	"log"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/accounts"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
 )
 
 func resourceForm3Account() *schema.Resource {
@@ -84,7 +84,7 @@ func resourceAccountCreate(d *schema.ResourceData, meta interface{}) error {
 		}))
 
 	if err != nil {
-		return fmt.Errorf("failed to create account: %s", err)
+		return fmt.Errorf("failed to create account: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	d.SetId(createdAccount.Payload.Data.ID.String())
@@ -109,23 +109,21 @@ func resourceAccountRead(d *schema.ResourceData, meta interface{}) error {
 		WithID(accountResourceID))
 
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find account: %s", form3.JsonErrorPrettyPrint(err))
 		}
-
-		return fmt.Errorf("couldn't find account: %s", err)
+		d.SetId("")
+		return nil
 	}
 
-	d.Set("account_id", account.Payload.Data.ID.String())
-	d.Set("organisation_id", account.Payload.Data.OrganisationID.String())
-	d.Set("bank_id", account.Payload.Data.Attributes.BankID)
-	d.Set("bank_id_code", account.Payload.Data.Attributes.BankIDCode)
-	d.Set("bic", account.Payload.Data.Attributes.Bic)
-	d.Set("country", account.Payload.Data.Attributes.Country)
-	d.Set("iban", account.Payload.Data.Attributes.Iban)
-	d.Set("account_number", account.Payload.Data.Attributes.AccountNumber)
+	_ = d.Set("account_id", account.Payload.Data.ID.String())
+	_ = d.Set("organisation_id", account.Payload.Data.OrganisationID.String())
+	_ = d.Set("bank_id", account.Payload.Data.Attributes.BankID)
+	_ = d.Set("bank_id_code", account.Payload.Data.Attributes.BankIDCode)
+	_ = d.Set("bic", account.Payload.Data.Attributes.Bic)
+	_ = d.Set("country", account.Payload.Data.Attributes.Country)
+	_ = d.Set("iban", account.Payload.Data.Attributes.Iban)
+	_ = d.Set("account_number", account.Payload.Data.Attributes.AccountNumber)
 	return nil
 }
 
@@ -134,7 +132,7 @@ func resourceAccountDelete(d *schema.ResourceData, meta interface{}) error {
 
 	account, err := createAccountFromResourceDataWithVersion(d, client)
 	if err != nil {
-		return fmt.Errorf("error deleting account: %s", err)
+		return fmt.Errorf("error deleting account: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	log.Printf("[INFO] Deleting account with resource id: %s account: %s", account.ID, account.Attributes.AccountNumber)
@@ -144,7 +142,7 @@ func resourceAccountDelete(d *schema.ResourceData, meta interface{}) error {
 		WithVersion(*account.Version))
 
 	if err != nil {
-		return fmt.Errorf("error deleting account: %s", err)
+		return fmt.Errorf("error deleting account: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil
@@ -191,6 +189,9 @@ func createAccountFromResourceData(d *schema.ResourceData) (*models.Account, err
 
 func createAccountFromResourceDataWithVersion(d *schema.ResourceData, client *form3.AuthenticatedClient) (*models.Account, error) {
 	account, err := createAccountFromResourceData(d)
+	if err != nil {
+		return nil, err
+	}
 	version, err := getAccountVersion(client, form3.UUIDValue(account.ID))
 	if err != nil {
 		return nil, err
@@ -204,7 +205,7 @@ func createAccountFromResourceDataWithVersion(d *schema.ResourceData, client *fo
 func getAccountVersion(client *form3.AuthenticatedClient, id strfmt.UUID) (int64, error) {
 	account, err := client.AccountClient.Accounts.GetAccountsID(accounts.NewGetAccountsIDParams().WithID(id))
 	if err != nil {
-		return -1, fmt.Errorf("error reading account: %s", err)
+		return -1, fmt.Errorf("error reading account: %s", form3.JsonErrorPrettyPrint(err))
 	}
 	return *account.Payload.Data.Version, nil
 }

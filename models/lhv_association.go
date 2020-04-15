@@ -6,14 +6,16 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
+	"encoding/json"
 
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // LhvAssociation lhv association
+//
 // swagger:model LhvAssociation
 type LhvAssociation struct {
 
@@ -28,7 +30,8 @@ type LhvAssociation struct {
 	// Format: uuid
 	OrganisationID strfmt.UUID `json:"organisation_id,omitempty"`
 
-	// type
+	// Name of the resource type
+	// Enum: [lhvgateway_associations]
 	Type string `json:"type,omitempty"`
 
 	// version
@@ -49,6 +52,10 @@ func (m *LhvAssociation) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateOrganisationID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -100,6 +107,46 @@ func (m *LhvAssociation) validateOrganisationID(formats strfmt.Registry) error {
 	}
 
 	if err := validate.FormatOf("organisation_id", "body", "uuid", m.OrganisationID.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var lhvAssociationTypeTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["lhvgateway_associations"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		lhvAssociationTypeTypePropEnum = append(lhvAssociationTypeTypePropEnum, v)
+	}
+}
+
+const (
+
+	// LhvAssociationTypeLhvgatewayAssociations captures enum value "lhvgateway_associations"
+	LhvAssociationTypeLhvgatewayAssociations string = "lhvgateway_associations"
+)
+
+// prop value enum
+func (m *LhvAssociation) validateTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, lhvAssociationTypeTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *LhvAssociation) validateType(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Type) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateTypeEnum("type", "body", m.Type); err != nil {
 		return err
 	}
 

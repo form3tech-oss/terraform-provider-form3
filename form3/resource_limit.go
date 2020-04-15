@@ -2,13 +2,13 @@ package form3
 
 import (
 	"fmt"
+	"log"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/limits"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
 )
 
 func resourceForm3Limit() *schema.Resource {
@@ -73,7 +73,7 @@ func resourceLimitCreate(d *schema.ResourceData, meta interface{}) error {
 		}))
 
 	if err != nil {
-		return fmt.Errorf("failed to create limit: %s", err)
+		return fmt.Errorf("failed to create limit: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	d.SetId(createdLimit.Payload.Data.ID.String())
@@ -98,13 +98,11 @@ func resourceLimitRead(d *schema.ResourceData, meta interface{}) error {
 
 	limit, err := client.LimitsClient.Limits.GetLimitsID(limits.NewGetLimitsIDParams().WithID(limitId))
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find limit: %s", form3.JsonErrorPrettyPrint(err))
 		}
-
-		return fmt.Errorf("couldn't find limit: %s", err)
+		d.SetId("")
+		return nil
 	}
 
 	d.Set("limit_id", limit.Payload.Data.ID.String())
@@ -122,7 +120,7 @@ func resourceLimitDelete(d *schema.ResourceData, meta interface{}) error {
 
 	limitFromResource, err := createLimitFromResourceDataWithVersion(d, client)
 	if err != nil {
-		return fmt.Errorf("error deleting limit: %s", err)
+		return fmt.Errorf("error deleting limit: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	log.Printf("[INFO] Deleting limit for id: %s amount: %s", limitFromResource.ID, limitFromResource.Attributes.Amount)
@@ -132,7 +130,7 @@ func resourceLimitDelete(d *schema.ResourceData, meta interface{}) error {
 		WithVersion(*limitFromResource.Version))
 
 	if err != nil {
-		return fmt.Errorf("error deleting limit: %s", err)
+		return fmt.Errorf("error deleting limit: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil
@@ -140,6 +138,9 @@ func resourceLimitDelete(d *schema.ResourceData, meta interface{}) error {
 
 func createLimitFromResourceDataWithVersion(d *schema.ResourceData, client *form3.AuthenticatedClient) (*models.Limit, error) {
 	limit, err := createLimitFromResourceData(d)
+	if err != nil {
+		return nil, err
+	}
 	version, err := getLimitVersion(client, limit.ID)
 	if err != nil {
 		return nil, err
@@ -185,9 +186,7 @@ func createLimitFromResourceData(d *schema.ResourceData) (*models.Limit, error) 
 func getLimitVersion(client *form3.AuthenticatedClient, limitId strfmt.UUID) (int64, error) {
 	limit, err := client.LimitsClient.Limits.GetLimitsID(limits.NewGetLimitsIDParams().WithID(limitId))
 	if err != nil {
-		if err != nil {
-			return -1, fmt.Errorf("error reading limit: %s", err)
-		}
+		return -1, fmt.Errorf("error reading limit: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return *limit.Payload.Data.Version, nil

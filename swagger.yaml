@@ -1,4 +1,4 @@
-swagger: '2.0'
+swagger: "2.0"
 info:
   version: "0.0.1"
   title: Form3 Corelib data structures.
@@ -7,9 +7,7 @@ schemes:
   - https
 basePath: /v1
 paths:
-
   /admins/{user_id}/credentials:
-
     get:
       summary: Fetch admin credentials for user
       tags:
@@ -28,6 +26,22 @@ paths:
           description: List of admin credentials for user
           schema:
             $ref: "#/definitions/UserCredentialListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     post:
       summary: Generate new admin credentials for a user
@@ -50,9 +64,24 @@ paths:
           description: Credential creation response
           schema:
             $ref: "#/definitions/CredentialCreationResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /admins/{user_id}/credentials/{client_id}:
-
     delete:
       summary: Delete admin credential for user
       tags:
@@ -77,11 +106,24 @@ paths:
       responses:
         204:
           description: Credential deleted
-
-
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /units:
-
     post:
       summary: Create organisation
       tags:
@@ -100,7 +142,22 @@ paths:
           description: Organisation creation response
           schema:
             $ref: "#/definitions/OrganisationCreationResponse"
-
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     get:
       summary: List all organisations
@@ -119,9 +176,24 @@ paths:
           description: List of organisation details
           schema:
             $ref: "#/definitions/OrganisationDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /units/{id}:
-
     get:
       summary: Fetch organisation
       tags:
@@ -138,6 +210,22 @@ paths:
           description: Organisation details
           schema:
             $ref: "#/definitions/OrganisationDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     delete:
       summary: Delete organisation
@@ -162,6 +250,22 @@ paths:
       responses:
         204:
           description: Organisation deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     patch:
       summary: Update organisation
@@ -186,9 +290,24 @@ paths:
           description: Organisation details
           schema:
             $ref: "#/definitions/OrganisationDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /users:
-
     post:
       summary: Create user
       tags:
@@ -207,7 +326,22 @@ paths:
           description: User creation response
           schema:
             $ref: "#/definitions/UserCreationResponse"
-
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     get:
       summary: List all users
@@ -228,15 +362,29 @@ paths:
           minimum: 0
           maximum: 1000
 
-
       responses:
         200:
           description: List of user details
           schema:
             $ref: "#/definitions/UserDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /users/{user_id}:
-
     get:
       summary: Fetch user
       tags:
@@ -253,6 +401,22 @@ paths:
           description: User details
           schema:
             $ref: "#/definitions/UserDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     patch:
       summary: Edit user details
@@ -278,6 +442,22 @@ paths:
           description: User details
           schema:
             $ref: "#/definitions/UserDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     delete:
       summary: Delete user
@@ -302,9 +482,24 @@ paths:
       responses:
         204:
           description: User deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /users/{user_id}/aces:
-
     get:
       summary: Get access control list for user
       tags:
@@ -334,9 +529,24 @@ paths:
           description: List of access control entries for this user
           schema:
             $ref: "#/definitions/AceDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /users/{user_id}/roles:
-
     get:
       summary: Get all roles for user
       tags:
@@ -353,9 +563,24 @@ paths:
           description: List of roles for user
           schema:
             $ref: "#/definitions/UserRoleListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /users/{user_id}/credentials:
-
     get:
       summary: Get all credentials for user
       tags:
@@ -372,6 +597,22 @@ paths:
           description: List of credentials for user
           schema:
             $ref: "#/definitions/UserCredentialListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     post:
       summary: Add credentials to user
@@ -392,9 +633,24 @@ paths:
           description: Credential creation response
           schema:
             $ref: "#/definitions/CredentialCreationResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /users/{user_id}/credentials/{client_id}:
-
     delete:
       summary: Delete credential for user
       tags:
@@ -418,9 +674,24 @@ paths:
       responses:
         204:
           description: Credential deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /users/{user_id}/roles/{role_id}:
-
     post:
       summary: Add role to user
       tags:
@@ -444,6 +715,22 @@ paths:
       responses:
         201:
           description: Role set OK
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     delete:
       summary: Remove role from user
@@ -468,6 +755,22 @@ paths:
       responses:
         204:
           description: User role deleted OK
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /payport:
     post:
@@ -488,7 +791,22 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/PayportAssociationCreationResponse"
-
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     get:
       summary: List all organisation associations
@@ -507,9 +825,24 @@ paths:
           description: List of associations
           schema:
             $ref: "#/definitions/PayportAssociationDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /payport/{id}:
-
     get:
       summary: Fetch service association
       tags:
@@ -526,6 +859,22 @@ paths:
           description: Associations details
           schema:
             $ref: "#/definitions/PayportAssociationDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     delete:
       summary: Delete service association
@@ -547,9 +896,24 @@ paths:
       responses:
         204:
           description: Association deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /roles:
-
     post:
       summary: Create role
       tags:
@@ -568,7 +932,22 @@ paths:
           description: Role creation response
           schema:
             $ref: "#/definitions/RoleCreationResponse"
-
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     get:
       summary: List all roles
@@ -594,9 +973,24 @@ paths:
           description: List of role details
           schema:
             $ref: "#/definitions/RoleDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /roles/{role_id}:
-
     get:
       summary: Fetch role
       tags:
@@ -613,6 +1007,22 @@ paths:
           description: Role details
           schema:
             $ref: "#/definitions/RoleDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     delete:
       summary: Delete role
@@ -636,7 +1046,6 @@ paths:
           description: Role deleted
 
   /roles/{role_id}/aces:
-
     post:
       summary: Create Access Control Entry
       tags:
@@ -661,7 +1070,22 @@ paths:
           description: Ace creation response
           schema:
             $ref: "#/definitions/AceCreationResponse"
-
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     get:
       summary: List all Access Controls for role
@@ -680,9 +1104,24 @@ paths:
           description: List of Ace details
           schema:
             $ref: "#/definitions/AceDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /roles/{role_id}/aces/{ace_id}:
-
     get:
       summary: Fetch Access Control Entry
       tags:
@@ -705,6 +1144,22 @@ paths:
           description: Ace details
           schema:
             $ref: "#/definitions/AceDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     delete:
       summary: Delete Access Control Entry
@@ -731,7 +1186,6 @@ paths:
           description: Ace deleted OK
 
   /subscriptions:
-
     post:
       summary: Create subscription
       tags:
@@ -750,7 +1204,22 @@ paths:
           description: Subscription creation response
           schema:
             $ref: "#/definitions/SubscriptionCreationResponse"
-
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     get:
       summary: List all subscriptions
@@ -784,9 +1253,24 @@ paths:
           description: List of subscription details
           schema:
             $ref: "#/definitions/SubscriptionDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /subscriptions/{id}:
-
     get:
       summary: Fetch subscription
       tags:
@@ -803,6 +1287,22 @@ paths:
           description: Subscription details
           schema:
             $ref: "#/definitions/SubscriptionDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     patch:
       summary: Edit subscription details
@@ -828,6 +1328,22 @@ paths:
           description: Subscription details
           schema:
             $ref: "#/definitions/SubscriptionDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     delete:
       summary: Deletes a subscription
@@ -852,9 +1368,24 @@ paths:
       responses:
         204:
           description: Subscription deleted OK. No body content will be returned
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /starling:
-
     post:
       summary: Create organisation association
       tags:
@@ -873,7 +1404,22 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/AssociationCreationResponse"
-
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     get:
       summary: List all organisation associations
@@ -892,9 +1438,24 @@ paths:
           description: List of associations
           schema:
             $ref: "#/definitions/AssociationDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /starling/{id}:
-
     get:
       summary: Fetch organisation association
       tags:
@@ -911,6 +1472,22 @@ paths:
           description: Associations details
           schema:
             $ref: "#/definitions/AssociationDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     delete:
       summary: Delete organisation association
@@ -932,11 +1509,26 @@ paths:
       responses:
         204:
           description: Association deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
   #organisation api - end
 
   #account api -start
   /accounts:
-
     post:
       summary: Create account
       tags:
@@ -955,7 +1547,22 @@ paths:
           description: Account creation response
           schema:
             $ref: "#/definitions/AccountCreationResponse"
-
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     get:
       summary: List accounts
@@ -1038,9 +1645,24 @@ paths:
           description: List of account details
           schema:
             $ref: "#/definitions/AccountDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /accounts/{id}:
-
     get:
       summary: Fetch account
       tags:
@@ -1057,6 +1679,22 @@ paths:
           description: Account details
           schema:
             $ref: "#/definitions/AccountDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     delete:
       summary: Delete account
@@ -1078,10 +1716,25 @@ paths:
       responses:
         204:
           description: Account deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   #account_routing api -start
   /account_routings:
-
     get:
       summary: List account routings
       tags:
@@ -1116,6 +1769,22 @@ paths:
           description: List of account routing details
           schema:
             $ref: "#/definitions/AccountRoutingDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     post:
       summary: Create an account routing entry
@@ -1137,14 +1806,24 @@ paths:
           description: Account routing creation response success
           schema:
             $ref: "#/definitions/AccountRoutingCreationResponse"
-
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
         409:
-          description: Account routing creation error, constraint violation
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /account_routings/{id}:
-
     delete:
       summary: Delete account routing
       x-access:
@@ -1167,6 +1846,22 @@ paths:
       responses:
         204:
           description: Account Routing deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     get:
       summary: Fetch account routing
@@ -1186,10 +1881,25 @@ paths:
           description: Account Routing details
           schema:
             $ref: "#/definitions/AccountRoutingDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
   # account_routing api end
 
   /bankids:
-
     post:
       summary: Create bank id
       tags:
@@ -1208,6 +1918,22 @@ paths:
           description: BankId creation response
           schema:
             $ref: "#/definitions/BankIdCreationResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     get:
       summary: List bankIds
@@ -1266,9 +1992,24 @@ paths:
           description: List of bankId details
           schema:
             $ref: "#/definitions/BankIdDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /bankids/{id}:
-
     get:
       summary: Fetch bankId
       tags:
@@ -1285,6 +2026,22 @@ paths:
           description: BankId details
           schema:
             $ref: "#/definitions/BankIdDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     delete:
       summary: Delete bankId
@@ -1306,9 +2063,24 @@ paths:
       responses:
         204:
           description: BankId deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /bics:
-
     post:
       summary: Create BIC
       tags:
@@ -1327,6 +2099,22 @@ paths:
           description: Bic creation response
           schema:
             $ref: "#/definitions/BicCreationResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     get:
       summary: List bics
@@ -1357,9 +2145,24 @@ paths:
           description: List of bic details
           schema:
             $ref: "#/definitions/BicDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /bics/{id}:
-
     get:
       summary: Fetch Bic
       tags:
@@ -1376,6 +2179,22 @@ paths:
           description: Bic details
           schema:
             $ref: "#/definitions/BicDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     delete:
       summary: Delete BIC
@@ -1397,9 +2216,24 @@ paths:
       responses:
         204:
           description: Bic deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /accountconfigurations:
-
     post:
       summary: Create configuration
       tags:
@@ -1418,6 +2252,22 @@ paths:
           description: AccountConfiguration creation response
           schema:
             $ref: "#/definitions/AccountConfigurationCreationResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     get:
       summary: List configurations
@@ -1443,9 +2293,24 @@ paths:
           description: List of configuration details
           schema:
             $ref: "#/definitions/AccountConfigurationDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /accountconfigurations/{id}:
-
     get:
       summary: Fetch AccountConfiguration
       tags:
@@ -1462,6 +2327,22 @@ paths:
           description: AccountConfiguration details
           schema:
             $ref: "#/definitions/AccountConfigurationDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     delete:
       summary: Delete config
@@ -1483,6 +2364,22 @@ paths:
       responses:
         204:
           description: AccountConfiguration deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     patch:
       summary: Amend config
@@ -1507,6 +2404,22 @@ paths:
           description: Configuration updated
           schema:
             $ref: "#/definitions/AccountConfigurationDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
   #account api -end
 
   /limits:
@@ -1527,11 +2440,22 @@ paths:
           description: Limit creation response
           schema:
             $ref: "#/definitions/LimitCreationResponse"
-
         400:
-          description: Limit creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     get:
       summary: List limits
@@ -1566,9 +2490,24 @@ paths:
           description: List of limit details
           schema:
             $ref: "#/definitions/LimitDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /limits/{id}:
-
     get:
       summary: Fetch limit
       tags:
@@ -1585,6 +2524,22 @@ paths:
           description: Limit details
           schema:
             $ref: "#/definitions/LimitDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     patch:
       summary: Amend limit
@@ -1609,6 +2564,22 @@ paths:
           description: Limit updated
           schema:
             $ref: "#/definitions/LimitDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     delete:
       summary: Delete limit
@@ -1630,9 +2601,24 @@ paths:
       responses:
         204:
           description: Limit deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /bacs:
-
     post:
       summary: Create organisation association for BACS
       tags:
@@ -1651,7 +2637,22 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/BacsAssociationCreationResponse"
-
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     get:
       summary: List all organisation associations for BACS
@@ -1670,9 +2671,24 @@ paths:
           description: List of associations for BACS
           schema:
             $ref: "#/definitions/BacsAssociationDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /bacs/{id}:
-
     get:
       summary: Fetch organisation association for BACS
       tags:
@@ -1689,6 +2705,22 @@ paths:
           description: Associations details for BACS
           schema:
             $ref: "#/definitions/BacsAssociationDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     delete:
       summary: Delete organisation association for BACS
@@ -1710,6 +2742,22 @@ paths:
       responses:
         204:
           description: Association deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /vocalinkreport:
     post:
@@ -1730,6 +2778,22 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/VocalinkReportAssociationCreationResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     get:
       summary: List all organisation associations
@@ -1750,6 +2814,22 @@ paths:
           description: List of associations
           schema:
             $ref: "#/definitions/VocalinkReportAssociationDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /vocalinkreport/{id}:
     get:
@@ -1768,6 +2848,22 @@ paths:
           description: Associations details
           schema:
             $ref: "#/definitions/VocalinkReportAssociationDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     delete:
       summary: Delete organisation association
@@ -1789,6 +2885,22 @@ paths:
       responses:
         204:
           description: Association deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /keys:
     post:
@@ -1808,6 +2920,22 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/KeyCreationResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     get:
       summary: List all Keys
@@ -1818,6 +2946,22 @@ paths:
           description: List of Keys
           schema:
             $ref: "#/definitions/KeyDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /keys/{key_id}:
     get:
@@ -1836,6 +2980,22 @@ paths:
           description: Key details
           schema:
             $ref: "#/definitions/KeyDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     delete:
       summary: Delete Key
@@ -1857,6 +3017,22 @@ paths:
       responses:
         204:
           description: Key deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /keys/{key_id}/certificates:
     post:
@@ -1882,6 +3058,22 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/CertificateCreationResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     get:
       summary: List all certificates
@@ -1899,6 +3091,22 @@ paths:
           description: List of certificates
           schema:
             $ref: "#/definitions/CertificateDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /keys/{key_id}/certificates/{certificate_id}:
     get:
@@ -1923,6 +3131,22 @@ paths:
           description: Certificate details
           schema:
             $ref: "#/definitions/CertificateDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     delete:
       summary: Delete certificate
@@ -1950,6 +3174,22 @@ paths:
       responses:
         204:
           description: Certificate deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /confirmation-of-payee:
     post:
@@ -1972,6 +3212,22 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/CoPAssociationCreationResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     get:
       summary: List all organisation associations
@@ -1992,9 +3248,24 @@ paths:
           description: List of associations
           schema:
             $ref: "#/definitions/CoPAssociationDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /confirmation-of-payee/{id}:
-
     get:
       summary: Fetch organisation association
       tags:
@@ -2011,6 +3282,22 @@ paths:
           description: Associations details
           schema:
             $ref: "#/definitions/CoPAssociationDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     delete:
       summary: Delete organisation association
@@ -2032,6 +3319,22 @@ paths:
       responses:
         204:
           description: Association deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /lhv:
     post:
@@ -2051,6 +3354,23 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/LhvAssociationCreationResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
     get:
       summary: List all organisation lhv associations
       tags:
@@ -2069,14 +3389,30 @@ paths:
           description: List of associations
           schema:
             $ref: "#/definitions/LhvAssociationDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
-  /lhv/{id}:
+  /lhv/{associationId}:
     get:
       summary: Fetch organisation lhv association
       tags:
         - Associations
       parameters:
-        - name: id
+        - name: associationId
           in: path
           description: Association Id
           required: true
@@ -2087,12 +3423,68 @@ paths:
           description: Associations details
           schema:
             $ref: "#/definitions/LhvAssociationDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
+    patch:
+      summary: Patch organisation lhv association
+      tags:
+        - Associations
+      parameters:
+        - name: associationId
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+        - name: payload
+          in: body
+          description: LHV Association Patch payload
+          required: true
+          schema:
+            $ref: "#/definitions/LhvAssociationPatch"
+      responses:
+        200:
+          description: Associations details
+          schema:
+            $ref: "#/definitions/LhvAssociationDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
     delete:
       summary: Delete organisation lhv association
       tags:
         - Associations
       parameters:
-        - name: id
+        - name: associationId
           in: path
           description: Association Id
           required: true
@@ -2107,6 +3499,159 @@ paths:
       responses:
         204:
           description: Association deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
+  /lhv/{associationId}/master_accounts:
+    parameters:
+      - name: associationId
+        in: path
+        description: Association Id
+        required: true
+        type: string
+        format: uuid
+    get:
+      summary: List master accounts
+      tags:
+        - Associations
+      responses:
+        200:
+          description: List of configuration details
+          schema:
+            $ref: "#/definitions/LhvMasterAccountListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
+    post:
+      summary: Create organisation association master account
+      tags:
+        - Associations
+      parameters:
+        - name: creation request
+          in: body
+          schema:
+            $ref: "#/definitions/LhvMasterAccountCreation"
+      responses:
+        201:
+          description: creation response
+          schema:
+            $ref: "#/definitions/LhvMasterAccountResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
+  /lhv/{associationId}/master_accounts/{masterAccountId}:
+    parameters:
+      - name: associationId
+        in: path
+        description: Association Id
+        required: true
+        type: string
+        format: uuid
+      - name: masterAccountId
+        in: path
+        description: Master Account Id
+        required: true
+        type: string
+        format: uuid
+
+    get:
+      summary: Fetch Master Account
+      tags:
+        - Associations
+      responses:
+        200:
+          description: Master Account details
+          schema:
+            $ref: "#/definitions/LhvMasterAccountResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
+    delete:
+      summary: Delete organisation association master account
+      tags:
+        - Associations
+      parameters:
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+      responses:
+        204:
+          description: Association master account deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /sepa-reconciliation:
     post:
@@ -2126,6 +3671,23 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/SepaReconciliationAssociationCreationResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
     get:
       summary: List all organisation sepa reconciliation associations
       tags:
@@ -2144,6 +3706,22 @@ paths:
           description: List of associations
           schema:
             $ref: "#/definitions/SepaReconciliationAssociationDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /sepa-reconciliation/{id}:
     get:
@@ -2162,6 +3740,23 @@ paths:
           description: Associations details
           schema:
             $ref: "#/definitions/SepaReconciliationAssociationDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
     delete:
       summary: Delete organisation sepa reconciliation association
       tags:
@@ -2182,6 +3777,22 @@ paths:
       responses:
         204:
           description: Association deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /sepa-liquidity:
     post:
@@ -2201,6 +3812,23 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/SepaLiquidityAssociationCreationResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
     get:
       summary: List all organisation sepa liquidity associations
       tags:
@@ -2219,6 +3847,22 @@ paths:
           description: List of associations
           schema:
             $ref: "#/definitions/SepaLiquidityAssociationDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /sepa-liquidity/{id}:
     get:
@@ -2237,6 +3881,23 @@ paths:
           description: Associations details
           schema:
             $ref: "#/definitions/SepaLiquidityAssociationDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
     delete:
       summary: Delete organisation sepa liquidity association
       tags:
@@ -2257,6 +3918,22 @@ paths:
       responses:
         204:
           description: Association deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /products:
     post:
@@ -2276,6 +3953,23 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/ProductsAssociationCreationResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
     get:
       summary: List all product associations
       tags:
@@ -2294,6 +3988,22 @@ paths:
           description: List of associations
           schema:
             $ref: "#/definitions/ProductsAssociationDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /products/{id}:
     get:
@@ -2312,6 +4022,23 @@ paths:
           description: Associations details
           schema:
             $ref: "#/definitions/ProductsAssociationDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
     delete:
       summary: Delete product association
       tags:
@@ -2332,6 +4059,22 @@ paths:
       responses:
         204:
           description: Association deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /sepasct:
     post:
@@ -2351,6 +4094,23 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/SepaSctAssociationCreationResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
     get:
       summary: List all organisation sepa sct associations
       tags:
@@ -2369,6 +4129,22 @@ paths:
           description: List of associations
           schema:
             $ref: "#/definitions/SepaSctAssociationDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /sepasct/{id}:
     get:
@@ -2387,6 +4163,23 @@ paths:
           description: Associations details
           schema:
             $ref: "#/definitions/SepaSctAssociationDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
     delete:
       summary: Delete organisation spea sct association
       tags:
@@ -2407,6 +4200,22 @@ paths:
       responses:
         204:
           description: Association deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /gocardless:
     post:
@@ -2420,12 +4229,29 @@ paths:
         - name: creation request
           in: body
           schema:
-            $ref: '#/definitions/GocardlessAssociationCreation'
+            $ref: "#/definitions/GocardlessAssociationCreation"
       responses:
         201:
           description: creation response
           schema:
-            $ref: '#/definitions/GocardlessAssociationCreationResponse'
+            $ref: "#/definitions/GocardlessAssociationCreationResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
     get:
       summary: List all organisation gocardless gateway associations
       tags:
@@ -2444,6 +4270,22 @@ paths:
           description: List of gocardless associations
           schema:
             $ref: "#/definitions/GocardlessAssociationListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /gocardless/{id}:
     get:
@@ -2462,6 +4304,23 @@ paths:
           description: Associations details
           schema:
             $ref: "#/definitions/GocardlessAssociationResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
     delete:
       summary: Delete gocardless gateway association
       tags:
@@ -2482,6 +4341,23 @@ paths:
       responses:
         204:
           description: association deleted successfully
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
     patch:
       summary: Patch GoCardless association by id
       tags:
@@ -2502,27 +4378,30 @@ paths:
         - name: patchBody
           in: body
           schema:
-            $ref: '#/definitions/GocardlessAssociationAmendment'
+            $ref: "#/definitions/GocardlessAssociationAmendment"
       responses:
         200:
           description: Association updated successfully
           schema:
             $ref: "#/definitions/GocardlessAssociationResponse"
         400:
-          description: Bad Request
-          schema:
-            $ref: "#/definitions/ApiError"
-        404:
-          description: Record not found
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
         403:
-          description: Forbidden
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /sepainstant:
-
     post:
       summary: Create organisation association for sepa instant
       x-access:
@@ -2543,7 +4422,22 @@ paths:
           description: creation response
           schema:
             $ref: "#/definitions/SepaInstantAssociationCreationResponse"
-
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     get:
       summary: List all organisation sepa instant associations
@@ -2566,9 +4460,24 @@ paths:
           description: List of associations
           schema:
             $ref: "#/definitions/SepaInstantAssociationDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /sepainstant/{id}:
-
     get:
       summary: Fetch organisation sepa instant association
       x-access:
@@ -2587,6 +4496,22 @@ paths:
           description: Associations details
           schema:
             $ref: "#/definitions/SepaInstantAssociationDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     patch:
       summary: Update sepa instant association
@@ -2612,12 +4537,28 @@ paths:
           description: Association Patch payload
           required: true
           schema:
-            $ref: '#/definitions/SepaInstantAssociationPatch'
+            $ref: "#/definitions/SepaInstantAssociationPatch"
       responses:
         200:
           description: Associations details
           schema:
             $ref: "#/definitions/SepaInstantAssociationDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     delete:
       summary: Delete organisation spea instant association
@@ -2641,6 +4582,22 @@ paths:
       responses:
         204:
           description: Association deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /ebury:
     post:
@@ -2654,12 +4611,29 @@ paths:
         - name: creation request
           in: body
           schema:
-            $ref: '#/definitions/EburyAssociationCreation'
+            $ref: "#/definitions/EburyAssociationCreation"
       responses:
         201:
           description: creation response
           schema:
-            $ref: '#/definitions/EburyAssociationCreationResponse'
+            $ref: "#/definitions/EburyAssociationCreationResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
     get:
       summary: List all organisation ebury gateway associations
       tags:
@@ -2678,6 +4652,22 @@ paths:
           description: List of ebury associations
           schema:
             $ref: "#/definitions/EburyAssociationListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /ebury/{id}:
     get:
@@ -2696,6 +4686,23 @@ paths:
           description: Associations details
           schema:
             $ref: "#/definitions/EburyAssociationResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
     delete:
       summary: Delete ebury gateway association
       tags:
@@ -2716,10 +4723,25 @@ paths:
       responses:
         204:
           description: association deleted successfully
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   #paymentapi - start
   /payments:
-
     post:
       summary: Create payment
       tags:
@@ -2738,11 +4760,22 @@ paths:
           description: Payment creation response
           schema:
             $ref: "#/definitions/PaymentCreationResponse"
-
         400:
-          description: Payment creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     get:
       summary: List payments
@@ -2873,9 +4906,24 @@ paths:
           description: List of payment details
           schema:
             $ref: "#/definitions/PaymentDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /payments/{id}/admissions:
-
     post:
       summary: create admission
       tags:
@@ -2900,14 +4948,24 @@ paths:
           description: Admission creation response
           schema:
             $ref: "#/definitions/PaymentAdmissionCreationResponse"
-
         400:
-          description: Admission creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /payments/{id}/admissions/{admissionId}:
-
     get:
       summary: Fetch admission
       tags:
@@ -2930,9 +4988,24 @@ paths:
           description: Admission details
           schema:
             $ref: "#/definitions/PaymentAdmissionDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /payments/{id}/submissions:
-
     post:
       summary: create submission
       tags:
@@ -2957,14 +5030,24 @@ paths:
           description: Submission creation response
           schema:
             $ref: "#/definitions/PaymentSubmissionCreationResponse"
-
         400:
-          description: Submission creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /payments/{id}/submissions/{submissionId}:
-
     get:
       summary: Fetch submission
       tags:
@@ -2987,6 +5070,22 @@ paths:
           description: Submission details
           schema:
             $ref: "#/definitions/PaymentSubmissionDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     patch:
       summary: Update submission
@@ -3018,14 +5117,24 @@ paths:
           description: Submission update response
           schema:
             $ref: "#/definitions/PaymentSubmissionDetailsResponse"
-
         400:
-          description: Error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /payments/{id}/submissions/{submissionId}/validations:
-
     post:
       summary: Create payment submission validation
       tags:
@@ -3052,11 +5161,22 @@ paths:
           description: Payment submission validation creation response
           schema:
             $ref: "#/definitions/PaymentSubmissionValidationCreationResponse"
-
         400:
-          description: Payment submission validation creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /payments/{id}/returns:
     post:
@@ -3083,14 +5203,24 @@ paths:
           description: Return creation response
           schema:
             $ref: "#/definitions/ReturnCreationResponse"
-
         400:
-          description: Return creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /payments/{id}/returns/{returnId}:
-
     get:
       summary: Fetch return
       tags:
@@ -3113,6 +5243,22 @@ paths:
           description: Return details
           schema:
             $ref: "#/definitions/ReturnDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /payments/{id}/returns/{returnId}/admissions:
     post:
@@ -3145,11 +5291,22 @@ paths:
           description: Return admission creation response
           schema:
             $ref: "#/definitions/ReturnAdmissionCreationResponse"
-
         400:
-          description: Return admission creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /payments/{id}/returns/{returnId}/admissions/{admissionId}:
     get:
@@ -3180,6 +5337,22 @@ paths:
           description: Return admission details
           schema:
             $ref: "#/definitions/ReturnAdmissionDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /payments/{id}/returns/{returnId}/submissions:
     post:
@@ -3212,11 +5385,22 @@ paths:
           description: Return submission creation response
           schema:
             $ref: "#/definitions/ReturnSubmissionCreationResponse"
-
         400:
-          description: Return submission creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /payments/{id}/returns/{returnId}/submissions/{submissionId}:
     get:
@@ -3247,6 +5431,22 @@ paths:
           description: Return submission details
           schema:
             $ref: "#/definitions/ReturnSubmissionDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     patch:
       summary: Update return submission
@@ -3284,14 +5484,25 @@ paths:
           description: Return submission update response
           schema:
             $ref: "#/definitions/ReturnSubmissionDetailsResponse"
-
         400:
-          description: Error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
-  /payments/{id}/returns/{returnId}/submissions/{returnSubmissionId}/validations:
-    post:
+  ? /payments/{id}/returns/{returnId}/submissions/{returnSubmissionId}/validations
+  : post:
       summary: Create return submission validation
       tags:
         - Payments
@@ -3323,11 +5534,22 @@ paths:
           description: Return submission validation creation response
           schema:
             $ref: "#/definitions/ReturnSubmissionValidationCreationResponse"
-
         400:
-          description: Return submission validation creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /payments/{id}/returns/{returnId}/reversals:
     post:
@@ -3360,14 +5582,24 @@ paths:
           description: Reversal creation response
           schema:
             $ref: "#/definitions/ReturnReversalCreationResponse"
-
         400:
-          description: Reversal creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /payments/{id}/returns/{returnId}/reversals/{reversalId}:
-
     get:
       summary: Fetch return reversal
       tags:
@@ -3396,6 +5628,22 @@ paths:
           description: Return reversal details
           schema:
             $ref: "#/definitions/ReturnReversalDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /payments/{id}/returns/{returnId}/reversals/{reversalId}/admissions:
     post:
@@ -3434,14 +5682,25 @@ paths:
           description: Return reversal admission creation response
           schema:
             $ref: "#/definitions/ReturnReversalAdmissionCreationResponse"
-
         400:
-          description: Reversal admission creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
-  /payments/{id}/returns/{returnId}/reversals/{reversalId}/admissions/{admissionId}:
-    get:
+  ? /payments/{id}/returns/{returnId}/reversals/{reversalId}/admissions/{admissionId}
+  : get:
       summary: Fetch return reversal admission
       tags:
         - Payments
@@ -3475,6 +5734,22 @@ paths:
           description: Return reversal admission details
           schema:
             $ref: "#/definitions/ReturnReversalAdmissionDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /payments/{id}/reversals:
     post:
@@ -3501,14 +5776,24 @@ paths:
           description: Reversal creation response
           schema:
             $ref: "#/definitions/ReversalCreationResponse"
-
         400:
-          description: Reversal creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /payments/{id}/reversals/{reversalId}:
-
     get:
       summary: Fetch reversal
       tags:
@@ -3531,6 +5816,22 @@ paths:
           description: Reversal details
           schema:
             $ref: "#/definitions/ReversalDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /payments/{id}/reversals/{reversalId}/admissions:
     post:
@@ -3563,11 +5864,22 @@ paths:
           description: Reversal admission creation response
           schema:
             $ref: "#/definitions/ReversalAdmissionCreationResponse"
-
         400:
-          description: Reversal admission creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /payments/{id}/reversals/{reversalId}/admissions/{admissionId}:
     get:
@@ -3598,6 +5910,22 @@ paths:
           description: Reversal admission details
           schema:
             $ref: "#/definitions/ReversalAdmissionDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /positions:
     get:
@@ -3609,6 +5937,22 @@ paths:
           description: List of position details
           schema:
             $ref: "#/definitions/PositionDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /paymentdefaults:
     post:
@@ -3629,9 +5973,22 @@ paths:
           schema:
             $ref: "#/definitions/PaymentDefaultsCreateResponse"
         400:
-          description: Default settings creation error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
     get:
       summary: List default settings for payments
       tags:
@@ -3665,6 +6022,22 @@ paths:
           description: List of payment defaults
           schema:
             $ref: "#/definitions/PaymentDefaultsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /paymentdefaults/{id}:
     get:
@@ -3683,6 +6056,22 @@ paths:
           description: Payment default details
           schema:
             $ref: "#/definitions/PaymentDefaultsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     patch:
       summary: Update payment defaults
@@ -3708,9 +6097,21 @@ paths:
           schema:
             $ref: "#/definitions/PaymentDefaultsResponse"
         400:
-          description: Error
-          schema:
-            $ref: "#/definitions/ApiError"
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     delete:
       summary: Delete payment defaults
@@ -3732,12 +6133,27 @@ paths:
       responses:
         204:
           description: Payment defaults deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
   #paymentapi - end
 
   #directdebit-api - start
 
   /directdebits:
-
     get:
       summary: List direct debits
       tags:
@@ -3849,13 +6265,27 @@ paths:
           description: List of direct debit details
           schema:
             $ref: "#/definitions/DirectDebitDetailsListResponse"
-
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
   #directdebit-api - end
 
   #mandate-api - start
 
   /mandates:
-
     get:
       summary: List mandates
       tags:
@@ -3992,13 +6422,27 @@ paths:
           description: List of mandates details
           schema:
             $ref: "#/definitions/MandateDetailsListResponse"
-
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
   #mandate-api - end
 
   #public-key - start
 
   /users/{user_id}/credentials/public_key:
-
     get:
       summary: Fetch public key credentials
       tags:
@@ -4017,6 +6461,22 @@ paths:
           description: List of public keys for user
           schema:
             $ref: "#/definitions/UserPublicKeyListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     post:
       summary: Generate new public key credential for a user
@@ -4045,9 +6505,24 @@ paths:
           description: Signature Credential creation response
           schema:
             $ref: "#/definitions/PublicKeyCreationResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
   /users/{user_id}/credentials/public_key/{public_key_id}:
-
     get:
       summary: Fetch public key credential
       tags:
@@ -4072,6 +6547,22 @@ paths:
           description: Public key data
           schema:
             $ref: "#/definitions/PublicKey"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 
     delete:
       summary: Delete public key credential for user
@@ -4098,13 +6589,28 @@ paths:
       responses:
         204:
           description: Public key deleted
-
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
 #public-key - enc
 
 definitions:
-
   ApiError:
     type: object
+    additionalProperties: true
     properties:
       error_message:
         type: string
@@ -4175,9 +6681,9 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/Ace'
+          $ref: "#/definitions/Ace"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   #Versioning, Audit and Approval
   #===
@@ -4223,7 +6729,7 @@ definitions:
             format: uuid
           action_time:
             type: string
-            format: 'date-time'
+            format: "date-time"
             x-nullable: true
           before_data:
             type: object
@@ -4236,10 +6742,9 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/ApprovalRequest'
+          $ref: "#/definitions/ApprovalRequest"
       links:
-        $ref: '#/definitions/Links'
-
+        $ref: "#/definitions/Links"
 
   AuditEntry:
     type: object
@@ -4270,7 +6775,7 @@ definitions:
             format: uuid
           action_time:
             type: string
-            format: 'date-time'
+            format: "date-time"
             x-nullable: true
           description:
             type: string
@@ -4335,29 +6840,29 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Organisation'
+        $ref: "#/definitions/Organisation"
 
   OrganisationUpdate:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Organisation'
+        $ref: "#/definitions/Organisation"
 
   OrganisationCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Organisation'
+        $ref: "#/definitions/Organisation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   OrganisationDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Organisation'
+        $ref: "#/definitions/Organisation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   OrganisationDetailsListResponse:
     type: object
@@ -4365,9 +6870,9 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/Organisation'
+          $ref: "#/definitions/Organisation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   #Security info
   #===
@@ -4407,23 +6912,23 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/User'
+        $ref: "#/definitions/User"
 
   UserCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/User'
+        $ref: "#/definitions/User"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   UserDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/User'
+        $ref: "#/definitions/User"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   UserDetailsListResponse:
     type: object
@@ -4431,10 +6936,9 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/User'
+          $ref: "#/definitions/User"
       links:
-        $ref: '#/definitions/Links'
-
+        $ref: "#/definitions/Links"
 
   #Roles
   Role:
@@ -4468,23 +6972,23 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Role'
+        $ref: "#/definitions/Role"
 
   RoleCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Role'
+        $ref: "#/definitions/Role"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   RoleDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Role'
+        $ref: "#/definitions/Role"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   RoleDetailsListResponse:
     type: object
@@ -4492,9 +6996,9 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/Role'
+          $ref: "#/definitions/Role"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   #Credential
   Credential:
@@ -4517,9 +7021,9 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/CredentialSecret'
+        $ref: "#/definitions/CredentialSecret"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   UserCredentialListResponse:
     type: object
@@ -4527,32 +7031,32 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/Credential'
+          $ref: "#/definitions/Credential"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   #Ace
   AceCreation:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Ace'
+        $ref: "#/definitions/Ace"
 
   AceCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Ace'
+        $ref: "#/definitions/Ace"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   AceDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Ace'
+        $ref: "#/definitions/Ace"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   UserRoleListResponse:
     type: object
@@ -4560,9 +7064,9 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/Role'
+          $ref: "#/definitions/Role"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   Subscription:
     type: object
@@ -4581,11 +7085,11 @@ definitions:
         format: uuid
       created_on:
         type: string
-        format: 'date-time'
+        format: "date-time"
         x-nullable: true
       modified_on:
         type: string
-        format: 'date-time'
+        format: "date-time"
         x-nullable: true
       attributes:
         $ref: "#/definitions/SubscriptionAttributes"
@@ -4594,23 +7098,23 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Subscription'
+        $ref: "#/definitions/Subscription"
 
   SubscriptionCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Subscription'
+        $ref: "#/definitions/Subscription"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   SubscriptionDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Subscription'
+        $ref: "#/definitions/Subscription"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   SubscriptionDetailsListResponse:
     type: object
@@ -4618,9 +7122,9 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/Subscription'
+          $ref: "#/definitions/Subscription"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   #Organisation->Associations
 
@@ -4677,23 +7181,23 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/NewAssociation'
+        $ref: "#/definitions/NewAssociation"
 
   AssociationCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Association'
+        $ref: "#/definitions/Association"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   AssociationDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Association'
+        $ref: "#/definitions/Association"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   AssociationDetailsListResponse:
     type: object
@@ -4701,9 +7205,9 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/Association'
+          $ref: "#/definitions/Association"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
   # account api - start
   Account:
     type: object
@@ -4829,9 +7333,9 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/AccountRouting'
+          $ref: "#/definitions/AccountRouting"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   AccountRoutingCreation:
     type: object
@@ -4839,7 +7343,7 @@ definitions:
       - Public
     properties:
       data:
-        $ref: '#/definitions/AccountRouting'
+        $ref: "#/definitions/AccountRouting"
 
   AccountRoutingDetailsResponse:
     type: object
@@ -4847,23 +7351,23 @@ definitions:
       - Public
     properties:
       data:
-        $ref: '#/definitions/AccountRouting'
+        $ref: "#/definitions/AccountRouting"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   AccountCreation:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Account'
+        $ref: "#/definitions/Account"
 
   AccountCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Account'
+        $ref: "#/definitions/Account"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   AccountRoutingCreationResponse:
     type: object
@@ -4871,17 +7375,17 @@ definitions:
       - Public
     properties:
       data:
-        $ref: '#/definitions/AccountRouting'
+        $ref: "#/definitions/AccountRouting"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   AccountDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Account'
+        $ref: "#/definitions/Account"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   AccountDetailsListResponse:
     type: object
@@ -4889,9 +7393,9 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/Account'
+          $ref: "#/definitions/Account"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   BankId:
     type: object
@@ -4928,23 +7432,23 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/BankId'
+        $ref: "#/definitions/BankId"
 
   BankIdCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/BankId'
+        $ref: "#/definitions/BankId"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   BankIdDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/BankId'
+        $ref: "#/definitions/BankId"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   BankIdDetailsListResponse:
     type: object
@@ -4952,9 +7456,9 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/BankId'
+          $ref: "#/definitions/BankId"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   Bic:
     type: object
@@ -4985,23 +7489,23 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Bic'
+        $ref: "#/definitions/Bic"
 
   BicCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Bic'
+        $ref: "#/definitions/Bic"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   BicDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Bic'
+        $ref: "#/definitions/Bic"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   BicDetailsListResponse:
     type: object
@@ -5009,9 +7513,9 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/Bic'
+          $ref: "#/definitions/Bic"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   AccountConfiguration:
     type: object
@@ -5075,23 +7579,23 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/AccountConfiguration'
+        $ref: "#/definitions/AccountConfiguration"
 
   AccountConfigurationCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/AccountConfiguration'
+        $ref: "#/definitions/AccountConfiguration"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   AccountConfigurationDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/AccountConfiguration'
+        $ref: "#/definitions/AccountConfiguration"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   AccountConfigurationDetailsListResponse:
     type: object
@@ -5099,15 +7603,15 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/AccountConfiguration'
+          $ref: "#/definitions/AccountConfiguration"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   ConfigurationAmendment:
     type: object
     properties:
       data:
-        $ref: '#/definitions/AccountConfiguration'
+        $ref: "#/definitions/AccountConfiguration"
   # account api - end
 
   PayportAssociation:
@@ -5133,7 +7637,7 @@ definitions:
       participant_id:
         type: string
       participant_type:
-        $ref: '#/definitions/PayportParticipantType'
+        $ref: "#/definitions/PayportParticipantType"
       customer_sending_fps_institution:
         type: string
       sponsor_bank_id:
@@ -5151,23 +7655,23 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/PayportAssociation'
+        $ref: "#/definitions/PayportAssociation"
 
   PayportAssociationCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/PayportAssociation'
+        $ref: "#/definitions/PayportAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   PayportAssociationDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/PayportAssociation'
+        $ref: "#/definitions/PayportAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   PayportAssociationDetailsListResponse:
     type: object
@@ -5175,9 +7679,9 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/PayportAssociation'
+          $ref: "#/definitions/PayportAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   ResourceType:
     type: string
@@ -5192,13 +7696,13 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Limit'
+        $ref: "#/definitions/Limit"
 
   LimitCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Limit'
+        $ref: "#/definitions/Limit"
 
   LimitDetailsListResponse:
     type: object
@@ -5206,23 +7710,23 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/Limit'
+          $ref: "#/definitions/Limit"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
       meta:
-        $ref: '#/definitions/RecordCount'
+        $ref: "#/definitions/RecordCount"
 
   LimitDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Limit'
+        $ref: "#/definitions/Limit"
 
   LimitAmendment:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Limit'
+        $ref: "#/definitions/Limit"
 
   Limit:
     type: object
@@ -5252,14 +7756,13 @@ definitions:
             type: string
             pattern: ^[0-9.]{0,20}$
           settlement_cycle_type:
-            $ref: '#/definitions/SettlementCycleType'
+            $ref: "#/definitions/SettlementCycleType"
 
   SettlementCycleType:
     type: string
     enum:
       - daily
       - per_scheme
-
 
   BacsAssociation:
     type: object
@@ -5356,23 +7859,23 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/BacsNewAssociation'
+        $ref: "#/definitions/BacsNewAssociation"
 
   BacsAssociationCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/BacsAssociation'
+        $ref: "#/definitions/BacsAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   BacsAssociationDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/BacsAssociation'
+        $ref: "#/definitions/BacsAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   BacsAssociationDetailsListResponse:
     type: object
@@ -5380,9 +7883,9 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/BacsAssociation'
+          $ref: "#/definitions/BacsAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   VocalinkReportAssociation:
     type: object
@@ -5461,23 +7964,23 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/NewVocalinkReportAssociation'
+        $ref: "#/definitions/NewVocalinkReportAssociation"
 
   VocalinkReportAssociationCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/VocalinkReportAssociation'
+        $ref: "#/definitions/VocalinkReportAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   VocalinkReportAssociationDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/VocalinkReportAssociation'
+        $ref: "#/definitions/VocalinkReportAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   VocalinkReportAssociationDetailsListResponse:
     type: object
@@ -5485,31 +7988,31 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/VocalinkReportAssociation'
+          $ref: "#/definitions/VocalinkReportAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   KeyCreation:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Key'
+        $ref: "#/definitions/Key"
 
   KeyCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Key'
+        $ref: "#/definitions/Key"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   KeyDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Key'
+        $ref: "#/definitions/Key"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   KeyDetailsListResponse:
     type: object
@@ -5517,9 +8020,9 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/Key'
+          $ref: "#/definitions/Key"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   Key:
     type: object
@@ -5579,23 +8082,23 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Certificate'
+        $ref: "#/definitions/Certificate"
 
   CertificateCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Certificate'
+        $ref: "#/definitions/Certificate"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   CertificateDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Certificate'
+        $ref: "#/definitions/Certificate"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   CertificateDetailsListResponse:
     type: object
@@ -5603,9 +8106,9 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/Certificate'
+          $ref: "#/definitions/Certificate"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   Certificate:
     type: object
@@ -5707,7 +8210,7 @@ definitions:
         format: uuid
         x-nullable: false
       attributes:
-        $ref: '#/definitions/UpdateSepaInstantAssociationAttributes'
+        $ref: "#/definitions/UpdateSepaInstantAssociationAttributes"
 
   SepaInstantAssociationAttributes:
     type: object
@@ -5765,29 +8268,29 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/NewSepaInstantAssociation'
+        $ref: "#/definitions/NewSepaInstantAssociation"
 
   SepaInstantAssociationPatch:
     type: object
     properties:
       data:
-        $ref: '#/definitions/UpdateSepaInstantAssociation'
+        $ref: "#/definitions/UpdateSepaInstantAssociation"
 
   SepaInstantAssociationCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/SepaInstantAssociation'
+        $ref: "#/definitions/SepaInstantAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   SepaInstantAssociationDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/SepaInstantAssociation'
+        $ref: "#/definitions/SepaInstantAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   SepaInstantAssociationDetailsListResponse:
     type: object
@@ -5795,9 +8298,9 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/SepaInstantAssociation'
+          $ref: "#/definitions/SepaInstantAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   SepaSctAssociation:
     type: object
@@ -5847,23 +8350,23 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/NewSepaSctAssociation'
+        $ref: "#/definitions/NewSepaSctAssociation"
 
   SepaSctAssociationCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/SepaSctAssociation'
+        $ref: "#/definitions/SepaSctAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   SepaSctAssociationDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/SepaSctAssociation'
+        $ref: "#/definitions/SepaSctAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   SepaSctAssociationDetailsListResponse:
     type: object
@@ -5871,9 +8374,9 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/SepaSctAssociation'
+          $ref: "#/definitions/SepaSctAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   ProductsAssociation:
     type: object
@@ -5919,23 +8422,23 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/NewProductsAssociation'
+        $ref: "#/definitions/NewProductsAssociation"
 
   ProductsAssociationCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ProductsAssociation'
+        $ref: "#/definitions/ProductsAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   ProductsAssociationDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ProductsAssociation'
+        $ref: "#/definitions/ProductsAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   ProductsAssociationDetailsListResponse:
     type: object
@@ -5943,9 +8446,9 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/ProductsAssociation'
+          $ref: "#/definitions/ProductsAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   GocardlessAssociation:
     type: object
@@ -5962,7 +8465,7 @@ definitions:
         type: integer
         minimum: 0
       attributes:
-        $ref: '#/definitions/GocardlessAssociationAttributes'
+        $ref: "#/definitions/GocardlessAssociationAttributes"
 
   NewGocardlessAssociation:
     type: object
@@ -5976,7 +8479,7 @@ definitions:
       type:
         type: string
       attributes:
-        $ref: '#/definitions/GocardlessAssociationAttributes'
+        $ref: "#/definitions/GocardlessAssociationAttributes"
 
   GocardlessAssociationAttributes:
     type: object
@@ -6002,31 +8505,31 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/NewGocardlessAssociation'
+        $ref: "#/definitions/NewGocardlessAssociation"
 
   GocardlessAssociationCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/GocardlessAssociation'
+        $ref: "#/definitions/GocardlessAssociation"
 
   GocardlessAssociationAmendment:
     type: object
     properties:
       data:
-        $ref: '#/definitions/GocardlessAssociationUpdate'
+        $ref: "#/definitions/GocardlessAssociationUpdate"
 
   GocardlessAssociationUpdate:
     type: object
     properties:
       attributes:
-        $ref: '#/definitions/GocardlessAssociationPatchAttributes'
+        $ref: "#/definitions/GocardlessAssociationPatchAttributes"
 
   GocardlessAssociationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/GocardlessAssociation'
+        $ref: "#/definitions/GocardlessAssociation"
 
   GocardlessAssociationListResponse:
     type: object
@@ -6034,13 +8537,17 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/GocardlessAssociation'
+          $ref: "#/definitions/GocardlessAssociation"
 
   LhvAssociation:
     type: object
     properties:
       type:
         type: string
+        x-nullable: false
+        description: "Name of the resource type"
+        enum:
+          - lhvgateway_associations
       id:
         type: string
         format: uuid
@@ -6052,6 +8559,14 @@ definitions:
         format: uuid
       attributes:
         $ref: "#/definitions/LhvAssociationAttributes"
+
+  LhvAssociationWithRelationships:
+    allOf:
+      - $ref: "#/definitions/LhvAssociation"
+      - type: object
+        properties:
+          relationships:
+            $ref: "#/definitions/LhvMasterAccountRelationship"
 
   NewLhvAssociation:
     type: object
@@ -6073,10 +8588,14 @@ definitions:
   LhvAssociationAttributes:
     type: object
     required:
+      - name
       - client_code
       - client_country
-      - master_ibans
     properties:
+      name:
+        type: string
+        x-nullable: false
+        minLength: 1
       client_code:
         type: string
         x-nullable: false
@@ -6085,34 +8604,80 @@ definitions:
         type: string
         x-nullable: false
         minLength: 1
-      master_ibans:
-        type: array
+      use_simulator:
+        type: boolean
         x-nullable: false
+        default: false
+
+  LhvUpdateAssociation:
+    type: object
+    required:
+      - id
+      - version
+      - type
+      - organisation_id
+      - attributes
+    properties:
+      id:
+        type: string
+        format: uuid
+        x-nullable: false
+      type:
+        type: string
+        x-nullable: false
+      version:
+        type: integer
+        minimum: 0
+        x-nullable: true
+      organisation_id:
+        type: string
+        format: uuid
+        x-nullable: false
+      attributes:
+        $ref: "#/definitions/LhvUpdateAssociationAttributes"
+
+  LhvUpdateAssociationAttributes:
+    properties:
+      name:
+        type: string
         minLength: 1
-        items:
-          type: string
+      client_code:
+        type: string
+        minLength: 1
+      client_country:
+        type: string
+        minLength: 1
+      use_simulator:
+        type: boolean
+        x-nullable: true
 
   LhvAssociationCreation:
     type: object
     properties:
       data:
-        $ref: '#/definitions/NewLhvAssociation'
+        $ref: "#/definitions/NewLhvAssociation"
+
+  LhvAssociationPatch:
+    type: object
+    properties:
+      data:
+        $ref: "#/definitions/LhvUpdateAssociation"
 
   LhvAssociationCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/LhvAssociation'
+        $ref: "#/definitions/LhvAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   LhvAssociationDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/LhvAssociation'
+        $ref: "#/definitions/LhvAssociationWithRelationships"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   LhvAssociationDetailsListResponse:
     type: object
@@ -6120,9 +8685,118 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/LhvAssociation'
+          $ref: "#/definitions/LhvAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
+
+  LhvMasterAccountRelationship:
+    type: object
+    properties:
+      master_accounts:
+        type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: "#/definitions/LhvMasterAccount"
+
+  LhvMasterAccountListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: "#/definitions/LhvMasterAccount"
+      links:
+        $ref: "#/definitions/Links"
+
+  LhvMasterAccountResponse:
+    type: object
+    properties:
+      data:
+        $ref: "#/definitions/LhvMasterAccount"
+      links:
+        $ref: "#/definitions/Links"
+
+  LhvMasterAccountCreation:
+    type: object
+    properties:
+      data:
+        $ref: "#/definitions/LhvMasterAccount"
+
+  LhvMasterAccount:
+    type: object
+    required:
+      - id
+      - type
+      - version
+      - attributes
+      - organisation_id
+    properties:
+      id:
+        type: string
+        x-nullable: false
+        format: uuid
+      type:
+        type: string
+        x-nullable: false
+        description: "Name of the resource type"
+        enum:
+          - lhvgateway_master_accounts
+      version:
+        type: integer
+        x-nullable: false
+        default: 0
+      organisation_id:
+        format: uuid
+        x-nullable: false
+        type: string
+      created_on:
+        type: string
+        format: date-time
+        readOnly: true
+      modified_on:
+        type: string
+        format: date-time
+        readOnly: true
+      attributes:
+        $ref: "#/definitions/LhvMasterAccountAttributes"
+
+  LhvMasterAccountAttributes:
+    type: object
+    required:
+      - iban
+      - bic
+      - country
+    x-nullable: false
+    properties:
+      iban:
+        type: string
+        x-nullable: false
+        pattern: ^[A-Z]{2}[0-9]{2}[A-Z0-9]{0,64}$
+        description: "master account iban."
+        example: "GB11NWBK40030041426819"
+      bic:
+        type: string
+        x-nullable: false
+        pattern: ^([A-Z]{6}[A-Z0-9]{2}|[A-Z]{6}[A-Z0-9]{5})$
+        description: "SWIFT BIC in either 8 or 11 character format"
+        example: "NWBKGB22"
+      country:
+        type: string
+        x-nullable: false
+        pattern: ^[A-Z]{2}$
+        example: "GB"
+      bank_id:
+        type: string
+        x-nullable: false
+        pattern: ^[A-Z0-9]{0,16}$
+        description: "Local country bank identifier. In the UK this is the sort code."
+        example: "400300"
+      requires_direct_account:
+        type: boolean
+        default: false
+        description: "requires a direct account preprovisioned under LHV organisation."
 
   SepaReconciliationAssociation:
     type: object
@@ -6230,7 +8904,6 @@ definitions:
             x-nullable: false
             $ref: "#/definitions/SepaReconciliationRelationshipData"
 
-
   SepaReconciliationRelationshipData:
     type: object
     x-nullable: false
@@ -6252,23 +8925,23 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/NewSepaReconciliationAssociation'
+        $ref: "#/definitions/NewSepaReconciliationAssociation"
 
   SepaReconciliationAssociationCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/SepaReconciliationAssociation'
+        $ref: "#/definitions/SepaReconciliationAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   SepaReconciliationAssociationDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/SepaReconciliationAssociation'
+        $ref: "#/definitions/SepaReconciliationAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   SepaReconciliationAssociationDetailsListResponse:
     type: object
@@ -6276,9 +8949,9 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/SepaReconciliationAssociation'
+          $ref: "#/definitions/SepaReconciliationAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   SepaLiquidityAssociation:
     type: object
@@ -6344,7 +9017,7 @@ definitions:
         minLength: 1
       address:
         x-nullable: false
-        $ref: '#/definitions/SepaLiquidityAddress'
+        $ref: "#/definitions/SepaLiquidityAddress"
       name:
         type: string
         x-nullable: false
@@ -6392,7 +9065,6 @@ definitions:
             x-nullable: false
             $ref: "#/definitions/SepaLiquidityRelationshipData"
 
-
   SepaLiquidityRelationshipData:
     type: object
     x-nullable: false
@@ -6414,23 +9086,23 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/NewSepaLiquidityAssociation'
+        $ref: "#/definitions/NewSepaLiquidityAssociation"
 
   SepaLiquidityAssociationCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/SepaLiquidityAssociation'
+        $ref: "#/definitions/SepaLiquidityAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   SepaLiquidityAssociationDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/SepaLiquidityAssociation'
+        $ref: "#/definitions/SepaLiquidityAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   SepaLiquidityAssociationDetailsListResponse:
     type: object
@@ -6438,9 +9110,9 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/SepaLiquidityAssociation'
+          $ref: "#/definitions/SepaLiquidityAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   EburyAssociation:
     type: object
@@ -6457,7 +9129,7 @@ definitions:
         type: integer
         minimum: 0
       attributes:
-        $ref: '#/definitions/EburyAssociationAttributes'
+        $ref: "#/definitions/EburyAssociationAttributes"
 
   NewEburyAssociation:
     type: object
@@ -6471,7 +9143,7 @@ definitions:
       type:
         type: string
       attributes:
-        $ref: '#/definitions/EburyAssociationAttributes'
+        $ref: "#/definitions/EburyAssociationAttributes"
 
   EburyAssociationAttributes:
     type: object
@@ -6481,19 +9153,19 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/NewEburyAssociation'
+        $ref: "#/definitions/NewEburyAssociation"
 
   EburyAssociationCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/EburyAssociation'
+        $ref: "#/definitions/EburyAssociation"
 
   EburyAssociationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/EburyAssociation'
+        $ref: "#/definitions/EburyAssociation"
 
   EburyAssociationListResponse:
     type: object
@@ -6501,7 +9173,7 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/EburyAssociation'
+          $ref: "#/definitions/EburyAssociation"
 
   # paymentapi - start
 
@@ -6603,7 +9275,7 @@ definitions:
                     swift: "always"
                 example: "71268996"
               account_number_code:
-                $ref: '#/definitions/AccountNumberCode'
+                $ref: "#/definitions/AccountNumberCode"
               account_type:
                 type: integer
                 description: "The type of the account given with `beneficiary_party.account_number`. Single digit number. Only required if requested by the beneficiary party. Defaults to 0."
@@ -6616,7 +9288,7 @@ definitions:
                     bacs: "optional"
                 example: 0
               account_with:
-                $ref: '#/definitions/BeneficiaryDebtorAccountHoldingEntity'
+                $ref: "#/definitions/BeneficiaryDebtorAccountHoldingEntity"
               address:
                 x-omitempty: true
                 type: array
@@ -6633,11 +9305,7 @@ definitions:
                     fps: "sometimes"
                     sepa: "sometimes"
                     swift: "sometimes"
-                example: [
-                  "1 Clarence Mew",
-                  "Horsforth",
-                  "Leeds Ls18 4EP"
-                ]
+                example: ["1 Clarence Mew", "Horsforth", "Leeds Ls18 4EP"]
                 items:
                   type: string
               birth_date:
@@ -6787,7 +9455,7 @@ definitions:
             example:
           charges_information:
             x-omitempty: true
-            $ref: '#/definitions/ChargesInformation'
+            $ref: "#/definitions/ChargesInformation"
           clearing_id:
             type: string
             description: "Unique identifier for organisations collecting payments"
@@ -6860,9 +9528,9 @@ definitions:
                     sepa: "always"
                 example: "12345678"
               account_number_code:
-                $ref: '#/definitions/AccountNumberCode'
+                $ref: "#/definitions/AccountNumberCode"
               account_with:
-                $ref: '#/definitions/BeneficiaryDebtorAccountHoldingEntity'
+                $ref: "#/definitions/BeneficiaryDebtorAccountHoldingEntity"
               address:
                 x-omitempty: true
                 type: array
@@ -6879,7 +9547,7 @@ definitions:
                     fps: "sometimes"
                     swift: "sometimes"
                     sepa: "sometimes"
-                example: ["63 St Mary Axe","London","EC3A 8AA"]
+                example: ["63 St Mary Axe", "London", "EC3A 8AA"]
                 items:
                   type: string
               birth_date:
@@ -7111,7 +9779,7 @@ definitions:
                 sepa: "sometimes"
             example: "ID1245799"
           intermediary_bank:
-            $ref: '#/definitions/IntermediaryBankAccountHoldingEntity'
+            $ref: "#/definitions/IntermediaryBankAccountHoldingEntity"
           numeric_reference:
             type: string
             description: "Numeric reference field, see scheme specific descriptions for usage"
@@ -7128,7 +9796,7 @@ definitions:
             example:
           payment_acceptance_datetime:
             type: string
-            format: 'date-time'
+            format: "date-time"
             x-nullable: true
             description: "Timestamp of when the payment instruction meets the set processing conditions. Format: YYYY-MM-DDThh:mm:ss:mmm+hh:mm"
             example: "2017-09-30T12:36:02.123+01:00"
@@ -7243,7 +9911,7 @@ definitions:
                 bacs: "sometimes"
             format: date
           receivers_correspondent:
-            $ref: '#/definitions/ReceiversCorrespondentAccountHoldingEntity'
+            $ref: "#/definitions/ReceiversCorrespondentAccountHoldingEntity"
           reference:
             type: string
             description: "Payment reference for beneficiary use"
@@ -7277,7 +9945,7 @@ definitions:
                 fps: "sometimes"
                 swift: "sometimes"
           reimbursement:
-            $ref: '#/definitions/ReimbursementAccountHoldingEntity'
+            $ref: "#/definitions/ReimbursementAccountHoldingEntity"
           remittance_information:
             type: string
             description: "Information supplied to enable the matching of an entry with the items that the transfer is intended to settle, such as commercial invoices in an accounts receivable system provided by the debtor for the beneficiary."
@@ -7322,7 +9990,7 @@ definitions:
                 fps: "always"
                 bacs: "always"
           senders_correspondent:
-            $ref: '#/definitions/SendersCorrespondentAccountHoldingEntity'
+            $ref: "#/definitions/SendersCorrespondentAccountHoldingEntity"
           structured_reference:
             type: object
             properties:
@@ -7476,11 +10144,11 @@ definitions:
                   get:
                     swift: "sometimes"
           ultimate_beneficiary:
-            $ref: '#/definitions/UltimateEntity'
+            $ref: "#/definitions/UltimateEntity"
           ultimate_debtor:
-            $ref: '#/definitions/UltimateEntity'
+            $ref: "#/definitions/UltimateEntity"
       relationships:
-        $ref: '#/definitions/PaymentRelationships'
+        $ref: "#/definitions/PaymentRelationships"
 
   PaymentRelationships:
     type: object
@@ -7494,7 +10162,7 @@ definitions:
           data:
             type: array
             items:
-              $ref: '#/definitions/PaymentSubmission'
+              $ref: "#/definitions/PaymentSubmission"
       payment_return:
         type: object
         description: "The payment return resource related to the payment"
@@ -7502,7 +10170,7 @@ definitions:
           data:
             type: array
             items:
-              $ref: '#/definitions/ReturnPayment'
+              $ref: "#/definitions/ReturnPayment"
       payment_admission:
         type: object
         description: "The payment admission resource related to the payment"
@@ -7510,7 +10178,7 @@ definitions:
           data:
             type: array
             items:
-              $ref: '#/definitions/PaymentAdmission'
+              $ref: "#/definitions/PaymentAdmission"
       payment_reversal:
         type: object
         description: "The payment reversal resource related to the payment"
@@ -7518,7 +10186,7 @@ definitions:
           data:
             type: array
             items:
-              $ref: '#/definitions/ReversalPayment'
+              $ref: "#/definitions/ReversalPayment"
 
   BeneficiaryDebtorAccountHoldingEntity:
     x-access:
@@ -7536,12 +10204,13 @@ definitions:
             swift: "optional"
           get:
             swift: "sometimes"
-        example: [
-          "Liverpool Customer Service Centre",
-          "Stevenson Way",
-          "Wavertree",
-          "L13 1NW"
-        ]
+        example:
+          [
+            "Liverpool Customer Service Centre",
+            "Stevenson Way",
+            "Wavertree",
+            "L13 1NW",
+          ]
         items:
           type: string
       bank_id:
@@ -7565,7 +10234,7 @@ definitions:
         example: "333333"
         type: string
       bank_id_code:
-        $ref: '#/definitions/BankIdCode'
+        $ref: "#/definitions/BankIdCode"
       bank_name:
         type: string
         description: "Financial institution name"
@@ -7607,12 +10276,13 @@ definitions:
             swift: "optional"
           get:
             swift: "sometimes"
-        example: [
-          "Liverpool Customer Service Centre",
-          "Stevenson Way",
-          "Wavertree",
-          "L13 1NW"
-        ]
+        example:
+          [
+            "Liverpool Customer Service Centre",
+            "Stevenson Way",
+            "Wavertree",
+            "L13 1NW",
+          ]
         items:
           type: string
       bank_id:
@@ -7628,7 +10298,7 @@ definitions:
         example: "333333"
         type: string
       bank_id_code:
-        $ref: '#/definitions/BankIdCode'
+        $ref: "#/definitions/BankIdCode"
       bank_name:
         type: string
         description: "Financial institution name"
@@ -7671,12 +10341,13 @@ definitions:
             swift: "optional"
           get:
             swift: "sometimes"
-        example: [
-          "Liverpool Customer Service Centre",
-          "Stevenson Way",
-          "Wavertree",
-          "L13 1NW"
-        ]
+        example:
+          [
+            "Liverpool Customer Service Centre",
+            "Stevenson Way",
+            "Wavertree",
+            "L13 1NW",
+          ]
         items:
           type: string
       bank_id:
@@ -7692,7 +10363,7 @@ definitions:
         example: "333333"
         type: string
       bank_id_code:
-        $ref: '#/definitions/BankIdCode'
+        $ref: "#/definitions/BankIdCode"
       bank_name:
         type: string
         description: "Receiver's correspondent's name"
@@ -7734,12 +10405,13 @@ definitions:
             swift: "optional"
           get:
             swift: "sometimes"
-        example: [
-          "Liverpool Customer Service Centre",
-          "Stevenson Way",
-          "Wavertree",
-          "L13 1NW"
-        ]
+        example:
+          [
+            "Liverpool Customer Service Centre",
+            "Stevenson Way",
+            "Wavertree",
+            "L13 1NW",
+          ]
         items:
           type: string
       bank_id:
@@ -7755,7 +10427,7 @@ definitions:
         example: "333333"
         type: string
       bank_id_code:
-        $ref: '#/definitions/BankIdCode'
+        $ref: "#/definitions/BankIdCode"
       bank_name:
         type: string
         description: "Sender's correspondent's name"
@@ -7797,12 +10469,13 @@ definitions:
             swift: "optional"
           get:
             swift: "sometimes"
-        example: [
-          "Liverpool Customer Service Centre",
-          "Stevenson Way",
-          "Wavertree",
-          "L13 1NW"
-        ]
+        example:
+          [
+            "Liverpool Customer Service Centre",
+            "Stevenson Way",
+            "Wavertree",
+            "L13 1NW",
+          ]
         items:
           type: string
       bank_id:
@@ -7818,7 +10491,7 @@ definitions:
         example: "333333"
         type: string
       bank_id_code:
-        $ref: '#/definitions/BankIdCode'
+        $ref: "#/definitions/BankIdCode"
       bank_name:
         type: string
         description: "Third party reimbursement institution name"
@@ -7860,12 +10533,13 @@ definitions:
             swift: "optional"
           get:
             swift: "sometimes"
-        example: [
-          "Liverpool Customer Service Centre",
-          "Stevenson Way",
-          "Wavertree",
-          "L13 1NW"
-        ]
+        example:
+          [
+            "Liverpool Customer Service Centre",
+            "Stevenson Way",
+            "Wavertree",
+            "L13 1NW",
+          ]
         items:
           type: string
       bank_id:
@@ -7888,7 +10562,7 @@ definitions:
         example: "333333"
         type: string
       bank_id_code:
-        $ref: '#/definitions/BankIdCode'
+        $ref: "#/definitions/BankIdCode"
       bank_name:
         type: string
         description: "Financial institution name"
@@ -7958,7 +10632,6 @@ definitions:
       birth_province:
         type: string
 
-
   ReturnPayment:
     type: object
     required:
@@ -7991,21 +10664,21 @@ definitions:
             type: string
           limit_breach_start_datetime:
             type: string
-            format: 'date-time'
+            format: "date-time"
             readOnly: true
           limit_breach_end_datetime:
             type: string
-            format: 'date-time'
+            format: "date-time"
             readOnly: true
       relationships:
         type: object
         properties:
           payment:
-            $ref: '#/definitions/RelationshipLinks'
+            $ref: "#/definitions/RelationshipLinks"
           return_admission:
-            $ref: '#/definitions/RelationshipLinks'
+            $ref: "#/definitions/RelationshipLinks"
           return_submission:
-            $ref: '#/definitions/RelationshipLinks'
+            $ref: "#/definitions/RelationshipLinks"
 
   ReversalPayment:
     type: object
@@ -8031,9 +10704,9 @@ definitions:
         type: object
         properties:
           payment:
-            $ref: '#/definitions/RelationshipLinks'
+            $ref: "#/definitions/RelationshipLinks"
           reversal_admission:
-            $ref: '#/definitions/RelationshipLinks'
+            $ref: "#/definitions/RelationshipLinks"
 
   ReversalReturn:
     type: object
@@ -8059,9 +10732,9 @@ definitions:
         type: object
         properties:
           payment_return:
-            $ref: '#/definitions/RelationshipLinks'
+            $ref: "#/definitions/RelationshipLinks"
           return_reversal_admission:
-            $ref: '#/definitions/RelationshipLinks'
+            $ref: "#/definitions/RelationshipLinks"
 
   NewPaymentSubmission:
     type: object
@@ -8085,8 +10758,7 @@ definitions:
         type: object
         properties:
           validations:
-            $ref: '#/definitions/RelationshipLinks'
-
+            $ref: "#/definitions/RelationshipLinks"
 
   PaymentSubmission:
     type: object
@@ -8110,18 +10782,18 @@ definitions:
         type: object
         properties:
           status:
-            $ref: '#/definitions/PaymentSubmissionStatus'
+            $ref: "#/definitions/PaymentSubmissionStatus"
           scheme_status_code:
             type: string
           status_reason:
             type: string
           submission_datetime:
             type: string
-            format: 'date-time'
+            format: "date-time"
             readOnly: true
           settlement_date:
             type: string
-            format: 'date'
+            format: "date"
           settlement_cycle:
             type: integer
             minimum: 0
@@ -8131,26 +10803,26 @@ definitions:
             type: string
           limit_breach_start_datetime:
             type: string
-            format: 'date-time'
+            format: "date-time"
             readOnly: true
           limit_breach_end_datetime:
             type: string
-            format: 'date-time'
+            format: "date-time"
             readOnly: true
           transaction_start_datetime:
             type: string
-            format: 'date-time'
+            format: "date-time"
             readOnly: true
       relationships:
-        $ref: '#/definitions/PaymentSubmissionRelationships'
+        $ref: "#/definitions/PaymentSubmissionRelationships"
 
   PaymentSubmissionRelationships:
     type: object
     properties:
       payment:
-        $ref: '#/definitions/RelationshipLinks'
+        $ref: "#/definitions/RelationshipLinks"
       validations:
-        $ref: '#/definitions/RelationshipLinks'
+        $ref: "#/definitions/RelationshipLinks"
 
   PaymentAdmission:
     type: object
@@ -8174,18 +10846,18 @@ definitions:
         type: object
         properties:
           status:
-            $ref: '#/definitions/PaymentAdmissionStatus'
+            $ref: "#/definitions/PaymentAdmissionStatus"
           scheme_status_code:
             type: string
           status_reason:
-            $ref: '#/definitions/PaymentAdmissionStatusReason'
+            $ref: "#/definitions/PaymentAdmissionStatusReason"
           admission_datetime:
             type: string
-            format: 'date-time'
+            format: "date-time"
             readOnly: true
           settlement_date:
             type: string
-            format: 'date'
+            format: "date"
           settlement_cycle:
             type: integer
             minimum: 0
@@ -8193,7 +10865,7 @@ definitions:
         type: object
         properties:
           payment:
-            $ref: '#/definitions/RelationshipLinks'
+            $ref: "#/definitions/RelationshipLinks"
 
   NewPaymentAdmission:
     type: object
@@ -8220,11 +10892,11 @@ definitions:
             type: string
           admission_datetime:
             type: string
-            format: 'date-time'
+            format: "date-time"
             readOnly: true
           settlement_date:
             type: string
-            format: 'date'
+            format: "date"
           settlement_cycle:
             type: integer
             minimum: 0
@@ -8250,7 +10922,7 @@ definitions:
         type: string
         format: uuid
       relationships:
-        $ref: '#/definitions/ReturnSubmissionRelationships'
+        $ref: "#/definitions/ReturnSubmissionRelationships"
 
   ReturnSubmission:
     type: object
@@ -8279,42 +10951,42 @@ definitions:
             type: string
           submission_datetime:
             type: string
-            format: 'date-time'
+            format: "date-time"
             readOnly: true
           settlement_date:
             type: string
-            format: 'date'
+            format: "date"
           settlement_cycle:
             type: integer
             minimum: 0
           status:
-            $ref: '#/definitions/ReturnSubmissionStatus'
+            $ref: "#/definitions/ReturnSubmissionStatus"
           redirected_bank_id:
             type: string
           redirected_account_number:
             type: string
           limit_breach_start_datetime:
             type: string
-            format: 'date-time'
+            format: "date-time"
             readOnly: true
           limit_breach_end_datetime:
             type: string
-            format: 'date-time'
+            format: "date-time"
             readOnly: true
           transaction_start_datetime:
             type: string
-            format: 'date-time'
+            format: "date-time"
             readOnly: true
       relationships:
-        $ref: '#/definitions/ReturnSubmissionRelationships'
+        $ref: "#/definitions/ReturnSubmissionRelationships"
 
   ReturnSubmissionRelationships:
     type: object
     properties:
       payment_return:
-        $ref: '#/definitions/RelationshipLinks'
+        $ref: "#/definitions/RelationshipLinks"
       validations:
-        $ref: '#/definitions/RelationshipLinks'
+        $ref: "#/definitions/RelationshipLinks"
 
   ReturnAdmission:
     type: object
@@ -8343,26 +11015,26 @@ definitions:
             type: string
           admission_datetime:
             type: string
-            format: 'date-time'
+            format: "date-time"
             readOnly: true
           settlement_date:
             type: string
-            format: 'date'
+            format: "date"
           settlement_cycle:
             type: integer
             minimum: 0
           status:
-            $ref: '#/definitions/ReturnAdmissionStatus'
+            $ref: "#/definitions/ReturnAdmissionStatus"
       relationships:
-        $ref: '#/definitions/ReturnAdmissionRelationships'
+        $ref: "#/definitions/ReturnAdmissionRelationships"
 
   ReturnAdmissionRelationships:
     type: object
     properties:
       payment_return:
-        $ref: '#/definitions/RelationshipLinks'
+        $ref: "#/definitions/RelationshipLinks"
       validations:
-        $ref: '#/definitions/RelationshipLinks'
+        $ref: "#/definitions/RelationshipLinks"
 
   NewReturnAdmission:
     type: object
@@ -8391,7 +11063,7 @@ definitions:
             type: string
           settlement_date:
             type: string
-            format: 'date'
+            format: "date"
           settlement_cycle:
             type: integer
             minimum: 0
@@ -8401,7 +11073,7 @@ definitions:
         type: object
         properties:
           validations:
-            $ref: '#/definitions/RelationshipLinks'
+            $ref: "#/definitions/RelationshipLinks"
 
   ReversalAdmission:
     type: object
@@ -8432,7 +11104,7 @@ definitions:
         type: object
         properties:
           reversal:
-            $ref: '#/definitions/RelationshipLinks'
+            $ref: "#/definitions/RelationshipLinks"
 
   ReturnReversalAdmission:
     type: object
@@ -8463,7 +11135,7 @@ definitions:
         type: object
         properties:
           payment_return_reversal:
-            $ref: '#/definitions/RelationshipLinks'
+            $ref: "#/definitions/RelationshipLinks"
 
   PaymentSubmissionValidation:
     type: object
@@ -8487,9 +11159,9 @@ definitions:
         type: object
         properties:
           source:
-            $ref: '#/definitions/ValidationSource'
+            $ref: "#/definitions/ValidationSource"
           status:
-            $ref: '#/definitions/ValidationStatus'
+            $ref: "#/definitions/ValidationStatus"
           response:
             type: string
 
@@ -8515,9 +11187,9 @@ definitions:
         type: object
         properties:
           source:
-            $ref: '#/definitions/ValidationSource'
+            $ref: "#/definitions/ValidationSource"
           status:
-            $ref: '#/definitions/ValidationStatus'
+            $ref: "#/definitions/ValidationStatus"
           response:
             type: string
 
@@ -8525,143 +11197,143 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Payment'
+        $ref: "#/definitions/Payment"
 
   ReturnCreation:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ReturnPayment'
+        $ref: "#/definitions/ReturnPayment"
 
   ReversalCreation:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ReversalPayment'
+        $ref: "#/definitions/ReversalPayment"
 
   ReturnReversalCreation:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ReversalReturn'
+        $ref: "#/definitions/ReversalReturn"
 
   PaymentAdmissionCreation:
     type: object
     properties:
       data:
-        $ref: '#/definitions/NewPaymentAdmission'
+        $ref: "#/definitions/NewPaymentAdmission"
 
   PaymentSubmissionCreation:
     type: object
     properties:
       data:
-        $ref: '#/definitions/NewPaymentSubmission'
+        $ref: "#/definitions/NewPaymentSubmission"
 
   ReturnSubmissionCreation:
     type: object
     properties:
       data:
-        $ref: '#/definitions/NewReturnSubmission'
+        $ref: "#/definitions/NewReturnSubmission"
 
   ReturnAdmissionCreation:
     type: object
     properties:
       data:
-        $ref: '#/definitions/NewReturnAdmission'
+        $ref: "#/definitions/NewReturnAdmission"
 
   ReversalAdmissionCreation:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ReversalAdmission'
+        $ref: "#/definitions/ReversalAdmission"
 
   ReturnReversalAdmissionCreation:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ReturnReversalAdmission'
+        $ref: "#/definitions/ReturnReversalAdmission"
 
   PaymentAmendment:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Payment'
+        $ref: "#/definitions/Payment"
 
   PaymentSubmissionAmendment:
     type: object
     properties:
       data:
-        $ref: '#/definitions/PaymentSubmission'
+        $ref: "#/definitions/PaymentSubmission"
 
   ReturnSubmissionAmendment:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ReturnSubmission'
+        $ref: "#/definitions/ReturnSubmission"
 
   PaymentCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Payment'
+        $ref: "#/definitions/Payment"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   ReturnCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ReturnPayment'
+        $ref: "#/definitions/ReturnPayment"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   ReversalCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ReversalPayment'
+        $ref: "#/definitions/ReversalPayment"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   ReturnReversalCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ReversalReturn'
+        $ref: "#/definitions/ReversalReturn"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   PaymentDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/Payment'
+        $ref: "#/definitions/Payment"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   ReturnDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ReturnPayment'
+        $ref: "#/definitions/ReturnPayment"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   ReversalDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ReversalPayment'
+        $ref: "#/definitions/ReversalPayment"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   ReturnReversalDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ReversalReturn'
+        $ref: "#/definitions/ReversalReturn"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   PaymentDetailsListResponse:
     type: object
@@ -8669,106 +11341,105 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/Payment'
+          $ref: "#/definitions/Payment"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   PaymentAdmissionCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/PaymentAdmission'
+        $ref: "#/definitions/PaymentAdmission"
       links:
-        $ref: '#/definitions/Links'
-
+        $ref: "#/definitions/Links"
 
   PaymentSubmissionCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/PaymentSubmission'
+        $ref: "#/definitions/PaymentSubmission"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   ReturnSubmissionCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ReturnSubmission'
+        $ref: "#/definitions/ReturnSubmission"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   ReturnAdmissionCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ReturnAdmission'
+        $ref: "#/definitions/ReturnAdmission"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   ReversalAdmissionCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ReversalAdmission'
+        $ref: "#/definitions/ReversalAdmission"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   ReturnReversalAdmissionCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ReturnReversalAdmission'
+        $ref: "#/definitions/ReturnReversalAdmission"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   PaymentAdmissionDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/PaymentAdmission'
+        $ref: "#/definitions/PaymentAdmission"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   PaymentSubmissionDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/PaymentSubmission'
+        $ref: "#/definitions/PaymentSubmission"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   ReturnSubmissionDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ReturnSubmission'
+        $ref: "#/definitions/ReturnSubmission"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   ReturnAdmissionDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ReturnAdmission'
+        $ref: "#/definitions/ReturnAdmission"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   ReversalAdmissionDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ReversalAdmission'
+        $ref: "#/definitions/ReversalAdmission"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   ReturnReversalAdmissionDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ReturnReversalAdmission'
+        $ref: "#/definitions/ReturnReversalAdmission"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   PaymentSubmissionDetailsListResponse:
     type: object
@@ -8776,33 +11447,33 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/PaymentSubmission'
+          $ref: "#/definitions/PaymentSubmission"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   PaymentSubmissionValidationCreation:
     type: object
     properties:
       data:
-        $ref: '#/definitions/PaymentSubmissionValidation'
+        $ref: "#/definitions/PaymentSubmissionValidation"
 
   ReturnSubmissionValidationCreation:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ReturnSubmissionValidation'
+        $ref: "#/definitions/ReturnSubmissionValidation"
 
   PaymentSubmissionValidationCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/PaymentSubmissionValidation'
+        $ref: "#/definitions/PaymentSubmissionValidation"
 
   ReturnSubmissionValidationCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/ReturnSubmissionValidation'
+        $ref: "#/definitions/ReturnSubmissionValidation"
 
   RelationshipLinks:
     type: object
@@ -8810,25 +11481,25 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/RelationshipData'
+          $ref: "#/definitions/RelationshipData"
 
   PaymentSubmittedEvent:
     type: object
     properties:
       payment_submission:
-        $ref: '#/definitions/PaymentSubmission'
+        $ref: "#/definitions/PaymentSubmission"
       payment:
-        $ref: '#/definitions/Payment'
+        $ref: "#/definitions/Payment"
 
   ReturnSubmittedEvent:
     type: object
     properties:
       payment:
-        $ref: '#/definitions/Payment'
+        $ref: "#/definitions/Payment"
       return_payment:
-        $ref: '#/definitions/ReturnPayment'
+        $ref: "#/definitions/ReturnPayment"
       return_submission:
-        $ref: '#/definitions/ReturnSubmission'
+        $ref: "#/definitions/ReturnSubmission"
 
   RelationshipData:
     type: object
@@ -8845,9 +11516,9 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/Relationship'
+          $ref: "#/definitions/Relationship"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   Relationship:
     type: object
@@ -8857,7 +11528,6 @@ definitions:
       id:
         type: string
         format: uuid
-
 
   PaymentAdmissionStatus:
     type: string
@@ -8946,7 +11616,7 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/Position'
+          $ref: "#/definitions/Position"
 
   Position:
     type: object
@@ -8980,7 +11650,7 @@ definitions:
             type: string
             pattern: ^[0-9.]{0,20}$
       links:
-        $ref: '#/definitions/Self'
+        $ref: "#/definitions/Self"
 
   SettlementCycle:
     type: object
@@ -9008,7 +11678,7 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/SettlementCycle'
+        $ref: "#/definitions/SettlementCycle"
 
   SettlementCycleCreationResponse:
     type: object
@@ -9017,25 +11687,25 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/PaymentDefaults'
+        $ref: "#/definitions/PaymentDefaults"
 
   PaymentDefaultsCreateResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/PaymentDefaults'
+        $ref: "#/definitions/PaymentDefaults"
 
   PaymentDefaultsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/PaymentDefaults'
+        $ref: "#/definitions/PaymentDefaults"
 
   PaymentDefaultsAmendment:
     type: object
     properties:
       data:
-        $ref: '#/definitions/PaymentDefaults'
+        $ref: "#/definitions/PaymentDefaults"
 
   PaymentDefaultsListResponse:
     type: object
@@ -9043,12 +11713,11 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/PaymentDefaults'
+          $ref: "#/definitions/PaymentDefaults"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
       meta:
-        $ref: '#/definitions/RecordCount'
-
+        $ref: "#/definitions/RecordCount"
 
   PaymentDefaults:
     type: object
@@ -9080,9 +11749,9 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/DirectDebit'
+          $ref: "#/definitions/DirectDebit"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   DirectDebit:
     type: object
@@ -9115,11 +11784,11 @@ definitions:
               account_number:
                 type: string
               account_number_code:
-                $ref: '#/definitions/AccountNumberCode'
+                $ref: "#/definitions/AccountNumberCode"
               account_type:
                 type: integer
               account_with:
-                $ref: '#/definitions/AccountHoldingEntity'
+                $ref: "#/definitions/AccountHoldingEntity"
               country:
                 type: string
               address:
@@ -9136,9 +11805,9 @@ definitions:
               account_number:
                 type: string
               account_number_code:
-                $ref: '#/definitions/AccountNumberCode'
+                $ref: "#/definitions/AccountNumberCode"
               account_with:
-                $ref: '#/definitions/AccountHoldingEntity'
+                $ref: "#/definitions/AccountHoldingEntity"
               country:
                 type: string
               address:
@@ -9164,7 +11833,7 @@ definitions:
           unique_scheme_id:
             type: string
       relationships:
-        $ref: '#/definitions/DirectDebitRelationships'
+        $ref: "#/definitions/DirectDebitRelationships"
 
   DirectDebitRelationships:
     type: object
@@ -9177,7 +11846,7 @@ definitions:
           data:
             type: array
             items:
-              $ref: '#/definitions/DirectDebitAdmission'
+              $ref: "#/definitions/DirectDebitAdmission"
 
   DirectDebitAdmission:
     type: object
@@ -9201,16 +11870,16 @@ definitions:
         properties:
           admission_datetime:
             type: string
-            format: 'date-time'
+            format: "date-time"
             readOnly: true
           status:
-            $ref: '#/definitions/DirectDebitAdmissionStatus'
+            $ref: "#/definitions/DirectDebitAdmissionStatus"
           scheme_status_code:
             type: string
           scheme_status_code_description:
             type: string
           status_reason:
-            $ref: '#/definitions/DirectDebitAdmissionStatusReason'
+            $ref: "#/definitions/DirectDebitAdmissionStatusReason"
 
   DirectDebitAdmissionStatus:
     type: string
@@ -9242,9 +11911,9 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/Mandate'
+          $ref: "#/definitions/Mandate"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   Mandate:
     type: object
@@ -9264,9 +11933,9 @@ definitions:
         type: string
         format: uuid
       attributes:
-        $ref: '#/definitions/MandateAttributes'
+        $ref: "#/definitions/MandateAttributes"
       relationships:
-        $ref: '#/definitions/MandateRelationships'
+        $ref: "#/definitions/MandateRelationships"
 
   MandateAttributes:
     type: object
@@ -9277,11 +11946,11 @@ definitions:
         type: string
         pattern: ^[0-9.]{0,20}$
       beneficiary_party:
-        $ref: '#/definitions/MandateAttributesBeneficiaryParty'
+        $ref: "#/definitions/MandateAttributesBeneficiaryParty"
       currency:
         type: string
       debtor_party:
-        $ref: '#/definitions/MandateAttributesDebtorParty'
+        $ref: "#/definitions/MandateAttributesDebtorParty"
       numeric_reference:
         type: string
       processing_date:
@@ -9301,7 +11970,7 @@ definitions:
       unique_scheme_id:
         type: string
       frequency:
-        $ref: '#/definitions/MandateFrequency'
+        $ref: "#/definitions/MandateFrequency"
 
   MandateAttributesDebtorParty:
     type: object
@@ -9315,9 +11984,9 @@ definitions:
         type: string
         pattern: ^[A-Z0-9]{6,34}$
       account_number_code:
-        $ref: '#/definitions/AccountNumberCode'
+        $ref: "#/definitions/AccountNumberCode"
       account_with:
-        $ref: '#/definitions/AccountHoldingEntity'
+        $ref: "#/definitions/AccountHoldingEntity"
       country:
         type: string
       address:
@@ -9337,11 +12006,11 @@ definitions:
         type: string
         pattern: ^[A-Z0-9]{6,34}$
       account_number_code:
-        $ref: '#/definitions/AccountNumberCode'
+        $ref: "#/definitions/AccountNumberCode"
       account_type:
         type: integer
       account_with:
-        $ref: '#/definitions/AccountHoldingEntity'
+        $ref: "#/definitions/AccountHoldingEntity"
       country:
         type: string
       address:
@@ -9360,7 +12029,7 @@ definitions:
           data:
             type: array
             items:
-              $ref: '#/definitions/MandateAdmission'
+              $ref: "#/definitions/MandateAdmission"
 
   MandateAdmission:
     type: object
@@ -9384,16 +12053,16 @@ definitions:
         properties:
           admission_datetime:
             type: string
-            format: 'date-time'
+            format: "date-time"
             readOnly: true
           status:
-            $ref: '#/definitions/MandateAdmissionStatus'
+            $ref: "#/definitions/MandateAdmissionStatus"
           scheme_status_code:
             type: string
           scheme_status_code_description:
             type: string
           status_reason:
-            $ref: '#/definitions/MandateAdmissionStatusReason'
+            $ref: "#/definitions/MandateAdmissionStatusReason"
 
   MandateAdmissionStatus:
     type: string
@@ -9427,7 +12096,6 @@ definitions:
       - yearly
 
   # mandate-api - end
-
 
   # open banking
 
@@ -9502,7 +12170,7 @@ definitions:
       public_key_id:
         type: string
       matching_criteria:
-        $ref: '#/definitions/MatchingCriteria'
+        $ref: "#/definitions/MatchingCriteria"
 
   CoPAssociationCreation:
     type: object
@@ -9510,23 +12178,23 @@ definitions:
       - data
     properties:
       data:
-        $ref: '#/definitions/CoPAssociation'
+        $ref: "#/definitions/CoPAssociation"
 
   CoPAssociationCreationResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/CoPAssociation'
+        $ref: "#/definitions/CoPAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   CoPAssociationDetailsResponse:
     type: object
     properties:
       data:
-        $ref: '#/definitions/CoPAssociation'
+        $ref: "#/definitions/CoPAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   CoPAssociationDetailsListResponse:
     type: object
@@ -9534,9 +12202,9 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/CoPAssociation'
+          $ref: "#/definitions/CoPAssociation"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   MatchingCriteria:
     type: object
@@ -9550,7 +12218,6 @@ definitions:
         type: string
 
   # open banking - end
-
 
   #PublicKey
   PublicKey:
@@ -9589,9 +12256,9 @@ definitions:
       - Public
     properties:
       data:
-        $ref: '#/definitions/PublicKey'
+        $ref: "#/definitions/PublicKey"
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
 
   UserPublicKeyListResponse:
     type: object
@@ -9606,4 +12273,38 @@ definitions:
               type: string
               format: uuid
       links:
-        $ref: '#/definitions/Links'
+        $ref: "#/definitions/Links"
+
+responses:
+  400BadRequest:
+    description: Bad Request
+    schema:
+      $ref: "#/definitions/ApiError"
+  401Unauthorized:
+    description: Authentication credentials were missing or incorrect
+    schema:
+      $ref: "#/definitions/ApiError"
+  403Forbidden:
+    description: Forbidden
+    schema:
+      $ref: "#/definitions/ApiError"
+  404NotFound:
+    description: Record not found
+    schema:
+      $ref: "#/definitions/ApiError"
+  409Conflict:
+    description: Conflict
+    schema:
+      $ref: "#/definitions/ApiError"
+  429TooManyRequests:
+    description: The request cannot be served due to the application’s rate limit
+    schema:
+      $ref: "#/definitions/ApiError"
+  500InternalServerError:
+    description: Internal Server Error
+    schema:
+      $ref: "#/definitions/ApiError"
+  503ServiceUnavailable:
+    description: The server is up, but overloaded with requests. Try again later.
+    schema:
+      $ref: "#/definitions/ApiError"

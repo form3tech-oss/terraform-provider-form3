@@ -6,8 +6,6 @@ import (
 
 	"github.com/go-openapi/strfmt"
 
-	"github.com/go-openapi/runtime"
-
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 
 	"github.com/form3tech-oss/terraform-provider-form3/models"
@@ -48,13 +46,13 @@ func resourceGocardlessAssociationCreate(d *schema.ResourceData, meta interface{
 
 	association, err := createGocardlessAssociationFromResourceData(d)
 	if err != nil {
-		return fmt.Errorf("failed to create gocardless association: %s", err)
+		return fmt.Errorf("failed to create gocardless association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	createdAssociation, err := client.AssociationClient.Associations.PostGocardless(
 		associations.NewPostGocardlessParams().WithCreationRequest(&models.GocardlessAssociationCreation{Data: association}))
 	if err != nil {
-		return fmt.Errorf("failed to create gocardless association: %s", err)
+		return fmt.Errorf("failed to create gocardless association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	d.SetId(createdAssociation.Payload.Data.ID.String())
@@ -70,13 +68,13 @@ func resourceGocardlessAssociationRead(d *schema.ResourceData, meta interface{})
 
 	gocardlessAssociation, err := client.AssociationClient.Associations.GetGocardlessID(
 		associations.NewGetGocardlessIDParams().WithID(associationId))
+
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find gocardless gateway association: %s", form3.JsonErrorPrettyPrint(err))
 		}
-		return fmt.Errorf("couldn't find gocardless gateway association: %s", err)
+		d.SetId("")
+		return nil
 	}
 
 	_ = d.Set("association_id", gocardlessAssociation.Payload.Data.ID.String())
@@ -89,7 +87,7 @@ func resourceGocardlessAssociationUpdate(d *schema.ResourceData, meta interface{
 
 	association, err := createGocardlessAssociationFromResourceData(d)
 	if err != nil {
-		return fmt.Errorf("failed to create gocardless association: %s", err)
+		return fmt.Errorf("failed to create gocardless association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	gocardlessAssociation, err := client.AssociationClient.Associations.GetGocardlessID(
@@ -113,7 +111,7 @@ func resourceGocardlessAssociationUpdate(d *schema.ResourceData, meta interface{
 		}))
 
 	if err != nil {
-		return fmt.Errorf("failed to patch gocardless association: %s", err)
+		return fmt.Errorf("failed to patch gocardless association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	log.Printf("[INFO] gocardless association key: %s", d.Id())
@@ -127,7 +125,7 @@ func resourceGocardlessAssociationDelete(d *schema.ResourceData, meta interface{
 	gocardlessAssociation, err := client.AssociationClient.Associations.GetGocardlessID(associations.NewGetGocardlessIDParams().
 		WithID(strfmt.UUID(d.Id())))
 	if err != nil {
-		return fmt.Errorf("error deleting gocardless gateway association: %s", err)
+		return fmt.Errorf("error deleting gocardless gateway association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	_, err = client.AssociationClient.Associations.DeleteGocardlessID(associations.NewDeleteGocardlessIDParams().
@@ -135,7 +133,7 @@ func resourceGocardlessAssociationDelete(d *schema.ResourceData, meta interface{
 		WithVersion(*gocardlessAssociation.Payload.Data.Version))
 
 	if err != nil {
-		return fmt.Errorf("error deleting gocardless gateway association: %s", err)
+		return fmt.Errorf("error deleting gocardless gateway association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil

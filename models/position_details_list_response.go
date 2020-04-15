@@ -8,13 +8,13 @@ package models
 import (
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // PositionDetailsListResponse position details list response
+//
 // swagger:model PositionDetailsListResponse
 type PositionDetailsListResponse struct {
 

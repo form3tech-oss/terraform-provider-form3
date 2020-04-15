@@ -3,14 +3,14 @@ package form3
 import (
 	"bytes"
 	"fmt"
+	"log"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/accounts"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/hashcode"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
 )
 
 func resourceForm3AccountConfiguration() *schema.Resource {
@@ -96,7 +96,7 @@ func resourceAccountConfigurationCreate(d *schema.ResourceData, meta interface{}
 
 	configuration, err := createAccountConfigurationFromResourceData(d)
 	if err != nil {
-		return fmt.Errorf("failed to create account configuration: %s", err)
+		return fmt.Errorf("failed to create account configuration: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	createdConfiguration, err := client.AccountClient.Accounts.PostAccountconfigurations(accounts.NewPostAccountconfigurationsParams().
@@ -105,7 +105,7 @@ func resourceAccountConfigurationCreate(d *schema.ResourceData, meta interface{}
 		}))
 
 	if err != nil {
-		return fmt.Errorf("failed to create account configuration: %s", err)
+		return fmt.Errorf("failed to create account configuration: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	d.SetId(createdConfiguration.Payload.Data.ID.String())
@@ -132,18 +132,16 @@ func resourceAccountConfigurationRead(d *schema.ResourceData, meta interface{}) 
 		WithID(configurationId))
 
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find account configuration: %s", form3.JsonErrorPrettyPrint(err))
 		}
-
-		return fmt.Errorf("couldn't find account configuration: %s", err)
+		d.SetId("")
+		return nil
 	}
 
-	d.Set("organisation_id", configuration.Payload.Data.OrganisationID.String())
-	d.Set("account_configuration_id", configuration.Payload.Data.ID.String())
-	d.Set("account_generation_enabled", configuration.Payload.Data.Attributes.AccountGenerationEnabled)
+	_ = d.Set("organisation_id", configuration.Payload.Data.OrganisationID.String())
+	_ = d.Set("account_configuration_id", configuration.Payload.Data.ID.String())
+	_ = d.Set("account_generation_enabled", configuration.Payload.Data.Attributes.AccountGenerationEnabled)
 
 	accountGenerationConfigurations :=
 		make([]interface{}, 0, len(configuration.Payload.Data.Attributes.AccountGenerationConfiguration))
@@ -171,7 +169,7 @@ func resourceAccountConfigurationDelete(d *schema.ResourceData, meta interface{}
 
 	configurationFromResource, err := createAccountConfigurationFromResourceDataWithVersion(d, client)
 	if err != nil {
-		return fmt.Errorf("error deleting account configuration: %s", err)
+		return fmt.Errorf("error deleting account configuration: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	log.Printf("[INFO] Deleting account configuration for id: %s", configurationFromResource.ID)
@@ -181,7 +179,7 @@ func resourceAccountConfigurationDelete(d *schema.ResourceData, meta interface{}
 		WithVersion(*configurationFromResource.Version))
 
 	if err != nil {
-		return fmt.Errorf("error deleting account configuration: %s", err)
+		return fmt.Errorf("error deleting account configuration: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil
@@ -192,7 +190,7 @@ func resourceAccountConfigurationUpdate(d *schema.ResourceData, meta interface{}
 	configuration, err := createAccountConfigurationFromResourceDataWithVersion(d, client)
 
 	if err != nil {
-		return fmt.Errorf("failed to update account configuration: %s", err)
+		return fmt.Errorf("failed to update account configuration: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	log.Printf("[INFO] Updating account configuration with id: %s", configuration.ID)
@@ -203,7 +201,7 @@ func resourceAccountConfigurationUpdate(d *schema.ResourceData, meta interface{}
 		}))
 
 	if err != nil {
-		return fmt.Errorf("failed to update account configuration: %s", err)
+		return fmt.Errorf("failed to update account configuration: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil
@@ -211,6 +209,10 @@ func resourceAccountConfigurationUpdate(d *schema.ResourceData, meta interface{}
 
 func createAccountConfigurationFromResourceDataWithVersion(d *schema.ResourceData, client *form3.AuthenticatedClient) (*models.AccountConfiguration, error) {
 	configuration, err := createAccountConfigurationFromResourceData(d)
+	if err != nil {
+		return nil, err
+	}
+
 	version, err := getAccountConfigurationVersion(client, configuration.ID)
 	if err != nil {
 		return nil, err
@@ -282,7 +284,7 @@ func getAccountConfigurationVersion(client *form3.AuthenticatedClient, configura
 	configuration, err := client.AccountClient.Accounts.GetAccountconfigurationsID(accounts.NewGetAccountconfigurationsIDParams().WithID(configurationId))
 	if err != nil {
 		if err != nil {
-			return -1, fmt.Errorf("error reading account configuration: %s", err)
+			return -1, fmt.Errorf("error reading account configuration: %s", form3.JsonErrorPrettyPrint(err))
 		}
 	}
 

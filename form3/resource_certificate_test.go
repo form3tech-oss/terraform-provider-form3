@@ -11,16 +11,16 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/client/system"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/strfmt"
+	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	uuid "github.com/satori/go.uuid"
 )
 
 func TestAccKey_basic(t *testing.T) {
 	var response models.Key
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.NewV4().String()
-	keyId := uuid.NewV4().String()
+	organisationId := uuid.New().String()
+	keyId := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -46,8 +46,8 @@ func TestAccKey_basic(t *testing.T) {
 func TestAccKey_ellipticCurve(t *testing.T) {
 	var response models.Key
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.NewV4().String()
-	keyId := uuid.NewV4().String()
+	organisationId := uuid.New().String()
+	keyId := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -74,9 +74,9 @@ func TestAccKey_ellipticCurve(t *testing.T) {
 func TestAccKey_withCert(t *testing.T) {
 	var response models.Key
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.NewV4().String()
-	keyId := uuid.NewV4().String()
-	certificateId := uuid.NewV4().String()
+	organisationId := uuid.New().String()
+	keyId := uuid.New().String()
+	certificateId := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -94,7 +94,7 @@ func TestAccKey_withCert(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_certificate.cert", "organisation_id", organisationId),
 					resource.TestCheckResourceAttr("form3_certificate.cert", "key_id", keyId),
 					resource.TestCheckResourceAttr("form3_certificate.cert", "certificate_id", certificateId),
-					resource.TestMatchResourceAttr("form3_certificate.cert", "certificate", regexp.MustCompile(".*MIIGZzCCBU\\+gAwIBAgIQQAFoVhQdgReBTMSz0Ui/AjANBgkqhkiG9w0BAQsFADCB.*")),
+					resource.TestMatchResourceAttr("form3_certificate.cert", "certificate", regexp.MustCompile(`.*MIIGZzCCBU\+gAwIBAgIQQAFoVhQdgReBTMSz0Ui/AjANBgkqhkiG9w0BAQsFADCB.*`)),
 					resource.TestCheckResourceAttr("form3_certificate.cert", "issuing_certificates.#", "3"),
 					resource.TestMatchResourceAttr("form3_certificate.cert", "issuing_certificates.0", regexp.MustCompile(".*My Bank.*")),
 					resource.TestMatchResourceAttr("form3_certificate.cert", "issuing_certificates.2", regexp.MustCompile(".*Root.*")),
@@ -107,9 +107,9 @@ func TestAccKey_withCert(t *testing.T) {
 func TestAccKey_withSelfSignedCert(t *testing.T) {
 	var response models.Key
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.NewV4().String()
-	keyId := uuid.NewV4().String()
-	certificateId := uuid.NewV4().String()
+	organisationId := uuid.New().String()
+	keyId := uuid.New().String()
+	certificateId := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -132,9 +132,9 @@ func TestAccKey_importExistingCert(t *testing.T) {
 
 	var response models.Key
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.NewV4().String()
-	keyId := uuid.NewV4().String()
-	certificateId := uuid.NewV4().String()
+	organisationId := uuid.New().String()
+	keyId := uuid.New().String()
+	certificateId := uuid.New().String()
 
 	if acc, ok := os.LookupEnv("TF_ACC"); ok && acc == "1" {
 		// Setup existing resources to be imported.

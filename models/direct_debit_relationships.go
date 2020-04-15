@@ -8,13 +8,13 @@ package models
 import (
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // DirectDebitRelationships direct debit relationships
+//
 // swagger:model DirectDebitRelationships
 type DirectDebitRelationships struct {
 
@@ -73,6 +73,7 @@ func (m *DirectDebitRelationships) UnmarshalBinary(b []byte) error {
 }
 
 // DirectDebitRelationshipsDirectDebitAdmission direct debit relationships direct debit admission
+//
 // swagger:model DirectDebitRelationshipsDirectDebitAdmission
 type DirectDebitRelationshipsDirectDebitAdmission struct {
 

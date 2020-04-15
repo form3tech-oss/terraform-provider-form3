@@ -2,22 +2,23 @@ package form3
 
 import (
 	"fmt"
-	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
-	"github.com/form3tech-oss/terraform-provider-form3/client/accounts"
-	"github.com/go-openapi/strfmt"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
-	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	"github.com/satori/go.uuid"
 	"math/rand"
 	"os"
 	"testing"
 	"time"
+
+	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
+	"github.com/form3tech-oss/terraform-provider-form3/client/accounts"
+	"github.com/go-openapi/strfmt"
+	"github.com/google/uuid"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/terraform"
 )
 
 func TestAccBic_basic(t *testing.T) {
 	var bicResponse accounts.GetBicsIDOK
 	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	bicId := uuid.NewV4().String()
+	bicId := uuid.New().String()
 	bic := generateTestBic()
 
 	resource.Test(t, resource.TestCase{
@@ -40,7 +41,7 @@ func TestAccBic_basic(t *testing.T) {
 func TestAccBic_importBasic(t *testing.T) {
 
 	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	bicId := uuid.NewV4().String()
+	bicId := uuid.New().String()
 	bic := generateTestBic()
 
 	resourceName := "form3_bic.bic"

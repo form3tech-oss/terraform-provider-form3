@@ -2,13 +2,13 @@ package form3
 
 import (
 	"fmt"
+	"log"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/subscriptions"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
 )
 
 func resourceForm3Subscription() *schema.Resource {
@@ -69,7 +69,7 @@ func resourceSubscriptionCreate(d *schema.ResourceData, meta interface{}) error 
 		WithSubscriptionCreationRequest(&models.SubscriptionCreation{Data: subscription}))
 
 	if err != nil {
-		return fmt.Errorf("failed to create subscription: %s", err)
+		return fmt.Errorf("failed to create subscription: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	d.SetId(createdSubscription.Payload.Data.ID.String())
@@ -95,13 +95,11 @@ func resourceSubscriptionRead(d *schema.ResourceData, meta interface{}) error {
 		subscriptions.NewGetSubscriptionsIDParams().WithID(subscriptionId))
 
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find subscription: %s", form3.JsonErrorPrettyPrint(err))
 		}
-
-		return fmt.Errorf("couldn't find subscription: %s", err)
+		d.SetId("")
+		return nil
 	}
 
 	d.Set("subscription_id", subscription.Payload.Data.ID.String())
@@ -120,7 +118,7 @@ func resourceSubscriptionUpdate(d *schema.ResourceData, meta interface{}) error 
 	client := meta.(*form3.AuthenticatedClient)
 	subscriptionFromResource, err := createSubscriptionFromResourceDataWithVersion(d, client)
 	if err != nil {
-		return fmt.Errorf("error updating subscription: %s", err)
+		return fmt.Errorf("error updating subscription: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	_, err = client.NotificationClient.Subscriptions.PatchSubscriptionsID(subscriptions.NewPatchSubscriptionsIDParams().
@@ -128,7 +126,7 @@ func resourceSubscriptionUpdate(d *schema.ResourceData, meta interface{}) error 
 		WithSubscriptionUpdateRequest(&models.SubscriptionCreation{Data: subscriptionFromResource}))
 
 	if err != nil {
-		return fmt.Errorf("error updating subscription: %s", err)
+		return fmt.Errorf("error updating subscription: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil
@@ -139,7 +137,7 @@ func resourceSubscriptionDelete(d *schema.ResourceData, meta interface{}) error 
 
 	subscriptionFromResource, err := createSubscriptionFromResourceDataWithVersion(d, client)
 	if err != nil {
-		return fmt.Errorf("error deleting subscription: %s", err)
+		return fmt.Errorf("error deleting subscription: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	log.Printf("[INFO] Deleting subscription for id: %s", subscriptionFromResource.ID)
@@ -149,7 +147,7 @@ func resourceSubscriptionDelete(d *schema.ResourceData, meta interface{}) error 
 		WithVersion(*subscriptionFromResource.Version))
 
 	if err != nil {
-		return fmt.Errorf("error deleting subscription: %s", err)
+		return fmt.Errorf("error deleting subscription: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil
@@ -157,6 +155,10 @@ func resourceSubscriptionDelete(d *schema.ResourceData, meta interface{}) error 
 
 func createSubscriptionFromResourceDataWithVersion(d *schema.ResourceData, client *form3.AuthenticatedClient) (*models.Subscription, error) {
 	subscription, err := createSubscriptionFromResourceData(d)
+	if err != nil {
+		return nil, err
+	}
+
 	version, err := getSubscriptionVersion(client, subscription.ID)
 	if err != nil {
 		return nil, err
@@ -202,7 +204,7 @@ func getSubscriptionVersion(client *form3.AuthenticatedClient, subscriptionId st
 	subscription, err := client.NotificationClient.Subscriptions.GetSubscriptionsID(subscriptions.NewGetSubscriptionsIDParams().
 		WithID(subscriptionId))
 	if err != nil {
-		return -1, fmt.Errorf("error reading subscription: %s", err)
+		return -1, fmt.Errorf("error reading subscription: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return *subscription.Payload.Data.Version, nil

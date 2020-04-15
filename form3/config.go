@@ -1,9 +1,10 @@
 package form3
 
 import (
+	"log"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client"
-	"log"
 )
 
 // Config contains form3 provider settings
@@ -23,7 +24,7 @@ func (c *Config) Client() (*form3.AuthenticatedClient, error) {
 
 	log.Printf("[INFO] form3 client configured for server %s", c.ApiHost)
 
-	client.Authenticate(c.ClientId, c.ClientSecret)
+	err := client.Authenticate(c.ClientId, c.ClientSecret)
 
-	return client, nil
+	return client, err
 }

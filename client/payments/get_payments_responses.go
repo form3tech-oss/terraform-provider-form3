@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetPaymentsReader is a Reader for the GetPayments structure.
@@ -24,13 +23,60 @@ type GetPaymentsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetPaymentsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetPaymentsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetPaymentsBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 401:
+		result := NewGetPaymentsUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 403:
+		result := NewGetPaymentsForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetPaymentsNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 409:
+		result := NewGetPaymentsConflict()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 429:
+		result := NewGetPaymentsTooManyRequests()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetPaymentsInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 503:
+		result := NewGetPaymentsServiceUnavailable()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -54,9 +100,277 @@ func (o *GetPaymentsOK) Error() string {
 	return fmt.Sprintf("[GET /payments][%d] getPaymentsOK  %+v", 200, o.Payload)
 }
 
+func (o *GetPaymentsOK) GetPayload() *models.PaymentDetailsListResponse {
+	return o.Payload
+}
+
 func (o *GetPaymentsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.PaymentDetailsListResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetPaymentsBadRequest creates a GetPaymentsBadRequest with default headers values
+func NewGetPaymentsBadRequest() *GetPaymentsBadRequest {
+	return &GetPaymentsBadRequest{}
+}
+
+/*GetPaymentsBadRequest handles this case with default header values.
+
+Bad Request
+*/
+type GetPaymentsBadRequest struct {
+	Payload *models.APIError
+}
+
+func (o *GetPaymentsBadRequest) Error() string {
+	return fmt.Sprintf("[GET /payments][%d] getPaymentsBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetPaymentsBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetPaymentsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetPaymentsUnauthorized creates a GetPaymentsUnauthorized with default headers values
+func NewGetPaymentsUnauthorized() *GetPaymentsUnauthorized {
+	return &GetPaymentsUnauthorized{}
+}
+
+/*GetPaymentsUnauthorized handles this case with default header values.
+
+Authentication credentials were missing or incorrect
+*/
+type GetPaymentsUnauthorized struct {
+	Payload *models.APIError
+}
+
+func (o *GetPaymentsUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /payments][%d] getPaymentsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetPaymentsUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetPaymentsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetPaymentsForbidden creates a GetPaymentsForbidden with default headers values
+func NewGetPaymentsForbidden() *GetPaymentsForbidden {
+	return &GetPaymentsForbidden{}
+}
+
+/*GetPaymentsForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetPaymentsForbidden struct {
+	Payload *models.APIError
+}
+
+func (o *GetPaymentsForbidden) Error() string {
+	return fmt.Sprintf("[GET /payments][%d] getPaymentsForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetPaymentsForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetPaymentsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetPaymentsNotFound creates a GetPaymentsNotFound with default headers values
+func NewGetPaymentsNotFound() *GetPaymentsNotFound {
+	return &GetPaymentsNotFound{}
+}
+
+/*GetPaymentsNotFound handles this case with default header values.
+
+Record not found
+*/
+type GetPaymentsNotFound struct {
+	Payload *models.APIError
+}
+
+func (o *GetPaymentsNotFound) Error() string {
+	return fmt.Sprintf("[GET /payments][%d] getPaymentsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetPaymentsNotFound) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetPaymentsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetPaymentsConflict creates a GetPaymentsConflict with default headers values
+func NewGetPaymentsConflict() *GetPaymentsConflict {
+	return &GetPaymentsConflict{}
+}
+
+/*GetPaymentsConflict handles this case with default header values.
+
+Conflict
+*/
+type GetPaymentsConflict struct {
+	Payload *models.APIError
+}
+
+func (o *GetPaymentsConflict) Error() string {
+	return fmt.Sprintf("[GET /payments][%d] getPaymentsConflict  %+v", 409, o.Payload)
+}
+
+func (o *GetPaymentsConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetPaymentsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetPaymentsTooManyRequests creates a GetPaymentsTooManyRequests with default headers values
+func NewGetPaymentsTooManyRequests() *GetPaymentsTooManyRequests {
+	return &GetPaymentsTooManyRequests{}
+}
+
+/*GetPaymentsTooManyRequests handles this case with default header values.
+
+The request cannot be served due to the application’s rate limit
+*/
+type GetPaymentsTooManyRequests struct {
+	Payload *models.APIError
+}
+
+func (o *GetPaymentsTooManyRequests) Error() string {
+	return fmt.Sprintf("[GET /payments][%d] getPaymentsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetPaymentsTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetPaymentsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetPaymentsInternalServerError creates a GetPaymentsInternalServerError with default headers values
+func NewGetPaymentsInternalServerError() *GetPaymentsInternalServerError {
+	return &GetPaymentsInternalServerError{}
+}
+
+/*GetPaymentsInternalServerError handles this case with default header values.
+
+Internal Server Error
+*/
+type GetPaymentsInternalServerError struct {
+	Payload *models.APIError
+}
+
+func (o *GetPaymentsInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /payments][%d] getPaymentsInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetPaymentsInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetPaymentsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetPaymentsServiceUnavailable creates a GetPaymentsServiceUnavailable with default headers values
+func NewGetPaymentsServiceUnavailable() *GetPaymentsServiceUnavailable {
+	return &GetPaymentsServiceUnavailable{}
+}
+
+/*GetPaymentsServiceUnavailable handles this case with default header values.
+
+The server is up, but overloaded with requests. Try again later.
+*/
+type GetPaymentsServiceUnavailable struct {
+	Payload *models.APIError
+}
+
+func (o *GetPaymentsServiceUnavailable) Error() string {
+	return fmt.Sprintf("[GET /payments][%d] getPaymentsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetPaymentsServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
+}
+
+func (o *GetPaymentsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.APIError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

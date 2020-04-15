@@ -2,14 +2,14 @@ package form3
 
 import (
 	"fmt"
+	"log"
+	"strings"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/users"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"log"
-	"strings"
 )
 
 func resourceForm3CredentialPublicKey() *schema.Resource {
@@ -91,13 +91,11 @@ func resourceCredentialPublicKeyRead(d *schema.ResourceData, meta interface{}) e
 	publicKey, err := client.SecurityClient.Users.GetUsersUserIDCredentialsPublicKeyPublicKeyID(getKeyParams)
 
 	if err != nil {
-		apiError, ok := err.(*runtime.APIError)
-		if ok && apiError.Code == 404 {
-			d.SetId("")
-			return nil
+		if !form3.IsJsonErrorStatusCode(err, 404) {
+			return fmt.Errorf("couldn't find credential public key for user %s with id:%s error %s", userID, keyID, err)
 		}
-
-		return fmt.Errorf("couldn't find credential public key for user %s with id:%s error %s", userID, keyID, err)
+		d.SetId("")
+		return nil
 	}
 
 	d.SetId(publicKey.Payload.ID.String())
@@ -113,7 +111,7 @@ func resourceCredentialPublicKeyDelete(d *schema.ResourceData, meta interface{})
 
 	publicKey, err := createCredentialPublicKeyFromResourceData(d)
 	if err != nil {
-		return fmt.Errorf("error deleting credential public key: %s", err)
+		return fmt.Errorf("error deleting credential public key: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	userID, _ := GetUUIDOK(d, "user_id")
@@ -123,7 +121,7 @@ func resourceCredentialPublicKeyDelete(d *schema.ResourceData, meta interface{})
 		WithUserID(userID).WithPublicKeyID(publicKey.ID))
 
 	if err != nil {
-		return fmt.Errorf("error deleting credential public key: %s", err)
+		return fmt.Errorf("error deleting credential public key: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil

@@ -2,21 +2,22 @@ package form3
 
 import (
 	"fmt"
+	"os"
+	"testing"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/account_routings"
 	"github.com/go-openapi/strfmt"
+	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	"github.com/satori/go.uuid"
-	"os"
-	"testing"
 )
 
 func TestAccAccountRouting_basic(t *testing.T) {
 	var accountRoutingResponse account_routings.GetAccountRoutingsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.NewV4().String()
-	accountRoutingId := uuid.NewV4().String()
+	organisationId := uuid.New().String()
+	accountRoutingId := uuid.New().String()
 	accountGenerator := "accountapi"
 	accountProvisioner := "accountapi"
 	match := "*"
@@ -46,8 +47,8 @@ func TestAccAccountRouting_basic(t *testing.T) {
 func TestAccAccountRouting_importBasic(t *testing.T) {
 
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.NewV4().String()
-	accountRoutingId := uuid.NewV4().String()
+	organisationId := uuid.New().String()
+	accountRoutingId := uuid.New().String()
 	accountGenerator := "accountapi"
 	accountProvisioner := "accountapi"
 	match := "*"
