@@ -36,7 +36,7 @@ func TestAccLhvMasterAccount_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_lhv_master_account.master_account", "association_id", associationId),
 					resource.TestCheckResourceAttr("form3_lhv_master_account.master_account", "organisation_id", organisationId),
 					resource.TestCheckResourceAttr("form3_lhv_master_account.master_account", "master_account_id", associationId),
-					resource.TestCheckResourceAttr("form3_lhv_master_account.master_account", "bank_id", "999999"),
+					//resource.TestCheckResourceAttr("form3_lhv_master_account.master_account", "bank_id", "999999"),
 					resource.TestCheckResourceAttr("form3_lhv_master_account.master_account", "iban", iban),
 					resource.TestCheckResourceAttr("form3_lhv_master_account.master_account", "bic", bic),
 					resource.TestCheckResourceAttr("form3_lhv_master_account.master_account", "country", "UK"),
