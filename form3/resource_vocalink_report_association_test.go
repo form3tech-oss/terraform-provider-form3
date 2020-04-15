@@ -17,6 +17,7 @@ func TestAccVocalinkReportAssociation_basic(t *testing.T) {
 	var response associations.GetVocalinkreportIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	associationId := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -24,11 +25,11 @@ func TestAccVocalinkReportAssociation_basic(t *testing.T) {
 		CheckDestroy: testAccCheckVocalinkReportAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3VocalinkReportAssociationConfigA, organisationId, parentOrganisationId),
+				Config: fmt.Sprintf(testForm3VocalinkReportAssociationConfigA, organisationId, parentOrganisationId, associationId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckVocalinkReportAssociationExists("form3_vocalink_report_association.association", &response),
 					resource.TestCheckResourceAttr("form3_vocalink_report_association.association", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_vocalink_report_association.association", "association_id", "ad5e20e5-800d-4143-9936-ca1007da3a03"),
+					resource.TestCheckResourceAttr("form3_vocalink_report_association.association", "association_id", associationId),
 					resource.TestCheckResourceAttr("form3_vocalink_report_association.association", "bacs_member_key_id", "43bdb305-e4b8-4eeb-9b26-b9cb0cad1ae5"),
 					resource.TestCheckResourceAttr("form3_vocalink_report_association.association", "bacs_member_certificate_id", "cb9c35c3-de6c-4376-bb23-a5ca2cbdb142"),
 					resource.TestCheckResourceAttr("form3_vocalink_report_association.association", "fps_member_key_id", "336145dc-587e-47b9-a0c4-61ae25e1f35e"),
@@ -101,7 +102,7 @@ resource "form3_organisation" "organisation" {
 
 resource "form3_vocalink_report_association" "association" {
 	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
-	association_id                   = "ad5e20e5-800d-4143-9936-ca1007da3a03"
+	association_id                   = "%s"
   bacs_member_key_id               = "43bdb305-e4b8-4eeb-9b26-b9cb0cad1ae5"
   bacs_member_certificate_id       = "cb9c35c3-de6c-4376-bb23-a5ca2cbdb142"
   fps_member_key_id                = "336145dc-587e-47b9-a0c4-61ae25e1f35e"
