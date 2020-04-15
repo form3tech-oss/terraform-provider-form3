@@ -21,6 +21,8 @@ func TestAccLhvMasterAccount_basic(t *testing.T) {
 	masterAccountId := uuid.New().String()
 	iban := uuid.New().String()
 	bic := generateTestBic()
+	bicID := uuid.New().String()
+	bankidID := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -28,12 +30,13 @@ func TestAccLhvMasterAccount_basic(t *testing.T) {
 		CheckDestroy: testAccCheckLhvMasterAccountDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3LhvMasterAccountConfigA, organisationId, parentOrganisationId, associationId, masterAccountId, clientCode, iban, bic),
+				Config: fmt.Sprintf(testForm3LhvMasterAccountConfigA, organisationId, parentOrganisationId, associationId, masterAccountId, clientCode, iban, bic, bicID, bankidID),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckLhvMasterAccountExists("form3_lhv_master_account.master_account"),
 					resource.TestCheckResourceAttr("form3_lhv_master_account.master_account", "association_id", associationId),
 					resource.TestCheckResourceAttr("form3_lhv_master_account.master_account", "organisation_id", organisationId),
 					resource.TestCheckResourceAttr("form3_lhv_master_account.master_account", "master_account_id", associationId),
+					resource.TestCheckResourceAttr("form3_lhv_master_account.master_account", "bank_id", "999999"),
 					resource.TestCheckResourceAttr("form3_lhv_master_account.master_account", "iban", iban),
 					resource.TestCheckResourceAttr("form3_lhv_master_account.master_account", "bic", bic),
 					resource.TestCheckResourceAttr("form3_lhv_master_account.master_account", "country", "UK"),
@@ -103,6 +106,8 @@ locals {
 	clientCode      = "%s"
 	iban            = "%s"
 	bic             = "%s"
+	bic_id          = "%s"
+	bankid_id       = "%s"
 }
 
 resource "form3_organisation" "organisation" {
@@ -117,6 +122,20 @@ resource "form3_lhv_association" "association" {
 	name            = "terraform-association"
 	client_code     = "${local.clientCode}"
 	client_country  = "UK"
+}
+
+resource "form3_bic" "bic" {
+	organisation_id = "${form3_organisation.organisation.organisation_id}"
+	bic_id          = "${local.bic_id}"
+	bic       	    = "${local.bic}"
+}
+
+resource "form3_bank_id" "bank_id" {
+	organisation_id  = "${form3_organisation.organisation.organisation_id}"
+	bank_resource_id = "${local.bankid_id}"
+	bank_id       	 = "999999"
+	bank_id_code     = "GBDSC"
+	country          = "GB"
 }
 
 resource "form3_lhv_master_account" "master_account" {

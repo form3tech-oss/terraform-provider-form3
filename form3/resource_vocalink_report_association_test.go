@@ -103,11 +103,11 @@ resource "form3_organisation" "organisation" {
 resource "form3_vocalink_report_association" "association" {
 	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
 	association_id                   = "%s"
-  bacs_member_key_id               = "43bdb305-e4b8-4eeb-9b26-b9cb0cad1ae5"
-  bacs_member_certificate_id       = "cb9c35c3-de6c-4376-bb23-a5ca2cbdb142"
-  fps_member_key_id                = "336145dc-587e-47b9-a0c4-61ae25e1f35e"
-  fps_member_certificate_id        = "7a7a0f00-c507-49c1-ba89-30fd8521173b"
-  bacs_service_user_number         = "998877"
-  bacs_service_user_key_id         = "33b06551-e9f0-4e84-b1a0-ab23f6ea5611"
-  bacs_service_user_certificate_id = "f9962c0c-992a-4ce7-a6d5-8e8b6222ad65"
+	bacs_member_key_id               = "43bdb305-e4b8-4eeb-9b26-b9cb0cad1ae5"
+	bacs_member_certificate_id       = "cb9c35c3-de6c-4376-bb23-a5ca2cbdb142"
+	fps_member_key_id                = "336145dc-587e-47b9-a0c4-61ae25e1f35e"
+	fps_member_certificate_id        = "7a7a0f00-c507-49c1-ba89-30fd8521173b"
+	bacs_service_user_number         = "998877"
+	bacs_service_user_key_id         = "33b06551-e9f0-4e84-b1a0-ab23f6ea5611"
+	bacs_service_user_certificate_id = "f9962c0c-992a-4ce7-a6d5-8e8b6222ad65"
 }`

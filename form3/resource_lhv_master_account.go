@@ -44,6 +44,11 @@ func resourceForm3LhvMasterAccount() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
+			"bank_id": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
 			"country": {
 				Type:     schema.TypeString,
 				Required: true,
@@ -111,6 +116,7 @@ func resourceLhvMasterAccountRead(d *schema.ResourceData, meta interface{}) erro
 
 	_ = d.Set("country", masterAccount.Payload.Data.Attributes.Country)
 	_ = d.Set("bic", masterAccount.Payload.Data.Attributes.Bic)
+	_ = d.Set("bank_id", masterAccount.Payload.Data.Attributes.BankID)
 	_ = d.Set("iban", masterAccount.Payload.Data.Attributes.Iban)
 	_ = d.Set("requires_direct_account", masterAccount.Payload.Data.Attributes.RequiresDirectAccount)
 	return nil
@@ -164,6 +170,10 @@ func createLhvNewMasterAccountFromResourceData(d *schema.ResourceData) (*models.
 
 	if attr, ok := d.GetOk("bic"); ok {
 		masterAccount.Attributes.Bic = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("bank_id"); ok {
+		masterAccount.Attributes.BankID = attr.(string)
 	}
 
 	if attr, ok := d.GetOk("iban"); ok {

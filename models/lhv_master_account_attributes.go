@@ -17,6 +17,10 @@ import (
 // swagger:model LhvMasterAccountAttributes
 type LhvMasterAccountAttributes struct {
 
+	// Local country bank identifier. In the UK this is the sort code.
+	// Pattern: ^[A-Z0-9]{0,16}$
+	BankID string `json:"bank_id,omitempty"`
+
 	// SWIFT BIC in either 8 or 11 character format
 	// Required: true
 	// Pattern: ^([A-Z]{6}[A-Z0-9]{2}|[A-Z]{6}[A-Z0-9]{5})$
@@ -40,6 +44,10 @@ type LhvMasterAccountAttributes struct {
 func (m *LhvMasterAccountAttributes) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateBankID(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateBic(formats); err != nil {
 		res = append(res, err)
 	}
@@ -55,6 +63,19 @@ func (m *LhvMasterAccountAttributes) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *LhvMasterAccountAttributes) validateBankID(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.BankID) { // not required
+		return nil
+	}
+
+	if err := validate.Pattern("bank_id", "body", string(m.BankID), `^[A-Z0-9]{0,16}$`); err != nil {
+		return err
+	}
+
 	return nil
 }
 
