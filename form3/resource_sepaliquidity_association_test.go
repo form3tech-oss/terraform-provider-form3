@@ -2,8 +2,10 @@ package form3
 
 import (
 	"fmt"
+	"math/rand"
 	"os"
 	"testing"
+	"time"
 
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
@@ -12,6 +14,24 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
 )
+
+func init() {
+	rand.Seed(time.Now().UnixNano())
+}
+
+var letterRunes = []rune("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+func randBicPrefix(n int) string {
+	b := make([]rune, n)
+	for i := range b {
+		b[i] = letterRunes[rand.Intn(len(letterRunes))]
+	}
+	return string(b)
+}
+
+func randNumber(min int, max int) int {
+	return rand.Intn(max-min) + min
+}
 
 func TestAccSepaLiquidityAssociation_basic(t *testing.T) {
 	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
@@ -26,8 +46,8 @@ func TestAccSepaLiquidityAssociation_basic(t *testing.T) {
 	sponsorAssociationTechnicalBic := generateTestBic()
 	sponsorAssociationSettlementBic := generateTestBic()
 	sponsorAssociationSettlementIban := generateRandomIban()
-	sponsoredAssociationSponsoredBic0 := fmt.Sprintf("BICBIC%d", randomNumber(20000, 99999))
-	sponsoredAssociationSponsoredBic1 := fmt.Sprintf("BICBIC%d", randomNumber(20000, 99999))
+	sponsoredAssociationSponsoredBic0 := fmt.Sprintf("%s%d", randBicPrefix(6), randNumber(20000, 99999))
+	sponsoredAssociationSponsoredBic1 := fmt.Sprintf("%s%d", randBicPrefix(6), randNumber(20000, 99999))
 	sponsoredAssociationSettlementIban := generateRandomIban()
 
 	config := fmt.Sprintf(
