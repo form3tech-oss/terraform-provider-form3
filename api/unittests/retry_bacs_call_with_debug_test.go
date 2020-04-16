@@ -14,7 +14,7 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/client"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/go-openapi/strfmt"
-	uuid "github.com/nu7hatch/gouuid"
+	"github.com/google/uuid"
 )
 
 func TestFailedBacsAssociationWithDebugEnabled(t *testing.T) {
@@ -65,8 +65,7 @@ func TestFailedBacsAssociationWithDebugEnabled(t *testing.T) {
 		t.Error(err)
 	}
 
-	randomId, _ := uuid.NewV4()
-	randomUUID := strfmt.UUID(randomId.String())
+	randomUUID := strfmt.UUID(uuid.New().String())
 
 	_, err = authClient.AssociationClient.Associations.GetBacsID(associations.NewGetBacsIDParams().WithID(randomUUID))
 	if err == nil {
