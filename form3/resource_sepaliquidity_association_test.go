@@ -23,8 +23,8 @@ func TestAccSepaLiquidityAssociation_basic(t *testing.T) {
 	sponsor_assoc_path := "form3_sepaliquidity_association.sponsor_association"
 	sponsored_assoc_path := "form3_sepaliquidity_association.sponsored_association"
 
-	sponsorAssociationTechnicalBic := fmt.Sprintf("BICBIC%d", randomNumber(20, 99))
-	sponsorAssociationSettlementBic := fmt.Sprintf("BICBIC%d", randomNumber(20, 99))
+	sponsorAssociationTechnicalBic := generateTestBic()
+	sponsorAssociationSettlementBic := generateTestBic()
 	sponsorAssociationSettlementIban := generateRandomIban()
 	sponsoredAssociationSponsoredBic0 := fmt.Sprintf("BICBIC%d", randomNumber(20000, 99999))
 	sponsoredAssociationSponsoredBic1 := fmt.Sprintf("BICBIC%d", randomNumber(20000, 99999))
@@ -146,7 +146,7 @@ locals {
 	sponsor_association_technical_bic 	= "%s"
 	sponsor_association_settlement_bic 	= "%s"
 	sponsor_association_settlement_iban = "%s"
-		
+
 	sponsored_association_sponsored_bic_0 = "%s"
 	sponsored_association_sponsored_bic_1 = "%s"
 	sponsored_association_settlement_iban = "%s"
