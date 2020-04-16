@@ -72,7 +72,7 @@ func generateTestBic() string {
 		b[i] = characters[rand.Intn(len(characters))]
 	}
 
-	characters = []rune("0123456789")
+	characters = []rune("23456789")
 	c := make([]rune, 2)
 	for i := range c {
 		c[i] = characters[rand.Intn(len(characters))]
