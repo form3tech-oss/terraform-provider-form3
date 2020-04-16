@@ -30,7 +30,7 @@ testacc: fmtcheck
 	TF_ACC=1 FORM3_ACC=1 go test -v -timeout 120m $(GOFILES)
 
 testacc_debug: fmtcheck
-	TF_LOG=DEBUG TF_ACC=1 FORM3_ACC=1 go test $(TEST) -run $(test) -v -count 1 -timeout 1m
+	TF_LOG=DEBUG TF_ACC=1 FORM3_ACC=1 go test $(GOFILES) -run $(test) -v -count 1 -timeout 1m
 
 
 install-swagger:
