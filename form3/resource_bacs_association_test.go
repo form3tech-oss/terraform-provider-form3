@@ -1,9 +1,11 @@
 package form3
 
 import (
+	"bytes"
 	"fmt"
 	"os"
 	"testing"
+	"text/template"
 
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
@@ -15,8 +17,23 @@ import (
 
 func TestAccBacsAssociation_basic(t *testing.T) {
 	var bacsResponse associations.GetBacsIDOK
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
+
+	configData := associationConfigWithCerts{
+		OrgID:           uuid.New().String(),
+		OrgParentID:     os.Getenv("FORM3_ORGANISATION_ID"),
+		AssociationID:   uuid.New().String(),
+		InputKeyID:      uuid.New().String(),
+		InputCertID:     uuid.New().String(),
+		MessagingKeyID:  uuid.New().String(),
+		MessagingCertID: uuid.New().String(),
+		OutputKeyID:     uuid.New().String(),
+		OutputCertID:    uuid.New().String(),
+	}
+
+	config, err := makeTestForm3BacsAssociationConfigWithCerts(configData)
+	if err != nil {
+		t.Fatalf("make configuration failed: %v", err)
+	}
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -24,23 +41,23 @@ func TestAccBacsAssociation_basic(t *testing.T) {
 		CheckDestroy: testAccCheckBacsAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3BacsAssociationConfigWithCerts, organisationId, parentOrganisationId),
+				Config: config,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBacsAssociationExists("form3_bacs_association.association", &bacsResponse),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "service_user_number", "112238"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "account_number", "12345678"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "sorting_code", "123456"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "account_type", "1"),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "association_id", "ad5e20e5-800d-4143-9936-ca1007da3a03"),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "input_key_id", "8f77e1ba-944e-44f3-a845-f99ba80af63c"),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "input_certificate_id", "23d4fa5d-ef38-48de-b9e4-22f45004bb50"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "organisation_id", configData.OrgID),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "association_id", configData.AssociationID),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "input_key_id", configData.InputKeyID),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "input_certificate_id", configData.InputCertID),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "input_tsu_number", "B12345"),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "messaging_key_id", "ce3b888b-2328-49ed-9c04-cda0035f8fd0"),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "messaging_certificate_id", "f79162cb-cbde-4152-b2f0-3bde47da3332"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "messaging_key_id", configData.MessagingKeyID),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "messaging_certificate_id", configData.MessagingCertID),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "messaging_tsu_number", "B12346"),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "output_key_id", "a7984808-a3bb-4951-827c-d4d15d01ac0b"),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "output_certificate_id", "6dd9ca5d-b64a-4b59-a287-ad4ea82acb4f"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "output_key_id", configData.OutputKeyID),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "output_certificate_id", configData.OutputCertID),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "output_tsu_number", "B12347"),
 				),
 			},
@@ -168,33 +185,54 @@ func testAccCheckBacsAssociationExists(resourceKey string, association *associat
 	}
 }
 
-const testForm3BacsAssociationConfigWithCerts = `
+type associationConfigWithCerts struct {
+	OrgID           string
+	OrgParentID     string
+	AssociationID   string
+	InputKeyID      string
+	InputCertID     string
+	MessagingKeyID  string
+	MessagingCertID string
+	OutputKeyID     string
+	OutputCertID    string
+}
+
+func makeTestForm3BacsAssociationConfigWithCerts(data associationConfigWithCerts) (string, error) {
+	tfeTemplate := `
 resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
+	organisation_id        = "{{ .OrgID }}"
+	parent_organisation_id = "{{ .OrgParentID }}"
 	name 		           = "terraform-organisation"
 }
 
 resource "form3_bacs_association" "association" {
 	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
-	association_id                   = "ad5e20e5-800d-4143-9936-ca1007da3a03"
+	association_id                   = "{{ .AssociationID }}"
 	service_user_number              = "112238"
     account_number                   = "12345678"
     sorting_code                     = "123456"
     account_type                     = 1
 
-    input_key_id                     = "8f77e1ba-944e-44f3-a845-f99ba80af63c"
-    input_certificate_id             = "23d4fa5d-ef38-48de-b9e4-22f45004bb50"
+    input_key_id                     = "{{ .InputKeyID }}"
+    input_certificate_id             = "{{ .InputCertID }}"
     input_tsu_number                 = "B12345"
 
-    messaging_key_id                 = "ce3b888b-2328-49ed-9c04-cda0035f8fd0"
-    messaging_certificate_id         = "f79162cb-cbde-4152-b2f0-3bde47da3332"
+    messaging_key_id                 = "{{ .MessagingKeyID }}"
+    messaging_certificate_id         = "{{ .MessagingCertID }}"
     messaging_tsu_number             = "B12346"
 
-    output_key_id                    = "a7984808-a3bb-4951-827c-d4d15d01ac0b"
-    output_certificate_id            = "6dd9ca5d-b64a-4b59-a287-ad4ea82acb4f"
+    output_key_id                    = "{{ .OutputKeyID }}"
+    output_certificate_id            = "{{ .OutputCertID }}"
     output_tsu_number                = "B12347"
 }`
+
+	tpl := template.Must(template.New("tpl").Parse(tfeTemplate))
+
+	var buf bytes.Buffer
+	err := tpl.Execute(&buf, data)
+
+	return buf.String(), err
+}
 
 const testForm3BacsAssociationConfigZeroAccountType = `
 resource "form3_organisation" "organisation" {
