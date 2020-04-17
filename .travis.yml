@@ -2,7 +2,7 @@ language: go
 go:
 - 1.14.x
 script:
-- make
+- travis_wait 20 make
 after_success:
 - make release
 env:
