@@ -180,7 +180,7 @@ func createLhvNewMasterAccountFromResourceData(d *schema.ResourceData) (*models.
 		masterAccount.Attributes.Iban = attr.(string)
 	}
 
-	if attr, ok := d.GetOk("requires_direct_account)"); ok {
+	if attr, ok := d.GetOk("requires_direct_account"); ok {
 		masterAccount.Attributes.RequiresDirectAccount = attr.(*bool)
 	}
 
