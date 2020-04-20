@@ -9,6 +9,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
+	"strconv"
 	"sync"
 	"time"
 
@@ -19,6 +21,10 @@ import (
 	rc "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/logging"
+)
+
+const (
+	maxApiRetriesEnvName = "MAX_API_RETRIES"
 )
 
 var tokenCache = sync.Map{}
@@ -108,6 +114,15 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 	a := &AuthenticatedClientCheckRedirect{}
 	var authClient *AuthenticatedClient
 
+	retryMax := 10
+	if cnt, ok := os.LookupEnv(maxApiRetriesEnvName); ok {
+		var err error
+		retryMax, err = strconv.Atoi(cnt)
+		if err != nil {
+			panic(fmt.Sprintf("expected int in ENV var %s, got %q", maxApiRetriesEnvName, cnt))
+		}
+	}
+
 	h := &http.Client{
 		Transport: roundTripperFunc(func(req *http.Request) (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody {
@@ -164,7 +179,7 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 
 				return nil
 			}
-			err := retry.Do(retryableFunc, retry.MaxTries(10), retry.Sleep(500*time.Millisecond))
+			err := retry.Do(retryableFunc, retry.MaxTries(retryMax), retry.Sleep(500*time.Millisecond))
 
 			if logging.IsDebugOrHigher() {
 				if resp != nil {
