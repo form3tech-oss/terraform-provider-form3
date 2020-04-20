@@ -65,6 +65,10 @@ func TestAccBic_importBasic(t *testing.T) {
 }
 
 func generateTestBic() string {
+	return generateTestBicWithLength(8)
+}
+
+func generateTestBicWithLength(length int) string {
 	rand.Seed(time.Now().UTC().UnixNano())
 	var characters = []rune("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 	b := make([]rune, 6)
@@ -73,7 +77,7 @@ func generateTestBic() string {
 	}
 
 	characters = []rune("23456789")
-	c := make([]rune, 2)
+	c := make([]rune, length-6)
 	for i := range c {
 		c[i] = characters[rand.Intn(len(characters))]
 	}

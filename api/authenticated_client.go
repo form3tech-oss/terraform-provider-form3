@@ -9,11 +9,10 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"net/http/httputil"
 	"sync"
-
 	"time"
 
+	"github.com/form3tech-oss/terraform-provider-form3/api/httputil"
 	"github.com/form3tech-oss/terraform-provider-form3/client"
 	"github.com/giantswarm/retry-go"
 	"github.com/go-openapi/runtime"
@@ -67,6 +66,11 @@ type ReadSeekerCloserImpl struct {
 	Closer     io.Closer
 }
 
+type debugReqResp struct {
+	req string
+	res string
+}
+
 func (r *ReadSeekerCloserImpl) Read(p []byte) (n int, err error) {
 	return r.ReadSeeker.Read(p)
 }
@@ -118,13 +122,23 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 				req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", authClient.AccessToken))
 			}
 
+			debugReqResp := debugReqResp{}
+
 			if logging.IsDebugOrHigher() {
-				dump, errDump := httputil.DumpRequestOut(req, true)
+				dump, errDump := httputil.SecureDumpRequest(req)
 				if errDump != nil {
 					log.Fatal(errDump)
 				}
 
-				log.Printf("[DEBUG] %s %s", req.URL.String(), string(dump))
+				if req.Body != nil {
+					rewindableBody, err := NewReaderSeekerCloser(req)
+					if err != nil {
+						return nil, err
+					}
+					req.Body = rewindableBody
+				}
+
+				debugReqResp.req = string(dump)
 			}
 
 			// In case some API initially responds with 403, retry the request until permissions propagate.
@@ -144,24 +158,28 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 				if err != nil {
 					return err
 				}
-
 				if resp.StatusCode == 403 {
 					return fmt.Errorf("status code: %d", resp.StatusCode)
 				}
 
-				return err
+				return nil
 			}
-			if err := retry.Do(retryableFunc, retry.MaxTries(10), retry.Sleep(500*time.Millisecond)); err != nil {
-				return resp, err
-			}
+			err := retry.Do(retryableFunc, retry.MaxTries(10), retry.Sleep(500*time.Millisecond))
 
 			if logging.IsDebugOrHigher() {
-				dump, errDump := httputil.DumpResponse(resp, true)
-				if errDump != nil {
-					log.Fatal(errDump)
-				}
+				if resp != nil {
+					dump, errDump := httputil.SecureDumpResponse(resp)
+					if errDump != nil {
+						log.Fatal(errDump)
+					}
 
-				log.Printf("[DEBUG] %s %s %s", req.Method, req.URL.String(), string(dump))
+					debugReqResp.res = string(dump)
+				}
+				log.Printf("[DEBUG] %s\n======= request =======\n%s======= response =======\n%s\n", req.URL, debugReqResp.req, debugReqResp.res)
+			}
+
+			if err != nil {
+				return resp, err
 			}
 
 			return resp, nil
@@ -261,7 +279,7 @@ func (r *AuthenticatedClient) Authenticate(clientId string, clientSecret string)
 	req.Header.Set("Authorization", "Basic "+base64.StdEncoding.EncodeToString([]byte(clientId+":"+clientSecret)))
 
 	if logging.IsDebugOrHigher() {
-		dump, errDump := httputil.DumpRequestOut(req, true)
+		dump, errDump := httputil.SecureDumpRequest(req)
 		if errDump != nil {
 			log.Fatal(errDump)
 		}
@@ -283,7 +301,7 @@ func (r *AuthenticatedClient) Authenticate(clientId string, clientSecret string)
 	defer resp.Body.Close()
 
 	if logging.IsDebugOrHigher() {
-		dump, errDump := httputil.DumpResponse(resp, true)
+		dump, errDump := httputil.SecureDumpResponse(resp)
 		if errDump != nil {
 			log.Fatal(errDump)
 		}
