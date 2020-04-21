@@ -8,16 +8,16 @@ import (
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/go-openapi/strfmt"
-	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-
 	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/terraform"
 )
 
 func TestAccEburyAssociation_basic(t *testing.T) {
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
 	associationId := uuid.New().String()
+	fundingCurrency := "GBP"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -25,7 +25,7 @@ func TestAccEburyAssociation_basic(t *testing.T) {
 		CheckDestroy: testAccCheckEburyAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3EburyAssociationConfig, organisationId, parentOrganisationId, associationId),
+				Config: fmt.Sprintf(testForm3EburyAssociationConfig, organisationId, parentOrganisationId, associationId, fundingCurrency),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckEburyAssociationExists("form3_ebury_association.association"),
 					resource.TestCheckResourceAttr("form3_ebury_association.association", "association_id", associationId),
@@ -88,10 +88,11 @@ const testForm3EburyAssociationConfig = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation"
+	name 		           = "terraform-organisation"
 }
 
 resource "form3_ebury_association" "association" {
-	organisation_id = "${form3_organisation.organisation.organisation_id}"
-	association_id  = "%s"
+	organisation_id  = "${form3_organisation.organisation.organisation_id}"
+	association_id   = "%s"
+	funding_currency = "%s"
 }`

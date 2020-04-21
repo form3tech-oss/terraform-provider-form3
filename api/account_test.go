@@ -140,8 +140,11 @@ func TestAccDeleteAccount(t *testing.T) {
 
 	assertNoErrorOccurred(t, err)
 
+	fetchResponse, err := auth.AccountClient.Accounts.GetAccountsID(accounts.NewGetAccountsIDParams().WithID(UUIDValue(createResponse.Payload.Data.ID)))
+	assertNoErrorOccurred(t, err)
+
 	_, err = auth.AccountClient.Accounts.DeleteAccountsID(accounts.NewDeleteAccountsIDParams().
-		WithID(UUIDValue(createResponse.Payload.Data.ID)).WithVersion(1),
+		WithID(UUIDValue(createResponse.Payload.Data.ID)).WithVersion(*fetchResponse.Payload.Data.Version),
 	)
 
 	assertNoErrorOccurred(t, err)
