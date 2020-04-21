@@ -181,7 +181,8 @@ func createLhvNewMasterAccountFromResourceData(d *schema.ResourceData) (*models.
 	}
 
 	if attr, ok := d.GetOk("requires_direct_account"); ok {
-		masterAccount.Attributes.RequiresDirectAccount = attr.(*bool)
+		requiresDirectAccount := attr.(bool)
+		masterAccount.Attributes.RequiresDirectAccount = &requiresDirectAccount
 	}
 
 	return &masterAccount, nil
