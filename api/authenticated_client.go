@@ -23,10 +23,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/helper/logging"
 )
 
-const (
-	maxApiRetriesEnvName = "MAX_API_RETRIES"
-)
-
 var tokenCache = sync.Map{}
 
 type CachedToken struct {
@@ -115,11 +111,11 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 	var authClient *AuthenticatedClient
 
 	retryMax := 10
-	if cnt, ok := os.LookupEnv(maxApiRetriesEnvName); ok {
+	if cnt, ok := os.LookupEnv("MAX_API_RETRIES"); ok {
 		var err error
 		retryMax, err = strconv.Atoi(cnt)
 		if err != nil {
-			panic(fmt.Sprintf("expected int in ENV var %s, got %q", maxApiRetriesEnvName, cnt))
+			panic(fmt.Sprintf("expected int in ENV var %s, got %q", "MAX_API_RETRIES", cnt))
 		}
 	}
 

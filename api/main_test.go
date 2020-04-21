@@ -45,13 +45,6 @@ func TestMain(m *testing.M) {
 		config.WithHost(v)
 	}
 
-	if _, ok := os.LookupEnv(maxApiRetriesEnvName); !ok {
-		err := os.Setenv(maxApiRetriesEnvName, "20")
-		if err != nil {
-			log.Fatalf("[FATAL] Error setting ENV var %s: %s", maxApiRetriesEnvName, err)
-		}
-	}
-
 	createClient(config)
 	log.Println("[INFO] Starting tests")
 	if err := createOrganisation(); err != nil {
