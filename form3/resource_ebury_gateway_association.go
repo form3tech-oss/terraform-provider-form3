@@ -30,6 +30,11 @@ func resourceForm3EburyAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
+			"funding_currency": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
 		},
 		SchemaVersion: 0,
 	}
@@ -72,6 +77,7 @@ func resourceEburyAssociationRead(d *schema.ResourceData, meta interface{}) erro
 	}
 
 	_ = d.Set("association_id", eburyAssociation.Payload.Data.ID.String())
+	_ = d.Set("funding_currency", eburyAssociation.Payload.Data.Attributes.FundingCurrency)
 	return nil
 }
 
@@ -97,7 +103,8 @@ func resourceEburyAssociationDelete(d *schema.ResourceData, meta interface{}) er
 
 func createEburyAssociationFromResourceData(d *schema.ResourceData) (*models.NewEburyAssociation, error) {
 	association := models.NewEburyAssociation{
-		Type: string(models.ResourceTypeEburyAssociations),
+		Type:       string(models.ResourceTypeEburyAssociations),
+		Attributes: &models.EburyAssociationAttributes{},
 	}
 
 	if attr, ok := GetUUIDOK(d, "association_id"); ok {
@@ -106,6 +113,11 @@ func createEburyAssociationFromResourceData(d *schema.ResourceData) (*models.New
 
 	if attr, ok := GetUUIDOK(d, "organisation_id"); ok {
 		association.OrganisationID = attr
+	}
+
+	if attr, ok := d.GetOk("funding_currency"); ok {
+		bc := attr.(string)
+		association.Attributes.FundingCurrency = bc
 	}
 
 	return &association, nil
