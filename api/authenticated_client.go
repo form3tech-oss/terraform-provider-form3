@@ -190,7 +190,8 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 
 					debugReqResp.res = string(dump)
 				}
-				log.Printf("[DEBUG] %s\n======= request =======\n%s======= response =======\n%s\n", req.URL, debugReqResp.req, debugReqResp.res)
+
+				log.Printf("%s%s", debugReqResp.req, debugReqResp.res)
 			}
 
 			if err != nil {

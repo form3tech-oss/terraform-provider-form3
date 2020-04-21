@@ -10,6 +10,7 @@ require (
 	github.com/go-openapi/swag v0.19.5
 	github.com/go-openapi/validate v0.19.5
 	github.com/google/uuid v1.1.1
+	github.com/goware/prefixer v0.0.0-20160118172347-395022866408
 	github.com/hashicorp/terraform-plugin-sdk v1.0.0
 	github.com/juju/errgo v0.0.0-20140925100237-08cceb5d0b53 // indirect
 	github.com/stretchr/testify v1.4.0
