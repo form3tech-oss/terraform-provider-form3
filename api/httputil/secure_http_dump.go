@@ -41,7 +41,7 @@ func SecureDumpRequest(req *http.Request) ([]byte, error) {
 		return nil, err
 	}
 
-	text := prefixLines(string(dump), prefix("[REQ]"))
+	text := prefixLines(string(dump), "[REQ]")
 	return []byte(text), nil
 }
 
@@ -55,7 +55,7 @@ func SecureDumpResponse(res *http.Response) ([]byte, error) {
 	text := string(data)
 	text = tokenRe.ReplaceAllString(text, fmt.Sprintf(`"$1": "%s"`, secureMask))
 
-	text = prefixLines(text, prefix("[RES]"))
+	text = prefixLines(text, "[RES]")
 	return []byte(text), nil
 }
 
@@ -75,10 +75,8 @@ func drainBody(b io.ReadCloser) (r1, r2 io.ReadCloser, err error) {
 	return ioutil.NopCloser(&buf), ioutil.NopCloser(bytes.NewReader(buf.Bytes())), nil
 }
 
-func prefix(msg string) string {
-	return fmt.Sprintf("%s [DEBUG] %s ", time.Now().Format("2006/01/02 15:04:05"), msg)
-}
+func prefixLines(text string, msg string) string {
+	prefix := fmt.Sprintf("%s [DEBUG] %s ", time.Now().Format("2006/01/02 15:04:05"), msg)
 
-func prefixLines(text string, prefix string) string {
 	return "\n" + beginningOfLineRe.ReplaceAllString(text, prefix)
 }

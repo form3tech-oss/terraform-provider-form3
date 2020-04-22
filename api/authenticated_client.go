@@ -108,15 +108,14 @@ func (r *AuthenticatedClientCheckRedirect) CheckRedirect(req *http.Request, via 
 
 func getEnvIntDefault(name string, defaultValue int) int {
 
-	value := defaultValue
-	if strValue, ok := os.LookupEnv(name); ok {
-		var err error
-		value, err = strconv.Atoi(strValue)
-		if err != nil {
-			panic(fmt.Sprintf("expected an int value for environment variable %s, got %q", name, strValue))
-		}
+	strValue, ok := os.LookupEnv(name)
+	if !ok {
+		return defaultValue
 	}
-
+	value, err := strconv.Atoi(strValue)
+	if err != nil {
+		panic(fmt.Sprintf("expected an int value for environment variable %s, got %q", name, strValue))
+	}
 	return value
 }
 
