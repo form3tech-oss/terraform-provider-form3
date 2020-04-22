@@ -9,6 +9,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
+	"strconv"
 	"sync"
 	"time"
 
@@ -104,9 +106,24 @@ func (r *AuthenticatedClientCheckRedirect) CheckRedirect(req *http.Request, via 
 	return nil
 }
 
+func getEnvIntDefault(name string, defaultValue int) int {
+
+	strValue, ok := os.LookupEnv(name)
+	if !ok {
+		return defaultValue
+	}
+	value, err := strconv.Atoi(strValue)
+	if err != nil {
+		panic(fmt.Sprintf("expected an int value for environment variable %s, got %q", name, strValue))
+	}
+	return value
+}
+
 func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient {
 	a := &AuthenticatedClientCheckRedirect{}
 	var authClient *AuthenticatedClient
+
+	retryMax := getEnvIntDefault("MAX_API_RETRIES", 10)
 
 	h := &http.Client{
 		Transport: roundTripperFunc(func(req *http.Request) (*http.Response, error) {
@@ -164,7 +181,7 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 
 				return nil
 			}
-			err := retry.Do(retryableFunc, retry.MaxTries(10), retry.Sleep(500*time.Millisecond))
+			err := retry.Do(retryableFunc, retry.MaxTries(retryMax), retry.Sleep(500*time.Millisecond))
 
 			if logging.IsDebugOrHigher() {
 				if resp != nil {
@@ -175,7 +192,8 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 
 					debugReqResp.res = string(dump)
 				}
-				log.Printf("[DEBUG] %s\n======= request =======\n%s======= response =======\n%s\n", req.URL, debugReqResp.req, debugReqResp.res)
+
+				log.Printf("%s%s", debugReqResp.req, debugReqResp.res)
 			}
 
 			if err != nil {
