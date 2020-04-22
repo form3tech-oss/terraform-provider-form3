@@ -9,14 +9,13 @@ import (
 	"net/http/httputil"
 	"regexp"
 	"time"
-
-	"github.com/goware/prefixer"
 )
 
 const secureMask = "******"
 
 var (
-	tokenRe = regexp.MustCompile(`"((?i)access_token|(?i)refresh_token)":\s*?".*?"`)
+	tokenRe           = regexp.MustCompile(`"((?i)access_token|(?i)refresh_token)":\s*?".*?"`)
+	beginningOfLineRe = regexp.MustCompile("(?m)^")
 )
 
 // SecureDumpRequest does a security aware dump of a given HTTP request.
@@ -39,13 +38,11 @@ func SecureDumpRequest(req *http.Request) ([]byte, error) {
 
 	dump, err := httputil.DumpRequestOut(reqClone, true)
 	if err != nil {
-		return dump, err
+		return nil, err
 	}
 
-	dump = withEmptyLine(dump)
-
-	prefixReader := prefixer.New(bytes.NewBuffer(dump), prefix("[REQ]"))
-	return ioutil.ReadAll(prefixReader)
+	text := prefixLines(string(dump), prefix("[REQ]"))
+	return []byte(text), nil
 }
 
 // SecureDumpResponse does a security aware dump of a given HTTP response.
@@ -58,10 +55,8 @@ func SecureDumpResponse(res *http.Response) ([]byte, error) {
 	text := string(data)
 	text = tokenRe.ReplaceAllString(text, fmt.Sprintf(`"$1": "%s"`, secureMask))
 
-	dump := withEmptyLine([]byte(text))
-
-	prefixReader := prefixer.New(bytes.NewBuffer(dump), prefix("[RES]"))
-	return ioutil.ReadAll(prefixReader)
+	text = prefixLines(text, prefix("[RES]"))
+	return []byte(text), nil
 }
 
 // drainBody copied from net/http/httputil/dump.go
@@ -84,6 +79,6 @@ func prefix(msg string) string {
 	return fmt.Sprintf("%s [DEBUG] %s ", time.Now().Format("2006/01/02 15:04:05"), msg)
 }
 
-func withEmptyLine(data []byte) []byte {
-	return append([]byte("\n"), data...)
+func prefixLines(text string, prefix string) string {
+	return "\n" + beginningOfLineRe.ReplaceAllString(text, prefix)
 }

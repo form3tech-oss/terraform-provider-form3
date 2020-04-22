@@ -106,18 +106,25 @@ func (r *AuthenticatedClientCheckRedirect) CheckRedirect(req *http.Request, via 
 	return nil
 }
 
+func getEnvIntDefault(name string, defaultValue int) int {
+
+	value := defaultValue
+	if strValue, ok := os.LookupEnv(name); ok {
+		var err error
+		value, err = strconv.Atoi(strValue)
+		if err != nil {
+			panic(fmt.Sprintf("expected an int value for environment variable %s, got %q", name, strValue))
+		}
+	}
+
+	return value
+}
+
 func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient {
 	a := &AuthenticatedClientCheckRedirect{}
 	var authClient *AuthenticatedClient
 
-	retryMax := 10
-	if cnt, ok := os.LookupEnv("MAX_API_RETRIES"); ok {
-		var err error
-		retryMax, err = strconv.Atoi(cnt)
-		if err != nil {
-			panic(fmt.Sprintf("expected int in ENV var %s, got %q", "MAX_API_RETRIES", cnt))
-		}
-	}
+	retryMax := getEnvIntDefault("MAX_API_RETRIES", 10)
 
 	h := &http.Client{
 		Transport: roundTripperFunc(func(req *http.Request) (*http.Response, error) {
