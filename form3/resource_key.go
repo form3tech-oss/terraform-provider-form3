@@ -44,13 +44,13 @@ func resourceForm3Key() *schema.Resource {
 			},
 			"private_key": {
 				Type:     schema.TypeString,
-				Computed: true,
+				Optional: true,
 				Required: false,
 				ForceNew: true,
 			},
 			"public_key": {
 				Type:     schema.TypeString,
-				Computed: true,
+				Optional: true,
 				Required: false,
 				ForceNew: true,
 			},
