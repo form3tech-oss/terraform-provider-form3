@@ -14,7 +14,8 @@ import (
 const secureMask = "******"
 
 var (
-	tokenRegex           = regexp.MustCompile(`"((?i)access_token|(?i)refresh_token)":\s*?".*?"`)
+	jsonTokenRegex       = regexp.MustCompile(`"((?i)access_token|(?i)refresh_token)":\s*?".*?"`)
+	privateKeyRegex      = regexp.MustCompile("(-----BEGIN(?: RSA)? PRIVATE KEY-----).*(-----END(?: RSA)? PRIVATE KEY-----)")
 	beginningOfLineRegex = regexp.MustCompile("(?m)^")
 )
 
@@ -53,7 +54,8 @@ func SecureDumpResponse(res *http.Response) ([]byte, error) {
 	}
 
 	text := string(data)
-	text = tokenRegex.ReplaceAllString(text, fmt.Sprintf(`"$1": "%s"`, secureMask))
+	text = jsonTokenRegex.ReplaceAllString(text, fmt.Sprintf(`"$1": "%s"`, secureMask))
+	text = privateKeyRegex.ReplaceAllString(text, fmt.Sprintf("$1\n%s\n$2", secureMask))
 
 	text = prefixLines(text, "[RES]")
 	return []byte(text), nil

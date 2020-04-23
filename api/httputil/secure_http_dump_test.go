@@ -147,40 +147,52 @@ func TestSecureDumpRequest(t *testing.T) {
 func TestSecureDumpResponse(t *testing.T) {
 	secretValue := "secret value"
 
-	cases := []struct {
+	cases := map[string]struct {
 		reqBody          string
 		expectedInDump   []string
 		unexpectedInDump []string
 	}{
 
-		{
+		"remove OAuth access token from json body": {
 			reqBody:          fmt.Sprintf(`{"access_token":"%s","refresh_token":"%s","other":"ok"}`, secretValue, secretValue),
 			expectedInDump:   []string{"ok", "access_token", "refresh_token", "******"},
 			unexpectedInDump: []string{secretValue},
 		},
 
-		{
+		"remove OAuth access token from json body with extra spaces": {
 			reqBody:          fmt.Sprintf(`{"access_token":  "%s","refresh_token":    "%s","other":"ok"}`, secretValue, secretValue),
 			expectedInDump:   []string{"ok", "access_token", "refresh_token", "******"},
 			unexpectedInDump: []string{secretValue},
 		},
 
-		{
+		"remove OAuth access token from json body with new lines": {
 			reqBody: fmt.Sprintf(`{"access_token":  "%s","refresh_token":
 				"%s","other":"ok"}`, secretValue, secretValue),
 			expectedInDump:   []string{"ok", "access_token", "refresh_token", "******"},
 			unexpectedInDump: []string{secretValue},
 		},
 
-		{
+		"remove OAuth access token from json body with up case keys": {
 			reqBody:          fmt.Sprintf(`{"ACCESS_TOKEN":"%s","reFresH_token":"%s","other":"ok"}`, secretValue, secretValue),
 			expectedInDump:   []string{"ok", "ACCESS_TOKEN", "reFresH_token", "******"},
 			unexpectedInDump: []string{secretValue},
 		},
+
+		"remove RSA private key from json body": {
+			reqBody:          fmt.Sprintf(`{"data":{"type":"keys","id":"","version":2,"organisation_id":"","attributes":{"type":"RSA","subject":"C=GB, O=N26, OU=N26, CN=N26 HSM Form3 Test Self Signed","private_key":"-----BEGIN RSA PRIVATE KEY-----\n%s\n-----END RSA PRIVATE KEY-----\n","public_key":"-----BEGIN PUBLIC KEY-----\npublic key content\n-----END PUBLIC KEY-----\n","certificate_signing_request":"-----BEGIN CERTIFICATE REQUEST-----\ncert content\n-----END CERTIFICATE REQUEST-----\n"}}}`, secretValue),
+			expectedInDump:   []string{"public key content", "cert content", "******", "BEGIN RSA PRIVATE KEY", "END RSA PRIVATE KEY"},
+			unexpectedInDump: []string{secretValue},
+		},
+
+		"remove private key from json body": {
+			reqBody:          fmt.Sprintf(`{"data":{"type":"keys","id":"","version":2,"organisation_id":"","attributes":{"type":"RSA","subject":"C=GB, O=N26, OU=N26, CN=N26 HSM Form3 Test Self Signed","private_key":"-----BEGIN PRIVATE KEY-----\n%s\n-----END PRIVATE KEY-----\n","public_key":"-----BEGIN PUBLIC KEY-----\npublic key content\n-----END PUBLIC KEY-----\n","certificate_signing_request":"-----BEGIN CERTIFICATE REQUEST-----\ncert content\n-----END CERTIFICATE REQUEST-----\n"}}}`, secretValue),
+			expectedInDump:   []string{"public key content", "cert content", "******", "BEGIN PRIVATE KEY", "END PRIVATE KEY"},
+			unexpectedInDump: []string{secretValue},
+		},
 	}
 
-	for _, tc := range cases {
-		t.Run(tc.reqBody, func(t *testing.T) {
+	for name, tc := range cases {
+		t.Run(name, func(t *testing.T) {
 			mockServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 				defer req.Body.Close()
 				w.WriteHeader(http.StatusOK)
