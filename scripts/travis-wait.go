@@ -33,7 +33,6 @@ func main() {
 
 func travisWait(ctx context.Context, command string, args ...string) error {
 	start := time.Now()
-	timeout := 20 * time.Minute
 	interval := time.Minute
 
 	ticker := time.NewTicker(interval)
@@ -44,7 +43,7 @@ func travisWait(ctx context.Context, command string, args ...string) error {
 	}()
 	defer ticker.Stop()
 
-	ctx, cancel := context.WithTimeout(ctx, timeout)
+	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
 	cmd := exec.CommandContext(ctx, command, args...)
