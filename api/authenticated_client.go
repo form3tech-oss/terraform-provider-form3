@@ -175,9 +175,11 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 
 				resp, err = http.DefaultTransport.RoundTrip(req)
 				if err != nil {
+					log.Printf("[DEBUG] Got error %q", err)
 					return err
 				}
 				if resp.StatusCode == 403 {
+					log.Printf("[DEBUG] Got status code %v", resp.StatusCode)
 					return fmt.Errorf("status code: %d", resp.StatusCode)
 				}
 
