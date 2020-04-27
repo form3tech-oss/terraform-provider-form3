@@ -123,7 +123,9 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 	a := &AuthenticatedClientCheckRedirect{}
 	var authClient *AuthenticatedClient
 
+	retrySleep := 500 * time.Millisecond
 	retryMax := getEnvIntDefault("MAX_API_RETRIES", 10)
+	retryTimeout := time.Duration(retryMax) * retrySleep * 2
 
 	h := &http.Client{
 		Transport: roundTripperFunc(func(req *http.Request) (*http.Response, error) {
@@ -181,7 +183,7 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 
 				return nil
 			}
-			err := retry.Do(retryableFunc, retry.MaxTries(retryMax), retry.Sleep(500*time.Millisecond))
+			err := retry.Do(retryableFunc, retry.MaxTries(retryMax), retry.Sleep(retrySleep), retry.Timeout(retryTimeout))
 
 			if logging.IsDebugOrHigher() {
 				if resp != nil {
