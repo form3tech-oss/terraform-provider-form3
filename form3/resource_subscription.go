@@ -118,7 +118,7 @@ func resourceSubscriptionUpdate(d *schema.ResourceData, meta interface{}) error 
 	client := meta.(*form3.AuthenticatedClient)
 	subscriptionFromResource, err := createSubscriptionFromResourceDataWithVersion(d, client)
 	if err != nil {
-		return fmt.Errorf("error updating subscription: %s", form3.JsonErrorPrettyPrint(err))
+		return fmt.Errorf("error fetching subscription to update: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	_, err = client.NotificationClient.Subscriptions.PatchSubscriptionsID(subscriptions.NewPatchSubscriptionsIDParams().
@@ -126,7 +126,7 @@ func resourceSubscriptionUpdate(d *schema.ResourceData, meta interface{}) error 
 		WithSubscriptionUpdateRequest(&models.SubscriptionCreation{Data: subscriptionFromResource}))
 
 	if err != nil {
-		return fmt.Errorf("error updating subscription: %s", form3.JsonErrorPrettyPrint(err))
+		return fmt.Errorf("error updating subscription '%s': %s", subscriptionFromResource.ID, form3.JsonErrorPrettyPrint(err))
 	}
 
 	return nil

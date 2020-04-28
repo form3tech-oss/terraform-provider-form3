@@ -248,6 +248,95 @@ func TestAccKey_importExistingCert(t *testing.T) {
 	})
 }
 
+func TestAccKey_reuseExistingKey(t *testing.T) {
+	testAccPreCheck(t)
+
+	var response models.Key
+	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationId := uuid.New().String()
+	keyId := uuid.New().String()
+
+	if acc, ok := os.LookupEnv("TF_ACC"); ok && acc == "1" {
+		// Setup existing resources to be imported.
+		config := Config{
+			ApiHost:      os.Getenv("FORM3_HOST"),
+			ClientId:     os.Getenv("FORM3_CLIENT_ID"),
+			ClientSecret: os.Getenv("FORM3_CLIENT_SECRET"),
+		}
+		client, err := config.Client()
+		if err != nil {
+			t.Fail()
+		}
+
+		_, err = client.OrganisationClient.Organisations.PostUnits(organisations.NewPostUnitsParams().
+			WithOrganisationCreationRequest(&models.OrganisationCreation{Data: &models.Organisation{
+				OrganisationID: strfmt.UUID(parentOrganisationId),
+				ID:             strfmt.UUID(organisationId),
+				Type:           "organisations",
+				Attributes: &models.OrganisationAttributes{
+					Name: "terraform-organisation",
+				},
+			}}))
+		if err != nil {
+			t.Fail()
+		}
+
+		_, err = client.SystemClient.System.PostKeys(system.NewPostKeysParams().
+			WithKeyCreationRequest(&models.KeyCreation{
+				Data: &models.Key{
+					ID:             strfmt.UUID(keyId),
+					OrganisationID: strfmt.UUID(organisationId),
+					Attributes: &models.KeyAttributes{
+						CertificateSigningRequest: "EXISTING CSR",
+						Description:               "",
+						PrivateKey:                "existing-key-101",
+						PublicKey:                 "existing-key-102",
+						Subject:                   "CN=Terraform-test-existing-cert",
+					},
+				},
+			}))
+		if err != nil {
+			t.Fail()
+		}
+
+		_, err = client.SystemClient.System.DeleteKeysKeyID(system.NewDeleteKeysKeyIDParams().
+			WithKeyID(strfmt.UUID(keyId)))
+		if err != nil {
+			t.Fail()
+		}
+	}
+
+	resource.Test(t, resource.TestCase{
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
+		CheckDestroy: testAccCheckKeyDestroy,
+		Steps: []resource.TestStep{
+			{
+				Config: fmt.Sprintf(testForm3KeyConfigExistingKey, organisationId, parentOrganisationId, keyId),
+
+				ResourceName:       "form3_organisation.organisation",
+				ImportState:        true,
+				ImportStateId:      organisationId,
+				ImportStateVerify:  false,
+				ExpectNonEmptyPlan: false,
+			},
+			{
+				Config:       fmt.Sprintf(testForm3KeyConfigReusingExistingKey, organisationId, keyId),
+				ResourceName: "form3_key.test_key",
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckKeyExists("form3_key.test_key", &response),
+					resource.TestCheckResourceAttr("form3_key.test_key", "organisation_id", organisationId),
+					resource.TestCheckResourceAttr("form3_key.test_key", "key_id", keyId),
+					resource.TestCheckResourceAttr("form3_key.test_key", "subject", "CN=Terraform-test-existing-cert"),
+					resource.TestCheckResourceAttr("form3_key.test_key", "private_key", "existing-key-101"),
+					resource.TestCheckResourceAttr("form3_key.test_key", "public_key", "existing-key-103"),
+					resource.TestMatchResourceAttr("form3_key.test_key", "certificate_signing_request", regexp.MustCompile(".*EXISTING CSR.*"))),
+				ExpectNonEmptyPlan: false,
+			},
+		},
+	})
+}
+
 func ToStringPointer(s string) *string {
 	return &s
 }
@@ -405,6 +494,16 @@ resource "form3_key" "test_key" {
 	organisation_id         = "${form3_organisation.organisation.organisation_id}"
   subject                 = "CN=Terraform-test-existing"
   key_id  = "%s"
+}
+`
+
+const testForm3KeyConfigReusingExistingKey = `
+resource "form3_key" "test_key" {
+	organisation_id         = "%s"
+ subject                   = "CN=Terraform-test-existing"
+ key_id                    = "%s"
+ private_key               = "existing-key-101"
+ public_key                = "existing-key-103"
 }
 `
 

@@ -45,12 +45,14 @@ func resourceForm3Key() *schema.Resource {
 			"private_key": {
 				Type:     schema.TypeString,
 				Computed: true,
+				Optional: true,
 				Required: false,
 				ForceNew: true,
 			},
 			"public_key": {
 				Type:     schema.TypeString,
 				Computed: true,
+				Optional: true,
 				Required: false,
 				ForceNew: true,
 			},
@@ -192,6 +194,14 @@ func createKeyFromResourceData(d *schema.ResourceData) (*models.Key, error) {
 
 	if attr, ok := d.GetOk("curve"); ok {
 		certificateRequest.Attributes.Curve = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("private_key"); ok {
+		certificateRequest.Attributes.PrivateKey = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("public_key"); ok {
+		certificateRequest.Attributes.PublicKey = attr.(string)
 	}
 
 	return certificateRequest, nil
