@@ -3,6 +3,7 @@ package form3
 import (
 	"fmt"
 	"log"
+	"sync"
 
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/roles"
@@ -21,22 +22,22 @@ func resourceForm3Role() *schema.Resource {
 		},
 
 		Schema: map[string]*schema.Schema{
-			"role_id": &schema.Schema{
+			"role_id": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			"organisation_id": &schema.Schema{
+			"organisation_id": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			"name": &schema.Schema{
+			"name": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			"parent_role_id": &schema.Schema{
+			"parent_role_id": {
 				Type:     schema.TypeString,
 				Required: false,
 				Optional: true,
@@ -44,6 +45,41 @@ func resourceForm3Role() *schema.Resource {
 			},
 		},
 	}
+}
+
+var (
+	roleCache     = map[strfmt.UUID]*models.Role{}
+	roleCacheLock sync.Mutex
+)
+
+func readRole(client *form3.AuthenticatedClient, roleID strfmt.UUID) (*models.Role, error) {
+	roleCacheLock.Lock()
+	defer roleCacheLock.Unlock()
+
+	if role, ok := roleCache[roleID]; ok {
+		return role, nil
+	}
+
+	listRoles, err := client.SecurityClient.Roles.GetRoles(nil)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, role := range listRoles.Payload.Data {
+		roleCache[role.ID] = role
+	}
+
+	if role, ok := roleCache[roleID]; ok {
+		return role, nil
+	}
+
+	notFoundError := roles.NewGetRolesRoleIDNotFound()
+	notFoundError.Payload = &models.APIError{
+		ErrorCode:    "404",
+		ErrorMessage: "not found",
+	}
+
+	return nil, notFoundError
 }
 
 func resourceRoleCreate(d *schema.ResourceData, meta interface{}) error {
@@ -87,7 +123,7 @@ func resourceRoleRead(d *schema.ResourceData, meta interface{}) error {
 		log.Printf("[INFO] Reading role for id: %s rolename: %s", key, roleName)
 	}
 
-	role, err := client.SecurityClient.Roles.GetRolesRoleID(roles.NewGetRolesRoleIDParams().WithRoleID(roleId))
+	role, err := readRole(client, roleId)
 	if err != nil {
 		if !form3.IsJsonErrorStatusCode(err, 404) {
 			return fmt.Errorf("couldn't find role: %s", form3.JsonErrorPrettyPrint(err))
@@ -96,12 +132,12 @@ func resourceRoleRead(d *schema.ResourceData, meta interface{}) error {
 		return nil
 	}
 
-	d.Set("role_id", role.Payload.Data.ID.String())
-	d.Set("name", role.Payload.Data.Attributes.Name)
-	d.Set("organisation_id", role.Payload.Data.OrganisationID.String())
+	d.Set("role_id", role.ID.String())
+	d.Set("name", role.Attributes.Name)
+	d.Set("organisation_id", role.OrganisationID.String())
 
-	if role.Payload.Data.Attributes.ParentRoleID != nil {
-		d.Set("parent_role_id", role.Payload.Data.Attributes.ParentRoleID.String())
+	if role.Attributes.ParentRoleID != nil {
+		d.Set("parent_role_id", role.Attributes.ParentRoleID.String())
 	}
 
 	return nil
