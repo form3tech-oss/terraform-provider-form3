@@ -306,32 +306,26 @@ func TestAccKey_reuseExistingKey(t *testing.T) {
 		}
 	}
 
+	// We expect this to fail, because Certificate API in dev envs doesn't use an HSM, but by failing with the message
+	// we specify then it proves we've at least communicated with Certificate API.
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
 		Providers:    testAccProviders,
 		CheckDestroy: testAccCheckKeyDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3KeyConfigExistingKey, organisationId, parentOrganisationId, keyId),
-
-				ResourceName:       "form3_organisation.organisation",
-				ImportState:        true,
-				ImportStateId:      organisationId,
-				ImportStateVerify:  false,
-				ExpectNonEmptyPlan: false,
-			},
-			{
-				Config:       fmt.Sprintf(testForm3KeyConfigReusingExistingKey, organisationId, keyId),
-				ResourceName: "form3_key.test_key",
+				Config:            fmt.Sprintf(testForm3KeyConfigReusingExistingKey, organisationId, keyId),
+				ResourceName:      "form3_key.test_key",
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckKeyExists("form3_key.test_key", &response),
 					resource.TestCheckResourceAttr("form3_key.test_key", "organisation_id", organisationId),
 					resource.TestCheckResourceAttr("form3_key.test_key", "key_id", keyId),
-					resource.TestCheckResourceAttr("form3_key.test_key", "subject", "CN=Terraform-test-existing-cert"),
+					resource.TestCheckResourceAttr("form3_key.test_key", "subject", "CN=Terraform-test-existing"),
 					resource.TestCheckResourceAttr("form3_key.test_key", "private_key", "existing-key-101"),
 					resource.TestCheckResourceAttr("form3_key.test_key", "public_key", "existing-key-103"),
-					resource.TestMatchResourceAttr("form3_key.test_key", "certificate_signing_request", regexp.MustCompile(".*EXISTING CSR.*"))),
+					),
 				ExpectNonEmptyPlan: false,
+				ExpectError: regexp.MustCompile("errors during apply: failed to create Key: ErrorCode:(.)* Message: Unhandled error"),
 			},
 		},
 	})
@@ -500,10 +494,10 @@ resource "form3_key" "test_key" {
 const testForm3KeyConfigReusingExistingKey = `
 resource "form3_key" "test_key" {
 	organisation_id         = "%s"
- subject                   = "CN=Terraform-test-existing"
- key_id                    = "%s"
- private_key               = "existing-key-101"
- public_key                = "existing-key-103"
+  subject                   = "CN=Terraform-test-existing-cert"
+  key_id                    = "%s"
+  private_key               = "existing-key-101"
+  public_key                = "existing-key-103"
 }
 `
 
