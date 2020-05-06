@@ -314,8 +314,8 @@ func TestAccKey_reuseExistingKey(t *testing.T) {
 		CheckDestroy: testAccCheckKeyDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config:            fmt.Sprintf(testForm3KeyConfigReusingExistingKey, organisationId, keyId),
-				ResourceName:      "form3_key.test_key",
+				Config:       fmt.Sprintf(testForm3KeyConfigReusingExistingKey, organisationId, keyId),
+				ResourceName: "form3_key.test_key",
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckKeyExists("form3_key.test_key", &response),
 					resource.TestCheckResourceAttr("form3_key.test_key", "organisation_id", organisationId),
@@ -323,9 +323,9 @@ func TestAccKey_reuseExistingKey(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_key.test_key", "subject", "CN=Terraform-test-existing"),
 					resource.TestCheckResourceAttr("form3_key.test_key", "private_key", "existing-key-101"),
 					resource.TestCheckResourceAttr("form3_key.test_key", "public_key", "existing-key-103"),
-					),
+				),
 				ExpectNonEmptyPlan: false,
-				ExpectError: regexp.MustCompile("errors during apply: failed to create Key: ErrorCode:(.)* Message: Unhandled error"),
+				ExpectError:        regexp.MustCompile("errors during apply: failed to create Key: ErrorCode:(.)* Message: Unhandled error"),
 			},
 		},
 	})
