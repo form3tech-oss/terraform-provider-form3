@@ -110,6 +110,7 @@ func resourceRoleRead(d *schema.ResourceData, meta interface{}) error {
 func resourceRoleDelete(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
 
+
 	roleFromResource, err := createRoleFromResourceDataWithVersion(d, client)
 	if err != nil {
 		return fmt.Errorf("error deleting role: %s", form3.JsonErrorPrettyPrint(err))
