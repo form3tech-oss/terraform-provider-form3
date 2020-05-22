@@ -46,7 +46,7 @@ func resourceForm3User() *schema.Resource {
 				Optional: true,
 				ForceNew: false,
 
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 		},
 	}
