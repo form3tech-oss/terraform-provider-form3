@@ -57,8 +57,6 @@ resource "form3_user" "user" {
 	user_name 	= "terraform-user"
  	email 			= "terraform-user@form3.tech"
 	roles 			= ["${form3_role.role.role_id}"]
-
-	depends_on = ["form3_role.role"]
 }
 `
 
@@ -72,14 +70,14 @@ resource "form3_user" "user" {
 }`
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:     func() { testAccPreCheck(t) },
-		Providers:    testAccProviders,
-		//CheckDestroy: func (state *terraform.State) error {
-		//	if err := testAccCheckRoleDestroy(state); err != nil {
-		//		return err
-		//	}
-		//	return testAccCheckUserDestroy(state)
-		//},
+		PreCheck:  func() { testAccPreCheck(t) },
+		Providers: testAccProviders,
+		CheckDestroy: func(state *terraform.State) error {
+			if err := testAccCheckRoleDestroy(state); err != nil {
+				return err
+			}
+			return testAccCheckUserDestroy(state)
+		},
 		Steps: []resource.TestStep{
 			{
 				Config: fmt.Sprintf(configA, organisationId, roleId, organisationId, userId),
@@ -103,7 +101,6 @@ resource "form3_user" "user" {
 		},
 	})
 }
-
 
 func TestAccRole_importBasic(t *testing.T) {
 
@@ -178,7 +175,6 @@ func testAccCheckRoleExists(resourceKey string, role *roles.GetRolesRoleIDOK) re
 	}
 }
 
-
 func testAccCheckRoleDoesntExist(resourceKey string, roleId uuid.UUID) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceKey]
@@ -210,5 +206,3 @@ resource "form3_role" "role" {
 	role_id 		= "%s"
 	name     		= "terraform-role"
 }`
-
-
