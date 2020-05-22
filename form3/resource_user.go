@@ -44,7 +44,9 @@ func resourceForm3User() *schema.Resource {
 			"roles": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				ForceNew: false,
+
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 		},
 	}
@@ -194,6 +196,8 @@ func createUserFromResourceData(d *schema.ResourceData) (*models.User, error) {
 		}
 
 		user.Attributes.RoleIds = roles
+	} else {
+		user.Attributes.RoleIds = nil
 	}
 
 	return &user, nil
