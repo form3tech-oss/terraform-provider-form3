@@ -2,17 +2,15 @@ package form3
 
 import (
 	"fmt"
-	"github.com/form3tech-oss/terraform-provider-form3/client/users"
-
-	"os"
-	"testing"
-
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/roles"
+	"github.com/form3tech-oss/terraform-provider-form3/client/users"
 	"github.com/go-openapi/strfmt"
 	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
+	"os"
+	"testing"
 )
 
 func TestAccRole_basic(t *testing.T) {
@@ -95,12 +93,33 @@ resource "form3_user" "user" {
 					resource.TestCheckResourceAttr(
 						"form3_user.user", "email", "terraform-user@form3.tech"),
 					testAccCheckRoleDestroy,
-					resource.TestCheckResourceAttr(
-						"form3_user.user", "roles", "[]"),
+					userHasNoAssociatedRoles(userId),
 				),
 			},
 		},
 	})
+}
+
+func userHasNoAssociatedRoles(userId string) func(s *terraform.State) error {
+	return func(s *terraform.State) error {
+		rs, ok := s.RootModule().Resources["form3_user.user"]
+		if !ok {
+			return fmt.Errorf("not found: %s", "form3_user.user")
+		}
+		if rs.Primary.ID == "" {
+			return fmt.Errorf("no Record ID is set")
+		}
+		client := testAccProvider.Meta().(*form3.AuthenticatedClient)
+		user, err := client.SecurityClient.Users.GetUsersUserID(users.NewGetUsersUserIDParams().WithUserID(strfmt.UUID(userId)))
+		if err != nil {
+			return nil
+		}
+		roles := user.Payload.Data.Attributes.RoleIds
+		if len(roles) != 0 {
+			return fmt.Errorf("Expected 0 roles, but found %d", len(roles))
+		}
+		return nil
+	}
 }
 
 func TestAccRole_importBasic(t *testing.T) {
