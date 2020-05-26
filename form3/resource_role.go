@@ -2,7 +2,11 @@ package form3
 
 import (
 	"fmt"
+	"github.com/form3tech-oss/terraform-provider-form3/client/users"
+	"github.com/giantswarm/retry-go"
+	"github.com/go-openapi/swag"
 	"log"
+	"time"
 
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/roles"
@@ -117,6 +121,16 @@ func resourceRoleDelete(d *schema.ResourceData, meta interface{}) error {
 
 	log.Printf("[INFO] Deleting role for id: %s rolename: %s", roleFromResource.ID, roleFromResource.Attributes.Name)
 
+	associatedUsers, err := getAssociatedUsers(client, roleFromResource)
+	if err != nil {
+		return err
+	}
+
+	err = removeRoleAssociation(associatedUsers, client, roleFromResource)
+	if err != nil {
+		return err
+	}
+
 	_, err = client.SecurityClient.Roles.DeleteRolesRoleID(roles.NewDeleteRolesRoleIDParams().
 		WithRoleID(roleFromResource.ID).
 		WithVersion(*roleFromResource.Version))
@@ -126,6 +140,69 @@ func resourceRoleDelete(d *schema.ResourceData, meta interface{}) error {
 	}
 
 	return nil
+}
+
+func removeRoleAssociation(associatedUsers []*models.User, client *form3.AuthenticatedClient, roleFromResource *models.Role) error {
+	for _, originalUser := range associatedUsers {
+		err := retry.Do(func() error {
+			// We need to retry getting the user and patching it, in-case it has been updated between when we paged
+			// through all users and when we get round to patching it. If the user has been updated in the interim,
+			// we need to patch its current version.
+			currentUser, err := client.SecurityClient.Users.GetUsersUserID(users.NewGetUsersUserIDParams().WithUserID(originalUser.ID))
+			if err != nil {
+				return fmt.Errorf("error deleting role (patching users roles): %s", form3.JsonErrorPrettyPrint(err))
+			}
+			_, err = client.SecurityClient.Users.PatchUsersUserID(users.NewPatchUsersUserIDParams().
+				WithUserID(originalUser.ID).
+				WithUserUpdateRequest(&models.UserCreation{
+					Data: &models.User{
+						Attributes: &models.UserAttributes{
+							RoleIds: without(currentUser.Payload.Data.Attributes.RoleIds, roleFromResource.ID),
+						},
+						ID:             originalUser.ID,
+						OrganisationID: originalUser.OrganisationID,
+						Type:           originalUser.Type,
+						Version:        currentUser.Payload.Data.Version,
+					},
+				}))
+			if err != nil {
+				return fmt.Errorf("error deleting role (patching users roles): %s", form3.JsonErrorPrettyPrint(err))
+			}
+			return nil
+		}, retry.Sleep(1*time.Second), retry.MaxTries(5))
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func getAssociatedUsers(client *form3.AuthenticatedClient, roleFromResource *models.Role) ([]*models.User, error) {
+	associatedUsers := []*models.User{}
+	// TODO: we would need to page through all the pages here to GET all users, so that we can manually filter them for associated roles here.
+	allUsers, err := client.SecurityClient.Users.GetUsers(users.NewGetUsersParams().WithPageSize(swag.Int64(1000)))
+	if err != nil {
+		return nil, fmt.Errorf("error getting all users: %s", form3.JsonErrorPrettyPrint(err))
+	}
+	for _, user := range allUsers.Payload.Data {
+		for _, roleId := range user.Attributes.RoleIds {
+			if roleId == roleFromResource.ID {
+				associatedUsers = append(associatedUsers, user)
+			}
+		}
+	}
+	return associatedUsers, nil
+}
+
+func without(ids []strfmt.UUID, id strfmt.UUID) []strfmt.UUID {
+	result := []strfmt.UUID{}
+	for _, i := range ids {
+		if i == id {
+			continue
+		}
+		result = append(result, i)
+	}
+	return result
 }
 
 func createRoleFromResourceDataWithVersion(d *schema.ResourceData, client *form3.AuthenticatedClient) (*models.Role, error) {
