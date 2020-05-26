@@ -65,8 +65,7 @@ resource "form3_user" "user" {
 	organisation_id = "%s"
 	user_id 		= "%s"
 	user_name 		= "terraform-user"
-    email		    = "dude@form3.tech"
-	roles 			= []
+ 	email 			= "terraform-user@form3.tech"
 }`
 
 	resource.Test(t, resource.TestCase{
@@ -94,8 +93,10 @@ resource "form3_user" "user" {
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckUserExists("form3_user.user", &userResponse),
 					resource.TestCheckResourceAttr(
-						"form3_user.user", "email", "dude@form3.tech"),
+						"form3_user.user", "email", "terraform-user@form3.tech"),
 					testAccCheckRoleDestroy,
+					resource.TestCheckResourceAttr(
+						"form3_user.user", "roles", "[]"),
 				),
 			},
 		},
