@@ -6,6 +6,7 @@ import (
 	"github.com/giantswarm/retry-go"
 	"github.com/go-openapi/swag"
 	"log"
+	"sync"
 	"time"
 
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
@@ -179,12 +180,11 @@ func removeRoleAssociation(associatedUsers []*models.User, client *form3.Authent
 
 func getAssociatedUsers(client *form3.AuthenticatedClient, roleFromResource *models.Role) ([]*models.User, error) {
 	associatedUsers := []*models.User{}
-	// TODO: we would need to page through all the pages here to GET all users, so that we can manually filter them for associated roles here.
-	allUsers, err := client.SecurityClient.Users.GetUsers(users.NewGetUsersParams().WithPageSize(swag.Int64(1000)))
+	allUsers, err := getAllUsers(client)
 	if err != nil {
-		return nil, fmt.Errorf("error getting all users: %s", form3.JsonErrorPrettyPrint(err))
+		return nil, err
 	}
-	for _, user := range allUsers.Payload.Data {
+	for _, user := range allUsers {
 		for _, roleId := range user.Attributes.RoleIds {
 			if roleId == roleFromResource.ID {
 				associatedUsers = append(associatedUsers, user)
@@ -192,6 +192,36 @@ func getAssociatedUsers(client *form3.AuthenticatedClient, roleFromResource *mod
 		}
 	}
 	return associatedUsers, nil
+}
+
+var usersCache = []*models.User{}
+var usersCacheMtx = &sync.Mutex{}
+
+func getAllUsers(client *form3.AuthenticatedClient) ([]*models.User, error) {
+	usersCacheMtx.Lock()
+	defer usersCacheMtx.Unlock()
+	if len(usersCache) == 0 {
+		page := int64(0)
+		for {
+			response, err := client.SecurityClient.Users.GetUsers(users.NewGetUsersParams().
+				WithPageSize(swag.Int64(1000)).
+				WithPageNumber(&page))
+			if _, ok := err.(*users.GetUsersNotFound); ok {
+				break
+			}
+			if err != nil {
+				return nil, fmt.Errorf("error getting all users: %s", form3.JsonErrorPrettyPrint(err))
+			}
+			if len(response.Payload.Data) == 0 {
+				break
+			}
+			for _, user := range response.Payload.Data {
+				usersCache = append(usersCache, user)
+			}
+			page++
+		}
+	}
+	return usersCache, nil
 }
 
 func without(ids []strfmt.UUID, id strfmt.UUID) []strfmt.UUID {
