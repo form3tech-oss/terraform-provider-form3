@@ -9007,6 +9007,7 @@ definitions:
   EburyAssociationAttributes:
     type: object
     required:
+      - funding_currency
       - organisation_location
       - ebury_client_id
       - ebury_contact_id

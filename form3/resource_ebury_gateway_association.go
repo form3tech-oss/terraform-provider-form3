@@ -140,7 +140,7 @@ func createEburyAssociationFromResourceData(d *schema.ResourceData) (*models.New
 	}
 
 	if attr, ok := d.GetOk("funding_currency"); ok {
-		bc := attr.(string)
+		bc := swag.String(attr.(string))
 		association.Attributes.FundingCurrency = bc
 	}
 

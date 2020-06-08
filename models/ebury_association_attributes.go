@@ -26,7 +26,8 @@ type EburyAssociationAttributes struct {
 	EburyContactID *string `json:"ebury_contact_id"`
 
 	// funding currency
-	FundingCurrency string `json:"funding_currency,omitempty"`
+	// Required: true
+	FundingCurrency *string `json:"funding_currency"`
 
 	// organisation location
 	// Required: true
@@ -42,6 +43,10 @@ func (m *EburyAssociationAttributes) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateEburyContactID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFundingCurrency(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -67,6 +72,15 @@ func (m *EburyAssociationAttributes) validateEburyClientID(formats strfmt.Regist
 func (m *EburyAssociationAttributes) validateEburyContactID(formats strfmt.Registry) error {
 
 	if err := validate.Required("ebury_contact_id", "body", m.EburyContactID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *EburyAssociationAttributes) validateFundingCurrency(formats strfmt.Registry) error {
+
+	if err := validate.Required("funding_currency", "body", m.FundingCurrency); err != nil {
 		return err
 	}
 
