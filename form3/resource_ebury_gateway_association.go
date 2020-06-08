@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 
@@ -30,7 +31,22 @@ func resourceForm3EburyAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
+			"organisation_location": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
 			"funding_currency": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
+			"ebury_contact_id": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
+			"ebury_client_id": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
@@ -76,8 +92,11 @@ func resourceEburyAssociationRead(d *schema.ResourceData, meta interface{}) erro
 		return nil
 	}
 
+	_ = d.Set("organisation_location", eburyAssociation.Payload.Data.Attributes.OrganisationLocation)
+	_ = d.Set("ebury_client_id", eburyAssociation.Payload.Data.Attributes.EburyClientID)
+	_ = d.Set("ebury_contact_id", eburyAssociation.Payload.Data.Attributes.EburyContactID)
 	_ = d.Set("association_id", eburyAssociation.Payload.Data.ID.String())
-	_ = d.Set("funding_currency", eburyAssociation.Payload.Data.Attributes.FundingCurrency)
+
 	return nil
 }
 
@@ -115,9 +134,24 @@ func createEburyAssociationFromResourceData(d *schema.ResourceData) (*models.New
 		association.OrganisationID = attr
 	}
 
+	if attr, ok := d.GetOk("organisation_location"); ok {
+		oloc := swag.String(attr.(string))
+		association.Attributes.OrganisationLocation = oloc
+	}
+
 	if attr, ok := d.GetOk("funding_currency"); ok {
-		bc := attr.(string)
+		bc := swag.String(attr.(string))
 		association.Attributes.FundingCurrency = bc
+	}
+
+	if attr, ok := d.GetOk("ebury_contact_id"); ok {
+		ct_id := swag.String(attr.(string))
+		association.Attributes.EburyContactID = ct_id
+	}
+
+	if attr, ok := d.GetOk("ebury_client_id"); ok {
+		cl_id := swag.String(attr.(string))
+		association.Attributes.EburyClientID = cl_id
 	}
 
 	return &association, nil

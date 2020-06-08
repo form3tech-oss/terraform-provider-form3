@@ -9006,8 +9006,19 @@ definitions:
 
   EburyAssociationAttributes:
     type: object
+    required:
+      - funding_currency
+      - organisation_location
+      - ebury_client_id
+      - ebury_contact_id
     properties:
       funding_currency:
+        type: string
+      organisation_location:
+        type: string
+      ebury_contact_id:
+        type: string
+      ebury_client_id:
         type: string
 
   EburyAssociationCreation:
