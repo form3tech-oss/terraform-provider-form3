@@ -17,7 +17,10 @@ func TestAccEburyAssociation_basic(t *testing.T) {
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
 	associationId := uuid.New().String()
+	organisationLocation := "GB"
 	fundingCurrency := "GBP"
+	eburyContactId := "CON100000"
+	eburyClientId := "CLI100000"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -25,11 +28,14 @@ func TestAccEburyAssociation_basic(t *testing.T) {
 		CheckDestroy: testAccCheckEburyAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3EburyAssociationConfig, organisationId, parentOrganisationId, associationId, fundingCurrency),
+				Config: fmt.Sprintf(testForm3EburyAssociationConfig, organisationId, parentOrganisationId, organisationLocation, associationId, fundingCurrency, eburyContactId, eburyClientId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckEburyAssociationExists("form3_ebury_association.association"),
 					resource.TestCheckResourceAttr("form3_ebury_association.association", "association_id", associationId),
 					resource.TestCheckResourceAttr("form3_ebury_association.association", "organisation_id", organisationId),
+					resource.TestCheckResourceAttr("form3_ebury_association.association", "organisation_location", organisationLocation),
+					resource.TestCheckResourceAttr("form3_ebury_association.association", "ebury_contact_id", eburyContactId),
+					resource.TestCheckResourceAttr("form3_ebury_association.association", "ebury_client_id", eburyClientId),
 				),
 			},
 		},
@@ -93,6 +99,9 @@ resource "form3_organisation" "organisation" {
 
 resource "form3_ebury_association" "association" {
 	organisation_id  = "${form3_organisation.organisation.organisation_id}"
+	organisation_location = "%s"
 	association_id   = "%s"
 	funding_currency = "%s"
+	ebury_contact_id = "%s"
+	ebury_client_id  = "%s"
 }`

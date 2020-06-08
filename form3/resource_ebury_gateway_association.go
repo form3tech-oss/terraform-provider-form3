@@ -30,7 +30,22 @@ func resourceForm3EburyAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
+			"organisation_location": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
 			"funding_currency": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
+			"ebury_contact_id": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
+			"ebury_client_id": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,

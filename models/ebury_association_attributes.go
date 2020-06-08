@@ -6,8 +6,10 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // EburyAssociationAttributes ebury association attributes
@@ -15,12 +17,68 @@ import (
 // swagger:model EburyAssociationAttributes
 type EburyAssociationAttributes struct {
 
+	// ebury client id
+	// Required: true
+	EburyClientID *string `json:"ebury_client_id"`
+
+	// ebury contact id
+	// Required: true
+	EburyContactID *string `json:"ebury_contact_id"`
+
 	// funding currency
 	FundingCurrency string `json:"funding_currency,omitempty"`
+
+	// organisation location
+	// Required: true
+	OrganisationLocation *string `json:"organisation_location"`
 }
 
 // Validate validates this ebury association attributes
 func (m *EburyAssociationAttributes) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateEburyClientID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateEburyContactID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateOrganisationLocation(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *EburyAssociationAttributes) validateEburyClientID(formats strfmt.Registry) error {
+
+	if err := validate.Required("ebury_client_id", "body", m.EburyClientID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *EburyAssociationAttributes) validateEburyContactID(formats strfmt.Registry) error {
+
+	if err := validate.Required("ebury_contact_id", "body", m.EburyContactID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *EburyAssociationAttributes) validateOrganisationLocation(formats strfmt.Registry) error {
+
+	if err := validate.Required("organisation_location", "body", m.OrganisationLocation); err != nil {
+		return err
+	}
+
 	return nil
 }
 
