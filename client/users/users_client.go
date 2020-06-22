@@ -6,14 +6,13 @@ package users
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"fmt"
-
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
+
+	strfmt "github.com/go-openapi/strfmt"
 )
 
 // New creates a new users API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -25,45 +24,8 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-// ClientService is the interface for Client methods
-type ClientService interface {
-	DeleteUsersUserID(params *DeleteUsersUserIDParams) (*DeleteUsersUserIDNoContent, error)
-
-	DeleteUsersUserIDCredentialsClientID(params *DeleteUsersUserIDCredentialsClientIDParams) (*DeleteUsersUserIDCredentialsClientIDNoContent, error)
-
-	DeleteUsersUserIDCredentialsPublicKeyPublicKeyID(params *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDParams) (*DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDNoContent, error)
-
-	DeleteUsersUserIDRolesRoleID(params *DeleteUsersUserIDRolesRoleIDParams) (*DeleteUsersUserIDRolesRoleIDNoContent, error)
-
-	GetUsers(params *GetUsersParams) (*GetUsersOK, error)
-
-	GetUsersUserID(params *GetUsersUserIDParams) (*GetUsersUserIDOK, error)
-
-	GetUsersUserIDAces(params *GetUsersUserIDAcesParams) (*GetUsersUserIDAcesOK, error)
-
-	GetUsersUserIDCredentials(params *GetUsersUserIDCredentialsParams) (*GetUsersUserIDCredentialsOK, error)
-
-	GetUsersUserIDCredentialsPublicKey(params *GetUsersUserIDCredentialsPublicKeyParams) (*GetUsersUserIDCredentialsPublicKeyOK, error)
-
-	GetUsersUserIDCredentialsPublicKeyPublicKeyID(params *GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams) (*GetUsersUserIDCredentialsPublicKeyPublicKeyIDOK, error)
-
-	GetUsersUserIDRoles(params *GetUsersUserIDRolesParams) (*GetUsersUserIDRolesOK, error)
-
-	PatchUsersUserID(params *PatchUsersUserIDParams) (*PatchUsersUserIDOK, error)
-
-	PostUsers(params *PostUsersParams) (*PostUsersCreated, error)
-
-	PostUsersUserIDCredentials(params *PostUsersUserIDCredentialsParams) (*PostUsersUserIDCredentialsCreated, error)
-
-	PostUsersUserIDCredentialsPublicKey(params *PostUsersUserIDCredentialsPublicKeyParams) (*PostUsersUserIDCredentialsPublicKeyCreated, error)
-
-	PostUsersUserIDRolesRoleID(params *PostUsersUserIDRolesRoleIDParams) (*PostUsersUserIDRolesRoleIDCreated, error)
-
-	SetTransport(transport runtime.ClientTransport)
-}
-
 /*
-  DeleteUsersUserID deletes user
+DeleteUsersUserID deletes user
 */
 func (a *Client) DeleteUsersUserID(params *DeleteUsersUserIDParams) (*DeleteUsersUserIDNoContent, error) {
 	// TODO: Validate the params before sending
@@ -75,7 +37,7 @@ func (a *Client) DeleteUsersUserID(params *DeleteUsersUserIDParams) (*DeleteUser
 		ID:                 "DeleteUsersUserID",
 		Method:             "DELETE",
 		PathPattern:        "/users/{user_id}",
-		ProducesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -86,18 +48,12 @@ func (a *Client) DeleteUsersUserID(params *DeleteUsersUserIDParams) (*DeleteUser
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*DeleteUsersUserIDNoContent)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for DeleteUsersUserID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*DeleteUsersUserIDNoContent), nil
+
 }
 
 /*
-  DeleteUsersUserIDCredentialsClientID deletes credential for user
+DeleteUsersUserIDCredentialsClientID deletes credential for user
 */
 func (a *Client) DeleteUsersUserIDCredentialsClientID(params *DeleteUsersUserIDCredentialsClientIDParams) (*DeleteUsersUserIDCredentialsClientIDNoContent, error) {
 	// TODO: Validate the params before sending
@@ -109,7 +65,7 @@ func (a *Client) DeleteUsersUserIDCredentialsClientID(params *DeleteUsersUserIDC
 		ID:                 "DeleteUsersUserIDCredentialsClientID",
 		Method:             "DELETE",
 		PathPattern:        "/users/{user_id}/credentials/{client_id}",
-		ProducesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -120,18 +76,12 @@ func (a *Client) DeleteUsersUserIDCredentialsClientID(params *DeleteUsersUserIDC
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*DeleteUsersUserIDCredentialsClientIDNoContent)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for DeleteUsersUserIDCredentialsClientID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*DeleteUsersUserIDCredentialsClientIDNoContent), nil
+
 }
 
 /*
-  DeleteUsersUserIDCredentialsPublicKeyPublicKeyID deletes public key credential for user
+DeleteUsersUserIDCredentialsPublicKeyPublicKeyID deletes public key credential for user
 */
 func (a *Client) DeleteUsersUserIDCredentialsPublicKeyPublicKeyID(params *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDParams) (*DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDNoContent, error) {
 	// TODO: Validate the params before sending
@@ -143,7 +93,7 @@ func (a *Client) DeleteUsersUserIDCredentialsPublicKeyPublicKeyID(params *Delete
 		ID:                 "DeleteUsersUserIDCredentialsPublicKeyPublicKeyID",
 		Method:             "DELETE",
 		PathPattern:        "/users/{user_id}/credentials/public_key/{public_key_id}",
-		ProducesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -154,18 +104,12 @@ func (a *Client) DeleteUsersUserIDCredentialsPublicKeyPublicKeyID(params *Delete
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDNoContent)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for DeleteUsersUserIDCredentialsPublicKeyPublicKeyID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDNoContent), nil
+
 }
 
 /*
-  DeleteUsersUserIDRolesRoleID removes role from user
+DeleteUsersUserIDRolesRoleID removes role from user
 */
 func (a *Client) DeleteUsersUserIDRolesRoleID(params *DeleteUsersUserIDRolesRoleIDParams) (*DeleteUsersUserIDRolesRoleIDNoContent, error) {
 	// TODO: Validate the params before sending
@@ -177,7 +121,7 @@ func (a *Client) DeleteUsersUserIDRolesRoleID(params *DeleteUsersUserIDRolesRole
 		ID:                 "DeleteUsersUserIDRolesRoleID",
 		Method:             "DELETE",
 		PathPattern:        "/users/{user_id}/roles/{role_id}",
-		ProducesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -188,18 +132,12 @@ func (a *Client) DeleteUsersUserIDRolesRoleID(params *DeleteUsersUserIDRolesRole
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*DeleteUsersUserIDRolesRoleIDNoContent)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for DeleteUsersUserIDRolesRoleID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*DeleteUsersUserIDRolesRoleIDNoContent), nil
+
 }
 
 /*
-  GetUsers lists all users
+GetUsers lists all users
 */
 func (a *Client) GetUsers(params *GetUsersParams) (*GetUsersOK, error) {
 	// TODO: Validate the params before sending
@@ -211,8 +149,8 @@ func (a *Client) GetUsers(params *GetUsersParams) (*GetUsersOK, error) {
 		ID:                 "GetUsers",
 		Method:             "GET",
 		PathPattern:        "/users",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetUsersReader{formats: a.formats},
@@ -222,18 +160,12 @@ func (a *Client) GetUsers(params *GetUsersParams) (*GetUsersOK, error) {
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetUsersOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetUsers: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*GetUsersOK), nil
+
 }
 
 /*
-  GetUsersUserID fetches user
+GetUsersUserID fetches user
 */
 func (a *Client) GetUsersUserID(params *GetUsersUserIDParams) (*GetUsersUserIDOK, error) {
 	// TODO: Validate the params before sending
@@ -245,8 +177,8 @@ func (a *Client) GetUsersUserID(params *GetUsersUserIDParams) (*GetUsersUserIDOK
 		ID:                 "GetUsersUserID",
 		Method:             "GET",
 		PathPattern:        "/users/{user_id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetUsersUserIDReader{formats: a.formats},
@@ -256,18 +188,12 @@ func (a *Client) GetUsersUserID(params *GetUsersUserIDParams) (*GetUsersUserIDOK
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetUsersUserIDOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetUsersUserID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*GetUsersUserIDOK), nil
+
 }
 
 /*
-  GetUsersUserIDAces gets access control list for user
+GetUsersUserIDAces gets access control list for user
 */
 func (a *Client) GetUsersUserIDAces(params *GetUsersUserIDAcesParams) (*GetUsersUserIDAcesOK, error) {
 	// TODO: Validate the params before sending
@@ -279,8 +205,8 @@ func (a *Client) GetUsersUserIDAces(params *GetUsersUserIDAcesParams) (*GetUsers
 		ID:                 "GetUsersUserIDAces",
 		Method:             "GET",
 		PathPattern:        "/users/{user_id}/aces",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetUsersUserIDAcesReader{formats: a.formats},
@@ -290,18 +216,12 @@ func (a *Client) GetUsersUserIDAces(params *GetUsersUserIDAcesParams) (*GetUsers
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetUsersUserIDAcesOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetUsersUserIDAces: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*GetUsersUserIDAcesOK), nil
+
 }
 
 /*
-  GetUsersUserIDCredentials gets all credentials for user
+GetUsersUserIDCredentials gets all credentials for user
 */
 func (a *Client) GetUsersUserIDCredentials(params *GetUsersUserIDCredentialsParams) (*GetUsersUserIDCredentialsOK, error) {
 	// TODO: Validate the params before sending
@@ -313,8 +233,8 @@ func (a *Client) GetUsersUserIDCredentials(params *GetUsersUserIDCredentialsPara
 		ID:                 "GetUsersUserIDCredentials",
 		Method:             "GET",
 		PathPattern:        "/users/{user_id}/credentials",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetUsersUserIDCredentialsReader{formats: a.formats},
@@ -324,18 +244,12 @@ func (a *Client) GetUsersUserIDCredentials(params *GetUsersUserIDCredentialsPara
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetUsersUserIDCredentialsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetUsersUserIDCredentials: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*GetUsersUserIDCredentialsOK), nil
+
 }
 
 /*
-  GetUsersUserIDCredentialsPublicKey fetches public key credentials
+GetUsersUserIDCredentialsPublicKey fetches public key credentials
 */
 func (a *Client) GetUsersUserIDCredentialsPublicKey(params *GetUsersUserIDCredentialsPublicKeyParams) (*GetUsersUserIDCredentialsPublicKeyOK, error) {
 	// TODO: Validate the params before sending
@@ -347,8 +261,8 @@ func (a *Client) GetUsersUserIDCredentialsPublicKey(params *GetUsersUserIDCreden
 		ID:                 "GetUsersUserIDCredentialsPublicKey",
 		Method:             "GET",
 		PathPattern:        "/users/{user_id}/credentials/public_key",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetUsersUserIDCredentialsPublicKeyReader{formats: a.formats},
@@ -358,18 +272,12 @@ func (a *Client) GetUsersUserIDCredentialsPublicKey(params *GetUsersUserIDCreden
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetUsersUserIDCredentialsPublicKeyOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetUsersUserIDCredentialsPublicKey: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*GetUsersUserIDCredentialsPublicKeyOK), nil
+
 }
 
 /*
-  GetUsersUserIDCredentialsPublicKeyPublicKeyID fetches public key credential
+GetUsersUserIDCredentialsPublicKeyPublicKeyID fetches public key credential
 */
 func (a *Client) GetUsersUserIDCredentialsPublicKeyPublicKeyID(params *GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams) (*GetUsersUserIDCredentialsPublicKeyPublicKeyIDOK, error) {
 	// TODO: Validate the params before sending
@@ -381,8 +289,8 @@ func (a *Client) GetUsersUserIDCredentialsPublicKeyPublicKeyID(params *GetUsersU
 		ID:                 "GetUsersUserIDCredentialsPublicKeyPublicKeyID",
 		Method:             "GET",
 		PathPattern:        "/users/{user_id}/credentials/public_key/{public_key_id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetUsersUserIDCredentialsPublicKeyPublicKeyIDReader{formats: a.formats},
@@ -392,18 +300,12 @@ func (a *Client) GetUsersUserIDCredentialsPublicKeyPublicKeyID(params *GetUsersU
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetUsersUserIDCredentialsPublicKeyPublicKeyIDOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetUsersUserIDCredentialsPublicKeyPublicKeyID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*GetUsersUserIDCredentialsPublicKeyPublicKeyIDOK), nil
+
 }
 
 /*
-  GetUsersUserIDRoles gets all roles for user
+GetUsersUserIDRoles gets all roles for user
 */
 func (a *Client) GetUsersUserIDRoles(params *GetUsersUserIDRolesParams) (*GetUsersUserIDRolesOK, error) {
 	// TODO: Validate the params before sending
@@ -415,8 +317,8 @@ func (a *Client) GetUsersUserIDRoles(params *GetUsersUserIDRolesParams) (*GetUse
 		ID:                 "GetUsersUserIDRoles",
 		Method:             "GET",
 		PathPattern:        "/users/{user_id}/roles",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetUsersUserIDRolesReader{formats: a.formats},
@@ -426,18 +328,12 @@ func (a *Client) GetUsersUserIDRoles(params *GetUsersUserIDRolesParams) (*GetUse
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetUsersUserIDRolesOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetUsersUserIDRoles: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*GetUsersUserIDRolesOK), nil
+
 }
 
 /*
-  PatchUsersUserID edits user details
+PatchUsersUserID edits user details
 */
 func (a *Client) PatchUsersUserID(params *PatchUsersUserIDParams) (*PatchUsersUserIDOK, error) {
 	// TODO: Validate the params before sending
@@ -449,7 +345,7 @@ func (a *Client) PatchUsersUserID(params *PatchUsersUserIDParams) (*PatchUsersUs
 		ID:                 "PatchUsersUserID",
 		Method:             "PATCH",
 		PathPattern:        "/users/{user_id}",
-		ProducesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -460,18 +356,12 @@ func (a *Client) PatchUsersUserID(params *PatchUsersUserIDParams) (*PatchUsersUs
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*PatchUsersUserIDOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PatchUsersUserID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*PatchUsersUserIDOK), nil
+
 }
 
 /*
-  PostUsers creates user
+PostUsers creates user
 */
 func (a *Client) PostUsers(params *PostUsersParams) (*PostUsersCreated, error) {
 	// TODO: Validate the params before sending
@@ -483,7 +373,7 @@ func (a *Client) PostUsers(params *PostUsersParams) (*PostUsersCreated, error) {
 		ID:                 "PostUsers",
 		Method:             "POST",
 		PathPattern:        "/users",
-		ProducesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -494,18 +384,12 @@ func (a *Client) PostUsers(params *PostUsersParams) (*PostUsersCreated, error) {
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*PostUsersCreated)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PostUsers: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*PostUsersCreated), nil
+
 }
 
 /*
-  PostUsersUserIDCredentials adds credentials to user
+PostUsersUserIDCredentials adds credentials to user
 */
 func (a *Client) PostUsersUserIDCredentials(params *PostUsersUserIDCredentialsParams) (*PostUsersUserIDCredentialsCreated, error) {
 	// TODO: Validate the params before sending
@@ -517,7 +401,7 @@ func (a *Client) PostUsersUserIDCredentials(params *PostUsersUserIDCredentialsPa
 		ID:                 "PostUsersUserIDCredentials",
 		Method:             "POST",
 		PathPattern:        "/users/{user_id}/credentials",
-		ProducesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -528,18 +412,12 @@ func (a *Client) PostUsersUserIDCredentials(params *PostUsersUserIDCredentialsPa
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*PostUsersUserIDCredentialsCreated)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PostUsersUserIDCredentials: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*PostUsersUserIDCredentialsCreated), nil
+
 }
 
 /*
-  PostUsersUserIDCredentialsPublicKey generates new public key credential for a user
+PostUsersUserIDCredentialsPublicKey generates new public key credential for a user
 */
 func (a *Client) PostUsersUserIDCredentialsPublicKey(params *PostUsersUserIDCredentialsPublicKeyParams) (*PostUsersUserIDCredentialsPublicKeyCreated, error) {
 	// TODO: Validate the params before sending
@@ -551,7 +429,7 @@ func (a *Client) PostUsersUserIDCredentialsPublicKey(params *PostUsersUserIDCred
 		ID:                 "PostUsersUserIDCredentialsPublicKey",
 		Method:             "POST",
 		PathPattern:        "/users/{user_id}/credentials/public_key",
-		ProducesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -562,18 +440,12 @@ func (a *Client) PostUsersUserIDCredentialsPublicKey(params *PostUsersUserIDCred
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*PostUsersUserIDCredentialsPublicKeyCreated)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PostUsersUserIDCredentialsPublicKey: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*PostUsersUserIDCredentialsPublicKeyCreated), nil
+
 }
 
 /*
-  PostUsersUserIDRolesRoleID adds role to user
+PostUsersUserIDRolesRoleID adds role to user
 */
 func (a *Client) PostUsersUserIDRolesRoleID(params *PostUsersUserIDRolesRoleIDParams) (*PostUsersUserIDRolesRoleIDCreated, error) {
 	// TODO: Validate the params before sending
@@ -585,7 +457,7 @@ func (a *Client) PostUsersUserIDRolesRoleID(params *PostUsersUserIDRolesRoleIDPa
 		ID:                 "PostUsersUserIDRolesRoleID",
 		Method:             "POST",
 		PathPattern:        "/users/{user_id}/roles/{role_id}",
-		ProducesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -596,14 +468,8 @@ func (a *Client) PostUsersUserIDRolesRoleID(params *PostUsersUserIDRolesRoleIDPa
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*PostUsersUserIDRolesRoleIDCreated)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PostUsersUserIDRolesRoleID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*PostUsersUserIDRolesRoleIDCreated), nil
+
 }
 
 // SetTransport changes the transport on the client

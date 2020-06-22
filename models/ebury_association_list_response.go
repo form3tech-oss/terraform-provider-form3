@@ -8,13 +8,13 @@ package models
 import (
 	"strconv"
 
+	strfmt "github.com/go-openapi/strfmt"
+
 	"github.com/go-openapi/errors"
-	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // EburyAssociationListResponse ebury association list response
-//
 // swagger:model EburyAssociationListResponse
 type EburyAssociationListResponse struct {
 

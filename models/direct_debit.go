@@ -6,14 +6,14 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	strfmt "github.com/go-openapi/strfmt"
+
 	"github.com/go-openapi/errors"
-	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // DirectDebit direct debit
-//
 // swagger:model DirectDebit
 type DirectDebit struct {
 
@@ -181,7 +181,6 @@ func (m *DirectDebit) UnmarshalBinary(b []byte) error {
 }
 
 // DirectDebitAttributes direct debit attributes
-//
 // swagger:model DirectDebitAttributes
 type DirectDebitAttributes struct {
 
@@ -349,7 +348,6 @@ func (m *DirectDebitAttributes) UnmarshalBinary(b []byte) error {
 }
 
 // DirectDebitAttributesBeneficiaryParty direct debit attributes beneficiary party
-//
 // swagger:model DirectDebitAttributesBeneficiaryParty
 type DirectDebitAttributesBeneficiaryParty struct {
 
@@ -446,7 +444,6 @@ func (m *DirectDebitAttributesBeneficiaryParty) UnmarshalBinary(b []byte) error 
 }
 
 // DirectDebitAttributesDebtorParty direct debit attributes debtor party
-//
 // swagger:model DirectDebitAttributesDebtorParty
 type DirectDebitAttributesDebtorParty struct {
 

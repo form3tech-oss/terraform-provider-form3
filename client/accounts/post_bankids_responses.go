@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostBankidsReader is a Reader for the PostBankids structure.
@@ -23,54 +24,63 @@ type PostBankidsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostBankidsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 201:
 		result := NewPostBankidsCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewPostBankidsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewPostBankidsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewPostBankidsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewPostBankidsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewPostBankidsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewPostBankidsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewPostBankidsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewPostBankidsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type PostBankidsCreated struct {
 
 func (o *PostBankidsCreated) Error() string {
 	return fmt.Sprintf("[POST /bankids][%d] postBankidsCreated  %+v", 201, o.Payload)
-}
-
-func (o *PostBankidsCreated) GetPayload() *models.BankIDCreationResponse {
-	return o.Payload
 }
 
 func (o *PostBankidsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *PostBankidsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /bankids][%d] postBankidsBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *PostBankidsBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostBankidsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type PostBankidsUnauthorized struct {
 
 func (o *PostBankidsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /bankids][%d] postBankidsUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *PostBankidsUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostBankidsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *PostBankidsForbidden) Error() string {
 	return fmt.Sprintf("[POST /bankids][%d] postBankidsForbidden  %+v", 403, o.Payload)
 }
 
-func (o *PostBankidsForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostBankidsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type PostBankidsNotFound struct {
 
 func (o *PostBankidsNotFound) Error() string {
 	return fmt.Sprintf("[POST /bankids][%d] postBankidsNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PostBankidsNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostBankidsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *PostBankidsConflict) Error() string {
 	return fmt.Sprintf("[POST /bankids][%d] postBankidsConflict  %+v", 409, o.Payload)
 }
 
-func (o *PostBankidsConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostBankidsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type PostBankidsTooManyRequests struct {
 
 func (o *PostBankidsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /bankids][%d] postBankidsTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *PostBankidsTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostBankidsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *PostBankidsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /bankids][%d] postBankidsInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *PostBankidsInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostBankidsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type PostBankidsServiceUnavailable struct {
 
 func (o *PostBankidsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /bankids][%d] postBankidsServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *PostBankidsServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostBankidsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

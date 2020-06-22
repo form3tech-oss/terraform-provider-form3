@@ -6,14 +6,14 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	strfmt "github.com/go-openapi/strfmt"
+
 	"github.com/go-openapi/errors"
-	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // PublicKey public key
-//
 // swagger:model PublicKey
 type PublicKey struct {
 
@@ -138,7 +138,6 @@ func (m *PublicKey) UnmarshalBinary(b []byte) error {
 }
 
 // PublicKeyAttributes public key attributes
-//
 // swagger:model PublicKeyAttributes
 type PublicKeyAttributes struct {
 

@@ -6,14 +6,14 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	strfmt "github.com/go-openapi/strfmt"
+
 	"github.com/go-openapi/errors"
-	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ReturnReversalAdmission return reversal admission
-//
 // swagger:model ReturnReversalAdmission
 type ReturnReversalAdmission struct {
 
@@ -183,7 +183,6 @@ func (m *ReturnReversalAdmission) UnmarshalBinary(b []byte) error {
 }
 
 // ReturnReversalAdmissionAttributes return reversal admission attributes
-//
 // swagger:model ReturnReversalAdmissionAttributes
 type ReturnReversalAdmissionAttributes struct {
 
@@ -218,7 +217,6 @@ func (m *ReturnReversalAdmissionAttributes) UnmarshalBinary(b []byte) error {
 }
 
 // ReturnReversalAdmissionRelationships return reversal admission relationships
-//
 // swagger:model ReturnReversalAdmissionRelationships
 type ReturnReversalAdmissionRelationships struct {
 

@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostBicsReader is a Reader for the PostBics structure.
@@ -23,54 +24,63 @@ type PostBicsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostBicsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 201:
 		result := NewPostBicsCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewPostBicsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewPostBicsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewPostBicsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewPostBicsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewPostBicsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewPostBicsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewPostBicsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewPostBicsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type PostBicsCreated struct {
 
 func (o *PostBicsCreated) Error() string {
 	return fmt.Sprintf("[POST /bics][%d] postBicsCreated  %+v", 201, o.Payload)
-}
-
-func (o *PostBicsCreated) GetPayload() *models.BicCreationResponse {
-	return o.Payload
 }
 
 func (o *PostBicsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *PostBicsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /bics][%d] postBicsBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *PostBicsBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostBicsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type PostBicsUnauthorized struct {
 
 func (o *PostBicsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /bics][%d] postBicsUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *PostBicsUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostBicsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *PostBicsForbidden) Error() string {
 	return fmt.Sprintf("[POST /bics][%d] postBicsForbidden  %+v", 403, o.Payload)
 }
 
-func (o *PostBicsForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostBicsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type PostBicsNotFound struct {
 
 func (o *PostBicsNotFound) Error() string {
 	return fmt.Sprintf("[POST /bics][%d] postBicsNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PostBicsNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostBicsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *PostBicsConflict) Error() string {
 	return fmt.Sprintf("[POST /bics][%d] postBicsConflict  %+v", 409, o.Payload)
 }
 
-func (o *PostBicsConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostBicsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type PostBicsTooManyRequests struct {
 
 func (o *PostBicsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /bics][%d] postBicsTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *PostBicsTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostBicsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *PostBicsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /bics][%d] postBicsInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *PostBicsInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostBicsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type PostBicsServiceUnavailable struct {
 
 func (o *PostBicsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /bics][%d] postBicsServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *PostBicsServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostBicsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

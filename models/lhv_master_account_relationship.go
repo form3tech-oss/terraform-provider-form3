@@ -8,13 +8,13 @@ package models
 import (
 	"strconv"
 
+	strfmt "github.com/go-openapi/strfmt"
+
 	"github.com/go-openapi/errors"
-	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // LhvMasterAccountRelationship lhv master account relationship
-//
 // swagger:model LhvMasterAccountRelationship
 type LhvMasterAccountRelationship struct {
 
@@ -73,7 +73,6 @@ func (m *LhvMasterAccountRelationship) UnmarshalBinary(b []byte) error {
 }
 
 // LhvMasterAccountRelationshipMasterAccounts lhv master account relationship master accounts
-//
 // swagger:model LhvMasterAccountRelationshipMasterAccounts
 type LhvMasterAccountRelationshipMasterAccounts struct {
 

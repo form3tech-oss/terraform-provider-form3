@@ -8,13 +8,13 @@ package models
 import (
 	"strconv"
 
+	strfmt "github.com/go-openapi/strfmt"
+
 	"github.com/go-openapi/errors"
-	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // LimitDetailsListResponse limit details list response
-//
 // swagger:model LimitDetailsListResponse
 type LimitDetailsListResponse struct {
 

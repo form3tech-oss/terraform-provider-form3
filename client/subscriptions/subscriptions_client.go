@@ -6,14 +6,13 @@ package subscriptions
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"fmt"
-
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
+
+	strfmt "github.com/go-openapi/strfmt"
 )
 
 // New creates a new subscriptions API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -25,23 +24,8 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-// ClientService is the interface for Client methods
-type ClientService interface {
-	DeleteSubscriptionsID(params *DeleteSubscriptionsIDParams) (*DeleteSubscriptionsIDNoContent, error)
-
-	GetSubscriptions(params *GetSubscriptionsParams) (*GetSubscriptionsOK, error)
-
-	GetSubscriptionsID(params *GetSubscriptionsIDParams) (*GetSubscriptionsIDOK, error)
-
-	PatchSubscriptionsID(params *PatchSubscriptionsIDParams) (*PatchSubscriptionsIDOK, error)
-
-	PostSubscriptions(params *PostSubscriptionsParams) (*PostSubscriptionsCreated, error)
-
-	SetTransport(transport runtime.ClientTransport)
-}
-
 /*
-  DeleteSubscriptionsID deletes a subscription
+DeleteSubscriptionsID deletes a subscription
 */
 func (a *Client) DeleteSubscriptionsID(params *DeleteSubscriptionsIDParams) (*DeleteSubscriptionsIDNoContent, error) {
 	// TODO: Validate the params before sending
@@ -53,7 +37,7 @@ func (a *Client) DeleteSubscriptionsID(params *DeleteSubscriptionsIDParams) (*De
 		ID:                 "DeleteSubscriptionsID",
 		Method:             "DELETE",
 		PathPattern:        "/subscriptions/{id}",
-		ProducesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -64,18 +48,12 @@ func (a *Client) DeleteSubscriptionsID(params *DeleteSubscriptionsIDParams) (*De
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*DeleteSubscriptionsIDNoContent)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for DeleteSubscriptionsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*DeleteSubscriptionsIDNoContent), nil
+
 }
 
 /*
-  GetSubscriptions lists all subscriptions
+GetSubscriptions lists all subscriptions
 */
 func (a *Client) GetSubscriptions(params *GetSubscriptionsParams) (*GetSubscriptionsOK, error) {
 	// TODO: Validate the params before sending
@@ -87,8 +65,8 @@ func (a *Client) GetSubscriptions(params *GetSubscriptionsParams) (*GetSubscript
 		ID:                 "GetSubscriptions",
 		Method:             "GET",
 		PathPattern:        "/subscriptions",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetSubscriptionsReader{formats: a.formats},
@@ -98,18 +76,12 @@ func (a *Client) GetSubscriptions(params *GetSubscriptionsParams) (*GetSubscript
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetSubscriptionsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetSubscriptions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*GetSubscriptionsOK), nil
+
 }
 
 /*
-  GetSubscriptionsID fetches subscription
+GetSubscriptionsID fetches subscription
 */
 func (a *Client) GetSubscriptionsID(params *GetSubscriptionsIDParams) (*GetSubscriptionsIDOK, error) {
 	// TODO: Validate the params before sending
@@ -121,8 +93,8 @@ func (a *Client) GetSubscriptionsID(params *GetSubscriptionsIDParams) (*GetSubsc
 		ID:                 "GetSubscriptionsID",
 		Method:             "GET",
 		PathPattern:        "/subscriptions/{id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetSubscriptionsIDReader{formats: a.formats},
@@ -132,18 +104,12 @@ func (a *Client) GetSubscriptionsID(params *GetSubscriptionsIDParams) (*GetSubsc
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetSubscriptionsIDOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetSubscriptionsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*GetSubscriptionsIDOK), nil
+
 }
 
 /*
-  PatchSubscriptionsID edits subscription details
+PatchSubscriptionsID edits subscription details
 */
 func (a *Client) PatchSubscriptionsID(params *PatchSubscriptionsIDParams) (*PatchSubscriptionsIDOK, error) {
 	// TODO: Validate the params before sending
@@ -155,7 +121,7 @@ func (a *Client) PatchSubscriptionsID(params *PatchSubscriptionsIDParams) (*Patc
 		ID:                 "PatchSubscriptionsID",
 		Method:             "PATCH",
 		PathPattern:        "/subscriptions/{id}",
-		ProducesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -166,18 +132,12 @@ func (a *Client) PatchSubscriptionsID(params *PatchSubscriptionsIDParams) (*Patc
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*PatchSubscriptionsIDOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PatchSubscriptionsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*PatchSubscriptionsIDOK), nil
+
 }
 
 /*
-  PostSubscriptions creates subscription
+PostSubscriptions creates subscription
 */
 func (a *Client) PostSubscriptions(params *PostSubscriptionsParams) (*PostSubscriptionsCreated, error) {
 	// TODO: Validate the params before sending
@@ -189,7 +149,7 @@ func (a *Client) PostSubscriptions(params *PostSubscriptionsParams) (*PostSubscr
 		ID:                 "PostSubscriptions",
 		Method:             "POST",
 		PathPattern:        "/subscriptions",
-		ProducesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -200,14 +160,8 @@ func (a *Client) PostSubscriptions(params *PostSubscriptionsParams) (*PostSubscr
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*PostSubscriptionsCreated)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PostSubscriptions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*PostSubscriptionsCreated), nil
+
 }
 
 // SetTransport changes the transport on the client

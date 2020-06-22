@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetSepaLiquidityReader is a Reader for the GetSepaLiquidity structure.
@@ -23,54 +24,63 @@ type GetSepaLiquidityReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetSepaLiquidityReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 200:
 		result := NewGetSepaLiquidityOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewGetSepaLiquidityBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewGetSepaLiquidityUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewGetSepaLiquidityForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewGetSepaLiquidityNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewGetSepaLiquidityConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewGetSepaLiquidityTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewGetSepaLiquidityInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewGetSepaLiquidityServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type GetSepaLiquidityOK struct {
 
 func (o *GetSepaLiquidityOK) Error() string {
 	return fmt.Sprintf("[GET /sepa-liquidity][%d] getSepaLiquidityOK  %+v", 200, o.Payload)
-}
-
-func (o *GetSepaLiquidityOK) GetPayload() *models.SepaLiquidityAssociationDetailsListResponse {
-	return o.Payload
 }
 
 func (o *GetSepaLiquidityOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *GetSepaLiquidityBadRequest) Error() string {
 	return fmt.Sprintf("[GET /sepa-liquidity][%d] getSepaLiquidityBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *GetSepaLiquidityBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetSepaLiquidityBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type GetSepaLiquidityUnauthorized struct {
 
 func (o *GetSepaLiquidityUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /sepa-liquidity][%d] getSepaLiquidityUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetSepaLiquidityUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetSepaLiquidityUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *GetSepaLiquidityForbidden) Error() string {
 	return fmt.Sprintf("[GET /sepa-liquidity][%d] getSepaLiquidityForbidden  %+v", 403, o.Payload)
 }
 
-func (o *GetSepaLiquidityForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetSepaLiquidityForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type GetSepaLiquidityNotFound struct {
 
 func (o *GetSepaLiquidityNotFound) Error() string {
 	return fmt.Sprintf("[GET /sepa-liquidity][%d] getSepaLiquidityNotFound  %+v", 404, o.Payload)
-}
-
-func (o *GetSepaLiquidityNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetSepaLiquidityNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *GetSepaLiquidityConflict) Error() string {
 	return fmt.Sprintf("[GET /sepa-liquidity][%d] getSepaLiquidityConflict  %+v", 409, o.Payload)
 }
 
-func (o *GetSepaLiquidityConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetSepaLiquidityConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type GetSepaLiquidityTooManyRequests struct {
 
 func (o *GetSepaLiquidityTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /sepa-liquidity][%d] getSepaLiquidityTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *GetSepaLiquidityTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetSepaLiquidityTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *GetSepaLiquidityInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /sepa-liquidity][%d] getSepaLiquidityInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetSepaLiquidityInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetSepaLiquidityInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type GetSepaLiquidityServiceUnavailable struct {
 
 func (o *GetSepaLiquidityServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /sepa-liquidity][%d] getSepaLiquidityServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *GetSepaLiquidityServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetSepaLiquidityServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

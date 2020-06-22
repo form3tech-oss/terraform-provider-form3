@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetPaymentsReader is a Reader for the GetPayments structure.
@@ -23,54 +24,63 @@ type GetPaymentsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetPaymentsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 200:
 		result := NewGetPaymentsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewGetPaymentsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewGetPaymentsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewGetPaymentsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewGetPaymentsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewGetPaymentsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewGetPaymentsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewGetPaymentsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewGetPaymentsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type GetPaymentsOK struct {
 
 func (o *GetPaymentsOK) Error() string {
 	return fmt.Sprintf("[GET /payments][%d] getPaymentsOK  %+v", 200, o.Payload)
-}
-
-func (o *GetPaymentsOK) GetPayload() *models.PaymentDetailsListResponse {
-	return o.Payload
 }
 
 func (o *GetPaymentsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *GetPaymentsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /payments][%d] getPaymentsBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *GetPaymentsBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetPaymentsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type GetPaymentsUnauthorized struct {
 
 func (o *GetPaymentsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /payments][%d] getPaymentsUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetPaymentsUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetPaymentsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *GetPaymentsForbidden) Error() string {
 	return fmt.Sprintf("[GET /payments][%d] getPaymentsForbidden  %+v", 403, o.Payload)
 }
 
-func (o *GetPaymentsForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetPaymentsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type GetPaymentsNotFound struct {
 
 func (o *GetPaymentsNotFound) Error() string {
 	return fmt.Sprintf("[GET /payments][%d] getPaymentsNotFound  %+v", 404, o.Payload)
-}
-
-func (o *GetPaymentsNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetPaymentsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *GetPaymentsConflict) Error() string {
 	return fmt.Sprintf("[GET /payments][%d] getPaymentsConflict  %+v", 409, o.Payload)
 }
 
-func (o *GetPaymentsConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetPaymentsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type GetPaymentsTooManyRequests struct {
 
 func (o *GetPaymentsTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /payments][%d] getPaymentsTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *GetPaymentsTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetPaymentsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *GetPaymentsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /payments][%d] getPaymentsInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetPaymentsInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetPaymentsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type GetPaymentsServiceUnavailable struct {
 
 func (o *GetPaymentsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /payments][%d] getPaymentsServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *GetPaymentsServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetPaymentsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

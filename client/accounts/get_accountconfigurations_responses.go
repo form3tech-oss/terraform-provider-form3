@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetAccountconfigurationsReader is a Reader for the GetAccountconfigurations structure.
@@ -23,54 +24,63 @@ type GetAccountconfigurationsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetAccountconfigurationsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 200:
 		result := NewGetAccountconfigurationsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewGetAccountconfigurationsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewGetAccountconfigurationsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewGetAccountconfigurationsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewGetAccountconfigurationsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewGetAccountconfigurationsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewGetAccountconfigurationsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewGetAccountconfigurationsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewGetAccountconfigurationsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type GetAccountconfigurationsOK struct {
 
 func (o *GetAccountconfigurationsOK) Error() string {
 	return fmt.Sprintf("[GET /accountconfigurations][%d] getAccountconfigurationsOK  %+v", 200, o.Payload)
-}
-
-func (o *GetAccountconfigurationsOK) GetPayload() *models.AccountConfigurationDetailsListResponse {
-	return o.Payload
 }
 
 func (o *GetAccountconfigurationsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *GetAccountconfigurationsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /accountconfigurations][%d] getAccountconfigurationsBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *GetAccountconfigurationsBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetAccountconfigurationsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type GetAccountconfigurationsUnauthorized struct {
 
 func (o *GetAccountconfigurationsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /accountconfigurations][%d] getAccountconfigurationsUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetAccountconfigurationsUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetAccountconfigurationsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *GetAccountconfigurationsForbidden) Error() string {
 	return fmt.Sprintf("[GET /accountconfigurations][%d] getAccountconfigurationsForbidden  %+v", 403, o.Payload)
 }
 
-func (o *GetAccountconfigurationsForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetAccountconfigurationsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type GetAccountconfigurationsNotFound struct {
 
 func (o *GetAccountconfigurationsNotFound) Error() string {
 	return fmt.Sprintf("[GET /accountconfigurations][%d] getAccountconfigurationsNotFound  %+v", 404, o.Payload)
-}
-
-func (o *GetAccountconfigurationsNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetAccountconfigurationsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *GetAccountconfigurationsConflict) Error() string {
 	return fmt.Sprintf("[GET /accountconfigurations][%d] getAccountconfigurationsConflict  %+v", 409, o.Payload)
 }
 
-func (o *GetAccountconfigurationsConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetAccountconfigurationsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type GetAccountconfigurationsTooManyRequests struct {
 
 func (o *GetAccountconfigurationsTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /accountconfigurations][%d] getAccountconfigurationsTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *GetAccountconfigurationsTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetAccountconfigurationsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *GetAccountconfigurationsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /accountconfigurations][%d] getAccountconfigurationsInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetAccountconfigurationsInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetAccountconfigurationsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type GetAccountconfigurationsServiceUnavailable struct {
 
 func (o *GetAccountconfigurationsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /accountconfigurations][%d] getAccountconfigurationsServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *GetAccountconfigurationsServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetAccountconfigurationsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

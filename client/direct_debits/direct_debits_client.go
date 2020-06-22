@@ -6,14 +6,13 @@ package direct_debits
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"fmt"
-
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
+
+	strfmt "github.com/go-openapi/strfmt"
 )
 
 // New creates a new direct debits API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -25,15 +24,8 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-// ClientService is the interface for Client methods
-type ClientService interface {
-	GetDirectdebits(params *GetDirectdebitsParams) (*GetDirectdebitsOK, error)
-
-	SetTransport(transport runtime.ClientTransport)
-}
-
 /*
-  GetDirectdebits lists direct debits
+GetDirectdebits lists direct debits
 */
 func (a *Client) GetDirectdebits(params *GetDirectdebitsParams) (*GetDirectdebitsOK, error) {
 	// TODO: Validate the params before sending
@@ -45,8 +37,8 @@ func (a *Client) GetDirectdebits(params *GetDirectdebitsParams) (*GetDirectdebit
 		ID:                 "GetDirectdebits",
 		Method:             "GET",
 		PathPattern:        "/directdebits",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetDirectdebitsReader{formats: a.formats},
@@ -56,14 +48,8 @@ func (a *Client) GetDirectdebits(params *GetDirectdebitsParams) (*GetDirectdebit
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetDirectdebitsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetDirectdebits: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*GetDirectdebitsOK), nil
+
 }
 
 // SetTransport changes the transport on the client

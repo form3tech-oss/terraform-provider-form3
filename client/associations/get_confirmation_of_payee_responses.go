@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetConfirmationOfPayeeReader is a Reader for the GetConfirmationOfPayee structure.
@@ -23,54 +24,63 @@ type GetConfirmationOfPayeeReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetConfirmationOfPayeeReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 200:
 		result := NewGetConfirmationOfPayeeOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewGetConfirmationOfPayeeBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewGetConfirmationOfPayeeUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewGetConfirmationOfPayeeForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewGetConfirmationOfPayeeNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewGetConfirmationOfPayeeConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewGetConfirmationOfPayeeTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewGetConfirmationOfPayeeInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewGetConfirmationOfPayeeServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type GetConfirmationOfPayeeOK struct {
 
 func (o *GetConfirmationOfPayeeOK) Error() string {
 	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeOK  %+v", 200, o.Payload)
-}
-
-func (o *GetConfirmationOfPayeeOK) GetPayload() *models.CoPAssociationDetailsListResponse {
-	return o.Payload
 }
 
 func (o *GetConfirmationOfPayeeOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *GetConfirmationOfPayeeBadRequest) Error() string {
 	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *GetConfirmationOfPayeeBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetConfirmationOfPayeeBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type GetConfirmationOfPayeeUnauthorized struct {
 
 func (o *GetConfirmationOfPayeeUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetConfirmationOfPayeeUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetConfirmationOfPayeeUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *GetConfirmationOfPayeeForbidden) Error() string {
 	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeForbidden  %+v", 403, o.Payload)
 }
 
-func (o *GetConfirmationOfPayeeForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetConfirmationOfPayeeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type GetConfirmationOfPayeeNotFound struct {
 
 func (o *GetConfirmationOfPayeeNotFound) Error() string {
 	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeNotFound  %+v", 404, o.Payload)
-}
-
-func (o *GetConfirmationOfPayeeNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetConfirmationOfPayeeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *GetConfirmationOfPayeeConflict) Error() string {
 	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeConflict  %+v", 409, o.Payload)
 }
 
-func (o *GetConfirmationOfPayeeConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetConfirmationOfPayeeConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type GetConfirmationOfPayeeTooManyRequests struct {
 
 func (o *GetConfirmationOfPayeeTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *GetConfirmationOfPayeeTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetConfirmationOfPayeeTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *GetConfirmationOfPayeeInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetConfirmationOfPayeeInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetConfirmationOfPayeeInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type GetConfirmationOfPayeeServiceUnavailable struct {
 
 func (o *GetConfirmationOfPayeeServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *GetConfirmationOfPayeeServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetConfirmationOfPayeeServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

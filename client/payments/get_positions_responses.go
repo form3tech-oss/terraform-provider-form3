@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetPositionsReader is a Reader for the GetPositions structure.
@@ -23,54 +24,63 @@ type GetPositionsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetPositionsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 200:
 		result := NewGetPositionsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewGetPositionsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewGetPositionsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewGetPositionsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewGetPositionsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewGetPositionsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewGetPositionsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewGetPositionsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewGetPositionsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type GetPositionsOK struct {
 
 func (o *GetPositionsOK) Error() string {
 	return fmt.Sprintf("[GET /positions][%d] getPositionsOK  %+v", 200, o.Payload)
-}
-
-func (o *GetPositionsOK) GetPayload() *models.PositionDetailsListResponse {
-	return o.Payload
 }
 
 func (o *GetPositionsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *GetPositionsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /positions][%d] getPositionsBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *GetPositionsBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetPositionsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type GetPositionsUnauthorized struct {
 
 func (o *GetPositionsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /positions][%d] getPositionsUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetPositionsUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetPositionsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *GetPositionsForbidden) Error() string {
 	return fmt.Sprintf("[GET /positions][%d] getPositionsForbidden  %+v", 403, o.Payload)
 }
 
-func (o *GetPositionsForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetPositionsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type GetPositionsNotFound struct {
 
 func (o *GetPositionsNotFound) Error() string {
 	return fmt.Sprintf("[GET /positions][%d] getPositionsNotFound  %+v", 404, o.Payload)
-}
-
-func (o *GetPositionsNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetPositionsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *GetPositionsConflict) Error() string {
 	return fmt.Sprintf("[GET /positions][%d] getPositionsConflict  %+v", 409, o.Payload)
 }
 
-func (o *GetPositionsConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetPositionsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type GetPositionsTooManyRequests struct {
 
 func (o *GetPositionsTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /positions][%d] getPositionsTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *GetPositionsTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetPositionsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *GetPositionsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /positions][%d] getPositionsInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetPositionsInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetPositionsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type GetPositionsServiceUnavailable struct {
 
 func (o *GetPositionsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /positions][%d] getPositionsServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *GetPositionsServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetPositionsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

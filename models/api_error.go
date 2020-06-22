@@ -8,14 +8,14 @@ package models
 import (
 	"encoding/json"
 
+	strfmt "github.com/go-openapi/strfmt"
+
 	"github.com/go-openapi/errors"
-	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // APIError Api error
-//
 // swagger:model ApiError
 type APIError struct {
 
@@ -48,7 +48,9 @@ func (m *APIError) UnmarshalJSON(data []byte) error {
 	var rcv APIError
 
 	rcv.ErrorCode = stage1.ErrorCode
+
 	rcv.ErrorMessage = stage1.ErrorMessage
+
 	*m = rcv
 
 	// stage 2, remove properties and add to map
@@ -58,7 +60,9 @@ func (m *APIError) UnmarshalJSON(data []byte) error {
 	}
 
 	delete(stage2, "error_code")
+
 	delete(stage2, "error_message")
+
 	// stage 3, add additional properties values
 	if len(stage2) > 0 {
 		result := make(map[string]interface{})
@@ -88,6 +92,7 @@ func (m APIError) MarshalJSON() ([]byte, error) {
 	}
 
 	stage1.ErrorCode = m.ErrorCode
+
 	stage1.ErrorMessage = m.ErrorMessage
 
 	// make JSON object for known properties
