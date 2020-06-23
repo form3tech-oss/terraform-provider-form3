@@ -21,20 +21,15 @@ func resourceForm3SigningKey() *schema.Resource {
 		},
 
 		Schema: map[string]*schema.Schema{
-			"public_key": &schema.Schema{
+			"signing_key_id": &schema.Schema{
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: false,
-			},
-			"id": &schema.Schema{
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: false,
+				ForceNew: true,
 			},
 			"organisation_id": &schema.Schema{
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: false,
+				ForceNew: true,
 			},
 		},
 	}
@@ -43,7 +38,7 @@ func resourceForm3SigningKey() *schema.Resource {
 func resourceSigningKeyCreate(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
 
-	id := d.Get("id").(string)
+	id := d.Get("signing_key_id").(string)
 	log.Printf("[INFO] Creating signing_key with id: %s", id)
 
 	signingKey, err := createSigningKeyFromResourceData(d)
@@ -52,7 +47,7 @@ func resourceSigningKeyCreate(d *schema.ResourceData, meta interface{}) error {
 	}
 	log.Printf("[DEBUG] signing_key create: %#v", signingKey)
 
-	createdSigningKey, err := client.SystemClient.Platformsecurityapi.PostPlatformSecuritySigningKeys(platformsecurityapi.NewPostPlatformSecuritySigningKeysParams().WithData(
+	createdSigningKey, err := client.PlatformClient.Platformsecurityapi.PostPlatformSecuritySigningKeys(platformsecurityapi.NewPostPlatformSecuritySigningKeysParams().WithData(
 		&models.SigningKeysCreation{
 			Data: signingKey,
 		},
@@ -81,7 +76,7 @@ func resourceSigningKeyRead(d *schema.ResourceData, meta interface{}) error {
 		log.Printf("[INFO] Reading signing_key id: %s", key)
 	}
 
-	signingKey, err := client.SystemClient.Platformsecurityapi.GetPlatformSecuritySigningKeysSigningkeyID(
+	signingKey, err := client.PlatformClient.Platformsecurityapi.GetPlatformSecuritySigningKeysSigningkeyID(
 		platformsecurityapi.NewGetPlatformSecuritySigningKeysSigningkeyIDParams().WithSigningkeyID(signingKeyId))
 
 	if err != nil {
@@ -99,7 +94,7 @@ func resourceSigningKeyRead(d *schema.ResourceData, meta interface{}) error {
 func resourceSigningKeyUpdate(d *schema.ResourceData, meta interface{}) error {
 	d.Partial(false)
 
-	if d.HasChange("id") {
+	if d.HasChange("signing_key_id") {
 		return fmt.Errorf("error updating signing_key as they can not be changed")
 	}
 
@@ -116,7 +111,9 @@ func resourceSigningKeyDelete(d *schema.ResourceData, meta interface{}) error {
 
 func createSigningKeyFromResourceData(d *schema.ResourceData) (*models.SigningKeysRequestData, error) {
 	signingKey := models.SigningKeysRequestData{}
-	if attr, ok := GetUUIDOK(d, "id"); ok {
+	objectTtype := "signing_keys"
+	signingKey.Type = &objectTtype
+	if attr, ok := GetUUIDOK(d, "signing_key_id"); ok {
 		id := attr.String()
 		signingKey.ID = &id
 	}

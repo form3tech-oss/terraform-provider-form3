@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetBacsReader is a Reader for the GetBacs structure.
@@ -24,63 +23,54 @@ type GetBacsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetBacsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetBacsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetBacsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetBacsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetBacsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetBacsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetBacsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetBacsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetBacsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetBacsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetBacsOK struct {
 
 func (o *GetBacsOK) Error() string {
 	return fmt.Sprintf("[GET /bacs][%d] getBacsOK  %+v", 200, o.Payload)
+}
+
+func (o *GetBacsOK) GetPayload() *models.BacsAssociationDetailsListResponse {
+	return o.Payload
 }
 
 func (o *GetBacsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetBacsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /bacs][%d] getBacsBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetBacsBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetBacsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetBacsUnauthorized struct {
 
 func (o *GetBacsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /bacs][%d] getBacsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetBacsUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetBacsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetBacsForbidden) Error() string {
 	return fmt.Sprintf("[GET /bacs][%d] getBacsForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetBacsForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetBacsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetBacsNotFound struct {
 
 func (o *GetBacsNotFound) Error() string {
 	return fmt.Sprintf("[GET /bacs][%d] getBacsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetBacsNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetBacsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetBacsConflict) Error() string {
 	return fmt.Sprintf("[GET /bacs][%d] getBacsConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetBacsConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetBacsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetBacsTooManyRequests struct {
 
 func (o *GetBacsTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /bacs][%d] getBacsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetBacsTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetBacsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetBacsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /bacs][%d] getBacsInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetBacsInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetBacsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetBacsServiceUnavailable struct {
 
 func (o *GetBacsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /bacs][%d] getBacsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetBacsServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetBacsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

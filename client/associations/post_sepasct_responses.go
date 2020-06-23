@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostSepasctReader is a Reader for the PostSepasct structure.
@@ -24,63 +23,54 @@ type PostSepasctReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostSepasctReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostSepasctCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewPostSepasctBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewPostSepasctUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewPostSepasctForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewPostSepasctNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewPostSepasctConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewPostSepasctTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewPostSepasctInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewPostSepasctServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type PostSepasctCreated struct {
 
 func (o *PostSepasctCreated) Error() string {
 	return fmt.Sprintf("[POST /sepasct][%d] postSepasctCreated  %+v", 201, o.Payload)
+}
+
+func (o *PostSepasctCreated) GetPayload() *models.SepaSctAssociationCreationResponse {
+	return o.Payload
 }
 
 func (o *PostSepasctCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *PostSepasctBadRequest) Error() string {
 	return fmt.Sprintf("[POST /sepasct][%d] postSepasctBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *PostSepasctBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostSepasctBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type PostSepasctUnauthorized struct {
 
 func (o *PostSepasctUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /sepasct][%d] postSepasctUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostSepasctUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostSepasctUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *PostSepasctForbidden) Error() string {
 	return fmt.Sprintf("[POST /sepasct][%d] postSepasctForbidden  %+v", 403, o.Payload)
 }
 
+func (o *PostSepasctForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostSepasctForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type PostSepasctNotFound struct {
 
 func (o *PostSepasctNotFound) Error() string {
 	return fmt.Sprintf("[POST /sepasct][%d] postSepasctNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostSepasctNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostSepasctNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *PostSepasctConflict) Error() string {
 	return fmt.Sprintf("[POST /sepasct][%d] postSepasctConflict  %+v", 409, o.Payload)
 }
 
+func (o *PostSepasctConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostSepasctConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type PostSepasctTooManyRequests struct {
 
 func (o *PostSepasctTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /sepasct][%d] postSepasctTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostSepasctTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostSepasctTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *PostSepasctInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /sepasct][%d] postSepasctInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *PostSepasctInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostSepasctInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type PostSepasctServiceUnavailable struct {
 
 func (o *PostSepasctServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /sepasct][%d] postSepasctServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostSepasctServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostSepasctServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

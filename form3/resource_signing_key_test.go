@@ -24,8 +24,8 @@ func TestAccSigningKeys_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: fmt.Sprintf(testForm3SigningKeyConfigA, organisationId, signingKeyId),
-				Check: resource.ComposeTestCheckFunc(testAccCheckSigningKeyExists("form3_signing_key.signing_key", &signingKeysResponse),
-					resource.TestCheckResourceAttr("form3_signing_key.signing_key", "organisation_id", organisationId),
+				Check: resource.ComposeTestCheckFunc(testAccCheckSigningKeyExists("form3_signing_keys.signing_key", &signingKeysResponse),
+					resource.TestCheckResourceAttr("form3_signing_keys.signing_key", "organisation_id", organisationId),
 				),
 			},
 		},
@@ -46,7 +46,7 @@ func testAccCheckSigningKeyExists(resourceKey string, p *platformsecurityapi.Get
 
 		client := testAccProvider.Meta().(*form3.AuthenticatedClient)
 
-		foundRecord, err := client.SystemClient.Platformsecurityapi.GetPlatformSecuritySigningKeysSigningkeyID(
+		foundRecord, err := client.PlatformClient.Platformsecurityapi.GetPlatformSecuritySigningKeysSigningkeyID(
 			platformsecurityapi.NewGetPlatformSecuritySigningKeysSigningkeyIDParams().WithSigningkeyID(strfmt.UUID(rs.Primary.ID)))
 
 		if err != nil {
@@ -71,7 +71,7 @@ func testAccCheckSigningKeyDestroy(state *terraform.State) error {
 			continue
 		}
 
-		response, err := client.SystemClient.Platformsecurityapi.GetPlatformSecuritySigningKeysSigningkeyID(
+		response, err := client.PlatformClient.Platformsecurityapi.GetPlatformSecuritySigningKeysSigningkeyID(
 			platformsecurityapi.NewGetPlatformSecuritySigningKeysSigningkeyIDParams().
 				WithSigningkeyID(strfmt.UUID(rs.Primary.ID)),
 		)
@@ -85,8 +85,8 @@ func testAccCheckSigningKeyDestroy(state *terraform.State) error {
 }
 
 const testForm3SigningKeyConfigA = `
-resource "form3_signing_key" "signing_key" {
+resource "form3_signing_keys" "signing_key" {
 	organisation_id  = "%s"
-	id               = "%s"
+	signing_key_id               = "%s"
 }
 `

@@ -6,13 +6,14 @@ package admins
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new admins API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +25,19 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	DeleteAdminsUserIDCredentialsClientID(params *DeleteAdminsUserIDCredentialsClientIDParams) (*DeleteAdminsUserIDCredentialsClientIDNoContent, error)
+
+	GetAdminsUserIDCredentials(params *GetAdminsUserIDCredentialsParams) (*GetAdminsUserIDCredentialsOK, error)
+
+	PostAdminsUserIDCredentials(params *PostAdminsUserIDCredentialsParams) (*PostAdminsUserIDCredentialsCreated, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-DeleteAdminsUserIDCredentialsClientID deletes admin credential for user
+  DeleteAdminsUserIDCredentialsClientID deletes admin credential for user
 */
 func (a *Client) DeleteAdminsUserIDCredentialsClientID(params *DeleteAdminsUserIDCredentialsClientIDParams) (*DeleteAdminsUserIDCredentialsClientIDNoContent, error) {
 	// TODO: Validate the params before sending
@@ -37,7 +49,7 @@ func (a *Client) DeleteAdminsUserIDCredentialsClientID(params *DeleteAdminsUserI
 		ID:                 "DeleteAdminsUserIDCredentialsClientID",
 		Method:             "DELETE",
 		PathPattern:        "/admins/{user_id}/credentials/{client_id}",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -48,12 +60,18 @@ func (a *Client) DeleteAdminsUserIDCredentialsClientID(params *DeleteAdminsUserI
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteAdminsUserIDCredentialsClientIDNoContent), nil
-
+	success, ok := result.(*DeleteAdminsUserIDCredentialsClientIDNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteAdminsUserIDCredentialsClientID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetAdminsUserIDCredentials fetches admin credentials for user
+  GetAdminsUserIDCredentials fetches admin credentials for user
 */
 func (a *Client) GetAdminsUserIDCredentials(params *GetAdminsUserIDCredentialsParams) (*GetAdminsUserIDCredentialsOK, error) {
 	// TODO: Validate the params before sending
@@ -65,8 +83,8 @@ func (a *Client) GetAdminsUserIDCredentials(params *GetAdminsUserIDCredentialsPa
 		ID:                 "GetAdminsUserIDCredentials",
 		Method:             "GET",
 		PathPattern:        "/admins/{user_id}/credentials",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetAdminsUserIDCredentialsReader{formats: a.formats},
@@ -76,12 +94,18 @@ func (a *Client) GetAdminsUserIDCredentials(params *GetAdminsUserIDCredentialsPa
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetAdminsUserIDCredentialsOK), nil
-
+	success, ok := result.(*GetAdminsUserIDCredentialsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetAdminsUserIDCredentials: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostAdminsUserIDCredentials generates new admin credentials for a user
+  PostAdminsUserIDCredentials generates new admin credentials for a user
 */
 func (a *Client) PostAdminsUserIDCredentials(params *PostAdminsUserIDCredentialsParams) (*PostAdminsUserIDCredentialsCreated, error) {
 	// TODO: Validate the params before sending
@@ -93,7 +117,7 @@ func (a *Client) PostAdminsUserIDCredentials(params *PostAdminsUserIDCredentials
 		ID:                 "PostAdminsUserIDCredentials",
 		Method:             "POST",
 		PathPattern:        "/admins/{user_id}/credentials",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -104,8 +128,14 @@ func (a *Client) PostAdminsUserIDCredentials(params *PostAdminsUserIDCredentials
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostAdminsUserIDCredentialsCreated), nil
-
+	success, ok := result.(*PostAdminsUserIDCredentialsCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostAdminsUserIDCredentials: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

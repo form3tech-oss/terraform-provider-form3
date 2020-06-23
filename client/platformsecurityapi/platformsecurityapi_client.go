@@ -6,13 +6,14 @@ package platformsecurityapi
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new platformsecurityapi API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +25,17 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	GetPlatformSecuritySigningKeysSigningkeyID(params *GetPlatformSecuritySigningKeysSigningkeyIDParams) (*GetPlatformSecuritySigningKeysSigningkeyIDOK, error)
+
+	PostPlatformSecuritySigningKeys(params *PostPlatformSecuritySigningKeysParams) (*PostPlatformSecuritySigningKeysCreated, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-GetPlatformSecuritySigningKeysSigningkeyID fetches a signing key
+  GetPlatformSecuritySigningKeysSigningkeyID fetches a signing key
 */
 func (a *Client) GetPlatformSecuritySigningKeysSigningkeyID(params *GetPlatformSecuritySigningKeysSigningkeyIDParams) (*GetPlatformSecuritySigningKeysSigningkeyIDOK, error) {
 	// TODO: Validate the params before sending
@@ -37,8 +47,8 @@ func (a *Client) GetPlatformSecuritySigningKeysSigningkeyID(params *GetPlatformS
 		ID:                 "GetPlatformSecuritySigningKeysSigningkeyID",
 		Method:             "GET",
 		PathPattern:        "/platform/security/signing_keys/{signingkey_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetPlatformSecuritySigningKeysSigningkeyIDReader{formats: a.formats},
@@ -48,12 +58,18 @@ func (a *Client) GetPlatformSecuritySigningKeysSigningkeyID(params *GetPlatformS
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetPlatformSecuritySigningKeysSigningkeyIDOK), nil
-
+	success, ok := result.(*GetPlatformSecuritySigningKeysSigningkeyIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetPlatformSecuritySigningKeysSigningkeyID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostPlatformSecuritySigningKeys creates a signing key pair
+  PostPlatformSecuritySigningKeys creates a signing key pair
 */
 func (a *Client) PostPlatformSecuritySigningKeys(params *PostPlatformSecuritySigningKeysParams) (*PostPlatformSecuritySigningKeysCreated, error) {
 	// TODO: Validate the params before sending
@@ -65,7 +81,7 @@ func (a *Client) PostPlatformSecuritySigningKeys(params *PostPlatformSecuritySig
 		ID:                 "PostPlatformSecuritySigningKeys",
 		Method:             "POST",
 		PathPattern:        "/platform/security/signing_keys",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -76,8 +92,14 @@ func (a *Client) PostPlatformSecuritySigningKeys(params *PostPlatformSecuritySig
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostPlatformSecuritySigningKeysCreated), nil
-
+	success, ok := result.(*PostPlatformSecuritySigningKeysCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostPlatformSecuritySigningKeys: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

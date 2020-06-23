@@ -6,13 +6,14 @@ package payments
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new payments API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +25,63 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	GetPayments(params *GetPaymentsParams) (*GetPaymentsOK, error)
+
+	GetPaymentsIDAdmissionsAdmissionID(params *GetPaymentsIDAdmissionsAdmissionIDParams) (*GetPaymentsIDAdmissionsAdmissionIDOK, error)
+
+	GetPaymentsIDReturnsReturnID(params *GetPaymentsIDReturnsReturnIDParams) (*GetPaymentsIDReturnsReturnIDOK, error)
+
+	GetPaymentsIDReturnsReturnIDAdmissionsAdmissionID(params *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDParams) (*GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDOK, error)
+
+	GetPaymentsIDReturnsReturnIDReversalsReversalID(params *GetPaymentsIDReturnsReturnIDReversalsReversalIDParams) (*GetPaymentsIDReturnsReturnIDReversalsReversalIDOK, error)
+
+	GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionID(params *GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams) (*GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDOK, error)
+
+	GetPaymentsIDReturnsReturnIDSubmissionsSubmissionID(params *GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams) (*GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDOK, error)
+
+	GetPaymentsIDReversalsReversalID(params *GetPaymentsIDReversalsReversalIDParams) (*GetPaymentsIDReversalsReversalIDOK, error)
+
+	GetPaymentsIDReversalsReversalIDAdmissionsAdmissionID(params *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDParams) (*GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDOK, error)
+
+	GetPaymentsIDSubmissionsSubmissionID(params *GetPaymentsIDSubmissionsSubmissionIDParams) (*GetPaymentsIDSubmissionsSubmissionIDOK, error)
+
+	GetPositions(params *GetPositionsParams) (*GetPositionsOK, error)
+
+	PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionID(params *PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams) (*PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDOK, error)
+
+	PatchPaymentsIDSubmissionsSubmissionID(params *PatchPaymentsIDSubmissionsSubmissionIDParams) (*PatchPaymentsIDSubmissionsSubmissionIDOK, error)
+
+	PostPayments(params *PostPaymentsParams) (*PostPaymentsCreated, error)
+
+	PostPaymentsIDAdmissions(params *PostPaymentsIDAdmissionsParams) (*PostPaymentsIDAdmissionsCreated, error)
+
+	PostPaymentsIDReturns(params *PostPaymentsIDReturnsParams) (*PostPaymentsIDReturnsCreated, error)
+
+	PostPaymentsIDReturnsReturnIDAdmissions(params *PostPaymentsIDReturnsReturnIDAdmissionsParams) (*PostPaymentsIDReturnsReturnIDAdmissionsCreated, error)
+
+	PostPaymentsIDReturnsReturnIDReversals(params *PostPaymentsIDReturnsReturnIDReversalsParams) (*PostPaymentsIDReturnsReturnIDReversalsCreated, error)
+
+	PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissions(params *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsParams) (*PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsCreated, error)
+
+	PostPaymentsIDReturnsReturnIDSubmissions(params *PostPaymentsIDReturnsReturnIDSubmissionsParams) (*PostPaymentsIDReturnsReturnIDSubmissionsCreated, error)
+
+	PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidations(params *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams) (*PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsCreated, error)
+
+	PostPaymentsIDReversals(params *PostPaymentsIDReversalsParams) (*PostPaymentsIDReversalsCreated, error)
+
+	PostPaymentsIDReversalsReversalIDAdmissions(params *PostPaymentsIDReversalsReversalIDAdmissionsParams) (*PostPaymentsIDReversalsReversalIDAdmissionsCreated, error)
+
+	PostPaymentsIDSubmissions(params *PostPaymentsIDSubmissionsParams) (*PostPaymentsIDSubmissionsCreated, error)
+
+	PostPaymentsIDSubmissionsSubmissionIDValidations(params *PostPaymentsIDSubmissionsSubmissionIDValidationsParams) (*PostPaymentsIDSubmissionsSubmissionIDValidationsCreated, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-GetPayments lists payments
+  GetPayments lists payments
 */
 func (a *Client) GetPayments(params *GetPaymentsParams) (*GetPaymentsOK, error) {
 	// TODO: Validate the params before sending
@@ -37,8 +93,8 @@ func (a *Client) GetPayments(params *GetPaymentsParams) (*GetPaymentsOK, error) 
 		ID:                 "GetPayments",
 		Method:             "GET",
 		PathPattern:        "/payments",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetPaymentsReader{formats: a.formats},
@@ -48,12 +104,18 @@ func (a *Client) GetPayments(params *GetPaymentsParams) (*GetPaymentsOK, error) 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetPaymentsOK), nil
-
+	success, ok := result.(*GetPaymentsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetPayments: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetPaymentsIDAdmissionsAdmissionID fetches admission
+  GetPaymentsIDAdmissionsAdmissionID fetches admission
 */
 func (a *Client) GetPaymentsIDAdmissionsAdmissionID(params *GetPaymentsIDAdmissionsAdmissionIDParams) (*GetPaymentsIDAdmissionsAdmissionIDOK, error) {
 	// TODO: Validate the params before sending
@@ -65,8 +127,8 @@ func (a *Client) GetPaymentsIDAdmissionsAdmissionID(params *GetPaymentsIDAdmissi
 		ID:                 "GetPaymentsIDAdmissionsAdmissionID",
 		Method:             "GET",
 		PathPattern:        "/payments/{id}/admissions/{admissionId}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetPaymentsIDAdmissionsAdmissionIDReader{formats: a.formats},
@@ -76,12 +138,18 @@ func (a *Client) GetPaymentsIDAdmissionsAdmissionID(params *GetPaymentsIDAdmissi
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetPaymentsIDAdmissionsAdmissionIDOK), nil
-
+	success, ok := result.(*GetPaymentsIDAdmissionsAdmissionIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetPaymentsIDAdmissionsAdmissionID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetPaymentsIDReturnsReturnID fetches return
+  GetPaymentsIDReturnsReturnID fetches return
 */
 func (a *Client) GetPaymentsIDReturnsReturnID(params *GetPaymentsIDReturnsReturnIDParams) (*GetPaymentsIDReturnsReturnIDOK, error) {
 	// TODO: Validate the params before sending
@@ -93,8 +161,8 @@ func (a *Client) GetPaymentsIDReturnsReturnID(params *GetPaymentsIDReturnsReturn
 		ID:                 "GetPaymentsIDReturnsReturnID",
 		Method:             "GET",
 		PathPattern:        "/payments/{id}/returns/{returnId}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetPaymentsIDReturnsReturnIDReader{formats: a.formats},
@@ -104,12 +172,18 @@ func (a *Client) GetPaymentsIDReturnsReturnID(params *GetPaymentsIDReturnsReturn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetPaymentsIDReturnsReturnIDOK), nil
-
+	success, ok := result.(*GetPaymentsIDReturnsReturnIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetPaymentsIDReturnsReturnID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetPaymentsIDReturnsReturnIDAdmissionsAdmissionID fetches return admission
+  GetPaymentsIDReturnsReturnIDAdmissionsAdmissionID fetches return admission
 */
 func (a *Client) GetPaymentsIDReturnsReturnIDAdmissionsAdmissionID(params *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDParams) (*GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDOK, error) {
 	// TODO: Validate the params before sending
@@ -121,8 +195,8 @@ func (a *Client) GetPaymentsIDReturnsReturnIDAdmissionsAdmissionID(params *GetPa
 		ID:                 "GetPaymentsIDReturnsReturnIDAdmissionsAdmissionID",
 		Method:             "GET",
 		PathPattern:        "/payments/{id}/returns/{returnId}/admissions/{admissionId}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDReader{formats: a.formats},
@@ -132,12 +206,18 @@ func (a *Client) GetPaymentsIDReturnsReturnIDAdmissionsAdmissionID(params *GetPa
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDOK), nil
-
+	success, ok := result.(*GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetPaymentsIDReturnsReturnIDAdmissionsAdmissionID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetPaymentsIDReturnsReturnIDReversalsReversalID fetches return reversal
+  GetPaymentsIDReturnsReturnIDReversalsReversalID fetches return reversal
 */
 func (a *Client) GetPaymentsIDReturnsReturnIDReversalsReversalID(params *GetPaymentsIDReturnsReturnIDReversalsReversalIDParams) (*GetPaymentsIDReturnsReturnIDReversalsReversalIDOK, error) {
 	// TODO: Validate the params before sending
@@ -149,8 +229,8 @@ func (a *Client) GetPaymentsIDReturnsReturnIDReversalsReversalID(params *GetPaym
 		ID:                 "GetPaymentsIDReturnsReturnIDReversalsReversalID",
 		Method:             "GET",
 		PathPattern:        "/payments/{id}/returns/{returnId}/reversals/{reversalId}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetPaymentsIDReturnsReturnIDReversalsReversalIDReader{formats: a.formats},
@@ -160,12 +240,18 @@ func (a *Client) GetPaymentsIDReturnsReturnIDReversalsReversalID(params *GetPaym
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetPaymentsIDReturnsReturnIDReversalsReversalIDOK), nil
-
+	success, ok := result.(*GetPaymentsIDReturnsReturnIDReversalsReversalIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetPaymentsIDReturnsReturnIDReversalsReversalID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionID fetches return reversal admission
+  GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionID fetches return reversal admission
 */
 func (a *Client) GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionID(params *GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams) (*GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDOK, error) {
 	// TODO: Validate the params before sending
@@ -177,8 +263,8 @@ func (a *Client) GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmiss
 		ID:                 "GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionID",
 		Method:             "GET",
 		PathPattern:        "/payments/{id}/returns/{returnId}/reversals/{reversalId}/admissions/{admissionId}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDReader{formats: a.formats},
@@ -188,12 +274,18 @@ func (a *Client) GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmiss
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDOK), nil
-
+	success, ok := result.(*GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetPaymentsIDReturnsReturnIDSubmissionsSubmissionID fetches return submission
+  GetPaymentsIDReturnsReturnIDSubmissionsSubmissionID fetches return submission
 */
 func (a *Client) GetPaymentsIDReturnsReturnIDSubmissionsSubmissionID(params *GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams) (*GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDOK, error) {
 	// TODO: Validate the params before sending
@@ -205,8 +297,8 @@ func (a *Client) GetPaymentsIDReturnsReturnIDSubmissionsSubmissionID(params *Get
 		ID:                 "GetPaymentsIDReturnsReturnIDSubmissionsSubmissionID",
 		Method:             "GET",
 		PathPattern:        "/payments/{id}/returns/{returnId}/submissions/{submissionId}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDReader{formats: a.formats},
@@ -216,12 +308,18 @@ func (a *Client) GetPaymentsIDReturnsReturnIDSubmissionsSubmissionID(params *Get
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDOK), nil
-
+	success, ok := result.(*GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetPaymentsIDReturnsReturnIDSubmissionsSubmissionID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetPaymentsIDReversalsReversalID fetches reversal
+  GetPaymentsIDReversalsReversalID fetches reversal
 */
 func (a *Client) GetPaymentsIDReversalsReversalID(params *GetPaymentsIDReversalsReversalIDParams) (*GetPaymentsIDReversalsReversalIDOK, error) {
 	// TODO: Validate the params before sending
@@ -233,8 +331,8 @@ func (a *Client) GetPaymentsIDReversalsReversalID(params *GetPaymentsIDReversals
 		ID:                 "GetPaymentsIDReversalsReversalID",
 		Method:             "GET",
 		PathPattern:        "/payments/{id}/reversals/{reversalId}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetPaymentsIDReversalsReversalIDReader{formats: a.formats},
@@ -244,12 +342,18 @@ func (a *Client) GetPaymentsIDReversalsReversalID(params *GetPaymentsIDReversals
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetPaymentsIDReversalsReversalIDOK), nil
-
+	success, ok := result.(*GetPaymentsIDReversalsReversalIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetPaymentsIDReversalsReversalID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetPaymentsIDReversalsReversalIDAdmissionsAdmissionID fetches reversal admission
+  GetPaymentsIDReversalsReversalIDAdmissionsAdmissionID fetches reversal admission
 */
 func (a *Client) GetPaymentsIDReversalsReversalIDAdmissionsAdmissionID(params *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDParams) (*GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDOK, error) {
 	// TODO: Validate the params before sending
@@ -261,8 +365,8 @@ func (a *Client) GetPaymentsIDReversalsReversalIDAdmissionsAdmissionID(params *G
 		ID:                 "GetPaymentsIDReversalsReversalIDAdmissionsAdmissionID",
 		Method:             "GET",
 		PathPattern:        "/payments/{id}/reversals/{reversalId}/admissions/{admissionId}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDReader{formats: a.formats},
@@ -272,12 +376,18 @@ func (a *Client) GetPaymentsIDReversalsReversalIDAdmissionsAdmissionID(params *G
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDOK), nil
-
+	success, ok := result.(*GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetPaymentsIDReversalsReversalIDAdmissionsAdmissionID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetPaymentsIDSubmissionsSubmissionID fetches submission
+  GetPaymentsIDSubmissionsSubmissionID fetches submission
 */
 func (a *Client) GetPaymentsIDSubmissionsSubmissionID(params *GetPaymentsIDSubmissionsSubmissionIDParams) (*GetPaymentsIDSubmissionsSubmissionIDOK, error) {
 	// TODO: Validate the params before sending
@@ -289,8 +399,8 @@ func (a *Client) GetPaymentsIDSubmissionsSubmissionID(params *GetPaymentsIDSubmi
 		ID:                 "GetPaymentsIDSubmissionsSubmissionID",
 		Method:             "GET",
 		PathPattern:        "/payments/{id}/submissions/{submissionId}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetPaymentsIDSubmissionsSubmissionIDReader{formats: a.formats},
@@ -300,12 +410,18 @@ func (a *Client) GetPaymentsIDSubmissionsSubmissionID(params *GetPaymentsIDSubmi
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetPaymentsIDSubmissionsSubmissionIDOK), nil
-
+	success, ok := result.(*GetPaymentsIDSubmissionsSubmissionIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetPaymentsIDSubmissionsSubmissionID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetPositions lists positions
+  GetPositions lists positions
 */
 func (a *Client) GetPositions(params *GetPositionsParams) (*GetPositionsOK, error) {
 	// TODO: Validate the params before sending
@@ -317,8 +433,8 @@ func (a *Client) GetPositions(params *GetPositionsParams) (*GetPositionsOK, erro
 		ID:                 "GetPositions",
 		Method:             "GET",
 		PathPattern:        "/positions",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetPositionsReader{formats: a.formats},
@@ -328,12 +444,18 @@ func (a *Client) GetPositions(params *GetPositionsParams) (*GetPositionsOK, erro
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetPositionsOK), nil
-
+	success, ok := result.(*GetPositionsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetPositions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionID updates return submission
+  PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionID updates return submission
 */
 func (a *Client) PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionID(params *PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams) (*PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDOK, error) {
 	// TODO: Validate the params before sending
@@ -345,7 +467,7 @@ func (a *Client) PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionID(params *P
 		ID:                 "PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionID",
 		Method:             "PATCH",
 		PathPattern:        "/payments/{id}/returns/{returnId}/submissions/{submissionId}",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -356,12 +478,18 @@ func (a *Client) PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionID(params *P
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDOK), nil
-
+	success, ok := result.(*PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PatchPaymentsIDSubmissionsSubmissionID updates submission
+  PatchPaymentsIDSubmissionsSubmissionID updates submission
 */
 func (a *Client) PatchPaymentsIDSubmissionsSubmissionID(params *PatchPaymentsIDSubmissionsSubmissionIDParams) (*PatchPaymentsIDSubmissionsSubmissionIDOK, error) {
 	// TODO: Validate the params before sending
@@ -373,7 +501,7 @@ func (a *Client) PatchPaymentsIDSubmissionsSubmissionID(params *PatchPaymentsIDS
 		ID:                 "PatchPaymentsIDSubmissionsSubmissionID",
 		Method:             "PATCH",
 		PathPattern:        "/payments/{id}/submissions/{submissionId}",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -384,12 +512,18 @@ func (a *Client) PatchPaymentsIDSubmissionsSubmissionID(params *PatchPaymentsIDS
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PatchPaymentsIDSubmissionsSubmissionIDOK), nil
-
+	success, ok := result.(*PatchPaymentsIDSubmissionsSubmissionIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PatchPaymentsIDSubmissionsSubmissionID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostPayments creates payment
+  PostPayments creates payment
 */
 func (a *Client) PostPayments(params *PostPaymentsParams) (*PostPaymentsCreated, error) {
 	// TODO: Validate the params before sending
@@ -401,7 +535,7 @@ func (a *Client) PostPayments(params *PostPaymentsParams) (*PostPaymentsCreated,
 		ID:                 "PostPayments",
 		Method:             "POST",
 		PathPattern:        "/payments",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -412,12 +546,18 @@ func (a *Client) PostPayments(params *PostPaymentsParams) (*PostPaymentsCreated,
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostPaymentsCreated), nil
-
+	success, ok := result.(*PostPaymentsCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostPayments: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostPaymentsIDAdmissions creates admission
+  PostPaymentsIDAdmissions creates admission
 */
 func (a *Client) PostPaymentsIDAdmissions(params *PostPaymentsIDAdmissionsParams) (*PostPaymentsIDAdmissionsCreated, error) {
 	// TODO: Validate the params before sending
@@ -429,7 +569,7 @@ func (a *Client) PostPaymentsIDAdmissions(params *PostPaymentsIDAdmissionsParams
 		ID:                 "PostPaymentsIDAdmissions",
 		Method:             "POST",
 		PathPattern:        "/payments/{id}/admissions",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -440,12 +580,18 @@ func (a *Client) PostPaymentsIDAdmissions(params *PostPaymentsIDAdmissionsParams
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostPaymentsIDAdmissionsCreated), nil
-
+	success, ok := result.(*PostPaymentsIDAdmissionsCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostPaymentsIDAdmissions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostPaymentsIDReturns creates return
+  PostPaymentsIDReturns creates return
 */
 func (a *Client) PostPaymentsIDReturns(params *PostPaymentsIDReturnsParams) (*PostPaymentsIDReturnsCreated, error) {
 	// TODO: Validate the params before sending
@@ -457,7 +603,7 @@ func (a *Client) PostPaymentsIDReturns(params *PostPaymentsIDReturnsParams) (*Po
 		ID:                 "PostPaymentsIDReturns",
 		Method:             "POST",
 		PathPattern:        "/payments/{id}/returns",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -468,12 +614,18 @@ func (a *Client) PostPaymentsIDReturns(params *PostPaymentsIDReturnsParams) (*Po
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostPaymentsIDReturnsCreated), nil
-
+	success, ok := result.(*PostPaymentsIDReturnsCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostPaymentsIDReturns: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostPaymentsIDReturnsReturnIDAdmissions creates return admission
+  PostPaymentsIDReturnsReturnIDAdmissions creates return admission
 */
 func (a *Client) PostPaymentsIDReturnsReturnIDAdmissions(params *PostPaymentsIDReturnsReturnIDAdmissionsParams) (*PostPaymentsIDReturnsReturnIDAdmissionsCreated, error) {
 	// TODO: Validate the params before sending
@@ -485,7 +637,7 @@ func (a *Client) PostPaymentsIDReturnsReturnIDAdmissions(params *PostPaymentsIDR
 		ID:                 "PostPaymentsIDReturnsReturnIDAdmissions",
 		Method:             "POST",
 		PathPattern:        "/payments/{id}/returns/{returnId}/admissions",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -496,12 +648,18 @@ func (a *Client) PostPaymentsIDReturnsReturnIDAdmissions(params *PostPaymentsIDR
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostPaymentsIDReturnsReturnIDAdmissionsCreated), nil
-
+	success, ok := result.(*PostPaymentsIDReturnsReturnIDAdmissionsCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostPaymentsIDReturnsReturnIDAdmissions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostPaymentsIDReturnsReturnIDReversals creates return reversal
+  PostPaymentsIDReturnsReturnIDReversals creates return reversal
 */
 func (a *Client) PostPaymentsIDReturnsReturnIDReversals(params *PostPaymentsIDReturnsReturnIDReversalsParams) (*PostPaymentsIDReturnsReturnIDReversalsCreated, error) {
 	// TODO: Validate the params before sending
@@ -513,7 +671,7 @@ func (a *Client) PostPaymentsIDReturnsReturnIDReversals(params *PostPaymentsIDRe
 		ID:                 "PostPaymentsIDReturnsReturnIDReversals",
 		Method:             "POST",
 		PathPattern:        "/payments/{id}/returns/{returnId}/reversals",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -524,12 +682,18 @@ func (a *Client) PostPaymentsIDReturnsReturnIDReversals(params *PostPaymentsIDRe
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostPaymentsIDReturnsReturnIDReversalsCreated), nil
-
+	success, ok := result.(*PostPaymentsIDReturnsReturnIDReversalsCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostPaymentsIDReturnsReturnIDReversals: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissions creates return reversal admission
+  PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissions creates return reversal admission
 */
 func (a *Client) PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissions(params *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsParams) (*PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsCreated, error) {
 	// TODO: Validate the params before sending
@@ -541,7 +705,7 @@ func (a *Client) PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissions(para
 		ID:                 "PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissions",
 		Method:             "POST",
 		PathPattern:        "/payments/{id}/returns/{returnId}/reversals/{reversalId}/admissions",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -552,12 +716,18 @@ func (a *Client) PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissions(para
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsCreated), nil
-
+	success, ok := result.(*PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostPaymentsIDReturnsReturnIDSubmissions creates return submission
+  PostPaymentsIDReturnsReturnIDSubmissions creates return submission
 */
 func (a *Client) PostPaymentsIDReturnsReturnIDSubmissions(params *PostPaymentsIDReturnsReturnIDSubmissionsParams) (*PostPaymentsIDReturnsReturnIDSubmissionsCreated, error) {
 	// TODO: Validate the params before sending
@@ -569,7 +739,7 @@ func (a *Client) PostPaymentsIDReturnsReturnIDSubmissions(params *PostPaymentsID
 		ID:                 "PostPaymentsIDReturnsReturnIDSubmissions",
 		Method:             "POST",
 		PathPattern:        "/payments/{id}/returns/{returnId}/submissions",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -580,12 +750,18 @@ func (a *Client) PostPaymentsIDReturnsReturnIDSubmissions(params *PostPaymentsID
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostPaymentsIDReturnsReturnIDSubmissionsCreated), nil
-
+	success, ok := result.(*PostPaymentsIDReturnsReturnIDSubmissionsCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostPaymentsIDReturnsReturnIDSubmissions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidations creates return submission validation
+  PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidations creates return submission validation
 */
 func (a *Client) PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidations(params *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams) (*PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsCreated, error) {
 	// TODO: Validate the params before sending
@@ -597,8 +773,8 @@ func (a *Client) PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValid
 		ID:                 "PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidations",
 		Method:             "POST",
 		PathPattern:        "/payments/{id}/returns/{returnId}/submissions/{returnSubmissionId}/validations",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsReader{formats: a.formats},
@@ -608,12 +784,18 @@ func (a *Client) PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValid
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsCreated), nil
-
+	success, ok := result.(*PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidations: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostPaymentsIDReversals creates reversal
+  PostPaymentsIDReversals creates reversal
 */
 func (a *Client) PostPaymentsIDReversals(params *PostPaymentsIDReversalsParams) (*PostPaymentsIDReversalsCreated, error) {
 	// TODO: Validate the params before sending
@@ -625,7 +807,7 @@ func (a *Client) PostPaymentsIDReversals(params *PostPaymentsIDReversalsParams) 
 		ID:                 "PostPaymentsIDReversals",
 		Method:             "POST",
 		PathPattern:        "/payments/{id}/reversals",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -636,12 +818,18 @@ func (a *Client) PostPaymentsIDReversals(params *PostPaymentsIDReversalsParams) 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostPaymentsIDReversalsCreated), nil
-
+	success, ok := result.(*PostPaymentsIDReversalsCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostPaymentsIDReversals: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostPaymentsIDReversalsReversalIDAdmissions creates reversal admission
+  PostPaymentsIDReversalsReversalIDAdmissions creates reversal admission
 */
 func (a *Client) PostPaymentsIDReversalsReversalIDAdmissions(params *PostPaymentsIDReversalsReversalIDAdmissionsParams) (*PostPaymentsIDReversalsReversalIDAdmissionsCreated, error) {
 	// TODO: Validate the params before sending
@@ -653,7 +841,7 @@ func (a *Client) PostPaymentsIDReversalsReversalIDAdmissions(params *PostPayment
 		ID:                 "PostPaymentsIDReversalsReversalIDAdmissions",
 		Method:             "POST",
 		PathPattern:        "/payments/{id}/reversals/{reversalId}/admissions",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -664,12 +852,18 @@ func (a *Client) PostPaymentsIDReversalsReversalIDAdmissions(params *PostPayment
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostPaymentsIDReversalsReversalIDAdmissionsCreated), nil
-
+	success, ok := result.(*PostPaymentsIDReversalsReversalIDAdmissionsCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostPaymentsIDReversalsReversalIDAdmissions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostPaymentsIDSubmissions creates submission
+  PostPaymentsIDSubmissions creates submission
 */
 func (a *Client) PostPaymentsIDSubmissions(params *PostPaymentsIDSubmissionsParams) (*PostPaymentsIDSubmissionsCreated, error) {
 	// TODO: Validate the params before sending
@@ -681,7 +875,7 @@ func (a *Client) PostPaymentsIDSubmissions(params *PostPaymentsIDSubmissionsPara
 		ID:                 "PostPaymentsIDSubmissions",
 		Method:             "POST",
 		PathPattern:        "/payments/{id}/submissions",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -692,12 +886,18 @@ func (a *Client) PostPaymentsIDSubmissions(params *PostPaymentsIDSubmissionsPara
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostPaymentsIDSubmissionsCreated), nil
-
+	success, ok := result.(*PostPaymentsIDSubmissionsCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostPaymentsIDSubmissions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostPaymentsIDSubmissionsSubmissionIDValidations creates payment submission validation
+  PostPaymentsIDSubmissionsSubmissionIDValidations creates payment submission validation
 */
 func (a *Client) PostPaymentsIDSubmissionsSubmissionIDValidations(params *PostPaymentsIDSubmissionsSubmissionIDValidationsParams) (*PostPaymentsIDSubmissionsSubmissionIDValidationsCreated, error) {
 	// TODO: Validate the params before sending
@@ -709,8 +909,8 @@ func (a *Client) PostPaymentsIDSubmissionsSubmissionIDValidations(params *PostPa
 		ID:                 "PostPaymentsIDSubmissionsSubmissionIDValidations",
 		Method:             "POST",
 		PathPattern:        "/payments/{id}/submissions/{submissionId}/validations",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &PostPaymentsIDSubmissionsSubmissionIDValidationsReader{formats: a.formats},
@@ -720,8 +920,14 @@ func (a *Client) PostPaymentsIDSubmissionsSubmissionIDValidations(params *PostPa
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostPaymentsIDSubmissionsSubmissionIDValidationsCreated), nil
-
+	success, ok := result.(*PostPaymentsIDSubmissionsSubmissionIDValidationsCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostPaymentsIDSubmissionsSubmissionIDValidations: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

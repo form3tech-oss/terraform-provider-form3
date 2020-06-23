@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PatchAccountconfigurationsIDReader is a Reader for the PatchAccountconfigurationsID structure.
@@ -24,63 +23,54 @@ type PatchAccountconfigurationsIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PatchAccountconfigurationsIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewPatchAccountconfigurationsIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewPatchAccountconfigurationsIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewPatchAccountconfigurationsIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewPatchAccountconfigurationsIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewPatchAccountconfigurationsIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewPatchAccountconfigurationsIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewPatchAccountconfigurationsIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewPatchAccountconfigurationsIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewPatchAccountconfigurationsIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type PatchAccountconfigurationsIDOK struct {
 
 func (o *PatchAccountconfigurationsIDOK) Error() string {
 	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdOK  %+v", 200, o.Payload)
+}
+
+func (o *PatchAccountconfigurationsIDOK) GetPayload() *models.AccountConfigurationDetailsResponse {
+	return o.Payload
 }
 
 func (o *PatchAccountconfigurationsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *PatchAccountconfigurationsIDBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *PatchAccountconfigurationsIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PatchAccountconfigurationsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type PatchAccountconfigurationsIDUnauthorized struct {
 
 func (o *PatchAccountconfigurationsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PatchAccountconfigurationsIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PatchAccountconfigurationsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *PatchAccountconfigurationsIDForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *PatchAccountconfigurationsIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PatchAccountconfigurationsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type PatchAccountconfigurationsIDNotFound struct {
 
 func (o *PatchAccountconfigurationsIDNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PatchAccountconfigurationsIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PatchAccountconfigurationsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *PatchAccountconfigurationsIDConflict) Error() string {
 	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *PatchAccountconfigurationsIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PatchAccountconfigurationsIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type PatchAccountconfigurationsIDTooManyRequests struct {
 
 func (o *PatchAccountconfigurationsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PatchAccountconfigurationsIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PatchAccountconfigurationsIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *PatchAccountconfigurationsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *PatchAccountconfigurationsIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PatchAccountconfigurationsIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type PatchAccountconfigurationsIDServiceUnavailable struct {
 
 func (o *PatchAccountconfigurationsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PatchAccountconfigurationsIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PatchAccountconfigurationsIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

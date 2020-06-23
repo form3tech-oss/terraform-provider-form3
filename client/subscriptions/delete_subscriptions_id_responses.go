@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteSubscriptionsIDReader is a Reader for the DeleteSubscriptionsID structure.
@@ -24,63 +23,54 @@ type DeleteSubscriptionsIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteSubscriptionsIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewDeleteSubscriptionsIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewDeleteSubscriptionsIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewDeleteSubscriptionsIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewDeleteSubscriptionsIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewDeleteSubscriptionsIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewDeleteSubscriptionsIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewDeleteSubscriptionsIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewDeleteSubscriptionsIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewDeleteSubscriptionsIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -131,6 +121,10 @@ func (o *DeleteSubscriptionsIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /subscriptions/{id}][%d] deleteSubscriptionsIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *DeleteSubscriptionsIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteSubscriptionsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -158,6 +152,10 @@ type DeleteSubscriptionsIDUnauthorized struct {
 
 func (o *DeleteSubscriptionsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /subscriptions/{id}][%d] deleteSubscriptionsIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *DeleteSubscriptionsIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteSubscriptionsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -189,6 +187,10 @@ func (o *DeleteSubscriptionsIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /subscriptions/{id}][%d] deleteSubscriptionsIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *DeleteSubscriptionsIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteSubscriptionsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -216,6 +218,10 @@ type DeleteSubscriptionsIDNotFound struct {
 
 func (o *DeleteSubscriptionsIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /subscriptions/{id}][%d] deleteSubscriptionsIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteSubscriptionsIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteSubscriptionsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -247,6 +253,10 @@ func (o *DeleteSubscriptionsIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /subscriptions/{id}][%d] deleteSubscriptionsIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *DeleteSubscriptionsIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteSubscriptionsIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -274,6 +284,10 @@ type DeleteSubscriptionsIDTooManyRequests struct {
 
 func (o *DeleteSubscriptionsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /subscriptions/{id}][%d] deleteSubscriptionsIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *DeleteSubscriptionsIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteSubscriptionsIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -305,6 +319,10 @@ func (o *DeleteSubscriptionsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /subscriptions/{id}][%d] deleteSubscriptionsIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *DeleteSubscriptionsIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteSubscriptionsIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -332,6 +350,10 @@ type DeleteSubscriptionsIDServiceUnavailable struct {
 
 func (o *DeleteSubscriptionsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /subscriptions/{id}][%d] deleteSubscriptionsIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *DeleteSubscriptionsIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteSubscriptionsIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

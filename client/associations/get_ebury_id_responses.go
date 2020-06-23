@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetEburyIDReader is a Reader for the GetEburyID structure.
@@ -24,63 +23,54 @@ type GetEburyIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetEburyIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetEburyIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetEburyIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetEburyIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetEburyIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetEburyIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetEburyIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetEburyIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetEburyIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetEburyIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetEburyIDOK struct {
 
 func (o *GetEburyIDOK) Error() string {
 	return fmt.Sprintf("[GET /ebury/{id}][%d] getEburyIdOK  %+v", 200, o.Payload)
+}
+
+func (o *GetEburyIDOK) GetPayload() *models.EburyAssociationResponse {
+	return o.Payload
 }
 
 func (o *GetEburyIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetEburyIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /ebury/{id}][%d] getEburyIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetEburyIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetEburyIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetEburyIDUnauthorized struct {
 
 func (o *GetEburyIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /ebury/{id}][%d] getEburyIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetEburyIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetEburyIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetEburyIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /ebury/{id}][%d] getEburyIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetEburyIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetEburyIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetEburyIDNotFound struct {
 
 func (o *GetEburyIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /ebury/{id}][%d] getEburyIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetEburyIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetEburyIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetEburyIDConflict) Error() string {
 	return fmt.Sprintf("[GET /ebury/{id}][%d] getEburyIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetEburyIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetEburyIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetEburyIDTooManyRequests struct {
 
 func (o *GetEburyIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /ebury/{id}][%d] getEburyIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetEburyIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetEburyIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetEburyIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /ebury/{id}][%d] getEburyIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetEburyIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetEburyIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetEburyIDServiceUnavailable struct {
 
 func (o *GetEburyIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /ebury/{id}][%d] getEburyIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetEburyIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetEburyIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteConfirmationOfPayeeIDReader is a Reader for the DeleteConfirmationOfPayeeID structure.
@@ -24,63 +23,54 @@ type DeleteConfirmationOfPayeeIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteConfirmationOfPayeeIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewDeleteConfirmationOfPayeeIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewDeleteConfirmationOfPayeeIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewDeleteConfirmationOfPayeeIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewDeleteConfirmationOfPayeeIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewDeleteConfirmationOfPayeeIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewDeleteConfirmationOfPayeeIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewDeleteConfirmationOfPayeeIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewDeleteConfirmationOfPayeeIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewDeleteConfirmationOfPayeeIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -131,6 +121,10 @@ func (o *DeleteConfirmationOfPayeeIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /confirmation-of-payee/{id}][%d] deleteConfirmationOfPayeeIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *DeleteConfirmationOfPayeeIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteConfirmationOfPayeeIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -158,6 +152,10 @@ type DeleteConfirmationOfPayeeIDUnauthorized struct {
 
 func (o *DeleteConfirmationOfPayeeIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /confirmation-of-payee/{id}][%d] deleteConfirmationOfPayeeIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *DeleteConfirmationOfPayeeIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteConfirmationOfPayeeIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -189,6 +187,10 @@ func (o *DeleteConfirmationOfPayeeIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /confirmation-of-payee/{id}][%d] deleteConfirmationOfPayeeIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *DeleteConfirmationOfPayeeIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteConfirmationOfPayeeIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -216,6 +218,10 @@ type DeleteConfirmationOfPayeeIDNotFound struct {
 
 func (o *DeleteConfirmationOfPayeeIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /confirmation-of-payee/{id}][%d] deleteConfirmationOfPayeeIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteConfirmationOfPayeeIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteConfirmationOfPayeeIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -247,6 +253,10 @@ func (o *DeleteConfirmationOfPayeeIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /confirmation-of-payee/{id}][%d] deleteConfirmationOfPayeeIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *DeleteConfirmationOfPayeeIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteConfirmationOfPayeeIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -274,6 +284,10 @@ type DeleteConfirmationOfPayeeIDTooManyRequests struct {
 
 func (o *DeleteConfirmationOfPayeeIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /confirmation-of-payee/{id}][%d] deleteConfirmationOfPayeeIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *DeleteConfirmationOfPayeeIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteConfirmationOfPayeeIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -305,6 +319,10 @@ func (o *DeleteConfirmationOfPayeeIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /confirmation-of-payee/{id}][%d] deleteConfirmationOfPayeeIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *DeleteConfirmationOfPayeeIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteConfirmationOfPayeeIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -332,6 +350,10 @@ type DeleteConfirmationOfPayeeIDServiceUnavailable struct {
 
 func (o *DeleteConfirmationOfPayeeIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /confirmation-of-payee/{id}][%d] deleteConfirmationOfPayeeIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *DeleteConfirmationOfPayeeIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteConfirmationOfPayeeIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

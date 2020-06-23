@@ -6,14 +6,14 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // Payment payment
+//
 // swagger:model Payment
 type Payment struct {
 
@@ -184,6 +184,7 @@ func (m *Payment) UnmarshalBinary(b []byte) error {
 }
 
 // PaymentAttributes payment attributes
+//
 // swagger:model PaymentAttributes
 type PaymentAttributes struct {
 
@@ -667,6 +668,7 @@ func (m *PaymentAttributes) UnmarshalBinary(b []byte) error {
 }
 
 // PaymentAttributesBeneficiaryParty payment attributes beneficiary party
+//
 // swagger:model PaymentAttributesBeneficiaryParty
 type PaymentAttributesBeneficiaryParty struct {
 
@@ -808,6 +810,7 @@ func (m *PaymentAttributesBeneficiaryParty) UnmarshalBinary(b []byte) error {
 }
 
 // PaymentAttributesDebtorParty payment attributes debtor party
+//
 // swagger:model PaymentAttributesDebtorParty
 type PaymentAttributesDebtorParty struct {
 
@@ -949,6 +952,7 @@ func (m *PaymentAttributesDebtorParty) UnmarshalBinary(b []byte) error {
 }
 
 // PaymentAttributesFx payment attributes fx
+//
 // swagger:model PaymentAttributesFx
 type PaymentAttributesFx struct {
 
@@ -989,6 +993,7 @@ func (m *PaymentAttributesFx) UnmarshalBinary(b []byte) error {
 }
 
 // PaymentAttributesStructuredReference payment attributes structured reference
+//
 // swagger:model PaymentAttributesStructuredReference
 type PaymentAttributesStructuredReference struct {
 
@@ -1023,6 +1028,7 @@ func (m *PaymentAttributesStructuredReference) UnmarshalBinary(b []byte) error {
 }
 
 // PaymentAttributesSwift payment attributes swift
+//
 // swagger:model PaymentAttributesSwift
 type PaymentAttributesSwift struct {
 
@@ -1093,6 +1099,7 @@ func (m *PaymentAttributesSwift) UnmarshalBinary(b []byte) error {
 }
 
 // PaymentAttributesSwiftHeader payment attributes swift header
+//
 // swagger:model PaymentAttributesSwiftHeader
 type PaymentAttributesSwiftHeader struct {
 

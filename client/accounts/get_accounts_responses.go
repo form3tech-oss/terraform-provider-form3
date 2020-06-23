@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetAccountsReader is a Reader for the GetAccounts structure.
@@ -24,63 +23,54 @@ type GetAccountsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetAccountsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetAccountsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetAccountsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetAccountsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetAccountsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetAccountsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetAccountsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetAccountsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetAccountsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetAccountsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetAccountsOK struct {
 
 func (o *GetAccountsOK) Error() string {
 	return fmt.Sprintf("[GET /accounts][%d] getAccountsOK  %+v", 200, o.Payload)
+}
+
+func (o *GetAccountsOK) GetPayload() *models.AccountDetailsListResponse {
+	return o.Payload
 }
 
 func (o *GetAccountsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetAccountsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /accounts][%d] getAccountsBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetAccountsBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetAccountsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetAccountsUnauthorized struct {
 
 func (o *GetAccountsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /accounts][%d] getAccountsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetAccountsUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetAccountsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetAccountsForbidden) Error() string {
 	return fmt.Sprintf("[GET /accounts][%d] getAccountsForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetAccountsForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetAccountsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetAccountsNotFound struct {
 
 func (o *GetAccountsNotFound) Error() string {
 	return fmt.Sprintf("[GET /accounts][%d] getAccountsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetAccountsNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetAccountsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetAccountsConflict) Error() string {
 	return fmt.Sprintf("[GET /accounts][%d] getAccountsConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetAccountsConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetAccountsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetAccountsTooManyRequests struct {
 
 func (o *GetAccountsTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /accounts][%d] getAccountsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetAccountsTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetAccountsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetAccountsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /accounts][%d] getAccountsInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetAccountsInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetAccountsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetAccountsServiceUnavailable struct {
 
 func (o *GetAccountsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /accounts][%d] getAccountsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetAccountsServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetAccountsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

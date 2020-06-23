@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetRolesReader is a Reader for the GetRoles structure.
@@ -24,63 +23,54 @@ type GetRolesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetRolesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetRolesOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetRolesBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetRolesUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetRolesForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetRolesNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetRolesConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetRolesTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetRolesInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetRolesServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetRolesOK struct {
 
 func (o *GetRolesOK) Error() string {
 	return fmt.Sprintf("[GET /roles][%d] getRolesOK  %+v", 200, o.Payload)
+}
+
+func (o *GetRolesOK) GetPayload() *models.RoleDetailsListResponse {
+	return o.Payload
 }
 
 func (o *GetRolesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetRolesBadRequest) Error() string {
 	return fmt.Sprintf("[GET /roles][%d] getRolesBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetRolesBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetRolesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetRolesUnauthorized struct {
 
 func (o *GetRolesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /roles][%d] getRolesUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetRolesUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetRolesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetRolesForbidden) Error() string {
 	return fmt.Sprintf("[GET /roles][%d] getRolesForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetRolesForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetRolesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetRolesNotFound struct {
 
 func (o *GetRolesNotFound) Error() string {
 	return fmt.Sprintf("[GET /roles][%d] getRolesNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetRolesNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetRolesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetRolesConflict) Error() string {
 	return fmt.Sprintf("[GET /roles][%d] getRolesConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetRolesConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetRolesConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetRolesTooManyRequests struct {
 
 func (o *GetRolesTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /roles][%d] getRolesTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetRolesTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetRolesTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetRolesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /roles][%d] getRolesInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetRolesInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetRolesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetRolesServiceUnavailable struct {
 
 func (o *GetRolesServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /roles][%d] getRolesServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetRolesServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetRolesServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

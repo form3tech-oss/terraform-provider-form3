@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetBacsIDReader is a Reader for the GetBacsID structure.
@@ -24,63 +23,54 @@ type GetBacsIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetBacsIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetBacsIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetBacsIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetBacsIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetBacsIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetBacsIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetBacsIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetBacsIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetBacsIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetBacsIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetBacsIDOK struct {
 
 func (o *GetBacsIDOK) Error() string {
 	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdOK  %+v", 200, o.Payload)
+}
+
+func (o *GetBacsIDOK) GetPayload() *models.BacsAssociationDetailsResponse {
+	return o.Payload
 }
 
 func (o *GetBacsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetBacsIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetBacsIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetBacsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetBacsIDUnauthorized struct {
 
 func (o *GetBacsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetBacsIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetBacsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetBacsIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetBacsIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetBacsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetBacsIDNotFound struct {
 
 func (o *GetBacsIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetBacsIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetBacsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetBacsIDConflict) Error() string {
 	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetBacsIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetBacsIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetBacsIDTooManyRequests struct {
 
 func (o *GetBacsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetBacsIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetBacsIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetBacsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetBacsIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetBacsIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetBacsIDServiceUnavailable struct {
 
 func (o *GetBacsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetBacsIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetBacsIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

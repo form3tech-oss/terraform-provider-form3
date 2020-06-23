@@ -6,14 +6,14 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // SepaReconciliationAssociationAttributes sepa reconciliation association attributes
+//
 // swagger:model SepaReconciliationAssociationAttributes
 type SepaReconciliationAssociationAttributes struct {
 
@@ -155,6 +155,7 @@ func (m *SepaReconciliationAssociationAttributes) UnmarshalBinary(b []byte) erro
 }
 
 // SepaReconciliationAssociationAttributesAddress sepa reconciliation association attributes address
+//
 // swagger:model SepaReconciliationAssociationAttributesAddress
 type SepaReconciliationAssociationAttributesAddress struct {
 

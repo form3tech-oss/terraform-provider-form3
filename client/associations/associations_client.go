@@ -6,13 +6,14 @@ package associations
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new associations API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -24,8 +25,123 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientService is the interface for Client methods
+type ClientService interface {
+	DeleteBacsID(params *DeleteBacsIDParams) (*DeleteBacsIDNoContent, error)
+
+	DeleteConfirmationOfPayeeID(params *DeleteConfirmationOfPayeeIDParams) (*DeleteConfirmationOfPayeeIDNoContent, error)
+
+	DeleteEburyID(params *DeleteEburyIDParams) (*DeleteEburyIDNoContent, error)
+
+	DeleteGocardlessID(params *DeleteGocardlessIDParams) (*DeleteGocardlessIDNoContent, error)
+
+	DeleteLhvAssociationID(params *DeleteLhvAssociationIDParams) (*DeleteLhvAssociationIDNoContent, error)
+
+	DeleteLhvAssociationIDMasterAccountsMasterAccountID(params *DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams) (*DeleteLhvAssociationIDMasterAccountsMasterAccountIDNoContent, error)
+
+	DeletePayportID(params *DeletePayportIDParams) (*DeletePayportIDNoContent, error)
+
+	DeleteProductsID(params *DeleteProductsIDParams) (*DeleteProductsIDNoContent, error)
+
+	DeleteSepaLiquidityID(params *DeleteSepaLiquidityIDParams) (*DeleteSepaLiquidityIDNoContent, error)
+
+	DeleteSepainstantID(params *DeleteSepainstantIDParams) (*DeleteSepainstantIDNoContent, error)
+
+	DeleteSepasctID(params *DeleteSepasctIDParams) (*DeleteSepasctIDNoContent, error)
+
+	DeleteStarlingID(params *DeleteStarlingIDParams) (*DeleteStarlingIDNoContent, error)
+
+	DeleteVocalinkreportID(params *DeleteVocalinkreportIDParams) (*DeleteVocalinkreportIDNoContent, error)
+
+	GetBacs(params *GetBacsParams) (*GetBacsOK, error)
+
+	GetBacsID(params *GetBacsIDParams) (*GetBacsIDOK, error)
+
+	GetConfirmationOfPayee(params *GetConfirmationOfPayeeParams) (*GetConfirmationOfPayeeOK, error)
+
+	GetConfirmationOfPayeeID(params *GetConfirmationOfPayeeIDParams) (*GetConfirmationOfPayeeIDOK, error)
+
+	GetEbury(params *GetEburyParams) (*GetEburyOK, error)
+
+	GetEburyID(params *GetEburyIDParams) (*GetEburyIDOK, error)
+
+	GetGocardless(params *GetGocardlessParams) (*GetGocardlessOK, error)
+
+	GetGocardlessID(params *GetGocardlessIDParams) (*GetGocardlessIDOK, error)
+
+	GetLhv(params *GetLhvParams) (*GetLhvOK, error)
+
+	GetLhvAssociationID(params *GetLhvAssociationIDParams) (*GetLhvAssociationIDOK, error)
+
+	GetLhvAssociationIDMasterAccounts(params *GetLhvAssociationIDMasterAccountsParams) (*GetLhvAssociationIDMasterAccountsOK, error)
+
+	GetLhvAssociationIDMasterAccountsMasterAccountID(params *GetLhvAssociationIDMasterAccountsMasterAccountIDParams) (*GetLhvAssociationIDMasterAccountsMasterAccountIDOK, error)
+
+	GetPayport(params *GetPayportParams) (*GetPayportOK, error)
+
+	GetPayportID(params *GetPayportIDParams) (*GetPayportIDOK, error)
+
+	GetProducts(params *GetProductsParams) (*GetProductsOK, error)
+
+	GetProductsID(params *GetProductsIDParams) (*GetProductsIDOK, error)
+
+	GetSepaLiquidity(params *GetSepaLiquidityParams) (*GetSepaLiquidityOK, error)
+
+	GetSepaLiquidityID(params *GetSepaLiquidityIDParams) (*GetSepaLiquidityIDOK, error)
+
+	GetSepainstant(params *GetSepainstantParams) (*GetSepainstantOK, error)
+
+	GetSepainstantID(params *GetSepainstantIDParams) (*GetSepainstantIDOK, error)
+
+	GetSepasct(params *GetSepasctParams) (*GetSepasctOK, error)
+
+	GetSepasctID(params *GetSepasctIDParams) (*GetSepasctIDOK, error)
+
+	GetStarling(params *GetStarlingParams) (*GetStarlingOK, error)
+
+	GetStarlingID(params *GetStarlingIDParams) (*GetStarlingIDOK, error)
+
+	GetVocalinkreport(params *GetVocalinkreportParams) (*GetVocalinkreportOK, error)
+
+	GetVocalinkreportID(params *GetVocalinkreportIDParams) (*GetVocalinkreportIDOK, error)
+
+	PatchGocardlessID(params *PatchGocardlessIDParams) (*PatchGocardlessIDOK, error)
+
+	PatchLhvAssociationID(params *PatchLhvAssociationIDParams) (*PatchLhvAssociationIDOK, error)
+
+	PatchSepainstantID(params *PatchSepainstantIDParams) (*PatchSepainstantIDOK, error)
+
+	PostBacs(params *PostBacsParams) (*PostBacsCreated, error)
+
+	PostConfirmationOfPayee(params *PostConfirmationOfPayeeParams) (*PostConfirmationOfPayeeCreated, error)
+
+	PostEbury(params *PostEburyParams) (*PostEburyCreated, error)
+
+	PostGocardless(params *PostGocardlessParams) (*PostGocardlessCreated, error)
+
+	PostLhv(params *PostLhvParams) (*PostLhvCreated, error)
+
+	PostLhvAssociationIDMasterAccounts(params *PostLhvAssociationIDMasterAccountsParams) (*PostLhvAssociationIDMasterAccountsCreated, error)
+
+	PostPayport(params *PostPayportParams) (*PostPayportCreated, error)
+
+	PostProducts(params *PostProductsParams) (*PostProductsCreated, error)
+
+	PostSepaLiquidity(params *PostSepaLiquidityParams) (*PostSepaLiquidityCreated, error)
+
+	PostSepainstant(params *PostSepainstantParams) (*PostSepainstantCreated, error)
+
+	PostSepasct(params *PostSepasctParams) (*PostSepasctCreated, error)
+
+	PostStarling(params *PostStarlingParams) (*PostStarlingCreated, error)
+
+	PostVocalinkreport(params *PostVocalinkreportParams) (*PostVocalinkreportCreated, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
 /*
-DeleteBacsID deletes organisation association for b a c s
+  DeleteBacsID deletes organisation association for b a c s
 */
 func (a *Client) DeleteBacsID(params *DeleteBacsIDParams) (*DeleteBacsIDNoContent, error) {
 	// TODO: Validate the params before sending
@@ -37,8 +153,8 @@ func (a *Client) DeleteBacsID(params *DeleteBacsIDParams) (*DeleteBacsIDNoConten
 		ID:                 "DeleteBacsID",
 		Method:             "DELETE",
 		PathPattern:        "/bacs/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteBacsIDReader{formats: a.formats},
@@ -48,12 +164,18 @@ func (a *Client) DeleteBacsID(params *DeleteBacsIDParams) (*DeleteBacsIDNoConten
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteBacsIDNoContent), nil
-
+	success, ok := result.(*DeleteBacsIDNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteBacsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteConfirmationOfPayeeID deletes organisation association
+  DeleteConfirmationOfPayeeID deletes organisation association
 */
 func (a *Client) DeleteConfirmationOfPayeeID(params *DeleteConfirmationOfPayeeIDParams) (*DeleteConfirmationOfPayeeIDNoContent, error) {
 	// TODO: Validate the params before sending
@@ -65,8 +187,8 @@ func (a *Client) DeleteConfirmationOfPayeeID(params *DeleteConfirmationOfPayeeID
 		ID:                 "DeleteConfirmationOfPayeeID",
 		Method:             "DELETE",
 		PathPattern:        "/confirmation-of-payee/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteConfirmationOfPayeeIDReader{formats: a.formats},
@@ -76,12 +198,18 @@ func (a *Client) DeleteConfirmationOfPayeeID(params *DeleteConfirmationOfPayeeID
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteConfirmationOfPayeeIDNoContent), nil
-
+	success, ok := result.(*DeleteConfirmationOfPayeeIDNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteConfirmationOfPayeeID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteEburyID deletes ebury gateway association
+  DeleteEburyID deletes ebury gateway association
 */
 func (a *Client) DeleteEburyID(params *DeleteEburyIDParams) (*DeleteEburyIDNoContent, error) {
 	// TODO: Validate the params before sending
@@ -93,8 +221,8 @@ func (a *Client) DeleteEburyID(params *DeleteEburyIDParams) (*DeleteEburyIDNoCon
 		ID:                 "DeleteEburyID",
 		Method:             "DELETE",
 		PathPattern:        "/ebury/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteEburyIDReader{formats: a.formats},
@@ -104,12 +232,18 @@ func (a *Client) DeleteEburyID(params *DeleteEburyIDParams) (*DeleteEburyIDNoCon
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteEburyIDNoContent), nil
-
+	success, ok := result.(*DeleteEburyIDNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteEburyID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteGocardlessID deletes gocardless gateway association
+  DeleteGocardlessID deletes gocardless gateway association
 */
 func (a *Client) DeleteGocardlessID(params *DeleteGocardlessIDParams) (*DeleteGocardlessIDNoContent, error) {
 	// TODO: Validate the params before sending
@@ -121,8 +255,8 @@ func (a *Client) DeleteGocardlessID(params *DeleteGocardlessIDParams) (*DeleteGo
 		ID:                 "DeleteGocardlessID",
 		Method:             "DELETE",
 		PathPattern:        "/gocardless/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteGocardlessIDReader{formats: a.formats},
@@ -132,12 +266,18 @@ func (a *Client) DeleteGocardlessID(params *DeleteGocardlessIDParams) (*DeleteGo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteGocardlessIDNoContent), nil
-
+	success, ok := result.(*DeleteGocardlessIDNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteGocardlessID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteLhvAssociationID deletes organisation lhv association
+  DeleteLhvAssociationID deletes organisation lhv association
 */
 func (a *Client) DeleteLhvAssociationID(params *DeleteLhvAssociationIDParams) (*DeleteLhvAssociationIDNoContent, error) {
 	// TODO: Validate the params before sending
@@ -149,8 +289,8 @@ func (a *Client) DeleteLhvAssociationID(params *DeleteLhvAssociationIDParams) (*
 		ID:                 "DeleteLhvAssociationID",
 		Method:             "DELETE",
 		PathPattern:        "/lhv/{associationId}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteLhvAssociationIDReader{formats: a.formats},
@@ -160,12 +300,18 @@ func (a *Client) DeleteLhvAssociationID(params *DeleteLhvAssociationIDParams) (*
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteLhvAssociationIDNoContent), nil
-
+	success, ok := result.(*DeleteLhvAssociationIDNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteLhvAssociationID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteLhvAssociationIDMasterAccountsMasterAccountID deletes organisation association master account
+  DeleteLhvAssociationIDMasterAccountsMasterAccountID deletes organisation association master account
 */
 func (a *Client) DeleteLhvAssociationIDMasterAccountsMasterAccountID(params *DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams) (*DeleteLhvAssociationIDMasterAccountsMasterAccountIDNoContent, error) {
 	// TODO: Validate the params before sending
@@ -177,8 +323,8 @@ func (a *Client) DeleteLhvAssociationIDMasterAccountsMasterAccountID(params *Del
 		ID:                 "DeleteLhvAssociationIDMasterAccountsMasterAccountID",
 		Method:             "DELETE",
 		PathPattern:        "/lhv/{associationId}/master_accounts/{masterAccountId}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteLhvAssociationIDMasterAccountsMasterAccountIDReader{formats: a.formats},
@@ -188,12 +334,18 @@ func (a *Client) DeleteLhvAssociationIDMasterAccountsMasterAccountID(params *Del
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteLhvAssociationIDMasterAccountsMasterAccountIDNoContent), nil
-
+	success, ok := result.(*DeleteLhvAssociationIDMasterAccountsMasterAccountIDNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteLhvAssociationIDMasterAccountsMasterAccountID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeletePayportID deletes service association
+  DeletePayportID deletes service association
 */
 func (a *Client) DeletePayportID(params *DeletePayportIDParams) (*DeletePayportIDNoContent, error) {
 	// TODO: Validate the params before sending
@@ -205,8 +357,8 @@ func (a *Client) DeletePayportID(params *DeletePayportIDParams) (*DeletePayportI
 		ID:                 "DeletePayportID",
 		Method:             "DELETE",
 		PathPattern:        "/payport/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeletePayportIDReader{formats: a.formats},
@@ -216,12 +368,18 @@ func (a *Client) DeletePayportID(params *DeletePayportIDParams) (*DeletePayportI
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeletePayportIDNoContent), nil
-
+	success, ok := result.(*DeletePayportIDNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeletePayportID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteProductsID deletes product association
+  DeleteProductsID deletes product association
 */
 func (a *Client) DeleteProductsID(params *DeleteProductsIDParams) (*DeleteProductsIDNoContent, error) {
 	// TODO: Validate the params before sending
@@ -233,8 +391,8 @@ func (a *Client) DeleteProductsID(params *DeleteProductsIDParams) (*DeleteProduc
 		ID:                 "DeleteProductsID",
 		Method:             "DELETE",
 		PathPattern:        "/products/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteProductsIDReader{formats: a.formats},
@@ -244,12 +402,18 @@ func (a *Client) DeleteProductsID(params *DeleteProductsIDParams) (*DeleteProduc
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteProductsIDNoContent), nil
-
+	success, ok := result.(*DeleteProductsIDNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteProductsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteSepaLiquidityID deletes organisation sepa liquidity association
+  DeleteSepaLiquidityID deletes organisation sepa liquidity association
 */
 func (a *Client) DeleteSepaLiquidityID(params *DeleteSepaLiquidityIDParams) (*DeleteSepaLiquidityIDNoContent, error) {
 	// TODO: Validate the params before sending
@@ -261,8 +425,8 @@ func (a *Client) DeleteSepaLiquidityID(params *DeleteSepaLiquidityIDParams) (*De
 		ID:                 "DeleteSepaLiquidityID",
 		Method:             "DELETE",
 		PathPattern:        "/sepa-liquidity/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteSepaLiquidityIDReader{formats: a.formats},
@@ -272,12 +436,18 @@ func (a *Client) DeleteSepaLiquidityID(params *DeleteSepaLiquidityIDParams) (*De
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteSepaLiquidityIDNoContent), nil
-
+	success, ok := result.(*DeleteSepaLiquidityIDNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteSepaLiquidityID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteSepainstantID deletes organisation spea instant association
+  DeleteSepainstantID deletes organisation spea instant association
 */
 func (a *Client) DeleteSepainstantID(params *DeleteSepainstantIDParams) (*DeleteSepainstantIDNoContent, error) {
 	// TODO: Validate the params before sending
@@ -289,8 +459,8 @@ func (a *Client) DeleteSepainstantID(params *DeleteSepainstantIDParams) (*Delete
 		ID:                 "DeleteSepainstantID",
 		Method:             "DELETE",
 		PathPattern:        "/sepainstant/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteSepainstantIDReader{formats: a.formats},
@@ -300,12 +470,18 @@ func (a *Client) DeleteSepainstantID(params *DeleteSepainstantIDParams) (*Delete
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteSepainstantIDNoContent), nil
-
+	success, ok := result.(*DeleteSepainstantIDNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteSepainstantID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteSepasctID deletes organisation spea sct association
+  DeleteSepasctID deletes organisation spea sct association
 */
 func (a *Client) DeleteSepasctID(params *DeleteSepasctIDParams) (*DeleteSepasctIDNoContent, error) {
 	// TODO: Validate the params before sending
@@ -317,8 +493,8 @@ func (a *Client) DeleteSepasctID(params *DeleteSepasctIDParams) (*DeleteSepasctI
 		ID:                 "DeleteSepasctID",
 		Method:             "DELETE",
 		PathPattern:        "/sepasct/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteSepasctIDReader{formats: a.formats},
@@ -328,12 +504,18 @@ func (a *Client) DeleteSepasctID(params *DeleteSepasctIDParams) (*DeleteSepasctI
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteSepasctIDNoContent), nil
-
+	success, ok := result.(*DeleteSepasctIDNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteSepasctID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteStarlingID deletes organisation association
+  DeleteStarlingID deletes organisation association
 */
 func (a *Client) DeleteStarlingID(params *DeleteStarlingIDParams) (*DeleteStarlingIDNoContent, error) {
 	// TODO: Validate the params before sending
@@ -345,8 +527,8 @@ func (a *Client) DeleteStarlingID(params *DeleteStarlingIDParams) (*DeleteStarli
 		ID:                 "DeleteStarlingID",
 		Method:             "DELETE",
 		PathPattern:        "/starling/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteStarlingIDReader{formats: a.formats},
@@ -356,12 +538,18 @@ func (a *Client) DeleteStarlingID(params *DeleteStarlingIDParams) (*DeleteStarli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteStarlingIDNoContent), nil
-
+	success, ok := result.(*DeleteStarlingIDNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteStarlingID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteVocalinkreportID deletes organisation association
+  DeleteVocalinkreportID deletes organisation association
 */
 func (a *Client) DeleteVocalinkreportID(params *DeleteVocalinkreportIDParams) (*DeleteVocalinkreportIDNoContent, error) {
 	// TODO: Validate the params before sending
@@ -373,8 +561,8 @@ func (a *Client) DeleteVocalinkreportID(params *DeleteVocalinkreportIDParams) (*
 		ID:                 "DeleteVocalinkreportID",
 		Method:             "DELETE",
 		PathPattern:        "/vocalinkreport/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteVocalinkreportIDReader{formats: a.formats},
@@ -384,12 +572,18 @@ func (a *Client) DeleteVocalinkreportID(params *DeleteVocalinkreportIDParams) (*
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteVocalinkreportIDNoContent), nil
-
+	success, ok := result.(*DeleteVocalinkreportIDNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteVocalinkreportID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetBacs lists all organisation associations for b a c s
+  GetBacs lists all organisation associations for b a c s
 */
 func (a *Client) GetBacs(params *GetBacsParams) (*GetBacsOK, error) {
 	// TODO: Validate the params before sending
@@ -401,8 +595,8 @@ func (a *Client) GetBacs(params *GetBacsParams) (*GetBacsOK, error) {
 		ID:                 "GetBacs",
 		Method:             "GET",
 		PathPattern:        "/bacs",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetBacsReader{formats: a.formats},
@@ -412,12 +606,18 @@ func (a *Client) GetBacs(params *GetBacsParams) (*GetBacsOK, error) {
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetBacsOK), nil
-
+	success, ok := result.(*GetBacsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetBacs: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetBacsID fetches organisation association for b a c s
+  GetBacsID fetches organisation association for b a c s
 */
 func (a *Client) GetBacsID(params *GetBacsIDParams) (*GetBacsIDOK, error) {
 	// TODO: Validate the params before sending
@@ -429,8 +629,8 @@ func (a *Client) GetBacsID(params *GetBacsIDParams) (*GetBacsIDOK, error) {
 		ID:                 "GetBacsID",
 		Method:             "GET",
 		PathPattern:        "/bacs/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetBacsIDReader{formats: a.formats},
@@ -440,12 +640,18 @@ func (a *Client) GetBacsID(params *GetBacsIDParams) (*GetBacsIDOK, error) {
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetBacsIDOK), nil
-
+	success, ok := result.(*GetBacsIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetBacsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetConfirmationOfPayee lists all organisation associations
+  GetConfirmationOfPayee lists all organisation associations
 */
 func (a *Client) GetConfirmationOfPayee(params *GetConfirmationOfPayeeParams) (*GetConfirmationOfPayeeOK, error) {
 	// TODO: Validate the params before sending
@@ -457,8 +663,8 @@ func (a *Client) GetConfirmationOfPayee(params *GetConfirmationOfPayeeParams) (*
 		ID:                 "GetConfirmationOfPayee",
 		Method:             "GET",
 		PathPattern:        "/confirmation-of-payee",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetConfirmationOfPayeeReader{formats: a.formats},
@@ -468,12 +674,18 @@ func (a *Client) GetConfirmationOfPayee(params *GetConfirmationOfPayeeParams) (*
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetConfirmationOfPayeeOK), nil
-
+	success, ok := result.(*GetConfirmationOfPayeeOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetConfirmationOfPayee: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetConfirmationOfPayeeID fetches organisation association
+  GetConfirmationOfPayeeID fetches organisation association
 */
 func (a *Client) GetConfirmationOfPayeeID(params *GetConfirmationOfPayeeIDParams) (*GetConfirmationOfPayeeIDOK, error) {
 	// TODO: Validate the params before sending
@@ -485,8 +697,8 @@ func (a *Client) GetConfirmationOfPayeeID(params *GetConfirmationOfPayeeIDParams
 		ID:                 "GetConfirmationOfPayeeID",
 		Method:             "GET",
 		PathPattern:        "/confirmation-of-payee/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetConfirmationOfPayeeIDReader{formats: a.formats},
@@ -496,12 +708,18 @@ func (a *Client) GetConfirmationOfPayeeID(params *GetConfirmationOfPayeeIDParams
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetConfirmationOfPayeeIDOK), nil
-
+	success, ok := result.(*GetConfirmationOfPayeeIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetConfirmationOfPayeeID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetEbury lists all organisation ebury gateway associations
+  GetEbury lists all organisation ebury gateway associations
 */
 func (a *Client) GetEbury(params *GetEburyParams) (*GetEburyOK, error) {
 	// TODO: Validate the params before sending
@@ -513,8 +731,8 @@ func (a *Client) GetEbury(params *GetEburyParams) (*GetEburyOK, error) {
 		ID:                 "GetEbury",
 		Method:             "GET",
 		PathPattern:        "/ebury",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetEburyReader{formats: a.formats},
@@ -524,12 +742,18 @@ func (a *Client) GetEbury(params *GetEburyParams) (*GetEburyOK, error) {
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetEburyOK), nil
-
+	success, ok := result.(*GetEburyOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetEbury: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetEburyID fetches organisation ebury gateway association
+  GetEburyID fetches organisation ebury gateway association
 */
 func (a *Client) GetEburyID(params *GetEburyIDParams) (*GetEburyIDOK, error) {
 	// TODO: Validate the params before sending
@@ -541,8 +765,8 @@ func (a *Client) GetEburyID(params *GetEburyIDParams) (*GetEburyIDOK, error) {
 		ID:                 "GetEburyID",
 		Method:             "GET",
 		PathPattern:        "/ebury/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetEburyIDReader{formats: a.formats},
@@ -552,12 +776,18 @@ func (a *Client) GetEburyID(params *GetEburyIDParams) (*GetEburyIDOK, error) {
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetEburyIDOK), nil
-
+	success, ok := result.(*GetEburyIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetEburyID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetGocardless lists all organisation gocardless gateway associations
+  GetGocardless lists all organisation gocardless gateway associations
 */
 func (a *Client) GetGocardless(params *GetGocardlessParams) (*GetGocardlessOK, error) {
 	// TODO: Validate the params before sending
@@ -569,8 +799,8 @@ func (a *Client) GetGocardless(params *GetGocardlessParams) (*GetGocardlessOK, e
 		ID:                 "GetGocardless",
 		Method:             "GET",
 		PathPattern:        "/gocardless",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetGocardlessReader{formats: a.formats},
@@ -580,12 +810,18 @@ func (a *Client) GetGocardless(params *GetGocardlessParams) (*GetGocardlessOK, e
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetGocardlessOK), nil
-
+	success, ok := result.(*GetGocardlessOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetGocardless: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetGocardlessID fetches organisation gocardless gateway association
+  GetGocardlessID fetches organisation gocardless gateway association
 */
 func (a *Client) GetGocardlessID(params *GetGocardlessIDParams) (*GetGocardlessIDOK, error) {
 	// TODO: Validate the params before sending
@@ -597,8 +833,8 @@ func (a *Client) GetGocardlessID(params *GetGocardlessIDParams) (*GetGocardlessI
 		ID:                 "GetGocardlessID",
 		Method:             "GET",
 		PathPattern:        "/gocardless/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetGocardlessIDReader{formats: a.formats},
@@ -608,12 +844,18 @@ func (a *Client) GetGocardlessID(params *GetGocardlessIDParams) (*GetGocardlessI
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetGocardlessIDOK), nil
-
+	success, ok := result.(*GetGocardlessIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetGocardlessID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetLhv lists all organisation lhv associations
+  GetLhv lists all organisation lhv associations
 */
 func (a *Client) GetLhv(params *GetLhvParams) (*GetLhvOK, error) {
 	// TODO: Validate the params before sending
@@ -625,8 +867,8 @@ func (a *Client) GetLhv(params *GetLhvParams) (*GetLhvOK, error) {
 		ID:                 "GetLhv",
 		Method:             "GET",
 		PathPattern:        "/lhv",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetLhvReader{formats: a.formats},
@@ -636,12 +878,18 @@ func (a *Client) GetLhv(params *GetLhvParams) (*GetLhvOK, error) {
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetLhvOK), nil
-
+	success, ok := result.(*GetLhvOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetLhv: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetLhvAssociationID fetches organisation lhv association
+  GetLhvAssociationID fetches organisation lhv association
 */
 func (a *Client) GetLhvAssociationID(params *GetLhvAssociationIDParams) (*GetLhvAssociationIDOK, error) {
 	// TODO: Validate the params before sending
@@ -653,8 +901,8 @@ func (a *Client) GetLhvAssociationID(params *GetLhvAssociationIDParams) (*GetLhv
 		ID:                 "GetLhvAssociationID",
 		Method:             "GET",
 		PathPattern:        "/lhv/{associationId}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetLhvAssociationIDReader{formats: a.formats},
@@ -664,12 +912,18 @@ func (a *Client) GetLhvAssociationID(params *GetLhvAssociationIDParams) (*GetLhv
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetLhvAssociationIDOK), nil
-
+	success, ok := result.(*GetLhvAssociationIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetLhvAssociationID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetLhvAssociationIDMasterAccounts lists master accounts
+  GetLhvAssociationIDMasterAccounts lists master accounts
 */
 func (a *Client) GetLhvAssociationIDMasterAccounts(params *GetLhvAssociationIDMasterAccountsParams) (*GetLhvAssociationIDMasterAccountsOK, error) {
 	// TODO: Validate the params before sending
@@ -681,8 +935,8 @@ func (a *Client) GetLhvAssociationIDMasterAccounts(params *GetLhvAssociationIDMa
 		ID:                 "GetLhvAssociationIDMasterAccounts",
 		Method:             "GET",
 		PathPattern:        "/lhv/{associationId}/master_accounts",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetLhvAssociationIDMasterAccountsReader{formats: a.formats},
@@ -692,12 +946,18 @@ func (a *Client) GetLhvAssociationIDMasterAccounts(params *GetLhvAssociationIDMa
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetLhvAssociationIDMasterAccountsOK), nil
-
+	success, ok := result.(*GetLhvAssociationIDMasterAccountsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetLhvAssociationIDMasterAccounts: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetLhvAssociationIDMasterAccountsMasterAccountID fetches master account
+  GetLhvAssociationIDMasterAccountsMasterAccountID fetches master account
 */
 func (a *Client) GetLhvAssociationIDMasterAccountsMasterAccountID(params *GetLhvAssociationIDMasterAccountsMasterAccountIDParams) (*GetLhvAssociationIDMasterAccountsMasterAccountIDOK, error) {
 	// TODO: Validate the params before sending
@@ -709,8 +969,8 @@ func (a *Client) GetLhvAssociationIDMasterAccountsMasterAccountID(params *GetLhv
 		ID:                 "GetLhvAssociationIDMasterAccountsMasterAccountID",
 		Method:             "GET",
 		PathPattern:        "/lhv/{associationId}/master_accounts/{masterAccountId}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetLhvAssociationIDMasterAccountsMasterAccountIDReader{formats: a.formats},
@@ -720,12 +980,18 @@ func (a *Client) GetLhvAssociationIDMasterAccountsMasterAccountID(params *GetLhv
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetLhvAssociationIDMasterAccountsMasterAccountIDOK), nil
-
+	success, ok := result.(*GetLhvAssociationIDMasterAccountsMasterAccountIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetLhvAssociationIDMasterAccountsMasterAccountID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetPayport lists all organisation associations
+  GetPayport lists all organisation associations
 */
 func (a *Client) GetPayport(params *GetPayportParams) (*GetPayportOK, error) {
 	// TODO: Validate the params before sending
@@ -737,8 +1003,8 @@ func (a *Client) GetPayport(params *GetPayportParams) (*GetPayportOK, error) {
 		ID:                 "GetPayport",
 		Method:             "GET",
 		PathPattern:        "/payport",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetPayportReader{formats: a.formats},
@@ -748,12 +1014,18 @@ func (a *Client) GetPayport(params *GetPayportParams) (*GetPayportOK, error) {
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetPayportOK), nil
-
+	success, ok := result.(*GetPayportOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetPayport: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetPayportID fetches service association
+  GetPayportID fetches service association
 */
 func (a *Client) GetPayportID(params *GetPayportIDParams) (*GetPayportIDOK, error) {
 	// TODO: Validate the params before sending
@@ -765,8 +1037,8 @@ func (a *Client) GetPayportID(params *GetPayportIDParams) (*GetPayportIDOK, erro
 		ID:                 "GetPayportID",
 		Method:             "GET",
 		PathPattern:        "/payport/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetPayportIDReader{formats: a.formats},
@@ -776,12 +1048,18 @@ func (a *Client) GetPayportID(params *GetPayportIDParams) (*GetPayportIDOK, erro
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetPayportIDOK), nil
-
+	success, ok := result.(*GetPayportIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetPayportID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetProducts lists all product associations
+  GetProducts lists all product associations
 */
 func (a *Client) GetProducts(params *GetProductsParams) (*GetProductsOK, error) {
 	// TODO: Validate the params before sending
@@ -793,8 +1071,8 @@ func (a *Client) GetProducts(params *GetProductsParams) (*GetProductsOK, error) 
 		ID:                 "GetProducts",
 		Method:             "GET",
 		PathPattern:        "/products",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetProductsReader{formats: a.formats},
@@ -804,12 +1082,18 @@ func (a *Client) GetProducts(params *GetProductsParams) (*GetProductsOK, error) 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetProductsOK), nil
-
+	success, ok := result.(*GetProductsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetProducts: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetProductsID fetches product association
+  GetProductsID fetches product association
 */
 func (a *Client) GetProductsID(params *GetProductsIDParams) (*GetProductsIDOK, error) {
 	// TODO: Validate the params before sending
@@ -821,8 +1105,8 @@ func (a *Client) GetProductsID(params *GetProductsIDParams) (*GetProductsIDOK, e
 		ID:                 "GetProductsID",
 		Method:             "GET",
 		PathPattern:        "/products/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetProductsIDReader{formats: a.formats},
@@ -832,12 +1116,18 @@ func (a *Client) GetProductsID(params *GetProductsIDParams) (*GetProductsIDOK, e
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetProductsIDOK), nil
-
+	success, ok := result.(*GetProductsIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetProductsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetSepaLiquidity lists all organisation sepa liquidity associations
+  GetSepaLiquidity lists all organisation sepa liquidity associations
 */
 func (a *Client) GetSepaLiquidity(params *GetSepaLiquidityParams) (*GetSepaLiquidityOK, error) {
 	// TODO: Validate the params before sending
@@ -849,8 +1139,8 @@ func (a *Client) GetSepaLiquidity(params *GetSepaLiquidityParams) (*GetSepaLiqui
 		ID:                 "GetSepaLiquidity",
 		Method:             "GET",
 		PathPattern:        "/sepa-liquidity",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetSepaLiquidityReader{formats: a.formats},
@@ -860,12 +1150,18 @@ func (a *Client) GetSepaLiquidity(params *GetSepaLiquidityParams) (*GetSepaLiqui
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetSepaLiquidityOK), nil
-
+	success, ok := result.(*GetSepaLiquidityOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetSepaLiquidity: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetSepaLiquidityID fetches organisation sepa liquidity association
+  GetSepaLiquidityID fetches organisation sepa liquidity association
 */
 func (a *Client) GetSepaLiquidityID(params *GetSepaLiquidityIDParams) (*GetSepaLiquidityIDOK, error) {
 	// TODO: Validate the params before sending
@@ -877,8 +1173,8 @@ func (a *Client) GetSepaLiquidityID(params *GetSepaLiquidityIDParams) (*GetSepaL
 		ID:                 "GetSepaLiquidityID",
 		Method:             "GET",
 		PathPattern:        "/sepa-liquidity/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetSepaLiquidityIDReader{formats: a.formats},
@@ -888,12 +1184,18 @@ func (a *Client) GetSepaLiquidityID(params *GetSepaLiquidityIDParams) (*GetSepaL
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetSepaLiquidityIDOK), nil
-
+	success, ok := result.(*GetSepaLiquidityIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetSepaLiquidityID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetSepainstant lists all organisation sepa instant associations
+  GetSepainstant lists all organisation sepa instant associations
 */
 func (a *Client) GetSepainstant(params *GetSepainstantParams) (*GetSepainstantOK, error) {
 	// TODO: Validate the params before sending
@@ -905,8 +1207,8 @@ func (a *Client) GetSepainstant(params *GetSepainstantParams) (*GetSepainstantOK
 		ID:                 "GetSepainstant",
 		Method:             "GET",
 		PathPattern:        "/sepainstant",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetSepainstantReader{formats: a.formats},
@@ -916,12 +1218,18 @@ func (a *Client) GetSepainstant(params *GetSepainstantParams) (*GetSepainstantOK
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetSepainstantOK), nil
-
+	success, ok := result.(*GetSepainstantOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetSepainstant: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetSepainstantID fetches organisation sepa instant association
+  GetSepainstantID fetches organisation sepa instant association
 */
 func (a *Client) GetSepainstantID(params *GetSepainstantIDParams) (*GetSepainstantIDOK, error) {
 	// TODO: Validate the params before sending
@@ -933,8 +1241,8 @@ func (a *Client) GetSepainstantID(params *GetSepainstantIDParams) (*GetSepainsta
 		ID:                 "GetSepainstantID",
 		Method:             "GET",
 		PathPattern:        "/sepainstant/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetSepainstantIDReader{formats: a.formats},
@@ -944,12 +1252,18 @@ func (a *Client) GetSepainstantID(params *GetSepainstantIDParams) (*GetSepainsta
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetSepainstantIDOK), nil
-
+	success, ok := result.(*GetSepainstantIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetSepainstantID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetSepasct lists all organisation sepa sct associations
+  GetSepasct lists all organisation sepa sct associations
 */
 func (a *Client) GetSepasct(params *GetSepasctParams) (*GetSepasctOK, error) {
 	// TODO: Validate the params before sending
@@ -961,8 +1275,8 @@ func (a *Client) GetSepasct(params *GetSepasctParams) (*GetSepasctOK, error) {
 		ID:                 "GetSepasct",
 		Method:             "GET",
 		PathPattern:        "/sepasct",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetSepasctReader{formats: a.formats},
@@ -972,12 +1286,18 @@ func (a *Client) GetSepasct(params *GetSepasctParams) (*GetSepasctOK, error) {
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetSepasctOK), nil
-
+	success, ok := result.(*GetSepasctOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetSepasct: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetSepasctID fetches organisation sepa sct association
+  GetSepasctID fetches organisation sepa sct association
 */
 func (a *Client) GetSepasctID(params *GetSepasctIDParams) (*GetSepasctIDOK, error) {
 	// TODO: Validate the params before sending
@@ -989,8 +1309,8 @@ func (a *Client) GetSepasctID(params *GetSepasctIDParams) (*GetSepasctIDOK, erro
 		ID:                 "GetSepasctID",
 		Method:             "GET",
 		PathPattern:        "/sepasct/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetSepasctIDReader{formats: a.formats},
@@ -1000,12 +1320,18 @@ func (a *Client) GetSepasctID(params *GetSepasctIDParams) (*GetSepasctIDOK, erro
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetSepasctIDOK), nil
-
+	success, ok := result.(*GetSepasctIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetSepasctID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetStarling lists all organisation associations
+  GetStarling lists all organisation associations
 */
 func (a *Client) GetStarling(params *GetStarlingParams) (*GetStarlingOK, error) {
 	// TODO: Validate the params before sending
@@ -1017,8 +1343,8 @@ func (a *Client) GetStarling(params *GetStarlingParams) (*GetStarlingOK, error) 
 		ID:                 "GetStarling",
 		Method:             "GET",
 		PathPattern:        "/starling",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetStarlingReader{formats: a.formats},
@@ -1028,12 +1354,18 @@ func (a *Client) GetStarling(params *GetStarlingParams) (*GetStarlingOK, error) 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetStarlingOK), nil
-
+	success, ok := result.(*GetStarlingOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetStarling: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetStarlingID fetches organisation association
+  GetStarlingID fetches organisation association
 */
 func (a *Client) GetStarlingID(params *GetStarlingIDParams) (*GetStarlingIDOK, error) {
 	// TODO: Validate the params before sending
@@ -1045,8 +1377,8 @@ func (a *Client) GetStarlingID(params *GetStarlingIDParams) (*GetStarlingIDOK, e
 		ID:                 "GetStarlingID",
 		Method:             "GET",
 		PathPattern:        "/starling/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetStarlingIDReader{formats: a.formats},
@@ -1056,12 +1388,18 @@ func (a *Client) GetStarlingID(params *GetStarlingIDParams) (*GetStarlingIDOK, e
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetStarlingIDOK), nil
-
+	success, ok := result.(*GetStarlingIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetStarlingID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetVocalinkreport lists all organisation associations
+  GetVocalinkreport lists all organisation associations
 */
 func (a *Client) GetVocalinkreport(params *GetVocalinkreportParams) (*GetVocalinkreportOK, error) {
 	// TODO: Validate the params before sending
@@ -1073,8 +1411,8 @@ func (a *Client) GetVocalinkreport(params *GetVocalinkreportParams) (*GetVocalin
 		ID:                 "GetVocalinkreport",
 		Method:             "GET",
 		PathPattern:        "/vocalinkreport",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetVocalinkreportReader{formats: a.formats},
@@ -1084,12 +1422,18 @@ func (a *Client) GetVocalinkreport(params *GetVocalinkreportParams) (*GetVocalin
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetVocalinkreportOK), nil
-
+	success, ok := result.(*GetVocalinkreportOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetVocalinkreport: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetVocalinkreportID fetches organisation association
+  GetVocalinkreportID fetches organisation association
 */
 func (a *Client) GetVocalinkreportID(params *GetVocalinkreportIDParams) (*GetVocalinkreportIDOK, error) {
 	// TODO: Validate the params before sending
@@ -1101,8 +1445,8 @@ func (a *Client) GetVocalinkreportID(params *GetVocalinkreportIDParams) (*GetVoc
 		ID:                 "GetVocalinkreportID",
 		Method:             "GET",
 		PathPattern:        "/vocalinkreport/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetVocalinkreportIDReader{formats: a.formats},
@@ -1112,12 +1456,18 @@ func (a *Client) GetVocalinkreportID(params *GetVocalinkreportIDParams) (*GetVoc
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetVocalinkreportIDOK), nil
-
+	success, ok := result.(*GetVocalinkreportIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetVocalinkreportID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PatchGocardlessID patches go cardless association by id
+  PatchGocardlessID patches go cardless association by id
 */
 func (a *Client) PatchGocardlessID(params *PatchGocardlessIDParams) (*PatchGocardlessIDOK, error) {
 	// TODO: Validate the params before sending
@@ -1129,8 +1479,8 @@ func (a *Client) PatchGocardlessID(params *PatchGocardlessIDParams) (*PatchGocar
 		ID:                 "PatchGocardlessID",
 		Method:             "PATCH",
 		PathPattern:        "/gocardless/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &PatchGocardlessIDReader{formats: a.formats},
@@ -1140,12 +1490,18 @@ func (a *Client) PatchGocardlessID(params *PatchGocardlessIDParams) (*PatchGocar
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PatchGocardlessIDOK), nil
-
+	success, ok := result.(*PatchGocardlessIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PatchGocardlessID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PatchLhvAssociationID patches organisation lhv association
+  PatchLhvAssociationID patches organisation lhv association
 */
 func (a *Client) PatchLhvAssociationID(params *PatchLhvAssociationIDParams) (*PatchLhvAssociationIDOK, error) {
 	// TODO: Validate the params before sending
@@ -1157,8 +1513,8 @@ func (a *Client) PatchLhvAssociationID(params *PatchLhvAssociationIDParams) (*Pa
 		ID:                 "PatchLhvAssociationID",
 		Method:             "PATCH",
 		PathPattern:        "/lhv/{associationId}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &PatchLhvAssociationIDReader{formats: a.formats},
@@ -1168,12 +1524,18 @@ func (a *Client) PatchLhvAssociationID(params *PatchLhvAssociationIDParams) (*Pa
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PatchLhvAssociationIDOK), nil
-
+	success, ok := result.(*PatchLhvAssociationIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PatchLhvAssociationID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PatchSepainstantID updates sepa instant association
+  PatchSepainstantID updates sepa instant association
 */
 func (a *Client) PatchSepainstantID(params *PatchSepainstantIDParams) (*PatchSepainstantIDOK, error) {
 	// TODO: Validate the params before sending
@@ -1185,8 +1547,8 @@ func (a *Client) PatchSepainstantID(params *PatchSepainstantIDParams) (*PatchSep
 		ID:                 "PatchSepainstantID",
 		Method:             "PATCH",
 		PathPattern:        "/sepainstant/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &PatchSepainstantIDReader{formats: a.formats},
@@ -1196,12 +1558,18 @@ func (a *Client) PatchSepainstantID(params *PatchSepainstantIDParams) (*PatchSep
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PatchSepainstantIDOK), nil
-
+	success, ok := result.(*PatchSepainstantIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PatchSepainstantID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostBacs creates organisation association for b a c s
+  PostBacs creates organisation association for b a c s
 */
 func (a *Client) PostBacs(params *PostBacsParams) (*PostBacsCreated, error) {
 	// TODO: Validate the params before sending
@@ -1213,7 +1581,7 @@ func (a *Client) PostBacs(params *PostBacsParams) (*PostBacsCreated, error) {
 		ID:                 "PostBacs",
 		Method:             "POST",
 		PathPattern:        "/bacs",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -1224,12 +1592,18 @@ func (a *Client) PostBacs(params *PostBacsParams) (*PostBacsCreated, error) {
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostBacsCreated), nil
-
+	success, ok := result.(*PostBacsCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostBacs: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostConfirmationOfPayee creates organisation association with confirmation of payee
+  PostConfirmationOfPayee creates organisation association with confirmation of payee
 */
 func (a *Client) PostConfirmationOfPayee(params *PostConfirmationOfPayeeParams) (*PostConfirmationOfPayeeCreated, error) {
 	// TODO: Validate the params before sending
@@ -1252,12 +1626,18 @@ func (a *Client) PostConfirmationOfPayee(params *PostConfirmationOfPayeeParams) 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostConfirmationOfPayeeCreated), nil
-
+	success, ok := result.(*PostConfirmationOfPayeeCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostConfirmationOfPayee: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostEbury creates organisation association for ebury gateway
+  PostEbury creates organisation association for ebury gateway
 */
 func (a *Client) PostEbury(params *PostEburyParams) (*PostEburyCreated, error) {
 	// TODO: Validate the params before sending
@@ -1269,7 +1649,7 @@ func (a *Client) PostEbury(params *PostEburyParams) (*PostEburyCreated, error) {
 		ID:                 "PostEbury",
 		Method:             "POST",
 		PathPattern:        "/ebury",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -1280,12 +1660,18 @@ func (a *Client) PostEbury(params *PostEburyParams) (*PostEburyCreated, error) {
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostEburyCreated), nil
-
+	success, ok := result.(*PostEburyCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostEbury: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostGocardless creates organisation association for go cardless gateway
+  PostGocardless creates organisation association for go cardless gateway
 */
 func (a *Client) PostGocardless(params *PostGocardlessParams) (*PostGocardlessCreated, error) {
 	// TODO: Validate the params before sending
@@ -1297,7 +1683,7 @@ func (a *Client) PostGocardless(params *PostGocardlessParams) (*PostGocardlessCr
 		ID:                 "PostGocardless",
 		Method:             "POST",
 		PathPattern:        "/gocardless",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -1308,12 +1694,18 @@ func (a *Client) PostGocardless(params *PostGocardlessParams) (*PostGocardlessCr
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostGocardlessCreated), nil
-
+	success, ok := result.(*PostGocardlessCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostGocardless: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostLhv creates organisation association for lhv
+  PostLhv creates organisation association for lhv
 */
 func (a *Client) PostLhv(params *PostLhvParams) (*PostLhvCreated, error) {
 	// TODO: Validate the params before sending
@@ -1325,7 +1717,7 @@ func (a *Client) PostLhv(params *PostLhvParams) (*PostLhvCreated, error) {
 		ID:                 "PostLhv",
 		Method:             "POST",
 		PathPattern:        "/lhv",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -1336,12 +1728,18 @@ func (a *Client) PostLhv(params *PostLhvParams) (*PostLhvCreated, error) {
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostLhvCreated), nil
-
+	success, ok := result.(*PostLhvCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostLhv: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostLhvAssociationIDMasterAccounts creates organisation association master account
+  PostLhvAssociationIDMasterAccounts creates organisation association master account
 */
 func (a *Client) PostLhvAssociationIDMasterAccounts(params *PostLhvAssociationIDMasterAccountsParams) (*PostLhvAssociationIDMasterAccountsCreated, error) {
 	// TODO: Validate the params before sending
@@ -1353,8 +1751,8 @@ func (a *Client) PostLhvAssociationIDMasterAccounts(params *PostLhvAssociationID
 		ID:                 "PostLhvAssociationIDMasterAccounts",
 		Method:             "POST",
 		PathPattern:        "/lhv/{associationId}/master_accounts",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &PostLhvAssociationIDMasterAccountsReader{formats: a.formats},
@@ -1364,12 +1762,18 @@ func (a *Client) PostLhvAssociationIDMasterAccounts(params *PostLhvAssociationID
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostLhvAssociationIDMasterAccountsCreated), nil
-
+	success, ok := result.(*PostLhvAssociationIDMasterAccountsCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostLhvAssociationIDMasterAccounts: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostPayport creates payport service association
+  PostPayport creates payport service association
 */
 func (a *Client) PostPayport(params *PostPayportParams) (*PostPayportCreated, error) {
 	// TODO: Validate the params before sending
@@ -1381,7 +1785,7 @@ func (a *Client) PostPayport(params *PostPayportParams) (*PostPayportCreated, er
 		ID:                 "PostPayport",
 		Method:             "POST",
 		PathPattern:        "/payport",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -1392,12 +1796,18 @@ func (a *Client) PostPayport(params *PostPayportParams) (*PostPayportCreated, er
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostPayportCreated), nil
-
+	success, ok := result.(*PostPayportCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostPayport: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostProducts creates product association
+  PostProducts creates product association
 */
 func (a *Client) PostProducts(params *PostProductsParams) (*PostProductsCreated, error) {
 	// TODO: Validate the params before sending
@@ -1409,7 +1819,7 @@ func (a *Client) PostProducts(params *PostProductsParams) (*PostProductsCreated,
 		ID:                 "PostProducts",
 		Method:             "POST",
 		PathPattern:        "/products",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -1420,12 +1830,18 @@ func (a *Client) PostProducts(params *PostProductsParams) (*PostProductsCreated,
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostProductsCreated), nil
-
+	success, ok := result.(*PostProductsCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostProducts: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostSepaLiquidity creates organisation association for sepa liquidity
+  PostSepaLiquidity creates organisation association for sepa liquidity
 */
 func (a *Client) PostSepaLiquidity(params *PostSepaLiquidityParams) (*PostSepaLiquidityCreated, error) {
 	// TODO: Validate the params before sending
@@ -1437,7 +1853,7 @@ func (a *Client) PostSepaLiquidity(params *PostSepaLiquidityParams) (*PostSepaLi
 		ID:                 "PostSepaLiquidity",
 		Method:             "POST",
 		PathPattern:        "/sepa-liquidity",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -1448,12 +1864,18 @@ func (a *Client) PostSepaLiquidity(params *PostSepaLiquidityParams) (*PostSepaLi
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostSepaLiquidityCreated), nil
-
+	success, ok := result.(*PostSepaLiquidityCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostSepaLiquidity: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostSepainstant creates organisation association for sepa instant
+  PostSepainstant creates organisation association for sepa instant
 */
 func (a *Client) PostSepainstant(params *PostSepainstantParams) (*PostSepainstantCreated, error) {
 	// TODO: Validate the params before sending
@@ -1465,7 +1887,7 @@ func (a *Client) PostSepainstant(params *PostSepainstantParams) (*PostSepainstan
 		ID:                 "PostSepainstant",
 		Method:             "POST",
 		PathPattern:        "/sepainstant",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -1476,12 +1898,18 @@ func (a *Client) PostSepainstant(params *PostSepainstantParams) (*PostSepainstan
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostSepainstantCreated), nil
-
+	success, ok := result.(*PostSepainstantCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostSepainstant: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostSepasct creates organisation association for sepa sct
+  PostSepasct creates organisation association for sepa sct
 */
 func (a *Client) PostSepasct(params *PostSepasctParams) (*PostSepasctCreated, error) {
 	// TODO: Validate the params before sending
@@ -1493,7 +1921,7 @@ func (a *Client) PostSepasct(params *PostSepasctParams) (*PostSepasctCreated, er
 		ID:                 "PostSepasct",
 		Method:             "POST",
 		PathPattern:        "/sepasct",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -1504,12 +1932,18 @@ func (a *Client) PostSepasct(params *PostSepasctParams) (*PostSepasctCreated, er
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostSepasctCreated), nil
-
+	success, ok := result.(*PostSepasctCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostSepasct: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostStarling creates organisation association
+  PostStarling creates organisation association
 */
 func (a *Client) PostStarling(params *PostStarlingParams) (*PostStarlingCreated, error) {
 	// TODO: Validate the params before sending
@@ -1521,7 +1955,7 @@ func (a *Client) PostStarling(params *PostStarlingParams) (*PostStarlingCreated,
 		ID:                 "PostStarling",
 		Method:             "POST",
 		PathPattern:        "/starling",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -1532,12 +1966,18 @@ func (a *Client) PostStarling(params *PostStarlingParams) (*PostStarlingCreated,
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostStarlingCreated), nil
-
+	success, ok := result.(*PostStarlingCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostStarling: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostVocalinkreport creates organisation association
+  PostVocalinkreport creates organisation association
 */
 func (a *Client) PostVocalinkreport(params *PostVocalinkreportParams) (*PostVocalinkreportCreated, error) {
 	// TODO: Validate the params before sending
@@ -1549,7 +1989,7 @@ func (a *Client) PostVocalinkreport(params *PostVocalinkreportParams) (*PostVoca
 		ID:                 "PostVocalinkreport",
 		Method:             "POST",
 		PathPattern:        "/vocalinkreport",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -1560,8 +2000,14 @@ func (a *Client) PostVocalinkreport(params *PostVocalinkreportParams) (*PostVoca
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostVocalinkreportCreated), nil
-
+	success, ok := result.(*PostVocalinkreportCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostVocalinkreport: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

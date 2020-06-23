@@ -6,14 +6,14 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // DirectDebitAdmission direct debit admission
+//
 // swagger:model DirectDebitAdmission
 type DirectDebitAdmission struct {
 
@@ -156,6 +156,7 @@ func (m *DirectDebitAdmission) UnmarshalBinary(b []byte) error {
 }
 
 // DirectDebitAdmissionAttributes direct debit admission attributes
+//
 // swagger:model DirectDebitAdmissionAttributes
 type DirectDebitAdmissionAttributes struct {
 

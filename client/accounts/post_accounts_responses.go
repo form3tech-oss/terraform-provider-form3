@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostAccountsReader is a Reader for the PostAccounts structure.
@@ -24,63 +23,54 @@ type PostAccountsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostAccountsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostAccountsCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewPostAccountsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewPostAccountsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewPostAccountsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewPostAccountsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewPostAccountsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewPostAccountsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewPostAccountsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewPostAccountsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type PostAccountsCreated struct {
 
 func (o *PostAccountsCreated) Error() string {
 	return fmt.Sprintf("[POST /accounts][%d] postAccountsCreated  %+v", 201, o.Payload)
+}
+
+func (o *PostAccountsCreated) GetPayload() *models.AccountCreationResponse {
+	return o.Payload
 }
 
 func (o *PostAccountsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *PostAccountsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /accounts][%d] postAccountsBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *PostAccountsBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostAccountsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type PostAccountsUnauthorized struct {
 
 func (o *PostAccountsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /accounts][%d] postAccountsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostAccountsUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostAccountsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *PostAccountsForbidden) Error() string {
 	return fmt.Sprintf("[POST /accounts][%d] postAccountsForbidden  %+v", 403, o.Payload)
 }
 
+func (o *PostAccountsForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostAccountsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type PostAccountsNotFound struct {
 
 func (o *PostAccountsNotFound) Error() string {
 	return fmt.Sprintf("[POST /accounts][%d] postAccountsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostAccountsNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostAccountsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *PostAccountsConflict) Error() string {
 	return fmt.Sprintf("[POST /accounts][%d] postAccountsConflict  %+v", 409, o.Payload)
 }
 
+func (o *PostAccountsConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostAccountsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type PostAccountsTooManyRequests struct {
 
 func (o *PostAccountsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /accounts][%d] postAccountsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostAccountsTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostAccountsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *PostAccountsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /accounts][%d] postAccountsInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *PostAccountsInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostAccountsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type PostAccountsServiceUnavailable struct {
 
 func (o *PostAccountsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /accounts][%d] postAccountsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostAccountsServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostAccountsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
