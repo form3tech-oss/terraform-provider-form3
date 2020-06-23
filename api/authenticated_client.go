@@ -44,6 +44,7 @@ type AuthenticatedClient struct {
 	PaymentdefaultsClient *client.Form3CorelibDataStructures
 	TransactionClient     *client.Form3CorelibDataStructures
 	SystemClient          *client.Form3CorelibDataStructures
+	PlatformClient        *client.Form3CorelibDataStructures
 }
 
 type AuthenticatedClientCheckRedirect struct {
@@ -245,6 +246,10 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 	rt9 := rc.NewWithClient(config.Host, config.BasePath, config.Schemes, h)
 	systemClient := client.New(rt9, strfmt.Default)
 
+	config.WithBasePath("/v1/")
+	rt10 := rc.NewWithClient(config.Host, config.BasePath, config.Schemes, h)
+	platformClient := client.New(rt10, strfmt.Default)
+
 	authClient = &AuthenticatedClient{
 		AssociationClient:     associationsClient,
 		SecurityClient:        securityClient,
@@ -254,6 +259,7 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 		LimitsClient:          limitsClient,
 		PaymentdefaultsClient: paymentdefaultsClient,
 		TransactionClient:     transactionClient,
+		PlatformClient:        platformClient,
 		SystemClient:          systemClient,
 		HttpClient:            h,
 		Config:                config,

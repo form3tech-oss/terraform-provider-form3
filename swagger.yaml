@@ -6464,7 +6464,79 @@ paths:
           $ref: "#/responses/500InternalServerError"
         503:
           $ref: "#/responses/503ServiceUnavailable"
-#public-key - enc
+  #public-key - end
+
+  #signing_key start
+  /platform/security/signing_keys:
+    post:
+      summary: Create a Signing Key pair
+      tags:
+        - platformsecurityapi
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - in: body
+          name: data
+          schema:
+            $ref: "#/definitions/SigningKeysCreation"
+      responses:
+        201:
+          description: creation response
+          schema:
+            $ref: "#/definitions/SigningKeysResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+  /platform/security/signing_keys/{signingkey_id}:
+    get:
+      summary: Fetch a Signing Key
+      tags:
+        - platformsecurityapi
+      x-access:
+        - Public
+      parameters:
+        - name: signingkey_id
+          in: path
+          description: Signing Key ID
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: signing key response
+          schema:
+            $ref: "#/definitions/SigningKeysResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+  #signing_key end
 
 definitions:
   ApiError:
@@ -12146,6 +12218,96 @@ definitions:
               format: uuid
       links:
         $ref: "#/definitions/Links"
+  # Signing_keys start
+  SigningKeysCreation:
+    required:
+      - data
+    type: object
+    properties:
+      data:
+        $ref: "#/definitions/SigningKeysRequestData"
+        x-order: 1
+  SigningKeysResponse:
+    x-access:
+      - Public
+    type: object
+    required:
+      - data
+    properties:
+      data:
+        $ref: '#/definitions/SigningKeysResponseData'
+        x-order: 1
+  SigningKeysRequestData:
+    x-access:
+      - Public
+    type: object
+    required:
+      - type
+      - id
+      - organisation_id
+    properties:
+      type:
+        type: string
+        enum:
+          - signing_keys
+      organisation_id:
+        type: string
+      id:
+        type: string
+  SigningKeysResponseData:
+    x-access:
+      - Public
+    type: object
+    required:
+      - id
+      - organisation_id
+      - type
+      - attributes
+      - version
+    properties:
+      type:
+        $ref: '#/definitions/SigningKeysResourceType'
+        x-order: 1
+      id:
+        type: string
+        format: uuid
+        x-order: 2
+      version:
+        type: number
+        x-order: 3
+      organisation_id:
+        type: string
+        format: uuid
+        x-order: 4
+      created_on:
+        type: string
+        format: 'date-time'
+        x-order: 5
+      modified_on:
+        type: string
+        format: 'date-time'
+        x-order: 6
+      attributes:
+        $ref: '#/definitions/SigningKeysAttributes'
+        x-order: 7
+  SigningKeysAttributes:
+    x-access:
+      - Public
+    type: object
+    required:
+      - public_key
+    properties:
+      public_key:
+        type: string
+        x-order: 1
+
+  SigningKeysResourceType:
+    x-access:
+      - Public
+    type: string
+    enum:
+      - signing_keys
+  # Signing_keys end
 
 responses:
   400BadRequest:

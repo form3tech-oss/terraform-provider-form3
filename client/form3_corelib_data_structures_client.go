@@ -21,6 +21,7 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/client/organisations"
 	"github.com/form3tech-oss/terraform-provider-form3/client/payment_defaults"
 	"github.com/form3tech-oss/terraform-provider-form3/client/payments"
+	"github.com/form3tech-oss/terraform-provider-form3/client/platformsecurityapi"
 	"github.com/form3tech-oss/terraform-provider-form3/client/roles"
 	"github.com/form3tech-oss/terraform-provider-form3/client/subscriptions"
 	"github.com/form3tech-oss/terraform-provider-form3/client/system"
@@ -80,6 +81,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Form3Corel
 	cli.Organisations = organisations.New(transport, formats)
 	cli.PaymentDefaults = payment_defaults.New(transport, formats)
 	cli.Payments = payments.New(transport, formats)
+	cli.Platformsecurityapi = platformsecurityapi.New(transport, formats)
 	cli.Roles = roles.New(transport, formats)
 	cli.Subscriptions = subscriptions.New(transport, formats)
 	cli.System = system.New(transport, formats)
@@ -150,6 +152,8 @@ type Form3CorelibDataStructures struct {
 
 	Payments payments.ClientService
 
+	Platformsecurityapi platformsecurityapi.ClientService
+
 	Roles roles.ClientService
 
 	Subscriptions subscriptions.ClientService
@@ -175,6 +179,7 @@ func (c *Form3CorelibDataStructures) SetTransport(transport runtime.ClientTransp
 	c.Organisations.SetTransport(transport)
 	c.PaymentDefaults.SetTransport(transport)
 	c.Payments.SetTransport(transport)
+	c.Platformsecurityapi.SetTransport(transport)
 	c.Roles.SetTransport(transport)
 	c.Subscriptions.SetTransport(transport)
 	c.System.SetTransport(transport)
