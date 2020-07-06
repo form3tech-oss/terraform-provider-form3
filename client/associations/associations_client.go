@@ -43,6 +43,8 @@ type ClientService interface {
 
 	DeleteProductsID(params *DeleteProductsIDParams) (*DeleteProductsIDNoContent, error)
 
+	DeleteReconciliationAssociationID(params *DeleteReconciliationAssociationIDParams) (*DeleteReconciliationAssociationIDNoContent, error)
+
 	DeleteSepaLiquidityID(params *DeleteSepaLiquidityIDParams) (*DeleteSepaLiquidityIDNoContent, error)
 
 	DeleteSepainstantID(params *DeleteSepainstantIDParams) (*DeleteSepainstantIDNoContent, error)
@@ -85,6 +87,10 @@ type ClientService interface {
 
 	GetProductsID(params *GetProductsIDParams) (*GetProductsIDOK, error)
 
+	GetReconciliation(params *GetReconciliationParams) (*GetReconciliationOK, error)
+
+	GetReconciliationAssociationID(params *GetReconciliationAssociationIDParams) (*GetReconciliationAssociationIDOK, error)
+
 	GetSepaLiquidity(params *GetSepaLiquidityParams) (*GetSepaLiquidityOK, error)
 
 	GetSepaLiquidityID(params *GetSepaLiquidityIDParams) (*GetSepaLiquidityIDOK, error)
@@ -126,6 +132,8 @@ type ClientService interface {
 	PostPayport(params *PostPayportParams) (*PostPayportCreated, error)
 
 	PostProducts(params *PostProductsParams) (*PostProductsCreated, error)
+
+	PostReconciliation(params *PostReconciliationParams) (*PostReconciliationCreated, error)
 
 	PostSepaLiquidity(params *PostSepaLiquidityParams) (*PostSepaLiquidityCreated, error)
 
@@ -409,6 +417,40 @@ func (a *Client) DeleteProductsID(params *DeleteProductsIDParams) (*DeleteProduc
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for DeleteProductsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DeleteReconciliationAssociationID deletes organisation reconciliation service association
+*/
+func (a *Client) DeleteReconciliationAssociationID(params *DeleteReconciliationAssociationIDParams) (*DeleteReconciliationAssociationIDNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteReconciliationAssociationIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteReconciliationAssociationID",
+		Method:             "DELETE",
+		PathPattern:        "/reconciliation/{associationId}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteReconciliationAssociationIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteReconciliationAssociationIDNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteReconciliationAssociationID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -1127,6 +1169,74 @@ func (a *Client) GetProductsID(params *GetProductsIDParams) (*GetProductsIDOK, e
 }
 
 /*
+  GetReconciliation lists all organisation reconcilation service associations
+*/
+func (a *Client) GetReconciliation(params *GetReconciliationParams) (*GetReconciliationOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetReconciliationParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetReconciliation",
+		Method:             "GET",
+		PathPattern:        "/reconciliation",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetReconciliationReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetReconciliationOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetReconciliation: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetReconciliationAssociationID fetches organisation reconciliation service association
+*/
+func (a *Client) GetReconciliationAssociationID(params *GetReconciliationAssociationIDParams) (*GetReconciliationAssociationIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetReconciliationAssociationIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetReconciliationAssociationID",
+		Method:             "GET",
+		PathPattern:        "/reconciliation/{associationId}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetReconciliationAssociationIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetReconciliationAssociationIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetReconciliationAssociationID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   GetSepaLiquidity lists all organisation sepa liquidity associations
 */
 func (a *Client) GetSepaLiquidity(params *GetSepaLiquidityParams) (*GetSepaLiquidityOK, error) {
@@ -1837,6 +1947,40 @@ func (a *Client) PostProducts(params *PostProductsParams) (*PostProductsCreated,
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for PostProducts: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  PostReconciliation creates organisation association for reconciliation service
+*/
+func (a *Client) PostReconciliation(params *PostReconciliationParams) (*PostReconciliationCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostReconciliationParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostReconciliation",
+		Method:             "POST",
+		PathPattern:        "/reconciliation",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PostReconciliationReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PostReconciliationCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostReconciliation: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
