@@ -34,7 +34,7 @@ func resourceForm3ReconciliationAssociation() *schema.Resource {
 				ForceNew: true,
 			},
 			"bank_ids": {
-				Type: schema.TypeList,
+				Type: schema.TypeSet,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
 				},
@@ -144,7 +144,7 @@ func createReconciliationNewAssociationFromResourceData(d *schema.ResourceData) 
 	}
 
 	if attr, ok := d.GetOk("bank_ids"); ok {
-		arr := attr.([]interface{})
+		arr := attr.(*schema.Set).List()
 		for _, v := range arr {
 			association.Attributes.BankIds = append(association.Attributes.BankIds, v.(string))
 		}
