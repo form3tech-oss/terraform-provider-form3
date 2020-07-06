@@ -6538,6 +6538,149 @@ paths:
           $ref: "#/responses/503ServiceUnavailable"
   #signing_key end
 
+  #reconciliation_service start
+  /reconciliation:
+    post:
+      summary: Create organisation association for reconciliation service
+      tags:
+        - Associations
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: creation request
+          in: body
+          schema:
+            $ref: "#/definitions/ReconciliationAssociationCreation"
+      responses:
+        201:
+          description: creation response
+          schema:
+            $ref: "#/definitions/ReconciliationAssociationDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+    get:
+      summary: List all organisation reconcilation service associations
+      tags:
+        - Associations
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: filter[organisation_id]
+          in: query
+          description: Organisation id
+          required: false
+          type: array
+          items:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: List of associations
+          schema:
+            $ref: "#/definitions/ReconciliationAssociationDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+  /reconciliation/{associationId}:
+    parameters:
+      - name: associationId
+        in: path
+        description: Association id
+        required: true
+        type: string
+        format: uuid
+    get:
+      summary: Fetch organisation reconciliation service association
+      tags:
+        - Associations
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      responses:
+        200:
+          description: Associations details
+          schema:
+            $ref: "#/definitions/ReconciliationAssociationDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+    delete:
+      summary: Delete organisation reconciliation service association
+      tags:
+        - Associations
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+      responses:
+        204:
+          description: Association deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+  #reconciliation_service stop
+
 definitions:
   ApiError:
     type: object
@@ -12309,6 +12452,110 @@ definitions:
       - signing_keys
   # Signing_keys end
 
+  #reconciliation_service start
+  ReconciliationAssociation:
+    type: object
+    properties:
+      type:
+        type: string
+        description: "Name of the resource type"
+        enum:
+          - reconciliation_associations
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      created_on:
+        type: string
+        format: date-time
+        readOnly: true
+      modified_on:
+        type: string
+        format: date-time
+        readOnly: true
+      attributes:
+        $ref: "#/definitions/ReconciliationAssociationAttributes"
+
+  ReconciliationAssociationAttributes:
+    type: object
+    required:
+      - name
+      - bank_ids
+      - scheme_type
+    properties:
+      name:
+        type: string
+        x-nullable: false
+        minLength: 1
+      bank_ids:
+        type: array
+        items:
+          type: string
+          minLength: 1
+        minItems: 1
+        uniqueItems: true
+      scheme_type:
+        type: string
+        x-nullable: false
+        enum:
+          - SEPAINSTANT
+          - FPS
+
+  ReconciliationNewAssociation:
+    type: object
+    required:
+      - id
+      - organisation_id
+      - type
+      - attributes
+    properties:
+      type:
+        type: string
+        enum:
+          - reconciliation_associations
+        x-nullable: false
+      id:
+        type: string
+        format: uuid
+        x-nullable: false
+      organisation_id:
+        type: string
+        format: uuid
+        x-nullable: false
+      attributes:
+        $ref: "#/definitions/ReconciliationAssociationAttributes"
+
+  ReconciliationAssociationCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ReconciliationNewAssociation'
+
+  ReconciliationAssociationDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/ReconciliationAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+  ReconciliationAssociationDetailsListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/ReconciliationAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+
+  #reconciliation_service stop
 responses:
   400BadRequest:
     description: Bad Request
