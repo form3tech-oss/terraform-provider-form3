@@ -18,7 +18,10 @@ func TestAccReconciliationAssociation_basic(t *testing.T) {
 	organisationId := uuid.New().String()
 	associationId := uuid.New().String()
 	name := "test organisation"
-	bankId := generateTestBicWithLength(8)
+
+	// hardcoded value
+	// https://github.com/hashicorp/terraform-plugin-sdk/issues/196
+	bankId := "QWKEHG33"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -32,7 +35,8 @@ func TestAccReconciliationAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_reconciliation_association.association", "association_id", associationId),
 					resource.TestCheckResourceAttr("form3_reconciliation_association.association", "organisation_id", organisationId),
 					resource.TestCheckResourceAttr("form3_reconciliation_association.association", "name", name),
-					resource.TestCheckResourceAttr("form3_reconciliation_association.association", "bank_ids.0", bankId),
+					resource.TestCheckResourceAttr("form3_reconciliation_association.association", "bank_ids.#", "1"),
+					resource.TestCheckResourceAttr("form3_reconciliation_association.association", "bank_ids.3361187273", bankId),
 					resource.TestCheckResourceAttr("form3_reconciliation_association.association", "scheme_type", "SEPAINSTANT"),
 				),
 			},
