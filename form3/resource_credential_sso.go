@@ -43,7 +43,7 @@ func resourceCredentialSsoCreate(d *schema.ResourceData, meta interface{}) error
 		return err
 	}
 
-	log.Printf("[INFO] Creating sso user credential for user: %s, sso_user_id: %s", ssoUser.Attributes.UserID, ssoUser.Attributes.UserID)
+	log.Printf("[INFO] Creating sso user credential for user: %s, sso_user_id: %s", ssoUser.Attributes.UserID, ssoUser.Attributes.SsoID)
 
 	params := users.NewPostUsersUserIDCredentialsSsoParams().WithUserID(ssoUser.Attributes.UserID).WithSsoUserCreation(&models.SsoUserCreation{Data: ssoUser})
 	created, err := client.SecurityClient.Users.PostUsersUserIDCredentialsSso(params)
