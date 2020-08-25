@@ -6466,6 +6466,136 @@ paths:
           $ref: "#/responses/503ServiceUnavailable"
   #public-key - end
 
+  #credentials-sso - start
+
+  /users/{user_id}/credentials/sso:
+    post:
+      summary: Create new sso credential for a user
+      tags:
+        - Users
+      x-access:
+        - Public
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: user_id
+          in: path
+          description: User Id
+          required: true
+          type: string
+          format: uuid
+        - in: body
+          name: SsoUserCreation
+          description: The sso user to create.
+          schema:
+            $ref: "#/definitions/SsoUserCreation"
+
+      responses:
+        201:
+          description: Sso user created
+          schema:
+            $ref: "#/definitions/SsoUserCreationResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
+  /users/{user_id}/credentials/sso/{sso_user_id}:
+    get:
+      summary: Fetch sso credential
+      tags:
+        - Users
+      x-access:
+        - Public
+      parameters:
+        - name: user_id
+          in: path
+          description: User Id
+          required: true
+          type: string
+          format: uuid
+        - name: sso_user_id
+          in: path
+          description: Sso user id
+          required: true
+          type: string
+      responses:
+        200:
+          description: Sso user data
+          schema:
+            $ref: "#/definitions/SsoUserDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
+    delete:
+      summary: Delete sso user credential
+      tags:
+        - Users
+      x-access:
+        - Public
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: user_id
+          in: path
+          description: User Id
+          required: true
+          type: string
+          format: uuid
+        - name: sso_user_id
+          in: path
+          description: Sso user id
+          required: true
+          type: string
+      responses:
+        204:
+          description: Sso user creadential deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+  #credentials-sso - end
+
   #signing_key start
   /platform/security/signing_keys:
     post:
@@ -12305,6 +12435,72 @@ definitions:
         type: string
 
   # open banking - end
+
+  #SsoUser
+  SsoUser:
+    type: object
+    x-access:
+      - Public
+    properties:
+      type:
+        type: string
+        description: "Name of the resource type"
+        example: "PublicKey"
+      id:
+        type: string
+        format: uuid
+        example: "7826c3cb-d6fd-41d0-b187-dc23ba928772"
+        description: "Unique resource ID"
+      version:
+        type: integer
+        minimum: 0
+        description: "Version number"
+        example: 0
+      organisation_id:
+        type: string
+        format: uuid
+        example: "ee2fb143-6dfe-4787-b183-ca8ddd4164d2"
+        description: "Unique ID of the organisation this resource is created by"
+      attributes:
+        type: object
+        properties:
+          sso_id:
+            type: string
+            example: "john.doe@form3.tech"
+            description: "Sso user id"
+          user_id:
+            type: string
+            format: uuid
+            example: "7826c3cb-d6fd-41d0-b187-dc23ba928772"
+            description: "Unique ID of the form3 user"
+
+  SsoUserCreation:
+    type: object
+    x-access:
+      - Public
+    properties:
+      data:
+        $ref: "#/definitions/SsoUser"
+
+  SsoUserCreationResponse:
+    type: object
+    x-access:
+      - Public
+    properties:
+      data:
+        $ref: "#/definitions/SsoUser"
+      links:
+        $ref: "#/definitions/Links"
+
+  SsoUserDetailsResponse:
+    type: object
+    x-access:
+      - Public
+    properties:
+      data:
+        $ref: "#/definitions/SsoUser"
+      links:
+        $ref: "#/definitions/Links"
 
   #PublicKey
   PublicKey:
