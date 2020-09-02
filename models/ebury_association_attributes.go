@@ -29,9 +29,30 @@ type EburyAssociationAttributes struct {
 	// Required: true
 	FundingCurrency *string `json:"funding_currency"`
 
+	// organisation kyc model
+	OrganisationKycModel string `json:"organisation_kyc_model,omitempty"`
+
 	// organisation location
 	// Required: true
 	OrganisationLocation *string `json:"organisation_location"`
+
+	// organisation payment fee
+	OrganisationPaymentFee string `json:"organisation_payment_fee,omitempty"`
+
+	// party address
+	PartyAddress []string `json:"party_address"`
+
+	// party city
+	PartyCity string `json:"party_city,omitempty"`
+
+	// party name
+	PartyName string `json:"party_name,omitempty"`
+
+	// party payment fee
+	PartyPaymentFee string `json:"party_payment_fee,omitempty"`
+
+	// party post code
+	PartyPostCode string `json:"party_post_code,omitempty"`
 }
 
 // Validate validates this ebury association attributes
