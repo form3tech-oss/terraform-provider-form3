@@ -17,6 +17,9 @@ type ProductsAssociationAttributes struct {
 
 	// product
 	Product string `json:"product,omitempty"`
+
+	// provider
+	Provider string `json:"provider,omitempty"`
 }
 
 // Validate validates this products association attributes

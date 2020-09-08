@@ -14,9 +14,9 @@ import (
 )
 
 func TestAccProductsAssociation_basic(t *testing.T) {
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	associationId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	associationID := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -24,12 +24,13 @@ func TestAccProductsAssociation_basic(t *testing.T) {
 		CheckDestroy: testAccCheckProductsAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3ProductsAssociationConfigA, organisationId, parentOrganisationId, associationId),
+				Config: fmt.Sprintf(testForm3ProductsAssociationConfigA, organisationID, parentOrganisationID, associationID),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckProductsAssociationExists("form3_products_association.association"),
-					resource.TestCheckResourceAttr("form3_products_association.association", "association_id", associationId),
-					resource.TestCheckResourceAttr("form3_products_association.association", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_products_association.association", "product", "direct_debits_gocardless"),
+					resource.TestCheckResourceAttr("form3_products_association.association", "association_id", associationID),
+					resource.TestCheckResourceAttr("form3_products_association.association", "organisation_id", organisationID),
+					resource.TestCheckResourceAttr("form3_products_association.association", "product", "INTERNATIONAL_SERVICES"),
+					resource.TestCheckResourceAttr("form3_products_association.association", "provider", "EBURY"),
 				),
 			},
 		},
@@ -88,10 +89,11 @@ const testForm3ProductsAssociationConfigA = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation"
+	name 		           = "terraform-organisation"
 }
 resource "form3_products_association" "association" {
 	organisation_id        = "${form3_organisation.organisation.organisation_id}"
 	association_id         = "%s"
-	product                = "direct_debits_gocardless"
+	product                = "INTERNATIONAL_SERVICES"
+	provider               = "EBURY"
 }`
