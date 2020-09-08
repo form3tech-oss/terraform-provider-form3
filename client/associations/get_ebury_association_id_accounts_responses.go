@@ -53,12 +53,6 @@ func (o *GetEburyAssociationIDAccountsReader) ReadResponse(response runtime.Clie
 			return nil, err
 		}
 		return nil, result
-	case 409:
-		result := NewGetEburyAssociationIDAccountsConflict()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 429:
 		result := NewGetEburyAssociationIDAccountsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -237,39 +231,6 @@ func (o *GetEburyAssociationIDAccountsNotFound) GetPayload() *models.APIError {
 }
 
 func (o *GetEburyAssociationIDAccountsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.APIError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewGetEburyAssociationIDAccountsConflict creates a GetEburyAssociationIDAccountsConflict with default headers values
-func NewGetEburyAssociationIDAccountsConflict() *GetEburyAssociationIDAccountsConflict {
-	return &GetEburyAssociationIDAccountsConflict{}
-}
-
-/*GetEburyAssociationIDAccountsConflict handles this case with default header values.
-
-Conflict
-*/
-type GetEburyAssociationIDAccountsConflict struct {
-	Payload *models.APIError
-}
-
-func (o *GetEburyAssociationIDAccountsConflict) Error() string {
-	return fmt.Sprintf("[GET /ebury/{association_id}/accounts][%d] getEburyAssociationIdAccountsConflict  %+v", 409, o.Payload)
-}
-
-func (o *GetEburyAssociationIDAccountsConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
-func (o *GetEburyAssociationIDAccountsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
 

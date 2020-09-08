@@ -53,12 +53,6 @@ func (o *GetEburyIDReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return nil, result
-	case 409:
-		result := NewGetEburyIDConflict()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 429:
 		result := NewGetEburyIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -237,39 +231,6 @@ func (o *GetEburyIDNotFound) GetPayload() *models.APIError {
 }
 
 func (o *GetEburyIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.APIError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewGetEburyIDConflict creates a GetEburyIDConflict with default headers values
-func NewGetEburyIDConflict() *GetEburyIDConflict {
-	return &GetEburyIDConflict{}
-}
-
-/*GetEburyIDConflict handles this case with default header values.
-
-Conflict
-*/
-type GetEburyIDConflict struct {
-	Payload *models.APIError
-}
-
-func (o *GetEburyIDConflict) Error() string {
-	return fmt.Sprintf("[GET /ebury/{id}][%d] getEburyIdConflict  %+v", 409, o.Payload)
-}
-
-func (o *GetEburyIDConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
-func (o *GetEburyIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
 
