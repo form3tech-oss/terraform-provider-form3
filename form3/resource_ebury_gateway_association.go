@@ -51,6 +51,42 @@ func resourceForm3EburyAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
+			"party_payment_fee": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
+			"organisation_payment_fee": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
+			"organisation_kyc_model": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
+			"party_name": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
+			"party_address": {
+				Type:     schema.TypeList,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Required: true,
+				ForceNew: true,
+			},
+			"party_city": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
+			"party_post_code": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: true,
+			},
 		},
 		SchemaVersion: 0,
 	}
@@ -96,6 +132,13 @@ func resourceEburyAssociationRead(d *schema.ResourceData, meta interface{}) erro
 	_ = d.Set("ebury_client_id", eburyAssociation.Payload.Data.Attributes.EburyClientID)
 	_ = d.Set("ebury_contact_id", eburyAssociation.Payload.Data.Attributes.EburyContactID)
 	_ = d.Set("association_id", eburyAssociation.Payload.Data.ID.String())
+	_ = d.Set("party_payment_fee", eburyAssociation.Payload.Data.Attributes.PartyPaymentFee)
+	_ = d.Set("organisation_payment_fee", eburyAssociation.Payload.Data.Attributes.OrganisationPaymentFee)
+	_ = d.Set("organisation_kyc_model", eburyAssociation.Payload.Data.Attributes.OrganisationKycModel)
+	_ = d.Set("party_name", eburyAssociation.Payload.Data.Attributes.PartyName)
+	_ = d.Set("party_address", eburyAssociation.Payload.Data.Attributes.PartyAddress)
+	_ = d.Set("party_city", eburyAssociation.Payload.Data.Attributes.PartyCity)
+	_ = d.Set("party_post_code", eburyAssociation.Payload.Data.Attributes.PartyPostCode)
 
 	return nil
 }
@@ -152,6 +195,37 @@ func createEburyAssociationFromResourceData(d *schema.ResourceData) (*models.New
 	if attr, ok := d.GetOk("ebury_client_id"); ok {
 		cl_id := swag.String(attr.(string))
 		association.Attributes.EburyClientID = cl_id
+	}
+
+	if attr, ok := d.GetOk("party_payment_fee"); ok {
+		association.Attributes.PartyPaymentFee = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("organisation_payment_fee"); ok {
+		association.Attributes.OrganisationPaymentFee = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("organisation_kyc_model"); ok {
+		association.Attributes.OrganisationKycModel = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("party_name"); ok {
+		association.Attributes.PartyName = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("party_address"); ok {
+		coll := attr.([]interface{})
+		for _, v := range coll {
+			association.Attributes.PartyAddress = append(association.Attributes.PartyAddress, v.(string))
+		}
+	}
+
+	if attr, ok := d.GetOk("party_city"); ok {
+		association.Attributes.PartyCity = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("party_post_code"); ok {
+		association.Attributes.PartyPostCode = attr.(string)
 	}
 
 	return &association, nil

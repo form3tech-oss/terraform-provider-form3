@@ -4519,8 +4519,6 @@ paths:
           $ref: "#/responses/403Forbidden"
         404:
           $ref: "#/responses/404NotFound"
-        409:
-          $ref: "#/responses/409Conflict"
         429:
           $ref: "#/responses/429TooManyRequests"
         500:
@@ -4553,8 +4551,6 @@ paths:
           $ref: "#/responses/403Forbidden"
         404:
           $ref: "#/responses/404NotFound"
-        409:
-          $ref: "#/responses/409Conflict"
         429:
           $ref: "#/responses/429TooManyRequests"
         500:
@@ -4582,6 +4578,159 @@ paths:
       responses:
         204:
           description: association deleted successfully
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
+  /ebury/{association_id}/accounts:
+    post:
+      summary: Create association accounts for Ebury gateway
+      tags:
+        - Associations
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: association_id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+        - name: creation request
+          in: body
+          schema:
+            $ref: "#/definitions/EburyAssociationAccountCreation"
+      responses:
+        201:
+          description: creation response
+          schema:
+            $ref: "#/definitions/EburyAssociationAccountCreationResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
+    get:
+      summary: List all ebury gateway association accounts
+      tags:
+        - Associations
+      parameters:
+        - name: association_id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: List of ebury association accounts
+          schema:
+            $ref: "#/definitions/EburyAssociationAccountListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
+  /ebury/{association_id}/accounts/{id}:
+    get:
+      summary: Fetch organisation ebury gateway association account
+      tags:
+        - Associations
+      parameters:
+        - name: association_id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+        - name: id
+          in: path
+          description: Association Account Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Association Accounts details
+          schema:
+            $ref: "#/definitions/EburyAssociationAccountResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
+    delete:
+      summary: Delete ebury gateway association account
+      tags:
+        - Associations
+      parameters:
+        - name: association_id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+        - name: id
+          in: path
+          description: Association Account Id
+          required: true
+          type: string
+          format: uuid
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+      responses:
+        204:
+          description: association account deleted successfully
         400:
           $ref: "#/responses/400BadRequest"
         401:
@@ -7895,6 +8044,7 @@ definitions:
       - bacs_associations
       - confirmation_of_payee_associations
       - ebury_associations
+      - ebury_association_accounts
 
   LimitCreation:
     type: object
@@ -9365,6 +9515,22 @@ definitions:
         type: string
       ebury_client_id:
         type: string
+      party_payment_fee:
+        type: string
+      organisation_payment_fee:
+        type: string
+      organisation_kyc_model:
+        type: string
+      party_name:
+        type: string
+      party_address:
+        type: array
+        items:
+          type: string
+      party_city:
+        type: string
+      party_post_code:
+        type: string
 
   EburyAssociationCreation:
     type: object
@@ -9391,6 +9557,90 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/EburyAssociation"
+
+  EburyAssociationAccount:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      organisation_id:
+        type: string
+        format: uuid
+      type:
+        type: string
+      version:
+        type: integer
+        minimum: 0
+      attributes:
+        $ref: "#/definitions/EburyAssociationAccountAttributes"
+
+  NewEburyAssociationAccount:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      organisation_id:
+        type: string
+        format: uuid
+      type:
+        type: string
+      attributes:
+        $ref: "#/definitions/EburyAssociationAccountAttributes"
+
+  EburyAssociationAccountAttributes:
+    type: object
+    properties:
+      account_number:
+        type: string
+      account_number_code:
+        type: string
+      account_with:
+        type: object
+        properties:
+          bic:
+            type: string
+          bank_id:
+            type: string
+          bank_id_code:
+            type: string
+      account_labels:
+        type: array
+        items:
+          type: string
+      currency:
+        type: string
+      country:
+        type: string
+      iban:
+        type: string
+
+  EburyAssociationAccountCreation:
+    type: object
+    properties:
+      data:
+        $ref: "#/definitions/NewEburyAssociationAccount"
+
+  EburyAssociationAccountCreationResponse:
+    type: object
+    properties:
+      data:
+        $ref: "#/definitions/EburyAssociationAccount"
+
+  EburyAssociationAccountResponse:
+    type: object
+    properties:
+      data:
+        $ref: "#/definitions/EburyAssociationAccount"
+
+  EburyAssociationAccountListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: "#/definitions/EburyAssociationAccount"
 
   # paymentapi - start
 
