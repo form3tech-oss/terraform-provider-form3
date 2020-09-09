@@ -29,7 +29,8 @@ func TestAccProductsAssociation_basic(t *testing.T) {
 					testAccCheckProductsAssociationExists("form3_products_association.association"),
 					resource.TestCheckResourceAttr("form3_products_association.association", "association_id", associationId),
 					resource.TestCheckResourceAttr("form3_products_association.association", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_products_association.association", "product", "direct_debits_gocardless"),
+					resource.TestCheckResourceAttr("form3_products_association.association", "product", "INTERNATIONAL_SERVICES"),
+					resource.TestCheckResourceAttr("form3_products_association.association", "provider", "EBURY"),
 				),
 			},
 		},
@@ -93,5 +94,6 @@ resource "form3_organisation" "organisation" {
 resource "form3_products_association" "association" {
 	organisation_id        = "${form3_organisation.organisation.organisation_id}"
 	association_id         = "%s"
-	product                = "direct_debits_gocardless"
+	product                = "INTERNATIONAL_SERVICES"
+	provider               = "EBURY"
 }`

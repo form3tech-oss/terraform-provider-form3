@@ -33,6 +33,11 @@ func resourceForm3ProductsAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
+			"product_provider": {
+				Type:     schema.TypeString,
+				Required: false,
+				ForceNew: true,
+			},
 		},
 	}
 }
@@ -78,6 +83,7 @@ func resourceProductsAssociationRead(d *schema.ResourceData, meta interface{}) e
 
 	_ = d.Set("association_id", productAssociation.Payload.Data.ID.String())
 	_ = d.Set("product", productAssociation.Payload.Data.Attributes.Product)
+	_ = d.Set("product_provider", productAssociation.Payload.Data.Attributes.Product)
 
 	return nil
 }
@@ -116,6 +122,10 @@ func createProductsNewAssociationFromResourceData(d *schema.ResourceData) (*mode
 
 	if attr, ok := d.GetOk("product"); ok {
 		association.Attributes.Product = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("product_provider"); ok {
+		association.Attributes.Provider = attr.(string)
 	}
 
 	return &association, nil
