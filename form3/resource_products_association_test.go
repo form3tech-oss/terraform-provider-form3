@@ -30,7 +30,7 @@ func TestAccProductsAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_products_association.association", "association_id", associationId),
 					resource.TestCheckResourceAttr("form3_products_association.association", "organisation_id", organisationId),
 					resource.TestCheckResourceAttr("form3_products_association.association", "product", "INTERNATIONAL_SERVICES"),
-					resource.TestCheckResourceAttr("form3_products_association.association", "provider", "EBURY"),
+					resource.TestCheckResourceAttr("form3_products_association.association", "product_provider", "EBURY"),
 				),
 			},
 		},
@@ -95,5 +95,5 @@ resource "form3_products_association" "association" {
 	organisation_id        = "${form3_organisation.organisation.organisation_id}"
 	association_id         = "%s"
 	product                = "INTERNATIONAL_SERVICES"
-	provider               = "EBURY"
+	product_provider       = "EBURY"
 }`
