@@ -8771,6 +8771,8 @@ definitions:
     properties:
       product:
         type: string
+      provider:
+        type: string
 
   ProductsAssociationCreation:
     type: object
