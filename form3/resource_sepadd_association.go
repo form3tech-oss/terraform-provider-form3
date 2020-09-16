@@ -16,7 +16,7 @@ func resourceForm3SepaDDAssociation() *schema.Resource {
 		Create: resourceSepaDDAssociationCreate,
 		Read:   resourceSepaDDAssociationRead,
 		Delete: resourceSepaDDAssociationDelete,
-
+		Update: resourceSepaDDAssociationUpdate,
 		Schema: map[string]*schema.Schema{
 			"association_id": {
 				Type:     schema.TypeString,
@@ -47,6 +47,64 @@ func resourceForm3SepaDDAssociation() *schema.Resource {
 	}
 }
 
+func createSepaDDUpdateAssociationFromResourceData(d *schema.ResourceData) (*models.SepaDDAssociationUpdate, error) {
+	association := &models.SepaDDAssociationUpdate{
+		Type: string(models.ResourceTypeSepaddAssociations),
+		Attributes: &models.SepaDDAssociationAttributes{},
+	}
+	if attr, ok := GetUUIDOK(d, "association_id"); ok {
+		association.ID = attr
+	}
+
+	if attr, ok := GetUUIDOK(d, "organisation_id"); ok {
+		association.OrganisationID = attr
+	}
+
+	if attr, ok := d.GetOk("bic"); ok {
+		association.Attributes.Bic = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("business_user"); ok {
+		association.Attributes.BusinessUser = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("receiver_business_user"); ok {
+		association.Attributes.ReceiverBusinessUser = attr.(string)
+	}
+	return association, nil
+}
+
+func resourceSepaDDAssociationUpdate(d *schema.ResourceData, meta interface{}) error {
+	client := meta.(*form3.AuthenticatedClient)
+
+	association, err := createSepaDDUpdateAssociationFromResourceData(d)
+	if err != nil {
+		return fmt.Errorf("failed to create update sepadd association: %s", form3.JsonErrorPrettyPrint(err))
+	}
+
+	existingAssociation, err := client.AssociationClient.Associations.GetSepaddID(associations.NewGetSepaddIDParams().
+		WithID(association.ID))
+	if err != nil {
+		return fmt.Errorf("error fetching sepadd association: %s", form3.JsonErrorPrettyPrint(err))
+	}
+
+	if existingAssociation == nil || existingAssociation.Payload == nil {
+		return fmt.Errorf("sepadd association with id %s is nil or has a nil payload", association.ID)
+	}
+
+	association.Version = existingAssociation.Payload.Data.Version
+
+	log.Printf("[INFO] Updating sepadd association with id: %s", association.ID)
+	_, err = client.AccountClient.Associations.PatchSepaddID(associations.NewPatchSepaddIDParams().
+		WithID(association.ID).
+		WithUpdateRequest(&models.SepaDDAssociationPatch{
+			Data: association,
+		}))
+	if err != nil {
+		return fmt.Errorf("failed to update lhv association: %s", form3.JsonErrorPrettyPrint(err))
+	}
+	return nil
+}
 func resourceSepaDDAssociationCreate(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
 
@@ -87,6 +145,7 @@ func resourceSepaDDAssociationRead(d *schema.ResourceData, meta interface{}) err
 	}
 
 	_ = d.Set("association_id", sepaDDAssociation.Payload.Data.ID.String())
+	_ = d.Set("organisation_id", sepaDDAssociation.Payload.Data.OrganisationID.String())
 	_ = d.Set("bic", sepaDDAssociation.Payload.Data.Attributes.Bic)
 	_ = d.Set("business_user", sepaDDAssociation.Payload.Data.Attributes.BusinessUser)
 	_ = d.Set("receiver_business_user", sepaDDAssociation.Payload.Data.Attributes.ReceiverBusinessUser)
@@ -115,13 +174,14 @@ func resourceSepaDDAssociationDelete(d *schema.ResourceData, meta interface{}) e
 }
 
 func createSepaDDNewAssociationFromResourceData(d *schema.ResourceData) (*models.NewSepaDDAssociation, error) {
+	association := models.NewSepaDDAssociation{
+		Type:       string(models.ResourceTypeSepaddAssociations),
+		Attributes: &models.SepaDDAssociationAttributes{},
+	}
 
-	association := models.NewSepaDDAssociation{Attributes: &models.SepaDDAssociationAttributes{}}
-	association.Type = "sepadd_associations"
 	if attr, ok := GetUUIDOK(d, "association_id"); ok {
 		association.ID = attr
 	}
-
 	if attr, ok := GetUUIDOK(d, "organisation_id"); ok {
 		association.OrganisationID = attr
 	}
@@ -137,6 +197,5 @@ func createSepaDDNewAssociationFromResourceData(d *schema.ResourceData) (*models
 	if attr, ok := d.GetOk("receiver_business_user"); ok {
 		association.Attributes.ReceiverBusinessUser = attr.(string)
 	}
-
 	return &association, nil
 }

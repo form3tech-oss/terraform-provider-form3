@@ -7101,6 +7101,46 @@ paths:
         503:
           $ref: "#/responses/503ServiceUnavailable"
 
+    patch:
+      summary: Update organisation association for sepa dd
+      tags:
+        - Associations
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+        - name: update request
+          in: body
+          schema:
+            $ref: "#/definitions/SepaDDAssociationPatch"
+      responses:
+        200:
+          description: creation response
+          schema:
+            $ref: "#/definitions/SepaDDAssociationDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
 definitions:
   ApiError:
     type: object
@@ -8186,6 +8226,7 @@ definitions:
       - confirmation_of_payee_associations
       - ebury_associations
       - ebury_association_accounts
+      - sepadd_associations
 
   LimitCreation:
     type: object
@@ -13189,6 +13230,39 @@ definitions:
         type: string
       receiverBusinessUser:
         type: string
+
+  SepaDDAssociationPatch:
+    type: object
+    properties:
+      data:
+        $ref: "#/definitions/SepaDDAssociationUpdate"
+
+  SepaDDAssociationUpdate:
+    type: object
+    required:
+      - id
+      - version
+      - type
+      - organisation_id
+      - attributes
+    properties:
+      id:
+        type: string
+        format: uuid
+        x-nullable: false
+      type:
+        type: string
+        x-nullable: false
+      version:
+        type: integer
+        minimum: 0
+        x-nullable: true
+      organisation_id:
+        type: string
+        format: uuid
+        x-nullable: false
+      attributes:
+        $ref: "#/definitions/SepaDDAssociationAttributes"
 
   SepaDDAssociationCreation:
     type: object
