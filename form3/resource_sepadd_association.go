@@ -49,7 +49,7 @@ func resourceForm3SepaDDAssociation() *schema.Resource {
 
 func createSepaDDUpdateAssociationFromResourceData(d *schema.ResourceData) (*models.SepaDDAssociationUpdate, error) {
 	association := &models.SepaDDAssociationUpdate{
-		Type: string(models.ResourceTypeSepaddAssociations),
+		Type:       string(models.ResourceTypeSepaddAssociations),
 		Attributes: &models.SepaDDAssociationAttributes{},
 	}
 	if attr, ok := GetUUIDOK(d, "association_id"); ok {
