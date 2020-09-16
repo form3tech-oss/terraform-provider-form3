@@ -49,6 +49,8 @@ type ClientService interface {
 
 	DeleteSepaLiquidityID(params *DeleteSepaLiquidityIDParams) (*DeleteSepaLiquidityIDNoContent, error)
 
+	DeleteSepaddID(params *DeleteSepaddIDParams) (*DeleteSepaddIDNoContent, error)
+
 	DeleteSepainstantID(params *DeleteSepainstantIDParams) (*DeleteSepainstantIDNoContent, error)
 
 	DeleteSepasctID(params *DeleteSepasctIDParams) (*DeleteSepasctIDNoContent, error)
@@ -101,6 +103,10 @@ type ClientService interface {
 
 	GetSepaLiquidityID(params *GetSepaLiquidityIDParams) (*GetSepaLiquidityIDOK, error)
 
+	GetSepadd(params *GetSepaddParams) (*GetSepaddOK, error)
+
+	GetSepaddID(params *GetSepaddIDParams) (*GetSepaddIDOK, error)
+
 	GetSepainstant(params *GetSepainstantParams) (*GetSepainstantOK, error)
 
 	GetSepainstantID(params *GetSepainstantIDParams) (*GetSepainstantIDOK, error)
@@ -144,6 +150,8 @@ type ClientService interface {
 	PostReconciliation(params *PostReconciliationParams) (*PostReconciliationCreated, error)
 
 	PostSepaLiquidity(params *PostSepaLiquidityParams) (*PostSepaLiquidityCreated, error)
+
+	PostSepadd(params *PostSepaddParams) (*PostSepaddCreated, error)
 
 	PostSepainstant(params *PostSepainstantParams) (*PostSepainstantCreated, error)
 
@@ -527,6 +535,40 @@ func (a *Client) DeleteSepaLiquidityID(params *DeleteSepaLiquidityIDParams) (*De
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for DeleteSepaLiquidityID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DeleteSepaddID deletes organisation spea dd association
+*/
+func (a *Client) DeleteSepaddID(params *DeleteSepaddIDParams) (*DeleteSepaddIDNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteSepaddIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteSepaddID",
+		Method:             "DELETE",
+		PathPattern:        "/sepadd/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteSepaddIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteSepaddIDNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteSepaddID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -1415,6 +1457,74 @@ func (a *Client) GetSepaLiquidityID(params *GetSepaLiquidityIDParams) (*GetSepaL
 }
 
 /*
+  GetSepadd lists all organisation sepa dd associations
+*/
+func (a *Client) GetSepadd(params *GetSepaddParams) (*GetSepaddOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetSepaddParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetSepadd",
+		Method:             "GET",
+		PathPattern:        "/sepadd",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetSepaddReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetSepaddOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetSepadd: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetSepaddID fetches organisation sepa dd association
+*/
+func (a *Client) GetSepaddID(params *GetSepaddIDParams) (*GetSepaddIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetSepaddIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetSepaddID",
+		Method:             "GET",
+		PathPattern:        "/sepadd/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetSepaddIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetSepaddIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetSepaddID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   GetSepainstant lists all organisation sepa instant associations
 */
 func (a *Client) GetSepainstant(params *GetSepainstantParams) (*GetSepainstantOK, error) {
@@ -2159,6 +2269,40 @@ func (a *Client) PostSepaLiquidity(params *PostSepaLiquidityParams) (*PostSepaLi
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for PostSepaLiquidity: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  PostSepadd creates organisation association for sepa dd
+*/
+func (a *Client) PostSepadd(params *PostSepaddParams) (*PostSepaddCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostSepaddParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostSepadd",
+		Method:             "POST",
+		PathPattern:        "/sepadd",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PostSepaddReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PostSepaddCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostSepadd: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

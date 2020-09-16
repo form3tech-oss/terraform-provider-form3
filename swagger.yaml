@@ -6960,6 +6960,147 @@ paths:
           $ref: "#/responses/503ServiceUnavailable"
   #reconciliation_service stop
 
+  /sepadd:
+    post:
+      summary: Create organisation association for sepa dd
+      tags:
+        - Associations
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: creation request
+          in: body
+          schema:
+            $ref: "#/definitions/SepaDDAssociationCreation"
+      responses:
+        201:
+          description: creation response
+          schema:
+            $ref: "#/definitions/SepaDDAssociationCreationResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
+    get:
+      summary: List all organisation sepa dd associations
+      tags:
+        - Associations
+      parameters:
+        - name: filter[organisation_id]
+          in: query
+          description: Organisation id
+          required: false
+          type: array
+          items:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: List of associations
+          schema:
+            $ref: "#/definitions/SepaDDAssociationDetailsListResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
+  /sepadd/{id}:
+    get:
+      summary: Fetch organisation sepa dd association
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Associations details
+          schema:
+            $ref: "#/definitions/SepaDDAssociationDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
+    delete:
+      summary: Delete organisation spea dd association
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+      responses:
+        204:
+          description: Association deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
 definitions:
   ApiError:
     type: object
@@ -13004,6 +13145,83 @@ definitions:
 
 
   #reconciliation_service stop
+
+  SepaDDAssociation:
+    type: object
+    properties:
+      type:
+        type: string
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        $ref: "#/definitions/SepaDDAssociationAttributes"
+
+  NewSepaDDAssociation:
+    type: object
+    properties:
+      type:
+        type: string
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      attributes:
+        $ref: "#/definitions/SepaDDAssociationAttributes"
+
+  SepaDDAssociationAttributes:
+    type: object
+    properties:
+      bic:
+        type: string
+      businessUser:
+        type: string
+      receiverBusinessUser:
+        type: string
+
+  SepaDDAssociationCreation:
+    type: object
+    properties:
+      data:
+        $ref: "#/definitions/NewSepaDDAssociation"
+
+  SepaDDAssociationCreationResponse:
+    type: object
+    properties:
+      data:
+        $ref: "#/definitions/SepaDDAssociation"
+      links:
+        $ref: "#/definitions/Links"
+
+  SepaDDAssociationDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: "#/definitions/SepaDDAssociation"
+      links:
+        $ref: "#/definitions/Links"
+
+  SepaDDAssociationDetailsListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: "#/definitions/SepaDDAssociation"
+      links:
+        $ref: "#/definitions/Links"
+
 responses:
   400BadRequest:
     description: Bad Request
