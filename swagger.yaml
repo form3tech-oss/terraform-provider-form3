@@ -4595,6 +4595,43 @@ paths:
         503:
           $ref: "#/responses/503ServiceUnavailable"
 
+    patch:
+      summary: Patch ebury gateway association by id
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+        - name: patchBody
+          in: body
+          schema:
+            $ref: "#/definitions/EburyAssociationAmendment"
+      responses:
+        200:
+          description: Association updated successfully
+          schema:
+            $ref: "#/definitions/EburyAssociationResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
   /ebury/{association_id}/accounts:
     post:
       summary: Create association accounts for Ebury gateway
@@ -4731,6 +4768,49 @@ paths:
       responses:
         204:
           description: association account deleted successfully
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
+    patch:
+      summary: Patch ebury gateway association account by id
+      tags:
+        - Associations
+      parameters:
+        - name: association_id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+        - name: id
+          in: path
+          description: Association Account Id
+          required: true
+          type: string
+          format: uuid
+        - name: patchBody
+          in: body
+          schema:
+            $ref: "#/definitions/EburyAssociationAccountAmendment"
+      responses:
+        200:
+          description: Association updated successfully
+          schema:
+            $ref: "#/definitions/EburyAssociationAccountResponse"
         400:
           $ref: "#/responses/400BadRequest"
         401:
@@ -9742,6 +9822,72 @@ definitions:
         items:
           $ref: "#/definitions/EburyAssociation"
 
+  EburyAssociationPatchAttributes:
+    type: object
+    properties:
+      funding_currency:
+        type: string
+        x-nullable: true
+      organisation_location:
+        type: string
+        x-nullable: true
+      ebury_contact_id:
+        type: string
+        x-nullable: true
+      ebury_client_id:
+        type: string
+        x-nullable: true
+      party_payment_fee:
+        type: string
+        x-nullable: true
+      organisation_payment_fee:
+        type: string
+        x-nullable: true
+      organisation_kyc_model:
+        type: string
+        x-nullable: true
+      party_name:
+        type: string
+        x-nullable: true
+      party_address:
+        type: array
+        items:
+          type: string
+        x-nullable: true
+      party_city:
+        type: string
+        x-nullable: true
+      party_post_code:
+        type: string
+        x-nullable: true
+
+  EburyAssociationAmendment:
+    type: object
+    properties:
+      data:
+        $ref: "#/definitions/EburyAssociationUpdate"
+
+  EburyAssociationUpdate:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+        x-nullable: false
+      type:
+        type: string
+        x-nullable: false
+      version:
+        type: integer
+        minimum: 0
+        x-nullable: true
+      organisation_id:
+        type: string
+        format: uuid
+        x-nullable: false
+      attributes:
+        $ref: "#/definitions/EburyAssociationPatchAttributes"
+
   EburyAssociationAccount:
     type: object
     properties:
@@ -9825,6 +9971,70 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/EburyAssociationAccount"
+
+  EburyAssociationAccountPatchAttributes:
+    type: object
+    properties:
+      account_number:
+        type: string
+        x-nullable: true
+      account_number_code:
+        type: string
+        x-nullable: true
+      account_with:
+        type: object
+        properties:
+          bic:
+            type: string
+            x-nullable: true
+          bank_id:
+            type: string
+            x-nullable: true
+          bank_id_code:
+            type: string
+            x-nullable: true
+        x-nullable: true
+      account_labels:
+        type: array
+        items:
+          type: string
+        x-nullable: true
+      currency:
+        type: string
+        x-nullable: true
+      country:
+        type: string
+        x-nullable: true
+      iban:
+        type: string
+        x-nullable: true
+
+  EburyAssociationAccountAmendment:
+    type: object
+    properties:
+      data:
+        $ref: "#/definitions/EburyAssociationAccountUpdate"
+
+  EburyAssociationAccountUpdate:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+        x-nullable: false
+      type:
+        type: string
+        x-nullable: false
+      version:
+        type: integer
+        minimum: 0
+        x-nullable: true
+      organisation_id:
+        type: string
+        format: uuid
+        x-nullable: false
+      attributes:
+        $ref: "#/definitions/EburyAssociationAccountPatchAttributes"
 
   # paymentapi - start
 

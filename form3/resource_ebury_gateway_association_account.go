@@ -2,6 +2,7 @@ package form3
 
 import (
 	"fmt"
+	"github.com/go-openapi/swag"
 	"log"
 
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
@@ -17,6 +18,7 @@ func resourceForm3EburyAssociationAccount() *schema.Resource {
 	return &schema.Resource{
 		Create: resourceEburyAssociationAccountCreate,
 		Read:   resourceEburyAssociationAccountRead,
+		Update: resourceEburyAssociationAccountUpdate,
 		Delete: resourceEburyAssociationAccountDelete,
 		Schema: map[string]*schema.Schema{
 			"association_id": {
@@ -37,48 +39,48 @@ func resourceForm3EburyAssociationAccount() *schema.Resource {
 			"account_number": {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
+				ForceNew: false,
 			},
 			"account_number_code": {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
+				ForceNew: false,
 			},
 			"account_with_bic": {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
+				ForceNew: false,
 			},
 			"account_with_bank_id": {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
+				ForceNew: false,
 			},
 			"account_with_bank_id_code": {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
+				ForceNew: false,
 			},
 			"account_labels": {
 				Type:     schema.TypeList,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Required: true,
-				ForceNew: true,
+				ForceNew: false,
 			},
 			"currency": {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
+				ForceNew: false,
 			},
 			"country": {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
+				ForceNew: false,
 			},
 			"iban": {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
+				ForceNew: false,
 			},
 		},
 		SchemaVersion: 0,
@@ -215,6 +217,106 @@ func createEburyAssociationAccountFromResourceData(d *schema.ResourceData) (*mod
 
 	if attr, ok := d.GetOk("iban"); ok {
 		associationAccount.Attributes.Iban = attr.(string)
+	}
+
+	return &associationAccount, nil
+}
+
+func resourceEburyAssociationAccountUpdate(d *schema.ResourceData, meta interface{}) error {
+	client := meta.(*form3.AuthenticatedClient)
+
+	updated, err := createEburyUpdateAssociationAccountFromResourceData(d)
+	if err != nil {
+		return fmt.Errorf("failed to create ebury association account: %s", form3.JsonErrorPrettyPrint(err))
+	}
+
+	associationID := strfmt.UUID(d.Get("association_id").(string))
+	current, err := client.AssociationClient.Associations.GetEburyAssociationIDAccountsID(
+		associations.NewGetEburyAssociationIDAccountsIDParams().
+			WithID(updated.ID).
+			WithAssociationID(associationID))
+	if err != nil {
+		return fmt.Errorf("failed to fetch ebury association account for ID: %s, %s", updated.ID, form3.JsonErrorPrettyPrint(err))
+	} else if current == nil || current.Payload == nil {
+		return fmt.Errorf("ebury association account nil for ID: %s", updated.ID)
+	}
+
+	updated.Version = current.Payload.Data.Version
+
+	_, err = client.AssociationClient.Associations.PatchEburyAssociationIDAccountsID(
+		associations.NewPatchEburyAssociationIDAccountsIDParams().
+			WithID(updated.ID).
+			WithAssociationID(associationID).
+			WithPatchBody(&models.EburyAssociationAccountAmendment{
+				Data: updated,
+			}))
+
+	log.Printf("[INFO] updated ebury association account key: %s", d.Id())
+	return resourceEburyAssociationAccountRead(d, meta)
+}
+
+func createEburyUpdateAssociationAccountFromResourceData(d *schema.ResourceData) (*models.EburyAssociationAccountUpdate, error) {
+	associationAccount := models.EburyAssociationAccountUpdate{
+		Type: string(models.ResourceTypeEburyAssociationAccounts),
+		Attributes: &models.EburyAssociationAccountPatchAttributes{
+			AccountWith: &models.EburyAssociationAccountPatchAttributesAccountWith{},
+		},
+	}
+
+	// TODO this is not documented as `association_account_id` in the swagger...
+	if attr, ok := GetUUIDOK(d, "association_account_id"); ok {
+		associationAccount.ID = attr
+	}
+
+	if attr, ok := GetUUIDOK(d, "organisation_id"); ok {
+		associationAccount.OrganisationID = attr
+	}
+
+	if attr, ok := d.GetOk("account_number"); ok {
+		an := swag.String(attr.(string))
+		associationAccount.Attributes.AccountNumber = an
+	}
+
+	if attr, ok := d.GetOk("account_number_code"); ok {
+		anc := swag.String(attr.(string))
+		associationAccount.Attributes.AccountNumberCode = anc
+	}
+
+	if attr, ok := d.GetOk("account_with_bic"); ok {
+		awb := swag.String(attr.(string))
+		associationAccount.Attributes.AccountWith.Bic = awb
+	}
+
+	if attr, ok := d.GetOk("account_with_bank_id"); ok {
+		awbi := swag.String(attr.(string))
+		associationAccount.Attributes.AccountWith.BankID = awbi
+	}
+
+	if attr, ok := d.GetOk("account_with_bank_id_code"); ok {
+		awbic := swag.String(attr.(string))
+		associationAccount.Attributes.AccountWith.BankIDCode = awbic
+	}
+
+	if attr, ok := d.GetOk("account_labels"); ok {
+		coll := attr.([]interface{})
+		for _, v := range coll {
+			associationAccount.Attributes.AccountLabels = append(associationAccount.Attributes.AccountLabels, v.(string))
+		}
+	}
+
+	if attr, ok := d.GetOk("currency"); ok {
+		c := swag.String(attr.(string))
+		associationAccount.Attributes.Currency = c
+	}
+
+	if attr, ok := d.GetOk("country"); ok {
+		c := swag.String(attr.(string))
+		associationAccount.Attributes.Country = c
+	}
+
+	if attr, ok := d.GetOk("iban"); ok {
+		i := swag.String(attr.(string))
+		associationAccount.Attributes.Iban = i
 	}
 
 	return &associationAccount, nil

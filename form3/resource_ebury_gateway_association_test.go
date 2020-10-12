@@ -29,13 +29,24 @@ func TestAccEburyAssociation_basic(t *testing.T) {
 	partyCity := "Test city"
 	partyPostCode := "TE1 2ST"
 
+	locationUpdate := "FR"
+	currencyUpdate := "EUR"
+	partyFeeUpdate := "3.50"
+	orgFeeUpdate := "4.50"
+	nameUpdate := "nom"
+	addressUpdate := []string{"1 Le Rue", "ou", "Paris"}
+	cityUpdate := "Paris"
+	postcodeUpdate := "L42956"
+
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
 		Providers:    testAccProviders,
 		CheckDestroy: testAccCheckEburyAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3EburyAssociationConfig, organisationId, parentOrganisationId, organisationLocation, associationId, fundingCurrency, eburyContactId, eburyClientId, partyPaymentFee, organisationPaymentFee, organisationKYCModel, partyName, partyAddress[0], partyAddress[1], partyAddress[2], partyCity, partyPostCode),
+				Config: fmt.Sprintf(testForm3EburyAssociationConfig, organisationId, parentOrganisationId, organisationLocation, associationId,
+					fundingCurrency, eburyContactId, eburyClientId, partyPaymentFee, organisationPaymentFee, organisationKYCModel,
+					partyName, partyAddress[0], partyAddress[1], partyAddress[2], partyCity, partyPostCode),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckEburyAssociationExists("form3_ebury_association.association"),
 					resource.TestCheckResourceAttr("form3_ebury_association.association", "association_id", associationId),
@@ -52,6 +63,28 @@ func TestAccEburyAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_ebury_association.association", "party_address.2", partyAddress[2]),
 					resource.TestCheckResourceAttr("form3_ebury_association.association", "party_city", partyCity),
 					resource.TestCheckResourceAttr("form3_ebury_association.association", "party_post_code", partyPostCode),
+				),
+			},
+			{
+				Config: fmt.Sprintf(testForm3EburyAssociationConfig, organisationId, parentOrganisationId, locationUpdate, associationId,
+					currencyUpdate, eburyContactId, eburyClientId, partyFeeUpdate, orgFeeUpdate, organisationKYCModel,
+					nameUpdate, addressUpdate[0], addressUpdate[1], addressUpdate[2], cityUpdate, postcodeUpdate),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckEburyAssociationExists("form3_ebury_association.association"),
+					resource.TestCheckResourceAttr("form3_ebury_association.association", "association_id", associationId),
+					resource.TestCheckResourceAttr("form3_ebury_association.association", "organisation_id", organisationId),
+					resource.TestCheckResourceAttr("form3_ebury_association.association", "organisation_location", locationUpdate),
+					resource.TestCheckResourceAttr("form3_ebury_association.association", "ebury_contact_id", eburyContactId),
+					resource.TestCheckResourceAttr("form3_ebury_association.association", "ebury_client_id", eburyClientId),
+					resource.TestCheckResourceAttr("form3_ebury_association.association", "party_payment_fee", partyFeeUpdate),
+					resource.TestCheckResourceAttr("form3_ebury_association.association", "organisation_payment_fee", orgFeeUpdate),
+					resource.TestCheckResourceAttr("form3_ebury_association.association", "organisation_kyc_model", organisationKYCModel),
+					resource.TestCheckResourceAttr("form3_ebury_association.association", "party_name", nameUpdate),
+					resource.TestCheckResourceAttr("form3_ebury_association.association", "party_address.0", addressUpdate[0]),
+					resource.TestCheckResourceAttr("form3_ebury_association.association", "party_address.1", addressUpdate[1]),
+					resource.TestCheckResourceAttr("form3_ebury_association.association", "party_address.2", addressUpdate[2]),
+					resource.TestCheckResourceAttr("form3_ebury_association.association", "party_city", cityUpdate),
+					resource.TestCheckResourceAttr("form3_ebury_association.association", "party_post_code", postcodeUpdate),
 				),
 			},
 		},

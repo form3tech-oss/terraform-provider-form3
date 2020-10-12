@@ -123,6 +123,10 @@ type ClientService interface {
 
 	GetVocalinkreportID(params *GetVocalinkreportIDParams) (*GetVocalinkreportIDOK, error)
 
+	PatchEburyAssociationIDAccountsID(params *PatchEburyAssociationIDAccountsIDParams) (*PatchEburyAssociationIDAccountsIDOK, error)
+
+	PatchEburyID(params *PatchEburyIDParams) (*PatchEburyIDOK, error)
+
 	PatchGocardlessID(params *PatchGocardlessIDParams) (*PatchGocardlessIDOK, error)
 
 	PatchLhvAssociationID(params *PatchLhvAssociationIDParams) (*PatchLhvAssociationIDOK, error)
@@ -1795,6 +1799,74 @@ func (a *Client) GetVocalinkreportID(params *GetVocalinkreportIDParams) (*GetVoc
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for GetVocalinkreportID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  PatchEburyAssociationIDAccountsID patches ebury gateway association account by id
+*/
+func (a *Client) PatchEburyAssociationIDAccountsID(params *PatchEburyAssociationIDAccountsIDParams) (*PatchEburyAssociationIDAccountsIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPatchEburyAssociationIDAccountsIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PatchEburyAssociationIDAccountsID",
+		Method:             "PATCH",
+		PathPattern:        "/ebury/{association_id}/accounts/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PatchEburyAssociationIDAccountsIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PatchEburyAssociationIDAccountsIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PatchEburyAssociationIDAccountsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  PatchEburyID patches ebury gateway association by id
+*/
+func (a *Client) PatchEburyID(params *PatchEburyIDParams) (*PatchEburyIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPatchEburyIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PatchEburyID",
+		Method:             "PATCH",
+		PathPattern:        "/ebury/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PatchEburyIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PatchEburyIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PatchEburyID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

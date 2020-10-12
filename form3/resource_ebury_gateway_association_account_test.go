@@ -18,6 +18,7 @@ func TestAccEburyAssociationAccount_basic(t *testing.T) {
 	organisationId := uuid.New().String()
 	associationId := uuid.New().String()
 	associationAccountId := uuid.New().String()
+
 	accountNumber := "GB1158E1BBDC7E5648C5A19594442A413ECB"
 	accountNumberCode := "IBAN"
 	accountWithBic := "SSMMKKDD"
@@ -28,13 +29,24 @@ func TestAccEburyAssociationAccount_basic(t *testing.T) {
 	country := "GB"
 	iban := "GB1158E1BBDC7E5648C5A19594442A413ECB"
 
+	accountNumberUpdate := "GB1158E1BBDC7E5648C5A19594442A413ECC"
+	accountNumberCodeUpdate := "BBAN"
+	accountWithBicUpdate := "SSMMKKDE"
+	accountWithBankIdUpdate := "200606"
+	accountWithBankIdCodeUpdate := "GBDSD"
+	accountLabelsUpdate := []string{"funding_account"}
+	currencyUpdate := "EUR"
+	countryUpdate := "FR"
+	ibanUpdate := "GB1158E1BBDC7E5648C5A19594442A413ECC"
+
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
 		Providers:    testAccProviders,
 		CheckDestroy: testAccCheckEburyAssociationAccountDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3EburyAssociationAccountConfig, organisationId, parentOrganisationId, associationId, associationAccountId, accountNumber, accountNumberCode, accountWithBic, accountWithBankId, accountWithBankIdCode, accountLabels[0], currency, country, iban),
+				Config: fmt.Sprintf(testForm3EburyAssociationAccountConfig, organisationId, parentOrganisationId, associationId, associationAccountId,
+					accountNumber, accountNumberCode, accountWithBic, accountWithBankId, accountWithBankIdCode, accountLabels[0], currency, country, iban),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckEburyAssociationAccountExists("form3_ebury_association_account.association_account"),
 					resource.TestCheckResourceAttr("form3_ebury_association_account.association_account", "association_id", associationId),
@@ -49,6 +61,26 @@ func TestAccEburyAssociationAccount_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_ebury_association_account.association_account", "currency", currency),
 					resource.TestCheckResourceAttr("form3_ebury_association_account.association_account", "country", country),
 					resource.TestCheckResourceAttr("form3_ebury_association_account.association_account", "iban", iban),
+				),
+			},
+			{
+				Config: fmt.Sprintf(testForm3EburyAssociationAccountConfig, organisationId, parentOrganisationId, associationId, associationAccountId,
+					accountNumberUpdate, accountNumberCodeUpdate, accountWithBicUpdate, accountWithBankIdUpdate, accountWithBankIdCodeUpdate,
+					accountLabelsUpdate[0], currencyUpdate, countryUpdate, ibanUpdate),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckEburyAssociationAccountExists("form3_ebury_association_account.association_account"),
+					resource.TestCheckResourceAttr("form3_ebury_association_account.association_account", "association_id", associationId),
+					resource.TestCheckResourceAttr("form3_ebury_association_account.association_account", "organisation_id", organisationId),
+					resource.TestCheckResourceAttr("form3_ebury_association_account.association_account", "association_account_id", associationAccountId),
+					resource.TestCheckResourceAttr("form3_ebury_association_account.association_account", "account_number", accountNumberUpdate),
+					resource.TestCheckResourceAttr("form3_ebury_association_account.association_account", "account_number_code", accountNumberCodeUpdate),
+					resource.TestCheckResourceAttr("form3_ebury_association_account.association_account", "account_with_bic", accountWithBicUpdate),
+					resource.TestCheckResourceAttr("form3_ebury_association_account.association_account", "account_with_bank_id", accountWithBankIdUpdate),
+					resource.TestCheckResourceAttr("form3_ebury_association_account.association_account", "account_with_bank_id_code", accountWithBankIdCodeUpdate),
+					resource.TestCheckResourceAttr("form3_ebury_association_account.association_account", "account_labels.0", accountLabelsUpdate[0]),
+					resource.TestCheckResourceAttr("form3_ebury_association_account.association_account", "currency", currencyUpdate),
+					resource.TestCheckResourceAttr("form3_ebury_association_account.association_account", "country", countryUpdate),
+					resource.TestCheckResourceAttr("form3_ebury_association_account.association_account", "iban", ibanUpdate),
 				),
 			},
 		},
