@@ -250,6 +250,9 @@ func resourceEburyAssociationAccountUpdate(d *schema.ResourceData, meta interfac
 			WithPatchBody(&models.EburyAssociationAccountAmendment{
 				Data: updated,
 			}))
+	if err != nil {
+		return fmt.Errorf("failed to update ebury association account: %s", form3.JsonErrorPrettyPrint(err))
+	}
 
 	log.Printf("[INFO] updated ebury association account key: %s", d.Id())
 	return resourceEburyAssociationAccountRead(d, meta)
@@ -263,7 +266,6 @@ func createEburyUpdateAssociationAccountFromResourceData(d *schema.ResourceData)
 		},
 	}
 
-	// TODO this is not documented as `association_account_id` in the swagger...
 	if attr, ok := GetUUIDOK(d, "association_account_id"); ok {
 		associationAccount.ID = attr
 	}

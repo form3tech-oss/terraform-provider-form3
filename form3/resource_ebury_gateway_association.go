@@ -257,7 +257,7 @@ func resourceEburyAssociationUpdate(d *schema.ResourceData, meta interface{}) er
 				Data: updated,
 			}))
 	if err != nil {
-		return fmt.Errorf("failed to create ebury association: %s", form3.JsonErrorPrettyPrint(err))
+		return fmt.Errorf("failed to update ebury association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	log.Printf("[INFO] updated ebury association key: %s", d.Id())
