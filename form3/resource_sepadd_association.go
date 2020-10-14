@@ -95,7 +95,7 @@ func resourceSepaDDAssociationUpdate(d *schema.ResourceData, meta interface{}) e
 	association.Version = existingAssociation.Payload.Data.Version
 
 	log.Printf("[INFO] Updating sepadd association with id: %s", association.ID)
-	_, err = client.AccountClient.Associations.PatchSepaddID(associations.NewPatchSepaddIDParams().
+	_, err = client.AssociationClient.Associations.PatchSepaddID(associations.NewPatchSepaddIDParams().
 		WithID(association.ID).
 		WithUpdateRequest(&models.SepaDDAssociationPatch{
 			Data: association,
