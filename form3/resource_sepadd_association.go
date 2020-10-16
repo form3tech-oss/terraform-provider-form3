@@ -43,6 +43,11 @@ func resourceForm3SepaDDAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: false,
 			},
+			"local_instrument": {
+				Type:     schema.TypeString,
+				Required: true,
+				ForceNew: false,
+			},
 		},
 	}
 }
@@ -70,6 +75,9 @@ func createSepaDDUpdateAssociationFromResourceData(d *schema.ResourceData) (*mod
 
 	if attr, ok := d.GetOk("receiver_business_user"); ok {
 		association.Attributes.ReceiverBusinessUser = attr.(string)
+	}
+	if attr, ok := d.GetOk("local_instrument"); ok {
+		association.Attributes.LocalInstrument = attr.(string)
 	}
 	return association, nil
 }
