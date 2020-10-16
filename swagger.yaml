@@ -13230,6 +13230,8 @@ definitions:
         type: string
       receiverBusinessUser:
         type: string
+      localInstrument:
+        type: string
 
   SepaDDAssociationPatch:
     type: object

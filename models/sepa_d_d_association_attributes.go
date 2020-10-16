@@ -21,6 +21,9 @@ type SepaDDAssociationAttributes struct {
 	// business user
 	BusinessUser string `json:"businessUser,omitempty"`
 
+	// local instrument
+	LocalInstrument string `json:"localInstrument,omitempty"`
+
 	// receiver business user
 	ReceiverBusinessUser string `json:"receiverBusinessUser,omitempty"`
 }
