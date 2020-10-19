@@ -87,7 +87,7 @@ func resourceSepaDDAssociationUpdate(d *schema.ResourceData, meta interface{}) e
 
 	association, err := createSepaDDUpdateAssociationFromResourceData(d)
 	if err != nil {
-		return fmt.Errorf("failed to create update sepadd association: %s", form3.JsonErrorPrettyPrint(err))
+		return fmt.Errorf("failed to update sepadd association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
 	existingAssociation, err := client.AssociationClient.Associations.GetSepaddID(associations.NewGetSepaddIDParams().
@@ -109,7 +109,7 @@ func resourceSepaDDAssociationUpdate(d *schema.ResourceData, meta interface{}) e
 			Data: association,
 		}))
 	if err != nil {
-		return fmt.Errorf("failed to update lhv association: %s", form3.JsonErrorPrettyPrint(err))
+		return fmt.Errorf("failed to update sepadd association: %s", form3.JsonErrorPrettyPrint(err))
 	}
 	return nil
 }
@@ -157,6 +157,7 @@ func resourceSepaDDAssociationRead(d *schema.ResourceData, meta interface{}) err
 	_ = d.Set("bic", sepaDDAssociation.Payload.Data.Attributes.Bic)
 	_ = d.Set("business_user", sepaDDAssociation.Payload.Data.Attributes.BusinessUser)
 	_ = d.Set("receiver_business_user", sepaDDAssociation.Payload.Data.Attributes.ReceiverBusinessUser)
+	_ = d.Set("local_instrument", sepaDDAssociation.Payload.Data.Attributes.LocalInstrument)
 
 	return nil
 }
@@ -204,6 +205,10 @@ func createSepaDDNewAssociationFromResourceData(d *schema.ResourceData) (*models
 
 	if attr, ok := d.GetOk("receiver_business_user"); ok {
 		association.Attributes.ReceiverBusinessUser = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("local_instrument"); ok {
+		association.Attributes.LocalInstrument = attr.(string)
 	}
 	return &association, nil
 }
