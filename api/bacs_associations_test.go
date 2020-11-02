@@ -249,3 +249,49 @@ func TestGetBacsAssociationList(t *testing.T) {
 
 	assertNoErrorOccurred(t, err)
 }
+
+func TestGetBacsAssociationListWithManyAllowedSUN(t *testing.T) {
+	id := uuid.New()
+	organisationIdUUID := strfmt.UUID(testOrganisationId.String())
+	serviceUserNumber := "123456"
+	accountNumber := "12345678"
+	sortingCode := "123456"
+	accountType := int64(1)
+
+	createResponse, err := auth.AssociationClient.Associations.PostBacs(associations.NewPostBacsParams().
+		WithCreationRequest(&models.BacsAssociationCreation{
+			Data: &models.BacsNewAssociation{
+				ID:             strfmt.UUID(id.String()),
+				OrganisationID: strfmt.UUID(testOrganisationId.String()),
+				Attributes: &models.BacsAssociationAttributes{
+					ServiceUserNumber: serviceUserNumber,
+					AccountNumber:     accountNumber,
+					SortingCode:       sortingCode,
+					AccountType:       &accountType,
+					AllowedServiceUserNumbers: []*models.BacsAllowedServiceUserNumber{
+						{
+							ServiceUserNumber: "234567",
+							SortingCode:       "234567",
+						},
+						{
+							ServiceUserNumber: "345678",
+							SortingCode:       "345678",
+						},
+					},
+				},
+			},
+		}))
+
+	assertNoErrorOccurred(t, err)
+
+	_, err = auth.AssociationClient.Associations.GetBacs(associations.NewGetBacsParams().
+		WithFilterOrganisationID(&organisationIdUUID))
+
+	assertNoErrorOccurred(t, err)
+
+	_, err = auth.AssociationClient.Associations.DeleteBacsID(associations.NewDeleteBacsIDParams().
+		WithID(createResponse.Payload.Data.ID),
+	)
+
+	assertNoErrorOccurred(t, err)
+}

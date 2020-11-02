@@ -112,6 +112,23 @@ func resourceForm3BacsAssociation() *schema.Resource {
 				ForceNew: true,
 				Default:  false,
 			},
+			"allowed_service_user_numbers": {
+				Type:     schema.TypeList,
+				Optional: true,
+				ForceNew: true,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"service_user_number": {
+							Type:     schema.TypeString,
+							Required: true,
+						},
+						"sorting_code": {
+							Type:     schema.TypeString,
+							Required: true,
+						},
+					},
+				},
+			},
 		},
 	}
 }
@@ -266,6 +283,12 @@ func createBacsNewAssociationFromResourceData(d *schema.ResourceData) (*models.B
 		b := attr.(bool)
 
 		association.Attributes.TestFileSubmission = &b
+	}
+
+	if attr, ok := d.GetOk("allowed_service_user_numbers"); ok {
+		b := attr.([]*models.BacsAllowedServiceUserNumber)
+
+		association.Attributes.AllowedServiceUserNumbers = b
 	}
 
 	association.Relationships.InputCertificate = buildRelationship(d, "input")
