@@ -8362,6 +8362,20 @@ definitions:
       test_file_submission:
         x-nullable: true
         type: boolean
+      allowed_service_user_numbers:
+        type: array
+        items:
+          $ref: '#/definitions/BacsAllowedServiceUserNumber'
+
+  BacsAllowedServiceUserNumber:
+    type: object
+    properties:
+      service_user_number:
+        type: string
+        pattern: ^[0-9A-Z]{6}$
+      sorting_code:
+        type: string
+        pattern: ^[0-9]{6}$
 
   BacsAssociationRelationships:
     type: object

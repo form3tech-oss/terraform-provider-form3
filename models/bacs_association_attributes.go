@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -23,6 +25,9 @@ type BacsAssociationAttributes struct {
 
 	// account type
 	AccountType *int64 `json:"account_type,omitempty"`
+
+	// allowed service user numbers
+	AllowedServiceUserNumbers []*BacsAllowedServiceUserNumber `json:"allowed_service_user_numbers"`
 
 	// bank code
 	// Pattern: ^[0-9A-Z]{4}$
@@ -49,6 +54,10 @@ func (m *BacsAssociationAttributes) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAccountNumber(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateAllowedServiceUserNumbers(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -82,6 +91,31 @@ func (m *BacsAssociationAttributes) validateAccountNumber(formats strfmt.Registr
 
 	if err := validate.Pattern("account_number", "body", string(m.AccountNumber), `^[0-9]{8}$`); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *BacsAssociationAttributes) validateAllowedServiceUserNumbers(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.AllowedServiceUserNumbers) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.AllowedServiceUserNumbers); i++ {
+		if swag.IsZero(m.AllowedServiceUserNumbers[i]) { // not required
+			continue
+		}
+
+		if m.AllowedServiceUserNumbers[i] != nil {
+			if err := m.AllowedServiceUserNumbers[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("allowed_service_user_numbers" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
