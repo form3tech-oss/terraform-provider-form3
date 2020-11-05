@@ -31,10 +31,6 @@ type ClientService interface {
 
 	DeleteConfirmationOfPayeeID(params *DeleteConfirmationOfPayeeIDParams) (*DeleteConfirmationOfPayeeIDNoContent, error)
 
-	DeleteEburyAssociationIDAccountsID(params *DeleteEburyAssociationIDAccountsIDParams) (*DeleteEburyAssociationIDAccountsIDNoContent, error)
-
-	DeleteEburyID(params *DeleteEburyIDParams) (*DeleteEburyIDNoContent, error)
-
 	DeleteGocardlessID(params *DeleteGocardlessIDParams) (*DeleteGocardlessIDNoContent, error)
 
 	DeleteLhvAssociationID(params *DeleteLhvAssociationIDParams) (*DeleteLhvAssociationIDNoContent, error)
@@ -66,14 +62,6 @@ type ClientService interface {
 	GetConfirmationOfPayee(params *GetConfirmationOfPayeeParams) (*GetConfirmationOfPayeeOK, error)
 
 	GetConfirmationOfPayeeID(params *GetConfirmationOfPayeeIDParams) (*GetConfirmationOfPayeeIDOK, error)
-
-	GetEbury(params *GetEburyParams) (*GetEburyOK, error)
-
-	GetEburyAssociationIDAccounts(params *GetEburyAssociationIDAccountsParams) (*GetEburyAssociationIDAccountsOK, error)
-
-	GetEburyAssociationIDAccountsID(params *GetEburyAssociationIDAccountsIDParams) (*GetEburyAssociationIDAccountsIDOK, error)
-
-	GetEburyID(params *GetEburyIDParams) (*GetEburyIDOK, error)
 
 	GetGocardless(params *GetGocardlessParams) (*GetGocardlessOK, error)
 
@@ -134,10 +122,6 @@ type ClientService interface {
 	PostBacs(params *PostBacsParams) (*PostBacsCreated, error)
 
 	PostConfirmationOfPayee(params *PostConfirmationOfPayeeParams) (*PostConfirmationOfPayeeCreated, error)
-
-	PostEbury(params *PostEburyParams) (*PostEburyCreated, error)
-
-	PostEburyAssociationIDAccounts(params *PostEburyAssociationIDAccountsParams) (*PostEburyAssociationIDAccountsCreated, error)
 
 	PostGocardless(params *PostGocardlessParams) (*PostGocardlessCreated, error)
 
@@ -231,74 +215,6 @@ func (a *Client) DeleteConfirmationOfPayeeID(params *DeleteConfirmationOfPayeeID
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for DeleteConfirmationOfPayeeID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  DeleteEburyAssociationIDAccountsID deletes ebury gateway association account
-*/
-func (a *Client) DeleteEburyAssociationIDAccountsID(params *DeleteEburyAssociationIDAccountsIDParams) (*DeleteEburyAssociationIDAccountsIDNoContent, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDeleteEburyAssociationIDAccountsIDParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "DeleteEburyAssociationIDAccountsID",
-		Method:             "DELETE",
-		PathPattern:        "/ebury/{association_id}/accounts/{id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &DeleteEburyAssociationIDAccountsIDReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DeleteEburyAssociationIDAccountsIDNoContent)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for DeleteEburyAssociationIDAccountsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  DeleteEburyID deletes ebury gateway association
-*/
-func (a *Client) DeleteEburyID(params *DeleteEburyIDParams) (*DeleteEburyIDNoContent, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDeleteEburyIDParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "DeleteEburyID",
-		Method:             "DELETE",
-		PathPattern:        "/ebury/{id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &DeleteEburyIDReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DeleteEburyIDNoContent)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for DeleteEburyID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -843,142 +759,6 @@ func (a *Client) GetConfirmationOfPayeeID(params *GetConfirmationOfPayeeIDParams
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for GetConfirmationOfPayeeID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetEbury lists all organisation ebury gateway associations
-*/
-func (a *Client) GetEbury(params *GetEburyParams) (*GetEburyOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetEburyParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "GetEbury",
-		Method:             "GET",
-		PathPattern:        "/ebury",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &GetEburyReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetEburyOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetEbury: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetEburyAssociationIDAccounts lists all ebury gateway association accounts
-*/
-func (a *Client) GetEburyAssociationIDAccounts(params *GetEburyAssociationIDAccountsParams) (*GetEburyAssociationIDAccountsOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetEburyAssociationIDAccountsParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "GetEburyAssociationIDAccounts",
-		Method:             "GET",
-		PathPattern:        "/ebury/{association_id}/accounts",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &GetEburyAssociationIDAccountsReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetEburyAssociationIDAccountsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetEburyAssociationIDAccounts: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetEburyAssociationIDAccountsID fetches organisation ebury gateway association account
-*/
-func (a *Client) GetEburyAssociationIDAccountsID(params *GetEburyAssociationIDAccountsIDParams) (*GetEburyAssociationIDAccountsIDOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetEburyAssociationIDAccountsIDParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "GetEburyAssociationIDAccountsID",
-		Method:             "GET",
-		PathPattern:        "/ebury/{association_id}/accounts/{id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &GetEburyAssociationIDAccountsIDReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetEburyAssociationIDAccountsIDOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetEburyAssociationIDAccountsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetEburyID fetches organisation ebury gateway association
-*/
-func (a *Client) GetEburyID(params *GetEburyIDParams) (*GetEburyIDOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetEburyIDParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "GetEburyID",
-		Method:             "GET",
-		PathPattern:        "/ebury/{id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &GetEburyIDReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetEburyIDOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetEburyID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -1999,74 +1779,6 @@ func (a *Client) PostConfirmationOfPayee(params *PostConfirmationOfPayeeParams) 
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for PostConfirmationOfPayee: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  PostEbury creates organisation association for ebury gateway
-*/
-func (a *Client) PostEbury(params *PostEburyParams) (*PostEburyCreated, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewPostEburyParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "PostEbury",
-		Method:             "POST",
-		PathPattern:        "/ebury",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &PostEburyReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*PostEburyCreated)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PostEbury: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  PostEburyAssociationIDAccounts creates association accounts for ebury gateway
-*/
-func (a *Client) PostEburyAssociationIDAccounts(params *PostEburyAssociationIDAccountsParams) (*PostEburyAssociationIDAccountsCreated, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewPostEburyAssociationIDAccountsParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "PostEburyAssociationIDAccounts",
-		Method:             "POST",
-		PathPattern:        "/ebury/{association_id}/accounts",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &PostEburyAssociationIDAccountsReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*PostEburyAssociationIDAccountsCreated)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PostEburyAssociationIDAccounts: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
