@@ -22,7 +22,7 @@ type BacsAllowedServiceUserNumber struct {
 	ServiceUserNumber string `json:"service_user_number,omitempty"`
 
 	// sorting code
-	// Pattern: ^[0-9]{6}$
+	// Pattern: ^[0-9]{0,6}$
 	SortingCode string `json:"sorting_code,omitempty"`
 }
 
@@ -63,7 +63,7 @@ func (m *BacsAllowedServiceUserNumber) validateSortingCode(formats strfmt.Regist
 		return nil
 	}
 
-	if err := validate.Pattern("sorting_code", "body", string(m.SortingCode), `^[0-9]{6}$`); err != nil {
+	if err := validate.Pattern("sorting_code", "body", string(m.SortingCode), `^[0-9]{0,6}$`); err != nil {
 		return err
 	}
 
