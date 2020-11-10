@@ -9,6 +9,7 @@ import (
 
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/strfmt"
 	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
@@ -17,6 +18,8 @@ import (
 
 func TestAccBacsAssociation_basic(t *testing.T) {
 	var bacsResponse associations.GetBacsIDOK
+	var inputKeyResponse models.Key
+	var outputKeyResponse models.Key
 
 	configData := associationConfigWithCerts{
 		OrgID:           uuid.New().String(),
@@ -36,14 +39,22 @@ func TestAccBacsAssociation_basic(t *testing.T) {
 	}
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:     func() { testAccPreCheck(t) },
-		Providers:    testAccProviders,
-		CheckDestroy: testAccCheckBacsAssociationDestroy,
+		PreCheck:  func() { testAccPreCheck(t) },
+		Providers: testAccProviders,
+		CheckDestroy: func(state *terraform.State) error {
+			if err := testAccCheckBacsAssociationDestroy(state); err != nil {
+				return err
+			}
+
+			return testAccCheckKeyDestroy(state)
+		},
 		Steps: []resource.TestStep{
 			{
 				Config: config,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBacsAssociationExists("form3_bacs_association.association", &bacsResponse),
+					testAccCheckKeyExists("form3_key.inputKey", &inputKeyResponse),
+					testAccCheckKeyExists("form3_key.outputKey", &outputKeyResponse),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "service_user_number", "112238"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "account_number", "12345678"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "sorting_code", "123456"),
@@ -235,6 +246,30 @@ resource "form3_organisation" "organisation" {
 	organisation_id        = "{{ .OrgID }}"
 	parent_organisation_id = "{{ .OrgParentID }}"
 	name 		           = "terraform-organisation"
+}
+
+resource "form3_key" "inputKey" {
+	organisation_id = "${form3_organisation.organisation.organisation_id}"
+	subject         = "CN=Terraform-test-with-selfsigned"
+	key_id          = "{{ .InputKeyID }}"
+}
+
+resource "form3_certificate" "inputCert" {
+	organisation_id         = "${form3_organisation.organisation.organisation_id}"
+	key_id                  = "${form3_key.inputKey.key_id}"
+	certificate_id          = "{{ .InputCertID }}"
+}
+
+resource "form3_key" "outputKey" {
+	organisation_id = "${form3_organisation.organisation.organisation_id}"
+	subject         = "CN=Terraform-test-with-selfsigned"
+	key_id          = "{{ .OutputKeyID }}"
+}
+
+resource "form3_certificate" "outputCert" {
+	organisation_id         = "${form3_organisation.organisation.organisation_id}"
+	key_id                  = "${form3_key.outputKey.key_id}"
+	certificate_id          = "{{ .OutputCertID }}"
 }
 
 resource "form3_bacs_association" "association" {
