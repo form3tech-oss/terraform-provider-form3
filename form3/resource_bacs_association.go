@@ -124,7 +124,8 @@ func resourceForm3BacsAssociation() *schema.Resource {
 						},
 						"sorting_code": {
 							Type:     schema.TypeString,
-							Required: true,
+							Optional: true,
+							Default:  "",
 						},
 					},
 				},
@@ -210,6 +211,19 @@ func resourceBacsAssociationRead(d *schema.ResourceData, meta interface{}) error
 		}
 	}
 
+	allowedServiceUserNumbers := make([]interface{}, 0, len(bacsAssociation.Payload.Data.Attributes.AllowedServiceUserNumbers))
+
+	for _, element := range bacsAssociation.Payload.Data.Attributes.AllowedServiceUserNumbers {
+		allowedServiceUserNumbers = append(allowedServiceUserNumbers, map[string]interface{}{
+			"service_user_number": element.ServiceUserNumber,
+			"sorting_code":        element.SortingCode,
+		})
+	}
+
+	if err := d.Set("allowed_service_user_numbers", allowedServiceUserNumbers); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -285,15 +299,29 @@ func createBacsNewAssociationFromResourceData(d *schema.ResourceData) (*models.B
 		association.Attributes.TestFileSubmission = &b
 	}
 
-	if attr, ok := d.GetOk("allowed_service_user_numbers"); ok {
-		b := attr.([]*models.BacsAllowedServiceUserNumber)
-
-		association.Attributes.AllowedServiceUserNumbers = b
-	}
-
 	association.Relationships.InputCertificate = buildRelationship(d, "input")
 	association.Relationships.OutputCertificate = buildRelationship(d, "output")
 	association.Relationships.MessagingCertificate = buildRelationship(d, "messaging")
+
+	if attr, ok := d.GetOk("allowed_service_user_numbers"); ok {
+		sunArray := attr.([]interface{})
+
+		var allowedServiceUserNumbers []*models.BacsAllowedServiceUserNumber
+
+		for _, sunElement := range sunArray {
+			elementServiceUserNumber := sunElement.(map[string]interface{})["service_user_number"].(string)
+			elementSortCode := sunElement.(map[string]interface{})["sorting_code"].(string)
+
+			allowedServiceUserNumber := models.BacsAllowedServiceUserNumber{
+				ServiceUserNumber: elementServiceUserNumber,
+				SortingCode:       elementSortCode,
+			}
+
+			allowedServiceUserNumbers = append(allowedServiceUserNumbers, &allowedServiceUserNumber)
+		}
+
+		association.Attributes.AllowedServiceUserNumbers = allowedServiceUserNumbers
+	}
 
 	return &association, nil
 }

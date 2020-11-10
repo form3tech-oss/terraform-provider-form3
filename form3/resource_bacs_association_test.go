@@ -146,6 +146,38 @@ func TestAccBacsAssociation_withTestFileSubmissionFlag(t *testing.T) {
 	})
 }
 
+func TestAccBacsAssociation_withAllowedServiceUserNumbers(t *testing.T) {
+	var bacsResponse associations.GetBacsIDOK
+	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationId := uuid.New().String()
+	associationId := uuid.New().String()
+
+	resource.Test(t, resource.TestCase{
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
+		CheckDestroy: testAccCheckBacsAssociationDestroy,
+		Steps: []resource.TestStep{
+			{
+				Config: fmt.Sprintf(testForm3BacsAssociationWithAllowedServiceUserNumbers, organisationId, parentOrganisationId, associationId, "123456", "234567", "112233"),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckBacsAssociationExists("form3_bacs_association.association", &bacsResponse),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "service_user_number", "112233"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "account_number", "87654321"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "sorting_code", "654321"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "account_type", "0"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "organisation_id", organisationId),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "association_id", associationId),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "allowed_service_user_numbers.#", "2"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "allowed_service_user_numbers.0.service_user_number", "123456"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "allowed_service_user_numbers.0.sorting_code", ""),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "allowed_service_user_numbers.1.service_user_number", "234567"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "allowed_service_user_numbers.1.sorting_code", "112233"),
+				),
+			},
+		},
+	})
+}
+
 func testAccCheckBacsAssociationDestroy(state *terraform.State) error {
 	client := testAccProvider.Meta().(*form3.AuthenticatedClient)
 
@@ -320,4 +352,30 @@ resource "form3_bacs_association" "association" {
     bank_code                        = "1234"
     centre_number                    = "42"
     test_file_submission             = true
+}`
+
+const testForm3BacsAssociationWithAllowedServiceUserNumbers = `
+resource "form3_organisation" "organisation" {
+	organisation_id        = "%s"
+	parent_organisation_id = "%s"
+	name 		           = "terraform-organisation"
+}
+
+resource "form3_bacs_association" "association" {
+	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
+	association_id                   = "%s"
+	service_user_number              = "112233"
+    account_number                   = "87654321"
+    sorting_code                     = "654321"
+    account_type                     = 0
+
+	allowed_service_user_numbers {
+		service_user_number = "%s"
+	}
+
+	allowed_service_user_numbers {
+		service_user_number = "%s"
+		sorting_code = "%s"
+	}
+
 }`
