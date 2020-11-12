@@ -3719,7 +3719,7 @@ paths:
           $ref: "#/responses/503ServiceUnavailable"
 
 
-  /associations/{associationId}/agency_synchronisation/{agencySynchronisationId}:
+  /lhv/{associationId}/agency_synchronisation/{agencySynchronisationId}:
     parameters:
       - name: associationId
         in: path

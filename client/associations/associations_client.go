@@ -27,8 +27,6 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	DeleteAssociationsAssociationIDAgencySynchronisationAgencySynchronisationID(params *DeleteAssociationsAssociationIDAgencySynchronisationAgencySynchronisationIDParams) (*DeleteAssociationsAssociationIDAgencySynchronisationAgencySynchronisationIDNoContent, error)
-
 	DeleteBacsID(params *DeleteBacsIDParams) (*DeleteBacsIDNoContent, error)
 
 	DeleteConfirmationOfPayeeID(params *DeleteConfirmationOfPayeeIDParams) (*DeleteConfirmationOfPayeeIDNoContent, error)
@@ -36,6 +34,8 @@ type ClientService interface {
 	DeleteGocardlessID(params *DeleteGocardlessIDParams) (*DeleteGocardlessIDNoContent, error)
 
 	DeleteLhvAssociationID(params *DeleteLhvAssociationIDParams) (*DeleteLhvAssociationIDNoContent, error)
+
+	DeleteLhvAssociationIDAgencySynchronisationAgencySynchronisationID(params *DeleteLhvAssociationIDAgencySynchronisationAgencySynchronisationIDParams) (*DeleteLhvAssociationIDAgencySynchronisationAgencySynchronisationIDNoContent, error)
 
 	DeleteLhvAssociationIDMasterAccountsMasterAccountID(params *DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams) (*DeleteLhvAssociationIDMasterAccountsMasterAccountIDNoContent, error)
 
@@ -57,8 +57,6 @@ type ClientService interface {
 
 	DeleteVocalinkreportID(params *DeleteVocalinkreportIDParams) (*DeleteVocalinkreportIDNoContent, error)
 
-	GetAssociationsAssociationIDAgencySynchronisationAgencySynchronisationID(params *GetAssociationsAssociationIDAgencySynchronisationAgencySynchronisationIDParams) (*GetAssociationsAssociationIDAgencySynchronisationAgencySynchronisationIDOK, error)
-
 	GetBacs(params *GetBacsParams) (*GetBacsOK, error)
 
 	GetBacsID(params *GetBacsIDParams) (*GetBacsIDOK, error)
@@ -76,6 +74,8 @@ type ClientService interface {
 	GetLhvAssociationID(params *GetLhvAssociationIDParams) (*GetLhvAssociationIDOK, error)
 
 	GetLhvAssociationIDAgencySynchronisation(params *GetLhvAssociationIDAgencySynchronisationParams) (*GetLhvAssociationIDAgencySynchronisationOK, error)
+
+	GetLhvAssociationIDAgencySynchronisationAgencySynchronisationID(params *GetLhvAssociationIDAgencySynchronisationAgencySynchronisationIDParams) (*GetLhvAssociationIDAgencySynchronisationAgencySynchronisationIDOK, error)
 
 	GetLhvAssociationIDMasterAccounts(params *GetLhvAssociationIDMasterAccountsParams) (*GetLhvAssociationIDMasterAccountsOK, error)
 
@@ -156,40 +156,6 @@ type ClientService interface {
 	PostVocalinkreport(params *PostVocalinkreportParams) (*PostVocalinkreportCreated, error)
 
 	SetTransport(transport runtime.ClientTransport)
-}
-
-/*
-  DeleteAssociationsAssociationIDAgencySynchronisationAgencySynchronisationID deletes l h v organisation association agency synchronisation details
-*/
-func (a *Client) DeleteAssociationsAssociationIDAgencySynchronisationAgencySynchronisationID(params *DeleteAssociationsAssociationIDAgencySynchronisationAgencySynchronisationIDParams) (*DeleteAssociationsAssociationIDAgencySynchronisationAgencySynchronisationIDNoContent, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDeleteAssociationsAssociationIDAgencySynchronisationAgencySynchronisationIDParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "DeleteAssociationsAssociationIDAgencySynchronisationAgencySynchronisationID",
-		Method:             "DELETE",
-		PathPattern:        "/associations/{associationId}/agency_synchronisation/{agencySynchronisationId}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &DeleteAssociationsAssociationIDAgencySynchronisationAgencySynchronisationIDReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DeleteAssociationsAssociationIDAgencySynchronisationAgencySynchronisationIDNoContent)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for DeleteAssociationsAssociationIDAgencySynchronisationAgencySynchronisationID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
 }
 
 /*
@@ -325,6 +291,40 @@ func (a *Client) DeleteLhvAssociationID(params *DeleteLhvAssociationIDParams) (*
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for DeleteLhvAssociationID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DeleteLhvAssociationIDAgencySynchronisationAgencySynchronisationID deletes l h v organisation association agency synchronisation details
+*/
+func (a *Client) DeleteLhvAssociationIDAgencySynchronisationAgencySynchronisationID(params *DeleteLhvAssociationIDAgencySynchronisationAgencySynchronisationIDParams) (*DeleteLhvAssociationIDAgencySynchronisationAgencySynchronisationIDNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteLhvAssociationIDAgencySynchronisationAgencySynchronisationIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteLhvAssociationIDAgencySynchronisationAgencySynchronisationID",
+		Method:             "DELETE",
+		PathPattern:        "/lhv/{associationId}/agency_synchronisation/{agencySynchronisationId}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteLhvAssociationIDAgencySynchronisationAgencySynchronisationIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteLhvAssociationIDAgencySynchronisationAgencySynchronisationIDNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteLhvAssociationIDAgencySynchronisationAgencySynchronisationID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -669,40 +669,6 @@ func (a *Client) DeleteVocalinkreportID(params *DeleteVocalinkreportIDParams) (*
 }
 
 /*
-  GetAssociationsAssociationIDAgencySynchronisationAgencySynchronisationID fetches l h v agency synchronisation details
-*/
-func (a *Client) GetAssociationsAssociationIDAgencySynchronisationAgencySynchronisationID(params *GetAssociationsAssociationIDAgencySynchronisationAgencySynchronisationIDParams) (*GetAssociationsAssociationIDAgencySynchronisationAgencySynchronisationIDOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetAssociationsAssociationIDAgencySynchronisationAgencySynchronisationIDParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "GetAssociationsAssociationIDAgencySynchronisationAgencySynchronisationID",
-		Method:             "GET",
-		PathPattern:        "/associations/{associationId}/agency_synchronisation/{agencySynchronisationId}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &GetAssociationsAssociationIDAgencySynchronisationAgencySynchronisationIDReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetAssociationsAssociationIDAgencySynchronisationAgencySynchronisationIDOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetAssociationsAssociationIDAgencySynchronisationAgencySynchronisationID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
   GetBacs lists all organisation associations for b a c s
 */
 func (a *Client) GetBacs(params *GetBacsParams) (*GetBacsOK, error) {
@@ -1005,6 +971,40 @@ func (a *Client) GetLhvAssociationIDAgencySynchronisation(params *GetLhvAssociat
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for GetLhvAssociationIDAgencySynchronisation: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetLhvAssociationIDAgencySynchronisationAgencySynchronisationID fetches l h v agency synchronisation details
+*/
+func (a *Client) GetLhvAssociationIDAgencySynchronisationAgencySynchronisationID(params *GetLhvAssociationIDAgencySynchronisationAgencySynchronisationIDParams) (*GetLhvAssociationIDAgencySynchronisationAgencySynchronisationIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetLhvAssociationIDAgencySynchronisationAgencySynchronisationIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetLhvAssociationIDAgencySynchronisationAgencySynchronisationID",
+		Method:             "GET",
+		PathPattern:        "/lhv/{associationId}/agency_synchronisation/{agencySynchronisationId}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetLhvAssociationIDAgencySynchronisationAgencySynchronisationIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetLhvAssociationIDAgencySynchronisationAgencySynchronisationIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetLhvAssociationIDAgencySynchronisationAgencySynchronisationID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
