@@ -1,8 +1,10 @@
 package form3
 
 import (
+	"errors"
 	"fmt"
 	"log"
+	"strings"
 
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
@@ -116,19 +118,7 @@ func resourceForm3BacsAssociation() *schema.Resource {
 				Type:     schema.TypeList,
 				Optional: true,
 				ForceNew: true,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"service_user_number": {
-							Type:     schema.TypeString,
-							Required: true,
-						},
-						"sorting_code": {
-							Type:     schema.TypeString,
-							Optional: true,
-							Default:  "",
-						},
-					},
-				},
+				Elem:     &schema.Schema{Type: schema.TypeString},
 			},
 		},
 	}
@@ -211,13 +201,10 @@ func resourceBacsAssociationRead(d *schema.ResourceData, meta interface{}) error
 		}
 	}
 
-	allowedServiceUserNumbers := make([]interface{}, 0, len(bacsAssociation.Payload.Data.Attributes.AllowedServiceUserNumbers))
+	allowedServiceUserNumbers := make([]string, 0)
 
 	for _, element := range bacsAssociation.Payload.Data.Attributes.AllowedServiceUserNumbers {
-		allowedServiceUserNumbers = append(allowedServiceUserNumbers, map[string]interface{}{
-			"service_user_number": element.ServiceUserNumber,
-			"sorting_code":        element.SortingCode,
-		})
+		allowedServiceUserNumbers = append(allowedServiceUserNumbers, element.ServiceUserNumber+":"+element.SortingCode)
 	}
 
 	if err := d.Set("allowed_service_user_numbers", allowedServiceUserNumbers); err != nil {
@@ -304,17 +291,28 @@ func createBacsNewAssociationFromResourceData(d *schema.ResourceData) (*models.B
 	association.Relationships.MessagingCertificate = buildRelationship(d, "messaging")
 
 	if attr, ok := d.GetOk("allowed_service_user_numbers"); ok {
-		sunArray := attr.([]interface{})
+		sunArray, sunArrayTypeOk := attr.([]interface{})
+		if !sunArrayTypeOk {
+			return nil, errors.New("allowed_service_user_numbers must be an array of string")
+		}
 
 		var allowedServiceUserNumbers []*models.BacsAllowedServiceUserNumber
 
-		for _, sunElement := range sunArray {
-			elementServiceUserNumber := sunElement.(map[string]interface{})["service_user_number"].(string)
-			elementSortCode := sunElement.(map[string]interface{})["sorting_code"].(string)
+		for idx, sunElement := range sunArray {
+			stringValue, valueOk := sunElement.(string)
+			if !valueOk {
+				return nil, errors.New("allowed_service_user_numbers must be an array of string, invalid element at: " + fmt.Sprint(idx))
+			}
+			sunSortCodePair := strings.Split(stringValue, ":")
+			if len(sunSortCodePair) != 2 {
+				return nil, errors.New("allowed_service_user_numbers should contain pair of elements: {service_user_number}:{sort_code} - got: " + stringValue)
+			} else if sunSortCodePair[0] == "" {
+				return nil, errors.New("allowed_service_user_numbers should contain pair of elements with mandatory key: {service_user_number}:{sort_code} - got: " + stringValue)
+			}
 
 			allowedServiceUserNumber := models.BacsAllowedServiceUserNumber{
-				ServiceUserNumber: elementServiceUserNumber,
-				SortingCode:       elementSortCode,
+				ServiceUserNumber: sunSortCodePair[0],
+				SortingCode:       sunSortCodePair[1],
 			}
 
 			allowedServiceUserNumbers = append(allowedServiceUserNumbers, &allowedServiceUserNumber)
