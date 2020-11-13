@@ -168,10 +168,8 @@ func TestAccBacsAssociation_withAllowedServiceUserNumbers(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "organisation_id", organisationId),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "association_id", associationId),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "allowed_service_user_numbers.#", "2"),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "allowed_service_user_numbers.0.service_user_number", "123456"),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "allowed_service_user_numbers.0.sorting_code", ""),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "allowed_service_user_numbers.1.service_user_number", "234567"),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "allowed_service_user_numbers.1.sorting_code", "112233"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "allowed_service_user_numbers.0", "123456:"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "allowed_service_user_numbers.1", "234567:112233"),
 				),
 			},
 		},
@@ -368,14 +366,5 @@ resource "form3_bacs_association" "association" {
     account_number                   = "87654321"
     sorting_code                     = "654321"
     account_type                     = 0
-
-	allowed_service_user_numbers {
-		service_user_number = "%s"
-	}
-
-	allowed_service_user_numbers {
-		service_user_number = "%s"
-		sorting_code = "%s"
-	}
-
+	allowed_service_user_numbers     = ["%s:", "%s:%s"]
 }`
