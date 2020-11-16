@@ -68,8 +68,8 @@ func resourceLhvAgencySynchronisationCreate(d *schema.ResourceData, meta interfa
 		return fmt.Errorf("failed to create lhv agency synchronisation: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
-	createdAgency, err := client.AssociationClient.Associations.PostLhvAssociationIDAgencySynchronisation(
-		associations.NewPostLhvAssociationIDAgencySynchronisationParams().
+	createdAgency, err := client.AssociationClient.Associations.PostLhvAssociationIDAgencySynchronisations(
+		associations.NewPostLhvAssociationIDAgencySynchronisationsParams().
 			WithAssociationID(associationId).
 			WithCreationRequest(&models.LhvAgencySynchronisationCreation{
 				Data: agencyResource,
@@ -92,8 +92,8 @@ func resourceLhvAgencySynchronisationRead(d *schema.ResourceData, meta interface
 		return errors.New("failed to read lhv agency synchronisation association_id")
 	}
 
-	agencySynchronisation, err := client.AssociationClient.Associations.GetLhvAssociationIDAgencySynchronisationAgencySynchronisationID(
-		associations.NewGetLhvAssociationIDAgencySynchronisationAgencySynchronisationIDParams().
+	agencySynchronisation, err := client.AssociationClient.Associations.GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationID(
+		associations.NewGetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDParams().
 			WithAssociationID(associationId).
 			WithAgencySynchronisationID(strfmt.UUID(d.Id())))
 
@@ -120,16 +120,16 @@ func resourceLhvAgencySynchronisationDelete(d *schema.ResourceData, meta interfa
 		return errors.New("failed to read lhv agency synchronisation association_id")
 	}
 
-	agencySynchronisation, err := client.AssociationClient.Associations.GetLhvAssociationIDAgencySynchronisationAgencySynchronisationID(
-		associations.NewGetLhvAssociationIDAgencySynchronisationAgencySynchronisationIDParams().
+	agencySynchronisation, err := client.AssociationClient.Associations.GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationID(
+		associations.NewGetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDParams().
 			WithAssociationID(associationId).
 			WithAgencySynchronisationID(strfmt.UUID(d.Id())))
 	if err != nil {
 		return fmt.Errorf("error deleting lhv agency synchronisation: %s", form3.JsonErrorPrettyPrint(err))
 	}
 
-	_, err = client.AssociationClient.Associations.DeleteLhvAssociationIDAgencySynchronisationAgencySynchronisationID(
-		associations.NewDeleteLhvAssociationIDAgencySynchronisationAgencySynchronisationIDParams().
+	_, err = client.AssociationClient.Associations.DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationID(
+		associations.NewDeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDParams().
 			WithAssociationID(associationId).
 			WithAgencySynchronisationID(agencySynchronisation.Payload.Data.ID).
 			WithVersion(*agencySynchronisation.Payload.Data.Version))
@@ -144,7 +144,7 @@ func resourceLhvAgencySynchronisationDelete(d *schema.ResourceData, meta interfa
 func createLhvNewAgencySynchronisationFromResourceData(d *schema.ResourceData) (*models.LhvAgencySynchronisation, error) {
 	var zero int64
 	agencySynchronisation := models.LhvAgencySynchronisation{
-		Type:    models.LhvAgencySynchronisationTypeLhvgatewayAgencySynchronisation,
+		Type:    models.LhvAgencySynchronisationTypeLhvgatewayAgencySynchronisations,
 		Version: &zero,
 	}
 
