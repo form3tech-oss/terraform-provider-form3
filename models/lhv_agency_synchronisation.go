@@ -45,7 +45,7 @@ type LhvAgencySynchronisation struct {
 
 	// Name of the resource type
 	// Required: true
-	// Enum: [lhvgateway_agency_synchronisation]
+	// Enum: [lhvgateway_agency_synchronisations]
 	Type string `json:"type"`
 
 	// version
@@ -160,7 +160,7 @@ var lhvAgencySynchronisationTypeTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["lhvgateway_agency_synchronisation"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["lhvgateway_agency_synchronisations"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -170,8 +170,8 @@ func init() {
 
 const (
 
-	// LhvAgencySynchronisationTypeLhvgatewayAgencySynchronisation captures enum value "lhvgateway_agency_synchronisation"
-	LhvAgencySynchronisationTypeLhvgatewayAgencySynchronisation string = "lhvgateway_agency_synchronisation"
+	// LhvAgencySynchronisationTypeLhvgatewayAgencySynchronisations captures enum value "lhvgateway_agency_synchronisations"
+	LhvAgencySynchronisationTypeLhvgatewayAgencySynchronisations string = "lhvgateway_agency_synchronisations"
 )
 
 // prop value enum

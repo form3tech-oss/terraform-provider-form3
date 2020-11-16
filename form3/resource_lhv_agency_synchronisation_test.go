@@ -58,8 +58,8 @@ func testAccCheckLhvAgencySynchronisationDestroy(state *terraform.State) error {
 			continue
 		}
 
-		response, err := client.AssociationClient.Associations.GetLhvAssociationIDAgencySynchronisationAgencySynchronisationID(
-			associations.NewGetLhvAssociationIDAgencySynchronisationAgencySynchronisationIDParams().
+		response, err := client.AssociationClient.Associations.GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationID(
+			associations.NewGetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDParams().
 				WithAssociationID(strfmt.UUID(rs.Primary.Attributes["association_id"])).
 				WithAgencySynchronisationID(strfmt.UUID(rs.Primary.Attributes["agency_synchronisation_id"])))
 		if err == nil {
@@ -84,8 +84,8 @@ func testAccCheckLhvAgencySynchronisationExists(resourceKey string) resource.Tes
 
 		client := testAccProvider.Meta().(*form3.AuthenticatedClient)
 
-		foundRecord, err := client.AssociationClient.Associations.GetLhvAssociationIDAgencySynchronisationAgencySynchronisationID(
-			associations.NewGetLhvAssociationIDAgencySynchronisationAgencySynchronisationIDParams().
+		foundRecord, err := client.AssociationClient.Associations.GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationID(
+			associations.NewGetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDParams().
 				WithAssociationID(strfmt.UUID(rs.Primary.Attributes["association_id"])).
 				WithAgencySynchronisationID(strfmt.UUID(rs.Primary.Attributes["agency_synchronisation_id"])))
 		if err != nil {

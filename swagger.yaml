@@ -3653,7 +3653,7 @@ paths:
         503:
           $ref: "#/responses/503ServiceUnavailable"
 
-  /lhv/{associationId}/agency_synchronisation:
+  /lhv/{associationId}/agency_synchronisations:
     parameters:
       - name: associationId
         in: path
@@ -3719,7 +3719,7 @@ paths:
           $ref: "#/responses/503ServiceUnavailable"
 
 
-  /lhv/{associationId}/agency_synchronisation/{agencySynchronisationId}:
+  /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}:
     parameters:
       - name: associationId
         in: path
@@ -9217,7 +9217,7 @@ definitions:
         x-nullable: false
         description: "Name of the resource type"
         enum:
-          - lhvgateway_agency_synchronisation
+          - lhvgateway_agency_synchronisations
       version:
         type: integer
         minimum: 0
