@@ -2,8 +2,10 @@ package form3
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"os"
+	"strings"
 	"testing"
 	"text/template"
 
@@ -146,19 +148,30 @@ func TestAccBacsAssociation_withTestFileSubmissionFlag(t *testing.T) {
 	})
 }
 
-func TestAccBacsAssociation_withAllowedServiceUserNumbers(t *testing.T) {
+func TestAccBacsAssociation_withMultiSunConfig(t *testing.T) {
 	var bacsResponse associations.GetBacsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
 	associationId := uuid.New().String()
 
+	sun := "223344"
+	sunConfig := models.BacsServiceUserNumber{
+		ServiceUserNumber:  &sun,
+		AutoReturnSortCode: "123456",
+	}
+	sunConfigJson, jsonErr := json.Marshal(sunConfig)
+	if jsonErr != nil {
+		panic(jsonErr)
+	}
+	secondSun := strings.ReplaceAll(string(sunConfigJson), "\"", "\\\"")
+	multiSunConfig := "[\"" + secondSun + "\"]"
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
 		Providers:    testAccProviders,
 		CheckDestroy: testAccCheckBacsAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3BacsAssociationWithAllowedServiceUserNumbers, organisationId, parentOrganisationId, associationId, "123456", "234567", "112233"),
+				Config: fmt.Sprintf(testForm3BacsAssociationWithSunConfig, organisationId, parentOrganisationId, associationId, multiSunConfig),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBacsAssociationExists("form3_bacs_association.association", &bacsResponse),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "service_user_number", "112233"),
@@ -167,9 +180,8 @@ func TestAccBacsAssociation_withAllowedServiceUserNumbers(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "account_type", "0"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "organisation_id", organisationId),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "association_id", associationId),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "allowed_service_user_numbers.#", "2"),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "allowed_service_user_numbers.0", "123456:"),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "allowed_service_user_numbers.1", "234567:112233"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "service_user_numbers_config.#", "1"),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "service_user_numbers_config.0", string(sunConfigJson)),
 				),
 			},
 		},
@@ -352,7 +364,7 @@ resource "form3_bacs_association" "association" {
     test_file_submission             = true
 }`
 
-const testForm3BacsAssociationWithAllowedServiceUserNumbers = `
+const testForm3BacsAssociationWithSunConfig = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
@@ -366,5 +378,5 @@ resource "form3_bacs_association" "association" {
     account_number                   = "87654321"
     sorting_code                     = "654321"
     account_type                     = 0
-	allowed_service_user_numbers     = ["%s:", "%s:%s"]
+	service_user_numbers_config     = %s
 }`

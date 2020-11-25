@@ -250,7 +250,7 @@ func TestGetBacsAssociationList(t *testing.T) {
 	assertNoErrorOccurred(t, err)
 }
 
-func TestGetBacsAssociationListWithManyAllowedSUN(t *testing.T) {
+func TestGetBacsAssociationListWithMultiSunConfig(t *testing.T) {
 	id := uuid.New()
 	organisationIdUUID := strfmt.UUID(testOrganisationId.String())
 	serviceUserNumber := "123456"
@@ -258,6 +258,8 @@ func TestGetBacsAssociationListWithManyAllowedSUN(t *testing.T) {
 	sortingCode := "123456"
 	accountType := int64(1)
 
+	sun1 := "234567"
+	sun2 := "345678"
 	createResponse, err := auth.AssociationClient.Associations.PostBacs(associations.NewPostBacsParams().
 		WithCreationRequest(&models.BacsAssociationCreation{
 			Data: &models.BacsNewAssociation{
@@ -268,14 +270,14 @@ func TestGetBacsAssociationListWithManyAllowedSUN(t *testing.T) {
 					AccountNumber:     accountNumber,
 					SortingCode:       sortingCode,
 					AccountType:       &accountType,
-					AllowedServiceUserNumbers: []*models.BacsAllowedServiceUserNumber{
+					ServiceUserNumbersConfig: []*models.BacsServiceUserNumber{
 						{
-							ServiceUserNumber: "234567",
-							SortingCode:       "234567",
+							ServiceUserNumber:  &sun1,
+							AutoReturnSortCode: "234567",
 						},
 						{
-							ServiceUserNumber: "345678",
-							SortingCode:       "345678",
+							ServiceUserNumber:  &sun2,
+							AutoReturnSortCode: "345678",
 						},
 					},
 				},
