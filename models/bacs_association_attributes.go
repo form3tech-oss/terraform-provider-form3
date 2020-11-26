@@ -26,9 +26,6 @@ type BacsAssociationAttributes struct {
 	// account type
 	AccountType *int64 `json:"account_type,omitempty"`
 
-	// allowed service user numbers
-	AllowedServiceUserNumbers []*BacsAllowedServiceUserNumber `json:"allowed_service_user_numbers"`
-
 	// bank code
 	// Pattern: ^[0-9A-Z]{4}$
 	BankCode string `json:"bank_code,omitempty"`
@@ -40,6 +37,9 @@ type BacsAssociationAttributes struct {
 	// service user number
 	// Pattern: ^[0-9A-Z]{6}$
 	ServiceUserNumber string `json:"service_user_number,omitempty"`
+
+	// service user numbers config
+	ServiceUserNumbersConfig []*BacsServiceUserNumber `json:"service_user_numbers_config"`
 
 	// sorting code
 	// Pattern: ^[0-9]{6}$
@@ -57,10 +57,6 @@ func (m *BacsAssociationAttributes) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateAllowedServiceUserNumbers(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateBankCode(formats); err != nil {
 		res = append(res, err)
 	}
@@ -70,6 +66,10 @@ func (m *BacsAssociationAttributes) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateServiceUserNumber(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateServiceUserNumbersConfig(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -91,31 +91,6 @@ func (m *BacsAssociationAttributes) validateAccountNumber(formats strfmt.Registr
 
 	if err := validate.Pattern("account_number", "body", string(m.AccountNumber), `^[0-9]{8}$`); err != nil {
 		return err
-	}
-
-	return nil
-}
-
-func (m *BacsAssociationAttributes) validateAllowedServiceUserNumbers(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.AllowedServiceUserNumbers) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.AllowedServiceUserNumbers); i++ {
-		if swag.IsZero(m.AllowedServiceUserNumbers[i]) { // not required
-			continue
-		}
-
-		if m.AllowedServiceUserNumbers[i] != nil {
-			if err := m.AllowedServiceUserNumbers[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("allowed_service_user_numbers" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
 	}
 
 	return nil
@@ -155,6 +130,31 @@ func (m *BacsAssociationAttributes) validateServiceUserNumber(formats strfmt.Reg
 
 	if err := validate.Pattern("service_user_number", "body", string(m.ServiceUserNumber), `^[0-9A-Z]{6}$`); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *BacsAssociationAttributes) validateServiceUserNumbersConfig(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ServiceUserNumbersConfig) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.ServiceUserNumbersConfig); i++ {
+		if swag.IsZero(m.ServiceUserNumbersConfig[i]) { // not required
+			continue
+		}
+
+		if m.ServiceUserNumbersConfig[i] != nil {
+			if err := m.ServiceUserNumbersConfig[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("service_user_numbers_config" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

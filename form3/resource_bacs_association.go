@@ -1,16 +1,16 @@
 package form3
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
-	"log"
-	"strings"
-
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"log"
+	"strings"
 )
 
 func resourceForm3BacsAssociation() *schema.Resource {
@@ -114,7 +114,7 @@ func resourceForm3BacsAssociation() *schema.Resource {
 				ForceNew: true,
 				Default:  false,
 			},
-			"allowed_service_user_numbers": {
+			"service_user_numbers_config": {
 				Type:     schema.TypeList,
 				Optional: true,
 				ForceNew: true,
@@ -201,13 +201,17 @@ func resourceBacsAssociationRead(d *schema.ResourceData, meta interface{}) error
 		}
 	}
 
-	allowedServiceUserNumbers := make([]string, 0)
+	multiSunConfig := make([]string, 0)
 
-	for _, element := range bacsAssociation.Payload.Data.Attributes.AllowedServiceUserNumbers {
-		allowedServiceUserNumbers = append(allowedServiceUserNumbers, element.ServiceUserNumber+":"+element.SortingCode)
+	for idx, sunConfig := range bacsAssociation.Payload.Data.Attributes.ServiceUserNumbersConfig {
+		json, jsonErr := json.Marshal(*sunConfig)
+		if jsonErr != nil {
+			return errors.New("Couldn't serialize SUN config element - idx: " + fmt.Sprint(idx) + ", error: " + jsonErr.Error())
+		}
+		multiSunConfig = append(multiSunConfig, string(json))
 	}
 
-	if err := d.Set("allowed_service_user_numbers", allowedServiceUserNumbers); err != nil {
+	if err := d.Set("service_user_numbers_config", multiSunConfig); err != nil {
 		return err
 	}
 
@@ -290,35 +294,28 @@ func createBacsNewAssociationFromResourceData(d *schema.ResourceData) (*models.B
 	association.Relationships.OutputCertificate = buildRelationship(d, "output")
 	association.Relationships.MessagingCertificate = buildRelationship(d, "messaging")
 
-	if attr, ok := d.GetOk("allowed_service_user_numbers"); ok {
+	if attr, ok := d.GetOk("service_user_numbers_config"); ok {
 		sunArray, sunArrayTypeOk := attr.([]interface{})
 		if !sunArrayTypeOk {
-			return nil, errors.New("allowed_service_user_numbers must be an array of string")
+			return nil, errors.New("service_user_numbers_config must be an array of string")
 		}
 
-		var allowedServiceUserNumbers []*models.BacsAllowedServiceUserNumber
+		var multiSunConfig []*models.BacsServiceUserNumber
 
 		for idx, sunElement := range sunArray {
 			stringValue, valueOk := sunElement.(string)
 			if !valueOk {
-				return nil, errors.New("allowed_service_user_numbers must be an array of string, invalid element at: " + fmt.Sprint(idx))
+				return nil, errors.New("service_user_numbers_config must be an array of string, invalid element at: " + fmt.Sprint(idx))
 			}
-			sunSortCodePair := strings.Split(stringValue, ":")
-			if len(sunSortCodePair) != 2 {
-				return nil, errors.New("allowed_service_user_numbers should contain pair of elements: {service_user_number}:{sort_code} - got: " + stringValue)
-			} else if sunSortCodePair[0] == "" {
-				return nil, errors.New("allowed_service_user_numbers should contain pair of elements with mandatory key: {service_user_number}:{sort_code} - got: " + stringValue)
+			sunConfig := models.BacsServiceUserNumber{}
+			jsonErr := json.Unmarshal([]byte(strings.ReplaceAll(stringValue, "\\\"", "\"")), &sunConfig)
+			if jsonErr != nil {
+				return nil, errors.New("invalid SUN config element at: " + fmt.Sprint(idx) + ", error: " + jsonErr.Error())
 			}
-
-			allowedServiceUserNumber := models.BacsAllowedServiceUserNumber{
-				ServiceUserNumber: sunSortCodePair[0],
-				SortingCode:       sunSortCodePair[1],
-			}
-
-			allowedServiceUserNumbers = append(allowedServiceUserNumbers, &allowedServiceUserNumber)
+			multiSunConfig = append(multiSunConfig, &sunConfig)
 		}
 
-		association.Attributes.AllowedServiceUserNumbers = allowedServiceUserNumbers
+		association.Attributes.ServiceUserNumbersConfig = multiSunConfig
 	}
 
 	return &association, nil

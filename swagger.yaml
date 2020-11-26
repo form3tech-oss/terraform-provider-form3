@@ -8209,20 +8209,31 @@ definitions:
       test_file_submission:
         x-nullable: true
         type: boolean
-      allowed_service_user_numbers:
+      service_user_numbers_config:
         type: array
         items:
-          $ref: '#/definitions/BacsAllowedServiceUserNumber'
+          $ref: '#/definitions/BacsServiceUserNumber'
 
-  BacsAllowedServiceUserNumber:
+  BacsServiceUserNumber:
     type: object
+    required:
+      - service_user_number
     properties:
       service_user_number:
         type: string
-        pattern: ^[0-9A-Z]{6}$
-      sorting_code:
+        pattern: "^$|^[0-9A-Z]{6}$"
+      auto_return_sort_code:
         type: string
-        pattern: ^[0-9]{0,6}$
+        pattern: "^$|^[0-9]{6}$"
+      contra_sort_code:
+        type: string
+        pattern: "^$|^[0-9]{6}$"
+      contra_account_number:
+        type: string
+        pattern: "^$|^[0-9]{8}$"
+      contra_account_type:
+        type: integer
+        default: 0
 
   BacsAssociationRelationships:
     type: object
