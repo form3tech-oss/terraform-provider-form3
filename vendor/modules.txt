@@ -269,6 +269,8 @@ github.com/zclconf/go-cty/cty/msgpack
 github.com/zclconf/go-cty/cty/set
 # github.com/zclconf/go-cty-yaml v1.0.1
 github.com/zclconf/go-cty-yaml
+# gitlab.com/c0b/go-ordered-json v0.0.0-20201030195603-febf46534d5a
+gitlab.com/c0b/go-ordered-json
 # go.mongodb.org/mongo-driver v1.1.2
 go.mongodb.org/mongo-driver/bson
 go.mongodb.org/mongo-driver/bson/bsoncodec

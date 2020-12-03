@@ -9,6 +9,7 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"gitlab.com/c0b/go-ordered-json"
 	"log"
 	"strings"
 )
@@ -204,11 +205,20 @@ func resourceBacsAssociationRead(d *schema.ResourceData, meta interface{}) error
 	multiSunConfig := make([]string, 0)
 
 	for idx, sunConfig := range bacsAssociation.Payload.Data.Attributes.ServiceUserNumbersConfig {
-		json, jsonErr := json.Marshal(*sunConfig)
+		unorderJson, jsonErr := json.Marshal(*sunConfig)
 		if jsonErr != nil {
 			return errors.New("Couldn't serialize SUN config element - idx: " + fmt.Sprint(idx) + ", error: " + jsonErr.Error())
 		}
-		multiSunConfig = append(multiSunConfig, string(json))
+		orderedMap := ordered.NewOrderedMap()
+		orderErr := orderedMap.UnmarshalJSON(unorderJson)
+		if orderErr != nil {
+			return errors.New("Couldn't sort SUN config - error: " + orderErr.Error())
+		}
+		orderedJson, jsonErr := orderedMap.MarshalJSON()
+		if jsonErr != nil {
+			return errors.New("Couldn't serialize sorted SUN config element - idx: " + fmt.Sprint(idx) + ", error: " + jsonErr.Error())
+		}
+		multiSunConfig = append(multiSunConfig, string(orderedJson))
 	}
 
 	if err := d.Set("service_user_numbers_config", multiSunConfig); err != nil {
