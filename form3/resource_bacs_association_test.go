@@ -149,6 +149,7 @@ func TestAccBacsAssociation_withTestFileSubmissionFlag(t *testing.T) {
 }
 
 func TestAccBacsAssociation_withMultiSunConfig(t *testing.T) {
+
 	var bacsResponse associations.GetBacsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
@@ -156,8 +157,10 @@ func TestAccBacsAssociation_withMultiSunConfig(t *testing.T) {
 
 	sun := "223344"
 	sunConfig := models.BacsServiceUserNumber{
-		ServiceUserNumber:  &sun,
-		AutoReturnSortCode: "123456",
+		ServiceUserNumber:   &sun,
+		AutoReturnSortCode:  "123456",
+		ContraAccountNumber: "12345678",
+		ContraSortCode:      "123456",
 	}
 	sunConfigJson, jsonErr := json.Marshal(sunConfig)
 	if jsonErr != nil {

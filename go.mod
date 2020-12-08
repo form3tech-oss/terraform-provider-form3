@@ -13,5 +13,6 @@ require (
 	github.com/hashicorp/terraform-plugin-sdk v1.0.0
 	github.com/juju/errgo v0.0.0-20140925100237-08cceb5d0b53 // indirect
 	github.com/stretchr/testify v1.4.0
+	gitlab.com/c0b/go-ordered-json v0.0.0-20201030195603-febf46534d5a
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 )
