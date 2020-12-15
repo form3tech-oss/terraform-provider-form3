@@ -8219,13 +8219,7 @@ definitions:
     required:
       - service_user_number
     properties:
-      service_user_number:
-        type: string
-        pattern: "^$|^[0-9A-Z]{6}$"
       auto_return_sort_code:
-        type: string
-        pattern: "^$|^[0-9]{6}$"
-      contra_sort_code:
         type: string
         pattern: "^$|^[0-9]{6}$"
       contra_account_number:
@@ -8234,6 +8228,12 @@ definitions:
       contra_account_type:
         type: integer
         default: 0
+      contra_sort_code:
+        type: string
+        pattern: "^$|^[0-9]{6}$"
+      service_user_number:
+        type: string
+        pattern: "^$|^[0-9A-Z]{6}$"
 
   BacsAssociationRelationships:
     type: object
