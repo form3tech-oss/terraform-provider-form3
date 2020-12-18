@@ -4,11 +4,12 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/go-openapi/strfmt"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
-	"github.com/go-openapi/strfmt"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 )
 
 func resourceForm3SepaSctAssociation() *schema.Resource {
@@ -30,17 +31,35 @@ func resourceForm3SepaSctAssociation() *schema.Resource {
 			},
 			"bic": {
 				Type:     schema.TypeString,
-				Required: true,
+				Optional: true,
 				ForceNew: true,
 			},
 			"business_user": {
 				Type:     schema.TypeString,
-				Required: true,
+				Optional: true,
 				ForceNew: true,
 			},
 			"receiver_business_user": {
 				Type:     schema.TypeString,
-				Required: true,
+				Optional: true,
+				ForceNew: true,
+			},
+			"is_sponsor": {
+				Type:     schema.TypeBool,
+				Optional: true,
+				ForceNew: true,
+			},
+			"sponsor_id": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
+			"bic_list": {
+				Type: schema.TypeList,
+				Elem: &schema.Schema{
+					Type: schema.TypeString,
+				},
+				Optional: true,
 				ForceNew: true,
 			},
 		},
@@ -136,6 +155,31 @@ func createSepaSctNewAssociationFromResourceData(d *schema.ResourceData) (*model
 
 	if attr, ok := d.GetOk("receiver_business_user"); ok {
 		association.Attributes.ReceiverBusinessUser = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("bic_list"); ok {
+		rawList := attr.([]interface{})
+		bicList := make([]string, 0, len(rawList))
+		for _, e := range rawList {
+			bicList = append(bicList, e.(string))
+		}
+
+		association.Attributes.BicList = bicList
+	}
+
+	if attr, ok := d.GetOk("is_sponsor"); ok {
+		association.Attributes.IsSponsor = attr.(bool)
+	}
+
+	if attr, ok := d.GetOk("sponsor_id"); ok {
+		association.Relationships = &models.SepaSctAssociationRelationships{
+			Sponsor: &models.SepaSctAssociationRelationshipsSponsor{
+				Data: &models.SepaSctSponsorAssociationReference{
+					ID:   attr.(string),
+					Type: association.Type,
+				},
+			},
+		}
 	}
 
 	return &association, nil
