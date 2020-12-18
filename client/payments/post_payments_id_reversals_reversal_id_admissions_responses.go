@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostPaymentsIDReversalsReversalIDAdmissionsReader is a Reader for the PostPaymentsIDReversalsReversalIDAdmissions structure.
@@ -23,54 +24,63 @@ type PostPaymentsIDReversalsReversalIDAdmissionsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostPaymentsIDReversalsReversalIDAdmissionsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 201:
 		result := NewPostPaymentsIDReversalsReversalIDAdmissionsCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewPostPaymentsIDReversalsReversalIDAdmissionsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewPostPaymentsIDReversalsReversalIDAdmissionsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewPostPaymentsIDReversalsReversalIDAdmissionsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewPostPaymentsIDReversalsReversalIDAdmissionsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewPostPaymentsIDReversalsReversalIDAdmissionsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewPostPaymentsIDReversalsReversalIDAdmissionsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewPostPaymentsIDReversalsReversalIDAdmissionsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewPostPaymentsIDReversalsReversalIDAdmissionsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type PostPaymentsIDReversalsReversalIDAdmissionsCreated struct {
 
 func (o *PostPaymentsIDReversalsReversalIDAdmissionsCreated) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/reversals/{reversalId}/admissions][%d] postPaymentsIdReversalsReversalIdAdmissionsCreated  %+v", 201, o.Payload)
-}
-
-func (o *PostPaymentsIDReversalsReversalIDAdmissionsCreated) GetPayload() *models.ReversalAdmissionCreationResponse {
-	return o.Payload
 }
 
 func (o *PostPaymentsIDReversalsReversalIDAdmissionsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *PostPaymentsIDReversalsReversalIDAdmissionsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/reversals/{reversalId}/admissions][%d] postPaymentsIdReversalsReversalIdAdmissionsBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *PostPaymentsIDReversalsReversalIDAdmissionsBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostPaymentsIDReversalsReversalIDAdmissionsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type PostPaymentsIDReversalsReversalIDAdmissionsUnauthorized struct {
 
 func (o *PostPaymentsIDReversalsReversalIDAdmissionsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/reversals/{reversalId}/admissions][%d] postPaymentsIdReversalsReversalIdAdmissionsUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *PostPaymentsIDReversalsReversalIDAdmissionsUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostPaymentsIDReversalsReversalIDAdmissionsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *PostPaymentsIDReversalsReversalIDAdmissionsForbidden) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/reversals/{reversalId}/admissions][%d] postPaymentsIdReversalsReversalIdAdmissionsForbidden  %+v", 403, o.Payload)
 }
 
-func (o *PostPaymentsIDReversalsReversalIDAdmissionsForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostPaymentsIDReversalsReversalIDAdmissionsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type PostPaymentsIDReversalsReversalIDAdmissionsNotFound struct {
 
 func (o *PostPaymentsIDReversalsReversalIDAdmissionsNotFound) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/reversals/{reversalId}/admissions][%d] postPaymentsIdReversalsReversalIdAdmissionsNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PostPaymentsIDReversalsReversalIDAdmissionsNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostPaymentsIDReversalsReversalIDAdmissionsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *PostPaymentsIDReversalsReversalIDAdmissionsConflict) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/reversals/{reversalId}/admissions][%d] postPaymentsIdReversalsReversalIdAdmissionsConflict  %+v", 409, o.Payload)
 }
 
-func (o *PostPaymentsIDReversalsReversalIDAdmissionsConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostPaymentsIDReversalsReversalIDAdmissionsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type PostPaymentsIDReversalsReversalIDAdmissionsTooManyRequests struct {
 
 func (o *PostPaymentsIDReversalsReversalIDAdmissionsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/reversals/{reversalId}/admissions][%d] postPaymentsIdReversalsReversalIdAdmissionsTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *PostPaymentsIDReversalsReversalIDAdmissionsTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostPaymentsIDReversalsReversalIDAdmissionsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *PostPaymentsIDReversalsReversalIDAdmissionsInternalServerError) Error()
 	return fmt.Sprintf("[POST /payments/{id}/reversals/{reversalId}/admissions][%d] postPaymentsIdReversalsReversalIdAdmissionsInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *PostPaymentsIDReversalsReversalIDAdmissionsInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostPaymentsIDReversalsReversalIDAdmissionsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type PostPaymentsIDReversalsReversalIDAdmissionsServiceUnavailable struct {
 
 func (o *PostPaymentsIDReversalsReversalIDAdmissionsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/reversals/{reversalId}/admissions][%d] postPaymentsIdReversalsReversalIdAdmissionsServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *PostPaymentsIDReversalsReversalIDAdmissionsServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostPaymentsIDReversalsReversalIDAdmissionsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

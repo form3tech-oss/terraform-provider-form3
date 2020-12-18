@@ -6,12 +6,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
+
 	"github.com/go-openapi/swag"
 )
 
 // NewAssociationAttributes new association attributes
-//
 // swagger:model NewAssociationAttributes
 type NewAssociationAttributes struct {
 

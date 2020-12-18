@@ -8,13 +8,13 @@ package models
 import (
 	"strconv"
 
+	strfmt "github.com/go-openapi/strfmt"
+
 	"github.com/go-openapi/errors"
-	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // SepaSctAssociationDetailsListResponse sepa sct association details list response
-//
 // swagger:model SepaSctAssociationDetailsListResponse
 type SepaSctAssociationDetailsListResponse struct {
 

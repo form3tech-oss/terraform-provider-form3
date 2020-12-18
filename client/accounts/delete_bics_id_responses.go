@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteBicsIDReader is a Reader for the DeleteBicsID structure.
@@ -23,54 +24,63 @@ type DeleteBicsIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteBicsIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 204:
 		result := NewDeleteBicsIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewDeleteBicsIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewDeleteBicsIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewDeleteBicsIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewDeleteBicsIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewDeleteBicsIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewDeleteBicsIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewDeleteBicsIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewDeleteBicsIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -121,10 +131,6 @@ func (o *DeleteBicsIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /bics/{id}][%d] deleteBicsIdBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *DeleteBicsIDBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteBicsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -152,10 +158,6 @@ type DeleteBicsIDUnauthorized struct {
 
 func (o *DeleteBicsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /bics/{id}][%d] deleteBicsIdUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *DeleteBicsIDUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteBicsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -187,10 +189,6 @@ func (o *DeleteBicsIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /bics/{id}][%d] deleteBicsIdForbidden  %+v", 403, o.Payload)
 }
 
-func (o *DeleteBicsIDForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteBicsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -218,10 +216,6 @@ type DeleteBicsIDNotFound struct {
 
 func (o *DeleteBicsIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /bics/{id}][%d] deleteBicsIdNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteBicsIDNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteBicsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -253,10 +247,6 @@ func (o *DeleteBicsIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /bics/{id}][%d] deleteBicsIdConflict  %+v", 409, o.Payload)
 }
 
-func (o *DeleteBicsIDConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteBicsIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -284,10 +274,6 @@ type DeleteBicsIDTooManyRequests struct {
 
 func (o *DeleteBicsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /bics/{id}][%d] deleteBicsIdTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *DeleteBicsIDTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteBicsIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -319,10 +305,6 @@ func (o *DeleteBicsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /bics/{id}][%d] deleteBicsIdInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *DeleteBicsIDInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteBicsIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -350,10 +332,6 @@ type DeleteBicsIDServiceUnavailable struct {
 
 func (o *DeleteBicsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /bics/{id}][%d] deleteBicsIdServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *DeleteBicsIDServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteBicsIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

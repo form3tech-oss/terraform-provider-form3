@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeletePaymentdefaultsIDReader is a Reader for the DeletePaymentdefaultsID structure.
@@ -23,54 +24,63 @@ type DeletePaymentdefaultsIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeletePaymentdefaultsIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 204:
 		result := NewDeletePaymentdefaultsIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewDeletePaymentdefaultsIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewDeletePaymentdefaultsIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewDeletePaymentdefaultsIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewDeletePaymentdefaultsIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewDeletePaymentdefaultsIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewDeletePaymentdefaultsIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewDeletePaymentdefaultsIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewDeletePaymentdefaultsIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -121,10 +131,6 @@ func (o *DeletePaymentdefaultsIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /paymentdefaults/{id}][%d] deletePaymentdefaultsIdBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *DeletePaymentdefaultsIDBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeletePaymentdefaultsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -152,10 +158,6 @@ type DeletePaymentdefaultsIDUnauthorized struct {
 
 func (o *DeletePaymentdefaultsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /paymentdefaults/{id}][%d] deletePaymentdefaultsIdUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *DeletePaymentdefaultsIDUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeletePaymentdefaultsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -187,10 +189,6 @@ func (o *DeletePaymentdefaultsIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /paymentdefaults/{id}][%d] deletePaymentdefaultsIdForbidden  %+v", 403, o.Payload)
 }
 
-func (o *DeletePaymentdefaultsIDForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeletePaymentdefaultsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -218,10 +216,6 @@ type DeletePaymentdefaultsIDNotFound struct {
 
 func (o *DeletePaymentdefaultsIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /paymentdefaults/{id}][%d] deletePaymentdefaultsIdNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeletePaymentdefaultsIDNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeletePaymentdefaultsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -253,10 +247,6 @@ func (o *DeletePaymentdefaultsIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /paymentdefaults/{id}][%d] deletePaymentdefaultsIdConflict  %+v", 409, o.Payload)
 }
 
-func (o *DeletePaymentdefaultsIDConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeletePaymentdefaultsIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -284,10 +274,6 @@ type DeletePaymentdefaultsIDTooManyRequests struct {
 
 func (o *DeletePaymentdefaultsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /paymentdefaults/{id}][%d] deletePaymentdefaultsIdTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *DeletePaymentdefaultsIDTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeletePaymentdefaultsIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -319,10 +305,6 @@ func (o *DeletePaymentdefaultsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /paymentdefaults/{id}][%d] deletePaymentdefaultsIdInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *DeletePaymentdefaultsIDInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeletePaymentdefaultsIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -350,10 +332,6 @@ type DeletePaymentdefaultsIDServiceUnavailable struct {
 
 func (o *DeletePaymentdefaultsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /paymentdefaults/{id}][%d] deletePaymentdefaultsIdServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *DeletePaymentdefaultsIDServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeletePaymentdefaultsIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

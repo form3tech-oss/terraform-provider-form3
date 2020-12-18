@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetAdminsUserIDCredentialsReader is a Reader for the GetAdminsUserIDCredentials structure.
@@ -23,54 +24,63 @@ type GetAdminsUserIDCredentialsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetAdminsUserIDCredentialsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 200:
 		result := NewGetAdminsUserIDCredentialsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewGetAdminsUserIDCredentialsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewGetAdminsUserIDCredentialsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewGetAdminsUserIDCredentialsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewGetAdminsUserIDCredentialsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewGetAdminsUserIDCredentialsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewGetAdminsUserIDCredentialsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewGetAdminsUserIDCredentialsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewGetAdminsUserIDCredentialsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type GetAdminsUserIDCredentialsOK struct {
 
 func (o *GetAdminsUserIDCredentialsOK) Error() string {
 	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsOK  %+v", 200, o.Payload)
-}
-
-func (o *GetAdminsUserIDCredentialsOK) GetPayload() *models.UserCredentialListResponse {
-	return o.Payload
 }
 
 func (o *GetAdminsUserIDCredentialsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *GetAdminsUserIDCredentialsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *GetAdminsUserIDCredentialsBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetAdminsUserIDCredentialsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type GetAdminsUserIDCredentialsUnauthorized struct {
 
 func (o *GetAdminsUserIDCredentialsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetAdminsUserIDCredentialsUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetAdminsUserIDCredentialsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *GetAdminsUserIDCredentialsForbidden) Error() string {
 	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsForbidden  %+v", 403, o.Payload)
 }
 
-func (o *GetAdminsUserIDCredentialsForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetAdminsUserIDCredentialsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type GetAdminsUserIDCredentialsNotFound struct {
 
 func (o *GetAdminsUserIDCredentialsNotFound) Error() string {
 	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsNotFound  %+v", 404, o.Payload)
-}
-
-func (o *GetAdminsUserIDCredentialsNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetAdminsUserIDCredentialsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *GetAdminsUserIDCredentialsConflict) Error() string {
 	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsConflict  %+v", 409, o.Payload)
 }
 
-func (o *GetAdminsUserIDCredentialsConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetAdminsUserIDCredentialsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type GetAdminsUserIDCredentialsTooManyRequests struct {
 
 func (o *GetAdminsUserIDCredentialsTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *GetAdminsUserIDCredentialsTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetAdminsUserIDCredentialsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *GetAdminsUserIDCredentialsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetAdminsUserIDCredentialsInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetAdminsUserIDCredentialsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type GetAdminsUserIDCredentialsServiceUnavailable struct {
 
 func (o *GetAdminsUserIDCredentialsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *GetAdminsUserIDCredentialsServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetAdminsUserIDCredentialsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

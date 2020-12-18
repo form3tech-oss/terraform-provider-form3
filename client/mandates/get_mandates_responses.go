@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetMandatesReader is a Reader for the GetMandates structure.
@@ -23,54 +24,63 @@ type GetMandatesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetMandatesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 200:
 		result := NewGetMandatesOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewGetMandatesBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewGetMandatesUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewGetMandatesForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewGetMandatesNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewGetMandatesConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewGetMandatesTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewGetMandatesInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewGetMandatesServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type GetMandatesOK struct {
 
 func (o *GetMandatesOK) Error() string {
 	return fmt.Sprintf("[GET /mandates][%d] getMandatesOK  %+v", 200, o.Payload)
-}
-
-func (o *GetMandatesOK) GetPayload() *models.MandateDetailsListResponse {
-	return o.Payload
 }
 
 func (o *GetMandatesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *GetMandatesBadRequest) Error() string {
 	return fmt.Sprintf("[GET /mandates][%d] getMandatesBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *GetMandatesBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetMandatesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type GetMandatesUnauthorized struct {
 
 func (o *GetMandatesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /mandates][%d] getMandatesUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetMandatesUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetMandatesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *GetMandatesForbidden) Error() string {
 	return fmt.Sprintf("[GET /mandates][%d] getMandatesForbidden  %+v", 403, o.Payload)
 }
 
-func (o *GetMandatesForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetMandatesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type GetMandatesNotFound struct {
 
 func (o *GetMandatesNotFound) Error() string {
 	return fmt.Sprintf("[GET /mandates][%d] getMandatesNotFound  %+v", 404, o.Payload)
-}
-
-func (o *GetMandatesNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetMandatesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *GetMandatesConflict) Error() string {
 	return fmt.Sprintf("[GET /mandates][%d] getMandatesConflict  %+v", 409, o.Payload)
 }
 
-func (o *GetMandatesConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetMandatesConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type GetMandatesTooManyRequests struct {
 
 func (o *GetMandatesTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /mandates][%d] getMandatesTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *GetMandatesTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetMandatesTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *GetMandatesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /mandates][%d] getMandatesInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetMandatesInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetMandatesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type GetMandatesServiceUnavailable struct {
 
 func (o *GetMandatesServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /mandates][%d] getMandatesServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *GetMandatesServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetMandatesServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

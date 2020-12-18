@@ -8,14 +8,14 @@ package models
 import (
 	"encoding/json"
 
+	strfmt "github.com/go-openapi/strfmt"
+
 	"github.com/go-openapi/errors"
-	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // SigningCertificate signing certificate
-//
 // swagger:model SigningCertificate
 type SigningCertificate struct {
 
@@ -74,7 +74,6 @@ func (m *SigningCertificate) UnmarshalBinary(b []byte) error {
 }
 
 // SigningCertificateData signing certificate data
-//
 // swagger:model SigningCertificateData
 type SigningCertificateData struct {
 

@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDReader is a Reader for the GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationID structure.
@@ -23,54 +24,63 @@ type GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDReader stru
 // ReadResponse reads a server response into the received o.
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 200:
 		result := NewGetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewGetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewGetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewGetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewGetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewGetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewGetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewGetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewGetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDOK struct {
 
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDOK) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] getLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdOK  %+v", 200, o.Payload)
-}
-
-func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDOK) GetPayload() *models.LhvAgencySynchronisationResponse {
-	return o.Payload
 }
 
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDBadRequ
 	return fmt.Sprintf("[GET /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] getLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDUnauthorize
 
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] getLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDForbidd
 	return fmt.Sprintf("[GET /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] getLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdForbidden  %+v", 403, o.Payload)
 }
 
-func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNotFound st
 
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] getLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdNotFound  %+v", 404, o.Payload)
-}
-
-func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDConflic
 	return fmt.Sprintf("[GET /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] getLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdConflict  %+v", 409, o.Payload)
 }
 
-func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDTooManyRequ
 
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] getLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDInterna
 	return fmt.Sprintf("[GET /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] getLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDServiceUnav
 
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] getLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

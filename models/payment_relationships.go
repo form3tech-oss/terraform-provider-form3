@@ -8,13 +8,13 @@ package models
 import (
 	"strconv"
 
+	strfmt "github.com/go-openapi/strfmt"
+
 	"github.com/go-openapi/errors"
-	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // PaymentRelationships payment relationships
-//
 // swagger:model PaymentRelationships
 type PaymentRelationships struct {
 
@@ -148,7 +148,6 @@ func (m *PaymentRelationships) UnmarshalBinary(b []byte) error {
 }
 
 // PaymentRelationshipsPaymentAdmission The payment admission resource related to the payment
-//
 // swagger:model PaymentRelationshipsPaymentAdmission
 type PaymentRelationshipsPaymentAdmission struct {
 
@@ -214,7 +213,6 @@ func (m *PaymentRelationshipsPaymentAdmission) UnmarshalBinary(b []byte) error {
 }
 
 // PaymentRelationshipsPaymentReturn The payment return resource related to the payment
-//
 // swagger:model PaymentRelationshipsPaymentReturn
 type PaymentRelationshipsPaymentReturn struct {
 
@@ -280,7 +278,6 @@ func (m *PaymentRelationshipsPaymentReturn) UnmarshalBinary(b []byte) error {
 }
 
 // PaymentRelationshipsPaymentReversal The payment reversal resource related to the payment
-//
 // swagger:model PaymentRelationshipsPaymentReversal
 type PaymentRelationshipsPaymentReversal struct {
 
@@ -346,7 +343,6 @@ func (m *PaymentRelationshipsPaymentReversal) UnmarshalBinary(b []byte) error {
 }
 
 // PaymentRelationshipsPaymentSubmission The payment submission resource related to the payment
-//
 // swagger:model PaymentRelationshipsPaymentSubmission
 type PaymentRelationshipsPaymentSubmission struct {
 

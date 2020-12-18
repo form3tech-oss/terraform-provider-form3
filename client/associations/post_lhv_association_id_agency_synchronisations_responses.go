@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostLhvAssociationIDAgencySynchronisationsReader is a Reader for the PostLhvAssociationIDAgencySynchronisations structure.
@@ -23,54 +24,63 @@ type PostLhvAssociationIDAgencySynchronisationsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostLhvAssociationIDAgencySynchronisationsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 201:
 		result := NewPostLhvAssociationIDAgencySynchronisationsCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewPostLhvAssociationIDAgencySynchronisationsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewPostLhvAssociationIDAgencySynchronisationsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewPostLhvAssociationIDAgencySynchronisationsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewPostLhvAssociationIDAgencySynchronisationsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewPostLhvAssociationIDAgencySynchronisationsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewPostLhvAssociationIDAgencySynchronisationsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewPostLhvAssociationIDAgencySynchronisationsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewPostLhvAssociationIDAgencySynchronisationsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type PostLhvAssociationIDAgencySynchronisationsCreated struct {
 
 func (o *PostLhvAssociationIDAgencySynchronisationsCreated) Error() string {
 	return fmt.Sprintf("[POST /lhv/{associationId}/agency_synchronisations][%d] postLhvAssociationIdAgencySynchronisationsCreated  %+v", 201, o.Payload)
-}
-
-func (o *PostLhvAssociationIDAgencySynchronisationsCreated) GetPayload() *models.LhvAgencySynchronisationResponse {
-	return o.Payload
 }
 
 func (o *PostLhvAssociationIDAgencySynchronisationsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *PostLhvAssociationIDAgencySynchronisationsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /lhv/{associationId}/agency_synchronisations][%d] postLhvAssociationIdAgencySynchronisationsBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *PostLhvAssociationIDAgencySynchronisationsBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostLhvAssociationIDAgencySynchronisationsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type PostLhvAssociationIDAgencySynchronisationsUnauthorized struct {
 
 func (o *PostLhvAssociationIDAgencySynchronisationsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /lhv/{associationId}/agency_synchronisations][%d] postLhvAssociationIdAgencySynchronisationsUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *PostLhvAssociationIDAgencySynchronisationsUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostLhvAssociationIDAgencySynchronisationsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *PostLhvAssociationIDAgencySynchronisationsForbidden) Error() string {
 	return fmt.Sprintf("[POST /lhv/{associationId}/agency_synchronisations][%d] postLhvAssociationIdAgencySynchronisationsForbidden  %+v", 403, o.Payload)
 }
 
-func (o *PostLhvAssociationIDAgencySynchronisationsForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostLhvAssociationIDAgencySynchronisationsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type PostLhvAssociationIDAgencySynchronisationsNotFound struct {
 
 func (o *PostLhvAssociationIDAgencySynchronisationsNotFound) Error() string {
 	return fmt.Sprintf("[POST /lhv/{associationId}/agency_synchronisations][%d] postLhvAssociationIdAgencySynchronisationsNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PostLhvAssociationIDAgencySynchronisationsNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostLhvAssociationIDAgencySynchronisationsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *PostLhvAssociationIDAgencySynchronisationsConflict) Error() string {
 	return fmt.Sprintf("[POST /lhv/{associationId}/agency_synchronisations][%d] postLhvAssociationIdAgencySynchronisationsConflict  %+v", 409, o.Payload)
 }
 
-func (o *PostLhvAssociationIDAgencySynchronisationsConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostLhvAssociationIDAgencySynchronisationsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type PostLhvAssociationIDAgencySynchronisationsTooManyRequests struct {
 
 func (o *PostLhvAssociationIDAgencySynchronisationsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /lhv/{associationId}/agency_synchronisations][%d] postLhvAssociationIdAgencySynchronisationsTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *PostLhvAssociationIDAgencySynchronisationsTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostLhvAssociationIDAgencySynchronisationsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *PostLhvAssociationIDAgencySynchronisationsInternalServerError) Error() 
 	return fmt.Sprintf("[POST /lhv/{associationId}/agency_synchronisations][%d] postLhvAssociationIdAgencySynchronisationsInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *PostLhvAssociationIDAgencySynchronisationsInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostLhvAssociationIDAgencySynchronisationsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type PostLhvAssociationIDAgencySynchronisationsServiceUnavailable struct {
 
 func (o *PostLhvAssociationIDAgencySynchronisationsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /lhv/{associationId}/agency_synchronisations][%d] postLhvAssociationIdAgencySynchronisationsServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *PostLhvAssociationIDAgencySynchronisationsServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostLhvAssociationIDAgencySynchronisationsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

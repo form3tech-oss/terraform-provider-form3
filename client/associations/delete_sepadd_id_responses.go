@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteSepaddIDReader is a Reader for the DeleteSepaddID structure.
@@ -23,54 +24,63 @@ type DeleteSepaddIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteSepaddIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 204:
 		result := NewDeleteSepaddIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewDeleteSepaddIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewDeleteSepaddIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewDeleteSepaddIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewDeleteSepaddIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewDeleteSepaddIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewDeleteSepaddIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewDeleteSepaddIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewDeleteSepaddIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -121,10 +131,6 @@ func (o *DeleteSepaddIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /sepadd/{id}][%d] deleteSepaddIdBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *DeleteSepaddIDBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteSepaddIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -152,10 +158,6 @@ type DeleteSepaddIDUnauthorized struct {
 
 func (o *DeleteSepaddIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /sepadd/{id}][%d] deleteSepaddIdUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *DeleteSepaddIDUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteSepaddIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -187,10 +189,6 @@ func (o *DeleteSepaddIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /sepadd/{id}][%d] deleteSepaddIdForbidden  %+v", 403, o.Payload)
 }
 
-func (o *DeleteSepaddIDForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteSepaddIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -218,10 +216,6 @@ type DeleteSepaddIDNotFound struct {
 
 func (o *DeleteSepaddIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /sepadd/{id}][%d] deleteSepaddIdNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteSepaddIDNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteSepaddIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -253,10 +247,6 @@ func (o *DeleteSepaddIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /sepadd/{id}][%d] deleteSepaddIdConflict  %+v", 409, o.Payload)
 }
 
-func (o *DeleteSepaddIDConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteSepaddIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -284,10 +274,6 @@ type DeleteSepaddIDTooManyRequests struct {
 
 func (o *DeleteSepaddIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /sepadd/{id}][%d] deleteSepaddIdTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *DeleteSepaddIDTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteSepaddIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -319,10 +305,6 @@ func (o *DeleteSepaddIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /sepadd/{id}][%d] deleteSepaddIdInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *DeleteSepaddIDInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteSepaddIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -350,10 +332,6 @@ type DeleteSepaddIDServiceUnavailable struct {
 
 func (o *DeleteSepaddIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /sepadd/{id}][%d] deleteSepaddIdServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *DeleteSepaddIDServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteSepaddIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

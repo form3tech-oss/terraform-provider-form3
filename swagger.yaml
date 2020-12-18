@@ -8743,12 +8743,20 @@ definitions:
         format: uuid
       attributes:
         $ref: "#/definitions/SepaSctAssociationAttributes"
+      relationships:
+        $ref: '#/definitions/SepaSctAssociationRelationships'
 
   SepaSctAssociationAttributes:
     type: object
     properties:
       bic:
         type: string
+      bic_list:
+        type: array
+        items:
+          type: string
+      is_sponsor:
+        type: boolean
       businessUser:
         type: string
       receiverBusinessUser:
@@ -8775,6 +8783,26 @@ definitions:
         $ref: "#/definitions/SepaSctAssociation"
       links:
         $ref: "#/definitions/Links"
+
+  SepaSctAssociationRelationships:
+    type: object
+    x-access:
+      - Public
+    properties:
+      sponsor:
+        type: object
+        properties:
+          data:
+            $ref: '#/definitions/SepaSctSponsorAssociationReference'
+
+  SepaSctSponsorAssociationReference:
+    type: object
+    description: "Sponsor Association Reference"
+    properties:
+      id:
+        type: string
+      type:
+        type: string
 
   SepaSctAssociationDetailsListResponse:
     type: object

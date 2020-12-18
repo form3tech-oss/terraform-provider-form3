@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDReader is a Reader for the GetPaymentsIDReturnsReturnIDAdmissionsAdmissionID structure.
@@ -23,54 +24,63 @@ type GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 200:
 		result := NewGetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewGetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewGetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewGetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewGetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewGetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewGetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewGetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewGetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDOK struct {
 
 func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDOK) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/returns/{returnId}/admissions/{admissionId}][%d] getPaymentsIdReturnsReturnIdAdmissionsAdmissionIdOK  %+v", 200, o.Payload)
-}
-
-func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDOK) GetPayload() *models.ReturnAdmissionDetailsResponse {
-	return o.Payload
 }
 
 func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDBadRequest) Error() st
 	return fmt.Sprintf("[GET /payments/{id}/returns/{returnId}/admissions/{admissionId}][%d] getPaymentsIdReturnsReturnIdAdmissionsAdmissionIdBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDUnauthorized struct {
 
 func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/returns/{returnId}/admissions/{admissionId}][%d] getPaymentsIdReturnsReturnIdAdmissionsAdmissionIdUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDForbidden) Error() str
 	return fmt.Sprintf("[GET /payments/{id}/returns/{returnId}/admissions/{admissionId}][%d] getPaymentsIdReturnsReturnIdAdmissionsAdmissionIdForbidden  %+v", 403, o.Payload)
 }
 
-func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDNotFound struct {
 
 func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/returns/{returnId}/admissions/{admissionId}][%d] getPaymentsIdReturnsReturnIdAdmissionsAdmissionIdNotFound  %+v", 404, o.Payload)
-}
-
-func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDConflict) Error() stri
 	return fmt.Sprintf("[GET /payments/{id}/returns/{returnId}/admissions/{admissionId}][%d] getPaymentsIdReturnsReturnIdAdmissionsAdmissionIdConflict  %+v", 409, o.Payload)
 }
 
-func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDTooManyRequests struct {
 
 func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/returns/{returnId}/admissions/{admissionId}][%d] getPaymentsIdReturnsReturnIdAdmissionsAdmissionIdTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDInternalServerError) E
 	return fmt.Sprintf("[GET /payments/{id}/returns/{returnId}/admissions/{admissionId}][%d] getPaymentsIdReturnsReturnIdAdmissionsAdmissionIdInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDServiceUnavailable struct 
 
 func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/returns/{returnId}/admissions/{admissionId}][%d] getPaymentsIdReturnsReturnIdAdmissionsAdmissionIdServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

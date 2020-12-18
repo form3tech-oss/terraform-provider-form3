@@ -6,14 +6,13 @@ package payment_defaults
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"fmt"
-
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
+
+	strfmt "github.com/go-openapi/strfmt"
 )
 
 // New creates a new payment defaults API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -25,23 +24,8 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-// ClientService is the interface for Client methods
-type ClientService interface {
-	DeletePaymentdefaultsID(params *DeletePaymentdefaultsIDParams) (*DeletePaymentdefaultsIDNoContent, error)
-
-	GetPaymentdefaults(params *GetPaymentdefaultsParams) (*GetPaymentdefaultsOK, error)
-
-	GetPaymentdefaultsID(params *GetPaymentdefaultsIDParams) (*GetPaymentdefaultsIDOK, error)
-
-	PatchPaymentdefaultsID(params *PatchPaymentdefaultsIDParams) (*PatchPaymentdefaultsIDOK, error)
-
-	PostPaymentdefaults(params *PostPaymentdefaultsParams) (*PostPaymentdefaultsCreated, error)
-
-	SetTransport(transport runtime.ClientTransport)
-}
-
 /*
-  DeletePaymentdefaultsID deletes payment defaults
+DeletePaymentdefaultsID deletes payment defaults
 */
 func (a *Client) DeletePaymentdefaultsID(params *DeletePaymentdefaultsIDParams) (*DeletePaymentdefaultsIDNoContent, error) {
 	// TODO: Validate the params before sending
@@ -53,8 +37,8 @@ func (a *Client) DeletePaymentdefaultsID(params *DeletePaymentdefaultsIDParams) 
 		ID:                 "DeletePaymentdefaultsID",
 		Method:             "DELETE",
 		PathPattern:        "/paymentdefaults/{id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeletePaymentdefaultsIDReader{formats: a.formats},
@@ -64,18 +48,12 @@ func (a *Client) DeletePaymentdefaultsID(params *DeletePaymentdefaultsIDParams) 
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*DeletePaymentdefaultsIDNoContent)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for DeletePaymentdefaultsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*DeletePaymentdefaultsIDNoContent), nil
+
 }
 
 /*
-  GetPaymentdefaults lists default settings for payments
+GetPaymentdefaults lists default settings for payments
 */
 func (a *Client) GetPaymentdefaults(params *GetPaymentdefaultsParams) (*GetPaymentdefaultsOK, error) {
 	// TODO: Validate the params before sending
@@ -87,8 +65,8 @@ func (a *Client) GetPaymentdefaults(params *GetPaymentdefaultsParams) (*GetPayme
 		ID:                 "GetPaymentdefaults",
 		Method:             "GET",
 		PathPattern:        "/paymentdefaults",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetPaymentdefaultsReader{formats: a.formats},
@@ -98,18 +76,12 @@ func (a *Client) GetPaymentdefaults(params *GetPaymentdefaultsParams) (*GetPayme
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetPaymentdefaultsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetPaymentdefaults: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*GetPaymentdefaultsOK), nil
+
 }
 
 /*
-  GetPaymentdefaultsID fetches payment defaults
+GetPaymentdefaultsID fetches payment defaults
 */
 func (a *Client) GetPaymentdefaultsID(params *GetPaymentdefaultsIDParams) (*GetPaymentdefaultsIDOK, error) {
 	// TODO: Validate the params before sending
@@ -121,8 +93,8 @@ func (a *Client) GetPaymentdefaultsID(params *GetPaymentdefaultsIDParams) (*GetP
 		ID:                 "GetPaymentdefaultsID",
 		Method:             "GET",
 		PathPattern:        "/paymentdefaults/{id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetPaymentdefaultsIDReader{formats: a.formats},
@@ -132,18 +104,12 @@ func (a *Client) GetPaymentdefaultsID(params *GetPaymentdefaultsIDParams) (*GetP
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*GetPaymentdefaultsIDOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetPaymentdefaultsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*GetPaymentdefaultsIDOK), nil
+
 }
 
 /*
-  PatchPaymentdefaultsID updates payment defaults
+PatchPaymentdefaultsID updates payment defaults
 */
 func (a *Client) PatchPaymentdefaultsID(params *PatchPaymentdefaultsIDParams) (*PatchPaymentdefaultsIDOK, error) {
 	// TODO: Validate the params before sending
@@ -155,7 +121,7 @@ func (a *Client) PatchPaymentdefaultsID(params *PatchPaymentdefaultsIDParams) (*
 		ID:                 "PatchPaymentdefaultsID",
 		Method:             "PATCH",
 		PathPattern:        "/paymentdefaults/{id}",
-		ProducesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -166,18 +132,12 @@ func (a *Client) PatchPaymentdefaultsID(params *PatchPaymentdefaultsIDParams) (*
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*PatchPaymentdefaultsIDOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PatchPaymentdefaultsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*PatchPaymentdefaultsIDOK), nil
+
 }
 
 /*
-  PostPaymentdefaults creates the default settings for a payment
+PostPaymentdefaults creates the default settings for a payment
 */
 func (a *Client) PostPaymentdefaults(params *PostPaymentdefaultsParams) (*PostPaymentdefaultsCreated, error) {
 	// TODO: Validate the params before sending
@@ -189,7 +149,7 @@ func (a *Client) PostPaymentdefaults(params *PostPaymentdefaultsParams) (*PostPa
 		ID:                 "PostPaymentdefaults",
 		Method:             "POST",
 		PathPattern:        "/paymentdefaults",
-		ProducesMediaTypes: []string{"application/json"},
+		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -200,14 +160,8 @@ func (a *Client) PostPaymentdefaults(params *PostPaymentdefaultsParams) (*PostPa
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*PostPaymentdefaultsCreated)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PostPaymentdefaults: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	return result.(*PostPaymentdefaultsCreated), nil
+
 }
 
 // SetTransport changes the transport on the client

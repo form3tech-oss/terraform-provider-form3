@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetProductsReader is a Reader for the GetProducts structure.
@@ -23,54 +24,63 @@ type GetProductsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetProductsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 200:
 		result := NewGetProductsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewGetProductsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewGetProductsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewGetProductsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewGetProductsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewGetProductsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewGetProductsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewGetProductsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewGetProductsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type GetProductsOK struct {
 
 func (o *GetProductsOK) Error() string {
 	return fmt.Sprintf("[GET /products][%d] getProductsOK  %+v", 200, o.Payload)
-}
-
-func (o *GetProductsOK) GetPayload() *models.ProductsAssociationDetailsListResponse {
-	return o.Payload
 }
 
 func (o *GetProductsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *GetProductsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /products][%d] getProductsBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *GetProductsBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetProductsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type GetProductsUnauthorized struct {
 
 func (o *GetProductsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /products][%d] getProductsUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetProductsUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetProductsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *GetProductsForbidden) Error() string {
 	return fmt.Sprintf("[GET /products][%d] getProductsForbidden  %+v", 403, o.Payload)
 }
 
-func (o *GetProductsForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetProductsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type GetProductsNotFound struct {
 
 func (o *GetProductsNotFound) Error() string {
 	return fmt.Sprintf("[GET /products][%d] getProductsNotFound  %+v", 404, o.Payload)
-}
-
-func (o *GetProductsNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetProductsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *GetProductsConflict) Error() string {
 	return fmt.Sprintf("[GET /products][%d] getProductsConflict  %+v", 409, o.Payload)
 }
 
-func (o *GetProductsConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetProductsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type GetProductsTooManyRequests struct {
 
 func (o *GetProductsTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /products][%d] getProductsTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *GetProductsTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetProductsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *GetProductsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /products][%d] getProductsInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetProductsInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetProductsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type GetProductsServiceUnavailable struct {
 
 func (o *GetProductsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /products][%d] getProductsServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *GetProductsServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetProductsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

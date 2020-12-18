@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostStarlingReader is a Reader for the PostStarling structure.
@@ -23,54 +24,63 @@ type PostStarlingReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostStarlingReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 201:
 		result := NewPostStarlingCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewPostStarlingBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewPostStarlingUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewPostStarlingForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewPostStarlingNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewPostStarlingConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewPostStarlingTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewPostStarlingInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewPostStarlingServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type PostStarlingCreated struct {
 
 func (o *PostStarlingCreated) Error() string {
 	return fmt.Sprintf("[POST /starling][%d] postStarlingCreated  %+v", 201, o.Payload)
-}
-
-func (o *PostStarlingCreated) GetPayload() *models.AssociationCreationResponse {
-	return o.Payload
 }
 
 func (o *PostStarlingCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *PostStarlingBadRequest) Error() string {
 	return fmt.Sprintf("[POST /starling][%d] postStarlingBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *PostStarlingBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostStarlingBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type PostStarlingUnauthorized struct {
 
 func (o *PostStarlingUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /starling][%d] postStarlingUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *PostStarlingUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostStarlingUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *PostStarlingForbidden) Error() string {
 	return fmt.Sprintf("[POST /starling][%d] postStarlingForbidden  %+v", 403, o.Payload)
 }
 
-func (o *PostStarlingForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostStarlingForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type PostStarlingNotFound struct {
 
 func (o *PostStarlingNotFound) Error() string {
 	return fmt.Sprintf("[POST /starling][%d] postStarlingNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PostStarlingNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostStarlingNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *PostStarlingConflict) Error() string {
 	return fmt.Sprintf("[POST /starling][%d] postStarlingConflict  %+v", 409, o.Payload)
 }
 
-func (o *PostStarlingConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostStarlingConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type PostStarlingTooManyRequests struct {
 
 func (o *PostStarlingTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /starling][%d] postStarlingTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *PostStarlingTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostStarlingTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *PostStarlingInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /starling][%d] postStarlingInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *PostStarlingInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostStarlingInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type PostStarlingServiceUnavailable struct {
 
 func (o *PostStarlingServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /starling][%d] postStarlingServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *PostStarlingServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostStarlingServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

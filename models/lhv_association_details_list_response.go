@@ -8,13 +8,13 @@ package models
 import (
 	"strconv"
 
+	strfmt "github.com/go-openapi/strfmt"
+
 	"github.com/go-openapi/errors"
-	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // LhvAssociationDetailsListResponse lhv association details list response
-//
 // swagger:model LhvAssociationDetailsListResponse
 type LhvAssociationDetailsListResponse struct {
 

@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteLhvAssociationIDReader is a Reader for the DeleteLhvAssociationID structure.
@@ -23,54 +24,63 @@ type DeleteLhvAssociationIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteLhvAssociationIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 204:
 		result := NewDeleteLhvAssociationIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewDeleteLhvAssociationIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewDeleteLhvAssociationIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewDeleteLhvAssociationIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewDeleteLhvAssociationIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewDeleteLhvAssociationIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewDeleteLhvAssociationIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewDeleteLhvAssociationIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewDeleteLhvAssociationIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -121,10 +131,6 @@ func (o *DeleteLhvAssociationIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}][%d] deleteLhvAssociationIdBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *DeleteLhvAssociationIDBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteLhvAssociationIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -152,10 +158,6 @@ type DeleteLhvAssociationIDUnauthorized struct {
 
 func (o *DeleteLhvAssociationIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}][%d] deleteLhvAssociationIdUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *DeleteLhvAssociationIDUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteLhvAssociationIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -187,10 +189,6 @@ func (o *DeleteLhvAssociationIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}][%d] deleteLhvAssociationIdForbidden  %+v", 403, o.Payload)
 }
 
-func (o *DeleteLhvAssociationIDForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteLhvAssociationIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -218,10 +216,6 @@ type DeleteLhvAssociationIDNotFound struct {
 
 func (o *DeleteLhvAssociationIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}][%d] deleteLhvAssociationIdNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteLhvAssociationIDNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteLhvAssociationIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -253,10 +247,6 @@ func (o *DeleteLhvAssociationIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}][%d] deleteLhvAssociationIdConflict  %+v", 409, o.Payload)
 }
 
-func (o *DeleteLhvAssociationIDConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteLhvAssociationIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -284,10 +274,6 @@ type DeleteLhvAssociationIDTooManyRequests struct {
 
 func (o *DeleteLhvAssociationIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}][%d] deleteLhvAssociationIdTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *DeleteLhvAssociationIDTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteLhvAssociationIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -319,10 +305,6 @@ func (o *DeleteLhvAssociationIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}][%d] deleteLhvAssociationIdInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *DeleteLhvAssociationIDInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteLhvAssociationIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -350,10 +332,6 @@ type DeleteLhvAssociationIDServiceUnavailable struct {
 
 func (o *DeleteLhvAssociationIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}][%d] deleteLhvAssociationIdServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *DeleteLhvAssociationIDServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteLhvAssociationIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -8,13 +8,13 @@ package models
 import (
 	"encoding/json"
 
+	strfmt "github.com/go-openapi/strfmt"
+
 	"github.com/go-openapi/errors"
-	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/validate"
 )
 
 // MandateAdmissionStatus mandate admission status
-//
 // swagger:model MandateAdmissionStatus
 type MandateAdmissionStatus string
 

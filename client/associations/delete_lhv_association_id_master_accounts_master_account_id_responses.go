@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteLhvAssociationIDMasterAccountsMasterAccountIDReader is a Reader for the DeleteLhvAssociationIDMasterAccountsMasterAccountID structure.
@@ -23,54 +24,63 @@ type DeleteLhvAssociationIDMasterAccountsMasterAccountIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 204:
 		result := NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -121,10 +131,6 @@ func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDBadRequest) Error() 
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/master_accounts/{masterAccountId}][%d] deleteLhvAssociationIdMasterAccountsMasterAccountIdBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -152,10 +158,6 @@ type DeleteLhvAssociationIDMasterAccountsMasterAccountIDUnauthorized struct {
 
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/master_accounts/{masterAccountId}][%d] deleteLhvAssociationIdMasterAccountsMasterAccountIdUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -187,10 +189,6 @@ func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDForbidden) Error() s
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/master_accounts/{masterAccountId}][%d] deleteLhvAssociationIdMasterAccountsMasterAccountIdForbidden  %+v", 403, o.Payload)
 }
 
-func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -218,10 +216,6 @@ type DeleteLhvAssociationIDMasterAccountsMasterAccountIDNotFound struct {
 
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/master_accounts/{masterAccountId}][%d] deleteLhvAssociationIdMasterAccountsMasterAccountIdNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -253,10 +247,6 @@ func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDConflict) Error() st
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/master_accounts/{masterAccountId}][%d] deleteLhvAssociationIdMasterAccountsMasterAccountIdConflict  %+v", 409, o.Payload)
 }
 
-func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -284,10 +274,6 @@ type DeleteLhvAssociationIDMasterAccountsMasterAccountIDTooManyRequests struct {
 
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/master_accounts/{masterAccountId}][%d] deleteLhvAssociationIdMasterAccountsMasterAccountIdTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -319,10 +305,6 @@ func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDInternalServerError)
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/master_accounts/{masterAccountId}][%d] deleteLhvAssociationIdMasterAccountsMasterAccountIdInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -350,10 +332,6 @@ type DeleteLhvAssociationIDMasterAccountsMasterAccountIDServiceUnavailable struc
 
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/master_accounts/{masterAccountId}][%d] deleteLhvAssociationIdMasterAccountsMasterAccountIdServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

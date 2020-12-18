@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostReconciliationReader is a Reader for the PostReconciliation structure.
@@ -23,54 +24,63 @@ type PostReconciliationReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostReconciliationReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 201:
 		result := NewPostReconciliationCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewPostReconciliationBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewPostReconciliationUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewPostReconciliationForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewPostReconciliationNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewPostReconciliationConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewPostReconciliationTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewPostReconciliationInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewPostReconciliationServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type PostReconciliationCreated struct {
 
 func (o *PostReconciliationCreated) Error() string {
 	return fmt.Sprintf("[POST /reconciliation][%d] postReconciliationCreated  %+v", 201, o.Payload)
-}
-
-func (o *PostReconciliationCreated) GetPayload() *models.ReconciliationAssociationDetailsResponse {
-	return o.Payload
 }
 
 func (o *PostReconciliationCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *PostReconciliationBadRequest) Error() string {
 	return fmt.Sprintf("[POST /reconciliation][%d] postReconciliationBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *PostReconciliationBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostReconciliationBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type PostReconciliationUnauthorized struct {
 
 func (o *PostReconciliationUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /reconciliation][%d] postReconciliationUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *PostReconciliationUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostReconciliationUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *PostReconciliationForbidden) Error() string {
 	return fmt.Sprintf("[POST /reconciliation][%d] postReconciliationForbidden  %+v", 403, o.Payload)
 }
 
-func (o *PostReconciliationForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostReconciliationForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type PostReconciliationNotFound struct {
 
 func (o *PostReconciliationNotFound) Error() string {
 	return fmt.Sprintf("[POST /reconciliation][%d] postReconciliationNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PostReconciliationNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostReconciliationNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *PostReconciliationConflict) Error() string {
 	return fmt.Sprintf("[POST /reconciliation][%d] postReconciliationConflict  %+v", 409, o.Payload)
 }
 
-func (o *PostReconciliationConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostReconciliationConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type PostReconciliationTooManyRequests struct {
 
 func (o *PostReconciliationTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /reconciliation][%d] postReconciliationTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *PostReconciliationTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostReconciliationTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *PostReconciliationInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /reconciliation][%d] postReconciliationInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *PostReconciliationInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostReconciliationInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type PostReconciliationServiceUnavailable struct {
 
 func (o *PostReconciliationServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /reconciliation][%d] postReconciliationServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *PostReconciliationServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostReconciliationServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
