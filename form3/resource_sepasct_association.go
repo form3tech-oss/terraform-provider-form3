@@ -44,7 +44,7 @@ func resourceForm3SepaSctAssociation() *schema.Resource {
 				Optional: true,
 				ForceNew: true,
 			},
-			"is_sponsor": {
+			"can_sponsor": {
 				Type:     schema.TypeBool,
 				Optional: true,
 				ForceNew: true,
@@ -54,7 +54,7 @@ func resourceForm3SepaSctAssociation() *schema.Resource {
 				Optional: true,
 				ForceNew: true,
 			},
-			"bic_list": {
+			"reachable_bics": {
 				Type: schema.TypeList,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
@@ -157,18 +157,18 @@ func createSepaSctNewAssociationFromResourceData(d *schema.ResourceData) (*model
 		association.Attributes.ReceiverBusinessUser = attr.(string)
 	}
 
-	if attr, ok := d.GetOk("bic_list"); ok {
+	if attr, ok := d.GetOk("reachable_bics"); ok {
 		rawList := attr.([]interface{})
 		bicList := make([]string, 0, len(rawList))
 		for _, e := range rawList {
 			bicList = append(bicList, e.(string))
 		}
 
-		association.Attributes.BicList = bicList
+		association.Attributes.ReachableBics = bicList
 	}
 
-	if attr, ok := d.GetOk("is_sponsor"); ok {
-		association.Attributes.IsSponsor = attr.(bool)
+	if attr, ok := d.GetOk("can_sponsor"); ok {
+		association.Attributes.CanSponsor = attr.(bool)
 	}
 
 	if attr, ok := d.GetOk("sponsor_id"); ok {

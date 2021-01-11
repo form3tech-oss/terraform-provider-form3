@@ -8751,11 +8751,11 @@ definitions:
     properties:
       bic:
         type: string
-      bic_list:
+      reachable_bics:
         type: array
         items:
           type: string
-      is_sponsor:
+      can_sponsor:
         type: boolean
       businessUser:
         type: string

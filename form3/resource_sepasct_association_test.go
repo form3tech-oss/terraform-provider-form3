@@ -3,6 +3,7 @@ package form3
 import (
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -30,7 +31,7 @@ func TestAccSepaSctAssociation_basic(t *testing.T) {
 			{
 				Config: fmt.Sprintf(testForm3SepaSctAssociationConfig, organisationId, parentOrganisationId, associationId, bic),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSepaSctAssociationExists("form3_sepasct_association.association"),
+					testAccCheckSepaSctAssociationExists("form3_sepasct_association.association", false),
 					resource.TestCheckResourceAttr("form3_sepasct_association.association", "association_id", associationId),
 					resource.TestCheckResourceAttr("form3_sepasct_association.association", "organisation_id", organisationId),
 					resource.TestCheckResourceAttr("form3_sepasct_association.association", "bic", bic),
@@ -42,7 +43,7 @@ func TestAccSepaSctAssociation_basic(t *testing.T) {
 	})
 }
 
-func TestAccSepaSctAssociation_dnsp(t *testing.T) {
+func TestAccSepaSctAssociation_reachable(t *testing.T) {
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	sponsorOrganisationId := uuid.New().String()
 	sponsorAssociationId := uuid.New().String()
@@ -68,17 +69,19 @@ func TestAccSepaSctAssociation_dnsp(t *testing.T) {
 			{
 				Config: config,
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSepaSctAssociationExists(sponsorResourceKey),
+					testAccCheckSepaSctAssociationExists(sponsorResourceKey, true),
 					resource.TestCheckResourceAttr(sponsorResourceKey, "association_id", sponsorAssociationId),
 					resource.TestCheckResourceAttr(sponsorResourceKey, "organisation_id", sponsorOrganisationId),
 					resource.TestCheckResourceAttr(sponsorResourceKey, "bic", sponsorBic),
+					resource.TestCheckResourceAttr(sponsorResourceKey, "can_sponsor", "true"),
 					resource.TestCheckResourceAttr(sponsorResourceKey, "business_user", "PR344569"),
 					resource.TestCheckResourceAttr(sponsorResourceKey, "receiver_business_user", "PR344570"),
 
+					testAccCheckSepaSctAssociationExists(sponsoredResourceKey, false),
 					resource.TestCheckResourceAttr(sponsoredResourceKey, "association_id", sponsoredAssociationId),
 					resource.TestCheckResourceAttr(sponsoredResourceKey, "organisation_id", sponsoredOrganisationId),
 					resource.TestCheckResourceAttr(sponsoredResourceKey, "sponsor_id", sponsorAssociationId),
-					resource.TestCheckResourceAttr(sponsoredResourceKey, "bic_list", strings.Join(sponsoredBicList, ",")),
+					resource.TestCheckResourceAttr(sponsoredResourceKey, "reachable_bics.#", strconv.Itoa(len(sponsoredBicList))),
 				),
 			},
 		},
@@ -104,7 +107,7 @@ func testAccCheckSepaSctAssociationDestroy(state *terraform.State) error {
 	return nil
 }
 
-func testAccCheckSepaSctAssociationExists(resourceKey string) resource.TestCheckFunc {
+func testAccCheckSepaSctAssociationExists(resourceKey string, canSponsor bool) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceKey]
 
@@ -127,6 +130,10 @@ func testAccCheckSepaSctAssociationExists(resourceKey string) resource.TestCheck
 
 		if foundRecord.Payload.Data.ID.String() != rs.Primary.ID {
 			return fmt.Errorf("sepa sct record not found expected %s found %s", rs.Primary.ID, foundRecord.Payload.Data.ID.String())
+		}
+
+		if foundRecord.Payload.Data.Attributes.CanSponsor != canSponsor {
+			return fmt.Errorf("sepa sct association can_sponsor mismatch, want %v found %v", canSponsor, foundRecord.Payload.Data.Attributes.CanSponsor)
 		}
 
 		return nil
@@ -152,14 +159,14 @@ resource "form3_sepasct_association" "association" {
 resource "form3_organisation" "sponsor_organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation"
+	name 		           = "terraform-organisation"
 }
 
 resource "form3_sepasct_association" "sponsor_association" {
 	organisation_id        = "${form3_organisation.sponsor_organisation.organisation_id}"
 	association_id         = "%s"
 	bic                    = "%s"
-	is_sponsor             = true
+	can_sponsor            = true
     business_user          = "PR344569"
     receiver_business_user = "PR344570"
 }
@@ -173,7 +180,11 @@ resource "form3_organisation" "sponsored_organisation" {
 resource "form3_sepasct_association" "sponsored_association" {
 	organisation_id        = "${form3_organisation.sponsored_organisation.organisation_id}"
 	association_id         = "%s"
-	bic_list               = ["%s"]
+	reachable_bics         = ["%s"]
 	sponsor_id             = "%s"
+
+	depends_on = [
+      "form3_sepasct_association.sponsor_association"
+	]
 }`
 )

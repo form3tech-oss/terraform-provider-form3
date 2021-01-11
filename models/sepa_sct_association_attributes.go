@@ -18,14 +18,14 @@ type SepaSctAssociationAttributes struct {
 	// bic
 	Bic string `json:"bic,omitempty"`
 
-	// bic list
-	BicList []string `json:"bic_list"`
-
 	// business user
 	BusinessUser string `json:"businessUser,omitempty"`
 
-	// is sponsor
-	IsSponsor bool `json:"is_sponsor,omitempty"`
+	// can sponsor
+	CanSponsor bool `json:"can_sponsor,omitempty"`
+
+	// reachable bics
+	ReachableBics []string `json:"reachable_bics"`
 
 	// receiver business user
 	ReceiverBusinessUser string `json:"receiverBusinessUser,omitempty"`
