@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostPayportReader is a Reader for the PostPayport structure.
@@ -24,63 +23,54 @@ type PostPayportReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostPayportReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostPayportCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewPostPayportBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewPostPayportUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewPostPayportForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewPostPayportNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewPostPayportConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewPostPayportTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewPostPayportInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewPostPayportServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type PostPayportCreated struct {
 
 func (o *PostPayportCreated) Error() string {
 	return fmt.Sprintf("[POST /payport][%d] postPayportCreated  %+v", 201, o.Payload)
+}
+
+func (o *PostPayportCreated) GetPayload() *models.PayportAssociationCreationResponse {
+	return o.Payload
 }
 
 func (o *PostPayportCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *PostPayportBadRequest) Error() string {
 	return fmt.Sprintf("[POST /payport][%d] postPayportBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *PostPayportBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostPayportBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type PostPayportUnauthorized struct {
 
 func (o *PostPayportUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /payport][%d] postPayportUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostPayportUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostPayportUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *PostPayportForbidden) Error() string {
 	return fmt.Sprintf("[POST /payport][%d] postPayportForbidden  %+v", 403, o.Payload)
 }
 
+func (o *PostPayportForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostPayportForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type PostPayportNotFound struct {
 
 func (o *PostPayportNotFound) Error() string {
 	return fmt.Sprintf("[POST /payport][%d] postPayportNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostPayportNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostPayportNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *PostPayportConflict) Error() string {
 	return fmt.Sprintf("[POST /payport][%d] postPayportConflict  %+v", 409, o.Payload)
 }
 
+func (o *PostPayportConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostPayportConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type PostPayportTooManyRequests struct {
 
 func (o *PostPayportTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /payport][%d] postPayportTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostPayportTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostPayportTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *PostPayportInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /payport][%d] postPayportInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *PostPayportInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostPayportInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type PostPayportServiceUnavailable struct {
 
 func (o *PostPayportServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /payport][%d] postPayportServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostPayportServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostPayportServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

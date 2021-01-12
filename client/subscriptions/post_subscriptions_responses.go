@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostSubscriptionsReader is a Reader for the PostSubscriptions structure.
@@ -24,63 +23,54 @@ type PostSubscriptionsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostSubscriptionsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostSubscriptionsCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewPostSubscriptionsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewPostSubscriptionsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewPostSubscriptionsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewPostSubscriptionsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewPostSubscriptionsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewPostSubscriptionsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewPostSubscriptionsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewPostSubscriptionsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type PostSubscriptionsCreated struct {
 
 func (o *PostSubscriptionsCreated) Error() string {
 	return fmt.Sprintf("[POST /subscriptions][%d] postSubscriptionsCreated  %+v", 201, o.Payload)
+}
+
+func (o *PostSubscriptionsCreated) GetPayload() *models.SubscriptionCreationResponse {
+	return o.Payload
 }
 
 func (o *PostSubscriptionsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *PostSubscriptionsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /subscriptions][%d] postSubscriptionsBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *PostSubscriptionsBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostSubscriptionsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type PostSubscriptionsUnauthorized struct {
 
 func (o *PostSubscriptionsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /subscriptions][%d] postSubscriptionsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostSubscriptionsUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostSubscriptionsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *PostSubscriptionsForbidden) Error() string {
 	return fmt.Sprintf("[POST /subscriptions][%d] postSubscriptionsForbidden  %+v", 403, o.Payload)
 }
 
+func (o *PostSubscriptionsForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostSubscriptionsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type PostSubscriptionsNotFound struct {
 
 func (o *PostSubscriptionsNotFound) Error() string {
 	return fmt.Sprintf("[POST /subscriptions][%d] postSubscriptionsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostSubscriptionsNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostSubscriptionsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *PostSubscriptionsConflict) Error() string {
 	return fmt.Sprintf("[POST /subscriptions][%d] postSubscriptionsConflict  %+v", 409, o.Payload)
 }
 
+func (o *PostSubscriptionsConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostSubscriptionsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type PostSubscriptionsTooManyRequests struct {
 
 func (o *PostSubscriptionsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /subscriptions][%d] postSubscriptionsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostSubscriptionsTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostSubscriptionsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *PostSubscriptionsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /subscriptions][%d] postSubscriptionsInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *PostSubscriptionsInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostSubscriptionsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type PostSubscriptionsServiceUnavailable struct {
 
 func (o *PostSubscriptionsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /subscriptions][%d] postSubscriptionsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostSubscriptionsServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostSubscriptionsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

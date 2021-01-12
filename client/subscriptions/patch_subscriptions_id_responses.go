@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PatchSubscriptionsIDReader is a Reader for the PatchSubscriptionsID structure.
@@ -24,63 +23,54 @@ type PatchSubscriptionsIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PatchSubscriptionsIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewPatchSubscriptionsIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewPatchSubscriptionsIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewPatchSubscriptionsIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewPatchSubscriptionsIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewPatchSubscriptionsIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewPatchSubscriptionsIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewPatchSubscriptionsIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewPatchSubscriptionsIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewPatchSubscriptionsIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type PatchSubscriptionsIDOK struct {
 
 func (o *PatchSubscriptionsIDOK) Error() string {
 	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdOK  %+v", 200, o.Payload)
+}
+
+func (o *PatchSubscriptionsIDOK) GetPayload() *models.SubscriptionDetailsResponse {
+	return o.Payload
 }
 
 func (o *PatchSubscriptionsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *PatchSubscriptionsIDBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *PatchSubscriptionsIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PatchSubscriptionsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type PatchSubscriptionsIDUnauthorized struct {
 
 func (o *PatchSubscriptionsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PatchSubscriptionsIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PatchSubscriptionsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *PatchSubscriptionsIDForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *PatchSubscriptionsIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PatchSubscriptionsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type PatchSubscriptionsIDNotFound struct {
 
 func (o *PatchSubscriptionsIDNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PatchSubscriptionsIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PatchSubscriptionsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *PatchSubscriptionsIDConflict) Error() string {
 	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *PatchSubscriptionsIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PatchSubscriptionsIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type PatchSubscriptionsIDTooManyRequests struct {
 
 func (o *PatchSubscriptionsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PatchSubscriptionsIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PatchSubscriptionsIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *PatchSubscriptionsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *PatchSubscriptionsIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PatchSubscriptionsIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type PatchSubscriptionsIDServiceUnavailable struct {
 
 func (o *PatchSubscriptionsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PatchSubscriptionsIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PatchSubscriptionsIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

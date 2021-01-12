@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetLhvAssociationIDMasterAccountsReader is a Reader for the GetLhvAssociationIDMasterAccounts structure.
@@ -24,63 +23,54 @@ type GetLhvAssociationIDMasterAccountsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetLhvAssociationIDMasterAccountsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetLhvAssociationIDMasterAccountsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetLhvAssociationIDMasterAccountsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetLhvAssociationIDMasterAccountsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetLhvAssociationIDMasterAccountsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetLhvAssociationIDMasterAccountsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetLhvAssociationIDMasterAccountsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetLhvAssociationIDMasterAccountsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetLhvAssociationIDMasterAccountsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetLhvAssociationIDMasterAccountsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetLhvAssociationIDMasterAccountsOK struct {
 
 func (o *GetLhvAssociationIDMasterAccountsOK) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/master_accounts][%d] getLhvAssociationIdMasterAccountsOK  %+v", 200, o.Payload)
+}
+
+func (o *GetLhvAssociationIDMasterAccountsOK) GetPayload() *models.LhvMasterAccountListResponse {
+	return o.Payload
 }
 
 func (o *GetLhvAssociationIDMasterAccountsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetLhvAssociationIDMasterAccountsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/master_accounts][%d] getLhvAssociationIdMasterAccountsBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetLhvAssociationIDMasterAccountsBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetLhvAssociationIDMasterAccountsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetLhvAssociationIDMasterAccountsUnauthorized struct {
 
 func (o *GetLhvAssociationIDMasterAccountsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/master_accounts][%d] getLhvAssociationIdMasterAccountsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetLhvAssociationIDMasterAccountsUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetLhvAssociationIDMasterAccountsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetLhvAssociationIDMasterAccountsForbidden) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/master_accounts][%d] getLhvAssociationIdMasterAccountsForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetLhvAssociationIDMasterAccountsForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetLhvAssociationIDMasterAccountsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetLhvAssociationIDMasterAccountsNotFound struct {
 
 func (o *GetLhvAssociationIDMasterAccountsNotFound) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/master_accounts][%d] getLhvAssociationIdMasterAccountsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetLhvAssociationIDMasterAccountsNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetLhvAssociationIDMasterAccountsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetLhvAssociationIDMasterAccountsConflict) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/master_accounts][%d] getLhvAssociationIdMasterAccountsConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetLhvAssociationIDMasterAccountsConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetLhvAssociationIDMasterAccountsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetLhvAssociationIDMasterAccountsTooManyRequests struct {
 
 func (o *GetLhvAssociationIDMasterAccountsTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/master_accounts][%d] getLhvAssociationIdMasterAccountsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetLhvAssociationIDMasterAccountsTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetLhvAssociationIDMasterAccountsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetLhvAssociationIDMasterAccountsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/master_accounts][%d] getLhvAssociationIdMasterAccountsInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetLhvAssociationIDMasterAccountsInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetLhvAssociationIDMasterAccountsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetLhvAssociationIDMasterAccountsServiceUnavailable struct {
 
 func (o *GetLhvAssociationIDMasterAccountsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/master_accounts][%d] getLhvAssociationIdMasterAccountsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetLhvAssociationIDMasterAccountsServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetLhvAssociationIDMasterAccountsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

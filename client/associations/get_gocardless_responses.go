@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetGocardlessReader is a Reader for the GetGocardless structure.
@@ -24,63 +23,54 @@ type GetGocardlessReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetGocardlessReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetGocardlessOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetGocardlessBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetGocardlessUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetGocardlessForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetGocardlessNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetGocardlessConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetGocardlessTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetGocardlessInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetGocardlessServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetGocardlessOK struct {
 
 func (o *GetGocardlessOK) Error() string {
 	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessOK  %+v", 200, o.Payload)
+}
+
+func (o *GetGocardlessOK) GetPayload() *models.GocardlessAssociationListResponse {
+	return o.Payload
 }
 
 func (o *GetGocardlessOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetGocardlessBadRequest) Error() string {
 	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetGocardlessBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetGocardlessBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetGocardlessUnauthorized struct {
 
 func (o *GetGocardlessUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetGocardlessUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetGocardlessUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetGocardlessForbidden) Error() string {
 	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetGocardlessForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetGocardlessForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetGocardlessNotFound struct {
 
 func (o *GetGocardlessNotFound) Error() string {
 	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetGocardlessNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetGocardlessNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetGocardlessConflict) Error() string {
 	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetGocardlessConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetGocardlessConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetGocardlessTooManyRequests struct {
 
 func (o *GetGocardlessTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetGocardlessTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetGocardlessTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetGocardlessInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetGocardlessInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetGocardlessInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetGocardlessServiceUnavailable struct {
 
 func (o *GetGocardlessServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetGocardlessServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetGocardlessServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

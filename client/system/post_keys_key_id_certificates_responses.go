@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostKeysKeyIDCertificatesReader is a Reader for the PostKeysKeyIDCertificates structure.
@@ -24,63 +23,54 @@ type PostKeysKeyIDCertificatesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostKeysKeyIDCertificatesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostKeysKeyIDCertificatesCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewPostKeysKeyIDCertificatesBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewPostKeysKeyIDCertificatesUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewPostKeysKeyIDCertificatesForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewPostKeysKeyIDCertificatesNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewPostKeysKeyIDCertificatesConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewPostKeysKeyIDCertificatesTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewPostKeysKeyIDCertificatesInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewPostKeysKeyIDCertificatesServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type PostKeysKeyIDCertificatesCreated struct {
 
 func (o *PostKeysKeyIDCertificatesCreated) Error() string {
 	return fmt.Sprintf("[POST /keys/{key_id}/certificates][%d] postKeysKeyIdCertificatesCreated  %+v", 201, o.Payload)
+}
+
+func (o *PostKeysKeyIDCertificatesCreated) GetPayload() *models.CertificateCreationResponse {
+	return o.Payload
 }
 
 func (o *PostKeysKeyIDCertificatesCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *PostKeysKeyIDCertificatesBadRequest) Error() string {
 	return fmt.Sprintf("[POST /keys/{key_id}/certificates][%d] postKeysKeyIdCertificatesBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *PostKeysKeyIDCertificatesBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostKeysKeyIDCertificatesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type PostKeysKeyIDCertificatesUnauthorized struct {
 
 func (o *PostKeysKeyIDCertificatesUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /keys/{key_id}/certificates][%d] postKeysKeyIdCertificatesUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostKeysKeyIDCertificatesUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostKeysKeyIDCertificatesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *PostKeysKeyIDCertificatesForbidden) Error() string {
 	return fmt.Sprintf("[POST /keys/{key_id}/certificates][%d] postKeysKeyIdCertificatesForbidden  %+v", 403, o.Payload)
 }
 
+func (o *PostKeysKeyIDCertificatesForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostKeysKeyIDCertificatesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type PostKeysKeyIDCertificatesNotFound struct {
 
 func (o *PostKeysKeyIDCertificatesNotFound) Error() string {
 	return fmt.Sprintf("[POST /keys/{key_id}/certificates][%d] postKeysKeyIdCertificatesNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostKeysKeyIDCertificatesNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostKeysKeyIDCertificatesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *PostKeysKeyIDCertificatesConflict) Error() string {
 	return fmt.Sprintf("[POST /keys/{key_id}/certificates][%d] postKeysKeyIdCertificatesConflict  %+v", 409, o.Payload)
 }
 
+func (o *PostKeysKeyIDCertificatesConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostKeysKeyIDCertificatesConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type PostKeysKeyIDCertificatesTooManyRequests struct {
 
 func (o *PostKeysKeyIDCertificatesTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /keys/{key_id}/certificates][%d] postKeysKeyIdCertificatesTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostKeysKeyIDCertificatesTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostKeysKeyIDCertificatesTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *PostKeysKeyIDCertificatesInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /keys/{key_id}/certificates][%d] postKeysKeyIdCertificatesInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *PostKeysKeyIDCertificatesInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostKeysKeyIDCertificatesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type PostKeysKeyIDCertificatesServiceUnavailable struct {
 
 func (o *PostKeysKeyIDCertificatesServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /keys/{key_id}/certificates][%d] postKeysKeyIdCertificatesServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostKeysKeyIDCertificatesServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostKeysKeyIDCertificatesServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

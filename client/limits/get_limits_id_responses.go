@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetLimitsIDReader is a Reader for the GetLimitsID structure.
@@ -24,63 +23,54 @@ type GetLimitsIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetLimitsIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetLimitsIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetLimitsIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetLimitsIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetLimitsIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetLimitsIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetLimitsIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetLimitsIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetLimitsIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetLimitsIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetLimitsIDOK struct {
 
 func (o *GetLimitsIDOK) Error() string {
 	return fmt.Sprintf("[GET /limits/{id}][%d] getLimitsIdOK  %+v", 200, o.Payload)
+}
+
+func (o *GetLimitsIDOK) GetPayload() *models.LimitDetailsResponse {
+	return o.Payload
 }
 
 func (o *GetLimitsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetLimitsIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /limits/{id}][%d] getLimitsIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetLimitsIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetLimitsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetLimitsIDUnauthorized struct {
 
 func (o *GetLimitsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /limits/{id}][%d] getLimitsIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetLimitsIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetLimitsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetLimitsIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /limits/{id}][%d] getLimitsIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetLimitsIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetLimitsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetLimitsIDNotFound struct {
 
 func (o *GetLimitsIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /limits/{id}][%d] getLimitsIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetLimitsIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetLimitsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetLimitsIDConflict) Error() string {
 	return fmt.Sprintf("[GET /limits/{id}][%d] getLimitsIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetLimitsIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetLimitsIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetLimitsIDTooManyRequests struct {
 
 func (o *GetLimitsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /limits/{id}][%d] getLimitsIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetLimitsIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetLimitsIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetLimitsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /limits/{id}][%d] getLimitsIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetLimitsIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetLimitsIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetLimitsIDServiceUnavailable struct {
 
 func (o *GetLimitsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /limits/{id}][%d] getLimitsIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetLimitsIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetLimitsIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

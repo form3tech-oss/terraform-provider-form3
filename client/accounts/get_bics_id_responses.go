@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetBicsIDReader is a Reader for the GetBicsID structure.
@@ -24,63 +23,54 @@ type GetBicsIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetBicsIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetBicsIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetBicsIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetBicsIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetBicsIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetBicsIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetBicsIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetBicsIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetBicsIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetBicsIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetBicsIDOK struct {
 
 func (o *GetBicsIDOK) Error() string {
 	return fmt.Sprintf("[GET /bics/{id}][%d] getBicsIdOK  %+v", 200, o.Payload)
+}
+
+func (o *GetBicsIDOK) GetPayload() *models.BicDetailsResponse {
+	return o.Payload
 }
 
 func (o *GetBicsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetBicsIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /bics/{id}][%d] getBicsIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetBicsIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetBicsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetBicsIDUnauthorized struct {
 
 func (o *GetBicsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /bics/{id}][%d] getBicsIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetBicsIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetBicsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetBicsIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /bics/{id}][%d] getBicsIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetBicsIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetBicsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetBicsIDNotFound struct {
 
 func (o *GetBicsIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /bics/{id}][%d] getBicsIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetBicsIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetBicsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetBicsIDConflict) Error() string {
 	return fmt.Sprintf("[GET /bics/{id}][%d] getBicsIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetBicsIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetBicsIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetBicsIDTooManyRequests struct {
 
 func (o *GetBicsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /bics/{id}][%d] getBicsIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetBicsIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetBicsIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetBicsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /bics/{id}][%d] getBicsIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetBicsIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetBicsIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetBicsIDServiceUnavailable struct {
 
 func (o *GetBicsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /bics/{id}][%d] getBicsIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetBicsIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetBicsIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

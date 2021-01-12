@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDReader is a Reader for the DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationID structure.
@@ -24,63 +23,54 @@ type DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDReader s
 // ReadResponse reads a server response into the received o.
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewDeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewDeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewDeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewDeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewDeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewDeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewDeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewDeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewDeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -131,6 +121,10 @@ func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDBadR
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] deleteLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -158,6 +152,10 @@ type DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDUnauthor
 
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] deleteLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -189,6 +187,10 @@ func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDForb
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] deleteLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -216,6 +218,10 @@ type DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNotFound
 
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] deleteLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -247,6 +253,10 @@ func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDConf
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] deleteLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -274,6 +284,10 @@ type DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDTooManyR
 
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] deleteLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -305,6 +319,10 @@ func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDInte
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] deleteLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -332,6 +350,10 @@ type DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDServiceU
 
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] deleteLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

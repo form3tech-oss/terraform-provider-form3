@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostUnitsReader is a Reader for the PostUnits structure.
@@ -24,63 +23,54 @@ type PostUnitsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostUnitsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostUnitsCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewPostUnitsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewPostUnitsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewPostUnitsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewPostUnitsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewPostUnitsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewPostUnitsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewPostUnitsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewPostUnitsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type PostUnitsCreated struct {
 
 func (o *PostUnitsCreated) Error() string {
 	return fmt.Sprintf("[POST /units][%d] postUnitsCreated  %+v", 201, o.Payload)
+}
+
+func (o *PostUnitsCreated) GetPayload() *models.OrganisationCreationResponse {
+	return o.Payload
 }
 
 func (o *PostUnitsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *PostUnitsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /units][%d] postUnitsBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *PostUnitsBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostUnitsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type PostUnitsUnauthorized struct {
 
 func (o *PostUnitsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /units][%d] postUnitsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostUnitsUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostUnitsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *PostUnitsForbidden) Error() string {
 	return fmt.Sprintf("[POST /units][%d] postUnitsForbidden  %+v", 403, o.Payload)
 }
 
+func (o *PostUnitsForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostUnitsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type PostUnitsNotFound struct {
 
 func (o *PostUnitsNotFound) Error() string {
 	return fmt.Sprintf("[POST /units][%d] postUnitsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostUnitsNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostUnitsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *PostUnitsConflict) Error() string {
 	return fmt.Sprintf("[POST /units][%d] postUnitsConflict  %+v", 409, o.Payload)
 }
 
+func (o *PostUnitsConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostUnitsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type PostUnitsTooManyRequests struct {
 
 func (o *PostUnitsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /units][%d] postUnitsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostUnitsTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostUnitsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *PostUnitsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /units][%d] postUnitsInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *PostUnitsInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostUnitsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type PostUnitsServiceUnavailable struct {
 
 func (o *PostUnitsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /units][%d] postUnitsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostUnitsServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostUnitsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

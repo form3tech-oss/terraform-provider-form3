@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostPaymentsIDReversalsReader is a Reader for the PostPaymentsIDReversals structure.
@@ -24,63 +23,54 @@ type PostPaymentsIDReversalsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostPaymentsIDReversalsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostPaymentsIDReversalsCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewPostPaymentsIDReversalsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewPostPaymentsIDReversalsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewPostPaymentsIDReversalsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewPostPaymentsIDReversalsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewPostPaymentsIDReversalsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewPostPaymentsIDReversalsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewPostPaymentsIDReversalsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewPostPaymentsIDReversalsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type PostPaymentsIDReversalsCreated struct {
 
 func (o *PostPaymentsIDReversalsCreated) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/reversals][%d] postPaymentsIdReversalsCreated  %+v", 201, o.Payload)
+}
+
+func (o *PostPaymentsIDReversalsCreated) GetPayload() *models.ReversalCreationResponse {
+	return o.Payload
 }
 
 func (o *PostPaymentsIDReversalsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *PostPaymentsIDReversalsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/reversals][%d] postPaymentsIdReversalsBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *PostPaymentsIDReversalsBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostPaymentsIDReversalsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type PostPaymentsIDReversalsUnauthorized struct {
 
 func (o *PostPaymentsIDReversalsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/reversals][%d] postPaymentsIdReversalsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostPaymentsIDReversalsUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostPaymentsIDReversalsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *PostPaymentsIDReversalsForbidden) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/reversals][%d] postPaymentsIdReversalsForbidden  %+v", 403, o.Payload)
 }
 
+func (o *PostPaymentsIDReversalsForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostPaymentsIDReversalsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type PostPaymentsIDReversalsNotFound struct {
 
 func (o *PostPaymentsIDReversalsNotFound) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/reversals][%d] postPaymentsIdReversalsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostPaymentsIDReversalsNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostPaymentsIDReversalsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *PostPaymentsIDReversalsConflict) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/reversals][%d] postPaymentsIdReversalsConflict  %+v", 409, o.Payload)
 }
 
+func (o *PostPaymentsIDReversalsConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostPaymentsIDReversalsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type PostPaymentsIDReversalsTooManyRequests struct {
 
 func (o *PostPaymentsIDReversalsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/reversals][%d] postPaymentsIdReversalsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostPaymentsIDReversalsTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostPaymentsIDReversalsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *PostPaymentsIDReversalsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/reversals][%d] postPaymentsIdReversalsInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *PostPaymentsIDReversalsInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostPaymentsIDReversalsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type PostPaymentsIDReversalsServiceUnavailable struct {
 
 func (o *PostPaymentsIDReversalsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/reversals][%d] postPaymentsIdReversalsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostPaymentsIDReversalsServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostPaymentsIDReversalsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

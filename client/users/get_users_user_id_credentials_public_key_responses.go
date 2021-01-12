@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetUsersUserIDCredentialsPublicKeyReader is a Reader for the GetUsersUserIDCredentialsPublicKey structure.
@@ -24,63 +23,54 @@ type GetUsersUserIDCredentialsPublicKeyReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetUsersUserIDCredentialsPublicKeyReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetUsersUserIDCredentialsPublicKeyOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetUsersUserIDCredentialsPublicKeyBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetUsersUserIDCredentialsPublicKeyUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetUsersUserIDCredentialsPublicKeyForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetUsersUserIDCredentialsPublicKeyNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetUsersUserIDCredentialsPublicKeyConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetUsersUserIDCredentialsPublicKeyTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetUsersUserIDCredentialsPublicKeyInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetUsersUserIDCredentialsPublicKeyServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetUsersUserIDCredentialsPublicKeyOK struct {
 
 func (o *GetUsersUserIDCredentialsPublicKeyOK) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/public_key][%d] getUsersUserIdCredentialsPublicKeyOK  %+v", 200, o.Payload)
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyOK) GetPayload() *models.UserPublicKeyListResponse {
+	return o.Payload
 }
 
 func (o *GetUsersUserIDCredentialsPublicKeyOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetUsersUserIDCredentialsPublicKeyBadRequest) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/public_key][%d] getUsersUserIdCredentialsPublicKeyBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetUsersUserIDCredentialsPublicKeyBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetUsersUserIDCredentialsPublicKeyBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetUsersUserIDCredentialsPublicKeyUnauthorized struct {
 
 func (o *GetUsersUserIDCredentialsPublicKeyUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/public_key][%d] getUsersUserIdCredentialsPublicKeyUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetUsersUserIDCredentialsPublicKeyUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetUsersUserIDCredentialsPublicKeyForbidden) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/public_key][%d] getUsersUserIdCredentialsPublicKeyForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetUsersUserIDCredentialsPublicKeyForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetUsersUserIDCredentialsPublicKeyForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetUsersUserIDCredentialsPublicKeyNotFound struct {
 
 func (o *GetUsersUserIDCredentialsPublicKeyNotFound) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/public_key][%d] getUsersUserIdCredentialsPublicKeyNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetUsersUserIDCredentialsPublicKeyNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetUsersUserIDCredentialsPublicKeyConflict) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/public_key][%d] getUsersUserIdCredentialsPublicKeyConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetUsersUserIDCredentialsPublicKeyConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetUsersUserIDCredentialsPublicKeyConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetUsersUserIDCredentialsPublicKeyTooManyRequests struct {
 
 func (o *GetUsersUserIDCredentialsPublicKeyTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/public_key][%d] getUsersUserIdCredentialsPublicKeyTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetUsersUserIDCredentialsPublicKeyTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetUsersUserIDCredentialsPublicKeyInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/public_key][%d] getUsersUserIdCredentialsPublicKeyInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetUsersUserIDCredentialsPublicKeyInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetUsersUserIDCredentialsPublicKeyInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetUsersUserIDCredentialsPublicKeyServiceUnavailable struct {
 
 func (o *GetUsersUserIDCredentialsPublicKeyServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/public_key][%d] getUsersUserIdCredentialsPublicKeyServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetUsersUserIDCredentialsPublicKeyServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetUsersUserIDCredentialsPublicKeyServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

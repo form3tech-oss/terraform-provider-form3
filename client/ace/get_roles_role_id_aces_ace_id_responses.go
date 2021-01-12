@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetRolesRoleIDAcesAceIDReader is a Reader for the GetRolesRoleIDAcesAceID structure.
@@ -24,63 +23,54 @@ type GetRolesRoleIDAcesAceIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetRolesRoleIDAcesAceIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetRolesRoleIDAcesAceIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetRolesRoleIDAcesAceIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetRolesRoleIDAcesAceIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetRolesRoleIDAcesAceIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetRolesRoleIDAcesAceIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetRolesRoleIDAcesAceIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetRolesRoleIDAcesAceIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetRolesRoleIDAcesAceIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetRolesRoleIDAcesAceIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetRolesRoleIDAcesAceIDOK struct {
 
 func (o *GetRolesRoleIDAcesAceIDOK) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}/aces/{ace_id}][%d] getRolesRoleIdAcesAceIdOK  %+v", 200, o.Payload)
+}
+
+func (o *GetRolesRoleIDAcesAceIDOK) GetPayload() *models.AceDetailsResponse {
+	return o.Payload
 }
 
 func (o *GetRolesRoleIDAcesAceIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetRolesRoleIDAcesAceIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}/aces/{ace_id}][%d] getRolesRoleIdAcesAceIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetRolesRoleIDAcesAceIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetRolesRoleIDAcesAceIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetRolesRoleIDAcesAceIDUnauthorized struct {
 
 func (o *GetRolesRoleIDAcesAceIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}/aces/{ace_id}][%d] getRolesRoleIdAcesAceIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetRolesRoleIDAcesAceIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetRolesRoleIDAcesAceIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetRolesRoleIDAcesAceIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}/aces/{ace_id}][%d] getRolesRoleIdAcesAceIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetRolesRoleIDAcesAceIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetRolesRoleIDAcesAceIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetRolesRoleIDAcesAceIDNotFound struct {
 
 func (o *GetRolesRoleIDAcesAceIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}/aces/{ace_id}][%d] getRolesRoleIdAcesAceIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetRolesRoleIDAcesAceIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetRolesRoleIDAcesAceIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetRolesRoleIDAcesAceIDConflict) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}/aces/{ace_id}][%d] getRolesRoleIdAcesAceIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetRolesRoleIDAcesAceIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetRolesRoleIDAcesAceIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetRolesRoleIDAcesAceIDTooManyRequests struct {
 
 func (o *GetRolesRoleIDAcesAceIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}/aces/{ace_id}][%d] getRolesRoleIdAcesAceIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetRolesRoleIDAcesAceIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetRolesRoleIDAcesAceIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetRolesRoleIDAcesAceIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}/aces/{ace_id}][%d] getRolesRoleIdAcesAceIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetRolesRoleIDAcesAceIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetRolesRoleIDAcesAceIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetRolesRoleIDAcesAceIDServiceUnavailable struct {
 
 func (o *GetRolesRoleIDAcesAceIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}/aces/{ace_id}][%d] getRolesRoleIdAcesAceIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetRolesRoleIDAcesAceIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetRolesRoleIDAcesAceIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

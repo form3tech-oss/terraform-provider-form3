@@ -8,13 +8,13 @@ package models
 import (
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // MandateRelationships mandate relationships
+//
 // swagger:model MandateRelationships
 type MandateRelationships struct {
 
@@ -73,6 +73,7 @@ func (m *MandateRelationships) UnmarshalBinary(b []byte) error {
 }
 
 // MandateRelationshipsMandateAdmission mandate relationships mandate admission
+//
 // swagger:model MandateRelationshipsMandateAdmission
 type MandateRelationshipsMandateAdmission struct {
 
