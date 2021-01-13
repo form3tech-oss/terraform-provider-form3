@@ -21,6 +21,12 @@ type SepaSctAssociationAttributes struct {
 	// business user
 	BusinessUser string `json:"businessUser,omitempty"`
 
+	// can sponsor
+	CanSponsor bool `json:"can_sponsor,omitempty"`
+
+	// reachable bics
+	ReachableBics []string `json:"reachable_bics"`
+
 	// receiver business user
 	ReceiverBusinessUser string `json:"receiverBusinessUser,omitempty"`
 }
