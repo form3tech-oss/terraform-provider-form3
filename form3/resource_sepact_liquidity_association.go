@@ -33,11 +33,8 @@ func resourceForm3SepactLiquidityAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
-			"reachable_bics": {
-				Type: schema.TypeSet,
-				Elem: &schema.Schema{
-					Type: schema.TypeString,
-				},
+			"reachable_bic": {
+				Type:     schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
@@ -129,7 +126,7 @@ func resourceSepactLiquidityAssociationRead(d *schema.ResourceData, meta interfa
 	if err := d.Set("name", association.Payload.Data.Attributes.Name); err != nil {
 		return err
 	}
-	if err := d.Set("reachable_bics", association.Payload.Data.Attributes.ReachableBics); err != nil {
+	if err := d.Set("reachable_bic", association.Payload.Data.Attributes.ReachableBic); err != nil {
 		return err
 	}
 	if err := d.Set("settlement_bic", association.Payload.Data.Attributes.SettlementBic); err != nil {
@@ -197,11 +194,8 @@ func createSepactLiquidityNewAssociationFromResourceData(d *schema.ResourceData)
 		association.Attributes.Name = attr.(string)
 	}
 
-	if attr, ok := d.GetOk("reachable_bics"); ok {
-		arr := attr.(*schema.Set).List()
-		for _, v := range arr {
-			association.Attributes.ReachableBics = append(association.Attributes.ReachableBics, models.Bic11(v.(string)))
-		}
+	if attr, ok := d.GetOk("reachable_bic"); ok {
+		association.Attributes.ReachableBic = models.Bic11(attr.(string))
 	}
 
 	if attr, ok := d.GetOk("settlement_bic"); ok {
