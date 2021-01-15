@@ -58,7 +58,7 @@ func TestAccSepaSctAssociation_reachable(t *testing.T) {
 	config := fmt.Sprintf(
 		testForm3SepaSctSponsoredAssociationConfig,
 		sponsorOrganisationId, parentOrganisationId, sponsorAssociationId, sponsorBic,
-		sponsoredOrganisationId, parentOrganisationId, sponsoredAssociationId, strings.Join(sponsoredBicList, "\",\""), sponsorAssociationId,
+		sponsoredOrganisationId, parentOrganisationId, sponsoredAssociationId, strings.Join(sponsoredBicList, "\",\""),
 	)
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() { testAccPreCheck(t) },
@@ -181,10 +181,6 @@ resource "form3_sepasct_association" "sponsored_association" {
 	organisation_id        = "${form3_organisation.sponsored_organisation.organisation_id}"
 	association_id         = "%s"
 	reachable_bics         = ["%s"]
-	sponsor_id             = "%s"
-
-	depends_on = [
-      "form3_sepasct_association.sponsor_association"
-	]
+	sponsor_id             = "${form3_sepasct_association.sponsor_association.association_id}"
 }`
 )
