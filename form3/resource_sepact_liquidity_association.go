@@ -43,7 +43,7 @@ func resourceForm3SepactLiquidityAssociation() *schema.Resource {
 			},
 			"settlement_bic": {
 				Type:     schema.TypeString,
-				Optional: true,
+				Required: true,
 				ForceNew: true,
 			},
 			"settlement_iban": {
