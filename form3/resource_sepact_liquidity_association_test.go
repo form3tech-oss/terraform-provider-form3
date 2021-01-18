@@ -5,12 +5,13 @@ import (
 	"os"
 	"testing"
 
-	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
-	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/go-openapi/strfmt"
 	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
+
+	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
+	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 )
 
 func TestAccSepactLiquidityAssociation_basic(t *testing.T) {
@@ -68,8 +69,7 @@ func TestAccSepactLiquidityAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(indirectParticipant.path, "association_id", indirectParticipant.associationId),
 					resource.TestCheckResourceAttr(indirectParticipant.path, "organisation_id", indirectParticipant.organisationId),
 					resource.TestCheckResourceAttr(indirectParticipant.path, "name", "Indirect Participant"),
-					resource.TestCheckResourceAttr(indirectParticipant.path, "reachable_bics.#", "1"),
-					resource.TestCheckResourceAttr(indirectParticipant.path, "reachable_bics.4060745130", reachableBic),
+					resource.TestCheckResourceAttr(indirectParticipant.path, "reachable_bic", reachableBic),
 					resource.TestCheckResourceAttr(indirectParticipant.path, "settlement_bic", indirectParticipant.bic),
 					resource.TestCheckResourceAttr(indirectParticipant.path, "settlement_iban", indirectParticipant.iban),
 					resource.TestCheckResourceAttr(indirectParticipant.path, "address_street", "Harp Ln"),
@@ -176,7 +176,7 @@ resource "form3_sepact_liquidity_association" "indirect_participant_association"
 	organisation_id         = "${form3_organisation.indirect_participant.organisation_id}"
 	association_id          = "${local.indirect_participant_association_id}"
 	name                    = "Indirect Participant"
-    reachable_bics          = [ "${local.reachable_bic}" ]
+    reachable_bic           = "${local.reachable_bic}"
     settlement_bic          = "${local.indirect_participant_bic}"
     settlement_iban         = "${local.indirect_participant_iban}"
 	address_street          = "Harp Ln"

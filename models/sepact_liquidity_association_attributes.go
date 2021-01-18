@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"strconv"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -28,8 +26,8 @@ type SepactLiquidityAssociationAttributes struct {
 	// Min Length: 1
 	Name string `json:"name"`
 
-	// List of Reachable BICs
-	ReachableBics []Bic11 `json:"reachable_bics"`
+	// reachable bic
+	ReachableBic Bic11 `json:"reachable_bic,omitempty"`
 
 	// settlement bic
 	// Required: true
@@ -52,7 +50,7 @@ func (m *SepactLiquidityAssociationAttributes) Validate(formats strfmt.Registry)
 		res = append(res, err)
 	}
 
-	if err := m.validateReachableBics(formats); err != nil {
+	if err := m.validateReachableBic(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -95,21 +93,17 @@ func (m *SepactLiquidityAssociationAttributes) validateName(formats strfmt.Regis
 	return nil
 }
 
-func (m *SepactLiquidityAssociationAttributes) validateReachableBics(formats strfmt.Registry) error {
+func (m *SepactLiquidityAssociationAttributes) validateReachableBic(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.ReachableBics) { // not required
+	if swag.IsZero(m.ReachableBic) { // not required
 		return nil
 	}
 
-	for i := 0; i < len(m.ReachableBics); i++ {
-
-		if err := m.ReachableBics[i].Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("reachable_bics" + "." + strconv.Itoa(i))
-			}
-			return err
+	if err := m.ReachableBic.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("reachable_bic")
 		}
-
+		return err
 	}
 
 	return nil

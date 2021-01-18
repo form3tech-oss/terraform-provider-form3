@@ -13313,15 +13313,8 @@ definitions:
         minLength: 1
         description: "Customer Name"
         example: "Form3 Customer"
-      reachable_bics:
-        x-nullable: true
-        x-omitempty: false
-        type: array
-        description: "List of Reachable BICs"
-        example:
-          - VTSSGB2LXXX
-        items:
-          $ref: '#/definitions/Bic11'
+      reachable_bic:
+        $ref: '#/definitions/Bic11'
       settlement_bic:
         $ref: '#/definitions/Bic8'
       settlement_iban:
