@@ -34,7 +34,7 @@ func TestAccSepaDDAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_sepadd_association.association", "business_user", "PR344567"),
 					resource.TestCheckResourceAttr("form3_sepadd_association.association", "receiver_business_user", "PR344568"),
 					resource.TestCheckResourceAttr("form3_sepadd_association.association", "local_instrument", "CORE"),
-					resource.TestCheckResourceAttr("form3_sepadd_association.association", "allow_submissions", "false"),
+					resource.TestCheckResourceAttr("form3_sepadd_association.association", "allow_submissions", "true"),
 				),
 			},
 		},
