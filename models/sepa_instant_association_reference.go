@@ -8,14 +8,14 @@ package models
 import (
 	"encoding/json"
 
+	strfmt "github.com/go-openapi/strfmt"
+
 	"github.com/go-openapi/errors"
-	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // SepaInstantAssociationReference sepa instant association reference
-//
 // swagger:model SepaInstantAssociationReference
 type SepaInstantAssociationReference struct {
 

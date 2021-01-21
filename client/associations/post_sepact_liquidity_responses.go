@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostSepactLiquidityReader is a Reader for the PostSepactLiquidity structure.
@@ -23,54 +24,63 @@ type PostSepactLiquidityReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostSepactLiquidityReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 201:
 		result := NewPostSepactLiquidityCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewPostSepactLiquidityBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewPostSepactLiquidityUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewPostSepactLiquidityForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewPostSepactLiquidityNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewPostSepactLiquidityConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewPostSepactLiquidityTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewPostSepactLiquidityInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewPostSepactLiquidityServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type PostSepactLiquidityCreated struct {
 
 func (o *PostSepactLiquidityCreated) Error() string {
 	return fmt.Sprintf("[POST /sepact-liquidity][%d] postSepactLiquidityCreated  %+v", 201, o.Payload)
-}
-
-func (o *PostSepactLiquidityCreated) GetPayload() *models.SepactLiquidityAssociationDetailsResponse {
-	return o.Payload
 }
 
 func (o *PostSepactLiquidityCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *PostSepactLiquidityBadRequest) Error() string {
 	return fmt.Sprintf("[POST /sepact-liquidity][%d] postSepactLiquidityBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *PostSepactLiquidityBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostSepactLiquidityBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type PostSepactLiquidityUnauthorized struct {
 
 func (o *PostSepactLiquidityUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /sepact-liquidity][%d] postSepactLiquidityUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *PostSepactLiquidityUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostSepactLiquidityUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *PostSepactLiquidityForbidden) Error() string {
 	return fmt.Sprintf("[POST /sepact-liquidity][%d] postSepactLiquidityForbidden  %+v", 403, o.Payload)
 }
 
-func (o *PostSepactLiquidityForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostSepactLiquidityForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type PostSepactLiquidityNotFound struct {
 
 func (o *PostSepactLiquidityNotFound) Error() string {
 	return fmt.Sprintf("[POST /sepact-liquidity][%d] postSepactLiquidityNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PostSepactLiquidityNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostSepactLiquidityNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *PostSepactLiquidityConflict) Error() string {
 	return fmt.Sprintf("[POST /sepact-liquidity][%d] postSepactLiquidityConflict  %+v", 409, o.Payload)
 }
 
-func (o *PostSepactLiquidityConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostSepactLiquidityConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type PostSepactLiquidityTooManyRequests struct {
 
 func (o *PostSepactLiquidityTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /sepact-liquidity][%d] postSepactLiquidityTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *PostSepactLiquidityTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostSepactLiquidityTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *PostSepactLiquidityInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /sepact-liquidity][%d] postSepactLiquidityInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *PostSepactLiquidityInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostSepactLiquidityInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type PostSepactLiquidityServiceUnavailable struct {
 
 func (o *PostSepactLiquidityServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /sepact-liquidity][%d] postSepactLiquidityServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *PostSepactLiquidityServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostSepactLiquidityServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

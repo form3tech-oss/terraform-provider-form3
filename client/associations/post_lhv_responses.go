@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostLhvReader is a Reader for the PostLhv structure.
@@ -23,54 +24,63 @@ type PostLhvReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostLhvReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 201:
 		result := NewPostLhvCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewPostLhvBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewPostLhvUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewPostLhvForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewPostLhvNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewPostLhvConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewPostLhvTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewPostLhvInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewPostLhvServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type PostLhvCreated struct {
 
 func (o *PostLhvCreated) Error() string {
 	return fmt.Sprintf("[POST /lhv][%d] postLhvCreated  %+v", 201, o.Payload)
-}
-
-func (o *PostLhvCreated) GetPayload() *models.LhvAssociationCreationResponse {
-	return o.Payload
 }
 
 func (o *PostLhvCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *PostLhvBadRequest) Error() string {
 	return fmt.Sprintf("[POST /lhv][%d] postLhvBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *PostLhvBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostLhvBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type PostLhvUnauthorized struct {
 
 func (o *PostLhvUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /lhv][%d] postLhvUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *PostLhvUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostLhvUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *PostLhvForbidden) Error() string {
 	return fmt.Sprintf("[POST /lhv][%d] postLhvForbidden  %+v", 403, o.Payload)
 }
 
-func (o *PostLhvForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostLhvForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type PostLhvNotFound struct {
 
 func (o *PostLhvNotFound) Error() string {
 	return fmt.Sprintf("[POST /lhv][%d] postLhvNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PostLhvNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostLhvNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *PostLhvConflict) Error() string {
 	return fmt.Sprintf("[POST /lhv][%d] postLhvConflict  %+v", 409, o.Payload)
 }
 
-func (o *PostLhvConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostLhvConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type PostLhvTooManyRequests struct {
 
 func (o *PostLhvTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /lhv][%d] postLhvTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *PostLhvTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostLhvTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *PostLhvInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /lhv][%d] postLhvInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *PostLhvInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostLhvInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type PostLhvServiceUnavailable struct {
 
 func (o *PostLhvServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /lhv][%d] postLhvServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *PostLhvServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostLhvServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

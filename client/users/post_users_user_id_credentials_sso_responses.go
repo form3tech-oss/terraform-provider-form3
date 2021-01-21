@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostUsersUserIDCredentialsSsoReader is a Reader for the PostUsersUserIDCredentialsSso structure.
@@ -23,54 +24,63 @@ type PostUsersUserIDCredentialsSsoReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostUsersUserIDCredentialsSsoReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 201:
 		result := NewPostUsersUserIDCredentialsSsoCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewPostUsersUserIDCredentialsSsoBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewPostUsersUserIDCredentialsSsoUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewPostUsersUserIDCredentialsSsoForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewPostUsersUserIDCredentialsSsoNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewPostUsersUserIDCredentialsSsoConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewPostUsersUserIDCredentialsSsoTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewPostUsersUserIDCredentialsSsoInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewPostUsersUserIDCredentialsSsoServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type PostUsersUserIDCredentialsSsoCreated struct {
 
 func (o *PostUsersUserIDCredentialsSsoCreated) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/sso][%d] postUsersUserIdCredentialsSsoCreated  %+v", 201, o.Payload)
-}
-
-func (o *PostUsersUserIDCredentialsSsoCreated) GetPayload() *models.SsoUserCreationResponse {
-	return o.Payload
 }
 
 func (o *PostUsersUserIDCredentialsSsoCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *PostUsersUserIDCredentialsSsoBadRequest) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/sso][%d] postUsersUserIdCredentialsSsoBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *PostUsersUserIDCredentialsSsoBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostUsersUserIDCredentialsSsoBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type PostUsersUserIDCredentialsSsoUnauthorized struct {
 
 func (o *PostUsersUserIDCredentialsSsoUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/sso][%d] postUsersUserIdCredentialsSsoUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *PostUsersUserIDCredentialsSsoUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostUsersUserIDCredentialsSsoUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *PostUsersUserIDCredentialsSsoForbidden) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/sso][%d] postUsersUserIdCredentialsSsoForbidden  %+v", 403, o.Payload)
 }
 
-func (o *PostUsersUserIDCredentialsSsoForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostUsersUserIDCredentialsSsoForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type PostUsersUserIDCredentialsSsoNotFound struct {
 
 func (o *PostUsersUserIDCredentialsSsoNotFound) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/sso][%d] postUsersUserIdCredentialsSsoNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PostUsersUserIDCredentialsSsoNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostUsersUserIDCredentialsSsoNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *PostUsersUserIDCredentialsSsoConflict) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/sso][%d] postUsersUserIdCredentialsSsoConflict  %+v", 409, o.Payload)
 }
 
-func (o *PostUsersUserIDCredentialsSsoConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostUsersUserIDCredentialsSsoConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type PostUsersUserIDCredentialsSsoTooManyRequests struct {
 
 func (o *PostUsersUserIDCredentialsSsoTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/sso][%d] postUsersUserIdCredentialsSsoTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *PostUsersUserIDCredentialsSsoTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostUsersUserIDCredentialsSsoTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *PostUsersUserIDCredentialsSsoInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/sso][%d] postUsersUserIdCredentialsSsoInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *PostUsersUserIDCredentialsSsoInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostUsersUserIDCredentialsSsoInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type PostUsersUserIDCredentialsSsoServiceUnavailable struct {
 
 func (o *PostUsersUserIDCredentialsSsoServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/sso][%d] postUsersUserIdCredentialsSsoServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *PostUsersUserIDCredentialsSsoServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostUsersUserIDCredentialsSsoServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

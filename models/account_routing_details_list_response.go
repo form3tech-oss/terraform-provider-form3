@@ -8,13 +8,13 @@ package models
 import (
 	"strconv"
 
+	strfmt "github.com/go-openapi/strfmt"
+
 	"github.com/go-openapi/errors"
-	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // AccountRoutingDetailsListResponse account routing details list response
-//
 // swagger:model AccountRoutingDetailsListResponse
 type AccountRoutingDetailsListResponse struct {
 

@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostPaymentsReader is a Reader for the PostPayments structure.
@@ -23,54 +24,63 @@ type PostPaymentsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostPaymentsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 201:
 		result := NewPostPaymentsCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewPostPaymentsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewPostPaymentsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewPostPaymentsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewPostPaymentsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewPostPaymentsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewPostPaymentsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewPostPaymentsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewPostPaymentsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type PostPaymentsCreated struct {
 
 func (o *PostPaymentsCreated) Error() string {
 	return fmt.Sprintf("[POST /payments][%d] postPaymentsCreated  %+v", 201, o.Payload)
-}
-
-func (o *PostPaymentsCreated) GetPayload() *models.PaymentCreationResponse {
-	return o.Payload
 }
 
 func (o *PostPaymentsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *PostPaymentsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /payments][%d] postPaymentsBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *PostPaymentsBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostPaymentsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type PostPaymentsUnauthorized struct {
 
 func (o *PostPaymentsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /payments][%d] postPaymentsUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *PostPaymentsUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostPaymentsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *PostPaymentsForbidden) Error() string {
 	return fmt.Sprintf("[POST /payments][%d] postPaymentsForbidden  %+v", 403, o.Payload)
 }
 
-func (o *PostPaymentsForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostPaymentsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type PostPaymentsNotFound struct {
 
 func (o *PostPaymentsNotFound) Error() string {
 	return fmt.Sprintf("[POST /payments][%d] postPaymentsNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PostPaymentsNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostPaymentsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *PostPaymentsConflict) Error() string {
 	return fmt.Sprintf("[POST /payments][%d] postPaymentsConflict  %+v", 409, o.Payload)
 }
 
-func (o *PostPaymentsConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostPaymentsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type PostPaymentsTooManyRequests struct {
 
 func (o *PostPaymentsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /payments][%d] postPaymentsTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *PostPaymentsTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostPaymentsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *PostPaymentsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /payments][%d] postPaymentsInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *PostPaymentsInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostPaymentsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type PostPaymentsServiceUnavailable struct {
 
 func (o *PostPaymentsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /payments][%d] postPaymentsServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *PostPaymentsServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostPaymentsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

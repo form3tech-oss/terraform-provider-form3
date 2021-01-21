@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetBankidsReader is a Reader for the GetBankids structure.
@@ -23,54 +24,63 @@ type GetBankidsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetBankidsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 200:
 		result := NewGetBankidsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewGetBankidsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewGetBankidsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewGetBankidsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewGetBankidsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewGetBankidsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewGetBankidsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewGetBankidsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewGetBankidsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type GetBankidsOK struct {
 
 func (o *GetBankidsOK) Error() string {
 	return fmt.Sprintf("[GET /bankids][%d] getBankidsOK  %+v", 200, o.Payload)
-}
-
-func (o *GetBankidsOK) GetPayload() *models.BankIDDetailsListResponse {
-	return o.Payload
 }
 
 func (o *GetBankidsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *GetBankidsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /bankids][%d] getBankidsBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *GetBankidsBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetBankidsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type GetBankidsUnauthorized struct {
 
 func (o *GetBankidsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /bankids][%d] getBankidsUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetBankidsUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetBankidsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *GetBankidsForbidden) Error() string {
 	return fmt.Sprintf("[GET /bankids][%d] getBankidsForbidden  %+v", 403, o.Payload)
 }
 
-func (o *GetBankidsForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetBankidsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type GetBankidsNotFound struct {
 
 func (o *GetBankidsNotFound) Error() string {
 	return fmt.Sprintf("[GET /bankids][%d] getBankidsNotFound  %+v", 404, o.Payload)
-}
-
-func (o *GetBankidsNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetBankidsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *GetBankidsConflict) Error() string {
 	return fmt.Sprintf("[GET /bankids][%d] getBankidsConflict  %+v", 409, o.Payload)
 }
 
-func (o *GetBankidsConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetBankidsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type GetBankidsTooManyRequests struct {
 
 func (o *GetBankidsTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /bankids][%d] getBankidsTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *GetBankidsTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetBankidsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *GetBankidsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /bankids][%d] getBankidsInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetBankidsInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetBankidsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type GetBankidsServiceUnavailable struct {
 
 func (o *GetBankidsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /bankids][%d] getBankidsServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *GetBankidsServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetBankidsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

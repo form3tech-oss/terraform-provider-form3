@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PatchLimitsIDReader is a Reader for the PatchLimitsID structure.
@@ -23,54 +24,63 @@ type PatchLimitsIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PatchLimitsIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 200:
 		result := NewPatchLimitsIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewPatchLimitsIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewPatchLimitsIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewPatchLimitsIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewPatchLimitsIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewPatchLimitsIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewPatchLimitsIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewPatchLimitsIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewPatchLimitsIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type PatchLimitsIDOK struct {
 
 func (o *PatchLimitsIDOK) Error() string {
 	return fmt.Sprintf("[PATCH /limits/{id}][%d] patchLimitsIdOK  %+v", 200, o.Payload)
-}
-
-func (o *PatchLimitsIDOK) GetPayload() *models.LimitDetailsResponse {
-	return o.Payload
 }
 
 func (o *PatchLimitsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *PatchLimitsIDBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /limits/{id}][%d] patchLimitsIdBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *PatchLimitsIDBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PatchLimitsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type PatchLimitsIDUnauthorized struct {
 
 func (o *PatchLimitsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[PATCH /limits/{id}][%d] patchLimitsIdUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *PatchLimitsIDUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PatchLimitsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *PatchLimitsIDForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /limits/{id}][%d] patchLimitsIdForbidden  %+v", 403, o.Payload)
 }
 
-func (o *PatchLimitsIDForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PatchLimitsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type PatchLimitsIDNotFound struct {
 
 func (o *PatchLimitsIDNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /limits/{id}][%d] patchLimitsIdNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PatchLimitsIDNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PatchLimitsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *PatchLimitsIDConflict) Error() string {
 	return fmt.Sprintf("[PATCH /limits/{id}][%d] patchLimitsIdConflict  %+v", 409, o.Payload)
 }
 
-func (o *PatchLimitsIDConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PatchLimitsIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type PatchLimitsIDTooManyRequests struct {
 
 func (o *PatchLimitsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[PATCH /limits/{id}][%d] patchLimitsIdTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *PatchLimitsIDTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PatchLimitsIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *PatchLimitsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[PATCH /limits/{id}][%d] patchLimitsIdInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *PatchLimitsIDInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PatchLimitsIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type PatchLimitsIDServiceUnavailable struct {
 
 func (o *PatchLimitsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[PATCH /limits/{id}][%d] patchLimitsIdServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *PatchLimitsIDServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PatchLimitsIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

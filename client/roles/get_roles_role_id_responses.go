@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetRolesRoleIDReader is a Reader for the GetRolesRoleID structure.
@@ -23,54 +24,63 @@ type GetRolesRoleIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetRolesRoleIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 200:
 		result := NewGetRolesRoleIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewGetRolesRoleIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewGetRolesRoleIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewGetRolesRoleIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewGetRolesRoleIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewGetRolesRoleIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewGetRolesRoleIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewGetRolesRoleIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewGetRolesRoleIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type GetRolesRoleIDOK struct {
 
 func (o *GetRolesRoleIDOK) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}][%d] getRolesRoleIdOK  %+v", 200, o.Payload)
-}
-
-func (o *GetRolesRoleIDOK) GetPayload() *models.RoleDetailsResponse {
-	return o.Payload
 }
 
 func (o *GetRolesRoleIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *GetRolesRoleIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}][%d] getRolesRoleIdBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *GetRolesRoleIDBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetRolesRoleIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type GetRolesRoleIDUnauthorized struct {
 
 func (o *GetRolesRoleIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}][%d] getRolesRoleIdUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetRolesRoleIDUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetRolesRoleIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *GetRolesRoleIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}][%d] getRolesRoleIdForbidden  %+v", 403, o.Payload)
 }
 
-func (o *GetRolesRoleIDForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetRolesRoleIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type GetRolesRoleIDNotFound struct {
 
 func (o *GetRolesRoleIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}][%d] getRolesRoleIdNotFound  %+v", 404, o.Payload)
-}
-
-func (o *GetRolesRoleIDNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetRolesRoleIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *GetRolesRoleIDConflict) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}][%d] getRolesRoleIdConflict  %+v", 409, o.Payload)
 }
 
-func (o *GetRolesRoleIDConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetRolesRoleIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type GetRolesRoleIDTooManyRequests struct {
 
 func (o *GetRolesRoleIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}][%d] getRolesRoleIdTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *GetRolesRoleIDTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetRolesRoleIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *GetRolesRoleIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}][%d] getRolesRoleIdInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetRolesRoleIDInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetRolesRoleIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type GetRolesRoleIDServiceUnavailable struct {
 
 func (o *GetRolesRoleIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}][%d] getRolesRoleIdServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *GetRolesRoleIDServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetRolesRoleIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

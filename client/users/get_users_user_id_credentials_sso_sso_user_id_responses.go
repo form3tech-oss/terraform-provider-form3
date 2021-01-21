@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetUsersUserIDCredentialsSsoSsoUserIDReader is a Reader for the GetUsersUserIDCredentialsSsoSsoUserID structure.
@@ -23,54 +24,63 @@ type GetUsersUserIDCredentialsSsoSsoUserIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 200:
 		result := NewGetUsersUserIDCredentialsSsoSsoUserIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewGetUsersUserIDCredentialsSsoSsoUserIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewGetUsersUserIDCredentialsSsoSsoUserIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewGetUsersUserIDCredentialsSsoSsoUserIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewGetUsersUserIDCredentialsSsoSsoUserIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewGetUsersUserIDCredentialsSsoSsoUserIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewGetUsersUserIDCredentialsSsoSsoUserIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewGetUsersUserIDCredentialsSsoSsoUserIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewGetUsersUserIDCredentialsSsoSsoUserIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type GetUsersUserIDCredentialsSsoSsoUserIDOK struct {
 
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDOK) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/sso/{sso_user_id}][%d] getUsersUserIdCredentialsSsoSsoUserIdOK  %+v", 200, o.Payload)
-}
-
-func (o *GetUsersUserIDCredentialsSsoSsoUserIDOK) GetPayload() *models.SsoUserDetailsResponse {
-	return o.Payload
 }
 
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *GetUsersUserIDCredentialsSsoSsoUserIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/sso/{sso_user_id}][%d] getUsersUserIdCredentialsSsoSsoUserIdBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *GetUsersUserIDCredentialsSsoSsoUserIDBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type GetUsersUserIDCredentialsSsoSsoUserIDUnauthorized struct {
 
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/sso/{sso_user_id}][%d] getUsersUserIdCredentialsSsoSsoUserIdUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetUsersUserIDCredentialsSsoSsoUserIDUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *GetUsersUserIDCredentialsSsoSsoUserIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/sso/{sso_user_id}][%d] getUsersUserIdCredentialsSsoSsoUserIdForbidden  %+v", 403, o.Payload)
 }
 
-func (o *GetUsersUserIDCredentialsSsoSsoUserIDForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type GetUsersUserIDCredentialsSsoSsoUserIDNotFound struct {
 
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/sso/{sso_user_id}][%d] getUsersUserIdCredentialsSsoSsoUserIdNotFound  %+v", 404, o.Payload)
-}
-
-func (o *GetUsersUserIDCredentialsSsoSsoUserIDNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *GetUsersUserIDCredentialsSsoSsoUserIDConflict) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/sso/{sso_user_id}][%d] getUsersUserIdCredentialsSsoSsoUserIdConflict  %+v", 409, o.Payload)
 }
 
-func (o *GetUsersUserIDCredentialsSsoSsoUserIDConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type GetUsersUserIDCredentialsSsoSsoUserIDTooManyRequests struct {
 
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/sso/{sso_user_id}][%d] getUsersUserIdCredentialsSsoSsoUserIdTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *GetUsersUserIDCredentialsSsoSsoUserIDTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *GetUsersUserIDCredentialsSsoSsoUserIDInternalServerError) Error() strin
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/sso/{sso_user_id}][%d] getUsersUserIdCredentialsSsoSsoUserIdInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetUsersUserIDCredentialsSsoSsoUserIDInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type GetUsersUserIDCredentialsSsoSsoUserIDServiceUnavailable struct {
 
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/sso/{sso_user_id}][%d] getUsersUserIdCredentialsSsoSsoUserIdServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *GetUsersUserIDCredentialsSsoSsoUserIDServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

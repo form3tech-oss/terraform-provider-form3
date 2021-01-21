@@ -13202,6 +13202,8 @@ definitions:
         type: string
       localInstrument:
         type: string
+      allowSubmissions:
+        type: boolean
 
   SepaDDAssociationPatch:
     type: object

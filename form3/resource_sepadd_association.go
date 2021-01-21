@@ -48,6 +48,12 @@ func resourceForm3SepaDDAssociation() *schema.Resource {
 				Required: true,
 				ForceNew: false,
 			},
+			"allow_submissions": {
+				Type:     schema.TypeBool,
+				Optional: true,
+				ForceNew: false,
+				Default:  false,
+			},
 		},
 	}
 }
@@ -78,6 +84,9 @@ func createSepaDDUpdateAssociationFromResourceData(d *schema.ResourceData) (*mod
 	}
 	if attr, ok := d.GetOk("local_instrument"); ok {
 		association.Attributes.LocalInstrument = attr.(string)
+	}
+	if attr, ok := d.GetOk("allow_submissions"); ok {
+		association.Attributes.AllowSubmissions = attr.(bool)
 	}
 	return association, nil
 }
@@ -158,6 +167,7 @@ func resourceSepaDDAssociationRead(d *schema.ResourceData, meta interface{}) err
 	_ = d.Set("business_user", sepaDDAssociation.Payload.Data.Attributes.BusinessUser)
 	_ = d.Set("receiver_business_user", sepaDDAssociation.Payload.Data.Attributes.ReceiverBusinessUser)
 	_ = d.Set("local_instrument", sepaDDAssociation.Payload.Data.Attributes.LocalInstrument)
+	_ = d.Set("allow_submissions", sepaDDAssociation.Payload.Data.Attributes.AllowSubmissions)
 
 	return nil
 }
@@ -210,5 +220,10 @@ func createSepaDDNewAssociationFromResourceData(d *schema.ResourceData) (*models
 	if attr, ok := d.GetOk("local_instrument"); ok {
 		association.Attributes.LocalInstrument = attr.(string)
 	}
+
+	if attr, ok := d.GetOk("allow_submissions"); ok {
+		association.Attributes.AllowSubmissions = attr.(bool)
+	}
+
 	return &association, nil
 }

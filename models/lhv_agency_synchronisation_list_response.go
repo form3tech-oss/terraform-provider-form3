@@ -8,13 +8,13 @@ package models
 import (
 	"strconv"
 
+	strfmt "github.com/go-openapi/strfmt"
+
 	"github.com/go-openapi/errors"
-	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // LhvAgencySynchronisationListResponse lhv agency synchronisation list response
-//
 // swagger:model LhvAgencySynchronisationListResponse
 type LhvAgencySynchronisationListResponse struct {
 

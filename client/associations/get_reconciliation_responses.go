@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetReconciliationReader is a Reader for the GetReconciliation structure.
@@ -23,54 +24,63 @@ type GetReconciliationReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetReconciliationReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 200:
 		result := NewGetReconciliationOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewGetReconciliationBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewGetReconciliationUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewGetReconciliationForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewGetReconciliationNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewGetReconciliationConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewGetReconciliationTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewGetReconciliationInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewGetReconciliationServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type GetReconciliationOK struct {
 
 func (o *GetReconciliationOK) Error() string {
 	return fmt.Sprintf("[GET /reconciliation][%d] getReconciliationOK  %+v", 200, o.Payload)
-}
-
-func (o *GetReconciliationOK) GetPayload() *models.ReconciliationAssociationDetailsListResponse {
-	return o.Payload
 }
 
 func (o *GetReconciliationOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *GetReconciliationBadRequest) Error() string {
 	return fmt.Sprintf("[GET /reconciliation][%d] getReconciliationBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *GetReconciliationBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetReconciliationBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type GetReconciliationUnauthorized struct {
 
 func (o *GetReconciliationUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /reconciliation][%d] getReconciliationUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetReconciliationUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetReconciliationUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *GetReconciliationForbidden) Error() string {
 	return fmt.Sprintf("[GET /reconciliation][%d] getReconciliationForbidden  %+v", 403, o.Payload)
 }
 
-func (o *GetReconciliationForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetReconciliationForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type GetReconciliationNotFound struct {
 
 func (o *GetReconciliationNotFound) Error() string {
 	return fmt.Sprintf("[GET /reconciliation][%d] getReconciliationNotFound  %+v", 404, o.Payload)
-}
-
-func (o *GetReconciliationNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetReconciliationNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *GetReconciliationConflict) Error() string {
 	return fmt.Sprintf("[GET /reconciliation][%d] getReconciliationConflict  %+v", 409, o.Payload)
 }
 
-func (o *GetReconciliationConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetReconciliationConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type GetReconciliationTooManyRequests struct {
 
 func (o *GetReconciliationTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /reconciliation][%d] getReconciliationTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *GetReconciliationTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetReconciliationTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *GetReconciliationInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /reconciliation][%d] getReconciliationInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetReconciliationInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetReconciliationInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type GetReconciliationServiceUnavailable struct {
 
 func (o *GetReconciliationServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /reconciliation][%d] getReconciliationServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *GetReconciliationServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetReconciliationServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

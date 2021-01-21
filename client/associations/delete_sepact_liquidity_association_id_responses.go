@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteSepactLiquidityAssociationIDReader is a Reader for the DeleteSepactLiquidityAssociationID structure.
@@ -23,54 +24,63 @@ type DeleteSepactLiquidityAssociationIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteSepactLiquidityAssociationIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 204:
 		result := NewDeleteSepactLiquidityAssociationIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewDeleteSepactLiquidityAssociationIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewDeleteSepactLiquidityAssociationIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewDeleteSepactLiquidityAssociationIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewDeleteSepactLiquidityAssociationIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewDeleteSepactLiquidityAssociationIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewDeleteSepactLiquidityAssociationIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewDeleteSepactLiquidityAssociationIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewDeleteSepactLiquidityAssociationIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -121,10 +131,6 @@ func (o *DeleteSepactLiquidityAssociationIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /sepact-liquidity/{associationId}][%d] deleteSepactLiquidityAssociationIdBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *DeleteSepactLiquidityAssociationIDBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteSepactLiquidityAssociationIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -152,10 +158,6 @@ type DeleteSepactLiquidityAssociationIDUnauthorized struct {
 
 func (o *DeleteSepactLiquidityAssociationIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /sepact-liquidity/{associationId}][%d] deleteSepactLiquidityAssociationIdUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *DeleteSepactLiquidityAssociationIDUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteSepactLiquidityAssociationIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -187,10 +189,6 @@ func (o *DeleteSepactLiquidityAssociationIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /sepact-liquidity/{associationId}][%d] deleteSepactLiquidityAssociationIdForbidden  %+v", 403, o.Payload)
 }
 
-func (o *DeleteSepactLiquidityAssociationIDForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteSepactLiquidityAssociationIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -218,10 +216,6 @@ type DeleteSepactLiquidityAssociationIDNotFound struct {
 
 func (o *DeleteSepactLiquidityAssociationIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /sepact-liquidity/{associationId}][%d] deleteSepactLiquidityAssociationIdNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteSepactLiquidityAssociationIDNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteSepactLiquidityAssociationIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -253,10 +247,6 @@ func (o *DeleteSepactLiquidityAssociationIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /sepact-liquidity/{associationId}][%d] deleteSepactLiquidityAssociationIdConflict  %+v", 409, o.Payload)
 }
 
-func (o *DeleteSepactLiquidityAssociationIDConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteSepactLiquidityAssociationIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -284,10 +274,6 @@ type DeleteSepactLiquidityAssociationIDTooManyRequests struct {
 
 func (o *DeleteSepactLiquidityAssociationIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /sepact-liquidity/{associationId}][%d] deleteSepactLiquidityAssociationIdTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *DeleteSepactLiquidityAssociationIDTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteSepactLiquidityAssociationIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -319,10 +305,6 @@ func (o *DeleteSepactLiquidityAssociationIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /sepact-liquidity/{associationId}][%d] deleteSepactLiquidityAssociationIdInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *DeleteSepactLiquidityAssociationIDInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *DeleteSepactLiquidityAssociationIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -350,10 +332,6 @@ type DeleteSepactLiquidityAssociationIDServiceUnavailable struct {
 
 func (o *DeleteSepactLiquidityAssociationIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /sepact-liquidity/{associationId}][%d] deleteSepactLiquidityAssociationIdServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *DeleteSepactLiquidityAssociationIDServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *DeleteSepactLiquidityAssociationIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

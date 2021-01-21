@@ -8,14 +8,14 @@ package models
 import (
 	"strconv"
 
+	strfmt "github.com/go-openapi/strfmt"
+
 	"github.com/go-openapi/errors"
-	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // UserPublicKeyListResponse user public key list response
-//
 // swagger:model UserPublicKeyListResponse
 type UserPublicKeyListResponse struct {
 
@@ -106,7 +106,6 @@ func (m *UserPublicKeyListResponse) UnmarshalBinary(b []byte) error {
 }
 
 // UserPublicKeyListResponseDataItems0 user public key list response data items0
-//
 // swagger:model UserPublicKeyListResponseDataItems0
 type UserPublicKeyListResponseDataItems0 struct {
 

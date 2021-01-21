@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetSepactLiquidityAssociationIDReader is a Reader for the GetSepactLiquidityAssociationID structure.
@@ -23,54 +24,63 @@ type GetSepactLiquidityAssociationIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetSepactLiquidityAssociationIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 200:
 		result := NewGetSepactLiquidityAssociationIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewGetSepactLiquidityAssociationIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewGetSepactLiquidityAssociationIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewGetSepactLiquidityAssociationIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewGetSepactLiquidityAssociationIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewGetSepactLiquidityAssociationIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewGetSepactLiquidityAssociationIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewGetSepactLiquidityAssociationIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewGetSepactLiquidityAssociationIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type GetSepactLiquidityAssociationIDOK struct {
 
 func (o *GetSepactLiquidityAssociationIDOK) Error() string {
 	return fmt.Sprintf("[GET /sepact-liquidity/{associationId}][%d] getSepactLiquidityAssociationIdOK  %+v", 200, o.Payload)
-}
-
-func (o *GetSepactLiquidityAssociationIDOK) GetPayload() *models.SepactLiquidityAssociationDetailsResponse {
-	return o.Payload
 }
 
 func (o *GetSepactLiquidityAssociationIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *GetSepactLiquidityAssociationIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /sepact-liquidity/{associationId}][%d] getSepactLiquidityAssociationIdBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *GetSepactLiquidityAssociationIDBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetSepactLiquidityAssociationIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type GetSepactLiquidityAssociationIDUnauthorized struct {
 
 func (o *GetSepactLiquidityAssociationIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /sepact-liquidity/{associationId}][%d] getSepactLiquidityAssociationIdUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetSepactLiquidityAssociationIDUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetSepactLiquidityAssociationIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *GetSepactLiquidityAssociationIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /sepact-liquidity/{associationId}][%d] getSepactLiquidityAssociationIdForbidden  %+v", 403, o.Payload)
 }
 
-func (o *GetSepactLiquidityAssociationIDForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetSepactLiquidityAssociationIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type GetSepactLiquidityAssociationIDNotFound struct {
 
 func (o *GetSepactLiquidityAssociationIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /sepact-liquidity/{associationId}][%d] getSepactLiquidityAssociationIdNotFound  %+v", 404, o.Payload)
-}
-
-func (o *GetSepactLiquidityAssociationIDNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetSepactLiquidityAssociationIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *GetSepactLiquidityAssociationIDConflict) Error() string {
 	return fmt.Sprintf("[GET /sepact-liquidity/{associationId}][%d] getSepactLiquidityAssociationIdConflict  %+v", 409, o.Payload)
 }
 
-func (o *GetSepactLiquidityAssociationIDConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetSepactLiquidityAssociationIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type GetSepactLiquidityAssociationIDTooManyRequests struct {
 
 func (o *GetSepactLiquidityAssociationIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /sepact-liquidity/{associationId}][%d] getSepactLiquidityAssociationIdTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *GetSepactLiquidityAssociationIDTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetSepactLiquidityAssociationIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *GetSepactLiquidityAssociationIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /sepact-liquidity/{associationId}][%d] getSepactLiquidityAssociationIdInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetSepactLiquidityAssociationIDInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetSepactLiquidityAssociationIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type GetSepactLiquidityAssociationIDServiceUnavailable struct {
 
 func (o *GetSepactLiquidityAssociationIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /sepact-liquidity/{associationId}][%d] getSepactLiquidityAssociationIdServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *GetSepactLiquidityAssociationIDServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetSepactLiquidityAssociationIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -6,14 +6,17 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/strfmt"
+	strfmt "github.com/go-openapi/strfmt"
+
 	"github.com/go-openapi/swag"
 )
 
 // SepaDDAssociationAttributes sepa d d association attributes
-//
 // swagger:model SepaDDAssociationAttributes
 type SepaDDAssociationAttributes struct {
+
+	// allow submissions
+	AllowSubmissions bool `json:"allowSubmissions,omitempty"`
 
 	// bic
 	Bic string `json:"bic,omitempty"`

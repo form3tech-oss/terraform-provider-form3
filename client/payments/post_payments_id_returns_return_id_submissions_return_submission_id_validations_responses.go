@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsReader is a Reader for the PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidations structure.
@@ -23,54 +24,63 @@ type PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsReader
 // ReadResponse reads a server response into the received o.
 func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 201:
 		result := NewPostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewPostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewPostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewPostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewPostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewPostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewPostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewPostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewPostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsCreate
 
 func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsCreated) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/submissions/{returnSubmissionId}/validations][%d] postPaymentsIdReturnsReturnIdSubmissionsReturnSubmissionIdValidationsCreated  %+v", 201, o.Payload)
-}
-
-func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsCreated) GetPayload() *models.ReturnSubmissionValidationCreationResponse {
-	return o.Payload
 }
 
 func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsBa
 	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/submissions/{returnSubmissionId}/validations][%d] postPaymentsIdReturnsReturnIdSubmissionsReturnSubmissionIdValidationsBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsUnauth
 
 func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/submissions/{returnSubmissionId}/validations][%d] postPaymentsIdReturnsReturnIdSubmissionsReturnSubmissionIdValidationsUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsFo
 	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/submissions/{returnSubmissionId}/validations][%d] postPaymentsIdReturnsReturnIdSubmissionsReturnSubmissionIdValidationsForbidden  %+v", 403, o.Payload)
 }
 
-func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsNotFou
 
 func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsNotFound) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/submissions/{returnSubmissionId}/validations][%d] postPaymentsIdReturnsReturnIdSubmissionsReturnSubmissionIdValidationsNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsCo
 	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/submissions/{returnSubmissionId}/validations][%d] postPaymentsIdReturnsReturnIdSubmissionsReturnSubmissionIdValidationsConflict  %+v", 409, o.Payload)
 }
 
-func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsTooMan
 
 func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/submissions/{returnSubmissionId}/validations][%d] postPaymentsIdReturnsReturnIdSubmissionsReturnSubmissionIdValidationsTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsIn
 	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/submissions/{returnSubmissionId}/validations][%d] postPaymentsIdReturnsReturnIdSubmissionsReturnSubmissionIdValidationsInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsServic
 
 func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/submissions/{returnSubmissionId}/validations][%d] postPaymentsIdReturnsReturnIdSubmissionsReturnSubmissionIdValidationsServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

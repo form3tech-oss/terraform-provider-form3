@@ -10,9 +10,10 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
-	"github.com/form3tech-oss/terraform-provider-form3/models"
+	strfmt "github.com/go-openapi/strfmt"
+
+	models "github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetKeysReader is a Reader for the GetKeys structure.
@@ -23,54 +24,63 @@ type GetKeysReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetKeysReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+
 	case 200:
 		result := NewGetKeysOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
+
 	case 400:
 		result := NewGetKeysBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 401:
 		result := NewGetKeysUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 403:
 		result := NewGetKeysForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 404:
 		result := NewGetKeysNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 409:
 		result := NewGetKeysConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 429:
 		result := NewGetKeysTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 500:
 		result := NewGetKeysInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
+
 	case 503:
 		result := NewGetKeysServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,10 +108,6 @@ type GetKeysOK struct {
 
 func (o *GetKeysOK) Error() string {
 	return fmt.Sprintf("[GET /keys][%d] getKeysOK  %+v", 200, o.Payload)
-}
-
-func (o *GetKeysOK) GetPayload() *models.KeyDetailsListResponse {
-	return o.Payload
 }
 
 func (o *GetKeysOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,10 +139,6 @@ func (o *GetKeysBadRequest) Error() string {
 	return fmt.Sprintf("[GET /keys][%d] getKeysBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *GetKeysBadRequest) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetKeysBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -164,10 +166,6 @@ type GetKeysUnauthorized struct {
 
 func (o *GetKeysUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /keys][%d] getKeysUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetKeysUnauthorized) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetKeysUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -199,10 +197,6 @@ func (o *GetKeysForbidden) Error() string {
 	return fmt.Sprintf("[GET /keys][%d] getKeysForbidden  %+v", 403, o.Payload)
 }
 
-func (o *GetKeysForbidden) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetKeysForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -230,10 +224,6 @@ type GetKeysNotFound struct {
 
 func (o *GetKeysNotFound) Error() string {
 	return fmt.Sprintf("[GET /keys][%d] getKeysNotFound  %+v", 404, o.Payload)
-}
-
-func (o *GetKeysNotFound) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetKeysNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,10 +255,6 @@ func (o *GetKeysConflict) Error() string {
 	return fmt.Sprintf("[GET /keys][%d] getKeysConflict  %+v", 409, o.Payload)
 }
 
-func (o *GetKeysConflict) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetKeysConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -296,10 +282,6 @@ type GetKeysTooManyRequests struct {
 
 func (o *GetKeysTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /keys][%d] getKeysTooManyRequests  %+v", 429, o.Payload)
-}
-
-func (o *GetKeysTooManyRequests) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetKeysTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -331,10 +313,6 @@ func (o *GetKeysInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /keys][%d] getKeysInternalServerError  %+v", 500, o.Payload)
 }
 
-func (o *GetKeysInternalServerError) GetPayload() *models.APIError {
-	return o.Payload
-}
-
 func (o *GetKeysInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -362,10 +340,6 @@ type GetKeysServiceUnavailable struct {
 
 func (o *GetKeysServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /keys][%d] getKeysServiceUnavailable  %+v", 503, o.Payload)
-}
-
-func (o *GetKeysServiceUnavailable) GetPayload() *models.APIError {
-	return o.Payload
 }
 
 func (o *GetKeysServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
