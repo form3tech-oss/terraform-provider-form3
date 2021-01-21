@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetStarlingReader is a Reader for the GetStarling structure.
@@ -24,63 +23,54 @@ type GetStarlingReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetStarlingReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetStarlingOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetStarlingBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetStarlingUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetStarlingForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetStarlingNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetStarlingConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetStarlingTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetStarlingInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetStarlingServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetStarlingOK struct {
 
 func (o *GetStarlingOK) Error() string {
 	return fmt.Sprintf("[GET /starling][%d] getStarlingOK  %+v", 200, o.Payload)
+}
+
+func (o *GetStarlingOK) GetPayload() *models.AssociationDetailsListResponse {
+	return o.Payload
 }
 
 func (o *GetStarlingOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetStarlingBadRequest) Error() string {
 	return fmt.Sprintf("[GET /starling][%d] getStarlingBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetStarlingBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetStarlingBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetStarlingUnauthorized struct {
 
 func (o *GetStarlingUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /starling][%d] getStarlingUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetStarlingUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetStarlingUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetStarlingForbidden) Error() string {
 	return fmt.Sprintf("[GET /starling][%d] getStarlingForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetStarlingForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetStarlingForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetStarlingNotFound struct {
 
 func (o *GetStarlingNotFound) Error() string {
 	return fmt.Sprintf("[GET /starling][%d] getStarlingNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetStarlingNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetStarlingNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetStarlingConflict) Error() string {
 	return fmt.Sprintf("[GET /starling][%d] getStarlingConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetStarlingConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetStarlingConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetStarlingTooManyRequests struct {
 
 func (o *GetStarlingTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /starling][%d] getStarlingTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetStarlingTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetStarlingTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetStarlingInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /starling][%d] getStarlingInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetStarlingInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetStarlingInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetStarlingServiceUnavailable struct {
 
 func (o *GetStarlingServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /starling][%d] getStarlingServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetStarlingServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetStarlingServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

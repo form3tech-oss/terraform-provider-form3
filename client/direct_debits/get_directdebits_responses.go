@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetDirectdebitsReader is a Reader for the GetDirectdebits structure.
@@ -24,63 +23,54 @@ type GetDirectdebitsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetDirectdebitsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetDirectdebitsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetDirectdebitsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetDirectdebitsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetDirectdebitsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetDirectdebitsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetDirectdebitsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetDirectdebitsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetDirectdebitsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetDirectdebitsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetDirectdebitsOK struct {
 
 func (o *GetDirectdebitsOK) Error() string {
 	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsOK  %+v", 200, o.Payload)
+}
+
+func (o *GetDirectdebitsOK) GetPayload() *models.DirectDebitDetailsListResponse {
+	return o.Payload
 }
 
 func (o *GetDirectdebitsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetDirectdebitsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetDirectdebitsBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetDirectdebitsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetDirectdebitsUnauthorized struct {
 
 func (o *GetDirectdebitsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetDirectdebitsUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetDirectdebitsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetDirectdebitsForbidden) Error() string {
 	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetDirectdebitsForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetDirectdebitsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetDirectdebitsNotFound struct {
 
 func (o *GetDirectdebitsNotFound) Error() string {
 	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetDirectdebitsNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetDirectdebitsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetDirectdebitsConflict) Error() string {
 	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetDirectdebitsConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetDirectdebitsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetDirectdebitsTooManyRequests struct {
 
 func (o *GetDirectdebitsTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetDirectdebitsTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetDirectdebitsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetDirectdebitsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetDirectdebitsInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetDirectdebitsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetDirectdebitsServiceUnavailable struct {
 
 func (o *GetDirectdebitsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetDirectdebitsServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetDirectdebitsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

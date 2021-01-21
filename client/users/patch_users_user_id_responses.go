@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PatchUsersUserIDReader is a Reader for the PatchUsersUserID structure.
@@ -24,63 +23,54 @@ type PatchUsersUserIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PatchUsersUserIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewPatchUsersUserIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewPatchUsersUserIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewPatchUsersUserIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewPatchUsersUserIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewPatchUsersUserIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewPatchUsersUserIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewPatchUsersUserIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewPatchUsersUserIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewPatchUsersUserIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type PatchUsersUserIDOK struct {
 
 func (o *PatchUsersUserIDOK) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_id}][%d] patchUsersUserIdOK  %+v", 200, o.Payload)
+}
+
+func (o *PatchUsersUserIDOK) GetPayload() *models.UserDetailsResponse {
+	return o.Payload
 }
 
 func (o *PatchUsersUserIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *PatchUsersUserIDBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_id}][%d] patchUsersUserIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *PatchUsersUserIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PatchUsersUserIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type PatchUsersUserIDUnauthorized struct {
 
 func (o *PatchUsersUserIDUnauthorized) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_id}][%d] patchUsersUserIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PatchUsersUserIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PatchUsersUserIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *PatchUsersUserIDForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_id}][%d] patchUsersUserIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *PatchUsersUserIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PatchUsersUserIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type PatchUsersUserIDNotFound struct {
 
 func (o *PatchUsersUserIDNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_id}][%d] patchUsersUserIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PatchUsersUserIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PatchUsersUserIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *PatchUsersUserIDConflict) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_id}][%d] patchUsersUserIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *PatchUsersUserIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PatchUsersUserIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type PatchUsersUserIDTooManyRequests struct {
 
 func (o *PatchUsersUserIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_id}][%d] patchUsersUserIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PatchUsersUserIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PatchUsersUserIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *PatchUsersUserIDInternalServerError) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_id}][%d] patchUsersUserIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *PatchUsersUserIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PatchUsersUserIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type PatchUsersUserIDServiceUnavailable struct {
 
 func (o *PatchUsersUserIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_id}][%d] patchUsersUserIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PatchUsersUserIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PatchUsersUserIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

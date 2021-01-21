@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostUsersUserIDRolesRoleIDReader is a Reader for the PostUsersUserIDRolesRoleID structure.
@@ -24,63 +23,54 @@ type PostUsersUserIDRolesRoleIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostUsersUserIDRolesRoleIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostUsersUserIDRolesRoleIDCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewPostUsersUserIDRolesRoleIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewPostUsersUserIDRolesRoleIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewPostUsersUserIDRolesRoleIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewPostUsersUserIDRolesRoleIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewPostUsersUserIDRolesRoleIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewPostUsersUserIDRolesRoleIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewPostUsersUserIDRolesRoleIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewPostUsersUserIDRolesRoleIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -131,6 +121,10 @@ func (o *PostUsersUserIDRolesRoleIDBadRequest) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/roles/{role_id}][%d] postUsersUserIdRolesRoleIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *PostUsersUserIDRolesRoleIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostUsersUserIDRolesRoleIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -158,6 +152,10 @@ type PostUsersUserIDRolesRoleIDUnauthorized struct {
 
 func (o *PostUsersUserIDRolesRoleIDUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/roles/{role_id}][%d] postUsersUserIdRolesRoleIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostUsersUserIDRolesRoleIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostUsersUserIDRolesRoleIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -189,6 +187,10 @@ func (o *PostUsersUserIDRolesRoleIDForbidden) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/roles/{role_id}][%d] postUsersUserIdRolesRoleIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *PostUsersUserIDRolesRoleIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostUsersUserIDRolesRoleIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -216,6 +218,10 @@ type PostUsersUserIDRolesRoleIDNotFound struct {
 
 func (o *PostUsersUserIDRolesRoleIDNotFound) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/roles/{role_id}][%d] postUsersUserIdRolesRoleIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostUsersUserIDRolesRoleIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostUsersUserIDRolesRoleIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -247,6 +253,10 @@ func (o *PostUsersUserIDRolesRoleIDConflict) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/roles/{role_id}][%d] postUsersUserIdRolesRoleIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *PostUsersUserIDRolesRoleIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostUsersUserIDRolesRoleIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -274,6 +284,10 @@ type PostUsersUserIDRolesRoleIDTooManyRequests struct {
 
 func (o *PostUsersUserIDRolesRoleIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/roles/{role_id}][%d] postUsersUserIdRolesRoleIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostUsersUserIDRolesRoleIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostUsersUserIDRolesRoleIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -305,6 +319,10 @@ func (o *PostUsersUserIDRolesRoleIDInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/roles/{role_id}][%d] postUsersUserIdRolesRoleIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *PostUsersUserIDRolesRoleIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostUsersUserIDRolesRoleIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -332,6 +350,10 @@ type PostUsersUserIDRolesRoleIDServiceUnavailable struct {
 
 func (o *PostUsersUserIDRolesRoleIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/roles/{role_id}][%d] postUsersUserIdRolesRoleIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostUsersUserIDRolesRoleIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostUsersUserIDRolesRoleIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteKeysKeyIDReader is a Reader for the DeleteKeysKeyID structure.
@@ -24,63 +23,54 @@ type DeleteKeysKeyIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteKeysKeyIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewDeleteKeysKeyIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewDeleteKeysKeyIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewDeleteKeysKeyIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewDeleteKeysKeyIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewDeleteKeysKeyIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewDeleteKeysKeyIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewDeleteKeysKeyIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewDeleteKeysKeyIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewDeleteKeysKeyIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -131,6 +121,10 @@ func (o *DeleteKeysKeyIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}][%d] deleteKeysKeyIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *DeleteKeysKeyIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteKeysKeyIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -158,6 +152,10 @@ type DeleteKeysKeyIDUnauthorized struct {
 
 func (o *DeleteKeysKeyIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}][%d] deleteKeysKeyIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *DeleteKeysKeyIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteKeysKeyIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -189,6 +187,10 @@ func (o *DeleteKeysKeyIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}][%d] deleteKeysKeyIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *DeleteKeysKeyIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteKeysKeyIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -216,6 +218,10 @@ type DeleteKeysKeyIDNotFound struct {
 
 func (o *DeleteKeysKeyIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}][%d] deleteKeysKeyIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteKeysKeyIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteKeysKeyIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -247,6 +253,10 @@ func (o *DeleteKeysKeyIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}][%d] deleteKeysKeyIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *DeleteKeysKeyIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteKeysKeyIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -274,6 +284,10 @@ type DeleteKeysKeyIDTooManyRequests struct {
 
 func (o *DeleteKeysKeyIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}][%d] deleteKeysKeyIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *DeleteKeysKeyIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteKeysKeyIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -305,6 +319,10 @@ func (o *DeleteKeysKeyIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}][%d] deleteKeysKeyIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *DeleteKeysKeyIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteKeysKeyIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -332,6 +350,10 @@ type DeleteKeysKeyIDServiceUnavailable struct {
 
 func (o *DeleteKeysKeyIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}][%d] deleteKeysKeyIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *DeleteKeysKeyIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteKeysKeyIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

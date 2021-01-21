@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetSepaddIDReader is a Reader for the GetSepaddID structure.
@@ -24,63 +23,54 @@ type GetSepaddIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetSepaddIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetSepaddIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetSepaddIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetSepaddIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetSepaddIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetSepaddIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetSepaddIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetSepaddIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetSepaddIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetSepaddIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetSepaddIDOK struct {
 
 func (o *GetSepaddIDOK) Error() string {
 	return fmt.Sprintf("[GET /sepadd/{id}][%d] getSepaddIdOK  %+v", 200, o.Payload)
+}
+
+func (o *GetSepaddIDOK) GetPayload() *models.SepaDDAssociationDetailsResponse {
+	return o.Payload
 }
 
 func (o *GetSepaddIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetSepaddIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /sepadd/{id}][%d] getSepaddIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetSepaddIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetSepaddIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetSepaddIDUnauthorized struct {
 
 func (o *GetSepaddIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /sepadd/{id}][%d] getSepaddIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetSepaddIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetSepaddIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetSepaddIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /sepadd/{id}][%d] getSepaddIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetSepaddIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetSepaddIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetSepaddIDNotFound struct {
 
 func (o *GetSepaddIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /sepadd/{id}][%d] getSepaddIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetSepaddIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetSepaddIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetSepaddIDConflict) Error() string {
 	return fmt.Sprintf("[GET /sepadd/{id}][%d] getSepaddIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetSepaddIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetSepaddIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetSepaddIDTooManyRequests struct {
 
 func (o *GetSepaddIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /sepadd/{id}][%d] getSepaddIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetSepaddIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetSepaddIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetSepaddIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /sepadd/{id}][%d] getSepaddIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetSepaddIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetSepaddIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetSepaddIDServiceUnavailable struct {
 
 func (o *GetSepaddIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /sepadd/{id}][%d] getSepaddIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetSepaddIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetSepaddIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

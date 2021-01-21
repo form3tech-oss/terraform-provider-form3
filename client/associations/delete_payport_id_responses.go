@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeletePayportIDReader is a Reader for the DeletePayportID structure.
@@ -24,63 +23,54 @@ type DeletePayportIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeletePayportIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewDeletePayportIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewDeletePayportIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewDeletePayportIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewDeletePayportIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewDeletePayportIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewDeletePayportIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewDeletePayportIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewDeletePayportIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewDeletePayportIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -131,6 +121,10 @@ func (o *DeletePayportIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /payport/{id}][%d] deletePayportIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *DeletePayportIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeletePayportIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -158,6 +152,10 @@ type DeletePayportIDUnauthorized struct {
 
 func (o *DeletePayportIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /payport/{id}][%d] deletePayportIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *DeletePayportIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeletePayportIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -189,6 +187,10 @@ func (o *DeletePayportIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /payport/{id}][%d] deletePayportIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *DeletePayportIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeletePayportIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -216,6 +218,10 @@ type DeletePayportIDNotFound struct {
 
 func (o *DeletePayportIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /payport/{id}][%d] deletePayportIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeletePayportIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeletePayportIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -247,6 +253,10 @@ func (o *DeletePayportIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /payport/{id}][%d] deletePayportIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *DeletePayportIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeletePayportIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -274,6 +284,10 @@ type DeletePayportIDTooManyRequests struct {
 
 func (o *DeletePayportIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /payport/{id}][%d] deletePayportIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *DeletePayportIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeletePayportIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -305,6 +319,10 @@ func (o *DeletePayportIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /payport/{id}][%d] deletePayportIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *DeletePayportIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeletePayportIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -332,6 +350,10 @@ type DeletePayportIDServiceUnavailable struct {
 
 func (o *DeletePayportIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /payport/{id}][%d] deletePayportIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *DeletePayportIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeletePayportIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PatchUnitsIDReader is a Reader for the PatchUnitsID structure.
@@ -24,63 +23,54 @@ type PatchUnitsIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PatchUnitsIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewPatchUnitsIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewPatchUnitsIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewPatchUnitsIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewPatchUnitsIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewPatchUnitsIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewPatchUnitsIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewPatchUnitsIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewPatchUnitsIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewPatchUnitsIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type PatchUnitsIDOK struct {
 
 func (o *PatchUnitsIDOK) Error() string {
 	return fmt.Sprintf("[PATCH /units/{id}][%d] patchUnitsIdOK  %+v", 200, o.Payload)
+}
+
+func (o *PatchUnitsIDOK) GetPayload() *models.OrganisationDetailsResponse {
+	return o.Payload
 }
 
 func (o *PatchUnitsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *PatchUnitsIDBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /units/{id}][%d] patchUnitsIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *PatchUnitsIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PatchUnitsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type PatchUnitsIDUnauthorized struct {
 
 func (o *PatchUnitsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[PATCH /units/{id}][%d] patchUnitsIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PatchUnitsIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PatchUnitsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *PatchUnitsIDForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /units/{id}][%d] patchUnitsIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *PatchUnitsIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PatchUnitsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type PatchUnitsIDNotFound struct {
 
 func (o *PatchUnitsIDNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /units/{id}][%d] patchUnitsIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PatchUnitsIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PatchUnitsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *PatchUnitsIDConflict) Error() string {
 	return fmt.Sprintf("[PATCH /units/{id}][%d] patchUnitsIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *PatchUnitsIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PatchUnitsIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type PatchUnitsIDTooManyRequests struct {
 
 func (o *PatchUnitsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[PATCH /units/{id}][%d] patchUnitsIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PatchUnitsIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PatchUnitsIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *PatchUnitsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[PATCH /units/{id}][%d] patchUnitsIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *PatchUnitsIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PatchUnitsIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type PatchUnitsIDServiceUnavailable struct {
 
 func (o *PatchUnitsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[PATCH /units/{id}][%d] patchUnitsIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PatchUnitsIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PatchUnitsIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

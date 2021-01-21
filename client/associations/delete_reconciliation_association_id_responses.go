@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteReconciliationAssociationIDReader is a Reader for the DeleteReconciliationAssociationID structure.
@@ -24,63 +23,54 @@ type DeleteReconciliationAssociationIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteReconciliationAssociationIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewDeleteReconciliationAssociationIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewDeleteReconciliationAssociationIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewDeleteReconciliationAssociationIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewDeleteReconciliationAssociationIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewDeleteReconciliationAssociationIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewDeleteReconciliationAssociationIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewDeleteReconciliationAssociationIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewDeleteReconciliationAssociationIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewDeleteReconciliationAssociationIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -131,6 +121,10 @@ func (o *DeleteReconciliationAssociationIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /reconciliation/{associationId}][%d] deleteReconciliationAssociationIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *DeleteReconciliationAssociationIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteReconciliationAssociationIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -158,6 +152,10 @@ type DeleteReconciliationAssociationIDUnauthorized struct {
 
 func (o *DeleteReconciliationAssociationIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /reconciliation/{associationId}][%d] deleteReconciliationAssociationIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *DeleteReconciliationAssociationIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteReconciliationAssociationIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -189,6 +187,10 @@ func (o *DeleteReconciliationAssociationIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /reconciliation/{associationId}][%d] deleteReconciliationAssociationIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *DeleteReconciliationAssociationIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteReconciliationAssociationIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -216,6 +218,10 @@ type DeleteReconciliationAssociationIDNotFound struct {
 
 func (o *DeleteReconciliationAssociationIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /reconciliation/{associationId}][%d] deleteReconciliationAssociationIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteReconciliationAssociationIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteReconciliationAssociationIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -247,6 +253,10 @@ func (o *DeleteReconciliationAssociationIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /reconciliation/{associationId}][%d] deleteReconciliationAssociationIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *DeleteReconciliationAssociationIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteReconciliationAssociationIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -274,6 +284,10 @@ type DeleteReconciliationAssociationIDTooManyRequests struct {
 
 func (o *DeleteReconciliationAssociationIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /reconciliation/{associationId}][%d] deleteReconciliationAssociationIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *DeleteReconciliationAssociationIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteReconciliationAssociationIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -305,6 +319,10 @@ func (o *DeleteReconciliationAssociationIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /reconciliation/{associationId}][%d] deleteReconciliationAssociationIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *DeleteReconciliationAssociationIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteReconciliationAssociationIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -332,6 +350,10 @@ type DeleteReconciliationAssociationIDServiceUnavailable struct {
 
 func (o *DeleteReconciliationAssociationIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /reconciliation/{associationId}][%d] deleteReconciliationAssociationIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *DeleteReconciliationAssociationIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteReconciliationAssociationIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

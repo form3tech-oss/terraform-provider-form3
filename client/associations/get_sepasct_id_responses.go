@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetSepasctIDReader is a Reader for the GetSepasctID structure.
@@ -24,63 +23,54 @@ type GetSepasctIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetSepasctIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetSepasctIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetSepasctIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetSepasctIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetSepasctIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetSepasctIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetSepasctIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetSepasctIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetSepasctIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetSepasctIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetSepasctIDOK struct {
 
 func (o *GetSepasctIDOK) Error() string {
 	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdOK  %+v", 200, o.Payload)
+}
+
+func (o *GetSepasctIDOK) GetPayload() *models.SepaSctAssociationDetailsResponse {
+	return o.Payload
 }
 
 func (o *GetSepasctIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetSepasctIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetSepasctIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetSepasctIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetSepasctIDUnauthorized struct {
 
 func (o *GetSepasctIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetSepasctIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetSepasctIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetSepasctIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetSepasctIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetSepasctIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetSepasctIDNotFound struct {
 
 func (o *GetSepasctIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetSepasctIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetSepasctIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetSepasctIDConflict) Error() string {
 	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetSepasctIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetSepasctIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetSepasctIDTooManyRequests struct {
 
 func (o *GetSepasctIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetSepasctIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetSepasctIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetSepasctIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetSepasctIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetSepasctIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetSepasctIDServiceUnavailable struct {
 
 func (o *GetSepasctIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetSepasctIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetSepasctIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

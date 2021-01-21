@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetSubscriptionsIDReader is a Reader for the GetSubscriptionsID structure.
@@ -24,63 +23,54 @@ type GetSubscriptionsIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetSubscriptionsIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetSubscriptionsIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetSubscriptionsIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetSubscriptionsIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetSubscriptionsIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetSubscriptionsIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetSubscriptionsIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetSubscriptionsIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetSubscriptionsIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetSubscriptionsIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetSubscriptionsIDOK struct {
 
 func (o *GetSubscriptionsIDOK) Error() string {
 	return fmt.Sprintf("[GET /subscriptions/{id}][%d] getSubscriptionsIdOK  %+v", 200, o.Payload)
+}
+
+func (o *GetSubscriptionsIDOK) GetPayload() *models.SubscriptionDetailsResponse {
+	return o.Payload
 }
 
 func (o *GetSubscriptionsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetSubscriptionsIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /subscriptions/{id}][%d] getSubscriptionsIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetSubscriptionsIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetSubscriptionsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetSubscriptionsIDUnauthorized struct {
 
 func (o *GetSubscriptionsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /subscriptions/{id}][%d] getSubscriptionsIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetSubscriptionsIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetSubscriptionsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetSubscriptionsIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /subscriptions/{id}][%d] getSubscriptionsIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetSubscriptionsIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetSubscriptionsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetSubscriptionsIDNotFound struct {
 
 func (o *GetSubscriptionsIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /subscriptions/{id}][%d] getSubscriptionsIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetSubscriptionsIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetSubscriptionsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetSubscriptionsIDConflict) Error() string {
 	return fmt.Sprintf("[GET /subscriptions/{id}][%d] getSubscriptionsIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetSubscriptionsIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetSubscriptionsIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetSubscriptionsIDTooManyRequests struct {
 
 func (o *GetSubscriptionsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /subscriptions/{id}][%d] getSubscriptionsIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetSubscriptionsIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetSubscriptionsIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetSubscriptionsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /subscriptions/{id}][%d] getSubscriptionsIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetSubscriptionsIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetSubscriptionsIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetSubscriptionsIDServiceUnavailable struct {
 
 func (o *GetSubscriptionsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /subscriptions/{id}][%d] getSubscriptionsIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetSubscriptionsIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetSubscriptionsIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

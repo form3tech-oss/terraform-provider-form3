@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetUnitsIDReader is a Reader for the GetUnitsID structure.
@@ -24,63 +23,54 @@ type GetUnitsIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetUnitsIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetUnitsIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetUnitsIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetUnitsIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetUnitsIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetUnitsIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetUnitsIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetUnitsIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetUnitsIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetUnitsIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetUnitsIDOK struct {
 
 func (o *GetUnitsIDOK) Error() string {
 	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdOK  %+v", 200, o.Payload)
+}
+
+func (o *GetUnitsIDOK) GetPayload() *models.OrganisationDetailsResponse {
+	return o.Payload
 }
 
 func (o *GetUnitsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetUnitsIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetUnitsIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetUnitsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetUnitsIDUnauthorized struct {
 
 func (o *GetUnitsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetUnitsIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetUnitsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetUnitsIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetUnitsIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetUnitsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetUnitsIDNotFound struct {
 
 func (o *GetUnitsIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetUnitsIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetUnitsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetUnitsIDConflict) Error() string {
 	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetUnitsIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetUnitsIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetUnitsIDTooManyRequests struct {
 
 func (o *GetUnitsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetUnitsIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetUnitsIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetUnitsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetUnitsIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetUnitsIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetUnitsIDServiceUnavailable struct {
 
 func (o *GetUnitsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetUnitsIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetUnitsIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

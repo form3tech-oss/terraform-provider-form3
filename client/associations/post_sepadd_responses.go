@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostSepaddReader is a Reader for the PostSepadd structure.
@@ -24,63 +23,54 @@ type PostSepaddReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostSepaddReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostSepaddCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewPostSepaddBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewPostSepaddUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewPostSepaddForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewPostSepaddNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewPostSepaddConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewPostSepaddTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewPostSepaddInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewPostSepaddServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type PostSepaddCreated struct {
 
 func (o *PostSepaddCreated) Error() string {
 	return fmt.Sprintf("[POST /sepadd][%d] postSepaddCreated  %+v", 201, o.Payload)
+}
+
+func (o *PostSepaddCreated) GetPayload() *models.SepaDDAssociationCreationResponse {
+	return o.Payload
 }
 
 func (o *PostSepaddCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *PostSepaddBadRequest) Error() string {
 	return fmt.Sprintf("[POST /sepadd][%d] postSepaddBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *PostSepaddBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostSepaddBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type PostSepaddUnauthorized struct {
 
 func (o *PostSepaddUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /sepadd][%d] postSepaddUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostSepaddUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostSepaddUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *PostSepaddForbidden) Error() string {
 	return fmt.Sprintf("[POST /sepadd][%d] postSepaddForbidden  %+v", 403, o.Payload)
 }
 
+func (o *PostSepaddForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostSepaddForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type PostSepaddNotFound struct {
 
 func (o *PostSepaddNotFound) Error() string {
 	return fmt.Sprintf("[POST /sepadd][%d] postSepaddNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostSepaddNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostSepaddNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *PostSepaddConflict) Error() string {
 	return fmt.Sprintf("[POST /sepadd][%d] postSepaddConflict  %+v", 409, o.Payload)
 }
 
+func (o *PostSepaddConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostSepaddConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type PostSepaddTooManyRequests struct {
 
 func (o *PostSepaddTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /sepadd][%d] postSepaddTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostSepaddTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostSepaddTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *PostSepaddInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /sepadd][%d] postSepaddInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *PostSepaddInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostSepaddInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type PostSepaddServiceUnavailable struct {
 
 func (o *PostSepaddServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /sepadd][%d] postSepaddServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostSepaddServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostSepaddServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

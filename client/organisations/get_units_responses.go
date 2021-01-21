@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetUnitsReader is a Reader for the GetUnits structure.
@@ -24,63 +23,54 @@ type GetUnitsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetUnitsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetUnitsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetUnitsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetUnitsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetUnitsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetUnitsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetUnitsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetUnitsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetUnitsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetUnitsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetUnitsOK struct {
 
 func (o *GetUnitsOK) Error() string {
 	return fmt.Sprintf("[GET /units][%d] getUnitsOK  %+v", 200, o.Payload)
+}
+
+func (o *GetUnitsOK) GetPayload() *models.OrganisationDetailsListResponse {
+	return o.Payload
 }
 
 func (o *GetUnitsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetUnitsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /units][%d] getUnitsBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetUnitsBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetUnitsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetUnitsUnauthorized struct {
 
 func (o *GetUnitsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /units][%d] getUnitsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetUnitsUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetUnitsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetUnitsForbidden) Error() string {
 	return fmt.Sprintf("[GET /units][%d] getUnitsForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetUnitsForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetUnitsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetUnitsNotFound struct {
 
 func (o *GetUnitsNotFound) Error() string {
 	return fmt.Sprintf("[GET /units][%d] getUnitsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetUnitsNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetUnitsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetUnitsConflict) Error() string {
 	return fmt.Sprintf("[GET /units][%d] getUnitsConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetUnitsConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetUnitsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetUnitsTooManyRequests struct {
 
 func (o *GetUnitsTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /units][%d] getUnitsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetUnitsTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetUnitsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetUnitsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /units][%d] getUnitsInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetUnitsInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetUnitsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetUnitsServiceUnavailable struct {
 
 func (o *GetUnitsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /units][%d] getUnitsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetUnitsServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetUnitsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

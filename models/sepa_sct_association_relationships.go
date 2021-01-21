@@ -6,13 +6,13 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // SepaSctAssociationRelationships sepa sct association relationships
+//
 // swagger:model SepaSctAssociationRelationships
 type SepaSctAssociationRelationships struct {
 
@@ -71,6 +71,7 @@ func (m *SepaSctAssociationRelationships) UnmarshalBinary(b []byte) error {
 }
 
 // SepaSctAssociationRelationshipsSponsor sepa sct association relationships sponsor
+//
 // swagger:model SepaSctAssociationRelationshipsSponsor
 type SepaSctAssociationRelationshipsSponsor struct {
 

@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // DeleteLimitsIDReader is a Reader for the DeleteLimitsID structure.
@@ -24,63 +23,54 @@ type DeleteLimitsIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteLimitsIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 204:
 		result := NewDeleteLimitsIDNoContent()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewDeleteLimitsIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewDeleteLimitsIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewDeleteLimitsIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewDeleteLimitsIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewDeleteLimitsIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewDeleteLimitsIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewDeleteLimitsIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewDeleteLimitsIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -131,6 +121,10 @@ func (o *DeleteLimitsIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /limits/{id}][%d] deleteLimitsIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *DeleteLimitsIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteLimitsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -158,6 +152,10 @@ type DeleteLimitsIDUnauthorized struct {
 
 func (o *DeleteLimitsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /limits/{id}][%d] deleteLimitsIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *DeleteLimitsIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteLimitsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -189,6 +187,10 @@ func (o *DeleteLimitsIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /limits/{id}][%d] deleteLimitsIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *DeleteLimitsIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteLimitsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -216,6 +218,10 @@ type DeleteLimitsIDNotFound struct {
 
 func (o *DeleteLimitsIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /limits/{id}][%d] deleteLimitsIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteLimitsIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteLimitsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -247,6 +253,10 @@ func (o *DeleteLimitsIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /limits/{id}][%d] deleteLimitsIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *DeleteLimitsIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteLimitsIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -274,6 +284,10 @@ type DeleteLimitsIDTooManyRequests struct {
 
 func (o *DeleteLimitsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /limits/{id}][%d] deleteLimitsIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *DeleteLimitsIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteLimitsIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -305,6 +319,10 @@ func (o *DeleteLimitsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /limits/{id}][%d] deleteLimitsIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *DeleteLimitsIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *DeleteLimitsIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -332,6 +350,10 @@ type DeleteLimitsIDServiceUnavailable struct {
 
 func (o *DeleteLimitsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /limits/{id}][%d] deleteLimitsIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *DeleteLimitsIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *DeleteLimitsIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

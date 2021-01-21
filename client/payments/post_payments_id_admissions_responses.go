@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostPaymentsIDAdmissionsReader is a Reader for the PostPaymentsIDAdmissions structure.
@@ -24,63 +23,54 @@ type PostPaymentsIDAdmissionsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostPaymentsIDAdmissionsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostPaymentsIDAdmissionsCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewPostPaymentsIDAdmissionsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewPostPaymentsIDAdmissionsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewPostPaymentsIDAdmissionsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewPostPaymentsIDAdmissionsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewPostPaymentsIDAdmissionsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewPostPaymentsIDAdmissionsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewPostPaymentsIDAdmissionsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewPostPaymentsIDAdmissionsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type PostPaymentsIDAdmissionsCreated struct {
 
 func (o *PostPaymentsIDAdmissionsCreated) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/admissions][%d] postPaymentsIdAdmissionsCreated  %+v", 201, o.Payload)
+}
+
+func (o *PostPaymentsIDAdmissionsCreated) GetPayload() *models.PaymentAdmissionCreationResponse {
+	return o.Payload
 }
 
 func (o *PostPaymentsIDAdmissionsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *PostPaymentsIDAdmissionsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/admissions][%d] postPaymentsIdAdmissionsBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *PostPaymentsIDAdmissionsBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostPaymentsIDAdmissionsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type PostPaymentsIDAdmissionsUnauthorized struct {
 
 func (o *PostPaymentsIDAdmissionsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/admissions][%d] postPaymentsIdAdmissionsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostPaymentsIDAdmissionsUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostPaymentsIDAdmissionsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *PostPaymentsIDAdmissionsForbidden) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/admissions][%d] postPaymentsIdAdmissionsForbidden  %+v", 403, o.Payload)
 }
 
+func (o *PostPaymentsIDAdmissionsForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostPaymentsIDAdmissionsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type PostPaymentsIDAdmissionsNotFound struct {
 
 func (o *PostPaymentsIDAdmissionsNotFound) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/admissions][%d] postPaymentsIdAdmissionsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostPaymentsIDAdmissionsNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostPaymentsIDAdmissionsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *PostPaymentsIDAdmissionsConflict) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/admissions][%d] postPaymentsIdAdmissionsConflict  %+v", 409, o.Payload)
 }
 
+func (o *PostPaymentsIDAdmissionsConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostPaymentsIDAdmissionsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type PostPaymentsIDAdmissionsTooManyRequests struct {
 
 func (o *PostPaymentsIDAdmissionsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/admissions][%d] postPaymentsIdAdmissionsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostPaymentsIDAdmissionsTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostPaymentsIDAdmissionsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *PostPaymentsIDAdmissionsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/admissions][%d] postPaymentsIdAdmissionsInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *PostPaymentsIDAdmissionsInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostPaymentsIDAdmissionsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type PostPaymentsIDAdmissionsServiceUnavailable struct {
 
 func (o *PostPaymentsIDAdmissionsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/admissions][%d] postPaymentsIdAdmissionsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostPaymentsIDAdmissionsServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostPaymentsIDAdmissionsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

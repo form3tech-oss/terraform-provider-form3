@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PatchSepaddIDReader is a Reader for the PatchSepaddID structure.
@@ -24,63 +23,54 @@ type PatchSepaddIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PatchSepaddIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewPatchSepaddIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewPatchSepaddIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewPatchSepaddIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewPatchSepaddIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewPatchSepaddIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewPatchSepaddIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewPatchSepaddIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewPatchSepaddIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewPatchSepaddIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type PatchSepaddIDOK struct {
 
 func (o *PatchSepaddIDOK) Error() string {
 	return fmt.Sprintf("[PATCH /sepadd/{id}][%d] patchSepaddIdOK  %+v", 200, o.Payload)
+}
+
+func (o *PatchSepaddIDOK) GetPayload() *models.SepaDDAssociationDetailsResponse {
+	return o.Payload
 }
 
 func (o *PatchSepaddIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *PatchSepaddIDBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /sepadd/{id}][%d] patchSepaddIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *PatchSepaddIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PatchSepaddIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type PatchSepaddIDUnauthorized struct {
 
 func (o *PatchSepaddIDUnauthorized) Error() string {
 	return fmt.Sprintf("[PATCH /sepadd/{id}][%d] patchSepaddIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PatchSepaddIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PatchSepaddIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *PatchSepaddIDForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /sepadd/{id}][%d] patchSepaddIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *PatchSepaddIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PatchSepaddIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type PatchSepaddIDNotFound struct {
 
 func (o *PatchSepaddIDNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /sepadd/{id}][%d] patchSepaddIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PatchSepaddIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PatchSepaddIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *PatchSepaddIDConflict) Error() string {
 	return fmt.Sprintf("[PATCH /sepadd/{id}][%d] patchSepaddIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *PatchSepaddIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PatchSepaddIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type PatchSepaddIDTooManyRequests struct {
 
 func (o *PatchSepaddIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[PATCH /sepadd/{id}][%d] patchSepaddIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PatchSepaddIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PatchSepaddIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *PatchSepaddIDInternalServerError) Error() string {
 	return fmt.Sprintf("[PATCH /sepadd/{id}][%d] patchSepaddIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *PatchSepaddIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PatchSepaddIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type PatchSepaddIDServiceUnavailable struct {
 
 func (o *PatchSepaddIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[PATCH /sepadd/{id}][%d] patchSepaddIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PatchSepaddIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PatchSepaddIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

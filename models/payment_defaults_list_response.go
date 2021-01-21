@@ -8,13 +8,13 @@ package models
 import (
 	"strconv"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // PaymentDefaultsListResponse payment defaults list response
+//
 // swagger:model PaymentDefaultsListResponse
 type PaymentDefaultsListResponse struct {
 

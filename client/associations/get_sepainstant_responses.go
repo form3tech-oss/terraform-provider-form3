@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetSepainstantReader is a Reader for the GetSepainstant structure.
@@ -24,63 +23,54 @@ type GetSepainstantReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetSepainstantReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetSepainstantOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetSepainstantBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetSepainstantUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetSepainstantForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetSepainstantNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetSepainstantConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetSepainstantTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetSepainstantInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetSepainstantServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetSepainstantOK struct {
 
 func (o *GetSepainstantOK) Error() string {
 	return fmt.Sprintf("[GET /sepainstant][%d] getSepainstantOK  %+v", 200, o.Payload)
+}
+
+func (o *GetSepainstantOK) GetPayload() *models.SepaInstantAssociationDetailsListResponse {
+	return o.Payload
 }
 
 func (o *GetSepainstantOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetSepainstantBadRequest) Error() string {
 	return fmt.Sprintf("[GET /sepainstant][%d] getSepainstantBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetSepainstantBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetSepainstantBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetSepainstantUnauthorized struct {
 
 func (o *GetSepainstantUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /sepainstant][%d] getSepainstantUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetSepainstantUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetSepainstantUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetSepainstantForbidden) Error() string {
 	return fmt.Sprintf("[GET /sepainstant][%d] getSepainstantForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetSepainstantForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetSepainstantForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetSepainstantNotFound struct {
 
 func (o *GetSepainstantNotFound) Error() string {
 	return fmt.Sprintf("[GET /sepainstant][%d] getSepainstantNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetSepainstantNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetSepainstantNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetSepainstantConflict) Error() string {
 	return fmt.Sprintf("[GET /sepainstant][%d] getSepainstantConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetSepainstantConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetSepainstantConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetSepainstantTooManyRequests struct {
 
 func (o *GetSepainstantTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /sepainstant][%d] getSepainstantTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetSepainstantTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetSepainstantTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetSepainstantInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /sepainstant][%d] getSepainstantInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetSepainstantInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetSepainstantInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetSepainstantServiceUnavailable struct {
 
 func (o *GetSepainstantServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /sepainstant][%d] getSepainstantServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetSepainstantServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetSepainstantServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetReconciliationAssociationIDReader is a Reader for the GetReconciliationAssociationID structure.
@@ -24,63 +23,54 @@ type GetReconciliationAssociationIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetReconciliationAssociationIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetReconciliationAssociationIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetReconciliationAssociationIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetReconciliationAssociationIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetReconciliationAssociationIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetReconciliationAssociationIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetReconciliationAssociationIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetReconciliationAssociationIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetReconciliationAssociationIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetReconciliationAssociationIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetReconciliationAssociationIDOK struct {
 
 func (o *GetReconciliationAssociationIDOK) Error() string {
 	return fmt.Sprintf("[GET /reconciliation/{associationId}][%d] getReconciliationAssociationIdOK  %+v", 200, o.Payload)
+}
+
+func (o *GetReconciliationAssociationIDOK) GetPayload() *models.ReconciliationAssociationDetailsResponse {
+	return o.Payload
 }
 
 func (o *GetReconciliationAssociationIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetReconciliationAssociationIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /reconciliation/{associationId}][%d] getReconciliationAssociationIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetReconciliationAssociationIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetReconciliationAssociationIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetReconciliationAssociationIDUnauthorized struct {
 
 func (o *GetReconciliationAssociationIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /reconciliation/{associationId}][%d] getReconciliationAssociationIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetReconciliationAssociationIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetReconciliationAssociationIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetReconciliationAssociationIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /reconciliation/{associationId}][%d] getReconciliationAssociationIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetReconciliationAssociationIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetReconciliationAssociationIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetReconciliationAssociationIDNotFound struct {
 
 func (o *GetReconciliationAssociationIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /reconciliation/{associationId}][%d] getReconciliationAssociationIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetReconciliationAssociationIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetReconciliationAssociationIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetReconciliationAssociationIDConflict) Error() string {
 	return fmt.Sprintf("[GET /reconciliation/{associationId}][%d] getReconciliationAssociationIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetReconciliationAssociationIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetReconciliationAssociationIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetReconciliationAssociationIDTooManyRequests struct {
 
 func (o *GetReconciliationAssociationIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /reconciliation/{associationId}][%d] getReconciliationAssociationIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetReconciliationAssociationIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetReconciliationAssociationIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetReconciliationAssociationIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /reconciliation/{associationId}][%d] getReconciliationAssociationIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetReconciliationAssociationIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetReconciliationAssociationIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetReconciliationAssociationIDServiceUnavailable struct {
 
 func (o *GetReconciliationAssociationIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /reconciliation/{associationId}][%d] getReconciliationAssociationIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetReconciliationAssociationIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetReconciliationAssociationIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

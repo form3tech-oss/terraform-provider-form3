@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostLimitsReader is a Reader for the PostLimits structure.
@@ -24,63 +23,54 @@ type PostLimitsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostLimitsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostLimitsCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewPostLimitsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewPostLimitsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewPostLimitsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewPostLimitsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewPostLimitsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewPostLimitsTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewPostLimitsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewPostLimitsServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type PostLimitsCreated struct {
 
 func (o *PostLimitsCreated) Error() string {
 	return fmt.Sprintf("[POST /limits][%d] postLimitsCreated  %+v", 201, o.Payload)
+}
+
+func (o *PostLimitsCreated) GetPayload() *models.LimitCreationResponse {
+	return o.Payload
 }
 
 func (o *PostLimitsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *PostLimitsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /limits][%d] postLimitsBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *PostLimitsBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostLimitsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type PostLimitsUnauthorized struct {
 
 func (o *PostLimitsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /limits][%d] postLimitsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostLimitsUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostLimitsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *PostLimitsForbidden) Error() string {
 	return fmt.Sprintf("[POST /limits][%d] postLimitsForbidden  %+v", 403, o.Payload)
 }
 
+func (o *PostLimitsForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostLimitsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type PostLimitsNotFound struct {
 
 func (o *PostLimitsNotFound) Error() string {
 	return fmt.Sprintf("[POST /limits][%d] postLimitsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostLimitsNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostLimitsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *PostLimitsConflict) Error() string {
 	return fmt.Sprintf("[POST /limits][%d] postLimitsConflict  %+v", 409, o.Payload)
 }
 
+func (o *PostLimitsConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostLimitsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type PostLimitsTooManyRequests struct {
 
 func (o *PostLimitsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /limits][%d] postLimitsTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostLimitsTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostLimitsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *PostLimitsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /limits][%d] postLimitsInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *PostLimitsInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostLimitsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type PostLimitsServiceUnavailable struct {
 
 func (o *PostLimitsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /limits][%d] postLimitsServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostLimitsServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostLimitsServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

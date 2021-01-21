@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetKeysKeyIDReader is a Reader for the GetKeysKeyID structure.
@@ -24,63 +23,54 @@ type GetKeysKeyIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetKeysKeyIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetKeysKeyIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetKeysKeyIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetKeysKeyIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetKeysKeyIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetKeysKeyIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetKeysKeyIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetKeysKeyIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetKeysKeyIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetKeysKeyIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetKeysKeyIDOK struct {
 
 func (o *GetKeysKeyIDOK) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdOK  %+v", 200, o.Payload)
+}
+
+func (o *GetKeysKeyIDOK) GetPayload() *models.KeyDetailsResponse {
+	return o.Payload
 }
 
 func (o *GetKeysKeyIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetKeysKeyIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetKeysKeyIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetKeysKeyIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetKeysKeyIDUnauthorized struct {
 
 func (o *GetKeysKeyIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetKeysKeyIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetKeysKeyIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetKeysKeyIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetKeysKeyIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetKeysKeyIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetKeysKeyIDNotFound struct {
 
 func (o *GetKeysKeyIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetKeysKeyIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetKeysKeyIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetKeysKeyIDConflict) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetKeysKeyIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetKeysKeyIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetKeysKeyIDTooManyRequests struct {
 
 func (o *GetKeysKeyIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetKeysKeyIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetKeysKeyIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetKeysKeyIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetKeysKeyIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetKeysKeyIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetKeysKeyIDServiceUnavailable struct {
 
 func (o *GetKeysKeyIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetKeysKeyIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetKeysKeyIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

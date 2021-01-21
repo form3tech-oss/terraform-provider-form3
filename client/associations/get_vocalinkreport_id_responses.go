@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetVocalinkreportIDReader is a Reader for the GetVocalinkreportID structure.
@@ -24,63 +23,54 @@ type GetVocalinkreportIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetVocalinkreportIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetVocalinkreportIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetVocalinkreportIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetVocalinkreportIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetVocalinkreportIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetVocalinkreportIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetVocalinkreportIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetVocalinkreportIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetVocalinkreportIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetVocalinkreportIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetVocalinkreportIDOK struct {
 
 func (o *GetVocalinkreportIDOK) Error() string {
 	return fmt.Sprintf("[GET /vocalinkreport/{id}][%d] getVocalinkreportIdOK  %+v", 200, o.Payload)
+}
+
+func (o *GetVocalinkreportIDOK) GetPayload() *models.VocalinkReportAssociationDetailsResponse {
+	return o.Payload
 }
 
 func (o *GetVocalinkreportIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetVocalinkreportIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /vocalinkreport/{id}][%d] getVocalinkreportIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetVocalinkreportIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetVocalinkreportIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetVocalinkreportIDUnauthorized struct {
 
 func (o *GetVocalinkreportIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /vocalinkreport/{id}][%d] getVocalinkreportIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetVocalinkreportIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetVocalinkreportIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetVocalinkreportIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /vocalinkreport/{id}][%d] getVocalinkreportIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetVocalinkreportIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetVocalinkreportIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetVocalinkreportIDNotFound struct {
 
 func (o *GetVocalinkreportIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /vocalinkreport/{id}][%d] getVocalinkreportIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetVocalinkreportIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetVocalinkreportIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetVocalinkreportIDConflict) Error() string {
 	return fmt.Sprintf("[GET /vocalinkreport/{id}][%d] getVocalinkreportIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetVocalinkreportIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetVocalinkreportIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetVocalinkreportIDTooManyRequests struct {
 
 func (o *GetVocalinkreportIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /vocalinkreport/{id}][%d] getVocalinkreportIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetVocalinkreportIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetVocalinkreportIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetVocalinkreportIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /vocalinkreport/{id}][%d] getVocalinkreportIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetVocalinkreportIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetVocalinkreportIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetVocalinkreportIDServiceUnavailable struct {
 
 func (o *GetVocalinkreportIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /vocalinkreport/{id}][%d] getVocalinkreportIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetVocalinkreportIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetVocalinkreportIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

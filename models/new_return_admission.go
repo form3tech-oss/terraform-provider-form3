@@ -6,14 +6,14 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
-
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // NewReturnAdmission new return admission
+//
 // swagger:model NewReturnAdmission
 type NewReturnAdmission struct {
 
@@ -183,6 +183,7 @@ func (m *NewReturnAdmission) UnmarshalBinary(b []byte) error {
 }
 
 // NewReturnAdmissionAttributes new return admission attributes
+//
 // swagger:model NewReturnAdmissionAttributes
 type NewReturnAdmissionAttributes struct {
 
@@ -267,6 +268,7 @@ func (m *NewReturnAdmissionAttributes) UnmarshalBinary(b []byte) error {
 }
 
 // NewReturnAdmissionRelationships new return admission relationships
+//
 // swagger:model NewReturnAdmissionRelationships
 type NewReturnAdmissionRelationships struct {
 

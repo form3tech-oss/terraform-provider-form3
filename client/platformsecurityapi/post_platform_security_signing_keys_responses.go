@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // PostPlatformSecuritySigningKeysReader is a Reader for the PostPlatformSecuritySigningKeys structure.
@@ -24,63 +23,54 @@ type PostPlatformSecuritySigningKeysReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostPlatformSecuritySigningKeysReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewPostPlatformSecuritySigningKeysCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewPostPlatformSecuritySigningKeysBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewPostPlatformSecuritySigningKeysUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewPostPlatformSecuritySigningKeysForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewPostPlatformSecuritySigningKeysNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewPostPlatformSecuritySigningKeysConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewPostPlatformSecuritySigningKeysTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewPostPlatformSecuritySigningKeysInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewPostPlatformSecuritySigningKeysServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type PostPlatformSecuritySigningKeysCreated struct {
 
 func (o *PostPlatformSecuritySigningKeysCreated) Error() string {
 	return fmt.Sprintf("[POST /platform/security/signing_keys][%d] postPlatformSecuritySigningKeysCreated  %+v", 201, o.Payload)
+}
+
+func (o *PostPlatformSecuritySigningKeysCreated) GetPayload() *models.SigningKeysResponse {
+	return o.Payload
 }
 
 func (o *PostPlatformSecuritySigningKeysCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *PostPlatformSecuritySigningKeysBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/security/signing_keys][%d] postPlatformSecuritySigningKeysBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *PostPlatformSecuritySigningKeysBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostPlatformSecuritySigningKeysBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type PostPlatformSecuritySigningKeysUnauthorized struct {
 
 func (o *PostPlatformSecuritySigningKeysUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /platform/security/signing_keys][%d] postPlatformSecuritySigningKeysUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *PostPlatformSecuritySigningKeysUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostPlatformSecuritySigningKeysUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *PostPlatformSecuritySigningKeysForbidden) Error() string {
 	return fmt.Sprintf("[POST /platform/security/signing_keys][%d] postPlatformSecuritySigningKeysForbidden  %+v", 403, o.Payload)
 }
 
+func (o *PostPlatformSecuritySigningKeysForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostPlatformSecuritySigningKeysForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type PostPlatformSecuritySigningKeysNotFound struct {
 
 func (o *PostPlatformSecuritySigningKeysNotFound) Error() string {
 	return fmt.Sprintf("[POST /platform/security/signing_keys][%d] postPlatformSecuritySigningKeysNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostPlatformSecuritySigningKeysNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostPlatformSecuritySigningKeysNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *PostPlatformSecuritySigningKeysConflict) Error() string {
 	return fmt.Sprintf("[POST /platform/security/signing_keys][%d] postPlatformSecuritySigningKeysConflict  %+v", 409, o.Payload)
 }
 
+func (o *PostPlatformSecuritySigningKeysConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostPlatformSecuritySigningKeysConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type PostPlatformSecuritySigningKeysTooManyRequests struct {
 
 func (o *PostPlatformSecuritySigningKeysTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /platform/security/signing_keys][%d] postPlatformSecuritySigningKeysTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *PostPlatformSecuritySigningKeysTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostPlatformSecuritySigningKeysTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *PostPlatformSecuritySigningKeysInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /platform/security/signing_keys][%d] postPlatformSecuritySigningKeysInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *PostPlatformSecuritySigningKeysInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *PostPlatformSecuritySigningKeysInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type PostPlatformSecuritySigningKeysServiceUnavailable struct {
 
 func (o *PostPlatformSecuritySigningKeysServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /platform/security/signing_keys][%d] postPlatformSecuritySigningKeysServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *PostPlatformSecuritySigningKeysServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *PostPlatformSecuritySigningKeysServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

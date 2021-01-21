@@ -10,10 +10,9 @@ import (
 	"io"
 
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
-	strfmt "github.com/go-openapi/strfmt"
-
-	models "github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
 // GetPaymentdefaultsIDReader is a Reader for the GetPaymentdefaultsID structure.
@@ -24,63 +23,54 @@ type GetPaymentdefaultsIDReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetPaymentdefaultsIDReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetPaymentdefaultsIDOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetPaymentdefaultsIDBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewGetPaymentdefaultsIDUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewGetPaymentdefaultsIDForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetPaymentdefaultsIDNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewGetPaymentdefaultsIDConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 429:
 		result := NewGetPaymentdefaultsIDTooManyRequests()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetPaymentdefaultsIDInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 503:
 		result := NewGetPaymentdefaultsIDServiceUnavailable()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -108,6 +98,10 @@ type GetPaymentdefaultsIDOK struct {
 
 func (o *GetPaymentdefaultsIDOK) Error() string {
 	return fmt.Sprintf("[GET /paymentdefaults/{id}][%d] getPaymentdefaultsIdOK  %+v", 200, o.Payload)
+}
+
+func (o *GetPaymentdefaultsIDOK) GetPayload() *models.PaymentDefaultsResponse {
+	return o.Payload
 }
 
 func (o *GetPaymentdefaultsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +133,10 @@ func (o *GetPaymentdefaultsIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /paymentdefaults/{id}][%d] getPaymentdefaultsIdBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *GetPaymentdefaultsIDBadRequest) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetPaymentdefaultsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -166,6 +164,10 @@ type GetPaymentdefaultsIDUnauthorized struct {
 
 func (o *GetPaymentdefaultsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /paymentdefaults/{id}][%d] getPaymentdefaultsIdUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetPaymentdefaultsIDUnauthorized) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetPaymentdefaultsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -197,6 +199,10 @@ func (o *GetPaymentdefaultsIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /paymentdefaults/{id}][%d] getPaymentdefaultsIdForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetPaymentdefaultsIDForbidden) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetPaymentdefaultsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -224,6 +230,10 @@ type GetPaymentdefaultsIDNotFound struct {
 
 func (o *GetPaymentdefaultsIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /paymentdefaults/{id}][%d] getPaymentdefaultsIdNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetPaymentdefaultsIDNotFound) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetPaymentdefaultsIDNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -255,6 +265,10 @@ func (o *GetPaymentdefaultsIDConflict) Error() string {
 	return fmt.Sprintf("[GET /paymentdefaults/{id}][%d] getPaymentdefaultsIdConflict  %+v", 409, o.Payload)
 }
 
+func (o *GetPaymentdefaultsIDConflict) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetPaymentdefaultsIDConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -282,6 +296,10 @@ type GetPaymentdefaultsIDTooManyRequests struct {
 
 func (o *GetPaymentdefaultsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /paymentdefaults/{id}][%d] getPaymentdefaultsIdTooManyRequests  %+v", 429, o.Payload)
+}
+
+func (o *GetPaymentdefaultsIDTooManyRequests) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetPaymentdefaultsIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -313,6 +331,10 @@ func (o *GetPaymentdefaultsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /paymentdefaults/{id}][%d] getPaymentdefaultsIdInternalServerError  %+v", 500, o.Payload)
 }
 
+func (o *GetPaymentdefaultsIDInternalServerError) GetPayload() *models.APIError {
+	return o.Payload
+}
+
 func (o *GetPaymentdefaultsIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.APIError)
@@ -340,6 +362,10 @@ type GetPaymentdefaultsIDServiceUnavailable struct {
 
 func (o *GetPaymentdefaultsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /paymentdefaults/{id}][%d] getPaymentdefaultsIdServiceUnavailable  %+v", 503, o.Payload)
+}
+
+func (o *GetPaymentdefaultsIDServiceUnavailable) GetPayload() *models.APIError {
+	return o.Payload
 }
 
 func (o *GetPaymentdefaultsIDServiceUnavailable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
