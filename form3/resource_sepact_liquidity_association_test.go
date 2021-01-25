@@ -31,9 +31,7 @@ func TestAccSepactLiquidityAssociation_basic(t *testing.T) {
 		bic:            generateTestBicWithLength(8),
 		iban:           generateRandomIban(),
 	}
-	// hardcoded value
-	// https://github.com/hashicorp/terraform-plugin-sdk/issues/196
-	reachableBic := "VTSSGB2LXXX"
+	reachableBic := generateTestBicWithLength(11)
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
