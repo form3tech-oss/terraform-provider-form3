@@ -15,6 +15,9 @@ import (
 // swagger:model SepaDDAssociationAttributes
 type SepaDDAssociationAttributes struct {
 
+	// allow submissions
+	AllowSubmissions bool `json:"allowSubmissions,omitempty"`
+
 	// bic
 	Bic string `json:"bic,omitempty"`
 
