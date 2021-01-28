@@ -33,7 +33,7 @@ func resourceForm3Limit() *schema.Resource {
 			},
 			"amount": {
 				Type:     schema.TypeString,
-				Required: false,
+				Optional: true,
 				ForceNew: true,
 			},
 			"gateway": {
