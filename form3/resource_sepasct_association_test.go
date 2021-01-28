@@ -145,7 +145,7 @@ const (
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation"
+	name 		               = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_sepasct_association" "association" {
@@ -159,7 +159,7 @@ resource "form3_sepasct_association" "association" {
 resource "form3_organisation" "sponsor_organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		           = "terraform-organisation"
+	name 		           = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_sepasct_association" "sponsor_association" {
@@ -174,7 +174,7 @@ resource "form3_sepasct_association" "sponsor_association" {
 resource "form3_organisation" "sponsored_organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		           = "terraform-organisation"
+	name 		           = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_sepasct_association" "sponsored_association" {

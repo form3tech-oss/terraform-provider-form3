@@ -158,7 +158,7 @@ const testForm3AccountConfigurationConfig = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation"
+	name 		               = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_account_configuration" "configuration" {
@@ -178,7 +178,7 @@ const testForm3AccountConfigurationConfigUpdated = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation"
+	name 		               = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_account_configuration" "configuration" {

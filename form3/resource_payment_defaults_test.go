@@ -91,7 +91,7 @@ const testForm3PaymentDefaultsConfig = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation"
+	name 		               = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_payment_defaults" "payment_defaults" {

@@ -116,7 +116,7 @@ locals {
 resource "form3_organisation" "organisation" {
 	organisation_id        = "${local.organisationId}"
 	parent_organisation_id = "${local.parentId}"
-	name 		           = "terraform-organisation"
+	name 		           = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_lhv_association" "association" {

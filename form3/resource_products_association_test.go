@@ -89,7 +89,7 @@ const testForm3ProductsAssociationConfigA = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation"
+	name 		               = "terraform-provider-form3-test-organisation"
 }
 resource "form3_products_association" "association" {
 	organisation_id        = "${form3_organisation.organisation.organisation_id}"

@@ -172,7 +172,7 @@ const testForm3PayportAssociationConfigNonSettling = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation"
+	name 		               = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_payport_association" "association" {
@@ -189,7 +189,7 @@ const testForm3PayportAssociationConfigSettling = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation"
+	name 		               = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_payport_association" "association" {

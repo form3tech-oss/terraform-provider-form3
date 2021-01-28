@@ -132,7 +132,7 @@ locals {
 resource "form3_organisation" "organisation" {
 	organisation_id        = "${local.organisation_id}"
 	parent_organisation_id = "${local.parent_organisation_id}"
-	name 		           = "terraform-organisation"
+	name 		           = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_sepainstant_association" "association" {
@@ -147,7 +147,7 @@ resource "form3_sepainstant_association" "association" {
 resource "form3_organisation" "organisation_sponsored" {
 	organisation_id        = "${local.organisation_sponsor_id}"
 	parent_organisation_id = "${local.parent_organisation_id}"
-	name 		           = "terraform-organisation"
+	name 		           = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_sepainstant_association" "association_sponsored" {
@@ -177,7 +177,7 @@ locals {
 resource "form3_organisation" "organisation" {
 	organisation_id        = "${local.organisation_id}"
 	parent_organisation_id = "${local.parent_organisation_id}"
-	name 		           = "terraform-organisation"
+	name 		           = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_sepainstant_association" "association" {

@@ -28,7 +28,7 @@ func TestAccOrganisation_basic(t *testing.T) {
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckOrganisationExists("form3_organisation.organisation", &organisationResponse),
 					resource.TestCheckResourceAttr(
-						"form3_organisation.organisation", "name", "terraform-organisation"),
+						"form3_organisation.organisation", "name", "terraform-provider-form3-test-organisation"),
 					resource.TestCheckResourceAttr(
 						"form3_organisation.organisation", "parent_organisation_id", parentOrganisationId),
 					resource.TestCheckResourceAttr(
@@ -40,7 +40,7 @@ func TestAccOrganisation_basic(t *testing.T) {
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckOrganisationExists("form3_organisation.organisation", &organisationResponse),
 					resource.TestCheckResourceAttr(
-						"form3_organisation.organisation", "name", "terraform-organisation-updated"),
+						"form3_organisation.organisation", "name", "terraform-provider-form3-test-organisation-updated"),
 					resource.TestCheckResourceAttr(
 						"form3_organisation.organisation", "parent_organisation_id", parentOrganisationId),
 					resource.TestCheckResourceAttr(
@@ -130,12 +130,12 @@ const testForm3OrganisationConfigA = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation"
+	name 		               = "terraform-provider-form3-test-organisation"
 }`
 
 const testForm3OrganisationConfigAUpdate = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation-updated"
+	name 		               = "terraform-provider-form3-test-organisation-updated"
 }`
