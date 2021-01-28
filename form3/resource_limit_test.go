@@ -6,7 +6,6 @@ import (
 	"testing"
 
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
-
 	"github.com/form3tech-oss/terraform-provider-form3/client/limits"
 	"github.com/go-openapi/strfmt"
 	"github.com/google/uuid"
@@ -34,6 +33,31 @@ func TestAccLimit_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_limit.limit", "gateway", "payport_interface"),
 					resource.TestCheckResourceAttr("form3_limit.limit", "scheme", "FPS"),
 					resource.TestCheckResourceAttr("form3_limit.limit", "settlement_cycle_type", "daily"),
+				),
+			},
+		},
+	})
+}
+
+func TestAccLimit_external(t *testing.T) {
+	var limitResponse limits.GetLimitsIDOK
+	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationId := uuid.New().String()
+
+	limitId := uuid.New().String()
+
+	resource.Test(t, resource.TestCase{
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
+		CheckDestroy: testAccCheckLimitDestroy,
+		Steps: []resource.TestStep{
+			{
+				Config: fmt.Sprintf(testForm3LimitConfigExternal, organisationId, parentOrganisationId, limitId),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckLimitExists("form3_limit.limit", &limitResponse),
+					resource.TestCheckResourceAttr("form3_limit.limit", "gateway", "payport_interface"),
+					resource.TestCheckResourceAttr("form3_limit.limit", "scheme", "FPS"),
+					resource.TestCheckResourceAttr("form3_limit.limit", "settlement_cycle_type", "external"),
 				),
 			},
 		},
@@ -127,4 +151,20 @@ resource "form3_limit" "limit" {
   gateway               = "payport_interface"
   scheme                = "FPS"
   settlement_cycle_type = "daily"
+}`
+
+const testForm3LimitConfigExternal = `
+
+resource "form3_organisation" "organisation" {
+	organisation_id        = "%s"
+	parent_organisation_id = "%s"
+	name 		           = "terraform-organisation"
+}
+
+resource "form3_limit" "limit" {
+	organisation_id       = "${form3_organisation.organisation.organisation_id}"
+	limit_id     	      = "%s"
+	gateway               = "payport_interface"
+	scheme                = "FPS"
+	settlement_cycle_type = "external"
 }`

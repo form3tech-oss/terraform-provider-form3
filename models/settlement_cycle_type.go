@@ -25,6 +25,9 @@ const (
 
 	// SettlementCycleTypePerScheme captures enum value "per_scheme"
 	SettlementCycleTypePerScheme SettlementCycleType = "per_scheme"
+
+	// SettlementCycleTypeExternal captures enum value "external"
+	SettlementCycleTypeExternal SettlementCycleType = "external"
 )
 
 // for schema
@@ -32,7 +35,7 @@ var settlementCycleTypeEnum []interface{}
 
 func init() {
 	var res []SettlementCycleType
-	if err := json.Unmarshal([]byte(`["daily","per_scheme"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["daily","per_scheme","external"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
