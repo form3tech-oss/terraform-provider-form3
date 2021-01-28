@@ -8781,12 +8781,20 @@ definitions:
       disable_outbound_payments:
         x-nullable: true
         type: boolean
+      reachable_bics:
+        type: array
+        items:
+          type: string
 
   UpdateSepaInstantAssociationAttributes:
     properties:
       disable_outbound_payments:
         x-nullable: true
         type: boolean
+      reachable_bics:
+        type: array
+        items:
+          type: string
 
   SepaInstantAssociationRelationships:
     type: object
