@@ -21,32 +21,32 @@ func resourceForm3Limit() *schema.Resource {
 		},
 
 		Schema: map[string]*schema.Schema{
-			"limit_id": &schema.Schema{
+			"limit_id": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			"organisation_id": &schema.Schema{
+			"organisation_id": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			"amount": &schema.Schema{
+			"amount": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
+			"gateway": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			"gateway": &schema.Schema{
+			"scheme": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			"scheme": &schema.Schema{
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
-			},
-			"settlement_cycle_type": &schema.Schema{
+			"settlement_cycle_type": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,

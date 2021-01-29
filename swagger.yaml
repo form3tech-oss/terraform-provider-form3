@@ -8290,6 +8290,7 @@ definitions:
     enum:
       - daily
       - per_scheme
+      - external
 
   BacsAssociation:
     type: object
