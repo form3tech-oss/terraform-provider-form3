@@ -3,6 +3,7 @@ package form3
 import (
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -24,6 +25,7 @@ func TestAccSepaInstantAssociation_basic(t *testing.T) {
 	bic := generateTestBic()
 	bicCN := strings.ToLower(bic)
 	bicSponsored := generateTestBic()
+	reachableBics := []string{generateTestBicWithLength(11)}
 	businessUserDN := fmt.Sprintf("cn=%s,ou=pilot,ou=eba_ips,o=88331,dc=sianet,dc=sia,dc=eu", bicCN)
 
 	resource.Test(t, resource.TestCase{
@@ -32,7 +34,10 @@ func TestAccSepaInstantAssociation_basic(t *testing.T) {
 		CheckDestroy: testAccCheckSepaInstantAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3SepaInstantAssociationConfigA, organisationId, parentOrganisationId, associationId, sponsoredOrganisationId, sponsoredAssociationId, bicCN, bic, bicSponsored),
+				Config: fmt.Sprintf(testForm3SepaInstantAssociationConfigA,
+					organisationId, parentOrganisationId, associationId,
+					sponsoredOrganisationId, sponsoredAssociationId,
+					bicCN, bic, bicSponsored, strings.Join(reachableBics, "\",\"")),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckSepaInstantAssociationExists("form3_sepainstant_association.association"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "association_id", associationId),
@@ -49,6 +54,7 @@ func TestAccSepaInstantAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association_sponsored", "transport_profile_id", ""),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association_sponsored", "bic", bicSponsored),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association_sponsored", "sponsor_id", associationId),
+					resource.TestCheckResourceAttr("form3_sepainstant_association.association_sponsored", "reachable_bics.#", strconv.Itoa(len(reachableBics))),
 				),
 			},
 			{
@@ -127,6 +133,7 @@ locals {
 	bic_cn					 = "%s"
 	bic					     = "%s"
 	bic_sponsored			 = "%s"
+    reachable_bics           = ["%s"]
 }
 
 resource "form3_organisation" "organisation" {
@@ -158,6 +165,7 @@ resource "form3_sepainstant_association" "association_sponsored" {
   bic                  = "${local.bic_sponsored}"
   simulator_only       = true
   sponsor_id           = "${form3_sepainstant_association.association.association_id}"
+  reachable_bics       = "${local.reachable_bics}"
 
   depends_on = [
     "form3_sepainstant_association.association"
