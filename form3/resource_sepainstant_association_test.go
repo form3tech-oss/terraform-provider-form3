@@ -62,7 +62,10 @@ func TestAccSepaInstantAssociation_basic(t *testing.T) {
 				),
 			},
 			{
-				Config: fmt.Sprintf(testForm3SepaInstantAssociationUpdatedConfig, organisationId, parentOrganisationId, testOrgName, associationId, bic2),
+				Config: fmt.Sprintf(testForm3SepaInstantAssociationUpdatedConfig,
+					organisationId, parentOrganisationId, testOrgName, associationId,
+					sponsoredOrganisationId, sponsoredAssociationId,
+					bic2, bicSponsored, strings.Join([]string{generateTestBicWithLength(11), generateTestBicWithLength(11)}, "\",\"")),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckSepaInstantAssociationExists("form3_sepainstant_association.association"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "association_id", associationId),
@@ -73,6 +76,7 @@ func TestAccSepaInstantAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "simulator_only", "true"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "disable_outbound_payments", "true"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "sponsor_id", ""),
+					resource.TestCheckResourceAttr("form3_sepainstant_association.association_sponsored", "reachable_bics.#", "2"),
 				),
 			},
 		},
@@ -162,18 +166,18 @@ resource "form3_organisation" "organisation_sponsored" {
 }
 
 resource "form3_sepainstant_association" "association_sponsored" {
-  organisation_id      = "${form3_organisation.organisation_sponsored.organisation_id}"
-  association_id       = "${local.sponsored_association_id}"
-  business_user_dn     = ""
-  transport_profile_id = ""
-  bic                  = "${local.bic_sponsored}"
-  simulator_only       = true
-  sponsor_id           = "${form3_sepainstant_association.association.association_id}"
-  reachable_bics       = "${local.reachable_bics}"
+    organisation_id      = "${form3_organisation.organisation_sponsored.organisation_id}"
+    association_id       = "${local.sponsored_association_id}"
+    business_user_dn     = ""
+    transport_profile_id = ""
+    bic                  = "${local.bic_sponsored}"
+    simulator_only       = true
+    sponsor_id           = "${form3_sepainstant_association.association.association_id}"
+    reachable_bics       = "${local.reachable_bics}"
 
-  depends_on = [
-    "form3_sepainstant_association.association"
-  ]
+    depends_on = [
+      "form3_sepainstant_association.association"
+    ]
 }
 `
 
@@ -183,7 +187,11 @@ locals {
 	parent_organisation_id   = "%s"
 	organisation_name 		 = "%s"
 	association_id           = "%s"
+	organisation_sponsor_id  = "%s"
+	sponsored_association_id = "%s"
 	bic						 = "%s"
+	bic_sponsored			 = "%s"
+    reachable_bics           = ["%s"]
 }
 
 resource "form3_organisation" "organisation" {
@@ -200,5 +208,26 @@ resource "form3_sepainstant_association" "association" {
 	bic                       = "${local.bic}"
 	simulator_only            = true
 	disable_outbound_payments = true
+}
+
+resource "form3_organisation" "organisation_sponsored" {
+	organisation_id        = "${local.organisation_sponsor_id}"
+	parent_organisation_id = "${local.parent_organisation_id}"
+	name 		           = "terraform-organisation"
+}
+
+resource "form3_sepainstant_association" "association_sponsored" {
+    organisation_id      = "${form3_organisation.organisation_sponsored.organisation_id}"
+    association_id       = "${local.sponsored_association_id}"
+    business_user_dn     = ""
+    transport_profile_id = ""
+    bic                  = "${local.bic_sponsored}"
+    simulator_only       = true
+    sponsor_id           = "${form3_sepainstant_association.association.association_id}"
+    reachable_bics       = "${local.reachable_bics}"
+
+    depends_on = [
+      "form3_sepainstant_association.association"
+    ]
 }
 `
