@@ -24,6 +24,9 @@ type SepaInstantAssociationAttributes struct {
 	// disable outbound payments
 	DisableOutboundPayments *bool `json:"disable_outbound_payments,omitempty"`
 
+	// reachable bics
+	ReachableBics []string `json:"reachable_bics"`
+
 	// simulator only
 	SimulatorOnly *bool `json:"simulator_only,omitempty"`
 

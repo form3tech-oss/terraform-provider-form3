@@ -65,6 +65,14 @@ func resourceForm3SepaInstantAssociation() *schema.Resource {
 				ForceNew: false,
 				Default:  false,
 			},
+			"reachable_bics": {
+				Type: schema.TypeList,
+				Elem: &schema.Schema{
+					Type: schema.TypeString,
+				},
+				Optional: true,
+				ForceNew: false,
+			},
 		},
 	}
 }
@@ -117,6 +125,9 @@ func resourceSepaInstantAssociationRead(d *schema.ResourceData, meta interface{}
 		d.Set("sponsor_id", "")
 	} else {
 		d.Set("sponsor_id", sepaInstantAssociation.Payload.Data.Relationships.Sponsor.Data.ID.String())
+	}
+	if reachableBics := sepaInstantAssociation.Payload.Data.Attributes.ReachableBics; reachableBics != nil {
+		d.Set("reachable_bics", reachableBics)
 	}
 	return nil
 }
@@ -198,6 +209,16 @@ func createSepaInstantUpdateAssociationFromResourceData(d *schema.ResourceData) 
 		association.Attributes.DisableOutboundPayments = &b
 	}
 
+	if attr, ok := d.GetOk("reachable_bics"); ok {
+		rawList := attr.([]interface{})
+		bicList := make([]string, 0, len(rawList))
+		for _, e := range rawList {
+			bicList = append(bicList, e.(string))
+		}
+
+		association.Attributes.ReachableBics = bicList
+	}
+
 	return &association, nil
 }
 
@@ -245,5 +266,16 @@ func createSepaInstantNewAssociationFromResourceData(d *schema.ResourceData) (*m
 			},
 		}
 	}
+
+	if attr, ok := d.GetOk("reachable_bics"); ok {
+		rawList := attr.([]interface{})
+		bicList := make([]string, 0, len(rawList))
+		for _, e := range rawList {
+			bicList = append(bicList, e.(string))
+		}
+
+		association.Attributes.ReachableBics = bicList
+	}
+
 	return &association, nil
 }
