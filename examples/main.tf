@@ -12,7 +12,7 @@ provider "form3" {
 resource "form3_organisation" "organisation" {
   organisation_id        = "2b7b602f-01ff-4845-892a-5a7c185867c6"
   parent_organisation_id = "${var.organisation_id}"
-  name                   = "terraform-organisation"
+  name                   = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_user" "admin_user" {

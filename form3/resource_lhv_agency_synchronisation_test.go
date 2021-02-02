@@ -117,7 +117,7 @@ func lhvAgencySynchronisationConfig(data lhvAgencySynchronisationConfigData) str
 resource "form3_organisation" "organisation" {
 	organisation_id        = "{{ .OrganisationID }}"
 	parent_organisation_id = "{{ .ParentOrganisationID }}"
-	name 		           = "terraform-organisation"
+	name 		           = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_lhv_association" "association" {

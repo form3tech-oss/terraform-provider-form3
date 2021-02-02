@@ -92,7 +92,7 @@ const testForm3StarlingAssociationConfigA = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "${uuid()}"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation"
+	name 		               = "terraform-provider-form3-test-organisation"
 
   lifecycle {
     ignore_changes = ["organisation_id"]

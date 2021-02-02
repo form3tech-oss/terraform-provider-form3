@@ -239,7 +239,7 @@ const testForm3AccountConfigA = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation"
+	name 		               = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_account_configuration" "customer_backoffice_configuration" {
@@ -282,7 +282,7 @@ const testForm3AccountConfigWithIban = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation"
+	name 		               = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_account" "account" {
@@ -316,7 +316,7 @@ const testForm3AccountConfigWithIbanWithoutAccountNumber = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation"
+	name 		               = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_account_configuration" "customer_backoffice_configuration" {

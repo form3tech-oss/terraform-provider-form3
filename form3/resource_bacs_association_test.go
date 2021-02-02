@@ -258,7 +258,7 @@ func makeTestForm3BacsAssociationConfigWithCerts(data associationConfigWithCerts
 resource "form3_organisation" "organisation" {
 	organisation_id        = "{{ .OrgID }}"
 	parent_organisation_id = "{{ .OrgParentID }}"
-	name 		           = "terraform-organisation"
+	name 		           = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_key" "inputKey" {
@@ -318,7 +318,7 @@ const testForm3BacsAssociationConfigZeroAccountType = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		           = "terraform-organisation"
+	name 		           = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_bacs_association" "association" {
@@ -334,7 +334,7 @@ const testForm3BacsAssociationConfigWithBankIdAndCentre = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		           = "terraform-organisation"
+	name 		           = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_bacs_association" "association" {
@@ -352,7 +352,7 @@ const testForm3BacsAssociationConfigWithTestFileFlag = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		           = "terraform-organisation"
+	name 		           = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_bacs_association" "association" {
@@ -371,7 +371,7 @@ const testForm3BacsAssociationWithSunConfig = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		           = "terraform-organisation"
+	name 		           = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_bacs_association" "association" {

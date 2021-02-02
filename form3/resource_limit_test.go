@@ -121,7 +121,6 @@ func testAccCheckLimitExists(resourceKey string, limit *limits.GetLimitsIDOK) re
 		client := testAccProvider.Meta().(*form3.AuthenticatedClient)
 
 		foundRecord, err := client.LimitsClient.Limits.GetLimitsID(limits.NewGetLimitsIDParams().WithID(strfmt.UUID(rs.Primary.ID)))
-
 		if err != nil {
 			return err
 		}
@@ -141,7 +140,7 @@ const testForm3LimitConfigA = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation"
+	name 		               = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_limit" "limit" {
@@ -158,7 +157,7 @@ const testForm3LimitConfigExternal = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		           = "terraform-organisation"
+	name 		           = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_limit" "limit" {

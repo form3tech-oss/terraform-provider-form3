@@ -154,7 +154,7 @@ func TestAccKey_importExistingCert(t *testing.T) {
 				ID:             strfmt.UUID(organisationId),
 				Type:           "organisations",
 				Attributes: &models.OrganisationAttributes{
-					Name: "terraform-organisation",
+					Name: "terraform-provider-form3-test-organisation",
 				},
 			}}))
 		if err != nil {
@@ -312,7 +312,7 @@ const testForm3KeyConfigA = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation"
+	name 		               = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_key" "test_key" {
@@ -332,7 +332,7 @@ const testForm3KeyConfigElliptic = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation"
+	name 		               = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_key" "test_key" {
@@ -353,7 +353,7 @@ const testForm3KeyConfigWithCert = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation"
+	name 		               = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_key" "test_key" {
@@ -378,7 +378,7 @@ const testForm3KeyConfigWithSelfSignedCert = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation"
+	name 		               = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_key" "test_key" {
@@ -398,7 +398,7 @@ const testForm3KeyConfigExistingKey = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		               = "terraform-organisation"
+	name 		               = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_key" "test_key" {

@@ -99,7 +99,7 @@ const testForm3ReconciliationAssociationConfig = `
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		           = "terraform-organisation"
+	name 		           = "terraform-provider-form3-test-organisation"
 }
 
 resource "form3_reconciliation_association" "association" {
