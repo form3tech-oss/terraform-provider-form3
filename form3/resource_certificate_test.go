@@ -127,6 +127,17 @@ func TestAccKey_withSelfSignedCert(t *testing.T) {
 	})
 }
 
+func deleteOrganisation(client *form3.AuthenticatedClient, organisationId string) {
+	fmt.Printf("[INFO] Deleting test organisation %v", organisationId)
+
+	if _, err := client.OrganisationClient.Organisations.DeleteUnitsID(organisations.NewDeleteUnitsIDParams().
+		WithID(strfmt.UUID(organisationId)).WithVersion(0)); err != nil {
+		fmt.Printf("[WARN] Failed to delete test organisation %v", organisationId)
+	}
+
+	fmt.Printf("[INFO] Sucessfuly deleted test organisation %v", organisationId)
+}
+
 func TestAccKey_importExistingCert(t *testing.T) {
 	testAccPreCheck(t)
 
@@ -160,6 +171,8 @@ func TestAccKey_importExistingCert(t *testing.T) {
 		if err != nil {
 			t.Fail()
 		}
+
+		defer deleteOrganisation(client, organisationId)
 
 		_, err = client.SystemClient.System.PostKeys(system.NewPostKeysParams().
 			WithKeyCreationRequest(&models.KeyCreation{
