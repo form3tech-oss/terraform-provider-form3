@@ -4,12 +4,11 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"sync"
 	"testing"
-
-	"github.com/hashicorp/terraform-plugin-sdk/helper/logging"
 
 	"github.com/form3tech-oss/terraform-provider-form3/client"
 	"github.com/form3tech-oss/terraform-provider-form3/client/organisations"
@@ -38,8 +37,8 @@ func testMainWrapper(m *testing.M) int {
 
 	flag.Parse()
 
-	if testing.Verbose() {
-		logging.SetOutput()
+	if !testing.Verbose() {
+		log.SetOutput(ioutil.Discard)
 	}
 
 	skip := len(os.Getenv("FORM3_ACC")) == 0

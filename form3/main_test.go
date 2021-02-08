@@ -2,17 +2,17 @@ package form3
 
 import (
 	"flag"
+	"io/ioutil"
+	"log"
 	"os"
 	"testing"
-
-	"github.com/hashicorp/terraform-plugin-sdk/helper/logging"
 )
 
 func TestMain(m *testing.M) {
 	flag.Parse()
 
-	if testing.Verbose() {
-		logging.SetOutput()
+	if !testing.Verbose() {
+		log.SetOutput(ioutil.Discard)
 	}
 
 	os.Exit(m.Run())
