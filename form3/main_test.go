@@ -22,15 +22,15 @@ func TestMain(m *testing.M) {
 	if !testing.Verbose() {
 		log.SetOutput(ioutil.Discard)
 	}
-	cl, err := createClient(config)
-	if err != nil {
-		log.Fatalf("failed to setup client %+v", err)
-	}
-	orgCount, err := getOrgAmount(testOrgName, cl)
-	if err != nil {
-		log.Fatalf("Failed to retrieve test organizations amount %+v", err)
-	}
-	defer verifyNoTestOrganizationLeak(orgCount, cl)
+	// cl, err := createClient(config)
+	// if err != nil {
+	// 	log.Fatalf("failed to setup client %+v", err)
+	// }
+	// orgCount, err := getOrgAmount(testOrgName, cl)
+	// if err != nil {
+	// 	log.Fatalf("Failed to retrieve test organizations amount %+v", err)
+	// }
+	// defer verifyNoTestOrganizationLeak(orgCount, cl)
 
 	os.Exit(m.Run())
 }
@@ -43,6 +43,20 @@ func verifyNoTestOrganizationLeak(initCount int, client *form3.AuthenticatedClie
 	}
 	if count > initCount {
 		log.Fatalf("[Error] Organization leak: had %d organizations with name: %s before, and now %d \n", initCount, testOrgName, count)
+	}
+	return nil
+}
+
+func verifyOrgDoesNotExist(t *testing.T, ID string) error {
+	client := testAccProvider.Meta().(*form3.AuthenticatedClient)
+	org, err := client.OrganisationClient.Organisations.GetUnits(nil)
+	if err != nil {
+		t.Error("Failed to setup client")
+	}
+	for _, v := range org.Payload.Data {
+		if v.ID.String() == ID {
+			t.Error("Organization Leaked")
+		}
 	}
 	return nil
 }
