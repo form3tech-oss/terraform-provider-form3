@@ -21,8 +21,6 @@ var (
 	testOrganisationId strfmt.UUID
 )
 
-const testOrgName string = "terraform-provider-form3-test-organisation"
-
 var (
 	auth     *AuthenticatedClient
 	authOnce = new(sync.Once)
@@ -61,8 +59,6 @@ func testMainWrapper(m *testing.M) int {
 	if err := createOrganisation(); err != nil {
 		log.Fatalf("[FATAL] Error creating test organisation: %s", JsonErrorPrettyPrint(err))
 	}
-	orgCount := getOrgAmount(testOrgName)
-	defer verifyNoTestOrganizationLeak(orgCount)
 
 	defer func() {
 		if errTestOrg := deleteOrganisation(); errTestOrg != nil {
@@ -93,26 +89,6 @@ func createOrganisation() error {
 		}))
 
 	return err
-}
-
-func verifyNoTestOrganizationLeak(initCount int) error {
-	log.Printf("[INFO] Verifying there are no %s leftover.", testOrgName)
-	count := getOrgAmount(testOrgName)
-	if count > initCount {
-		log.Fatalf("[Error] Organization leak: had %d organizations with name: %s before, and now %d \n", initCount, testOrgName, count)
-	}
-	return nil
-}
-
-func getOrgAmount(name string) int {
-	count := 0
-	orgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
-	for _, v := range orgs.Payload.Data {
-		if v.Attributes.Name == name {
-			count++
-		}
-	}
-	return count
 }
 
 func deleteOrganisation() error {
