@@ -22,6 +22,9 @@ func TestMain(m *testing.M) {
 	if !testing.Verbose() {
 		log.SetOutput(ioutil.Discard)
 	}
+	if v := os.Getenv("FORM3_HOST"); v != "" {
+		config.WithHost(v)
+	}
 	// cl, err := createClient(config)
 	// if err != nil {
 	// 	log.Fatalf("failed to setup client %+v", err)
