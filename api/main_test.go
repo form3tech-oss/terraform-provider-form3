@@ -3,6 +3,7 @@ package api
 import (
 	"errors"
 	"flag"
+	"fmt"
 	"log"
 	"os"
 	"sync"
@@ -65,6 +66,9 @@ func testMainWrapper(m *testing.M) int {
 		if err := deleteOrganisation(); err != nil {
 			log.Fatalf("[WARN] Error deleting test organisation: %+v\n", err)
 		}
+		if err := verifyNoTestLeak; err != nil {
+			log.Fatalf("[Error] There has been an organization leak.")
+		}
 	}()
 
 	return m.Run()
@@ -90,6 +94,21 @@ func createOrganisation() error {
 		}))
 
 	return err
+}
+
+func verifyNoTestOrganizationLeak() error {
+	log.Printf("[INFO] Verifying there are no `terraform-provider-form3-test-organisation` leftover.")
+	count := 0
+	orgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	for _, v := range orgs.Payload.Data {
+		if v.Attributes.Name == "terraform-provider-form3-test-organisation" {
+			count++
+		}
+	}
+	if count > 0 {
+		return fmt.Errorf("There are %d test organizations leftover", count)
+	}
+	return nil
 }
 
 func deleteOrganisation() error {
