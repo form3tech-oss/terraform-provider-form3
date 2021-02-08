@@ -35,8 +35,6 @@ func TestMain(m *testing.M) {
 
 func testMainWrapper(m *testing.M) int {
 	defer log.Println("[INFO] Stopping tests")
-	orgCount := getOrgAmount(testOrgName)
-	defer verifyNoTestOrganizationLeak(orgCount)
 
 	flag.Parse()
 
@@ -60,6 +58,9 @@ func testMainWrapper(m *testing.M) int {
 
 	createClient(config)
 	log.Println("[INFO] Starting tests")
+	orgCount := getOrgAmount(testOrgName)
+	defer verifyNoTestOrganizationLeak(orgCount)
+
 	if err := createOrganisation(); err != nil {
 		log.Fatalf("[FATAL] Error creating test organisation: %s", JsonErrorPrettyPrint(err))
 	}
