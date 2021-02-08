@@ -14,7 +14,7 @@ import (
 
 const testOrgName string = "terraform-provider-form3-test-organisation"
 
-var config = client.DefaultTransportConfig()
+var cl *form3.AuthenticatedClient
 
 func TestMain(m *testing.M) {
 	flag.Parse()
@@ -22,37 +22,16 @@ func TestMain(m *testing.M) {
 	if !testing.Verbose() {
 		log.SetOutput(ioutil.Discard)
 	}
-	if v := os.Getenv("FORM3_HOST"); v != "" {
-		config.WithHost(v)
+	var err error
+	cl, err = createClient()
+	if err != nil {
+		log.Fatalf("cannot setup authentication client, %+v", err)
 	}
-	// cl, err := createClient(config)
-	// if err != nil {
-	// 	log.Fatalf("failed to setup client %+v", err)
-	// }
-	// orgCount, err := getOrgAmount(testOrgName, cl)
-	// if err != nil {
-	// 	log.Fatalf("Failed to retrieve test organizations amount %+v", err)
-	// }
-	// defer verifyNoTestOrganizationLeak(orgCount, cl)
-
 	os.Exit(m.Run())
 }
 
-func verifyNoTestOrganizationLeak(initCount int, client *form3.AuthenticatedClient) error {
-	log.Printf("[INFO] Verifying there are no %s leftover.", testOrgName)
-	count, err := getOrgAmount(testOrgName, client)
-	if err != nil {
-		return err
-	}
-	if count > initCount {
-		log.Fatalf("[Error] Organization leak: had %d organizations with name: %s before, and now %d \n", initCount, testOrgName, count)
-	}
-	return nil
-}
-
 func verifyOrgDoesNotExist(t *testing.T, ID string) error {
-	client, _ := createClient(config)
-	org, err := client.OrganisationClient.Organisations.GetUnits(nil)
+	org, err := cl.OrganisationClient.Organisations.GetUnits(nil)
 	if err != nil {
 		t.Error("Failed to setup")
 	}
@@ -64,24 +43,14 @@ func verifyOrgDoesNotExist(t *testing.T, ID string) error {
 	return nil
 }
 
-func getOrgAmount(name string, client *form3.AuthenticatedClient) (int, error) {
-	count := 0
-	orgs, _ := client.OrganisationClient.Organisations.GetUnits(nil)
-	for _, v := range orgs.Payload.Data {
-		if v.Attributes.Name == name {
-			count++
-		}
+func createClient() (*form3.AuthenticatedClient, error) {
+	config := client.DefaultTransportConfig()
+	if v := os.Getenv("FORM3_HOST"); v != "" {
+		config.WithHost(v)
 	}
-	return count, nil
-}
-
-func createClient(config *client.TransportConfig) (*form3.AuthenticatedClient, error) {
 	cl := api.NewAuthenticatedClient(config)
 	if cl.AccessToken == "" {
-		clID := os.Getenv("FORM3_CLIENT_ID")
-		clSecr := os.Getenv("FORM3_CLIENT_SECRET")
-		log.Printf("client id is: %s, client secret is: %s\n", clID, clSecr)
-		err := cl.Authenticate(clID, clSecr)
+		err := cl.Authenticate(os.Getenv("FORM3_CLIENT_ID"), os.Getenv("FORM3_CLIENT_SECRET"))
 		if err != nil {
 			return nil, err
 		}
