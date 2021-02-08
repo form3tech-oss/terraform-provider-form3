@@ -17,6 +17,7 @@ func TestAccOrganisation_basic(t *testing.T) {
 	var organisationResponse organisations.GetUnitsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -55,6 +56,7 @@ func TestAccOrganisation_importBasic(t *testing.T) {
 
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
 
 	resourceName := "form3_organisation.organisation"
 

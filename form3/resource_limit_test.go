@@ -17,6 +17,7 @@ func TestAccLimit_basic(t *testing.T) {
 	var limitResponse limits.GetLimitsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
 
 	limitId := uuid.New().String()
 
@@ -43,6 +44,7 @@ func TestAccLimit_external(t *testing.T) {
 	var limitResponse limits.GetLimitsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
 
 	limitId := uuid.New().String()
 
@@ -67,6 +69,8 @@ func TestAccLimit_external(t *testing.T) {
 func TestAccLimit_importBasic(t *testing.T) {
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
+
 	limitId := uuid.New().String()
 
 	resourceName := "form3_limit.limit"

@@ -12,8 +12,6 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/client"
 )
 
-const testOrgName string = "terraform-provider-form3-test-organisation"
-
 var cl *form3.AuthenticatedClient
 
 func TestMain(m *testing.M) {

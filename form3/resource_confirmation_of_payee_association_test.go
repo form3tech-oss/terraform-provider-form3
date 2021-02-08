@@ -17,7 +17,7 @@ func TestAccConfirmationOfPayeeAssociation_basic(t *testing.T) {
 	var response associations.GetConfirmationOfPayeeIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
-
+	defer verifyOrgDoesNotExist(t, organisationId)
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
 		Providers:    testAccProviders,

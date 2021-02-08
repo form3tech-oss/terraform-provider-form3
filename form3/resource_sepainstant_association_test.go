@@ -18,6 +18,8 @@ import (
 func TestAccSepaInstantAssociation_basic(t *testing.T) {
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
+
 	sponsoredOrganisationId := uuid.New().String()
 	associationId := uuid.New().String()
 	sponsoredAssociationId := uuid.New().String()

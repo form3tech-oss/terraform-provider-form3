@@ -17,6 +17,8 @@ func TestAccPaymentDefaults_basic(t *testing.T) {
 	var paymentDefaultsResponse payment_defaults.GetPaymentdefaultsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
+
 	id := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{

@@ -19,6 +19,8 @@ func TestAccPayportAssociation_basic_non_settling(t *testing.T) {
 	var payportResponse associations.GetPayportIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
+
 	participantId := generateTestParticipantId()
 	associationId := uuid.New().String()
 
@@ -48,6 +50,8 @@ func TestAccPayportAssociation_basic_settling(t *testing.T) {
 	var payportResponse associations.GetPayportIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
+
 	participantId := generateTestParticipantId()
 	associationId := uuid.New().String()
 
@@ -76,6 +80,8 @@ func TestAccPayportAssociation_basic_settling(t *testing.T) {
 func TestAccPayportAssociation_importBasic(t *testing.T) {
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
+
 	participantId := generateTestParticipantId()
 	associationId := uuid.New().String()
 

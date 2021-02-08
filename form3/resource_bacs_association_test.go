@@ -34,6 +34,7 @@ func TestAccBacsAssociation_basic(t *testing.T) {
 		OutputKeyID:     uuid.New().String(),
 		OutputCertID:    uuid.New().String(),
 	}
+	defer verifyOrgDoesNotExist(t, configData.OrgID)
 
 	config, err := makeTestForm3BacsAssociationConfigWithCerts(configData)
 	if err != nil {
@@ -82,6 +83,8 @@ func TestAccBacsAssociation_zeroAccountType(t *testing.T) {
 	var bacsResponse associations.GetBacsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
+
 	associationId := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
@@ -109,6 +112,8 @@ func TestAccBacsAssociation_withBankIdAndCentre(t *testing.T) {
 	var bacsResponse associations.GetBacsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
+
 	associationId := uuid.New().String()
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -131,6 +136,7 @@ func TestAccBacsAssociation_withTestFileSubmissionFlag(t *testing.T) {
 	var bacsResponse associations.GetBacsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -153,6 +159,7 @@ func TestAccBacsAssociation_withMultiSunConfig(t *testing.T) {
 	var bacsResponse associations.GetBacsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
 	associationId := uuid.New().String()
 
 	sun := "223344"

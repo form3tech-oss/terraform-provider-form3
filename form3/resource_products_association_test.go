@@ -16,6 +16,8 @@ import (
 func TestAccProductsAssociation_basic(t *testing.T) {
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
+
 	associationId := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{

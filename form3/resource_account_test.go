@@ -21,6 +21,7 @@ func TestAccAccount_basic(t *testing.T) {
 	var before accounts.GetAccountsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
 	accountId := uuid.New().String()
 	bankResourceId := uuid.New().String()
 	bicId := uuid.New().String()
@@ -59,6 +60,7 @@ func TestAccAccount_basic_with_iban(t *testing.T) {
 	var accountResponse accounts.GetAccountsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
 	accountId := uuid.New().String()
 	bankResourceId := uuid.New().String()
 	bicId := uuid.New().String()
@@ -92,6 +94,7 @@ func TestAccAccount_basic_with_iban_without_account_number(t *testing.T) {
 	var accountResponse accounts.GetAccountsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
 	accountId := uuid.New().String()
 	bankResourceId := uuid.New().String()
 	bicId := uuid.New().String()
@@ -132,6 +135,7 @@ func TestAccAccount_importBasic(t *testing.T) {
 
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
 	accountId := uuid.New().String()
 	bankResourceId := uuid.New().String()
 	bicId := uuid.New().String()
@@ -160,6 +164,7 @@ func TestAccAccount_importBasic(t *testing.T) {
 func TestAccAccount_import_with_iban(t *testing.T) {
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
 	accountId := uuid.New().String()
 	bankResourceId := uuid.New().String()
 	bicId := uuid.New().String()

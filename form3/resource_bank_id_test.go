@@ -17,6 +17,7 @@ func TestAccBankID_basic(t *testing.T) {
 	var bankIDResponse accounts.GetBankidsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
 	bankResourceId := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
@@ -44,6 +45,7 @@ func TestAccBankID_importBasic(t *testing.T) {
 
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
 	bankResourceId := uuid.New().String()
 	defer verifyOrgDoesNotExist(t, organisationId)
 

@@ -20,6 +20,7 @@ func TestAccKey_basic(t *testing.T) {
 	var response models.Key
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
 	keyId := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
@@ -47,6 +48,7 @@ func TestAccKey_ellipticCurve(t *testing.T) {
 	var response models.Key
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
 	keyId := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
@@ -75,6 +77,7 @@ func TestAccKey_withCert(t *testing.T) {
 	var response models.Key
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
 	keyId := uuid.New().String()
 	certificateId := uuid.New().String()
 
@@ -108,6 +111,7 @@ func TestAccKey_withSelfSignedCert(t *testing.T) {
 	var response models.Key
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
 	keyId := uuid.New().String()
 	certificateId := uuid.New().String()
 
@@ -144,6 +148,7 @@ func TestAccKey_importExistingCert(t *testing.T) {
 	var response models.Key
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
 	keyId := uuid.New().String()
 	certificateId := uuid.New().String()
 

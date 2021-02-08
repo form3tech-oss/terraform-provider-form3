@@ -17,6 +17,7 @@ func TestAccAccountConfigurationBasic(t *testing.T) {
 	var accountResponse accounts.GetAccountconfigurationsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
 	accountConfigurationId := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
@@ -84,6 +85,7 @@ func TestAccAccountConfigurationImportBasic(t *testing.T) {
 
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
 	accountConfigurationId := uuid.New().String()
 	resourceName := "form3_account_configuration.configuration"
 

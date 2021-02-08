@@ -17,6 +17,7 @@ func TestAccAccountRouting_basic(t *testing.T) {
 	var accountRoutingResponse account_routings.GetAccountRoutingsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
 	accountRoutingId := uuid.New().String()
 	accountGenerator := "accountapi"
 	accountProvisioner := "accountapi"
@@ -48,6 +49,7 @@ func TestAccAccountRouting_importBasic(t *testing.T) {
 
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
 	accountRoutingId := uuid.New().String()
 	accountGenerator := "accountapi"
 	accountProvisioner := "accountapi"

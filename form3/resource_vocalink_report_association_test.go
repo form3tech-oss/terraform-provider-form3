@@ -17,6 +17,8 @@ func TestAccVocalinkReportAssociation_basic(t *testing.T) {
 	var response associations.GetVocalinkreportIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
+
 	associationId := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
