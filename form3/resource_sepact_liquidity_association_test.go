@@ -16,17 +16,21 @@ import (
 
 func TestAccSepactLiquidityAssociation_basic(t *testing.T) {
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	directOrgId := uuid.New().String()
+	inDirectOrgId := uuid.New().String()
+	verifyOrgDoesNotExist(t, directOrgId)
+	verifyOrgDoesNotExist(t, inDirectOrgId)
 	type participant struct{ path, organisationId, associationId, bic, iban string }
 	directParticipant := participant{
 		path:           "form3_sepact_liquidity_association.direct_participant_association",
-		organisationId: uuid.New().String(),
+		organisationId: directOrgId,
 		associationId:  uuid.New().String(),
 		bic:            generateTestBicWithLength(8),
 		iban:           generateRandomIban(),
 	}
 	indirectParticipant := participant{
 		path:           "form3_sepact_liquidity_association.indirect_participant_association",
-		organisationId: uuid.New().String(),
+		organisationId: inDirectOrgId,
 		associationId:  uuid.New().String(),
 		bic:            generateTestBicWithLength(8),
 		iban:           generateRandomIban(),

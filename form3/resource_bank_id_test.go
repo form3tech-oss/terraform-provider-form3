@@ -47,7 +47,6 @@ func TestAccBankID_importBasic(t *testing.T) {
 	organisationId := uuid.New().String()
 	defer verifyOrgDoesNotExist(t, organisationId)
 	bankResourceId := uuid.New().String()
-	defer verifyOrgDoesNotExist(t, organisationId)
 
 	resourceName := "form3_bank_id.bank_id"
 

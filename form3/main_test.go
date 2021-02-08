@@ -31,11 +31,11 @@ func TestMain(m *testing.M) {
 func verifyOrgDoesNotExist(t *testing.T, ID string) error {
 	org, err := cl.OrganisationClient.Organisations.GetUnits(nil)
 	if err != nil {
-		t.Error("Failed to setup")
+		t.Error("failed to get organisations")
 	}
 	for _, v := range org.Payload.Data {
 		if v.ID.String() == ID {
-			t.Error("Organization Leaked")
+			t.Error("organisations leaked.")
 		}
 	}
 	return nil

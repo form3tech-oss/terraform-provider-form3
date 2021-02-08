@@ -16,8 +16,10 @@ import (
 )
 
 func TestAccLhvAgencySynchronisation_basic(t *testing.T) {
+	orgId := uuid.New().String()
+	verifyOrgDoesNotExist(t, orgId)
 	data := lhvAgencySynchronisationConfigData{
-		OrganisationID:          uuid.New().String(),
+		OrganisationID:          orgId,
 		ParentOrganisationID:    os.Getenv("FORM3_ORGANISATION_ID"),
 		AssociationId:           uuid.New().String(),
 		ClientCode:              uuid.New().String(),
