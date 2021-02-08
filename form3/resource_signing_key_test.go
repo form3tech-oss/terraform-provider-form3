@@ -2,19 +2,21 @@ package form3
 
 import (
 	"fmt"
+	"os"
+	"testing"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/platformsecurityapi"
 	"github.com/go-openapi/strfmt"
 	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	"os"
-	"testing"
 )
 
 func TestAccSigningKeys_basic(t *testing.T) {
 	var signingKeysResponse platformsecurityapi.GetPlatformSecuritySigningKeysSigningkeyIDOK
 	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	defer verifyOrgDoesNotExist(t, organisationId)
 	signingKeyId := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
