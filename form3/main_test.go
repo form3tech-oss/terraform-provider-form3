@@ -48,10 +48,10 @@ func verifyNoTestOrganizationLeak(initCount int, client *form3.AuthenticatedClie
 }
 
 func verifyOrgDoesNotExist(t *testing.T, ID string) error {
-	client := testAccProvider.Meta().(*form3.AuthenticatedClient)
+	client, _ := createClient(config)
 	org, err := client.OrganisationClient.Organisations.GetUnits(nil)
 	if err != nil {
-		t.Error("Failed to setup client")
+		t.Error("Failed to setup")
 	}
 	for _, v := range org.Payload.Data {
 		if v.ID.String() == ID {
@@ -75,7 +75,10 @@ func getOrgAmount(name string, client *form3.AuthenticatedClient) (int, error) {
 func createClient(config *client.TransportConfig) (*form3.AuthenticatedClient, error) {
 	cl := api.NewAuthenticatedClient(config)
 	if cl.AccessToken == "" {
-		err := cl.Authenticate(os.Getenv("FORM3_CLIENT_ID"), os.Getenv("FORM3_CLIENT_SECRET"))
+		clID := os.Getenv("FORM3_CLIENT_ID")
+		clSecr := os.Getenv("FORM3_CLIENT_SECRET")
+		log.Printf("client id is: %s, client secret is: %s\n", clID, clSecr)
+		err := cl.Authenticate(clID, clSecr)
 		if err != nil {
 			return nil, err
 		}
