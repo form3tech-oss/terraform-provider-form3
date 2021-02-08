@@ -58,12 +58,11 @@ func testMainWrapper(m *testing.M) int {
 
 	createClient(config)
 	log.Println("[INFO] Starting tests")
-	orgCount := getOrgAmount(testOrgName)
-	defer verifyNoTestOrganizationLeak(orgCount)
-
 	if err := createOrganisation(); err != nil {
 		log.Fatalf("[FATAL] Error creating test organisation: %s", JsonErrorPrettyPrint(err))
 	}
+	orgCount := getOrgAmount(testOrgName)
+	defer verifyNoTestOrganizationLeak(orgCount)
 
 	defer func() {
 		if errTestOrg := deleteOrganisation(); errTestOrg != nil {
@@ -97,7 +96,7 @@ func createOrganisation() error {
 }
 
 func verifyNoTestOrganizationLeak(initCount int) error {
-	log.Printf("[INFO] Verifying there are no `terraform-provider-form3-test-organisation` leftover.")
+	log.Printf("[INFO] Verifying there are no %s leftover.", testOrgName)
 	count := getOrgAmount(testOrgName)
 	if count > initCount {
 		log.Fatalf("[Error] Organization leak: had %d organizations with name: %s before, and now %d \n", initCount, testOrgName, count)
