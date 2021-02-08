@@ -3,7 +3,6 @@ package api
 import (
 	"errors"
 	"flag"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -22,6 +21,8 @@ var (
 	testOrganisationId strfmt.UUID
 )
 
+const testOrgName string = "terraform-provider-form3-test-organisation"
+
 var (
 	auth     *AuthenticatedClient
 	authOnce = new(sync.Once)
@@ -34,6 +35,8 @@ func TestMain(m *testing.M) {
 
 func testMainWrapper(m *testing.M) int {
 	defer log.Println("[INFO] Stopping tests")
+	orgCount := getOrgAmount(testOrgName)
+	defer verifyNoTestOrganizationLeak(orgCount)
 
 	flag.Parse()
 
@@ -65,9 +68,6 @@ func testMainWrapper(m *testing.M) int {
 		if errTestOrg := deleteOrganisation(); errTestOrg != nil {
 			log.Fatalf("[Error] Error deleting test organisation: %+v\n", errTestOrg)
 		}
-		if errLeak := verifyNoTestOrganizationLeak(); errLeak != nil {
-			log.Fatalf("[Error] Organization leak: %+v\n", errLeak)
-		}
 	}()
 
 	return m.Run()
@@ -95,19 +95,24 @@ func createOrganisation() error {
 	return err
 }
 
-func verifyNoTestOrganizationLeak() error {
+func verifyNoTestOrganizationLeak(initCount int) error {
 	log.Printf("[INFO] Verifying there are no `terraform-provider-form3-test-organisation` leftover.")
+	count := getOrgAmount(testOrgName)
+	if count > initCount {
+		log.Fatalf("[Error] Organization leak: had %d organizations with name: %s before, and now %d \n", initCount, testOrgName, count)
+	}
+	return nil
+}
+
+func getOrgAmount(name string) int {
 	count := 0
 	orgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
 	for _, v := range orgs.Payload.Data {
-		if v.Attributes.Name == "terraform-provider-form3-test-organisation" {
+		if v.Attributes.Name == name {
 			count++
 		}
 	}
-	if count > 0 {
-		return fmt.Errorf("There are %d test organizations leftover", count)
-	}
-	return nil
+	return count
 }
 
 func deleteOrganisation() error {
