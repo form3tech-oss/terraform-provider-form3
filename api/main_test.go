@@ -62,11 +62,11 @@ func testMainWrapper(m *testing.M) int {
 	}
 
 	defer func() {
-		if err := deleteOrganisation(); err != nil {
-			log.Printf("[WARN] Error deleting test organisation: %+v\n", err)
+		if errTestOrg := deleteOrganisation(); errTestOrg != nil {
+			log.Fatalf("[Error] Error deleting test organisation: %+v\n", errTestOrg)
 		}
-		if err := verifyNoTestOrganizationLeak(); err != nil {
-			log.Printf("[WARN] Organization leak: %+v\n", err)
+		if errLeak := verifyNoTestOrganizationLeak(); errLeak != nil {
+			log.Fatalf("[Error] Organization leak: %+v\n", errLeak)
 		}
 	}()
 
