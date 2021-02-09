@@ -10,7 +10,8 @@ import (
 )
 
 func TestDeleteBacsAssociation(t *testing.T) {
-
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	serviceUserNumber := "123458"
 	accountNumber := "12345678"
 	sortingCode := "123456"
@@ -45,6 +46,8 @@ func TestDeleteBacsAssociation(t *testing.T) {
 }
 
 func TestGetBacsForNonExistingAssociation(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	randomId := uuid.New()
 	randomUUID := strfmt.UUID(randomId.String())
 
@@ -55,6 +58,8 @@ func TestGetBacsForNonExistingAssociation(t *testing.T) {
 }
 
 func TestGetBacsAssociation(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	serviceUserNumber := "987892"
 	accountNumber := "12345678"
 	sortingCode := "123456"
@@ -101,6 +106,8 @@ func TestGetBacsAssociation(t *testing.T) {
 }
 
 func TestPostBacsAssociation(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	serviceUserNumber := "987897"
 	accountNumber := "12345678"
 	sortingCode := "123456"
@@ -140,6 +147,8 @@ func TestPostBacsAssociation(t *testing.T) {
 }
 
 func TestPostBacsAssociationIncludingOptionalServiceCentre(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	serviceUserNumber := "987897"
 	accountNumber := "12345699"
 	sortingCode := "123456"
@@ -181,6 +190,8 @@ func TestPostBacsAssociationIncludingOptionalServiceCentre(t *testing.T) {
 }
 
 func TestPostBacsAssociation_DoNotIgnoreAccountTypeWhenValueIsZero(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	serviceUserNumber := "987897"
 	accountNumber := "12345678"
 	sortingCode := "123456"
@@ -215,6 +226,8 @@ func TestPostBacsAssociation_DoNotIgnoreAccountTypeWhenValueIsZero(t *testing.T)
 }
 
 func TestGetBacsAssociationList(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	id := uuid.New()
 	organisationIdUUID := strfmt.UUID(testOrganisationId.String())
 	serviceUserNumber := "123456"
@@ -251,6 +264,8 @@ func TestGetBacsAssociationList(t *testing.T) {
 }
 
 func TestGetBacsAssociationListWithMultiSunConfig(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	id := uuid.New()
 	organisationIdUUID := strfmt.UUID(testOrganisationId.String())
 	serviceUserNumber := "123456"

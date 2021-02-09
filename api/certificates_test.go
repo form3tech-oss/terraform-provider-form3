@@ -13,6 +13,8 @@ import (
 )
 
 func TestPostKey(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	createResponse := createKey(t)
 	defer deleteKey(createResponse, t)
 
@@ -31,6 +33,8 @@ func TestPostKey(t *testing.T) {
 }
 
 func TestPostEllipticCurveKey(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	createResponse := createEcKey(t)
 	defer deleteKey(createResponse, t)
 
@@ -59,6 +63,7 @@ func deleteKey(createResponse *system.PostKeysCreated, t *testing.T) {
 }
 
 func createKey(t *testing.T) *system.PostKeysCreated {
+
 	id := uuid.New()
 	createResponse, err := auth.SystemClient.System.PostKeys(system.NewPostKeysParams().
 		WithKeyCreationRequest(&models.KeyCreation{
@@ -95,6 +100,8 @@ func createEcKey(t *testing.T) *system.PostKeysCreated {
 }
 
 func TestDeleteKey(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	createResponse := createKey(t)
 
 	deleteKey(createResponse, t)
@@ -108,6 +115,8 @@ func TestDeleteKey(t *testing.T) {
 }
 
 func TestGetKey(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	createResponse := createKey(t)
 	defer deleteKey(createResponse, t)
 
@@ -129,6 +138,8 @@ func TestGetKey(t *testing.T) {
 }
 
 func TestPostKeyCertificate(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	createResponse := createKey(t)
 	defer deleteKey(createResponse, t)
 
@@ -140,6 +151,8 @@ func TestPostKeyCertificate(t *testing.T) {
 }
 
 func TestDeleteKeyCertificate(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	createResponse := createKey(t)
 	defer deleteKey(createResponse, t)
 

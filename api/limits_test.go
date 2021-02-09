@@ -9,6 +9,8 @@ import (
 )
 
 func TestAccPostLimit(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 
 	createResponse, err := auth.LimitsClient.Limits.PostLimits(limits.NewPostLimitsParams().
 		WithLimitCreationRequest(&models.LimitCreation{
@@ -38,7 +40,8 @@ func TestAccPostLimit(t *testing.T) {
 }
 
 func TestAccGetLimits(t *testing.T) {
-
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	createResponse, err := auth.LimitsClient.Limits.PostLimits(limits.NewPostLimitsParams().
 		WithLimitCreationRequest(&models.LimitCreation{
 			Data: &models.Limit{
@@ -71,7 +74,8 @@ func TestAccGetLimits(t *testing.T) {
 }
 
 func TestAccDeleteLimit(t *testing.T) {
-
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	createResponse, err := auth.LimitsClient.Limits.PostLimits(limits.NewPostLimitsParams().
 		WithLimitCreationRequest(&models.LimitCreation{
 			Data: &models.Limit{
@@ -104,6 +108,8 @@ func TestAccDeleteLimit(t *testing.T) {
 }
 
 func TestAccGetLimitWithIdNotFound(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	_, err := auth.LimitsClient.Limits.GetLimitsID(limits.NewGetLimitsIDParams().WithID(strfmt.UUID("8ea57253-aea2-409b-ab59-e9f0a96adc12")))
 	assertStatusCode(t, err, 404)
 }

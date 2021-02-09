@@ -9,6 +9,8 @@ import (
 )
 
 func TestAccDeleteRole(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	id := NewUUID()
 
 	defer func() {
@@ -46,6 +48,8 @@ func TestAccDeleteRole(t *testing.T) {
 }
 
 func TestAccDeleteRoleAce(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	roleId := NewUUID()
 	aceId := NewUUID()
 

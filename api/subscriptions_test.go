@@ -9,6 +9,8 @@ import (
 )
 
 func TestAccDeleteSubscription(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	id := NewUUID()
 
 	defer func() {

@@ -13,6 +13,8 @@ import (
 )
 
 func TestDeleteConfirmationOfPayeeAssociation(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	createResponse := createAssociation(t)
 
 	deleteAssociation(t, createResponse)
@@ -61,6 +63,8 @@ func createAssociation(t *testing.T) *associations.PostConfirmationOfPayeeCreate
 }
 
 func TestGetConfirmationOfPayeeForNonExistingAssociation(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	randomId := uuid.New()
 	randomUUID := strfmt.UUID(randomId.String())
 
@@ -71,6 +75,8 @@ func TestGetConfirmationOfPayeeForNonExistingAssociation(t *testing.T) {
 }
 
 func TestGetConfirmationOfPayeeAssociation(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	createResponse := createAssociation(t)
 	defer deleteAssociation(t, createResponse)
 
@@ -82,6 +88,8 @@ func TestGetConfirmationOfPayeeAssociation(t *testing.T) {
 }
 
 func TestPostConfirmationOfPayeeAssociation(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	createResponse := createAssociation(t)
 	defer deleteAssociation(t, createResponse)
 
@@ -95,6 +103,8 @@ func TestPostConfirmationOfPayeeAssociation(t *testing.T) {
 }
 
 func TestGetConfirmationOfPayeeAssociationList(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	createResponse := createAssociation(t)
 	defer deleteAssociation(t, createResponse)
 

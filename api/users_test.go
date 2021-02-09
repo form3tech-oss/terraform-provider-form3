@@ -10,7 +10,8 @@ import (
 )
 
 func TestAccGetUsers(t *testing.T) {
-
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	response, err := auth.SecurityClient.Users.GetUsers(users.NewGetUsersParams())
 	assertNoErrorOccurred(t, err)
 
@@ -20,6 +21,8 @@ func TestAccGetUsers(t *testing.T) {
 }
 
 func TestAccDeleteUser(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	roleID := NewUUID()
 
 	defer func() {
@@ -77,6 +80,8 @@ func TestAccDeleteUser(t *testing.T) {
 }
 
 func TestAccGetUserWithIdNotFound(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	_, err := auth.SecurityClient.Users.GetUsersUserID(users.NewGetUsersUserIDParams().WithUserID("700e7327-3834-4fe1-95f6-7eea7773bf0f"))
 	assertStatusCode(t, err, 404)
 }

@@ -45,6 +45,8 @@ func bankIdGenerator(r *rand.Rand) string {
 }
 
 func TestAccDeleteAccount(t *testing.T) {
+	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 
 	bankIdUUID := NewUUIDValue()

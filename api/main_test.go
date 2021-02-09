@@ -93,7 +93,7 @@ func createOrganisation() error {
 	_, err := auth.OrganisationClient.Organisations.PostUnits(organisations.NewPostUnitsParams().
 		WithOrganisationCreationRequest(&models.OrganisationCreation{
 			Data: &models.Organisation{
-				OrganisationID: testOrganisationId,
+				OrganisationID: organisationId,
 				Type:           "organisations",
 				ID:             testOrganisationId,
 				Attributes: &models.OrganisationAttributes{
@@ -194,4 +194,28 @@ func verifyTotalAmountOfTestOrgsIsSame(c *AuthenticatedClient, initialOrgs []*mo
 	}
 
 	return nil
+}
+
+func assertNoOrgLeak(t *testing.T, c *AuthenticatedClient, initialOrgs []*models.Organisation) {
+	orgsResp, _ := c.OrganisationClient.Organisations.GetUnits(nil)
+
+	initTestOrgs := map[string]interface{}{}
+	finalTestOrgs := map[string]interface{}{}
+
+	for _, init := range initialOrgs {
+		if init.Attributes.Name == testOrgName {
+			initTestOrgs[init.ID.String()] = struct{}{}
+		}
+	}
+
+	for _, v := range orgsResp.Payload.Data {
+		if v.Attributes.Name == testOrgName {
+			finalTestOrgs[v.ID.String()] = struct{}{}
+		}
+	}
+
+	if len(finalTestOrgs) > len(initTestOrgs) {
+		t.Error("organization leaked.")
+	}
+
 }
