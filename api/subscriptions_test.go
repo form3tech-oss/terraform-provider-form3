@@ -9,8 +9,6 @@ import (
 )
 
 func TestAccDeleteSubscription(t *testing.T) {
-	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
-
 	id := NewUUID()
 
 	defer func() {
@@ -24,7 +22,6 @@ func TestAccDeleteSubscription(t *testing.T) {
 			}
 		}
 	}()
-	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 
 	createResponse, err := auth.NotificationClient.Subscriptions.PostSubscriptions(subscriptions.NewPostSubscriptionsParams().
 		WithSubscriptionCreationRequest(&models.SubscriptionCreation{

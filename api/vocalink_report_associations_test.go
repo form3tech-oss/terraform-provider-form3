@@ -10,8 +10,6 @@ import (
 )
 
 func TestDeleteVocalinkreportAssociation(t *testing.T) {
-	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
-	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	id := uuid.New()
 	createResponse, err := auth.AssociationClient.Associations.PostVocalinkreport(associations.NewPostVocalinkreportParams().
 		WithCreationRequest(&models.VocalinkReportAssociationCreation{
@@ -36,8 +34,6 @@ func TestDeleteVocalinkreportAssociation(t *testing.T) {
 }
 
 func TestGetVocalinkreportForNonExistingAssociation(t *testing.T) {
-	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
-	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	randomId := uuid.New()
 	randomUUID := strfmt.UUID(randomId.String())
 
@@ -48,8 +44,7 @@ func TestGetVocalinkreportForNonExistingAssociation(t *testing.T) {
 }
 
 func TestGetVocalinkreportAssociation(t *testing.T) {
-	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
-	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
+
 	id := uuid.New()
 	createResponse, err := auth.AssociationClient.Associations.PostVocalinkreport(associations.NewPostVocalinkreportParams().
 		WithCreationRequest(&models.VocalinkReportAssociationCreation{
@@ -76,8 +71,7 @@ func TestGetVocalinkreportAssociation(t *testing.T) {
 }
 
 func TestPostVocalinkreportAssociation(t *testing.T) {
-	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
-	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
+
 	id := uuid.New()
 	createResponse, err := auth.AssociationClient.Associations.PostVocalinkreport(associations.NewPostVocalinkreportParams().
 		WithCreationRequest(&models.VocalinkReportAssociationCreation{
@@ -111,8 +105,6 @@ func TestPostVocalinkreportAssociation(t *testing.T) {
 }
 
 func TestGetVocalinkreportAssociationList(t *testing.T) {
-	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
-	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	id := NewUUID()
 	organisationIdUUID := strfmt.UUID(organisationId.String())
 

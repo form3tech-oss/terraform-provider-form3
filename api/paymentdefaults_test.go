@@ -12,8 +12,6 @@ import (
 var version = int64(0)
 
 func TestAccPostPaymentDefaults(t *testing.T) {
-	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
-	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	paymentId := uuid.New().String()
 
 	createResponse, err := auth.PaymentdefaultsClient.PaymentDefaults.PostPaymentdefaults(payment_defaults.NewPostPaymentdefaultsParams().
@@ -41,8 +39,6 @@ func TestAccPostPaymentDefaults(t *testing.T) {
 }
 
 func TestAccGetPaymentDefaultsList(t *testing.T) {
-	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
-	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	paymentId := uuid.New().String()
 
 	createResponse, err := auth.PaymentdefaultsClient.PaymentDefaults.PostPaymentdefaults(payment_defaults.NewPostPaymentdefaultsParams().
@@ -74,8 +70,6 @@ func TestAccGetPaymentDefaultsList(t *testing.T) {
 }
 
 func TestAccDeletePaymentDefaults(t *testing.T) {
-	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
-	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	paymentId := uuid.New().String()
 
 	createResponse, err := auth.PaymentdefaultsClient.PaymentDefaults.PostPaymentdefaults(payment_defaults.NewPostPaymentdefaultsParams().
@@ -107,8 +101,6 @@ func TestAccDeletePaymentDefaults(t *testing.T) {
 }
 
 func TestAccGetPaymentDefaultsWithIdNotFound(t *testing.T) {
-	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
-	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	_, err := auth.PaymentdefaultsClient.PaymentDefaults.GetPaymentdefaultsID(payment_defaults.NewGetPaymentdefaultsIDParams().
 		WithID("8ea57253-aea2-409b-ab59-e9f0a96adc12"))
 

@@ -11,8 +11,6 @@ import (
 var accountConfigurationVersion = int64(0)
 
 func TestAccountConfigurationPost(t *testing.T) {
-	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
-	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	createResponse, err := createAccountConfiguration()
 
 	assertNoErrorOccurred(t, err)
@@ -27,8 +25,6 @@ func TestAccountConfigurationPost(t *testing.T) {
 }
 
 func TestAccountConfigurationGetList(t *testing.T) {
-	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
-	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	createResponse, err := createAccountConfiguration()
 
 	assertNoErrorOccurred(t, err)
@@ -47,8 +43,6 @@ func TestAccountConfigurationGetList(t *testing.T) {
 }
 
 func TestAccountConfigurationGetID(t *testing.T) {
-	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
-	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	createResponse, err := createAccountConfiguration()
 
 	assertNoErrorOccurred(t, err)
@@ -63,8 +57,6 @@ func TestAccountConfigurationGetID(t *testing.T) {
 }
 
 func TestAccountConfigurationUpdate(t *testing.T) {
-	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
-	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	createResponse, err := createAccountConfiguration()
 
 	assertNoErrorOccurred(t, err)
@@ -116,8 +108,6 @@ func TestAccountConfigurationUpdate(t *testing.T) {
 }
 
 func TestAccountConfigurationDelete(t *testing.T) {
-	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
-	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	createResponse, err := createAccountConfiguration()
 
 	assertNoErrorOccurred(t, err)

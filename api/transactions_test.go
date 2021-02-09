@@ -8,8 +8,6 @@ import (
 )
 
 func TestAccPostTransactionsPayment(t *testing.T) {
-	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
-	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	payment := (&PaymentBuilder{}).
 		WithDefaults().
 		WithAmount("60.00").
@@ -26,8 +24,6 @@ func TestAccPostTransactionsPayment(t *testing.T) {
 }
 
 func TestAccPostTransactionsPaymentSubmission(t *testing.T) {
-	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
-	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	payment := (&PaymentBuilder{}).
 		WithDefaults().
 		WithAmount("60.00").
