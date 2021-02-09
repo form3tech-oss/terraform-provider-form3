@@ -95,7 +95,7 @@ func verifyTotalAmountOfTestOrgsIsSame(c *api.AuthenticatedClient, initialOrgs [
 				newTestOrgs = append(newTestOrgs, k)
 			}
 		}
-		return fmt.Errorf("there are %d new orgs, %s", len(newTestOrgs), strings.Join(newTestOrgs, ","))
+		return fmt.Errorf("Organization leak: there are %d new orgs, %s", len(newTestOrgs), strings.Join(newTestOrgs, ","))
 	}
 
 	return nil

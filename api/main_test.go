@@ -93,7 +93,7 @@ func createOrganisation() error {
 	_, err := auth.OrganisationClient.Organisations.PostUnits(organisations.NewPostUnitsParams().
 		WithOrganisationCreationRequest(&models.OrganisationCreation{
 			Data: &models.Organisation{
-				OrganisationID: organisationId,
+				OrganisationID: testOrganisationId,
 				Type:           "organisations",
 				ID:             testOrganisationId,
 				Attributes: &models.OrganisationAttributes{
@@ -190,7 +190,7 @@ func verifyTotalAmountOfTestOrgsIsSame(c *AuthenticatedClient, initialOrgs []*mo
 				newTestOrgs = append(newTestOrgs, k)
 			}
 		}
-		return fmt.Errorf("there are %d new orgs, %s", len(newTestOrgs), strings.Join(newTestOrgs, ","))
+		return fmt.Errorf("Organization leak: There are %d new orgs, %s", len(newTestOrgs), strings.Join(newTestOrgs, ","))
 	}
 
 	return nil
