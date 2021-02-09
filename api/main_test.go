@@ -190,6 +190,7 @@ func verifyTotalAmountOfTestOrgsIsSame(c *AuthenticatedClient, initialOrgs []*mo
 				newTestOrgs = append(newTestOrgs, k)
 			}
 		}
+		log.Printf("Test Org is: %s and org is: %s", testOrganisationId.String(), organisationId.String())
 		return fmt.Errorf("Organization leak: There are %d new orgs, %s", len(newTestOrgs), strings.Join(newTestOrgs, ","))
 	}
 
