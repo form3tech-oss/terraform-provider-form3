@@ -3,9 +3,11 @@ package api
 import (
 	"errors"
 	"flag"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 	"sync"
 	"testing"
 
@@ -26,6 +28,8 @@ var (
 	authOnce = new(sync.Once)
 	config   = client.DefaultTransportConfig()
 )
+
+const testOrgName string = "terraform-provider-form3-test-organisation"
 
 func TestMain(m *testing.M) {
 	os.Exit(testMainWrapper(m))
@@ -59,14 +63,24 @@ func testMainWrapper(m *testing.M) int {
 	if err := createOrganisation(); err != nil {
 		log.Fatalf("[FATAL] Error creating test organisation: %s", JsonErrorPrettyPrint(err))
 	}
-
+	initOrgs, err := auth.OrganisationClient.Organisations.GetUnits(nil)
+	if err != nil {
+		log.Printf("Failed to fetch organisations to check")
+		return 1
+	}
+	exitCode := 0
 	defer func() {
 		if errTestOrg := deleteOrganisation(); errTestOrg != nil {
-			log.Fatalf("[Error] Error deleting test organisation: %+v\n", errTestOrg)
+			log.Printf("[Error] Error deleting test organisation: %+v\n", errTestOrg)
+			exitCode = 1
+		}
+		if errLeakOrg := verifyTotalAmountOfTestOrgsIsSame(auth, initOrgs.Payload.Data); errLeakOrg != nil {
+			log.Fatal(errLeakOrg)
 		}
 	}()
 
-	return m.Run()
+	exitCode = m.Run()
+	return exitCode
 }
 
 func createOrganisation() error {
@@ -145,6 +159,38 @@ func testPreCheck() error {
 
 	if len(os.Getenv("FORM3_CLIENT_SECRET")) == 0 {
 		return errors.New("FORM3_CLIENT_SECRET must be set for acceptance tests")
+	}
+
+	return nil
+}
+
+func verifyTotalAmountOfTestOrgsIsSame(c *AuthenticatedClient, initialOrgs []*models.Organisation) error {
+	orgsResp, _ := c.OrganisationClient.Organisations.GetUnits(nil)
+
+	initTestOrgs := map[string]interface{}{}
+	finalTestOrgs := map[string]interface{}{}
+
+	for _, init := range initialOrgs {
+		if init.Attributes.Name == testOrgName {
+			initTestOrgs[init.ID.String()] = struct{}{}
+		}
+	}
+
+	for _, v := range orgsResp.Payload.Data {
+		if v.Attributes.Name == testOrgName {
+			finalTestOrgs[v.ID.String()] = struct{}{}
+		}
+	}
+
+	if len(finalTestOrgs) > len(initTestOrgs) {
+		newTestOrgs := []string{}
+		for k := range finalTestOrgs {
+			_, ok := initTestOrgs[k]
+			if !ok {
+				newTestOrgs = append(newTestOrgs, k)
+			}
+		}
+		return fmt.Errorf("there are %d new orgs, %s", len(newTestOrgs), strings.Join(newTestOrgs, ","))
 	}
 
 	return nil

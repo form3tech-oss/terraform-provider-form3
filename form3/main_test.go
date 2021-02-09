@@ -87,8 +87,6 @@ func verifyTotalAmountOfTestOrgsIsSame(c *api.AuthenticatedClient, initialOrgs [
 		}
 	}
 
-	log.Printf("initially there were %d orgs, and now %d.", len(initTestOrgs), len(finalTestOrgs))
-
 	if len(finalTestOrgs) > len(initTestOrgs) {
 		newTestOrgs := []string{}
 		for k := range finalTestOrgs {
