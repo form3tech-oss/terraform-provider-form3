@@ -19,6 +19,8 @@ func TestAccSepaLiquidityAssociation_basic(t *testing.T) {
 	sponsoredOrganisationID := uuid.New().String()
 	sponsorAssociationID := uuid.New().String()
 	sponsoredAssociationID := uuid.New().String()
+	verifyOrgDoesNotExist(t, sponsorOrganisationID)
+	verifyOrgDoesNotExist(t, sponsoredOrganisationID)
 
 	sponsor_assoc_path := "form3_sepaliquidity_association.sponsor_association"
 	sponsored_assoc_path := "form3_sepaliquidity_association.sponsored_association"

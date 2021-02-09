@@ -16,7 +16,6 @@ import (
 func TestAccSigningKeys_basic(t *testing.T) {
 	var signingKeysResponse platformsecurityapi.GetPlatformSecuritySigningKeysSigningkeyIDOK
 	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	defer verifyOrgDoesNotExist(t, organisationId)
 	signingKeyId := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
