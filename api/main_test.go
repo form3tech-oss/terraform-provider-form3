@@ -93,7 +93,7 @@ func createOrganisation() error {
 	_, err := auth.OrganisationClient.Organisations.PostUnits(organisations.NewPostUnitsParams().
 		WithOrganisationCreationRequest(&models.OrganisationCreation{
 			Data: &models.Organisation{
-				OrganisationID: testOrganisationId,
+				OrganisationID: organisationId,
 				Type:           "organisations",
 				ID:             testOrganisationId,
 				Attributes: &models.OrganisationAttributes{
