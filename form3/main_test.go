@@ -75,9 +75,9 @@ func verifyTotalAmountOfTestOrgsIsSame(c *api.AuthenticatedClient, initialOrgs [
 	initTestOrgs := map[string]interface{}{}
 	finalTestOrgs := map[string]interface{}{}
 
-	for _, v := range initialOrgs {
-		if v.Attributes.Name == testOrgName {
-			initTestOrgs[v.ID.String()] = struct{}{}
+	for _, init := range initialOrgs {
+		if init.Attributes.Name == testOrgName {
+			initTestOrgs[init.ID.String()] = struct{}{}
 		}
 	}
 

@@ -177,7 +177,7 @@ func TestAccKey_importExistingCert(t *testing.T) {
 			t.Fail()
 		}
 
-		//	defer deleteOrganisation(client, organisationId)
+		defer deleteOrganisation(client, organisationId)
 
 		_, err = client.SystemClient.System.PostKeys(system.NewPostKeysParams().
 			WithKeyCreationRequest(&models.KeyCreation{
