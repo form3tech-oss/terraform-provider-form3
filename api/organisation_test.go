@@ -97,7 +97,7 @@ func TestAccDeleteOrganisationAssociation(t *testing.T) {
 
 func TestAccDeleteBankids(t *testing.T) {
 	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
-	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
+
 	bankIdUUID := NewUUID()
 
 	defer func() {
@@ -107,6 +107,7 @@ func TestAccDeleteBankids(t *testing.T) {
 			)
 		}
 	}()
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 
 	createResponse, err := auth.AccountClient.Accounts.PostBankids(accounts.NewPostBankidsParams().
 		WithBankIDCreationRequest(&models.BankIDCreation{

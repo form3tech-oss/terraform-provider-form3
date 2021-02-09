@@ -76,9 +76,9 @@ func TestGetConfirmationOfPayeeForNonExistingAssociation(t *testing.T) {
 
 func TestGetConfirmationOfPayeeAssociation(t *testing.T) {
 	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
-	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	createResponse := createAssociation(t)
 	defer deleteAssociation(t, createResponse)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 
 	_, err := auth.AssociationClient.Associations.GetConfirmationOfPayeeID(associations.NewGetConfirmationOfPayeeIDParams().
 		WithID(*createResponse.Payload.Data.ID),
@@ -89,9 +89,9 @@ func TestGetConfirmationOfPayeeAssociation(t *testing.T) {
 
 func TestPostConfirmationOfPayeeAssociation(t *testing.T) {
 	initOrgs, _ := auth.OrganisationClient.Organisations.GetUnits(nil)
-	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 	createResponse := createAssociation(t)
 	defer deleteAssociation(t, createResponse)
+	defer assertNoOrgLeak(t, auth, initOrgs.Payload.Data)
 
 	actualOrganisationId := createResponse.Payload.Data.OrganisationID.String()
 	if actualOrganisationId != testOrganisationId.String() {

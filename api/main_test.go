@@ -215,7 +215,14 @@ func assertNoOrgLeak(t *testing.T, c *AuthenticatedClient, initialOrgs []*models
 	}
 
 	if len(finalTestOrgs) > len(initTestOrgs) {
-		t.Error("organization leaked.")
+		newTestOrgs := []string{}
+		for k := range finalTestOrgs {
+			_, ok := initTestOrgs[k]
+			if !ok {
+				newTestOrgs = append(newTestOrgs, k)
+			}
+		}
+		t.Errorf("organization leaked. new orgs %s", strings.Join(newTestOrgs, ","))
 	}
 
 }
