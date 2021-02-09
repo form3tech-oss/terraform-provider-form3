@@ -2,17 +2,21 @@ package form3
 
 import (
 	"flag"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/form3tech-oss/terraform-provider-form3/api"
-	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-var cl *form3.AuthenticatedClient
+var cl *api.AuthenticatedClient
+
+const testOrgName string = "terraform-provider-form3-test-organisation"
 
 func TestMain(m *testing.M) {
 	flag.Parse()
@@ -25,6 +29,8 @@ func TestMain(m *testing.M) {
 	if err != nil {
 		log.Fatalf("cannot setup authentication client, %+v", err)
 	}
+	orgResp, _ := cl.OrganisationClient.Organisations.GetUnits(nil)
+	defer verifyTotalAmountOfTestOrgsIsSame(cl, orgResp.Payload.Data)
 	os.Exit(m.Run())
 }
 
@@ -41,7 +47,7 @@ func verifyOrgDoesNotExist(t *testing.T, ID string) error {
 	return nil
 }
 
-func createClient() (*form3.AuthenticatedClient, error) {
+func createClient() (*api.AuthenticatedClient, error) {
 	config := client.DefaultTransportConfig()
 	if v := os.Getenv("FORM3_HOST"); v != "" {
 		config.WithHost(v)
@@ -54,4 +60,36 @@ func createClient() (*form3.AuthenticatedClient, error) {
 		}
 	}
 	return cl, nil
+}
+
+func verifyTotalAmountOfTestOrgsIsSame(c *api.AuthenticatedClient, initialOrgs []*models.Organisation) error {
+	orgsResp, _ := c.OrganisationClient.Organisations.GetUnits(nil)
+
+	initTestOrgs := map[string]interface{}{}
+	finalTestOrgs := map[string]interface{}{}
+
+	for _, v := range initialOrgs {
+		if v.Attributes.Name == testOrgName {
+			initTestOrgs[v.ID.String()] = struct{}{}
+		}
+	}
+
+	for _, v := range orgsResp.Payload.Data {
+		if v.Attributes.Name == testOrgName {
+			finalTestOrgs[v.ID.String()] = struct{}{}
+		}
+	}
+
+	if len(finalTestOrgs) > len(initTestOrgs) {
+		newTestOrgs := []string{}
+		for k := range finalTestOrgs {
+			_, ok := initTestOrgs[k]
+			if !ok {
+				newTestOrgs = append(newTestOrgs, k)
+			}
+		}
+		return fmt.Errorf("there are %d new orgs, %s", len(newTestOrgs), strings.Join(newTestOrgs, ","))
+	}
+
+	return nil
 }
