@@ -30,7 +30,12 @@ func TestMain(m *testing.M) {
 		log.Fatalf("cannot setup authentication client, %+v", err)
 	}
 	orgResp, _ := cl.OrganisationClient.Organisations.GetUnits(nil)
-	defer verifyTotalAmountOfTestOrgsIsSame(cl, orgResp.Payload.Data)
+	defer func() {
+		err := verifyTotalAmountOfTestOrgsIsSame(cl, orgResp.Payload.Data)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}()
 	os.Exit(m.Run())
 }
 
