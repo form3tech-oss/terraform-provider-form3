@@ -30,13 +30,15 @@ func TestMain(m *testing.M) {
 		log.Fatalf("cannot setup authentication client, %+v", err)
 	}
 	orgResp, _ := cl.OrganisationClient.Organisations.GetUnits(nil)
+	exitCode := 0
 	defer func() {
 		err := verifyTotalAmountOfTestOrgsIsSame(cl, orgResp.Payload.Data)
 		if err != nil {
 			log.Fatal(err)
 		}
+		os.Exit(exitCode)
 	}()
-	os.Exit(m.Run())
+	exitCode = m.Run()
 }
 
 func verifyOrgDoesNotExist(t *testing.T, ID string) error {
