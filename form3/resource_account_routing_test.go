@@ -15,14 +15,14 @@ import (
 
 func TestAccAccountRouting_basic(t *testing.T) {
 	var accountRoutingResponse account_routings.GetAccountRoutingsIDOK
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	defer verifyOrgDoesNotExist(t, organisationId)
-	accountRoutingId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
+	accountRoutingID := uuid.New().String()
 	accountGenerator := "accountapi"
 	accountProvisioner := "accountapi"
 	match := "*"
-	priority := int64(1)
+	priority := 1
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -30,11 +30,11 @@ func TestAccAccountRouting_basic(t *testing.T) {
 		CheckDestroy: testAccCheckAccountRoutingDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3AccountRoutingConfigA, organisationId, parentOrganisationId, accountRoutingId, accountGenerator, accountProvisioner, match, priority),
+				Config: getTestForm3AccountRoutingTFConfig(organisationID, parentOrganisationID, testOrgName, accountRoutingID, accountGenerator, accountProvisioner, match, priority),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckAccountRoutingExists("form3_account_routing.account_routing", &accountRoutingResponse),
-					resource.TestCheckResourceAttr("form3_account_routing.account_routing", "account_routing_id", accountRoutingId),
-					resource.TestCheckResourceAttr("form3_account_routing.account_routing", "organisation_id", organisationId),
+					resource.TestCheckResourceAttr("form3_account_routing.account_routing", "account_routing_id", accountRoutingID),
+					resource.TestCheckResourceAttr("form3_account_routing.account_routing", "organisation_id", organisationID),
 					resource.TestCheckResourceAttr("form3_account_routing.account_routing", "account_generator", accountGenerator),
 					resource.TestCheckResourceAttr("form3_account_routing.account_routing", "account_provisioner", accountProvisioner),
 					resource.TestCheckResourceAttr("form3_account_routing.account_routing", "match", match),
@@ -47,14 +47,14 @@ func TestAccAccountRouting_basic(t *testing.T) {
 
 func TestAccAccountRouting_importBasic(t *testing.T) {
 
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	defer verifyOrgDoesNotExist(t, organisationId)
-	accountRoutingId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
+	accountRoutingID := uuid.New().String()
 	accountGenerator := "accountapi"
 	accountProvisioner := "accountapi"
 	match := "*"
-	priority := int64(1)
+	priority := 1
 
 	resourceName := "form3_account_routing.account_routing"
 
@@ -64,7 +64,7 @@ func TestAccAccountRouting_importBasic(t *testing.T) {
 		CheckDestroy: testAccCheckAccountRoutingDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3AccountRoutingConfigA, organisationId, parentOrganisationId, accountRoutingId, accountGenerator, accountProvisioner, match, priority),
+				Config: getTestForm3AccountRoutingTFConfig(organisationID, parentOrganisationID, testOrgName, accountRoutingID, accountGenerator, accountProvisioner, match, priority),
 			},
 			{
 				ResourceName:      resourceName,
@@ -124,19 +124,20 @@ func testAccCheckAccountRoutingDestroy(state *terraform.State) error {
 	return nil
 }
 
-const testForm3AccountRoutingConfigA = `
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		           = "terraform-provider-form3-test-organisation"
+func getTestForm3AccountRoutingTFConfig(organisationID, parentOrganisationID, orgName, accountRoutingID, accountGenerator, accountProvisioner, match string, priority int) string {
+	return fmt.Sprintf(`resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		           = "%s"
+	}
+	
+	resource "form3_account_routing" "account_routing" {
+		account_routing_id   = "%s"
+		organisation_id      = "${form3_organisation.organisation.organisation_id}"
+		account_generator 	 = "%s"
+		account_provisioner  = "%s"
+		match                = "%s"
+		priority             = %d
+	}
+	`, organisationID, parentOrganisationID, orgName, accountRoutingID, accountGenerator, accountProvisioner, match, priority)
 }
-
-resource "form3_account_routing" "account_routing" {
-    account_routing_id   = "%s"
-	organisation_id      = "${form3_organisation.organisation.organisation_id}"
-    account_generator 	 = "%s"
-    account_provisioner  = "%s"
-    match                = "%s"
-    priority             = %d
-}
-`

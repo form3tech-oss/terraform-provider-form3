@@ -14,10 +14,10 @@ import (
 )
 
 func TestAccLhvAssociation_basic(t *testing.T) {
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	defer verifyOrgDoesNotExist(t, organisationId)
-	associationId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
+	associationID := uuid.New().String()
 	clientCode := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
@@ -26,11 +26,11 @@ func TestAccLhvAssociation_basic(t *testing.T) {
 		CheckDestroy: testAccCheckLhvAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3LhvAssociationConfigA, organisationId, parentOrganisationId, associationId, clientCode),
+				Config: getTestForm3LhvAssociationConfig(organisationID, parentOrganisationID, testOrgName, associationID, clientCode),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckLhvAssociationExists("form3_lhv_association.association"),
-					resource.TestCheckResourceAttr("form3_lhv_association.association", "association_id", associationId),
-					resource.TestCheckResourceAttr("form3_lhv_association.association", "organisation_id", organisationId),
+					resource.TestCheckResourceAttr("form3_lhv_association.association", "association_id", associationID),
+					resource.TestCheckResourceAttr("form3_lhv_association.association", "organisation_id", organisationID),
 					resource.TestCheckResourceAttr("form3_lhv_association.association", "name", "terraform-association"),
 					resource.TestCheckResourceAttr("form3_lhv_association.association", "client_code", clientCode),
 					resource.TestCheckResourceAttr("form3_lhv_association.association", "client_country", "GB"),
@@ -92,17 +92,19 @@ func testAccCheckLhvAssociationExists(resourceKey string) resource.TestCheckFunc
 	}
 }
 
-const testForm3LhvAssociationConfigA = `
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		              = "terraform-provider-form3-test-organisation"
+func getTestForm3LhvAssociationConfig(orgID, parOrgID, orgName, assocID, clCode string) string {
+	return fmt.Sprintf(`
+	resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		              = "%s"
+	}
+	
+	resource "form3_lhv_association" "association" {
+		organisation_id  = "${form3_organisation.organisation.organisation_id}"
+		name             = "terraform-association"
+		association_id   = "%s"
+		client_code      = "%s"
+		client_country   = "GB"
+	}`, orgID, parOrgID, orgName, assocID, clCode)
 }
-
-resource "form3_lhv_association" "association" {
-	organisation_id  = "${form3_organisation.organisation.organisation_id}"
-    name             = "terraform-association"
-	association_id   = "%s"
-	client_code      = "%s"
-    client_country   = "GB"
-}`

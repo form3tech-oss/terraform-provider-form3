@@ -15,10 +15,10 @@ import (
 
 func TestAccBankID_basic(t *testing.T) {
 	var bankIDResponse accounts.GetBankidsIDOK
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	defer verifyOrgDoesNotExist(t, organisationId)
-	bankResourceId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
+	bankResourceID := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -26,7 +26,7 @@ func TestAccBankID_basic(t *testing.T) {
 		CheckDestroy: testAccCheckBankIDDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3BankIDConfigA, organisationId, parentOrganisationId, bankResourceId),
+				Config: getTestForm3BankIDConfig(organisationID, parentOrganisationID, testOrgName, bankResourceID),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBankIDExists("form3_bank_id.bank_id", &bankIDResponse),
 					resource.TestCheckResourceAttr(
@@ -43,10 +43,10 @@ func TestAccBankID_basic(t *testing.T) {
 
 func TestAccBankID_importBasic(t *testing.T) {
 
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	defer verifyOrgDoesNotExist(t, organisationId)
-	bankResourceId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
+	bankResourceID := uuid.New().String()
 
 	resourceName := "form3_bank_id.bank_id"
 
@@ -56,7 +56,7 @@ func TestAccBankID_importBasic(t *testing.T) {
 		CheckDestroy: testAccCheckBankIDDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3BankIDConfigA, organisationId, parentOrganisationId, bankResourceId),
+				Config: getTestForm3BankIDConfig(organisationID, parentOrganisationID, testOrgName, bankResourceID),
 			},
 			{
 				ResourceName:      resourceName,
@@ -117,18 +117,19 @@ func testAccCheckBankIDExists(resourceKey string, bankIDResponse *accounts.GetBa
 	}
 }
 
-const testForm3BankIDConfigA = `
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		               = "terraform-provider-form3-test-organisation"
+func getTestForm3BankIDConfig(orgID, parOrgID, orgName, bankResID string) string {
+	return fmt.Sprintf(`
+	resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		               = "%s"
+	}
+	
+	resource "form3_bank_id" "bank_id" {
+		organisation_id  = "${form3_organisation.organisation.organisation_id}"
+	  bank_resource_id = "%s"
+		bank_id       	 = "999999"
+	  bank_id_code     = "GBDSC"
+	  country          = "GB"
+	}`, orgID, parOrgID, orgName, bankResID)
 }
-
-resource "form3_bank_id" "bank_id" {
-	organisation_id  = "${form3_organisation.organisation.organisation_id}"
-  bank_resource_id = "%s"
-	bank_id       	 = "999999"
-  bank_id_code     = "GBDSC"
-  country          = "GB"
-}
-`
