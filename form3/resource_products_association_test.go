@@ -14,11 +14,11 @@ import (
 )
 
 func TestAccProductsAssociation_basic(t *testing.T) {
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	defer verifyOrgDoesNotExist(t, organisationId)
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
 
-	associationId := uuid.New().String()
+	associationID := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -26,11 +26,11 @@ func TestAccProductsAssociation_basic(t *testing.T) {
 		CheckDestroy: testAccCheckProductsAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3ProductsAssociationConfigA, organisationId, parentOrganisationId, associationId),
+				Config: getTestForm3ProductsAssociationConfig(organisationID, parentOrganisationID, testOrgName, associationID),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckProductsAssociationExists("form3_products_association.association"),
-					resource.TestCheckResourceAttr("form3_products_association.association", "association_id", associationId),
-					resource.TestCheckResourceAttr("form3_products_association.association", "organisation_id", organisationId),
+					resource.TestCheckResourceAttr("form3_products_association.association", "association_id", associationID),
+					resource.TestCheckResourceAttr("form3_products_association.association", "organisation_id", organisationID),
 					resource.TestCheckResourceAttr("form3_products_association.association", "product", "INTERNATIONAL_SERVICES"),
 					resource.TestCheckResourceAttr("form3_products_association.association", "product_provider", "EBURY"),
 				),
@@ -87,15 +87,17 @@ func testAccCheckProductsAssociationExists(resourceKey string) resource.TestChec
 	}
 }
 
-const testForm3ProductsAssociationConfigA = `
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		               = "terraform-provider-form3-test-organisation"
+func getTestForm3ProductsAssociationConfig(orgID, parOrgID, orgName, assocID string) string {
+	return fmt.Sprintf(`
+	resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		               = "%s"
+	}
+	resource "form3_products_association" "association" {
+		organisation_id        = "${form3_organisation.organisation.organisation_id}"
+		association_id         = "%s"
+		product                = "INTERNATIONAL_SERVICES"
+		product_provider       = "EBURY"
+	}`, orgID, parOrgID, orgName, assocID)
 }
-resource "form3_products_association" "association" {
-	organisation_id        = "${form3_organisation.organisation.organisation_id}"
-	association_id         = "%s"
-	product                = "INTERNATIONAL_SERVICES"
-	product_provider       = "EBURY"
-}`

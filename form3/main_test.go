@@ -12,15 +12,19 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/google/uuid"
 )
 
 var cl *api.AuthenticatedClient
 
-const testOrgName string = "terraform-provider-form3-test-organisation"
+var testOrgNamePrefix string = "terraform-provider-form3-test-organisation"
+var testOrgName string = ""
 
 func TestMain(m *testing.M) {
-	flag.Parse()
+	testOrgSuffix := uuid.New().String()
+	testOrgName = fmt.Sprintf("%s-%s", testOrgNamePrefix, testOrgSuffix)
 
+	flag.Parse()
 	if !testing.Verbose() {
 		log.SetOutput(ioutil.Discard)
 	}

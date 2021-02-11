@@ -2,25 +2,26 @@ package form3
 
 import (
 	"fmt"
+	"os"
+	"testing"
+
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/go-openapi/strfmt"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	"os"
-	"testing"
 )
 
 func TestAccStarlingAssociation_basic(t *testing.T) {
 	var starlingResponse associations.GetStarlingIDOK
-	organisationId := os.Getenv("FORM3_ORGANISATION_ID")
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
 
 	var steps []resource.TestStep
 
 	if os.Getenv("FORM3_STARLING_CONFIGURED") == "1" {
 		steps = []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3StarlingAssociationConfigA, organisationId),
+				Config: getTestForm3StarlingAssociationConfig(parentOrganisationID, testOrgName),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckStarlingAssociationExists("form3_starling_association.association", &starlingResponse),
 					resource.TestCheckResourceAttr(
@@ -88,19 +89,21 @@ func testAccCheckStarlingAssociationExists(resourceKey string, association *asso
 	}
 }
 
-const testForm3StarlingAssociationConfigA = `
-resource "form3_organisation" "organisation" {
-	organisation_id        = "${uuid()}"
-	parent_organisation_id = "%s"
-	name 		               = "terraform-provider-form3-test-organisation"
-
-  lifecycle {
-    ignore_changes = ["organisation_id"]
-  }
+func getTestForm3StarlingAssociationConfig(parOrgID, orgName string) string {
+	return fmt.Sprintf(`
+	resource "form3_organisation" "organisation" {
+		organisation_id        = "${uuid()}"
+		parent_organisation_id = "%s"
+		name 		           = "%s"
+	
+	  lifecycle {
+		ignore_changes = ["organisation_id"]
+	  }
+	}
+	
+	resource "form3_starling_association" "association" {
+		organisation_id       = "${form3_organisation.organisation.organisation_id}"
+		association_id        = "0b2fc31e-b778-448b-977d-1e7f828a81eb"
+		starling_account_name	= "account-1"
+	}`, parOrgID, orgName)
 }
-
-resource "form3_starling_association" "association" {
-	organisation_id       = "${form3_organisation.organisation.organisation_id}"
-	association_id        = "0b2fc31e-b778-448b-977d-1e7f828a81eb"
-	starling_account_name	= "account-1"
-}`

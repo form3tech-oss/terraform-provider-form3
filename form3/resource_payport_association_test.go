@@ -17,12 +17,12 @@ import (
 
 func TestAccPayportAssociation_basic_non_settling(t *testing.T) {
 	var payportResponse associations.GetPayportIDOK
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	defer verifyOrgDoesNotExist(t, organisationId)
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
 
-	participantId := generateTestParticipantId()
-	associationId := uuid.New().String()
+	participantID := generateTestParticipantID()
+	associationID := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -30,12 +30,12 @@ func TestAccPayportAssociation_basic_non_settling(t *testing.T) {
 		CheckDestroy: testAccCheckPayportAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3PayportAssociationConfigNonSettling, organisationId, parentOrganisationId, associationId, participantId),
+				Config: getTestForm3PayportAssociationConfigNonSettling(organisationID, parentOrganisationID, testOrgName, associationID, participantID),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckPayportAssociationExists("form3_payport_association.association", &payportResponse),
 					resource.TestCheckResourceAttrSet("form3_payport_association.association", "payport_association_id"),
-					resource.TestCheckResourceAttr("form3_payport_association.association", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_payport_association.association", "participant_id", participantId),
+					resource.TestCheckResourceAttr("form3_payport_association.association", "organisation_id", organisationID),
+					resource.TestCheckResourceAttr("form3_payport_association.association", "participant_id", participantID),
 					resource.TestCheckResourceAttr("form3_payport_association.association", "participant_type", "non_settling"),
 					resource.TestCheckResourceAttr("form3_payport_association.association", "customer_sending_fps_institution", "444443"),
 					resource.TestCheckResourceAttr("form3_payport_association.association", "sponsor_bank_id", "111113"),
@@ -48,12 +48,12 @@ func TestAccPayportAssociation_basic_non_settling(t *testing.T) {
 
 func TestAccPayportAssociation_basic_settling(t *testing.T) {
 	var payportResponse associations.GetPayportIDOK
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	defer verifyOrgDoesNotExist(t, organisationId)
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
 
-	participantId := generateTestParticipantId()
-	associationId := uuid.New().String()
+	participantID := generateTestParticipantID()
+	associationID := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -61,12 +61,12 @@ func TestAccPayportAssociation_basic_settling(t *testing.T) {
 		CheckDestroy: testAccCheckPayportAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3PayportAssociationConfigSettling, organisationId, parentOrganisationId, associationId, participantId),
+				Config: getTestForm3PayportAssociationConfigSettling(organisationID, parentOrganisationID, testOrgName, associationID, participantID),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckPayportAssociationExists("form3_payport_association.association", &payportResponse),
 					resource.TestCheckResourceAttrSet("form3_payport_association.association", "payport_association_id"),
-					resource.TestCheckResourceAttr("form3_payport_association.association", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_payport_association.association", "participant_id", participantId),
+					resource.TestCheckResourceAttr("form3_payport_association.association", "organisation_id", organisationID),
+					resource.TestCheckResourceAttr("form3_payport_association.association", "participant_id", participantID),
 					resource.TestCheckResourceAttr("form3_payport_association.association", "participant_type", "settling"),
 					resource.TestCheckResourceAttr("form3_payport_association.association", "customer_sending_fps_institution", "444443"),
 					resource.TestCheckResourceAttr("form3_payport_association.association", "sponsor_bank_id", ""),
@@ -78,18 +78,18 @@ func TestAccPayportAssociation_basic_settling(t *testing.T) {
 }
 
 func TestAccPayportAssociation_importBasic(t *testing.T) {
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	defer verifyOrgDoesNotExist(t, organisationId)
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
 
-	participantId := generateTestParticipantId()
-	associationId := uuid.New().String()
+	participantID := generateTestParticipantID()
+	associationID := uuid.New().String()
 
 	resourceName := "form3_payport_association.association"
 
-	cases := map[string]string{
-		"non_settling": testForm3PayportAssociationConfigNonSettling,
-		"settling":     testForm3PayportAssociationConfigSettling,
+	cases := map[string]func(orgID, parOrgID, orgName, payassocID, partID string) string{
+		"non_settling": getTestForm3PayportAssociationConfigNonSettling,
+		"settling":     getTestForm3PayportAssociationConfigSettling,
 	}
 	for name, config := range cases {
 		t.Run(name, func(t *testing.T) {
@@ -99,11 +99,10 @@ func TestAccPayportAssociation_importBasic(t *testing.T) {
 				Providers:    testAccProviders,
 				CheckDestroy: testAccCheckPayportAssociationDestroy,
 				Steps: []resource.TestStep{
-					resource.TestStep{
-						Config: fmt.Sprintf(config, organisationId, parentOrganisationId, associationId, participantId),
+					{
+						Config: config(organisationID, parentOrganisationID, testOrgName, associationID, participantID),
 					},
-
-					resource.TestStep{
+					{
 						ResourceName:      resourceName,
 						ImportState:       true,
 						ImportStateVerify: true,
@@ -115,7 +114,7 @@ func TestAccPayportAssociation_importBasic(t *testing.T) {
 	}
 }
 
-func generateTestParticipantId() string {
+func generateTestParticipantID() string {
 	rand.Seed(time.Now().UTC().UnixNano())
 	var characters = []rune("0123456789")
 	b := make([]rune, 8)
@@ -174,34 +173,38 @@ func testAccCheckPayportAssociationExists(resourceKey string, association *assoc
 	}
 }
 
-const testForm3PayportAssociationConfigNonSettling = `
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		               = "terraform-provider-form3-test-organisation"
+func getTestForm3PayportAssociationConfigNonSettling(orgID, parOrgID, orgName, payassocID, partID string) string {
+	return fmt.Sprintf(`
+	resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		               = "%s"
+	}
+	
+	resource "form3_payport_association" "association" {
+		organisation_id                  = "${form3_organisation.organisation.organisation_id}"
+		payport_association_id           = "%s"
+		participant_id	                 = "%s"
+		participant_type                 = "non_settling"
+	  customer_sending_fps_institution = "444443"
+	  sponsor_bank_id                  = "111113"
+	  sponsor_account_number           = "22222223"
+	}`, orgID, parOrgID, orgName, payassocID, partID)
 }
 
-resource "form3_payport_association" "association" {
-	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
-	payport_association_id           = "%s"
-	participant_id	                 = "%s"
-	participant_type                 = "non_settling"
-  customer_sending_fps_institution = "444443"
-  sponsor_bank_id                  = "111113"
-  sponsor_account_number           = "22222223"
-}`
-
-const testForm3PayportAssociationConfigSettling = `
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		               = "terraform-provider-form3-test-organisation"
+func getTestForm3PayportAssociationConfigSettling(orgID, parOrgID, orgName, payassocID, partID string) string {
+	return fmt.Sprintf(`
+	resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		               = "%s"
+	}
+	
+	resource "form3_payport_association" "association" {
+		organisation_id                  = "${form3_organisation.organisation.organisation_id}"
+		payport_association_id           = "%s"
+		participant_id	                 = "%s"
+		participant_type                 = "settling"
+	  customer_sending_fps_institution = "444443"
+	}`, orgID, parOrgID, orgName, payassocID, partID)
 }
-
-resource "form3_payport_association" "association" {
-	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
-	payport_association_id           = "%s"
-	participant_id	                 = "%s"
-	participant_type                 = "settling"
-  customer_sending_fps_institution = "444443"
-}`
