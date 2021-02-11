@@ -59,8 +59,8 @@ func TestAccSepaSctAssociation_reachable(t *testing.T) {
 
 	config :=
 		getTestForm3SepaSctSponsoredAssociationConfig(
-			sponsorOrganisationID, parentOrganisationID, sponsorAssociationID, sponsorBic,
-			sponsoredOrganisationID, parentOrganisationID, sponsoredAssociationID, strings.Join(sponsoredBicList, "\",\""),
+			sponsorOrganisationID, parentOrganisationID, testOrgName, sponsorAssociationID, sponsorBic,
+			sponsoredOrganisationID, sponsoredAssociationID, strings.Join(sponsoredBicList, "\",\""),
 		)
 	resource.Test(t, resource.TestCase{
 		PreCheck: func() { testAccPreCheck(t) },
