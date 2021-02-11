@@ -33,16 +33,31 @@ func TestMain(m *testing.M) {
 	var err error
 	cl, err = createClient()
 	if err != nil {
-		log.Fatalf("cannot setup authentication client, %+v", err)
+		log.Fatalf("[ERROR] cannot setup authentication client, %+v", err)
 	}
 	orgResp, _ := cl.OrganisationClient.Organisations.GetUnits(nil)
 	exitCode := 0
 	defer func() {
+		parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+		ID := uuid.New().String()
+		log.Printf("creating dummy org %s\n", ID)
+		cl.OrganisationClient.Organisations.PostUnits(organisations.NewPostUnitsParams().
+			WithOrganisationCreationRequest(&models.OrganisationCreation{
+				Data: &models.Organisation{
+					OrganisationID: strfmt.UUID(ID),
+					Type:           "organisations",
+					ID:             strfmt.UUID(parentOrganisationID),
+					Attributes: &models.OrganisationAttributes{
+						Name: testOrgName,
+					},
+				},
+			}))
 		if leakedOrgs := getLeakedTestOrgs(cl, orgResp.Payload.Data); leakedOrgs != nil {
 			log.Printf("organization leak: there are %d new orgs, %s \n", len(leakedOrgs), strings.Join(leakedOrgs, ","))
 			exitCode = 1
 			log.Println("cleaning up leaked organizations")
 			for _, v := range leakedOrgs {
+				log.Printf("[INFO] cleaning up organisation %s \n", v)
 				cl.OrganisationClient.Organisations.DeleteUnitsID(organisations.NewDeleteUnitsIDParams().WithID(strfmt.UUID(v)))
 			}
 		}
