@@ -38,19 +38,14 @@ func TestMain(m *testing.M) {
 	orgResp, _ := cl.OrganisationClient.Organisations.GetUnits(nil)
 	exitCode := 0
 	defer func() {
-		ID := uuid.New().String()
-		log.Printf("creating dummy org %s\n", ID)
-		if err := createOrganisation(cl, ID); err != nil {
-			log.Printf("failed to create dummy org. %v", err)
-		}
 		if leakedOrgs := getLeakedTestOrgs(cl, orgResp.Payload.Data); leakedOrgs != nil {
 			log.Printf("organization leak: there are %d new orgs, %s \n", len(leakedOrgs), strings.Join(leakedOrgs, ","))
-			exitCode = 1
 			log.Println("cleaning up leaked organizations")
 			for _, v := range leakedOrgs {
 				log.Printf("[INFO] cleaning up organisation %s \n", v)
 				cl.OrganisationClient.Organisations.DeleteUnitsID(organisations.NewDeleteUnitsIDParams().WithID(strfmt.UUID(v)))
 			}
+			exitCode = 1
 		}
 		os.Exit(exitCode)
 	}()
@@ -115,20 +110,4 @@ func getLeakedTestOrgs(c *api.AuthenticatedClient, initialOrgs []*models.Organis
 	}
 
 	return nil
-}
-
-func createOrganisation(c *api.AuthenticatedClient, id string) error {
-	_, err := c.OrganisationClient.Organisations.PostUnits(organisations.NewPostUnitsParams().
-		WithOrganisationCreationRequest(&models.OrganisationCreation{
-			Data: &models.Organisation{
-				OrganisationID: strfmt.UUID(os.Getenv("FORM3_ORGANISATION_ID")),
-				Type:           "organisations",
-				ID:             strfmt.UUID(id),
-				Attributes: &models.OrganisationAttributes{
-					Name: testOrgName,
-				},
-			},
-		}))
-
-	return err
 }
