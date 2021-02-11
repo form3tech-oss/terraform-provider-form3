@@ -11,7 +11,9 @@ import (
 
 	"github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client"
+	"github.com/form3tech-oss/terraform-provider-form3/client/organisations"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
+	"github.com/go-openapi/strfmt"
 	"github.com/google/uuid"
 )
 
@@ -36,9 +38,13 @@ func TestMain(m *testing.M) {
 	orgResp, _ := cl.OrganisationClient.Organisations.GetUnits(nil)
 	exitCode := 0
 	defer func() {
-		err := verifyTotalAmountOfTestOrgsIsSame(cl, orgResp.Payload.Data)
-		if err != nil {
-			log.Fatal(err)
+		if leakedOrgs := getLeakedTestOrgs(cl, orgResp.Payload.Data); leakedOrgs != nil {
+			log.Printf("organization leak: there are %d new orgs, %s \n", len(leakedOrgs), strings.Join(leakedOrgs, ","))
+			exitCode = 1
+			log.Println("cleaning up leaked organizations")
+			for _, v := range leakedOrgs {
+				cl.OrganisationClient.Organisations.DeleteUnitsID(organisations.NewDeleteUnitsIDParams().WithID(strfmt.UUID(v)))
+			}
 		}
 		os.Exit(exitCode)
 	}()
@@ -73,7 +79,7 @@ func createClient() (*api.AuthenticatedClient, error) {
 	return cl, nil
 }
 
-func verifyTotalAmountOfTestOrgsIsSame(c *api.AuthenticatedClient, initialOrgs []*models.Organisation) error {
+func getLeakedTestOrgs(c *api.AuthenticatedClient, initialOrgs []*models.Organisation) []string {
 	orgsResp, _ := c.OrganisationClient.Organisations.GetUnits(nil)
 
 	initTestOrgs := map[string]interface{}{}
@@ -99,7 +105,7 @@ func verifyTotalAmountOfTestOrgsIsSame(c *api.AuthenticatedClient, initialOrgs [
 				newTestOrgs = append(newTestOrgs, k)
 			}
 		}
-		return fmt.Errorf("Organization leak: there are %d new orgs, %s", len(newTestOrgs), strings.Join(newTestOrgs, ","))
+		return newTestOrgs
 	}
 
 	return nil
