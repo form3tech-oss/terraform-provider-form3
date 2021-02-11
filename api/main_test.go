@@ -17,8 +17,8 @@ import (
 )
 
 var (
-	organisationID     strfmt.UUID
-	testOrganisationID strfmt.UUID
+	organisationId     strfmt.UUID
+	testOrganisationId strfmt.UUID
 )
 
 var (
@@ -74,13 +74,14 @@ func createOrganisation() error {
 		return err
 	}
 
-	testOrganisationID = strfmt.UUID(uuid.New().String())
+	newId := uuid.New()
+	testOrganisationId = strfmt.UUID(newId.String())
 	_, err := auth.OrganisationClient.Organisations.PostUnits(organisations.NewPostUnitsParams().
 		WithOrganisationCreationRequest(&models.OrganisationCreation{
 			Data: &models.Organisation{
-				OrganisationID: organisationID,
+				OrganisationID: organisationId,
 				Type:           "organisations",
-				ID:             testOrganisationID,
+				ID:             testOrganisationId,
 				Attributes: &models.OrganisationAttributes{
 					Name: "TestOrganisation",
 				},
@@ -91,14 +92,14 @@ func createOrganisation() error {
 }
 
 func deleteOrganisation() error {
-	log.Printf("[INFO] Deleting test organisation %v", testOrganisationID)
+	log.Printf("[INFO] Deleting test organisation %v", testOrganisationId)
 
 	if _, err := auth.OrganisationClient.Organisations.DeleteUnitsID(organisations.NewDeleteUnitsIDParams().
-		WithID(testOrganisationID).WithVersion(0)); err != nil {
+		WithID(testOrganisationId).WithVersion(0)); err != nil {
 		return err
 	}
 
-	log.Printf("[INFO] Sucessfuly deleted test organisation %v", testOrganisationID)
+	log.Printf("[INFO] Sucessfuly deleted test organisation %v", testOrganisationId)
 
 	return nil
 }
@@ -140,7 +141,7 @@ func testPreCheck() error {
 	if len(os.Getenv("FORM3_ORGANISATION_ID")) == 0 {
 		return errors.New("FORM3_ORGANISATION_ID must be set for acceptance tests")
 	}
-	organisationID = strfmt.UUID(os.Getenv("FORM3_ORGANISATION_ID"))
+	organisationId = strfmt.UUID(os.Getenv("FORM3_ORGANISATION_ID"))
 
 	if len(os.Getenv("FORM3_CLIENT_SECRET")) == 0 {
 		return errors.New("FORM3_CLIENT_SECRET must be set for acceptance tests")
