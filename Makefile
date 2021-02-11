@@ -24,8 +24,8 @@ build: env vet fmtcheck
 test: fmtcheck
 	go test -v -i $(GOFILES) || exit 1
 	echo $(GOFILES) | \
-		xargs -t -n4 go test -count 1 -v -timeout=30s 
-
+	xargs -t -n4 go test -count 1 -v -timeout=30s -parallel=4
+	
 testacc: fmtcheck
 	TF_ACC=1 FORM3_ACC=1 go test -v -timeout 120m $(GOFILES)
 
