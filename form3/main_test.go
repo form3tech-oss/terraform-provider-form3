@@ -35,7 +35,10 @@ func TestMain(m *testing.M) {
 	if err != nil {
 		log.Fatalf("[ERROR] cannot setup authentication client, %+v", err)
 	}
-	orgResp, _ := cl.OrganisationClient.Organisations.GetUnits(nil)
+	orgResp, err := cl.OrganisationClient.Organisations.GetUnits(nil)
+	if err != nil {
+		log.Fatalf("[Error] failed to retrieve test organisations. %v", err)
+	}
 	exitCode := 0
 	defer func() {
 		if leakedOrgs := getLeakedTestOrgs(cl, orgResp.Payload.Data); leakedOrgs != nil {
@@ -52,7 +55,7 @@ func TestMain(m *testing.M) {
 	exitCode = m.Run()
 }
 
-func verifyOrgDoesNotExist(t *testing.T, ID string) error {
+func verifyOrgDoesNotExist(t *testing.T, ID string) {
 	org, err := cl.OrganisationClient.Organisations.GetUnits(nil)
 	if err != nil {
 		t.Error("failed to get organisations")
@@ -62,7 +65,6 @@ func verifyOrgDoesNotExist(t *testing.T, ID string) error {
 			t.Error("organisations leaked.")
 		}
 	}
-	return nil
 }
 
 func createClient() (*api.AuthenticatedClient, error) {
@@ -81,7 +83,10 @@ func createClient() (*api.AuthenticatedClient, error) {
 }
 
 func getLeakedTestOrgs(c *api.AuthenticatedClient, initialOrgs []*models.Organisation) []string {
-	orgsResp, _ := c.OrganisationClient.Organisations.GetUnits(nil)
+	orgsResp, err := c.OrganisationClient.Organisations.GetUnits(nil)
+	if err != nil {
+		log.Fatalf("[Error] failed to retrieve test organisations. %v", err)
+	}
 
 	initTestOrgs := map[string]interface{}{}
 	finalTestOrgs := map[string]interface{}{}
