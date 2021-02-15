@@ -15,8 +15,9 @@ import (
 
 func TestAccOrganisation_basic(t *testing.T) {
 	var organisationResponse organisations.GetUnitsIDOK
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -24,27 +25,27 @@ func TestAccOrganisation_basic(t *testing.T) {
 		CheckDestroy: testAccCheckOrganisationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3OrganisationConfigA, organisationId, parentOrganisationId),
+				Config: getTestForm3OrganisationConfig(organisationID, parentOrganisationID, testOrgName),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckOrganisationExists("form3_organisation.organisation", &organisationResponse),
 					resource.TestCheckResourceAttr(
-						"form3_organisation.organisation", "name", "terraform-provider-form3-test-organisation"),
+						"form3_organisation.organisation", "name", testOrgName),
 					resource.TestCheckResourceAttr(
-						"form3_organisation.organisation", "parent_organisation_id", parentOrganisationId),
+						"form3_organisation.organisation", "parent_organisation_id", parentOrganisationID),
 					resource.TestCheckResourceAttr(
-						"form3_organisation.organisation", "organisation_id", organisationId),
+						"form3_organisation.organisation", "organisation_id", organisationID),
 				),
 			},
 			{
-				Config: fmt.Sprintf(testForm3OrganisationConfigAUpdate, organisationId, parentOrganisationId),
+				Config: getTestForm3OrganisationConfigUpdate(organisationID, parentOrganisationID, testOrgName),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckOrganisationExists("form3_organisation.organisation", &organisationResponse),
 					resource.TestCheckResourceAttr(
-						"form3_organisation.organisation", "name", "terraform-provider-form3-test-organisation-updated"),
+						"form3_organisation.organisation", "name", fmt.Sprintf("%s-updated", testOrgName)),
 					resource.TestCheckResourceAttr(
-						"form3_organisation.organisation", "parent_organisation_id", parentOrganisationId),
+						"form3_organisation.organisation", "parent_organisation_id", parentOrganisationID),
 					resource.TestCheckResourceAttr(
-						"form3_organisation.organisation", "organisation_id", organisationId),
+						"form3_organisation.organisation", "organisation_id", organisationID),
 				),
 			},
 		},
@@ -53,8 +54,9 @@ func TestAccOrganisation_basic(t *testing.T) {
 
 func TestAccOrganisation_importBasic(t *testing.T) {
 
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
 
 	resourceName := "form3_organisation.organisation"
 
@@ -63,11 +65,10 @@ func TestAccOrganisation_importBasic(t *testing.T) {
 		Providers:    testAccProviders,
 		CheckDestroy: testAccCheckOrganisationDestroy,
 		Steps: []resource.TestStep{
-			resource.TestStep{
-				Config: fmt.Sprintf(testForm3OrganisationConfigA, organisationId, parentOrganisationId),
+			{
+				Config: getTestForm3OrganisationConfig(organisationID, parentOrganisationID, testOrgName),
 			},
-
-			resource.TestStep{
+			{
 				ResourceName:      resourceName,
 				ImportState:       true,
 				ImportStateVerify: true,
@@ -126,16 +127,20 @@ func testAccCheckOrganisationExists(resourceKey string, organisation *organisati
 	}
 }
 
-const testForm3OrganisationConfigA = `
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		               = "terraform-provider-form3-test-organisation"
-}`
+func getTestForm3OrganisationConfig(orgID, parOrgID, orgName string) string {
+	return fmt.Sprintf(`
+	resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		               = "%s"
+	}`, orgID, parOrgID, orgName)
+}
 
-const testForm3OrganisationConfigAUpdate = `
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		               = "terraform-provider-form3-test-organisation-updated"
-}`
+func getTestForm3OrganisationConfigUpdate(orgID, parOrgID, orgName string) string {
+	return fmt.Sprintf(`
+	resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		               = "%s-updated"
+	}`, orgID, parOrgID, orgName)
+}

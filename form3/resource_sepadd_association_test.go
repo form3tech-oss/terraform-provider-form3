@@ -14,9 +14,11 @@ import (
 )
 
 func TestAccSepaDDAssociation_basic(t *testing.T) {
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	associationId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
+
+	associationID := uuid.New().String()
 	bic := generateTestBic()
 
 	resource.Test(t, resource.TestCase{
@@ -25,11 +27,11 @@ func TestAccSepaDDAssociation_basic(t *testing.T) {
 		CheckDestroy: testAccCheckSepaDDAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3SepaDDAssociationConfigA, organisationId, parentOrganisationId, associationId, bic),
+				Config: getTestForm3SepaDDAssociationConfig(organisationID, parentOrganisationID, testOrgName, associationID, bic),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckSepaDDAssociationExists("form3_sepadd_association.association"),
-					resource.TestCheckResourceAttr("form3_sepadd_association.association", "association_id", associationId),
-					resource.TestCheckResourceAttr("form3_sepadd_association.association", "organisation_id", organisationId),
+					resource.TestCheckResourceAttr("form3_sepadd_association.association", "association_id", associationID),
+					resource.TestCheckResourceAttr("form3_sepadd_association.association", "organisation_id", organisationID),
 					resource.TestCheckResourceAttr("form3_sepadd_association.association", "bic", bic),
 					resource.TestCheckResourceAttr("form3_sepadd_association.association", "business_user", "PR344567"),
 					resource.TestCheckResourceAttr("form3_sepadd_association.association", "receiver_business_user", "PR344568"),
@@ -89,19 +91,21 @@ func testAccCheckSepaDDAssociationExists(resourceKey string) resource.TestCheckF
 	}
 }
 
-const testForm3SepaDDAssociationConfigA = `
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		           = "terraform-provider-form3-test-organisation"
+func getTestForm3SepaDDAssociationConfig(orgID, parOrgID, orgName, assocID, bic string) string {
+	return fmt.Sprintf(`
+	resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		           = "%s"
+	}
+	
+	resource "form3_sepadd_association" "association" {
+		organisation_id        = "${form3_organisation.organisation.organisation_id}"
+		association_id         = "%s"
+		bic                    = "%s"
+		business_user          = "PR344567"
+		receiver_business_user = "PR344568"
+		local_instrument       = "CORE"
+		allow_submissions      = true
+	}`, orgID, parOrgID, orgName, assocID, bic)
 }
-
-resource "form3_sepadd_association" "association" {
-	organisation_id        = "${form3_organisation.organisation.organisation_id}"
-	association_id         = "%s"
-	bic                    = "%s"
-    business_user          = "PR344567"
-    receiver_business_user = "PR344568"
-	local_instrument       = "CORE"
-	allow_submissions      = true
-}`

@@ -3,12 +3,11 @@ package api
 import (
 	"errors"
 	"flag"
+	"io/ioutil"
 	"log"
 	"os"
 	"sync"
 	"testing"
-
-	"github.com/hashicorp/terraform-plugin-sdk/helper/logging"
 
 	"github.com/form3tech-oss/terraform-provider-form3/client"
 	"github.com/form3tech-oss/terraform-provider-form3/client/organisations"
@@ -17,24 +16,34 @@ import (
 	"github.com/google/uuid"
 )
 
-var organisationId strfmt.UUID
-var testOrganisationId strfmt.UUID
+var (
+	organisationId     strfmt.UUID
+	testOrganisationId strfmt.UUID
+)
 
-var auth *AuthenticatedClient
-var authOnce = new(sync.Once)
-var config = client.DefaultTransportConfig()
+var (
+	auth     *AuthenticatedClient
+	authOnce = new(sync.Once)
+	config   = client.DefaultTransportConfig()
+)
 
 func TestMain(m *testing.M) {
+	os.Exit(testMainWrapper(m))
+}
+
+func testMainWrapper(m *testing.M) int {
+	defer log.Println("[INFO] Stopping tests")
+
 	flag.Parse()
 
-	if testing.Verbose() {
-		logging.SetOutput()
+	if !testing.Verbose() {
+		log.SetOutput(ioutil.Discard)
 	}
 
 	skip := len(os.Getenv("FORM3_ACC")) == 0
 	if skip {
 		log.Println("Client tests skipped as FORM3_ACC environment variable not set")
-		os.Exit(0)
+		return 0
 	}
 
 	if err := testPreCheck(); err != nil {
@@ -51,15 +60,13 @@ func TestMain(m *testing.M) {
 		log.Fatalf("[FATAL] Error creating test organisation: %s", JsonErrorPrettyPrint(err))
 	}
 
-	code := m.Run()
+	defer func() {
+		if errTestOrg := deleteOrganisation(); errTestOrg != nil {
+			log.Fatalf("[Error] Error deleting test organisation: %+v\n", errTestOrg)
+		}
+	}()
 
-	if err := deleteOrganisation(); err != nil {
-		log.Fatalf("[WARN] Error deleting test organisation: %+v\n", err)
-	}
-
-	log.Println("[INFO] Stopping tests")
-
-	os.Exit(code)
+	return m.Run()
 }
 
 func createOrganisation() error {
@@ -127,7 +134,6 @@ func assertStatusCode(t *testing.T, err error, code int) {
 }
 
 func testPreCheck() error {
-
 	if len(os.Getenv("FORM3_CLIENT_ID")) == 0 {
 		return errors.New("FORM3_CLIENT_ID must be set for acceptance tests")
 	}

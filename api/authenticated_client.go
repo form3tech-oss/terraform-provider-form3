@@ -322,7 +322,7 @@ func (r *AuthenticatedClient) Authenticate(clientId string, clientSecret string)
 	}
 
 	if resp.StatusCode != 200 {
-		err = fmt.Errorf("Error returned while authenticating, response code was %v", resp.StatusCode)
+		err = fmt.Errorf("error returned while authenticating, response code was %v", resp.StatusCode)
 		return err
 	}
 

@@ -17,6 +17,7 @@ func TestAccAccountConfigurationBasic(t *testing.T) {
 	var accountResponse accounts.GetAccountconfigurationsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
 	accountConfigurationId := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
@@ -25,7 +26,7 @@ func TestAccAccountConfigurationBasic(t *testing.T) {
 		CheckDestroy: testAccCheckAccountConfigurationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3AccountConfigurationConfig, organisationId, parentOrganisationId, accountConfigurationId),
+				Config: getTestForm3AccountTFConfigurationConfig(organisationId, parentOrganisationId, testOrgName, accountConfigurationId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckAccountConfigurationExists("form3_account_configuration.configuration", &accountResponse),
 					resource.TestCheckResourceAttr(
@@ -43,7 +44,7 @@ func TestAccAccountConfigurationBasic(t *testing.T) {
 				),
 			},
 			{
-				Config: fmt.Sprintf(testForm3AccountConfigurationConfigUpdated, organisationId, parentOrganisationId, accountConfigurationId),
+				Config: getTestForm3AccountTFConfigurationConfigUpdated(organisationId, parentOrganisationId, testOrgName, accountConfigurationId),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckAccountConfigurationExists("form3_account_configuration.configuration", &accountResponse),
 					resource.TestCheckResourceAttr(
@@ -84,6 +85,7 @@ func TestAccAccountConfigurationImportBasic(t *testing.T) {
 
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
 	accountConfigurationId := uuid.New().String()
 	resourceName := "form3_account_configuration.configuration"
 
@@ -93,7 +95,7 @@ func TestAccAccountConfigurationImportBasic(t *testing.T) {
 		CheckDestroy: testAccCheckAccountConfigurationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3AccountConfigurationConfig, organisationId, parentOrganisationId, accountConfigurationId),
+				Config: getTestForm3AccountTFConfigurationConfig(organisationId, parentOrganisationId, testOrgName, accountConfigurationId),
 			},
 			{
 				ResourceName:      resourceName,
@@ -154,54 +156,56 @@ func testAccCheckAccountConfigurationExists(resourceKey string, configuration *a
 	}
 }
 
-const testForm3AccountConfigurationConfig = `
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		               = "terraform-provider-form3-test-organisation"
-}
-
-resource "form3_account_configuration" "configuration" {
-	organisation_id            = "${form3_organisation.organisation.organisation_id}"
-	account_configuration_id   = "%s"
-	account_generation_enabled = true
-    account_generation_configuration {
-            country               = "US"
-            valid_account_ranges {
-			   minimum = "8400000000"
-			   maximum = "8409999999"
-			}
-        }
-}`
-
-const testForm3AccountConfigurationConfigUpdated = `
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		               = "terraform-provider-form3-test-organisation"
-}
-
-resource "form3_account_configuration" "configuration" {
-	organisation_id            = "${form3_organisation.organisation.organisation_id}"
-	account_configuration_id   = "%s"
-	account_generation_enabled = true
-    account_generation_configuration {
-		country               = "US"
-		bank_id               = "100000000"
-		bic                   = "CMFGUS33"
-		base_currency         = "USD"
-		mod_check_enabled	  = true
-		valid_account_ranges {
-			   minimum = "84000000"
-			   maximum = "84099999"
-			}
+func getTestForm3AccountTFConfigurationConfig(orgID, parOrgID, orgName, accountConfigID string) string {
+	return fmt.Sprintf(`resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		               = "%s"
 	}
+	
+	resource "form3_account_configuration" "configuration" {
+		organisation_id            = "${form3_organisation.organisation.organisation_id}"
+		account_configuration_id   = "%s"
+		account_generation_enabled = true
+		account_generation_configuration {
+				country               = "US"
+				valid_account_ranges {
+				   minimum = "8400000000"
+				   maximum = "8409999999"
+				}
+			}
+	}`, orgID, parOrgID, orgName, accountConfigID)
+}
 
-	account_generation_configuration {
-		country               = "NL"
-		valid_account_ranges {
-		   minimum = "2005356441"
-		   maximum = "2005389080"
+func getTestForm3AccountTFConfigurationConfigUpdated(orgID, parOrgID, orgName, accountConfigID string) string {
+	return fmt.Sprintf(`resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		               = "%s"
+	}
+	
+	resource "form3_account_configuration" "configuration" {
+		organisation_id            = "${form3_organisation.organisation.organisation_id}"
+		account_configuration_id   = "%s"
+		account_generation_enabled = true
+		account_generation_configuration {
+			country               = "US"
+			bank_id               = "100000000"
+			bic                   = "CMFGUS33"
+			base_currency         = "USD"
+			mod_check_enabled	  = true
+			valid_account_ranges {
+				   minimum = "84000000"
+				   maximum = "84099999"
+				}
 		}
-	}
-}`
+	
+		account_generation_configuration {
+			country               = "NL"
+			valid_account_ranges {
+			   minimum = "2005356441"
+			   maximum = "2005389080"
+			}
+		}
+	}`, orgID, parOrgID, orgName, accountConfigID)
+}

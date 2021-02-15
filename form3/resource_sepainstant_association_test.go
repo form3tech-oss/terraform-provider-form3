@@ -18,9 +18,12 @@ import (
 func TestAccSepaInstantAssociation_basic(t *testing.T) {
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+
 	sponsoredOrganisationId := uuid.New().String()
 	associationId := uuid.New().String()
 	sponsoredAssociationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
+	defer verifyOrgDoesNotExist(t, sponsoredOrganisationId)
 
 	bic := generateTestBic()
 	bicCN := strings.ToLower(bic)
@@ -35,7 +38,7 @@ func TestAccSepaInstantAssociation_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: fmt.Sprintf(testForm3SepaInstantAssociationConfigA,
-					organisationId, parentOrganisationId, associationId,
+					organisationId, parentOrganisationId, testOrgName, associationId,
 					sponsoredOrganisationId, sponsoredAssociationId,
 					bicCN, bic, bicSponsored, strings.Join(reachableBics, "\",\"")),
 				Check: resource.ComposeTestCheckFunc(
@@ -58,7 +61,7 @@ func TestAccSepaInstantAssociation_basic(t *testing.T) {
 				),
 			},
 			{
-				Config: fmt.Sprintf(testForm3SepaInstantAssociationUpdatedConfig, organisationId, parentOrganisationId, associationId, bicCN, bic),
+				Config: fmt.Sprintf(testForm3SepaInstantAssociationUpdatedConfig, organisationId, parentOrganisationId, testOrgName, associationId, bicCN, bic),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckSepaInstantAssociationExists("form3_sepainstant_association.association"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "association_id", associationId),
@@ -127,6 +130,7 @@ const testForm3SepaInstantAssociationConfigA = `
 locals {
 	organisation_id          = "%s"
 	parent_organisation_id   = "%s"
+	organisation_name 		 = "%s"
 	association_id           = "%s"
 	organisation_sponsor_id  = "%s"
 	sponsored_association_id = "%s"
@@ -139,7 +143,7 @@ locals {
 resource "form3_organisation" "organisation" {
 	organisation_id        = "${local.organisation_id}"
 	parent_organisation_id = "${local.parent_organisation_id}"
-	name 		           = "terraform-provider-form3-test-organisation"
+	name 		           = "${local.organisation_name}"
 }
 
 resource "form3_sepainstant_association" "association" {
@@ -154,7 +158,7 @@ resource "form3_sepainstant_association" "association" {
 resource "form3_organisation" "organisation_sponsored" {
 	organisation_id        = "${local.organisation_sponsor_id}"
 	parent_organisation_id = "${local.parent_organisation_id}"
-	name 		           = "terraform-provider-form3-test-organisation"
+	name 		           = "${local.organisation_name}"
 }
 
 resource "form3_sepainstant_association" "association_sponsored" {
@@ -177,6 +181,7 @@ const testForm3SepaInstantAssociationUpdatedConfig = `
 locals {
 	organisation_id          = "%s"
 	parent_organisation_id   = "%s"
+	organisation_name 		 = "%s"
 	association_id           = "%s"
 	bic_cn					 = "%s"
 	bic						 = "%s"
@@ -185,7 +190,7 @@ locals {
 resource "form3_organisation" "organisation" {
 	organisation_id        = "${local.organisation_id}"
 	parent_organisation_id = "${local.parent_organisation_id}"
-	name 		           = "terraform-provider-form3-test-organisation"
+	name 		           = "${local.organisation_name}"
 }
 
 resource "form3_sepainstant_association" "association" {

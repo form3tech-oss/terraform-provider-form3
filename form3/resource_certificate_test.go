@@ -18,9 +18,10 @@ import (
 
 func TestAccKey_basic(t *testing.T) {
 	var response models.Key
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	keyId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
+	keyID := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -28,11 +29,11 @@ func TestAccKey_basic(t *testing.T) {
 		CheckDestroy: testAccCheckKeyDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3KeyConfigA, organisationId, parentOrganisationId, keyId),
+				Config: getTestForm3KeyConfig(organisationID, parentOrganisationID, testOrgName, keyID),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckKeyExists("form3_key.test_key", &response),
-					resource.TestCheckResourceAttr("form3_key.test_key", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_key.test_key", "key_id", keyId),
+					resource.TestCheckResourceAttr("form3_key.test_key", "organisation_id", organisationID),
+					resource.TestCheckResourceAttr("form3_key.test_key", "key_id", keyID),
 					resource.TestCheckResourceAttr("form3_key.test_key", "type", "RSA"),
 					resource.TestCheckResourceAttr("form3_key.test_key", "subject", "CN=Terraform-test"),
 					resource.TestCheckResourceAttr("form3_key.test_key", "description", "test key"),
@@ -45,9 +46,10 @@ func TestAccKey_basic(t *testing.T) {
 
 func TestAccKey_ellipticCurve(t *testing.T) {
 	var response models.Key
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	keyId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
+	keyID := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -55,11 +57,11 @@ func TestAccKey_ellipticCurve(t *testing.T) {
 		CheckDestroy: testAccCheckKeyDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3KeyConfigElliptic, organisationId, parentOrganisationId, keyId),
+				Config: getTestForm3KeyConfigElliptic(organisationID, parentOrganisationID, testOrgName, keyID),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckKeyExists("form3_key.test_key", &response),
-					resource.TestCheckResourceAttr("form3_key.test_key", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_key.test_key", "key_id", keyId),
+					resource.TestCheckResourceAttr("form3_key.test_key", "organisation_id", organisationID),
+					resource.TestCheckResourceAttr("form3_key.test_key", "key_id", keyID),
 					resource.TestCheckResourceAttr("form3_key.test_key", "subject", "CN=Terraform-test"),
 					resource.TestCheckResourceAttr("form3_key.test_key", "type", "EC"),
 					resource.TestCheckResourceAttr("form3_key.test_key", "curve", "PRIME256V1"),
@@ -73,10 +75,11 @@ func TestAccKey_ellipticCurve(t *testing.T) {
 
 func TestAccKey_withCert(t *testing.T) {
 	var response models.Key
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	keyId := uuid.New().String()
-	certificateId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
+	keyID := uuid.New().String()
+	certificateID := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -84,16 +87,16 @@ func TestAccKey_withCert(t *testing.T) {
 		CheckDestroy: testAccCheckKeyDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3KeyConfigWithCert, organisationId, parentOrganisationId, keyId, certificateId),
+				Config: getTestForm3KeyConfigWithCert(organisationID, parentOrganisationID, testOrgName, keyID, certificateID),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckKeyExists("form3_key.test_key", &response),
-					resource.TestCheckResourceAttr("form3_key.test_key", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_key.test_key", "key_id", keyId),
+					resource.TestCheckResourceAttr("form3_key.test_key", "organisation_id", organisationID),
+					resource.TestCheckResourceAttr("form3_key.test_key", "key_id", keyID),
 					resource.TestCheckResourceAttr("form3_key.test_key", "subject", "CN=Terraform-test-with-cert"),
 					resource.TestMatchResourceAttr("form3_key.test_key", "certificate_signing_request", regexp.MustCompile(".*BEGIN CERTIFICATE REQUEST.*")),
-					resource.TestCheckResourceAttr("form3_certificate.cert", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_certificate.cert", "key_id", keyId),
-					resource.TestCheckResourceAttr("form3_certificate.cert", "certificate_id", certificateId),
+					resource.TestCheckResourceAttr("form3_certificate.cert", "organisation_id", organisationID),
+					resource.TestCheckResourceAttr("form3_certificate.cert", "key_id", keyID),
+					resource.TestCheckResourceAttr("form3_certificate.cert", "certificate_id", certificateID),
 					resource.TestMatchResourceAttr("form3_certificate.cert", "certificate", regexp.MustCompile(`.*MIIGZzCCBU\+gAwIBAgIQQAFoVhQdgReBTMSz0Ui/AjANBgkqhkiG9w0BAQsFADCB.*`)),
 					resource.TestCheckResourceAttr("form3_certificate.cert", "issuing_certificates.#", "3"),
 					resource.TestMatchResourceAttr("form3_certificate.cert", "issuing_certificates.0", regexp.MustCompile(".*My Bank.*")),
@@ -106,10 +109,11 @@ func TestAccKey_withCert(t *testing.T) {
 
 func TestAccKey_withSelfSignedCert(t *testing.T) {
 	var response models.Key
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	keyId := uuid.New().String()
-	certificateId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
+	keyID := uuid.New().String()
+	certificateID := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -117,7 +121,7 @@ func TestAccKey_withSelfSignedCert(t *testing.T) {
 		CheckDestroy: testAccCheckKeyDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3KeyConfigWithSelfSignedCert, organisationId, parentOrganisationId, keyId, certificateId),
+				Config: getTestForm3KeyConfigWithSelfSignedCert(organisationID, parentOrganisationID, testOrgName, keyID, certificateID),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckKeyExists("form3_key.test_key", &response),
 					resource.TestMatchResourceAttr("form3_certificate.cert", "actual_certificate", regexp.MustCompile(".*BEGIN CERTIFICATE.*")),
@@ -127,14 +131,26 @@ func TestAccKey_withSelfSignedCert(t *testing.T) {
 	})
 }
 
+func deleteOrganisation(client *form3.AuthenticatedClient, organisationId string) {
+	fmt.Printf("[INFO] Deleting test organisation %v", organisationId)
+
+	if _, err := client.OrganisationClient.Organisations.DeleteUnitsID(organisations.NewDeleteUnitsIDParams().
+		WithID(strfmt.UUID(organisationId)).WithVersion(0)); err != nil {
+		fmt.Printf("[WARN] Failed to delete test organisation %v", organisationId)
+	}
+
+	fmt.Printf("[INFO] Sucessfuly deleted test organisation %v", organisationId)
+}
+
 func TestAccKey_importExistingCert(t *testing.T) {
 	testAccPreCheck(t)
 
 	var response models.Key
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	keyId := uuid.New().String()
-	certificateId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
+	keyID := uuid.New().String()
+	certificateID := uuid.New().String()
 
 	if acc, ok := os.LookupEnv("TF_ACC"); ok && acc == "1" {
 		// Setup existing resources to be imported.
@@ -150,22 +166,24 @@ func TestAccKey_importExistingCert(t *testing.T) {
 
 		_, err = client.OrganisationClient.Organisations.PostUnits(organisations.NewPostUnitsParams().
 			WithOrganisationCreationRequest(&models.OrganisationCreation{Data: &models.Organisation{
-				OrganisationID: strfmt.UUID(parentOrganisationId),
-				ID:             strfmt.UUID(organisationId),
+				OrganisationID: strfmt.UUID(parentOrganisationID),
+				ID:             strfmt.UUID(organisationID),
 				Type:           "organisations",
 				Attributes: &models.OrganisationAttributes{
-					Name: "terraform-provider-form3-test-organisation",
+					Name: testOrgName,
 				},
 			}}))
 		if err != nil {
 			t.Fail()
 		}
 
+		defer deleteOrganisation(client, organisationID)
+
 		_, err = client.SystemClient.System.PostKeys(system.NewPostKeysParams().
 			WithKeyCreationRequest(&models.KeyCreation{
 				Data: &models.Key{
-					ID:             strfmt.UUID(keyId),
-					OrganisationID: strfmt.UUID(organisationId),
+					ID:             strfmt.UUID(keyID),
+					OrganisationID: strfmt.UUID(organisationID),
 					Attributes: &models.KeyAttributes{
 						CertificateSigningRequest: "EXISTING CSR",
 						Description:               "",
@@ -180,11 +198,11 @@ func TestAccKey_importExistingCert(t *testing.T) {
 		}
 
 		_, err = client.SystemClient.System.PostKeysKeyIDCertificates(system.NewPostKeysKeyIDCertificatesParams().
-			WithKeyID(strfmt.UUID(keyId)).
+			WithKeyID(strfmt.UUID(keyID)).
 			WithCertificateCreationRequest(&models.CertificateCreation{
 				Data: &models.Certificate{
-					ID:             strfmt.UUID(certificateId),
-					OrganisationID: strfmt.UUID(organisationId),
+					ID:             strfmt.UUID(certificateID),
+					OrganisationID: strfmt.UUID(organisationID),
 					Attributes: &models.CertificateAttributes{
 						Certificate:         ToStringPointer("Existing Certificate"),
 						IssuingCertificates: []string{"Existing Issuing Certificate"},
@@ -203,24 +221,24 @@ func TestAccKey_importExistingCert(t *testing.T) {
 		CheckDestroy: testAccCheckKeyDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3KeyConfigExistingKey, organisationId, parentOrganisationId, keyId),
+				Config: getTestForm3KeyConfigExistingKey(organisationID, parentOrganisationID, testOrgName, keyID),
 
 				ResourceName:       "form3_organisation.organisation",
 				ImportState:        true,
-				ImportStateId:      organisationId,
+				ImportStateId:      organisationID,
 				ImportStateVerify:  false,
 				ExpectNonEmptyPlan: false,
 			},
 			{
-				Config:            fmt.Sprintf(testForm3KeyConfigExistingKey, organisationId, parentOrganisationId, keyId),
+				Config:            getTestForm3KeyConfigExistingKey(organisationID, parentOrganisationID, testOrgName, keyID),
 				ResourceName:      "form3_key.test_key",
 				ImportState:       true,
-				ImportStateId:     keyId,
+				ImportStateId:     keyID,
 				ImportStateVerify: false,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckKeyExists("form3_key.test_key", &response),
-					resource.TestCheckResourceAttr("form3_key.test_key", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_key.test_key", "key_id", keyId),
+					resource.TestCheckResourceAttr("form3_key.test_key", "organisation_id", organisationID),
+					resource.TestCheckResourceAttr("form3_key.test_key", "key_id", keyID),
 					resource.TestCheckResourceAttr("form3_key.test_key", "subject", "CN=Terraform-test-existing-cert"),
 					resource.TestCheckResourceAttr("form3_key.test_key", "private_key", "existing-key-101"),
 					resource.TestCheckResourceAttr("form3_key.test_key", "public_key", "existing-key-102"),
@@ -228,16 +246,16 @@ func TestAccKey_importExistingCert(t *testing.T) {
 				ExpectNonEmptyPlan: false,
 			},
 			{
-				Config:            fmt.Sprintf(testForm3KeyConfigExistingCert, organisationId, keyId, certificateId),
+				Config:            getTestForm3KeyConfigExistingCert(organisationID, keyID, certificateID),
 				ResourceName:      "form3_certificate.cert",
 				ImportState:       true,
-				ImportStateId:     keyId + "/" + certificateId,
+				ImportStateId:     keyID + "/" + certificateID,
 				ImportStateVerify: false,
 
 				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("form3_certificate.cert", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_certificate.cert", "key_id", keyId),
-					resource.TestCheckResourceAttr("form3_certificate.cert", "certificate_id", certificateId),
+					resource.TestCheckResourceAttr("form3_certificate.cert", "organisation_id", organisationID),
+					resource.TestCheckResourceAttr("form3_certificate.cert", "key_id", keyID),
+					resource.TestCheckResourceAttr("form3_certificate.cert", "certificate_id", certificateID),
 					resource.TestCheckResourceAttr("form3_certificate.cert", "certificate", "Existing Certificate"),
 					resource.TestCheckResourceAttr("form3_certificate.cert", "issuing_certificates.#", "1"),
 					resource.TestCheckResourceAttr("form3_certificate.cert", "issuing_certificates.0", "Existing Issuing Certificate"),
@@ -307,112 +325,121 @@ func testAccCheckKeyExists(resourceKey string, cr *models.Key) resource.TestChec
 	}
 }
 
-const testForm3KeyConfigA = `
-
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		               = "terraform-provider-form3-test-organisation"
+func getTestForm3KeyConfig(orgID, parOrgID, orgName, keyID string) string {
+	return fmt.Sprintf(`
+	resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		               = "%s"
+	}
+	
+	resource "form3_key" "test_key" {
+		organisation_id = "${form3_organisation.organisation.organisation_id}"
+	  subject         = "CN=Terraform-test"
+	  key_id          = "%s"
+	  description     = "test key"
+	}
+	
+	output "csr" {
+	  value = "${form3_key.test_key.certificate_signing_request}"
+	}
+	`, orgID, parOrgID, orgName, keyID)
 }
 
-resource "form3_key" "test_key" {
-	organisation_id = "${form3_organisation.organisation.organisation_id}"
-  subject         = "CN=Terraform-test"
-  key_id          = "%s"
-  description     = "test key"
+func getTestForm3KeyConfigElliptic(orgID, parOrgID, orgName, keyID string) string {
+	return fmt.Sprintf(`
+
+	resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		               = "%s"
+	}
+	
+	resource "form3_key" "test_key" {
+		organisation_id  = "${form3_organisation.organisation.organisation_id}"
+	  subject          = "CN=Terraform-test"
+	  key_id           = "%s"
+	  description      = "test key"
+	  type             = "EC"
+	  curve            = "PRIME256V1"
+	}
+	
+	output "csr" {
+	  value = "${form3_key.test_key.certificate_signing_request}"
+	}`, orgID, parOrgID, orgName, keyID)
 }
 
-output "csr" {
-  value = "${form3_key.test_key.certificate_signing_request}"
-}
-`
-
-const testForm3KeyConfigElliptic = `
-
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		               = "terraform-provider-form3-test-organisation"
-}
-
-resource "form3_key" "test_key" {
-	organisation_id  = "${form3_organisation.organisation.organisation_id}"
-  subject          = "CN=Terraform-test"
-  key_id           = "%s"
-  description      = "test key"
-  type             = "EC"
-  curve            = "PRIME256V1"
-}
-
-output "csr" {
-  value = "${form3_key.test_key.certificate_signing_request}"
-}
-`
-
-const testForm3KeyConfigWithCert = `
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		               = "terraform-provider-form3-test-organisation"
+func getTestForm3KeyConfigWithCert(orgID, parOrgID, orgName, keyID, certID string) string {
+	return fmt.Sprintf(`
+	resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		               = "%s"
+	}
+	
+	resource "form3_key" "test_key" {
+		organisation_id         = "${form3_organisation.organisation.organisation_id}"
+	  subject                 = "CN=Terraform-test-with-cert"
+	  key_id  = "%s"
+	}
+	
+	resource "form3_certificate" "cert" {
+		organisation_id         = "${form3_organisation.organisation.organisation_id}"
+	  key_id  = "${form3_key.test_key.key_id}"
+	  certificate_id          = "%s"
+	  certificate             = "-----BEGIN CERTIFICATE-----\nMIIGZzCCBU+gAwIBAgIQQAFoVhQdgReBTMSz0Ui/AjANBgkqhkiG9w0BAQsFADCB\nqzEnMCUGA1UECgw=\n-----END CERTIFICATE-----"
+	  issuing_certificates    = ["-----BEGIN CERTIFICATE-----\nMy Bank\n-----END CERTIFICATE-----",
+								  "-----BEGIN CERTIFICATE-----\nMy Bank's Bank'\n-----END CERTIFICATE-----",
+								  "-----BEGIN CERTIFICATE-----\nRoot'\n-----END CERTIFICATE-----"
+								]
+	}`, orgID, parOrgID, orgName, keyID, certID)
 }
 
-resource "form3_key" "test_key" {
-	organisation_id         = "${form3_organisation.organisation.organisation_id}"
-  subject                 = "CN=Terraform-test-with-cert"
-  key_id  = "%s"
+func getTestForm3KeyConfigWithSelfSignedCert(orgID, parOrgID, orgName, keyID, certID string) string {
+	return fmt.Sprintf(`
+	resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		               = "%s"
+	}
+	
+	resource "form3_key" "test_key" {
+		organisation_id         = "${form3_organisation.organisation.organisation_id}"
+	  subject                 = "CN=Terraform-test-selfsigned"
+	  key_id  = "%s"
+	}
+	
+	resource "form3_certificate" "cert" {
+		organisation_id         = "${form3_organisation.organisation.organisation_id}"
+	  key_id  = "${form3_key.test_key.key_id}"
+	  certificate_id          = "%s"
+	}
+	`, orgID, parOrgID, orgName, keyID, certID)
 }
 
-resource "form3_certificate" "cert" {
-	organisation_id         = "${form3_organisation.organisation.organisation_id}"
-  key_id  = "${form3_key.test_key.key_id}"
-  certificate_id          = "%s"
-  certificate             = "-----BEGIN CERTIFICATE-----\nMIIGZzCCBU+gAwIBAgIQQAFoVhQdgReBTMSz0Ui/AjANBgkqhkiG9w0BAQsFADCB\nqzEnMCUGA1UECgw=\n-----END CERTIFICATE-----"
-  issuing_certificates    = ["-----BEGIN CERTIFICATE-----\nMy Bank\n-----END CERTIFICATE-----",
-                              "-----BEGIN CERTIFICATE-----\nMy Bank's Bank'\n-----END CERTIFICATE-----",
-                              "-----BEGIN CERTIFICATE-----\nRoot'\n-----END CERTIFICATE-----"
-                            ]
-}
-`
-
-const testForm3KeyConfigWithSelfSignedCert = `
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		               = "terraform-provider-form3-test-organisation"
+func getTestForm3KeyConfigExistingKey(orgID, parOrgID, orgName, keyID string) string {
+	return fmt.Sprintf(`
+	resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		               = "%s"
+	}
+	
+	resource "form3_key" "test_key" {
+		organisation_id         = "${form3_organisation.organisation.organisation_id}"
+	  subject                 = "CN=Terraform-test-existing"
+	  key_id  = "%s"
+	}
+	`, orgID, parOrgID, orgName, keyID)
 }
 
-resource "form3_key" "test_key" {
-	organisation_id         = "${form3_organisation.organisation.organisation_id}"
-  subject                 = "CN=Terraform-test-selfsigned"
-  key_id  = "%s"
+func getTestForm3KeyConfigExistingCert(orgID, keyID, certID string) string {
+	return fmt.Sprintf(`
+	resource "form3_certificate" "cert" {
+		organisation_id         = "%s"
+	  key_id                  = "%s"
+	  certificate_id          = "%s"
+	  certificate             = "Existing Certificate"
+	  issuing_certificates    = ["Existing Issuing Certificate"]
+	}`, orgID, keyID, certID)
 }
-
-resource "form3_certificate" "cert" {
-	organisation_id         = "${form3_organisation.organisation.organisation_id}"
-  key_id  = "${form3_key.test_key.key_id}"
-  certificate_id          = "%s"
-}
-`
-
-const testForm3KeyConfigExistingKey = `
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		               = "terraform-provider-form3-test-organisation"
-}
-
-resource "form3_key" "test_key" {
-	organisation_id         = "${form3_organisation.organisation.organisation_id}"
-  subject                 = "CN=Terraform-test-existing"
-  key_id  = "%s"
-}
-`
-
-const testForm3KeyConfigExistingCert = `
-resource "form3_certificate" "cert" {
-	organisation_id         = "%s"
-  key_id                  = "%s"
-  certificate_id          = "%s"
-  certificate             = "Existing Certificate"
-  issuing_certificates    = ["Existing Issuing Certificate"]
-}`

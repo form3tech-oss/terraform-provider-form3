@@ -19,6 +19,7 @@ func TestAccLhvMasterAccount_basic(t *testing.T) {
 
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
 	associationId := uuid.New().String()
 	clientCode := uuid.New().String()
 	masterAccountId := uuid.New().String()
@@ -33,7 +34,7 @@ func TestAccLhvMasterAccount_basic(t *testing.T) {
 		CheckDestroy: testAccCheckLhvMasterAccountDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3LhvMasterAccountConfigA, organisationId, parentOrganisationId, associationId, masterAccountId, clientCode, iban, bic, bicID, bankidID),
+				Config: fmt.Sprintf(testForm3LhvMasterAccountConfigA, organisationId, parentOrganisationId, associationId, masterAccountId, clientCode, iban, bic, bicID, bankidID, testOrgName),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckLhvMasterAccountExists("form3_lhv_master_account.master_account"),
 					resource.TestCheckResourceAttr("form3_lhv_master_account.master_account", "association_id", associationId),
@@ -111,12 +112,13 @@ locals {
 	bic             = "%s"
 	bic_id          = "%s"
 	bankid_id       = "%s"
+	orgName 		= "%s"
 }
 
 resource "form3_organisation" "organisation" {
 	organisation_id        = "${local.organisationId}"
 	parent_organisation_id = "${local.parentId}"
-	name 		           = "terraform-provider-form3-test-organisation"
+	name 		           = "${local.orgName}"
 }
 
 resource "form3_lhv_association" "association" {

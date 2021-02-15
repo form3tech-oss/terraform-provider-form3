@@ -25,6 +25,7 @@ func TestAccBacsAssociation_basic(t *testing.T) {
 
 	configData := associationConfigWithCerts{
 		OrgID:           uuid.New().String(),
+		OrgName:         testOrgName,
 		OrgParentID:     os.Getenv("FORM3_ORGANISATION_ID"),
 		AssociationID:   uuid.New().String(),
 		InputKeyID:      uuid.New().String(),
@@ -34,6 +35,7 @@ func TestAccBacsAssociation_basic(t *testing.T) {
 		OutputKeyID:     uuid.New().String(),
 		OutputCertID:    uuid.New().String(),
 	}
+	defer verifyOrgDoesNotExist(t, configData.OrgID)
 
 	config, err := makeTestForm3BacsAssociationConfigWithCerts(configData)
 	if err != nil {
@@ -80,9 +82,11 @@ func TestAccBacsAssociation_basic(t *testing.T) {
 
 func TestAccBacsAssociation_zeroAccountType(t *testing.T) {
 	var bacsResponse associations.GetBacsIDOK
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	associationId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
+
+	associationID := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -90,15 +94,15 @@ func TestAccBacsAssociation_zeroAccountType(t *testing.T) {
 		CheckDestroy: testAccCheckBacsAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3BacsAssociationConfigZeroAccountType, organisationId, parentOrganisationId, associationId),
+				Config: getTestForm3BacsAssociationConfigZeroAccountType(organisationID, parentOrganisationID, testOrgName, associationID),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBacsAssociationExists("form3_bacs_association.association", &bacsResponse),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "service_user_number", "112233"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "account_number", "87654321"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "sorting_code", "654321"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "account_type", "0"),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "association_id", associationId),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "organisation_id", organisationID),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "association_id", associationID),
 				),
 			},
 		},
@@ -107,16 +111,18 @@ func TestAccBacsAssociation_zeroAccountType(t *testing.T) {
 
 func TestAccBacsAssociation_withBankIdAndCentre(t *testing.T) {
 	var bacsResponse associations.GetBacsIDOK
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	associationId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
+
+	associationID := uuid.New().String()
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
 		Providers:    testAccProviders,
 		CheckDestroy: testAccCheckBacsAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3BacsAssociationConfigWithBankIdAndCentre, organisationId, parentOrganisationId, associationId),
+				Config: getTestForm3BacsAssociationConfigWithBankIDAndCentre(organisationID, parentOrganisationID, testOrgName, associationID),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBacsAssociationExists("form3_bacs_association.association", &bacsResponse),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "bank_code", "1234"),
@@ -129,8 +135,9 @@ func TestAccBacsAssociation_withBankIdAndCentre(t *testing.T) {
 
 func TestAccBacsAssociation_withTestFileSubmissionFlag(t *testing.T) {
 	var bacsResponse associations.GetBacsIDOK
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -138,7 +145,7 @@ func TestAccBacsAssociation_withTestFileSubmissionFlag(t *testing.T) {
 		CheckDestroy: testAccCheckBacsAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3BacsAssociationConfigWithTestFileFlag, organisationId, parentOrganisationId),
+				Config: getTestForm3BacsAssociationConfigWithTestFileFlag(organisationID, parentOrganisationID, testOrgName),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBacsAssociationExists("form3_bacs_association.association", &bacsResponse),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "test_file_submission", "true"),
@@ -151,9 +158,10 @@ func TestAccBacsAssociation_withTestFileSubmissionFlag(t *testing.T) {
 func TestAccBacsAssociation_withMultiSunConfig(t *testing.T) {
 
 	var bacsResponse associations.GetBacsIDOK
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	associationId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
+	associationID := uuid.New().String()
 
 	sun := "223344"
 	sunConfig := models.BacsServiceUserNumber{
@@ -162,11 +170,11 @@ func TestAccBacsAssociation_withMultiSunConfig(t *testing.T) {
 		ContraAccountNumber: "12345678",
 		ContraSortCode:      "123456",
 	}
-	sunConfigJson, jsonErr := json.Marshal(sunConfig)
+	sunConfigJSON, jsonErr := json.Marshal(sunConfig)
 	if jsonErr != nil {
 		panic(jsonErr)
 	}
-	secondSun := strings.ReplaceAll(string(sunConfigJson), "\"", "\\\"")
+	secondSun := strings.ReplaceAll(string(sunConfigJSON), "\"", "\\\"")
 	multiSunConfig := "[\"" + secondSun + "\"]"
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -174,17 +182,17 @@ func TestAccBacsAssociation_withMultiSunConfig(t *testing.T) {
 		CheckDestroy: testAccCheckBacsAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3BacsAssociationWithSunConfig, organisationId, parentOrganisationId, associationId, multiSunConfig),
+				Config: getTestForm3BacsAssociationWithSunConfig(organisationID, parentOrganisationID, testOrgName, associationID, multiSunConfig),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBacsAssociationExists("form3_bacs_association.association", &bacsResponse),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "service_user_number", "112233"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "account_number", "87654321"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "sorting_code", "654321"),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "account_type", "0"),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "organisation_id", organisationId),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "association_id", associationId),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "organisation_id", organisationID),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "association_id", associationID),
 					resource.TestCheckResourceAttr("form3_bacs_association.association", "service_user_numbers_config.#", "1"),
-					resource.TestCheckResourceAttr("form3_bacs_association.association", "service_user_numbers_config.0", string(sunConfigJson)),
+					resource.TestCheckResourceAttr("form3_bacs_association.association", "service_user_numbers_config.0", string(sunConfigJSON)),
 				),
 			},
 		},
@@ -243,6 +251,7 @@ func testAccCheckBacsAssociationExists(resourceKey string, association *associat
 
 type associationConfigWithCerts struct {
 	OrgID           string
+	OrgName         string
 	OrgParentID     string
 	AssociationID   string
 	InputKeyID      string
@@ -258,7 +267,7 @@ func makeTestForm3BacsAssociationConfigWithCerts(data associationConfigWithCerts
 resource "form3_organisation" "organisation" {
 	organisation_id        = "{{ .OrgID }}"
 	parent_organisation_id = "{{ .OrgParentID }}"
-	name 		           = "terraform-provider-form3-test-organisation"
+	name 		           = "{{ .OrgName }}"
 }
 
 resource "form3_key" "inputKey" {
@@ -313,28 +322,30 @@ resource "form3_bacs_association" "association" {
 
 	return buf.String(), err
 }
-
-const testForm3BacsAssociationConfigZeroAccountType = `
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		           = "terraform-provider-form3-test-organisation"
+func getTestForm3BacsAssociationConfigZeroAccountType(orgID, parOrgID, orgName, assocID string) string {
+	return fmt.Sprintf(`
+	resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		           = "%s"
+	}
+	
+	resource "form3_bacs_association" "association" {
+		organisation_id                  = "${form3_organisation.organisation.organisation_id}"
+		association_id                   = "%s"
+		service_user_number              = "112233"
+		account_number                   = "87654321"
+		sorting_code                     = "654321"
+		account_type                     = 0
+	}`, orgID, parOrgID, orgName, assocID)
 }
 
-resource "form3_bacs_association" "association" {
-	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
-	association_id                   = "%s"
-	service_user_number              = "112233"
-    account_number                   = "87654321"
-    sorting_code                     = "654321"
-    account_type                     = 0
-}`
-
-const testForm3BacsAssociationConfigWithBankIdAndCentre = `
+func getTestForm3BacsAssociationConfigWithBankIDAndCentre(orgID, parOrgID, orgName, assocID string) string {
+	return fmt.Sprintf(`
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		           = "terraform-provider-form3-test-organisation"
+	name 		           = "%s"
 }
 
 resource "form3_bacs_association" "association" {
@@ -346,40 +357,45 @@ resource "form3_bacs_association" "association" {
     account_type                     = 0
     bank_code                        = "1234"
     centre_number                    = "42"
-}`
-
-const testForm3BacsAssociationConfigWithTestFileFlag = `
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		           = "terraform-provider-form3-test-organisation"
+}`, orgID, parOrgID, orgName, assocID)
 }
 
-resource "form3_bacs_association" "association" {
-	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
-	association_id                   = "e7373962-b030-492f-b73b-68ca1e5c800e"
-	service_user_number              = "112233"
-    account_number                   = "87654321"
-    sorting_code                     = "654321"
-    account_type                     = 0
-    bank_code                        = "1234"
-    centre_number                    = "42"
-    test_file_submission             = true
-}`
-
-const testForm3BacsAssociationWithSunConfig = `
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		           = "terraform-provider-form3-test-organisation"
+func getTestForm3BacsAssociationWithSunConfig(orgID, parOrgID, orgName, assocID, sunConfig string) string {
+	return fmt.Sprintf(`
+	resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		           = "%s"
+	}
+	
+	resource "form3_bacs_association" "association" {
+		organisation_id                  = "${form3_organisation.organisation.organisation_id}"
+		association_id                   = "%s"
+		service_user_number              = "112233"
+		account_number                   = "87654321"
+		sorting_code                     = "654321"
+		account_type                     = 0
+		service_user_numbers_config     = %s
+	}`, orgID, parOrgID, orgName, assocID, sunConfig)
 }
 
-resource "form3_bacs_association" "association" {
-	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
-	association_id                   = "%s"
-	service_user_number              = "112233"
-    account_number                   = "87654321"
-    sorting_code                     = "654321"
-    account_type                     = 0
-	service_user_numbers_config     = %s
-}`
+func getTestForm3BacsAssociationConfigWithTestFileFlag(orgID, parOrgID, orgName string) string {
+	return fmt.Sprintf(`
+	resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		           = "%s"
+	}
+	
+	resource "form3_bacs_association" "association" {
+		organisation_id                  = "${form3_organisation.organisation.organisation_id}"
+		association_id                   = "e7373962-b030-492f-b73b-68ca1e5c800e"
+		service_user_number              = "112233"
+		account_number                   = "87654321"
+		sorting_code                     = "654321"
+		account_type                     = 0
+		bank_code                        = "1234"
+		centre_number                    = "42"
+		test_file_submission             = true
+	}`, orgID, parOrgID, orgName)
+}

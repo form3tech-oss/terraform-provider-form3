@@ -19,11 +19,12 @@ import (
 
 func TestAccAccount_basic(t *testing.T) {
 	var before accounts.GetAccountsIDOK
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	accountId := uuid.New().String()
-	bankResourceId := uuid.New().String()
-	bicId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
+	accountID := uuid.New().String()
+	bankResourceID := uuid.New().String()
+	bicID := uuid.New().String()
 	bic := generateTestBic()
 	accountNumber := randomAccountNumber()
 
@@ -33,10 +34,10 @@ func TestAccAccount_basic(t *testing.T) {
 		CheckDestroy: testAccCheckAccountDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3AccountConfigA, organisationId, parentOrganisationId, accountId, accountNumber, bic, bankResourceId, bicId, bic),
+				Config: getForm3AccountTFConfig(organisationID, parentOrganisationID, testOrgName, accountID, bic, bankResourceID, bicID, accountNumber),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckAccountExists("form3_account.account", &before),
-					resource.TestCheckResourceAttr("form3_account.account", "account_id", accountId),
+					resource.TestCheckResourceAttr("form3_account.account", "account_id", accountID),
 					resource.TestCheckResourceAttr("form3_account.account", "account_number", strconv.Itoa(accountNumber)),
 					resource.TestCheckResourceAttr("form3_account.account", "bank_id", "401005"),
 					resource.TestCheckResourceAttr("form3_account.account", "bank_id_code", "GBDSC"),
@@ -57,11 +58,12 @@ func generateRandomIban() string {
 
 func TestAccAccount_basic_with_iban(t *testing.T) {
 	var accountResponse accounts.GetAccountsIDOK
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	accountId := uuid.New().String()
-	bankResourceId := uuid.New().String()
-	bicId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
+	accountID := uuid.New().String()
+	bankResourceID := uuid.New().String()
+	bicID := uuid.New().String()
 	bic := generateTestBic()
 	iban := generateRandomIban()
 	accountNumber := randomAccountNumber()
@@ -72,10 +74,10 @@ func TestAccAccount_basic_with_iban(t *testing.T) {
 		CheckDestroy: testAccCheckAccountDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3AccountConfigWithIban, organisationId, parentOrganisationId, accountId, accountNumber, iban, bic, bankResourceId, bicId, bic),
+				Config: getForm3AccountTFConfigWithIban(organisationID, parentOrganisationID, testOrgName, accountID, bic, bankResourceID, bicID, iban, accountNumber),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckAccountExists("form3_account.account", &accountResponse),
-					resource.TestCheckResourceAttr("form3_account.account", "account_id", accountId),
+					resource.TestCheckResourceAttr("form3_account.account", "account_id", accountID),
 					resource.TestCheckResourceAttr("form3_account.account", "account_number", strconv.Itoa(accountNumber)),
 					resource.TestCheckResourceAttr("form3_account.account", "bank_id", "401005"),
 					resource.TestCheckResourceAttr("form3_account.account", "bank_id_code", "GBDSC"),
@@ -90,11 +92,12 @@ func TestAccAccount_basic_with_iban(t *testing.T) {
 
 func TestAccAccount_basic_with_iban_without_account_number(t *testing.T) {
 	var accountResponse accounts.GetAccountsIDOK
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	accountId := uuid.New().String()
-	bankResourceId := uuid.New().String()
-	bicId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
+	accountID := uuid.New().String()
+	bankResourceID := uuid.New().String()
+	bicID := uuid.New().String()
 	bic := generateTestBic()
 	iban := generateRandomIban()
 
@@ -104,10 +107,10 @@ func TestAccAccount_basic_with_iban_without_account_number(t *testing.T) {
 		CheckDestroy: testAccCheckAccountDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3AccountConfigWithIbanWithoutAccountNumber, organisationId, parentOrganisationId, accountId, iban, bic, bankResourceId, bicId, bic),
+				Config: getTestForm3AccountConfigWithIbanWithoutAccountNumber(organisationID, parentOrganisationID, testOrgName, accountID, bic, bankResourceID, bicID, iban),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckAccountExists("form3_account.account", &accountResponse),
-					resource.TestCheckResourceAttr("form3_account.account", "account_id", accountId),
+					resource.TestCheckResourceAttr("form3_account.account", "account_id", accountID),
 					resource.TestCheckResourceAttr("form3_account.account", "account_number", ""),
 					resource.TestCheckResourceAttr("form3_account.account", "bank_id", "401005"),
 					resource.TestCheckResourceAttr("form3_account.account", "bank_id_code", "GBDSC"),
@@ -130,11 +133,12 @@ func randomAccountNumber() int {
 
 func TestAccAccount_importBasic(t *testing.T) {
 
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	accountId := uuid.New().String()
-	bankResourceId := uuid.New().String()
-	bicId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
+	accountID := uuid.New().String()
+	bankResourceID := uuid.New().String()
+	bicID := uuid.New().String()
 	bic := generateTestBic()
 	accountNumber := randomAccountNumber()
 
@@ -146,7 +150,7 @@ func TestAccAccount_importBasic(t *testing.T) {
 		CheckDestroy: testAccCheckAccountDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3AccountConfigA, organisationId, parentOrganisationId, accountId, accountNumber, bic, bankResourceId, bicId, bic),
+				Config: getForm3AccountTFConfig(organisationID, parentOrganisationID, testOrgName, accountID, bic, bankResourceID, bicID, accountNumber),
 			},
 			{
 				ResourceName:      resourceName,
@@ -158,11 +162,12 @@ func TestAccAccount_importBasic(t *testing.T) {
 }
 
 func TestAccAccount_import_with_iban(t *testing.T) {
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	accountId := uuid.New().String()
-	bankResourceId := uuid.New().String()
-	bicId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
+	accountID := uuid.New().String()
+	bankResourceID := uuid.New().String()
+	bicID := uuid.New().String()
 	bic := generateTestBic()
 	accountNumber := randomAccountNumber()
 	iban := fmt.Sprintf("GB65FTHR400001%d", accountNumber)
@@ -175,7 +180,7 @@ func TestAccAccount_import_with_iban(t *testing.T) {
 		CheckDestroy: testAccCheckAccountDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3AccountConfigWithIban, organisationId, parentOrganisationId, accountId, accountNumber, iban, bic, bankResourceId, bicId, bic),
+				Config: getForm3AccountTFConfigWithIban(organisationID, parentOrganisationID, testOrgName, accountID, bic, bankResourceID, bicID, iban, accountNumber),
 			},
 			{
 				ResourceName:      resourceName,
@@ -235,122 +240,129 @@ func testAccCheckAccountExists(resourceKey string, accountResponse *accounts.Get
 	}
 }
 
-const testForm3AccountConfigA = `
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		               = "terraform-provider-form3-test-organisation"
+func getForm3AccountTFConfig(organisationID, parentOrganisationID, orgName, accountID, bic, bankResourceID, bicID string, accountNumber int) string {
+
+	return fmt.Sprintf(`
+	resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		               = "%s"
+	}
+	
+	resource "form3_account_configuration" "customer_backoffice_configuration" {
+	  organisation_id             = "${form3_organisation.organisation.organisation_id}"
+	  account_configuration_id    = "${uuid()}"
+	  account_generation_enabled  = true
+	
+	  lifecycle {
+		ignore_changes = ["account_configuration_id"]
+	  }
+	}
+	
+	resource "form3_account" "account" {
+	  organisation_id  = "${form3_organisation.organisation.organisation_id}"
+	  account_id       = "%s"
+	  account_number   = "%d"
+	  bank_id          = "401005"
+	  bank_id_code     = "GBDSC"
+	  bic              = "%s"
+	  country          = "GB"
+	  depends_on       = ["form3_bank_id.bank_id", "form3_bic.bic"]
+	}
+	
+	resource "form3_bank_id" "bank_id" {
+	  organisation_id  = "${form3_organisation.organisation.organisation_id}"
+	  bank_resource_id = "%s"
+	  bank_id       	 = "401005"
+	  bank_id_code     = "GBDSC"
+	  country          = "GB"
+	}
+	
+	resource "form3_bic" "bic" {
+		organisation_id = "${form3_organisation.organisation.organisation_id}"
+	  bic_id          = "%s"
+	  bic       	    = "%s"
+	}
+	`, organisationID, parentOrganisationID, orgName, accountID, accountNumber, bic, bankResourceID, bicID, bic)
 }
 
-resource "form3_account_configuration" "customer_backoffice_configuration" {
-  organisation_id             = "${form3_organisation.organisation.organisation_id}"
-  account_configuration_id    = "${uuid()}"
-  account_generation_enabled  = true
+func getForm3AccountTFConfigWithIban(organisationID, parentOrganisationID, orgName, accountID, bic, bankResourceID, bicID, iban string, accountNumber int) string {
 
-  lifecycle {
-    ignore_changes = ["account_configuration_id"]
-  }
+	return fmt.Sprintf(`
+	resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		               = "%s"
+	}
+	
+	resource "form3_account" "account" {
+	  organisation_id  = "${form3_organisation.organisation.organisation_id}"
+	  account_id       = "%s"
+	  account_number   = "%d"
+	  iban             = "%s"
+	  bank_id          = "401005"
+	  bank_id_code     = "GBDSC"
+	  bic              = "%s"
+	  country          = "GB"
+	  depends_on       = ["form3_bank_id.bank_id", "form3_bic.bic"]
+	}
+	
+	resource "form3_bank_id" "bank_id" {
+	  organisation_id  = "${form3_organisation.organisation.organisation_id}"
+	  bank_resource_id = "%s"
+	  bank_id       	 = "401005"
+	  bank_id_code     = "GBDSC"
+	  country          = "GB"
+	}
+	
+	resource "form3_bic" "bic" {
+		organisation_id = "${form3_organisation.organisation.organisation_id}"
+		bic_id          = "%s"
+		bic       	    = "%s"
+	}
+	`, organisationID, parentOrganisationID, orgName, accountID, accountNumber, iban, bic, bankResourceID, bicID, bic)
 }
 
-resource "form3_account" "account" {
-  organisation_id  = "${form3_organisation.organisation.organisation_id}"
-  account_id       = "%s"
-  account_number   = "%d"
-  bank_id          = "401005"
-  bank_id_code     = "GBDSC"
-  bic              = "%s"
-  country          = "GB"
-  depends_on       = ["form3_bank_id.bank_id", "form3_bic.bic"]
+func getTestForm3AccountConfigWithIbanWithoutAccountNumber(organisationID, parentOrganisationID, orgName, accountID, bic, bankResourceID, bicID, iban string) string {
+	return fmt.Sprintf(`
+	resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		               = "%s"
+	}
+	
+	resource "form3_account_configuration" "customer_backoffice_configuration" {
+	  organisation_id             = "${form3_organisation.organisation.organisation_id}"
+	  account_configuration_id    = "${uuid()}"
+	  account_generation_enabled  = true
+	
+	  lifecycle {
+		ignore_changes = ["account_configuration_id"]
+	  }
+	}
+	
+	resource "form3_account" "account" {
+	  organisation_id  = "${form3_organisation.organisation.organisation_id}"
+	  account_id       = "%s"
+	  iban             = "%s"
+	  bank_id          = "401005"
+	  bank_id_code     = "GBDSC"
+	  bic              = "%s"
+	  country          = "GB"
+	  depends_on       = ["form3_bank_id.bank_id", "form3_bic.bic"]
+	}
+	
+	resource "form3_bank_id" "bank_id" {
+	  organisation_id  = "${form3_organisation.organisation.organisation_id}"
+	  bank_resource_id = "%s"
+	  bank_id          = "401005"
+	  bank_id_code     = "GBDSC"
+	  country          = "GB"
+	}
+	
+	resource "form3_bic" "bic" {
+		organisation_id = "${form3_organisation.organisation.organisation_id}"
+		bic_id          = "%s"
+		bic       	    = "%s"
+	}`, organisationID, parentOrganisationID, orgName, accountID, iban, bic, bankResourceID, bicID, bic)
 }
-
-resource "form3_bank_id" "bank_id" {
-  organisation_id  = "${form3_organisation.organisation.organisation_id}"
-  bank_resource_id = "%s"
-  bank_id       	 = "401005"
-  bank_id_code     = "GBDSC"
-  country          = "GB"
-}
-
-resource "form3_bic" "bic" {
-	organisation_id = "${form3_organisation.organisation.organisation_id}"
-  bic_id          = "%s"
-  bic       	    = "%s"
-}
-`
-
-const testForm3AccountConfigWithIban = `
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		               = "terraform-provider-form3-test-organisation"
-}
-
-resource "form3_account" "account" {
-  organisation_id  = "${form3_organisation.organisation.organisation_id}"
-  account_id       = "%s"
-  account_number   = "%d"
-  iban             = "%s"
-  bank_id          = "401005"
-  bank_id_code     = "GBDSC"
-  bic              = "%s"
-  country          = "GB"
-  depends_on       = ["form3_bank_id.bank_id", "form3_bic.bic"]
-}
-
-resource "form3_bank_id" "bank_id" {
-  organisation_id  = "${form3_organisation.organisation.organisation_id}"
-  bank_resource_id = "%s"
-  bank_id       	 = "401005"
-  bank_id_code     = "GBDSC"
-  country          = "GB"
-}
-
-resource "form3_bic" "bic" {
-	organisation_id = "${form3_organisation.organisation.organisation_id}"
-    bic_id          = "%s"
-	bic       	    = "%s"
-}
-`
-
-const testForm3AccountConfigWithIbanWithoutAccountNumber = `
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		               = "terraform-provider-form3-test-organisation"
-}
-
-resource "form3_account_configuration" "customer_backoffice_configuration" {
-  organisation_id             = "${form3_organisation.organisation.organisation_id}"
-  account_configuration_id    = "${uuid()}"
-  account_generation_enabled  = true
-
-  lifecycle {
-    ignore_changes = ["account_configuration_id"]
-  }
-}
-
-resource "form3_account" "account" {
-  organisation_id  = "${form3_organisation.organisation.organisation_id}"
-  account_id       = "%s"
-  iban             = "%s"
-  bank_id          = "401005"
-  bank_id_code     = "GBDSC"
-  bic              = "%s"
-  country          = "GB"
-  depends_on       = ["form3_bank_id.bank_id", "form3_bic.bic"]
-}
-
-resource "form3_bank_id" "bank_id" {
-  organisation_id  = "${form3_organisation.organisation.organisation_id}"
-  bank_resource_id = "%s"
-  bank_id          = "401005"
-  bank_id_code     = "GBDSC"
-  country          = "GB"
-}
-
-resource "form3_bic" "bic" {
-	organisation_id = "${form3_organisation.organisation.organisation_id}"
-    bic_id          = "%s"
-	bic       	    = "%s"
-}
-`

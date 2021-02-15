@@ -15,10 +15,11 @@ import (
 
 func TestAccLimit_basic(t *testing.T) {
 	var limitResponse limits.GetLimitsIDOK
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
 
-	limitId := uuid.New().String()
+	limitID := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -26,7 +27,7 @@ func TestAccLimit_basic(t *testing.T) {
 		CheckDestroy: testAccCheckLimitDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3LimitConfigA, organisationId, parentOrganisationId, limitId),
+				Config: getTestForm3LimitConfig(organisationID, parentOrganisationID, testOrgName, limitID),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckLimitExists("form3_limit.limit", &limitResponse),
 					resource.TestCheckResourceAttr("form3_limit.limit", "amount", "1000"),
@@ -41,10 +42,11 @@ func TestAccLimit_basic(t *testing.T) {
 
 func TestAccLimit_external(t *testing.T) {
 	var limitResponse limits.GetLimitsIDOK
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
 
-	limitId := uuid.New().String()
+	limitID := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -52,7 +54,7 @@ func TestAccLimit_external(t *testing.T) {
 		CheckDestroy: testAccCheckLimitDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3LimitConfigExternal, organisationId, parentOrganisationId, limitId),
+				Config: getTestForm3LimitConfigExternal(organisationID, parentOrganisationID, testOrgName, limitID),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckLimitExists("form3_limit.limit", &limitResponse),
 					resource.TestCheckResourceAttr("form3_limit.limit", "gateway", "payport_interface"),
@@ -65,9 +67,11 @@ func TestAccLimit_external(t *testing.T) {
 }
 
 func TestAccLimit_importBasic(t *testing.T) {
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	limitId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
+
+	limitID := uuid.New().String()
 
 	resourceName := "form3_limit.limit"
 
@@ -77,7 +81,7 @@ func TestAccLimit_importBasic(t *testing.T) {
 		CheckDestroy: testAccCheckLimitDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3LimitConfigA, organisationId, parentOrganisationId, limitId),
+				Config: getTestForm3LimitConfig(organisationID, parentOrganisationID, testOrgName, limitID),
 			},
 			{
 				ResourceName:      resourceName,
@@ -134,36 +138,37 @@ func testAccCheckLimitExists(resourceKey string, limit *limits.GetLimitsIDOK) re
 		return nil
 	}
 }
-
-const testForm3LimitConfigA = `
-
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		               = "terraform-provider-form3-test-organisation"
+func getTestForm3LimitConfig(orgID, parOrgID, orgName, limitID string) string {
+	return fmt.Sprintf(`
+	resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		               = "%s"
+	}
+	
+	resource "form3_limit" "limit" {
+		organisation_id       = "${form3_organisation.organisation.organisation_id}"
+		limit_id     	      	= "%s"
+		amount     	        	= "1000"
+	  gateway               = "payport_interface"
+	  scheme                = "FPS"
+	  settlement_cycle_type = "daily"
+	}`, orgID, parOrgID, orgName, limitID)
 }
 
-resource "form3_limit" "limit" {
-	organisation_id       = "${form3_organisation.organisation.organisation_id}"
-	limit_id     	      	= "%s"
-	amount     	        	= "1000"
-  gateway               = "payport_interface"
-  scheme                = "FPS"
-  settlement_cycle_type = "daily"
-}`
-
-const testForm3LimitConfigExternal = `
-
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		           = "terraform-provider-form3-test-organisation"
+func getTestForm3LimitConfigExternal(orgID, parOrgID, orgName, limitID string) string {
+	return fmt.Sprintf(`
+	resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		           = "%s"
+	}
+	
+	resource "form3_limit" "limit" {
+		organisation_id       = "${form3_organisation.organisation.organisation_id}"
+		limit_id     	      = "%s"
+		gateway               = "payport_interface"
+		scheme                = "FPS"
+		settlement_cycle_type = "external"
+	}`, orgID, parOrgID, orgName, limitID)
 }
-
-resource "form3_limit" "limit" {
-	organisation_id       = "${form3_organisation.organisation.organisation_id}"
-	limit_id     	      = "%s"
-	gateway               = "payport_interface"
-	scheme                = "FPS"
-	settlement_cycle_type = "external"
-}`

@@ -16,8 +16,11 @@ import (
 )
 
 func TestAccLhvAgencySynchronisation_basic(t *testing.T) {
+	orgId := uuid.New().String()
+	verifyOrgDoesNotExist(t, orgId)
 	data := lhvAgencySynchronisationConfigData{
-		OrganisationID:          uuid.New().String(),
+		OrganisationID:          orgId,
+		OrgName:                 testOrgName,
 		ParentOrganisationID:    os.Getenv("FORM3_ORGANISATION_ID"),
 		AssociationId:           uuid.New().String(),
 		ClientCode:              uuid.New().String(),
@@ -103,6 +106,7 @@ func testAccCheckLhvAgencySynchronisationExists(resourceKey string) resource.Tes
 type lhvAgencySynchronisationConfigData struct {
 	OrganisationID          string
 	ParentOrganisationID    string
+	OrgName                 string
 	AssociationId           string
 	ClientCode              string
 	AgencySynchronisationId string
@@ -117,7 +121,7 @@ func lhvAgencySynchronisationConfig(data lhvAgencySynchronisationConfigData) str
 resource "form3_organisation" "organisation" {
 	organisation_id        = "{{ .OrganisationID }}"
 	parent_organisation_id = "{{ .ParentOrganisationID }}"
-	name 		           = "terraform-provider-form3-test-organisation"
+	name 		           = "{{ .OrgName}}"
 }
 
 resource "form3_lhv_association" "association" {

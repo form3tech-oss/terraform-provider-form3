@@ -17,6 +17,8 @@ func TestAccPaymentDefaults_basic(t *testing.T) {
 	var paymentDefaultsResponse payment_defaults.GetPaymentdefaultsIDOK
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationId)
+
 	id := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
@@ -25,7 +27,7 @@ func TestAccPaymentDefaults_basic(t *testing.T) {
 		CheckDestroy: testAccCheckPaymentDefaultsDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3PaymentDefaultsConfig, organisationId, parentOrganisationId, id),
+				Config: getTestForm3PaymentDefaultsConfig(organisationId, parentOrganisationId, testOrgName, id),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckPaymentDefaultsExists("form3_payment_defaults.payment_defaults", &paymentDefaultsResponse),
 					resource.TestCheckResourceAttr("form3_payment_defaults.payment_defaults", "default_payment_scheme", "FPS"),
@@ -87,15 +89,17 @@ func testAccCheckPaymentDefaultsExists(resourceKey string, paymentdefaultsIDOK *
 	}
 }
 
-const testForm3PaymentDefaultsConfig = `
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		               = "terraform-provider-form3-test-organisation"
+func getTestForm3PaymentDefaultsConfig(orgID, parOrgID, orgName, paymentDefID string) string {
+	return fmt.Sprintf(`
+	resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		               = "%s"
+	}
+	
+	resource "form3_payment_defaults" "payment_defaults" {
+		organisation_id                  = "${form3_organisation.organisation.organisation_id}"
+		payment_defaults_id              = "%s"
+	  default_payment_scheme           = "FPS"
+	}`, orgID, parOrgID, orgName, paymentDefID)
 }
-
-resource "form3_payment_defaults" "payment_defaults" {
-	organisation_id                  = "${form3_organisation.organisation.organisation_id}"
-	payment_defaults_id              = "%s"
-  default_payment_scheme           = "FPS"
-}`

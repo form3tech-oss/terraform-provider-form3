@@ -15,9 +15,10 @@ import (
 )
 
 func TestAccGocardlessAssociation_basic(t *testing.T) {
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	associationId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
+	associationID := uuid.New().String()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -25,20 +26,20 @@ func TestAccGocardlessAssociation_basic(t *testing.T) {
 		CheckDestroy: testAccCheckGocardlessAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3GocardlessAssociationConfigA, organisationId, parentOrganisationId, associationId),
+				Config: getTestForm3GocardlessAssociationConfig(organisationID, parentOrganisationID, testOrgName, associationID),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckGocardlessAssociationExists("form3_gocardless_association.association"),
-					resource.TestCheckResourceAttr("form3_gocardless_association.association", "association_id", associationId),
-					resource.TestCheckResourceAttr("form3_gocardless_association.association", "organisation_id", organisationId),
+					resource.TestCheckResourceAttr("form3_gocardless_association.association", "association_id", associationID),
+					resource.TestCheckResourceAttr("form3_gocardless_association.association", "organisation_id", organisationID),
 					resource.TestCheckResourceAttr("form3_gocardless_association.association", "schemes.0", "BACS"),
 				),
 			},
 			{
-				Config: fmt.Sprintf(testForm3GocardlessAssociationConfigB, organisationId, parentOrganisationId, associationId),
+				Config: getTestForm3GocardlessAssociationConfigAddSEPAScheme(organisationID, parentOrganisationID, testOrgName, associationID),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckGocardlessAssociationExists("form3_gocardless_association.association"),
-					resource.TestCheckResourceAttr("form3_gocardless_association.association", "association_id", associationId),
-					resource.TestCheckResourceAttr("form3_gocardless_association.association", "organisation_id", organisationId),
+					resource.TestCheckResourceAttr("form3_gocardless_association.association", "association_id", associationID),
+					resource.TestCheckResourceAttr("form3_gocardless_association.association", "organisation_id", organisationID),
 					resource.TestCheckResourceAttr("form3_gocardless_association.association", "schemes.0", "BACS"),
 					resource.TestCheckResourceAttr("form3_gocardless_association.association", "schemes.1", "SEPADD"),
 				),
@@ -95,28 +96,32 @@ func testAccCheckGocardlessAssociationExists(resourceKey string) resource.TestCh
 	}
 }
 
-const testForm3GocardlessAssociationConfigA = `
+func getTestForm3GocardlessAssociationConfig(orgID, parOrgID, orgName, assocID string) string {
+	return fmt.Sprintf(`
 resource "form3_organisation" "organisation" {
 	organisation_id        = "%s"
 	parent_organisation_id = "%s"
-	name 		           = "terraform-provider-form3-test-organisation"
+	name 		           = "%s"
 }
 
 resource "form3_gocardless_association" "association" {
 	organisation_id = "${form3_organisation.organisation.organisation_id}"
 	association_id  = "%s"
 	schemes         = ["BACS"]
-}`
-
-const testForm3GocardlessAssociationConfigB = `
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		           = "terraform-provider-form3-test-organisation"
+}`, orgID, parOrgID, orgName, assocID)
 }
 
-resource "form3_gocardless_association" "association" {
-	organisation_id = "${form3_organisation.organisation.organisation_id}"
-	association_id  = "%s"
-	schemes         = ["BACS", "SEPADD"]
-}`
+func getTestForm3GocardlessAssociationConfigAddSEPAScheme(orgID, parOrgID, orgName, assocID string) string {
+	return fmt.Sprintf(`
+	resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		           = "%s"
+	}
+	
+	resource "form3_gocardless_association" "association" {
+		organisation_id = "${form3_organisation.organisation.organisation_id}"
+		association_id  = "%s"
+		schemes         = ["BACS", "SEPADD"]
+	}`, orgID, parOrgID, orgName, assocID)
+}

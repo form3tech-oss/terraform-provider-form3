@@ -14,14 +14,16 @@ import (
 )
 
 func TestAccReconciliationAssociation_basic(t *testing.T) {
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	organisationId := uuid.New().String()
-	associationId := uuid.New().String()
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
+
+	associationID := uuid.New().String()
 	name := "test organisation"
 
 	// hardcoded value
 	// https://github.com/hashicorp/terraform-plugin-sdk/issues/196
-	bankId := "QWKEHG33"
+	bankID := "QWKEHG33"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -29,14 +31,14 @@ func TestAccReconciliationAssociation_basic(t *testing.T) {
 		CheckDestroy: testAccCheckReconciliationAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3ReconciliationAssociationConfig, organisationId, parentOrganisationId, associationId, name, bankId),
+				Config: getTestForm3ReconciliationAssociationConfig(organisationID, parentOrganisationID, testOrgName, associationID, name, bankID),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckReconciliationAssociationExists("form3_reconciliation_association.association"),
-					resource.TestCheckResourceAttr("form3_reconciliation_association.association", "association_id", associationId),
-					resource.TestCheckResourceAttr("form3_reconciliation_association.association", "organisation_id", organisationId),
+					resource.TestCheckResourceAttr("form3_reconciliation_association.association", "association_id", associationID),
+					resource.TestCheckResourceAttr("form3_reconciliation_association.association", "organisation_id", organisationID),
 					resource.TestCheckResourceAttr("form3_reconciliation_association.association", "name", name),
 					resource.TestCheckResourceAttr("form3_reconciliation_association.association", "bank_ids.#", "1"),
-					resource.TestCheckResourceAttr("form3_reconciliation_association.association", "bank_ids.3361187273", bankId),
+					resource.TestCheckResourceAttr("form3_reconciliation_association.association", "bank_ids.3361187273", bankID),
 					resource.TestCheckResourceAttr("form3_reconciliation_association.association", "scheme_type", "SEPAINSTANT"),
 				),
 			},
@@ -95,17 +97,19 @@ func testAccCheckReconciliationAssociationExists(resourceKey string) resource.Te
 	}
 }
 
-const testForm3ReconciliationAssociationConfig = `
-resource "form3_organisation" "organisation" {
-	organisation_id        = "%s"
-	parent_organisation_id = "%s"
-	name 		           = "terraform-provider-form3-test-organisation"
+func getTestForm3ReconciliationAssociationConfig(orgID, parOrgID, orgName, assocID, assocName, bankIDs string) string {
+	return fmt.Sprintf(`
+	resource "form3_organisation" "organisation" {
+		organisation_id        = "%s"
+		parent_organisation_id = "%s"
+		name 		           = "%s"
+	}
+	
+	resource "form3_reconciliation_association" "association" {
+		organisation_id = "${form3_organisation.organisation.organisation_id}"
+		association_id  = "%s"
+		name            = "%s"
+		bank_ids        = [ "%s" ]
+		scheme_type     = "SEPAINSTANT"
+	}`, orgID, parOrgID, orgName, assocID, assocName, bankIDs)
 }
-
-resource "form3_reconciliation_association" "association" {
-	organisation_id = "${form3_organisation.organisation.organisation_id}"
-	association_id  = "%s"
-	name            = "%s"
-	bank_ids        = [ "%s" ]
-	scheme_type     = "SEPAINSTANT"
-}`
