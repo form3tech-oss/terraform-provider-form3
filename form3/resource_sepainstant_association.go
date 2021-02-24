@@ -180,7 +180,12 @@ func resourceSepaInstantAssociationUpdate(d *schema.ResourceData, meta interface
 				OrganisationID: association.OrganisationID,
 				Type:           models.SepaInstantAssociationReferenceTypeSepainstantAssociations,
 				Attributes: &models.UpdateSepaInstantAssociationAttributes{
+					Bic:                     association.Attributes.Bic,
+					TransportProfileID:      association.Attributes.TransportProfileID,
+					BusinessUserDn:          association.Attributes.BusinessUserDn,
 					DisableOutboundPayments: association.Attributes.DisableOutboundPayments,
+					SimulatorOnly:           association.Attributes.SimulatorOnly,
+					ReachableBics:           association.Attributes.ReachableBics,
 				},
 			},
 		}))
@@ -204,9 +209,26 @@ func createSepaInstantUpdateAssociationFromResourceData(d *schema.ResourceData) 
 		association.OrganisationID = attr
 	}
 
+	if attr, ok := d.GetOk("bic"); ok {
+		association.Attributes.Bic = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("business_user_dn"); ok {
+		association.Attributes.BusinessUserDn = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("transport_profile_id"); ok {
+		association.Attributes.TransportProfileID = attr.(string)
+	}
+
 	if attr, ok := d.GetOk("disable_outbound_payments"); ok {
 		b := attr.(bool)
 		association.Attributes.DisableOutboundPayments = &b
+	}
+
+	if attr, ok := d.GetOk("simulator_only"); ok {
+		b := attr.(bool)
+		association.Attributes.SimulatorOnly = &b
 	}
 
 	if attr, ok := d.GetOk("reachable_bics"); ok {
