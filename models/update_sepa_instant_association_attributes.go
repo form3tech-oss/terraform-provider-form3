@@ -15,11 +15,23 @@ import (
 // swagger:model UpdateSepaInstantAssociationAttributes
 type UpdateSepaInstantAssociationAttributes struct {
 
+	// bic
+	Bic string `json:"bic,omitempty"`
+
+	// business user dn
+	BusinessUserDn string `json:"business_user_dn,omitempty"`
+
 	// disable outbound payments
 	DisableOutboundPayments *bool `json:"disable_outbound_payments,omitempty"`
 
 	// reachable bics
 	ReachableBics []string `json:"reachable_bics"`
+
+	// simulator only
+	SimulatorOnly *bool `json:"simulator_only,omitempty"`
+
+	// transport profile id
+	TransportProfileID string `json:"transport_profile_id,omitempty"`
 }
 
 // Validate validates this update sepa instant association attributes

@@ -8789,6 +8789,15 @@ definitions:
 
   UpdateSepaInstantAssociationAttributes:
     properties:
+      business_user_dn:
+        type: string
+      transport_profile_id:
+        type: string
+      bic:
+        type: string
+      simulator_only:
+        x-nullable: true
+        type: boolean
       disable_outbound_payments:
         x-nullable: true
         type: boolean
