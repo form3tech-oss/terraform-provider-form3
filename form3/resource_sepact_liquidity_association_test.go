@@ -2,8 +2,11 @@ package form3
 
 import (
 	"fmt"
+	"log"
 	"os"
+	"strings"
 	"testing"
+	"text/template"
 
 	"github.com/go-openapi/strfmt"
 	"github.com/google/uuid"
@@ -15,27 +18,40 @@ import (
 )
 
 func TestAccSepactLiquidityAssociation_basic(t *testing.T) {
-	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
-	directOrgId := uuid.New().String()
-	inDirectOrgId := uuid.New().String()
-	verifyOrgDoesNotExist(t, directOrgId)
-	verifyOrgDoesNotExist(t, inDirectOrgId)
-	type participant struct{ path, organisationId, associationId, bic, iban string }
-	directParticipant := participant{
-		path:           "form3_sepact_liquidity_association.direct_participant_association",
-		organisationId: directOrgId,
-		associationId:  uuid.New().String(),
-		bic:            generateTestBicWithLength(8),
-		iban:           generateRandomIban(),
+	directOrgID := uuid.New().String()
+	indirectOrgID := uuid.New().String()
+	verifyOrgDoesNotExist(t, directOrgID)
+	verifyOrgDoesNotExist(t, indirectOrgID)
+
+	createData := sepactLiquidityAssociationData{
+		ParentOrganisationID: os.Getenv("FORM3_ORGANISATION_ID"),
+		ReachableBIC:         generateTestBicWithLength(11),
+		DirectParticipant: participant{
+			Path:           "form3_sepact_liquidity_association.direct_participant_association",
+			OrganisationID: directOrgID,
+			AssociationID:  uuid.New().String(),
+			BIC:            generateTestBicWithLength(8),
+			IBAN:           generateRandomIban(),
+			Name:           "Direct Participant",
+		},
+		IndirectParticipant: participant{
+			Path:           "form3_sepact_liquidity_association.indirect_participant_association",
+			OrganisationID: indirectOrgID,
+			AssociationID:  uuid.New().String(),
+			BIC:            generateTestBicWithLength(8),
+			IBAN:           generateRandomIban(),
+			Name:           "Indirect Participant",
+		},
 	}
-	indirectParticipant := participant{
-		path:           "form3_sepact_liquidity_association.indirect_participant_association",
-		organisationId: inDirectOrgId,
-		associationId:  uuid.New().String(),
-		bic:            generateTestBicWithLength(8),
-		iban:           generateRandomIban(),
-	}
-	reachableBic := generateTestBicWithLength(11)
+
+	updateData := createData
+	updateData.DirectParticipant.Name = "Updated Direct Participant"
+	updateData.DirectParticipant.BIC = generateTestBicWithLength(8)
+	updateData.DirectParticipant.IBAN = generateRandomIban()
+	updateData.ReachableBIC = generateTestBicWithLength(11)
+	updateData.IndirectParticipant.Name = "Updated Indirect Participant"
+	updateData.IndirectParticipant.BIC = generateTestBicWithLength(8)
+	updateData.IndirectParticipant.IBAN = generateRandomIban()
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -43,42 +59,59 @@ func TestAccSepactLiquidityAssociation_basic(t *testing.T) {
 		CheckDestroy: testAccCheckSepactLiquidityAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: fmt.Sprintf(testForm3SepactLiquidityAssociationConfig,
-					parentOrganisationId,
-					directParticipant.organisationId,
-					indirectParticipant.organisationId,
-					directParticipant.associationId,
-					indirectParticipant.associationId,
-					directParticipant.bic,
-					indirectParticipant.bic,
-					directParticipant.iban,
-					indirectParticipant.iban,
-					reachableBic,
-				),
+				Config: testSepactLiquidityAssociationConfig(createData),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSepactLiquidityAssociationExists(directParticipant.path),
-					resource.TestCheckResourceAttr(directParticipant.path, "association_id", directParticipant.associationId),
-					resource.TestCheckResourceAttr(directParticipant.path, "organisation_id", directParticipant.organisationId),
-					resource.TestCheckResourceAttr(directParticipant.path, "name", "Direct Participant"),
-					resource.TestCheckResourceAttr(directParticipant.path, "settlement_bic", directParticipant.bic),
-					resource.TestCheckResourceAttr(directParticipant.path, "settlement_iban", directParticipant.iban),
-					resource.TestCheckResourceAttr(directParticipant.path, "address_street", "Harp Ln"),
-					resource.TestCheckResourceAttr(directParticipant.path, "address_building_number", "7"),
-					resource.TestCheckResourceAttr(directParticipant.path, "address_city", "London"),
-					resource.TestCheckResourceAttr(directParticipant.path, "address_country", "United Kingdom"),
+					testAccCheckSepactLiquidityAssociationExists(createData.DirectParticipant.Path),
+					resource.TestCheckResourceAttr(createData.DirectParticipant.Path, "association_id", createData.DirectParticipant.AssociationID),
+					resource.TestCheckResourceAttr(createData.DirectParticipant.Path, "organisation_id", createData.DirectParticipant.OrganisationID),
+					resource.TestCheckResourceAttr(createData.DirectParticipant.Path, "name", createData.DirectParticipant.Name),
+					resource.TestCheckResourceAttr(createData.DirectParticipant.Path, "settlement_bic", createData.DirectParticipant.BIC),
+					resource.TestCheckResourceAttr(createData.DirectParticipant.Path, "settlement_iban", createData.DirectParticipant.IBAN),
+					resource.TestCheckResourceAttr(createData.DirectParticipant.Path, "address_street", "Harp Ln"),
+					resource.TestCheckResourceAttr(createData.DirectParticipant.Path, "address_building_number", "7"),
+					resource.TestCheckResourceAttr(createData.DirectParticipant.Path, "address_city", "London"),
+					resource.TestCheckResourceAttr(createData.DirectParticipant.Path, "address_country", "United Kingdom"),
 
-					testAccCheckSepactLiquidityAssociationExists(indirectParticipant.path),
-					resource.TestCheckResourceAttr(indirectParticipant.path, "association_id", indirectParticipant.associationId),
-					resource.TestCheckResourceAttr(indirectParticipant.path, "organisation_id", indirectParticipant.organisationId),
-					resource.TestCheckResourceAttr(indirectParticipant.path, "name", "Indirect Participant"),
-					resource.TestCheckResourceAttr(indirectParticipant.path, "reachable_bic", reachableBic),
-					resource.TestCheckResourceAttr(indirectParticipant.path, "settlement_bic", indirectParticipant.bic),
-					resource.TestCheckResourceAttr(indirectParticipant.path, "settlement_iban", indirectParticipant.iban),
-					resource.TestCheckResourceAttr(indirectParticipant.path, "address_street", "Harp Ln"),
-					resource.TestCheckResourceAttr(indirectParticipant.path, "address_building_number", "7"),
-					resource.TestCheckResourceAttr(indirectParticipant.path, "address_city", "London"),
-					resource.TestCheckResourceAttr(indirectParticipant.path, "address_country", "United Kingdom"),
-					resource.TestCheckResourceAttr(indirectParticipant.path, "direct_participant_id", directParticipant.associationId),
+					testAccCheckSepactLiquidityAssociationExists(createData.IndirectParticipant.Path),
+					resource.TestCheckResourceAttr(createData.IndirectParticipant.Path, "association_id", createData.IndirectParticipant.AssociationID),
+					resource.TestCheckResourceAttr(createData.IndirectParticipant.Path, "organisation_id", createData.IndirectParticipant.OrganisationID),
+					resource.TestCheckResourceAttr(createData.IndirectParticipant.Path, "name", createData.IndirectParticipant.Name),
+					resource.TestCheckResourceAttr(createData.IndirectParticipant.Path, "reachable_bic", createData.ReachableBIC),
+					resource.TestCheckResourceAttr(createData.IndirectParticipant.Path, "settlement_bic", createData.IndirectParticipant.BIC),
+					resource.TestCheckResourceAttr(createData.IndirectParticipant.Path, "settlement_iban", createData.IndirectParticipant.IBAN),
+					resource.TestCheckResourceAttr(createData.IndirectParticipant.Path, "address_street", "Harp Ln"),
+					resource.TestCheckResourceAttr(createData.IndirectParticipant.Path, "address_building_number", "7"),
+					resource.TestCheckResourceAttr(createData.IndirectParticipant.Path, "address_city", "London"),
+					resource.TestCheckResourceAttr(createData.IndirectParticipant.Path, "address_country", "United Kingdom"),
+					resource.TestCheckResourceAttr(createData.IndirectParticipant.Path, "direct_participant_id", createData.DirectParticipant.AssociationID),
+				),
+			},
+			{
+				Config: testSepactLiquidityAssociationConfig(updateData),
+				Check: resource.ComposeTestCheckFunc(
+					testAccCheckSepactLiquidityAssociationExists(updateData.DirectParticipant.Path),
+					resource.TestCheckResourceAttr(updateData.DirectParticipant.Path, "association_id", updateData.DirectParticipant.AssociationID),
+					resource.TestCheckResourceAttr(updateData.DirectParticipant.Path, "organisation_id", updateData.DirectParticipant.OrganisationID),
+					resource.TestCheckResourceAttr(updateData.DirectParticipant.Path, "name", updateData.DirectParticipant.Name),
+					resource.TestCheckResourceAttr(updateData.DirectParticipant.Path, "settlement_bic", updateData.DirectParticipant.BIC),
+					resource.TestCheckResourceAttr(updateData.DirectParticipant.Path, "settlement_iban", updateData.DirectParticipant.IBAN),
+					resource.TestCheckResourceAttr(updateData.DirectParticipant.Path, "address_street", "Harp Ln"),
+					resource.TestCheckResourceAttr(updateData.DirectParticipant.Path, "address_building_number", "7"),
+					resource.TestCheckResourceAttr(updateData.DirectParticipant.Path, "address_city", "London"),
+					resource.TestCheckResourceAttr(updateData.DirectParticipant.Path, "address_country", "United Kingdom"),
+
+					testAccCheckSepactLiquidityAssociationExists(updateData.IndirectParticipant.Path),
+					resource.TestCheckResourceAttr(updateData.IndirectParticipant.Path, "association_id", updateData.IndirectParticipant.AssociationID),
+					resource.TestCheckResourceAttr(updateData.IndirectParticipant.Path, "organisation_id", updateData.IndirectParticipant.OrganisationID),
+					resource.TestCheckResourceAttr(updateData.IndirectParticipant.Path, "name", updateData.IndirectParticipant.Name),
+					resource.TestCheckResourceAttr(updateData.IndirectParticipant.Path, "reachable_bic", updateData.ReachableBIC),
+					resource.TestCheckResourceAttr(updateData.IndirectParticipant.Path, "settlement_bic", updateData.IndirectParticipant.BIC),
+					resource.TestCheckResourceAttr(updateData.IndirectParticipant.Path, "settlement_iban", updateData.IndirectParticipant.IBAN),
+					resource.TestCheckResourceAttr(updateData.IndirectParticipant.Path, "address_street", "Harp Ln"),
+					resource.TestCheckResourceAttr(updateData.IndirectParticipant.Path, "address_building_number", "7"),
+					resource.TestCheckResourceAttr(updateData.IndirectParticipant.Path, "address_city", "London"),
+					resource.TestCheckResourceAttr(updateData.IndirectParticipant.Path, "address_country", "United Kingdom"),
+					resource.TestCheckResourceAttr(updateData.IndirectParticipant.Path, "direct_participant_id", updateData.DirectParticipant.AssociationID),
 				),
 			},
 		},
@@ -136,38 +169,35 @@ func testAccCheckSepactLiquidityAssociationExists(resourceKey string) resource.T
 	}
 }
 
-const testForm3SepactLiquidityAssociationConfig = `
-locals {
-    parent_organisation_id               = "%s"
-	direct_participant_organisation_id   = "%s"
-	indirect_participant_organisation_id = "%s"
-	direct_participant_association_id    = "%s"
-	indirect_participant_association_id  = "%s"
-    direct_participant_bic               = "%s"
-    indirect_participant_bic             = "%s"
-    direct_participant_iban              = "%s"
-    indirect_participant_iban            = "%s"
-	reachable_bic                        = "%s"
+type participant struct{ Path, OrganisationID, AssociationID, BIC, IBAN, Name string }
+type sepactLiquidityAssociationData struct {
+	ParentOrganisationID                   string
+	ReachableBIC                           string
+	DirectParticipant, IndirectParticipant participant
 }
 
+func testSepactLiquidityAssociationConfig(data sepactLiquidityAssociationData) string {
+	var sb strings.Builder
+
+	err := template.Must(template.New("sepact-liquidity.tf").Parse(`
 resource "form3_organisation" "direct_participant" {
-	organisation_id        = "${local.direct_participant_organisation_id}"
-	parent_organisation_id = "${local.parent_organisation_id}"
+	organisation_id        = "{{ .DirectParticipant.OrganisationID }}"
+	parent_organisation_id = "{{ .ParentOrganisationID }}"
 	name 		           = "terraform direct participant organisation"
 }
 
 resource "form3_organisation" "indirect_participant" {
-	organisation_id        = "${local.indirect_participant_organisation_id}"
-	parent_organisation_id = "${local.parent_organisation_id}"
+	organisation_id        = "{{ .IndirectParticipant.OrganisationID }}"
+	parent_organisation_id = "{{ .ParentOrganisationID }}"
 	name 		           = "terraform indirect participant organisation"
 }
 
 resource "form3_sepact_liquidity_association" "direct_participant_association" {
 	organisation_id         = "${form3_organisation.direct_participant.organisation_id}"
-	association_id          = "${local.direct_participant_association_id}"
-	name                    = "Direct Participant"
-    settlement_bic          = "${local.direct_participant_bic}"
-    settlement_iban         = "${local.direct_participant_iban}"
+	association_id          = "{{ .DirectParticipant.AssociationID }}"
+	name                    = "{{ .DirectParticipant.Name }}"
+    settlement_bic          = "{{ .DirectParticipant.BIC }}"
+    settlement_iban         = "{{ .DirectParticipant.IBAN }}"
 	address_street          = "Harp Ln"
 	address_building_number = "7"
 	address_city            = "London"
@@ -176,15 +206,21 @@ resource "form3_sepact_liquidity_association" "direct_participant_association" {
 
 resource "form3_sepact_liquidity_association" "indirect_participant_association" {
 	organisation_id         = "${form3_organisation.indirect_participant.organisation_id}"
-	association_id          = "${local.indirect_participant_association_id}"
-	name                    = "Indirect Participant"
-    reachable_bic           = "${local.reachable_bic}"
-    settlement_bic          = "${local.indirect_participant_bic}"
-    settlement_iban         = "${local.indirect_participant_iban}"
+	association_id          = "{{ .IndirectParticipant.AssociationID }}"
+	name                    = "{{ .IndirectParticipant.Name }}"
+    reachable_bic           = "{{ .ReachableBIC }}"
+    settlement_bic          = "{{ .IndirectParticipant.BIC }}"
+    settlement_iban         = "{{ .IndirectParticipant.IBAN }}"
 	address_street          = "Harp Ln"
 	address_building_number = "7"
 	address_city            = "London"
 	address_country         = "United Kingdom"
 	direct_participant_id   = "${form3_sepact_liquidity_association.direct_participant_association.association_id}"
 }
-`
+`)).Execute(&sb, data)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return sb.String()
+}
