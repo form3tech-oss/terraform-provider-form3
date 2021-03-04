@@ -17,6 +17,7 @@ func resourceForm3SepactLiquidityAssociation() *schema.Resource {
 		Create: resourceSepactLiquidityAssociationCreate,
 		Read:   resourceSepactLiquidityAssociationRead,
 		Delete: resourceSepactLiquidityAssociationDelete,
+		Update: resourceSepactLiquidityAssociationUpdate,
 		Schema: map[string]*schema.Schema{
 			"association_id": {
 				Type:     schema.TypeString,
@@ -31,51 +32,144 @@ func resourceForm3SepactLiquidityAssociation() *schema.Resource {
 			"name": {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
+				ForceNew: false,
 			},
 			"reachable_bic": {
 				Type:     schema.TypeString,
 				Optional: true,
-				ForceNew: true,
+				ForceNew: false,
 			},
 			"settlement_bic": {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
+				ForceNew: false,
 			},
 			"settlement_iban": {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
+				ForceNew: false,
 			},
 			"address_street": {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
+				ForceNew: false,
 			},
 			"address_building_number": {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
+				ForceNew: false,
 			},
 			"address_city": {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
+				ForceNew: false,
 			},
 			"address_country": {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
+				ForceNew: false,
 			},
 			"direct_participant_id": {
 				Type:     schema.TypeString,
 				Optional: true,
-				ForceNew: true,
+				ForceNew: false,
 				Default:  "",
 			},
 		},
 	}
+}
+
+func resourceSepactLiquidityAssociationUpdate(d *schema.ResourceData, meta interface{}) error {
+	client := meta.(*form3.AuthenticatedClient)
+
+	association, err := createSepactLiquidityUpdateAssociationFromResourceData(d)
+	if err != nil {
+		return fmt.Errorf("failed to create update for sepact-liquidity association: %s", form3.JsonErrorPrettyPrint(err))
+	}
+
+	existingAssociation, err := client.AssociationClient.Associations.GetSepactLiquidityAssociationID(associations.NewGetSepactLiquidityAssociationIDParams().
+		WithAssociationID(association.ID))
+	if err != nil {
+		return fmt.Errorf("error fetching sepact-liquidity association: %s", form3.JsonErrorPrettyPrint(err))
+	}
+
+	if existingAssociation == nil || existingAssociation.Payload == nil {
+		return fmt.Errorf("sepact-liquidity association with id %s is nil or has a nil payload", association.ID)
+	}
+
+	association.Version = existingAssociation.Payload.Data.Version
+
+	_, err = client.AssociationClient.Associations.PatchSepactLiquidityAssociationID(associations.NewPatchSepactLiquidityAssociationIDParams().
+		WithAssociationID(association.ID).
+		WithUpdateRequest(&models.SepactLiquidityAssociationUpdate{
+			Data: association,
+		}))
+
+	if err != nil {
+		return fmt.Errorf("failed to update sepact-liquidity association: %s", form3.JsonErrorPrettyPrint(err))
+	}
+
+	return nil
+}
+
+func createSepactLiquidityUpdateAssociationFromResourceData(d *schema.ResourceData) (*models.SepactLiquidityUpdateAssociation, error) {
+	association := models.SepactLiquidityUpdateAssociation{
+		Attributes: &models.SepactLiquidityAssociationAttributes{},
+		Type:       models.SepactLiquidityAssociationTypeSepactLiquidityAssociations,
+	}
+
+	if attr, ok := GetUUIDOK(d, "association_id"); ok {
+		association.ID = attr
+	}
+
+	if attr, ok := GetUUIDOK(d, "organisation_id"); ok {
+		association.OrganisationID = attr
+	}
+
+	if attr, ok := d.GetOk("name"); ok {
+		association.Attributes.Name = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("reachable_bic"); ok {
+		association.Attributes.ReachableBic = models.Bic11(attr.(string))
+	}
+
+	if attr, ok := d.GetOk("settlement_bic"); ok {
+		association.Attributes.SettlementBic = models.Bic8(attr.(string))
+	}
+
+	if attr, ok := d.GetOk("settlement_iban"); ok {
+		association.Attributes.SettlementIban = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("address_street"); ok {
+		association.Attributes.Address.Street = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("address_building_number"); ok {
+		association.Attributes.Address.BuildingNumber = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("address_city"); ok {
+		association.Attributes.Address.City = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("address_country"); ok {
+		association.Attributes.Address.Country = attr.(string)
+	}
+
+	if attr, ok := GetUUIDOK(d, "direct_participant_id"); ok {
+		association.Relationships = &models.SepactLiquidityAssociationRelationships{
+			DirectParticipant: models.SepactLiquidityAssociationRelationshipsDirectParticipant{
+				Data: models.SepactLiquidityRelationshipData{
+					ID:   attr,
+					Type: models.SepactLiquidityAssociationTypeSepactLiquidityAssociations,
+				},
+			},
+		}
+	}
+
+	return &association, nil
 }
 
 func resourceSepactLiquidityAssociationCreate(d *schema.ResourceData, meta interface{}) error {

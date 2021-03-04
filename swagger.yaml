@@ -7099,6 +7099,45 @@ paths:
           $ref: "#/responses/500InternalServerError"
         503:
           $ref: "#/responses/503ServiceUnavailable"
+    patch:
+      summary: Patch SCT Liquidity service association
+      tags:
+        - Associations
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: associationId
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+        - name: update request
+          in: body
+          schema:
+            $ref: "#/definitions/SepactLiquidityAssociationUpdate"
+      responses:
+        200:
+          description: Associations details
+          schema:
+            $ref: "#/definitions/SepactLiquidityAssociationDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
     delete:
       summary: Delete SCT Liquidity service association
       tags:
@@ -13408,6 +13447,43 @@ definitions:
     properties:
       data:
         $ref: '#/definitions/SepactLiquidityNewAssociation'
+
+  SepactLiquidityUpdateAssociation:
+    type: object
+    required:
+      - id
+      - version
+      - organisation_id
+      - type
+      - attributes
+    properties:
+      type:
+        type: string
+        enum:
+          - reconciliation_associations
+        x-nullable: false
+      id:
+        type: string
+        format: uuid
+        x-nullable: false
+      organisation_id:
+        type: string
+        format: uuid
+        x-nullable: false
+      version:
+        type: integer
+        minimum: 0
+        x-nullable: true
+      attributes:
+        $ref: "#/definitions/SepactLiquidityAssociationAttributes"
+      relationships:
+        $ref: "#/definitions/SepactLiquidityAssociationRelationships"
+
+  SepactLiquidityAssociationUpdate:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/SepactLiquidityUpdateAssociation'
 
   SepactLiquidityAssociationDetailsResponse:
     type: object
