@@ -50,13 +50,13 @@ func resourceForm3SepaInstantAssociation() *schema.Resource {
 			"simulator_only": {
 				Type:     schema.TypeBool,
 				Optional: true,
-				ForceNew: true,
+				ForceNew: false,
 				Default:  false,
 			},
 			"sponsor_id": {
 				Type:     schema.TypeString,
 				Optional: true,
-				ForceNew: true,
+				ForceNew: false,
 				Default:  "",
 			},
 			"disable_outbound_payments": {
