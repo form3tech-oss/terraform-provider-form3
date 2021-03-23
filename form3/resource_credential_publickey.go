@@ -1,6 +1,10 @@
 package form3
 
 import (
+	"crypto/x509"
+	"encoding/pem"
+	"github.com/hashicorp/terraform-plugin-sdk/terraform"
+	"golang.org/x/crypto/ssh"
 	"fmt"
 	"log"
 	"strings"
@@ -41,6 +45,11 @@ func resourceForm3CredentialPublicKey() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
+			},
+			"public_key_fingerprint": &schema.Schema{
+				Type:     schema.TypeString,
+				Required: false,
+				ForceNew: false,
 			},
 		},
 	}
@@ -140,8 +149,43 @@ func createCredentialPublicKeyFromResourceData(d *schema.ResourceData) (*models.
 	}
 
 	if attr, ok := d.GetOk("public_key"); ok {
-		publicKey.Attributes.PublicKey = attr.(string)
+		keyString := attr.(string)
+
+		// we only want to verify fingerprint when its specified with key
+		// it is not required
+		// the fingerprint is not added in to the external state
+		if fingerprint, ok := d.GetOk("public_key_fingerprint"); ok {
+			fingerprintCalculated, err := calculatePublicKeyFingerprint(keyString)
+			if err != nil {
+				return nil, err
+			}
+
+			if fingerprint != fingerprintCalculated {
+				return nil, fmt.Errorf("the provided key doesn't match the fingerprint")
+			}
+		}
+
+		publicKey.Attributes.PublicKey = keyString
 	}
 
 	return &publicKey, nil
+}
+
+func calculatePublicKeyFingerprint(key string) (string, error) {
+	byteKey, _ := pem.Decode([]byte(key))
+
+	var rawKey interface{}
+	var err error
+	rawKey, err = x509.ParsePKIXPublicKey(byteKey.Bytes)
+	if err != nil {
+		return "", fmt.Errorf("error when parsing the public key - %s", err)
+	}
+
+	var sshPublicKey ssh.PublicKey
+	sshPublicKey, err = ssh.NewPublicKey(rawKey)
+	if err != nil {
+		return "", fmt.Errorf("error when calculating fingerprint of the key - %s", err)
+	}
+
+	return ssh.FingerprintLegacyMD5(sshPublicKey), nil
 }
