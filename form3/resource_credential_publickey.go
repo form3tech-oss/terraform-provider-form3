@@ -1,10 +1,10 @@
 package form3
 
 import (
+	"crypto/md5"
 	"crypto/x509"
+	"encoding/hex"
 	"encoding/pem"
-	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	"golang.org/x/crypto/ssh"
 	"fmt"
 	"log"
 	"strings"
@@ -48,8 +48,8 @@ func resourceForm3CredentialPublicKey() *schema.Resource {
 			},
 			"public_key_fingerprint": &schema.Schema{
 				Type:     schema.TypeString,
-				Required: false,
-				ForceNew: false,
+				Optional: true,
+				ForceNew: true,
 			},
 		},
 	}
@@ -151,17 +151,17 @@ func createCredentialPublicKeyFromResourceData(d *schema.ResourceData) (*models.
 	if attr, ok := d.GetOk("public_key"); ok {
 		keyString := attr.(string)
 
+		if err := checkIfKeyIsValid(keyString); err != nil {
+			return nil, fmt.Errorf("the provided key is malformed and couldnt be parsed");
+		}
+
 		// we only want to verify fingerprint when its specified with key
 		// it is not required
 		// the fingerprint is not added in to the external state
 		if fingerprint, ok := d.GetOk("public_key_fingerprint"); ok {
-			fingerprintCalculated, err := calculatePublicKeyFingerprint(keyString)
-			if err != nil {
-				return nil, err
-			}
-
+			fingerprintCalculated := calculatePublicKeyFingerprint(keyString)
 			if fingerprint != fingerprintCalculated {
-				return nil, fmt.Errorf("the provided key doesn't match the fingerprint")
+				return nil, fmt.Errorf("the provided key doesn't match the fingerprint expected: '%s' got: '%s'", fingerprint, fingerprintCalculated)
 			}
 		}
 
@@ -171,21 +171,24 @@ func createCredentialPublicKeyFromResourceData(d *schema.ResourceData) (*models.
 	return &publicKey, nil
 }
 
-func calculatePublicKeyFingerprint(key string) (string, error) {
+//TODO: dont throw panic here - graceful validation?
+func checkIfKeyIsValid(key string) error {
 	byteKey, _ := pem.Decode([]byte(key))
 
-	var rawKey interface{}
 	var err error
-	rawKey, err = x509.ParsePKIXPublicKey(byteKey.Bytes)
+	_, err = x509.ParsePKIXPublicKey(byteKey.Bytes)
 	if err != nil {
-		return "", fmt.Errorf("error when parsing the public key - %s", err)
+		return fmt.Errorf("error when parsing the public key - %s", err)
 	}
 
-	var sshPublicKey ssh.PublicKey
-	sshPublicKey, err = ssh.NewPublicKey(rawKey)
-	if err != nil {
-		return "", fmt.Errorf("error when calculating fingerprint of the key - %s", err)
-	}
+	return nil
+}
 
-	return ssh.FingerprintLegacyMD5(sshPublicKey), nil
+func calculatePublicKeyFingerprint(key string) string {
+	md5sum := md5.Sum([]byte(key))
+	hexArray := make([]string, len(md5sum))
+	for i, c := range md5sum {
+		hexArray[i] = hex.EncodeToString([]byte{c})
+	}
+	return strings.Join(hexArray, ":")
 }
