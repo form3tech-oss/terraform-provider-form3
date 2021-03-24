@@ -152,7 +152,7 @@ func createCredentialPublicKeyFromResourceData(d *schema.ResourceData) (*models.
 		keyString := attr.(string)
 
 		if err := checkIfKeyIsValid(keyString); err != nil {
-			return nil, fmt.Errorf("the provided key is malformed and couldnt be parsed : %s", err);
+			return nil, fmt.Errorf("the provided key is malformed and couldnt be parsed : %s", err)
 		}
 
 		// we only want to verify fingerprint when its specified with key

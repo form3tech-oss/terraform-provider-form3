@@ -140,7 +140,7 @@ func TestAccCredentialPublicKey_fingerprint_invalid(t *testing.T) {
 			// AND this key fingerprint is invalid
 			// Then I should an error message and key should be added to state
 			{
-				Config: fmt.Sprintf(testForm3CredentialPublicKeyInValidFingerprint, organisationID, roleID, organisationID, userID, publicKeyID),
+				Config:      fmt.Sprintf(testForm3CredentialPublicKeyInValidFingerprint, organisationID, roleID, organisationID, userID, publicKeyID),
 				ExpectError: regexp.MustCompile("the provided key doesn't match the fingerprint expected: 'bb:71:0e:71:15:d1:08:0b:bd:96:fa:d9:ff:e8:a6:d3' got: '45:ec:75:7f:08:b9:7a:9a:da:59:04:94:53:9b:f9:08"),
 			},
 		},
@@ -163,7 +163,7 @@ func TestAccCredentialPublicKey_invalid_key(t *testing.T) {
 			// AND this key is malformed
 			// Then I should an error message
 			{
-				Config: fmt.Sprintf(testForm3CredentialPublicKeyInValidKey, organisationID, roleID, organisationID, userID, publicKeyID),
+				Config:      fmt.Sprintf(testForm3CredentialPublicKeyInValidKey, organisationID, roleID, organisationID, userID, publicKeyID),
 				ExpectError: regexp.MustCompile("the provided key is malformed and couldnt be parsed"),
 			},
 		},
