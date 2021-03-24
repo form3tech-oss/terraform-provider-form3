@@ -152,7 +152,7 @@ func createCredentialPublicKeyFromResourceData(d *schema.ResourceData) (*models.
 		keyString := attr.(string)
 
 		if err := checkIfKeyIsValid(keyString); err != nil {
-			return nil, fmt.Errorf("the provided key is malformed and couldnt be parsed");
+			return nil, fmt.Errorf("the provided key is malformed and couldnt be parsed : %s", err);
 		}
 
 		// we only want to verify fingerprint when its specified with key
@@ -171,17 +171,21 @@ func createCredentialPublicKeyFromResourceData(d *schema.ResourceData) (*models.
 	return &publicKey, nil
 }
 
-//TODO: dont throw panic here - graceful validation?
 func checkIfKeyIsValid(key string) error {
-	byteKey, _ := pem.Decode([]byte(key))
-
-	var err error
-	_, err = x509.ParsePKIXPublicKey(byteKey.Bytes)
-	if err != nil {
-		return fmt.Errorf("error when parsing the public key - %s", err)
+	verifyKey := func(key string) (err error) {
+		defer func() {
+			if r := recover(); r != nil {
+				err = fmt.Errorf("panic when parsing the key - key malformed")
+			}
+		}()
+		byteKey, _ := pem.Decode([]byte(key))
+		_, err = x509.ParsePKIXPublicKey(byteKey.Bytes)
+		return err
 	}
 
-	return nil
+	err := verifyKey(key)
+
+	return err
 }
 
 func calculatePublicKeyFingerprint(key string) string {
