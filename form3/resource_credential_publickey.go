@@ -1,6 +1,10 @@
 package form3
 
 import (
+	"crypto/md5"
+	"crypto/x509"
+	"encoding/hex"
+	"encoding/pem"
 	"fmt"
 	"log"
 	"strings"
@@ -40,6 +44,11 @@ func resourceForm3CredentialPublicKey() *schema.Resource {
 			"public_key": &schema.Schema{
 				Type:     schema.TypeString,
 				Required: true,
+				ForceNew: true,
+			},
+			"public_key_fingerprint": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
 				ForceNew: true,
 			},
 		},
@@ -140,8 +149,50 @@ func createCredentialPublicKeyFromResourceData(d *schema.ResourceData) (*models.
 	}
 
 	if attr, ok := d.GetOk("public_key"); ok {
-		publicKey.Attributes.PublicKey = attr.(string)
+		keyString := attr.(string)
+
+		if err := checkIfKeyIsValid(keyString); err != nil {
+			return nil, fmt.Errorf("the provided key is malformed and couldnt be parsed : %s", err)
+		}
+
+		// we only want to verify fingerprint when its specified with key
+		// it is not required
+		// the fingerprint is not added in to the external state
+		if fingerprint, ok := d.GetOk("public_key_fingerprint"); ok {
+			fingerprintCalculated := calculatePublicKeyFingerprint(keyString)
+			if fingerprint != fingerprintCalculated {
+				return nil, fmt.Errorf("the provided key doesn't match the fingerprint expected: '%s' got: '%s'", fingerprint, fingerprintCalculated)
+			}
+		}
+
+		publicKey.Attributes.PublicKey = keyString
 	}
 
 	return &publicKey, nil
+}
+
+func checkIfKeyIsValid(key string) error {
+	verifyKey := func(key string) (err error) {
+		defer func() {
+			if r := recover(); r != nil {
+				err = fmt.Errorf("panic when parsing the key - key malformed")
+			}
+		}()
+		byteKey, _ := pem.Decode([]byte(key))
+		_, err = x509.ParsePKIXPublicKey(byteKey.Bytes)
+		return err
+	}
+
+	err := verifyKey(key)
+
+	return err
+}
+
+func calculatePublicKeyFingerprint(key string) string {
+	md5sum := md5.Sum([]byte(key))
+	hexArray := make([]string, len(md5sum))
+	for i, c := range md5sum {
+		hexArray[i] = hex.EncodeToString([]byte{c})
+	}
+	return strings.Join(hexArray, ":")
 }
