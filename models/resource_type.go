@@ -34,6 +34,9 @@ const (
 
 	// ResourceTypeSepaddAssociations captures enum value "sepadd_associations"
 	ResourceTypeSepaddAssociations ResourceType = "sepadd_associations"
+
+	// ResourceTypeSwiftAssociations captures enum value "swift_associations"
+	ResourceTypeSwiftAssociations ResourceType = "swift_associations"
 )
 
 // for schema
@@ -41,7 +44,7 @@ var resourceTypeEnum []interface{}
 
 func init() {
 	var res []ResourceType
-	if err := json.Unmarshal([]byte(`["payport_associations","limits","bacs_associations","confirmation_of_payee_associations","sepadd_associations"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["payport_associations","limits","bacs_associations","confirmation_of_payee_associations","sepadd_associations","swift_associations"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {

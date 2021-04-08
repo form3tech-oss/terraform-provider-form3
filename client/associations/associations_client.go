@@ -57,6 +57,8 @@ type ClientService interface {
 
 	DeleteStarlingID(params *DeleteStarlingIDParams) (*DeleteStarlingIDNoContent, error)
 
+	DeleteSwiftID(params *DeleteSwiftIDParams) (*DeleteSwiftIDNoContent, error)
+
 	DeleteVocalinkreportID(params *DeleteVocalinkreportIDParams) (*DeleteVocalinkreportIDNoContent, error)
 
 	GetBacs(params *GetBacsParams) (*GetBacsOK, error)
@@ -119,6 +121,10 @@ type ClientService interface {
 
 	GetStarlingID(params *GetStarlingIDParams) (*GetStarlingIDOK, error)
 
+	GetSwift(params *GetSwiftParams) (*GetSwiftOK, error)
+
+	GetSwiftID(params *GetSwiftIDParams) (*GetSwiftIDOK, error)
+
 	GetVocalinkreport(params *GetVocalinkreportParams) (*GetVocalinkreportOK, error)
 
 	GetVocalinkreportID(params *GetVocalinkreportIDParams) (*GetVocalinkreportIDOK, error)
@@ -132,6 +138,8 @@ type ClientService interface {
 	PatchSepaddID(params *PatchSepaddIDParams) (*PatchSepaddIDOK, error)
 
 	PatchSepainstantID(params *PatchSepainstantIDParams) (*PatchSepainstantIDOK, error)
+
+	PatchSwiftID(params *PatchSwiftIDParams) (*PatchSwiftIDOK, error)
 
 	PostBacs(params *PostBacsParams) (*PostBacsCreated, error)
 
@@ -162,6 +170,8 @@ type ClientService interface {
 	PostSepasct(params *PostSepasctParams) (*PostSepasctCreated, error)
 
 	PostStarling(params *PostStarlingParams) (*PostStarlingCreated, error)
+
+	PostSwift(params *PostSwiftParams) (*PostSwiftCreated, error)
 
 	PostVocalinkreport(params *PostVocalinkreportParams) (*PostVocalinkreportCreated, error)
 
@@ -675,6 +685,40 @@ func (a *Client) DeleteStarlingID(params *DeleteStarlingIDParams) (*DeleteStarli
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for DeleteStarlingID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DeleteSwiftID deletes organisation s w i f t association
+*/
+func (a *Client) DeleteSwiftID(params *DeleteSwiftIDParams) (*DeleteSwiftIDNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteSwiftIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteSwiftID",
+		Method:             "DELETE",
+		PathPattern:        "/swift/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteSwiftIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteSwiftIDNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteSwiftID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -1733,6 +1777,74 @@ func (a *Client) GetStarlingID(params *GetStarlingIDParams) (*GetStarlingIDOK, e
 }
 
 /*
+  GetSwift lists all organisation s w i f t associations
+*/
+func (a *Client) GetSwift(params *GetSwiftParams) (*GetSwiftOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetSwiftParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetSwift",
+		Method:             "GET",
+		PathPattern:        "/swift",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetSwiftReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetSwiftOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetSwift: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetSwiftID fetches organisation s w i f t association
+*/
+func (a *Client) GetSwiftID(params *GetSwiftIDParams) (*GetSwiftIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetSwiftIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetSwiftID",
+		Method:             "GET",
+		PathPattern:        "/swift/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetSwiftIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetSwiftIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetSwiftID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   GetVocalinkreport lists all organisation associations
 */
 func (a *Client) GetVocalinkreport(params *GetVocalinkreportParams) (*GetVocalinkreportOK, error) {
@@ -1967,6 +2079,40 @@ func (a *Client) PatchSepainstantID(params *PatchSepainstantIDParams) (*PatchSep
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for PatchSepainstantID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  PatchSwiftID patches organisation s w i f t association
+*/
+func (a *Client) PatchSwiftID(params *PatchSwiftIDParams) (*PatchSwiftIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPatchSwiftIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PatchSwiftID",
+		Method:             "PATCH",
+		PathPattern:        "/swift/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PatchSwiftIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PatchSwiftIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PatchSwiftID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -2477,6 +2623,40 @@ func (a *Client) PostStarling(params *PostStarlingParams) (*PostStarlingCreated,
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for PostStarling: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  PostSwift creates organisation s w i f t association
+*/
+func (a *Client) PostSwift(params *PostSwiftParams) (*PostSwiftCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostSwiftParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostSwift",
+		Method:             "POST",
+		PathPattern:        "/swift",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PostSwiftReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PostSwiftCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostSwift: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
