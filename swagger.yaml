@@ -6809,6 +6809,177 @@ paths:
           $ref: "#/responses/503ServiceUnavailable"
   #reconciliation_service stop
 
+  /swift:
+    post:
+      summary: Create organisation SWIFT association
+      tags:
+        - Associations
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: creation request
+          in: body
+          schema:
+            $ref: "#/definitions/SwiftAssociationCreation"
+      responses:
+        201:
+          description: creation response
+          schema:
+            $ref: "#/definitions/SwiftAssociationCreationResponse"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ApiError"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/ApiError"
+        409:
+          description: Conflict
+          schema:
+            $ref: "#/definitions/ApiError"
+
+    get:
+      summary: List all organisation SWIFT associations
+      tags:
+        - Associations
+      parameters:
+        - name: filter[organisation_id]
+          in: query
+          description: Organisation id
+          required: false
+          type: array
+          items:
+            type: string
+            format: uuid
+        - name: page[number]
+          in: query
+          description: Which page to select
+          required: false
+          type: string
+          minimum: 0
+          pattern: "$[A-z0-9]{4}^"
+        - name: page[size]
+          in: query
+          description: Number of items to select
+          required: false
+          type: integer
+          minimum: 0
+          maximum: 1000
+
+      responses:
+        200:
+          description: List of associations
+          schema:
+            $ref: "#/definitions/SwiftAssociationDetailsListResponse"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ApiError"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/ApiError"
+
+  /swift/{id}:
+    get:
+      summary: Fetch organisation SWIFT association
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Associations details
+          schema:
+            $ref: "#/definitions/SwiftAssociationDetailsResponse"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ApiError"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/ApiError"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/ApiError"
+
+    patch:
+      summary: Patch organisation SWIFT association
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+        - name: payload
+          in: body
+          description: Association Patch payload
+          required: true
+          schema:
+            $ref: '#/definitions/SwiftAssociationPatch'
+      responses:
+        200:
+          description: Associations details
+          schema:
+            $ref: "#/definitions/SwiftAssociationDetailsResponse"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ApiError"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/ApiError"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/ApiError"
+
+    delete:
+      summary: Delete organisation SWIFT association
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+      responses:
+        204:
+          description: Association deleted
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ApiError"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/ApiError"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/ApiError"
+
   /sepadd:
     post:
       summary: Create organisation association for sepa dd
@@ -8257,6 +8428,7 @@ definitions:
       - bacs_associations
       - confirmation_of_payee_associations
       - sepadd_associations
+      - swift_associations
 
   LimitCreation:
     type: object
@@ -13213,6 +13385,137 @@ definitions:
 
 
   #reconciliation_service stop
+
+  SwiftAssociation:
+    type: object
+    properties:
+      type:
+        type: string
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      created_on:
+        type: string
+        format: date-time
+        readOnly: true
+      modified_on:
+        type: string
+        format: date-time
+        readOnly: true
+      attributes:
+        $ref: "#/definitions/SwiftAssociationAttributes"
+
+  SwiftNewAssociation:
+    type: object
+    required:
+      - id
+      - organisation_id
+      - type
+      - attributes
+    properties:
+      type:
+        type: string
+        enum:
+          - swift_associations
+        x-nullable: false
+      id:
+        type: string
+        format: uuid
+        x-nullable: false
+      organisation_id:
+        type: string
+        format: uuid
+        x-nullable: false
+      attributes:
+        $ref: "#/definitions/SwiftAssociationAttributes"
+
+  SwiftAssociationAttributes:
+    type: object
+    required:
+      - bic
+    properties:
+      bic:
+        type: string
+        x-nullable: false
+        minLength: 1
+
+  SwiftAssociationCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/SwiftNewAssociation'
+
+  SwiftAssociationCreationResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/SwiftAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+  SwiftAssociationDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/SwiftAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+  SwiftAssociationPatch:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/SwiftUpdateAssociation'
+
+  SwiftUpdateAssociation:
+    type: object
+    required:
+      - id
+      - type
+      - organisation_id
+      - attributes
+    properties:
+      id:
+        type: string
+        format: uuid
+        x-nullable: false
+      type:
+        type: string
+        enum:
+          - swift_associations
+        x-nullable: false
+      version:
+        type: integer
+        minimum: 0
+        x-nullable: false
+      organisation_id:
+        type: string
+        format: uuid
+        x-nullable: false
+      attributes:
+        $ref: '#/definitions/SwiftUpdateAssociationAttributes'
+
+  SwiftUpdateAssociationAttributes:
+    properties:
+      bic:
+        type: string
+        minLength: 1
+
+  SwiftAssociationDetailsListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/SwiftAssociation'
+      links:
+        $ref: '#/definitions/Links'
 
   SepaDDAssociation:
     type: object
