@@ -15,6 +15,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
 )
 
+// TODO: Make sure tests are correct
+
 func TestAccSepaInstantAssociation_basic(t *testing.T) {
 	parentOrganisationId := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationId := uuid.New().String()
@@ -51,6 +53,7 @@ func TestAccSepaInstantAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "bic", bic),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "simulator_only", "true"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "disable_outbound_payments", "false"),
+					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "enable_customer_admission_decision", "false"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "sponsor_id", ""),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association_sponsored", "association_id", sponsoredAssociationId),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association_sponsored", "organisation_id", sponsoredOrganisationId),
@@ -75,6 +78,7 @@ func TestAccSepaInstantAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "bic", bic2),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "simulator_only", "true"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "disable_outbound_payments", "true"),
+					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "enable_customer_admission_decision", "true"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "sponsor_id", ""),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association_sponsored", "reachable_bics.#", "2"),
 				),
@@ -201,13 +205,14 @@ resource "form3_organisation" "organisation" {
 }
 
 resource "form3_sepainstant_association" "association" {
-	organisation_id           = "${form3_organisation.organisation.organisation_id}"
-	association_id            = "${local.association_id}"
-  	business_user_dn          = "cn=${lower(local.bic)},ou=pilot,ou=eba_ips,o=88331,dc=sianet,dc=sia,dc=eu"
-  	transport_profile_id      = "TEST_PROFILE_2"
-	bic                       = "${local.bic}"
-	simulator_only            = true
-	disable_outbound_payments = true
+	organisation_id                    = "${form3_organisation.organisation.organisation_id}"
+	association_id                     = "${local.association_id}"
+  	business_user_dn                   = "cn=${lower(local.bic)},ou=pilot,ou=eba_ips,o=88331,dc=sianet,dc=sia,dc=eu"
+  	transport_profile_id               = "TEST_PROFILE_2"
+	bic                                = "${local.bic}"
+	simulator_only                     = true
+	disable_outbound_payments          = true
+    enable_customer_admission_decision = tue
 }
 
 resource "form3_organisation" "organisation_sponsored" {

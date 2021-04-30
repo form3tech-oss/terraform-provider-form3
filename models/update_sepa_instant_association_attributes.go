@@ -24,6 +24,9 @@ type UpdateSepaInstantAssociationAttributes struct {
 	// disable outbound payments
 	DisableOutboundPayments *bool `json:"disable_outbound_payments,omitempty"`
 
+	// enable customer admission decision
+	EnableCustomerAdmissionDecision *bool `json:"enable_customer_admission_decision,omitempty"`
+
 	// reachable bics
 	ReachableBics []string `json:"reachable_bics"`
 

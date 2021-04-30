@@ -73,6 +73,12 @@ func resourceForm3SepaInstantAssociation() *schema.Resource {
 				Optional: true,
 				ForceNew: false,
 			},
+			"enable_customer_admission_decision": {
+				Type:     schema.TypeBool,
+				Optional: true,
+				ForceNew: false,
+				Default:  false,
+			},
 		},
 	}
 }
@@ -226,6 +232,11 @@ func createSepaInstantUpdateAssociationFromResourceData(d *schema.ResourceData) 
 		association.Attributes.DisableOutboundPayments = &b
 	}
 
+	if attr, ok := d.GetOk("enable_customer_admission_decision"); ok {
+		b := attr.(bool)
+		association.Attributes.EnableCustomerAdmissionDecision = &b
+	}
+
 	if attr, ok := d.GetOk("simulator_only"); ok {
 		b := attr.(bool)
 		association.Attributes.SimulatorOnly = &b
@@ -276,6 +287,11 @@ func createSepaInstantNewAssociationFromResourceData(d *schema.ResourceData) (*m
 	if attr, ok := d.GetOk("disable_outbound_payments"); ok {
 		b := attr.(bool)
 		association.Attributes.DisableOutboundPayments = &b
+	}
+
+	if attr, ok := d.GetOk("enable_customer_admission_decision"); ok {
+		b := attr.(bool)
+		association.Attributes.EnableCustomerAdmissionDecision = &b
 	}
 
 	if attr, ok := GetUUIDOK(d, "sponsor_id"); ok {
