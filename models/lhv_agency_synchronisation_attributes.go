@@ -34,6 +34,10 @@ type LhvAgencySynchronisationAttributes struct {
 	// Required: true
 	// Pattern: ^[A-Z]{2}$
 	Country string `json:"country"`
+
+	// Master IBAN
+	// Pattern: ^[A-Z]{2}[0-9]{2}[A-Z0-9]{0,64}$
+	Iban string `json:"iban,omitempty"`
 }
 
 // Validate validates this lhv agency synchronisation attributes
@@ -49,6 +53,10 @@ func (m *LhvAgencySynchronisationAttributes) Validate(formats strfmt.Registry) e
 	}
 
 	if err := m.validateCountry(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateIban(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -105,6 +113,19 @@ func (m *LhvAgencySynchronisationAttributes) validateCountry(formats strfmt.Regi
 	}
 
 	if err := validate.Pattern("country", "body", string(m.Country), `^[A-Z]{2}$`); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *LhvAgencySynchronisationAttributes) validateIban(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Iban) { // not required
+		return nil
+	}
+
+	if err := validate.Pattern("iban", "body", string(m.Iban), `^[A-Z]{2}[0-9]{2}[A-Z0-9]{0,64}$`); err != nil {
 		return err
 	}
 

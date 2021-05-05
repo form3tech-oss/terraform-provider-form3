@@ -42,6 +42,7 @@ func TestAccLhvAgencySynchronisation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_lhv_agency_synchronisation.agency_synchronisation", "organisation_id", data.OrganisationID),
 					resource.TestCheckResourceAttr("form3_lhv_agency_synchronisation.agency_synchronisation", "agency_synchronisation_id", data.AgencySynchronisationId),
 					resource.TestCheckResourceAttr("form3_lhv_agency_synchronisation.agency_synchronisation", "bic", data.Bic),
+					resource.TestCheckResourceAttr("form3_lhv_agency_synchronisation.agency_synchronisation", "iban", ""),
 					resource.TestCheckResourceAttr("form3_lhv_agency_synchronisation.agency_synchronisation", "country", "GB"),
 					resource.TestCheckResourceAttr("form3_lhv_agency_synchronisation.agency_synchronisation", "bank_id.#", "3"),
 					resource.TestCheckResourceAttr("form3_lhv_agency_synchronisation.agency_synchronisation", "bank_id.0", "040301"),
