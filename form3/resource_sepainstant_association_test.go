@@ -212,7 +212,7 @@ resource "form3_sepainstant_association" "association" {
 	bic                                = "${local.bic}"
 	simulator_only                     = true
 	disable_outbound_payments          = true
-    enable_customer_admission_decision = tue
+    enable_customer_admission_decision = true
 }
 
 resource "form3_organisation" "organisation_sponsored" {
