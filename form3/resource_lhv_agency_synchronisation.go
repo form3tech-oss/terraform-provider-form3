@@ -43,6 +43,11 @@ func resourceForm3LhvAgencySynchronisation() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
+			"iban": {
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
 			"bank_id": {
 				Type: schema.TypeList,
 				Elem: &schema.Schema{
@@ -108,7 +113,9 @@ func resourceLhvAgencySynchronisationRead(d *schema.ResourceData, meta interface
 	_ = d.Set("country", agencySynchronisation.Payload.Data.Attributes.Country)
 	_ = d.Set("bic", agencySynchronisation.Payload.Data.Attributes.Bic)
 	_ = d.Set("bank_id", agencySynchronisation.Payload.Data.Attributes.BankID)
-
+	if agencySynchronisation.Payload.Data.Attributes.Iban != "" {
+		_ = d.Set("iban", agencySynchronisation.Payload.Data.Attributes.Iban)
+	}
 	return nil
 }
 
@@ -162,6 +169,10 @@ func createLhvNewAgencySynchronisationFromResourceData(d *schema.ResourceData) (
 
 	if attr, ok := d.GetOk("bic"); ok {
 		agencySynchronisation.Attributes.Bic = attr.(string)
+	}
+
+	if attr, ok := d.GetOk("iban"); ok {
+		agencySynchronisation.Attributes.Iban = attr.(string)
 	}
 
 	if attr, ok := d.GetOk("bank_id"); ok {
