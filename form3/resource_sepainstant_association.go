@@ -135,6 +135,8 @@ func resourceSepaInstantAssociationRead(d *schema.ResourceData, meta interface{}
 	if reachableBics := sepaInstantAssociation.Payload.Data.Attributes.ReachableBics; reachableBics != nil {
 		d.Set("reachable_bics", reachableBics)
 	}
+	d.Set("disable_outbound_payments", sepaInstantAssociation.Payload.Data.Attributes.DisableOutboundPayments)
+	d.Set("enable_customer_admission_decision", sepaInstantAssociation.Payload.Data.Attributes.EnableCustomerAdmissionDecision)
 	return nil
 }
 
@@ -186,12 +188,13 @@ func resourceSepaInstantAssociationUpdate(d *schema.ResourceData, meta interface
 				OrganisationID: association.OrganisationID,
 				Type:           models.SepaInstantAssociationReferenceTypeSepainstantAssociations,
 				Attributes: &models.UpdateSepaInstantAssociationAttributes{
-					Bic:                     association.Attributes.Bic,
-					TransportProfileID:      association.Attributes.TransportProfileID,
-					BusinessUserDn:          association.Attributes.BusinessUserDn,
-					DisableOutboundPayments: association.Attributes.DisableOutboundPayments,
-					SimulatorOnly:           association.Attributes.SimulatorOnly,
-					ReachableBics:           association.Attributes.ReachableBics,
+					Bic:                             association.Attributes.Bic,
+					TransportProfileID:              association.Attributes.TransportProfileID,
+					BusinessUserDn:                  association.Attributes.BusinessUserDn,
+					DisableOutboundPayments:         association.Attributes.DisableOutboundPayments,
+					SimulatorOnly:                   association.Attributes.SimulatorOnly,
+					ReachableBics:                   association.Attributes.ReachableBics,
+					EnableCustomerAdmissionDecision: association.Attributes.EnableCustomerAdmissionDecision,
 				},
 			},
 		}))
