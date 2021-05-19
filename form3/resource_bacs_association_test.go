@@ -14,8 +14,8 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/strfmt"
 	"github.com/google/uuid"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
-	"github.com/hashicorp/terraform-plugin-sdk/terraform"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 )
 
 func TestAccBacsAssociation_basic(t *testing.T) {
@@ -329,7 +329,7 @@ func getTestForm3BacsAssociationConfigZeroAccountType(orgID, parOrgID, orgName, 
 		parent_organisation_id = "%s"
 		name 		           = "%s"
 	}
-	
+
 	resource "form3_bacs_association" "association" {
 		organisation_id                  = "${form3_organisation.organisation.organisation_id}"
 		association_id                   = "%s"
@@ -367,7 +367,7 @@ func getTestForm3BacsAssociationWithSunConfig(orgID, parOrgID, orgName, assocID,
 		parent_organisation_id = "%s"
 		name 		           = "%s"
 	}
-	
+
 	resource "form3_bacs_association" "association" {
 		organisation_id                  = "${form3_organisation.organisation.organisation_id}"
 		association_id                   = "%s"
@@ -386,7 +386,7 @@ func getTestForm3BacsAssociationConfigWithTestFileFlag(orgID, parOrgID, orgName 
 		parent_organisation_id = "%s"
 		name 		           = "%s"
 	}
-	
+
 	resource "form3_bacs_association" "association" {
 		organisation_id                  = "${form3_organisation.organisation.organisation_id}"
 		association_id                   = "e7373962-b030-492f-b73b-68ca1e5c800e"

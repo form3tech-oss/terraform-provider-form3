@@ -8,7 +8,7 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/client/accounts"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/strfmt"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
 func resourceForm3Account() *schema.Resource {
@@ -20,42 +20,42 @@ func resourceForm3Account() *schema.Resource {
 			State: schema.ImportStatePassthrough,
 		},
 		Schema: map[string]*schema.Schema{
-			"account_id": &schema.Schema{
+			"account_id": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			"organisation_id": &schema.Schema{
+			"organisation_id": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			"account_number": &schema.Schema{
+			"account_number": {
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
-			"bank_id": &schema.Schema{
+			"bank_id": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			"bank_id_code": &schema.Schema{
+			"bank_id_code": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			"bic": &schema.Schema{
+			"bic": {
 				Type:     schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
-			"country": &schema.Schema{
+			"country": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			"iban": &schema.Schema{
+			"iban": {
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,

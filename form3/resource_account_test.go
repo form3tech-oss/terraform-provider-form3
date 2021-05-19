@@ -13,8 +13,8 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/client/accounts"
 	"github.com/go-openapi/strfmt"
 	"github.com/google/uuid"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
-	"github.com/hashicorp/terraform-plugin-sdk/terraform"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 )
 
 func TestAccAccount_basic(t *testing.T) {
@@ -248,17 +248,17 @@ func getForm3AccountTFConfig(organisationID, parentOrganisationID, orgName, acco
 		parent_organisation_id = "%s"
 		name 		               = "%s"
 	}
-	
+
 	resource "form3_account_configuration" "customer_backoffice_configuration" {
 	  organisation_id             = "${form3_organisation.organisation.organisation_id}"
 	  account_configuration_id    = "${uuid()}"
 	  account_generation_enabled  = true
-	
+
 	  lifecycle {
 		ignore_changes = ["account_configuration_id"]
 	  }
 	}
-	
+
 	resource "form3_account" "account" {
 	  organisation_id  = "${form3_organisation.organisation.organisation_id}"
 	  account_id       = "%s"
@@ -269,7 +269,7 @@ func getForm3AccountTFConfig(organisationID, parentOrganisationID, orgName, acco
 	  country          = "GB"
 	  depends_on       = ["form3_bank_id.bank_id", "form3_bic.bic"]
 	}
-	
+
 	resource "form3_bank_id" "bank_id" {
 	  organisation_id  = "${form3_organisation.organisation.organisation_id}"
 	  bank_resource_id = "%s"
@@ -277,7 +277,7 @@ func getForm3AccountTFConfig(organisationID, parentOrganisationID, orgName, acco
 	  bank_id_code     = "GBDSC"
 	  country          = "GB"
 	}
-	
+
 	resource "form3_bic" "bic" {
 		organisation_id = "${form3_organisation.organisation.organisation_id}"
 	  bic_id          = "%s"
@@ -294,7 +294,7 @@ func getForm3AccountTFConfigWithIban(organisationID, parentOrganisationID, orgNa
 		parent_organisation_id = "%s"
 		name 		               = "%s"
 	}
-	
+
 	resource "form3_account" "account" {
 	  organisation_id  = "${form3_organisation.organisation.organisation_id}"
 	  account_id       = "%s"
@@ -306,7 +306,7 @@ func getForm3AccountTFConfigWithIban(organisationID, parentOrganisationID, orgNa
 	  country          = "GB"
 	  depends_on       = ["form3_bank_id.bank_id", "form3_bic.bic"]
 	}
-	
+
 	resource "form3_bank_id" "bank_id" {
 	  organisation_id  = "${form3_organisation.organisation.organisation_id}"
 	  bank_resource_id = "%s"
@@ -314,7 +314,7 @@ func getForm3AccountTFConfigWithIban(organisationID, parentOrganisationID, orgNa
 	  bank_id_code     = "GBDSC"
 	  country          = "GB"
 	}
-	
+
 	resource "form3_bic" "bic" {
 		organisation_id = "${form3_organisation.organisation.organisation_id}"
 		bic_id          = "%s"
@@ -330,17 +330,17 @@ func getTestForm3AccountConfigWithIbanWithoutAccountNumber(organisationID, paren
 		parent_organisation_id = "%s"
 		name 		               = "%s"
 	}
-	
+
 	resource "form3_account_configuration" "customer_backoffice_configuration" {
 	  organisation_id             = "${form3_organisation.organisation.organisation_id}"
 	  account_configuration_id    = "${uuid()}"
 	  account_generation_enabled  = true
-	
+
 	  lifecycle {
 		ignore_changes = ["account_configuration_id"]
 	  }
 	}
-	
+
 	resource "form3_account" "account" {
 	  organisation_id  = "${form3_organisation.organisation.organisation_id}"
 	  account_id       = "%s"
@@ -351,7 +351,7 @@ func getTestForm3AccountConfigWithIbanWithoutAccountNumber(organisationID, paren
 	  country          = "GB"
 	  depends_on       = ["form3_bank_id.bank_id", "form3_bic.bic"]
 	}
-	
+
 	resource "form3_bank_id" "bank_id" {
 	  organisation_id  = "${form3_organisation.organisation.organisation_id}"
 	  bank_resource_id = "%s"
@@ -359,7 +359,7 @@ func getTestForm3AccountConfigWithIbanWithoutAccountNumber(organisationID, paren
 	  bank_id_code     = "GBDSC"
 	  country          = "GB"
 	}
-	
+
 	resource "form3_bic" "bic" {
 		organisation_id = "${form3_organisation.organisation.organisation_id}"
 		bic_id          = "%s"

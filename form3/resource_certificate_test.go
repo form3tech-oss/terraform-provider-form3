@@ -12,8 +12,8 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/strfmt"
 	"github.com/google/uuid"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
-	"github.com/hashicorp/terraform-plugin-sdk/terraform"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 )
 
 func TestAccKey_basic(t *testing.T) {
@@ -332,14 +332,14 @@ func getTestForm3KeyConfig(orgID, parOrgID, orgName, keyID string) string {
 		parent_organisation_id = "%s"
 		name 		               = "%s"
 	}
-	
+
 	resource "form3_key" "test_key" {
 		organisation_id = "${form3_organisation.organisation.organisation_id}"
 	  subject         = "CN=Terraform-test"
 	  key_id          = "%s"
 	  description     = "test key"
 	}
-	
+
 	output "csr" {
 	  value = "${form3_key.test_key.certificate_signing_request}"
 	}
@@ -354,7 +354,7 @@ func getTestForm3KeyConfigElliptic(orgID, parOrgID, orgName, keyID string) strin
 		parent_organisation_id = "%s"
 		name 		               = "%s"
 	}
-	
+
 	resource "form3_key" "test_key" {
 		organisation_id  = "${form3_organisation.organisation.organisation_id}"
 	  subject          = "CN=Terraform-test"
@@ -363,7 +363,7 @@ func getTestForm3KeyConfigElliptic(orgID, parOrgID, orgName, keyID string) strin
 	  type             = "EC"
 	  curve            = "PRIME256V1"
 	}
-	
+
 	output "csr" {
 	  value = "${form3_key.test_key.certificate_signing_request}"
 	}`, orgID, parOrgID, orgName, keyID)
@@ -376,13 +376,13 @@ func getTestForm3KeyConfigWithCert(orgID, parOrgID, orgName, keyID, certID strin
 		parent_organisation_id = "%s"
 		name 		               = "%s"
 	}
-	
+
 	resource "form3_key" "test_key" {
 		organisation_id         = "${form3_organisation.organisation.organisation_id}"
 	  subject                 = "CN=Terraform-test-with-cert"
 	  key_id  = "%s"
 	}
-	
+
 	resource "form3_certificate" "cert" {
 		organisation_id         = "${form3_organisation.organisation.organisation_id}"
 	  key_id  = "${form3_key.test_key.key_id}"
@@ -402,13 +402,13 @@ func getTestForm3KeyConfigWithSelfSignedCert(orgID, parOrgID, orgName, keyID, ce
 		parent_organisation_id = "%s"
 		name 		               = "%s"
 	}
-	
+
 	resource "form3_key" "test_key" {
 		organisation_id         = "${form3_organisation.organisation.organisation_id}"
 	  subject                 = "CN=Terraform-test-selfsigned"
 	  key_id  = "%s"
 	}
-	
+
 	resource "form3_certificate" "cert" {
 		organisation_id         = "${form3_organisation.organisation.organisation_id}"
 	  key_id  = "${form3_key.test_key.key_id}"
@@ -424,7 +424,7 @@ func getTestForm3KeyConfigExistingKey(orgID, parOrgID, orgName, keyID string) st
 		parent_organisation_id = "%s"
 		name 		               = "%s"
 	}
-	
+
 	resource "form3_key" "test_key" {
 		organisation_id         = "${form3_organisation.organisation.organisation_id}"
 	  subject                 = "CN=Terraform-test-existing"

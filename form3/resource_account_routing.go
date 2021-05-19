@@ -8,7 +8,7 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/client/account_routings"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/strfmt"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
 func resourceForm3AccountRouting() *schema.Resource {

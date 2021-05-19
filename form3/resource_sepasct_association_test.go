@@ -9,8 +9,8 @@ import (
 
 	"github.com/go-openapi/strfmt"
 	"github.com/google/uuid"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
-	"github.com/hashicorp/terraform-plugin-sdk/terraform"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
@@ -149,7 +149,7 @@ func getTestForm3SepaSctAssociationConfig(orgID, parOrgID, orgName, assocID, bic
 		parent_organisation_id = "%s"
 		name 		               = "%s"
 	}
-	
+
 	resource "form3_sepasct_association" "association" {
 		organisation_id        = "${form3_organisation.organisation.organisation_id}"
 		association_id         = "%s"
@@ -166,7 +166,7 @@ func getTestForm3SepaSctSponsoredAssociationConfig(sponsorOrgID, parOrgID, orgNa
 		parent_organisation_id = "%s"
 		name 		           = "%s"
 	}
-	
+
 	resource "form3_sepasct_association" "sponsor_association" {
 		organisation_id        = "${form3_organisation.sponsor_organisation.organisation_id}"
 		association_id         = "%s"
@@ -175,13 +175,13 @@ func getTestForm3SepaSctSponsoredAssociationConfig(sponsorOrgID, parOrgID, orgNa
 		business_user          = "PR344569"
 		receiver_business_user = "PR344570"
 	}
-	
+
 	resource "form3_organisation" "sponsored_organisation" {
 		organisation_id        = "%s"
 		parent_organisation_id = "%s"
 		name 		           = "%s"
 	}
-	
+
 	resource "form3_sepasct_association" "sponsored_association" {
 		organisation_id        = "${form3_organisation.sponsored_organisation.organisation_id}"
 		association_id         = "%s"
