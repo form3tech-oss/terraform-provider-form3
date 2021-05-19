@@ -97,10 +97,10 @@ func TestAccKey_withCert(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_certificate.cert", "organisation_id", organisationID),
 					resource.TestCheckResourceAttr("form3_certificate.cert", "key_id", keyID),
 					resource.TestCheckResourceAttr("form3_certificate.cert", "certificate_id", certificateID),
-					resource.TestMatchResourceAttr("form3_certificate.cert", "certificate", regexp.MustCompile(`.*MIIGZzCCBU\+gAwIBAgIQQAFoVhQdgReBTMSz0Ui/AjANBgkqhkiG9w0BAQsFADCB.*`)),
-					resource.TestCheckResourceAttr("form3_certificate.cert", "issuing_certificates.#", "3"),
-					resource.TestMatchResourceAttr("form3_certificate.cert", "issuing_certificates.0", regexp.MustCompile(".*My Bank.*")),
-					resource.TestMatchResourceAttr("form3_certificate.cert", "issuing_certificates.2", regexp.MustCompile(".*Root.*")),
+					resource.TestMatchResourceAttr("form3_certificate.cert", "certificate", regexp.MustCompile(`.*hx60i6ONiYT9H4NxnSVRvUL8As\+9iaqYqUQMjfEc.*`)),
+					//resource.TestCheckResourceAttr("form3_certificate.cert", "issuing_certificates.#", "3"),
+					//resource.TestMatchResourceAttr("form3_certificate.cert", "issuing_certificates.0", regexp.MustCompile(".*My Bank.*")),
+					//resource.TestMatchResourceAttr("form3_certificate.cert", "issuing_certificates.2", regexp.MustCompile(".*Root.*")),
 				),
 			},
 		},
@@ -374,24 +374,20 @@ func getTestForm3KeyConfigWithCert(orgID, parOrgID, orgName, keyID, certID strin
 	resource "form3_organisation" "organisation" {
 		organisation_id        = "%s"
 		parent_organisation_id = "%s"
-		name 		               = "%s"
+		name 		           = "%s"
 	}
 
 	resource "form3_key" "test_key" {
-		organisation_id         = "${form3_organisation.organisation.organisation_id}"
+	  organisation_id         = "${form3_organisation.organisation.organisation_id}"
 	  subject                 = "CN=Terraform-test-with-cert"
-	  key_id  = "%s"
+	  key_id                  = "%s"
 	}
 
 	resource "form3_certificate" "cert" {
-		organisation_id         = "${form3_organisation.organisation.organisation_id}"
-	  key_id  = "${form3_key.test_key.key_id}"
+	  organisation_id         = "${form3_organisation.organisation.organisation_id}"
+	  key_id                  = "${form3_key.test_key.key_id}"
 	  certificate_id          = "%s"
-	  certificate             = "-----BEGIN CERTIFICATE-----\nMIIGZzCCBU+gAwIBAgIQQAFoVhQdgReBTMSz0Ui/AjANBgkqhkiG9w0BAQsFADCB\nqzEnMCUGA1UECgw=\n-----END CERTIFICATE-----"
-	  issuing_certificates    = ["-----BEGIN CERTIFICATE-----\nMy Bank\n-----END CERTIFICATE-----",
-								  "-----BEGIN CERTIFICATE-----\nMy Bank's Bank'\n-----END CERTIFICATE-----",
-								  "-----BEGIN CERTIFICATE-----\nRoot'\n-----END CERTIFICATE-----"
-								]
+	  certificate             = "-----BEGIN CERTIFICATE-----\nMIIDVTCCAj2gAwIBAgIUHopfB4GiImqSfQ1hN5jTr5AKm0YwDQYJKoZIhvcNAQEL\nBQAwOjELMAkGA1UEBhMCQVUxCzAJBgNVBAgMAkdCMR4wHAYDVQQKDBVGb3JtMyBG\naW5hbmNpYWwgQ2xvdWQwHhcNMjEwNTE5MTUzOTM2WhcNMjEwNjE4MTUzOTM2WjA6\nMQswCQYDVQQGEwJBVTELMAkGA1UECAwCR0IxHjAcBgNVBAoMFUZvcm0zIEZpbmFu\nY2lhbCBDbG91ZDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAOk8KTdf\n82QvBp6dvXj9jywkRWPOqccPc9STD0zRghE0ONmKv7St1WvPxJAbnYxL1pSTvLHD\nXrtAIpW0tTINyTzj/nS/TAb9qIk6xRu3vxzfuETXloxo/rRKkp/K7WHpwep4u+Oz\nS96bdSUl0LD8K14gphG+kl/L2leuY3916hZHNjwfgJqQKtXg75RahQH1bj1/6WcA\n8I4/JR0Tfd58PYY71SS6fEnutGjaeKaT49jT7viHKBnl8NTyjeXmh4e6aSYP5Nur\nftgWI0c0E979StcGZQSznz7L81DBWXQY12/Zj+MloaIMgw5wh7WFoXhpqGwijuVW\nXSn46lR2syLXsEkCAwEAAaNTMFEwHQYDVR0OBBYEFHqnwpAjaLablj1r2te6BX2y\nmEVfMB8GA1UdIwQYMBaAFHqnwpAjaLablj1r2te6BX2ymEVfMA8GA1UdEwEB/wQF\nMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAIIPujZX8/5ofbb/9BpVHE5iOYe9Bdmh\n409MHdNiLJJ9H3Z+mKy07kf7/NfQg75nTi7EClpVmjHEA6lqhxXf5tXiEXknW7Za\nJLlLvGUjIUDUMUvMF0cKyeO/hx60i6ONiYT9H4NxnSVRvUL8As+9iaqYqUQMjfEc\nsKuD4251r4/0kuc3h+V9oUSEF+F32xnmNmR/n0UyuiTQ0zZKsvWuf6fuqlL0B16x\nQCoRZmrLVUGsUY9ZMeUiqLyc0hVLnXeRUj0Osdpl1ye93zU3oe6RG+kBF6DX7T7p\nL5EzEqeqsdvHLyuME4Qd85Nn98SnItnFUxonzXB07CqKkD8w3TJ/P2U=\n-----END CERTIFICATE-----"
 	}`, orgID, parOrgID, orgName, keyID, certID)
 }
 
@@ -400,18 +396,18 @@ func getTestForm3KeyConfigWithSelfSignedCert(orgID, parOrgID, orgName, keyID, ce
 	resource "form3_organisation" "organisation" {
 		organisation_id        = "%s"
 		parent_organisation_id = "%s"
-		name 		               = "%s"
+		name 		           = "%s"
 	}
 
 	resource "form3_key" "test_key" {
-		organisation_id         = "${form3_organisation.organisation.organisation_id}"
+	  organisation_id         = "${form3_organisation.organisation.organisation_id}"
 	  subject                 = "CN=Terraform-test-selfsigned"
-	  key_id  = "%s"
+	  key_id                  = "%s"
 	}
 
 	resource "form3_certificate" "cert" {
-		organisation_id         = "${form3_organisation.organisation.organisation_id}"
-	  key_id  = "${form3_key.test_key.key_id}"
+	  organisation_id         = "${form3_organisation.organisation.organisation_id}"
+	  key_id                  = "${form3_key.test_key.key_id}"
 	  certificate_id          = "%s"
 	}
 	`, orgID, parOrgID, orgName, keyID, certID)
@@ -422,13 +418,13 @@ func getTestForm3KeyConfigExistingKey(orgID, parOrgID, orgName, keyID string) st
 	resource "form3_organisation" "organisation" {
 		organisation_id        = "%s"
 		parent_organisation_id = "%s"
-		name 		               = "%s"
+		name 		           = "%s"
 	}
 
 	resource "form3_key" "test_key" {
 		organisation_id         = "${form3_organisation.organisation.organisation_id}"
-	  subject                 = "CN=Terraform-test-existing"
-	  key_id  = "%s"
+		subject                 = "CN=Terraform-test-existing"
+		key_id  				= "%s"
 	}
 	`, orgID, parOrgID, orgName, keyID)
 }
