@@ -111,7 +111,8 @@ func providerConfigure(d *schema.ResourceData) (interface{}, error) {
 
 func GetUUIDOK(d *schema.ResourceData, key string) (strfmt.UUID, bool) {
 	if attr, ok := d.GetOk(key); ok {
-		stringUUID := string(attr.(string))
+		stringUUID := attr.(string)
+
 		return strfmt.UUID(stringUUID), true
 	}
 
