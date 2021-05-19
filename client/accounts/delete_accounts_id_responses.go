@@ -77,7 +77,6 @@ func (o *DeleteAccountsIDReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -88,7 +87,7 @@ func NewDeleteAccountsIDNoContent() *DeleteAccountsIDNoContent {
 	return &DeleteAccountsIDNoContent{}
 }
 
-/*DeleteAccountsIDNoContent handles this case with default header values.
+/* DeleteAccountsIDNoContent describes a response with status code 204, with default header values.
 
 Account deleted
 */
@@ -109,7 +108,7 @@ func NewDeleteAccountsIDBadRequest() *DeleteAccountsIDBadRequest {
 	return &DeleteAccountsIDBadRequest{}
 }
 
-/*DeleteAccountsIDBadRequest handles this case with default header values.
+/* DeleteAccountsIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -120,7 +119,6 @@ type DeleteAccountsIDBadRequest struct {
 func (o *DeleteAccountsIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /accounts/{id}][%d] deleteAccountsIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *DeleteAccountsIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -142,7 +140,7 @@ func NewDeleteAccountsIDUnauthorized() *DeleteAccountsIDUnauthorized {
 	return &DeleteAccountsIDUnauthorized{}
 }
 
-/*DeleteAccountsIDUnauthorized handles this case with default header values.
+/* DeleteAccountsIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -153,7 +151,6 @@ type DeleteAccountsIDUnauthorized struct {
 func (o *DeleteAccountsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /accounts/{id}][%d] deleteAccountsIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *DeleteAccountsIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -175,7 +172,7 @@ func NewDeleteAccountsIDForbidden() *DeleteAccountsIDForbidden {
 	return &DeleteAccountsIDForbidden{}
 }
 
-/*DeleteAccountsIDForbidden handles this case with default header values.
+/* DeleteAccountsIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -186,7 +183,6 @@ type DeleteAccountsIDForbidden struct {
 func (o *DeleteAccountsIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /accounts/{id}][%d] deleteAccountsIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *DeleteAccountsIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -208,7 +204,7 @@ func NewDeleteAccountsIDNotFound() *DeleteAccountsIDNotFound {
 	return &DeleteAccountsIDNotFound{}
 }
 
-/*DeleteAccountsIDNotFound handles this case with default header values.
+/* DeleteAccountsIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -219,7 +215,6 @@ type DeleteAccountsIDNotFound struct {
 func (o *DeleteAccountsIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /accounts/{id}][%d] deleteAccountsIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteAccountsIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -241,7 +236,7 @@ func NewDeleteAccountsIDConflict() *DeleteAccountsIDConflict {
 	return &DeleteAccountsIDConflict{}
 }
 
-/*DeleteAccountsIDConflict handles this case with default header values.
+/* DeleteAccountsIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -252,7 +247,6 @@ type DeleteAccountsIDConflict struct {
 func (o *DeleteAccountsIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /accounts/{id}][%d] deleteAccountsIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *DeleteAccountsIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -274,7 +268,7 @@ func NewDeleteAccountsIDTooManyRequests() *DeleteAccountsIDTooManyRequests {
 	return &DeleteAccountsIDTooManyRequests{}
 }
 
-/*DeleteAccountsIDTooManyRequests handles this case with default header values.
+/* DeleteAccountsIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -285,7 +279,6 @@ type DeleteAccountsIDTooManyRequests struct {
 func (o *DeleteAccountsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /accounts/{id}][%d] deleteAccountsIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *DeleteAccountsIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -307,7 +300,7 @@ func NewDeleteAccountsIDInternalServerError() *DeleteAccountsIDInternalServerErr
 	return &DeleteAccountsIDInternalServerError{}
 }
 
-/*DeleteAccountsIDInternalServerError handles this case with default header values.
+/* DeleteAccountsIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -318,7 +311,6 @@ type DeleteAccountsIDInternalServerError struct {
 func (o *DeleteAccountsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /accounts/{id}][%d] deleteAccountsIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *DeleteAccountsIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -340,7 +332,7 @@ func NewDeleteAccountsIDServiceUnavailable() *DeleteAccountsIDServiceUnavailable
 	return &DeleteAccountsIDServiceUnavailable{}
 }
 
-/*DeleteAccountsIDServiceUnavailable handles this case with default header values.
+/* DeleteAccountsIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -351,7 +343,6 @@ type DeleteAccountsIDServiceUnavailable struct {
 func (o *DeleteAccountsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /accounts/{id}][%d] deleteAccountsIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *DeleteAccountsIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

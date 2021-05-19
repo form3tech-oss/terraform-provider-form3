@@ -16,59 +16,75 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetSepainstantIDParams creates a new GetSepainstantIDParams object
-// with the default values initialized.
+// NewGetSepainstantIDParams creates a new GetSepainstantIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetSepainstantIDParams() *GetSepainstantIDParams {
-	var ()
 	return &GetSepainstantIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetSepainstantIDParamsWithTimeout creates a new GetSepainstantIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetSepainstantIDParamsWithTimeout(timeout time.Duration) *GetSepainstantIDParams {
-	var ()
 	return &GetSepainstantIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetSepainstantIDParamsWithContext creates a new GetSepainstantIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetSepainstantIDParamsWithContext(ctx context.Context) *GetSepainstantIDParams {
-	var ()
 	return &GetSepainstantIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetSepainstantIDParamsWithHTTPClient creates a new GetSepainstantIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetSepainstantIDParamsWithHTTPClient(client *http.Client) *GetSepainstantIDParams {
-	var ()
 	return &GetSepainstantIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetSepainstantIDParams contains all the parameters to send to the API endpoint
-for the get sepainstant ID operation typically these are written to a http.Request
+/* GetSepainstantIDParams contains all the parameters to send to the API endpoint
+   for the get sepainstant ID operation.
+
+   Typically these are written to a http.Request.
 */
 type GetSepainstantIDParams struct {
 
-	/*ID
-	  Association Id
+	/* ID.
 
+	   Association Id
+
+	   Format: uuid
 	*/
 	ID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get sepainstant ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetSepainstantIDParams) WithDefaults() *GetSepainstantIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get sepainstant ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetSepainstantIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get sepainstant ID params

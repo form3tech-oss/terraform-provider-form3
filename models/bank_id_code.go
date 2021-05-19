@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -17,6 +18,11 @@ import (
 //
 // swagger:model BankIdCode
 type BankIDCode string
+
+func NewBankIDCode(value BankIDCode) *BankIDCode {
+	v := value
+	return &v
+}
 
 const (
 
@@ -86,5 +92,10 @@ func (m BankIDCode) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+// ContextValidate validates this bank Id code based on context it is used
+func (m BankIDCode) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }

@@ -17,64 +17,81 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteSepaLiquidityIDParams creates a new DeleteSepaLiquidityIDParams object
-// with the default values initialized.
+// NewDeleteSepaLiquidityIDParams creates a new DeleteSepaLiquidityIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteSepaLiquidityIDParams() *DeleteSepaLiquidityIDParams {
-	var ()
 	return &DeleteSepaLiquidityIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteSepaLiquidityIDParamsWithTimeout creates a new DeleteSepaLiquidityIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteSepaLiquidityIDParamsWithTimeout(timeout time.Duration) *DeleteSepaLiquidityIDParams {
-	var ()
 	return &DeleteSepaLiquidityIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteSepaLiquidityIDParamsWithContext creates a new DeleteSepaLiquidityIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteSepaLiquidityIDParamsWithContext(ctx context.Context) *DeleteSepaLiquidityIDParams {
-	var ()
 	return &DeleteSepaLiquidityIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteSepaLiquidityIDParamsWithHTTPClient creates a new DeleteSepaLiquidityIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteSepaLiquidityIDParamsWithHTTPClient(client *http.Client) *DeleteSepaLiquidityIDParams {
-	var ()
 	return &DeleteSepaLiquidityIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteSepaLiquidityIDParams contains all the parameters to send to the API endpoint
-for the delete sepa liquidity ID operation typically these are written to a http.Request
+/* DeleteSepaLiquidityIDParams contains all the parameters to send to the API endpoint
+   for the delete sepa liquidity ID operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteSepaLiquidityIDParams struct {
 
-	/*ID
-	  Association Id
+	/* ID.
 
+	   Association Id
+
+	   Format: uuid
 	*/
 	ID strfmt.UUID
-	/*Version
-	  Version
 
+	/* Version.
+
+	   Version
 	*/
 	Version int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete sepa liquidity ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteSepaLiquidityIDParams) WithDefaults() *DeleteSepaLiquidityIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete sepa liquidity ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteSepaLiquidityIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete sepa liquidity ID params
@@ -149,6 +166,7 @@ func (o *DeleteSepaLiquidityIDParams) WriteToRequest(r runtime.ClientRequest, re
 	qrVersion := o.Version
 	qVersion := swag.FormatInt64(qrVersion)
 	if qVersion != "" {
+
 		if err := r.SetQueryParam("version", qVersion); err != nil {
 			return err
 		}

@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -126,7 +127,6 @@ func (m *SepactLiquidityUpdateAssociation) validateOrganisationID(formats strfmt
 }
 
 func (m *SepactLiquidityUpdateAssociation) validateRelationships(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Relationships) { // not required
 		return nil
 	}
@@ -171,7 +171,7 @@ func (m *SepactLiquidityUpdateAssociation) validateTypeEnum(path, location strin
 
 func (m *SepactLiquidityUpdateAssociation) validateType(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("type", "body", string(m.Type)); err != nil {
+	if err := validate.RequiredString("type", "body", m.Type); err != nil {
 		return err
 	}
 
@@ -189,8 +189,54 @@ func (m *SepactLiquidityUpdateAssociation) validateVersion(formats strfmt.Regist
 		return err
 	}
 
-	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
+	if err := validate.MinimumInt("version", "body", *m.Version, 0, false); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this sepact liquidity update association based on the context it is used
+func (m *SepactLiquidityUpdateAssociation) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAttributes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRelationships(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *SepactLiquidityUpdateAssociation) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Attributes != nil {
+		if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("attributes")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *SepactLiquidityUpdateAssociation) contextValidateRelationships(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Relationships != nil {
+		if err := m.Relationships.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("relationships")
+			}
+			return err
+		}
 	}
 
 	return nil

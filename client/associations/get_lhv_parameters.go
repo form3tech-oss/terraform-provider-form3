@@ -17,59 +17,73 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetLhvParams creates a new GetLhvParams object
-// with the default values initialized.
+// NewGetLhvParams creates a new GetLhvParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetLhvParams() *GetLhvParams {
-	var ()
 	return &GetLhvParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetLhvParamsWithTimeout creates a new GetLhvParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetLhvParamsWithTimeout(timeout time.Duration) *GetLhvParams {
-	var ()
 	return &GetLhvParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetLhvParamsWithContext creates a new GetLhvParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetLhvParamsWithContext(ctx context.Context) *GetLhvParams {
-	var ()
 	return &GetLhvParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetLhvParamsWithHTTPClient creates a new GetLhvParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetLhvParamsWithHTTPClient(client *http.Client) *GetLhvParams {
-	var ()
 	return &GetLhvParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetLhvParams contains all the parameters to send to the API endpoint
-for the get lhv operation typically these are written to a http.Request
+/* GetLhvParams contains all the parameters to send to the API endpoint
+   for the get lhv operation.
+
+   Typically these are written to a http.Request.
 */
 type GetLhvParams struct {
 
-	/*FilterOrganisationID
-	  Organisation id
+	/* FilterOrganisationID.
 
+	   Organisation id
 	*/
 	FilterOrganisationID []strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get lhv params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetLhvParams) WithDefaults() *GetLhvParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get lhv params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetLhvParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get lhv params
@@ -124,19 +138,36 @@ func (o *GetLhvParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regist
 	}
 	var res []error
 
-	var valuesFilterOrganisationID []string
-	for _, v := range o.FilterOrganisationID {
-		valuesFilterOrganisationID = append(valuesFilterOrganisationID, v.String())
-	}
+	if o.FilterOrganisationID != nil {
 
-	joinedFilterOrganisationID := swag.JoinByFormat(valuesFilterOrganisationID, "")
-	// query array param filter[organisation_id]
-	if err := r.SetQueryParam("filter[organisation_id]", joinedFilterOrganisationID...); err != nil {
-		return err
+		// binding items for filter[organisation_id]
+		joinedFilterOrganisationID := o.bindParamFilterOrganisationID(reg)
+
+		// query array param filter[organisation_id]
+		if err := r.SetQueryParam("filter[organisation_id]", joinedFilterOrganisationID...); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
+}
+
+// bindParamGetLhv binds the parameter filter[organisation_id]
+func (o *GetLhvParams) bindParamFilterOrganisationID(formats strfmt.Registry) []string {
+	filterOrganisationIDIR := o.FilterOrganisationID
+
+	var filterOrganisationIDIC []string
+	for _, filterOrganisationIDIIR := range filterOrganisationIDIR { // explode []strfmt.UUID
+
+		filterOrganisationIDIIV := filterOrganisationIDIIR.String() // strfmt.UUID as string
+		filterOrganisationIDIC = append(filterOrganisationIDIC, filterOrganisationIDIIV)
+	}
+
+	// items.CollectionFormat: ""
+	filterOrganisationIDIS := swag.JoinByFormat(filterOrganisationIDIC, "")
+
+	return filterOrganisationIDIS
 }

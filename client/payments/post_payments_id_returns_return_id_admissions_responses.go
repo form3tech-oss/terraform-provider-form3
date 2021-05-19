@@ -77,7 +77,6 @@ func (o *PostPaymentsIDReturnsReturnIDAdmissionsReader) ReadResponse(response ru
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -88,7 +87,7 @@ func NewPostPaymentsIDReturnsReturnIDAdmissionsCreated() *PostPaymentsIDReturnsR
 	return &PostPaymentsIDReturnsReturnIDAdmissionsCreated{}
 }
 
-/*PostPaymentsIDReturnsReturnIDAdmissionsCreated handles this case with default header values.
+/* PostPaymentsIDReturnsReturnIDAdmissionsCreated describes a response with status code 201, with default header values.
 
 Return admission creation response
 */
@@ -99,7 +98,6 @@ type PostPaymentsIDReturnsReturnIDAdmissionsCreated struct {
 func (o *PostPaymentsIDReturnsReturnIDAdmissionsCreated) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/admissions][%d] postPaymentsIdReturnsReturnIdAdmissionsCreated  %+v", 201, o.Payload)
 }
-
 func (o *PostPaymentsIDReturnsReturnIDAdmissionsCreated) GetPayload() *models.ReturnAdmissionCreationResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewPostPaymentsIDReturnsReturnIDAdmissionsBadRequest() *PostPaymentsIDRetur
 	return &PostPaymentsIDReturnsReturnIDAdmissionsBadRequest{}
 }
 
-/*PostPaymentsIDReturnsReturnIDAdmissionsBadRequest handles this case with default header values.
+/* PostPaymentsIDReturnsReturnIDAdmissionsBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type PostPaymentsIDReturnsReturnIDAdmissionsBadRequest struct {
 func (o *PostPaymentsIDReturnsReturnIDAdmissionsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/admissions][%d] postPaymentsIdReturnsReturnIdAdmissionsBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *PostPaymentsIDReturnsReturnIDAdmissionsBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewPostPaymentsIDReturnsReturnIDAdmissionsUnauthorized() *PostPaymentsIDRet
 	return &PostPaymentsIDReturnsReturnIDAdmissionsUnauthorized{}
 }
 
-/*PostPaymentsIDReturnsReturnIDAdmissionsUnauthorized handles this case with default header values.
+/* PostPaymentsIDReturnsReturnIDAdmissionsUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type PostPaymentsIDReturnsReturnIDAdmissionsUnauthorized struct {
 func (o *PostPaymentsIDReturnsReturnIDAdmissionsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/admissions][%d] postPaymentsIdReturnsReturnIdAdmissionsUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *PostPaymentsIDReturnsReturnIDAdmissionsUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewPostPaymentsIDReturnsReturnIDAdmissionsForbidden() *PostPaymentsIDReturn
 	return &PostPaymentsIDReturnsReturnIDAdmissionsForbidden{}
 }
 
-/*PostPaymentsIDReturnsReturnIDAdmissionsForbidden handles this case with default header values.
+/* PostPaymentsIDReturnsReturnIDAdmissionsForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type PostPaymentsIDReturnsReturnIDAdmissionsForbidden struct {
 func (o *PostPaymentsIDReturnsReturnIDAdmissionsForbidden) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/admissions][%d] postPaymentsIdReturnsReturnIdAdmissionsForbidden  %+v", 403, o.Payload)
 }
-
 func (o *PostPaymentsIDReturnsReturnIDAdmissionsForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewPostPaymentsIDReturnsReturnIDAdmissionsNotFound() *PostPaymentsIDReturns
 	return &PostPaymentsIDReturnsReturnIDAdmissionsNotFound{}
 }
 
-/*PostPaymentsIDReturnsReturnIDAdmissionsNotFound handles this case with default header values.
+/* PostPaymentsIDReturnsReturnIDAdmissionsNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type PostPaymentsIDReturnsReturnIDAdmissionsNotFound struct {
 func (o *PostPaymentsIDReturnsReturnIDAdmissionsNotFound) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/admissions][%d] postPaymentsIdReturnsReturnIdAdmissionsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *PostPaymentsIDReturnsReturnIDAdmissionsNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewPostPaymentsIDReturnsReturnIDAdmissionsConflict() *PostPaymentsIDReturns
 	return &PostPaymentsIDReturnsReturnIDAdmissionsConflict{}
 }
 
-/*PostPaymentsIDReturnsReturnIDAdmissionsConflict handles this case with default header values.
+/* PostPaymentsIDReturnsReturnIDAdmissionsConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type PostPaymentsIDReturnsReturnIDAdmissionsConflict struct {
 func (o *PostPaymentsIDReturnsReturnIDAdmissionsConflict) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/admissions][%d] postPaymentsIdReturnsReturnIdAdmissionsConflict  %+v", 409, o.Payload)
 }
-
 func (o *PostPaymentsIDReturnsReturnIDAdmissionsConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewPostPaymentsIDReturnsReturnIDAdmissionsTooManyRequests() *PostPaymentsID
 	return &PostPaymentsIDReturnsReturnIDAdmissionsTooManyRequests{}
 }
 
-/*PostPaymentsIDReturnsReturnIDAdmissionsTooManyRequests handles this case with default header values.
+/* PostPaymentsIDReturnsReturnIDAdmissionsTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type PostPaymentsIDReturnsReturnIDAdmissionsTooManyRequests struct {
 func (o *PostPaymentsIDReturnsReturnIDAdmissionsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/admissions][%d] postPaymentsIdReturnsReturnIdAdmissionsTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *PostPaymentsIDReturnsReturnIDAdmissionsTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewPostPaymentsIDReturnsReturnIDAdmissionsInternalServerError() *PostPaymen
 	return &PostPaymentsIDReturnsReturnIDAdmissionsInternalServerError{}
 }
 
-/*PostPaymentsIDReturnsReturnIDAdmissionsInternalServerError handles this case with default header values.
+/* PostPaymentsIDReturnsReturnIDAdmissionsInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type PostPaymentsIDReturnsReturnIDAdmissionsInternalServerError struct {
 func (o *PostPaymentsIDReturnsReturnIDAdmissionsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/admissions][%d] postPaymentsIdReturnsReturnIdAdmissionsInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *PostPaymentsIDReturnsReturnIDAdmissionsInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewPostPaymentsIDReturnsReturnIDAdmissionsServiceUnavailable() *PostPayment
 	return &PostPaymentsIDReturnsReturnIDAdmissionsServiceUnavailable{}
 }
 
-/*PostPaymentsIDReturnsReturnIDAdmissionsServiceUnavailable handles this case with default header values.
+/* PostPaymentsIDReturnsReturnIDAdmissionsServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type PostPaymentsIDReturnsReturnIDAdmissionsServiceUnavailable struct {
 func (o *PostPaymentsIDReturnsReturnIDAdmissionsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /payments/{id}/returns/{returnId}/admissions][%d] postPaymentsIdReturnsReturnIdAdmissionsServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *PostPaymentsIDReturnsReturnIDAdmissionsServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

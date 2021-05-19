@@ -25,57 +25,60 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	GetPayments(params *GetPaymentsParams) (*GetPaymentsOK, error)
+	GetPayments(params *GetPaymentsParams, opts ...ClientOption) (*GetPaymentsOK, error)
 
-	GetPaymentsIDAdmissionsAdmissionID(params *GetPaymentsIDAdmissionsAdmissionIDParams) (*GetPaymentsIDAdmissionsAdmissionIDOK, error)
+	GetPaymentsIDAdmissionsAdmissionID(params *GetPaymentsIDAdmissionsAdmissionIDParams, opts ...ClientOption) (*GetPaymentsIDAdmissionsAdmissionIDOK, error)
 
-	GetPaymentsIDReturnsReturnID(params *GetPaymentsIDReturnsReturnIDParams) (*GetPaymentsIDReturnsReturnIDOK, error)
+	GetPaymentsIDReturnsReturnID(params *GetPaymentsIDReturnsReturnIDParams, opts ...ClientOption) (*GetPaymentsIDReturnsReturnIDOK, error)
 
-	GetPaymentsIDReturnsReturnIDAdmissionsAdmissionID(params *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDParams) (*GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDOK, error)
+	GetPaymentsIDReturnsReturnIDAdmissionsAdmissionID(params *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDParams, opts ...ClientOption) (*GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDOK, error)
 
-	GetPaymentsIDReturnsReturnIDReversalsReversalID(params *GetPaymentsIDReturnsReturnIDReversalsReversalIDParams) (*GetPaymentsIDReturnsReturnIDReversalsReversalIDOK, error)
+	GetPaymentsIDReturnsReturnIDReversalsReversalID(params *GetPaymentsIDReturnsReturnIDReversalsReversalIDParams, opts ...ClientOption) (*GetPaymentsIDReturnsReturnIDReversalsReversalIDOK, error)
 
-	GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionID(params *GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams) (*GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDOK, error)
+	GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionID(params *GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams, opts ...ClientOption) (*GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDOK, error)
 
-	GetPaymentsIDReturnsReturnIDSubmissionsSubmissionID(params *GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams) (*GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDOK, error)
+	GetPaymentsIDReturnsReturnIDSubmissionsSubmissionID(params *GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams, opts ...ClientOption) (*GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDOK, error)
 
-	GetPaymentsIDReversalsReversalID(params *GetPaymentsIDReversalsReversalIDParams) (*GetPaymentsIDReversalsReversalIDOK, error)
+	GetPaymentsIDReversalsReversalID(params *GetPaymentsIDReversalsReversalIDParams, opts ...ClientOption) (*GetPaymentsIDReversalsReversalIDOK, error)
 
-	GetPaymentsIDReversalsReversalIDAdmissionsAdmissionID(params *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDParams) (*GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDOK, error)
+	GetPaymentsIDReversalsReversalIDAdmissionsAdmissionID(params *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDParams, opts ...ClientOption) (*GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDOK, error)
 
-	GetPaymentsIDSubmissionsSubmissionID(params *GetPaymentsIDSubmissionsSubmissionIDParams) (*GetPaymentsIDSubmissionsSubmissionIDOK, error)
+	GetPaymentsIDSubmissionsSubmissionID(params *GetPaymentsIDSubmissionsSubmissionIDParams, opts ...ClientOption) (*GetPaymentsIDSubmissionsSubmissionIDOK, error)
 
-	GetPositions(params *GetPositionsParams) (*GetPositionsOK, error)
+	GetPositions(params *GetPositionsParams, opts ...ClientOption) (*GetPositionsOK, error)
 
-	PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionID(params *PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams) (*PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDOK, error)
+	PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionID(params *PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams, opts ...ClientOption) (*PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDOK, error)
 
-	PatchPaymentsIDSubmissionsSubmissionID(params *PatchPaymentsIDSubmissionsSubmissionIDParams) (*PatchPaymentsIDSubmissionsSubmissionIDOK, error)
+	PatchPaymentsIDSubmissionsSubmissionID(params *PatchPaymentsIDSubmissionsSubmissionIDParams, opts ...ClientOption) (*PatchPaymentsIDSubmissionsSubmissionIDOK, error)
 
-	PostPayments(params *PostPaymentsParams) (*PostPaymentsCreated, error)
+	PostPayments(params *PostPaymentsParams, opts ...ClientOption) (*PostPaymentsCreated, error)
 
-	PostPaymentsIDAdmissions(params *PostPaymentsIDAdmissionsParams) (*PostPaymentsIDAdmissionsCreated, error)
+	PostPaymentsIDAdmissions(params *PostPaymentsIDAdmissionsParams, opts ...ClientOption) (*PostPaymentsIDAdmissionsCreated, error)
 
-	PostPaymentsIDReturns(params *PostPaymentsIDReturnsParams) (*PostPaymentsIDReturnsCreated, error)
+	PostPaymentsIDReturns(params *PostPaymentsIDReturnsParams, opts ...ClientOption) (*PostPaymentsIDReturnsCreated, error)
 
-	PostPaymentsIDReturnsReturnIDAdmissions(params *PostPaymentsIDReturnsReturnIDAdmissionsParams) (*PostPaymentsIDReturnsReturnIDAdmissionsCreated, error)
+	PostPaymentsIDReturnsReturnIDAdmissions(params *PostPaymentsIDReturnsReturnIDAdmissionsParams, opts ...ClientOption) (*PostPaymentsIDReturnsReturnIDAdmissionsCreated, error)
 
-	PostPaymentsIDReturnsReturnIDReversals(params *PostPaymentsIDReturnsReturnIDReversalsParams) (*PostPaymentsIDReturnsReturnIDReversalsCreated, error)
+	PostPaymentsIDReturnsReturnIDReversals(params *PostPaymentsIDReturnsReturnIDReversalsParams, opts ...ClientOption) (*PostPaymentsIDReturnsReturnIDReversalsCreated, error)
 
-	PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissions(params *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsParams) (*PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsCreated, error)
+	PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissions(params *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsParams, opts ...ClientOption) (*PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsCreated, error)
 
-	PostPaymentsIDReturnsReturnIDSubmissions(params *PostPaymentsIDReturnsReturnIDSubmissionsParams) (*PostPaymentsIDReturnsReturnIDSubmissionsCreated, error)
+	PostPaymentsIDReturnsReturnIDSubmissions(params *PostPaymentsIDReturnsReturnIDSubmissionsParams, opts ...ClientOption) (*PostPaymentsIDReturnsReturnIDSubmissionsCreated, error)
 
-	PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidations(params *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams) (*PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsCreated, error)
+	PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidations(params *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams, opts ...ClientOption) (*PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsCreated, error)
 
-	PostPaymentsIDReversals(params *PostPaymentsIDReversalsParams) (*PostPaymentsIDReversalsCreated, error)
+	PostPaymentsIDReversals(params *PostPaymentsIDReversalsParams, opts ...ClientOption) (*PostPaymentsIDReversalsCreated, error)
 
-	PostPaymentsIDReversalsReversalIDAdmissions(params *PostPaymentsIDReversalsReversalIDAdmissionsParams) (*PostPaymentsIDReversalsReversalIDAdmissionsCreated, error)
+	PostPaymentsIDReversalsReversalIDAdmissions(params *PostPaymentsIDReversalsReversalIDAdmissionsParams, opts ...ClientOption) (*PostPaymentsIDReversalsReversalIDAdmissionsCreated, error)
 
-	PostPaymentsIDSubmissions(params *PostPaymentsIDSubmissionsParams) (*PostPaymentsIDSubmissionsCreated, error)
+	PostPaymentsIDSubmissions(params *PostPaymentsIDSubmissionsParams, opts ...ClientOption) (*PostPaymentsIDSubmissionsCreated, error)
 
-	PostPaymentsIDSubmissionsSubmissionIDValidations(params *PostPaymentsIDSubmissionsSubmissionIDValidationsParams) (*PostPaymentsIDSubmissionsSubmissionIDValidationsCreated, error)
+	PostPaymentsIDSubmissionsSubmissionIDValidations(params *PostPaymentsIDSubmissionsSubmissionIDValidationsParams, opts ...ClientOption) (*PostPaymentsIDSubmissionsSubmissionIDValidationsCreated, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -83,13 +86,12 @@ type ClientService interface {
 /*
   GetPayments lists payments
 */
-func (a *Client) GetPayments(params *GetPaymentsParams) (*GetPaymentsOK, error) {
+func (a *Client) GetPayments(params *GetPaymentsParams, opts ...ClientOption) (*GetPaymentsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetPaymentsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetPayments",
 		Method:             "GET",
 		PathPattern:        "/payments",
@@ -100,7 +102,12 @@ func (a *Client) GetPayments(params *GetPaymentsParams) (*GetPaymentsOK, error) 
 		Reader:             &GetPaymentsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -117,13 +124,12 @@ func (a *Client) GetPayments(params *GetPaymentsParams) (*GetPaymentsOK, error) 
 /*
   GetPaymentsIDAdmissionsAdmissionID fetches admission
 */
-func (a *Client) GetPaymentsIDAdmissionsAdmissionID(params *GetPaymentsIDAdmissionsAdmissionIDParams) (*GetPaymentsIDAdmissionsAdmissionIDOK, error) {
+func (a *Client) GetPaymentsIDAdmissionsAdmissionID(params *GetPaymentsIDAdmissionsAdmissionIDParams, opts ...ClientOption) (*GetPaymentsIDAdmissionsAdmissionIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetPaymentsIDAdmissionsAdmissionIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetPaymentsIDAdmissionsAdmissionID",
 		Method:             "GET",
 		PathPattern:        "/payments/{id}/admissions/{admissionId}",
@@ -134,7 +140,12 @@ func (a *Client) GetPaymentsIDAdmissionsAdmissionID(params *GetPaymentsIDAdmissi
 		Reader:             &GetPaymentsIDAdmissionsAdmissionIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -151,13 +162,12 @@ func (a *Client) GetPaymentsIDAdmissionsAdmissionID(params *GetPaymentsIDAdmissi
 /*
   GetPaymentsIDReturnsReturnID fetches return
 */
-func (a *Client) GetPaymentsIDReturnsReturnID(params *GetPaymentsIDReturnsReturnIDParams) (*GetPaymentsIDReturnsReturnIDOK, error) {
+func (a *Client) GetPaymentsIDReturnsReturnID(params *GetPaymentsIDReturnsReturnIDParams, opts ...ClientOption) (*GetPaymentsIDReturnsReturnIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetPaymentsIDReturnsReturnIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetPaymentsIDReturnsReturnID",
 		Method:             "GET",
 		PathPattern:        "/payments/{id}/returns/{returnId}",
@@ -168,7 +178,12 @@ func (a *Client) GetPaymentsIDReturnsReturnID(params *GetPaymentsIDReturnsReturn
 		Reader:             &GetPaymentsIDReturnsReturnIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -185,13 +200,12 @@ func (a *Client) GetPaymentsIDReturnsReturnID(params *GetPaymentsIDReturnsReturn
 /*
   GetPaymentsIDReturnsReturnIDAdmissionsAdmissionID fetches return admission
 */
-func (a *Client) GetPaymentsIDReturnsReturnIDAdmissionsAdmissionID(params *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDParams) (*GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDOK, error) {
+func (a *Client) GetPaymentsIDReturnsReturnIDAdmissionsAdmissionID(params *GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDParams, opts ...ClientOption) (*GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetPaymentsIDReturnsReturnIDAdmissionsAdmissionID",
 		Method:             "GET",
 		PathPattern:        "/payments/{id}/returns/{returnId}/admissions/{admissionId}",
@@ -202,7 +216,12 @@ func (a *Client) GetPaymentsIDReturnsReturnIDAdmissionsAdmissionID(params *GetPa
 		Reader:             &GetPaymentsIDReturnsReturnIDAdmissionsAdmissionIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -219,13 +238,12 @@ func (a *Client) GetPaymentsIDReturnsReturnIDAdmissionsAdmissionID(params *GetPa
 /*
   GetPaymentsIDReturnsReturnIDReversalsReversalID fetches return reversal
 */
-func (a *Client) GetPaymentsIDReturnsReturnIDReversalsReversalID(params *GetPaymentsIDReturnsReturnIDReversalsReversalIDParams) (*GetPaymentsIDReturnsReturnIDReversalsReversalIDOK, error) {
+func (a *Client) GetPaymentsIDReturnsReturnIDReversalsReversalID(params *GetPaymentsIDReturnsReturnIDReversalsReversalIDParams, opts ...ClientOption) (*GetPaymentsIDReturnsReturnIDReversalsReversalIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetPaymentsIDReturnsReturnIDReversalsReversalIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetPaymentsIDReturnsReturnIDReversalsReversalID",
 		Method:             "GET",
 		PathPattern:        "/payments/{id}/returns/{returnId}/reversals/{reversalId}",
@@ -236,7 +254,12 @@ func (a *Client) GetPaymentsIDReturnsReturnIDReversalsReversalID(params *GetPaym
 		Reader:             &GetPaymentsIDReturnsReturnIDReversalsReversalIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -253,13 +276,12 @@ func (a *Client) GetPaymentsIDReturnsReturnIDReversalsReversalID(params *GetPaym
 /*
   GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionID fetches return reversal admission
 */
-func (a *Client) GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionID(params *GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams) (*GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDOK, error) {
+func (a *Client) GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionID(params *GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams, opts ...ClientOption) (*GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionID",
 		Method:             "GET",
 		PathPattern:        "/payments/{id}/returns/{returnId}/reversals/{reversalId}/admissions/{admissionId}",
@@ -270,7 +292,12 @@ func (a *Client) GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmiss
 		Reader:             &GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -287,13 +314,12 @@ func (a *Client) GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmiss
 /*
   GetPaymentsIDReturnsReturnIDSubmissionsSubmissionID fetches return submission
 */
-func (a *Client) GetPaymentsIDReturnsReturnIDSubmissionsSubmissionID(params *GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams) (*GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDOK, error) {
+func (a *Client) GetPaymentsIDReturnsReturnIDSubmissionsSubmissionID(params *GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams, opts ...ClientOption) (*GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetPaymentsIDReturnsReturnIDSubmissionsSubmissionID",
 		Method:             "GET",
 		PathPattern:        "/payments/{id}/returns/{returnId}/submissions/{submissionId}",
@@ -304,7 +330,12 @@ func (a *Client) GetPaymentsIDReturnsReturnIDSubmissionsSubmissionID(params *Get
 		Reader:             &GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -321,13 +352,12 @@ func (a *Client) GetPaymentsIDReturnsReturnIDSubmissionsSubmissionID(params *Get
 /*
   GetPaymentsIDReversalsReversalID fetches reversal
 */
-func (a *Client) GetPaymentsIDReversalsReversalID(params *GetPaymentsIDReversalsReversalIDParams) (*GetPaymentsIDReversalsReversalIDOK, error) {
+func (a *Client) GetPaymentsIDReversalsReversalID(params *GetPaymentsIDReversalsReversalIDParams, opts ...ClientOption) (*GetPaymentsIDReversalsReversalIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetPaymentsIDReversalsReversalIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetPaymentsIDReversalsReversalID",
 		Method:             "GET",
 		PathPattern:        "/payments/{id}/reversals/{reversalId}",
@@ -338,7 +368,12 @@ func (a *Client) GetPaymentsIDReversalsReversalID(params *GetPaymentsIDReversals
 		Reader:             &GetPaymentsIDReversalsReversalIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -355,13 +390,12 @@ func (a *Client) GetPaymentsIDReversalsReversalID(params *GetPaymentsIDReversals
 /*
   GetPaymentsIDReversalsReversalIDAdmissionsAdmissionID fetches reversal admission
 */
-func (a *Client) GetPaymentsIDReversalsReversalIDAdmissionsAdmissionID(params *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDParams) (*GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDOK, error) {
+func (a *Client) GetPaymentsIDReversalsReversalIDAdmissionsAdmissionID(params *GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDParams, opts ...ClientOption) (*GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetPaymentsIDReversalsReversalIDAdmissionsAdmissionID",
 		Method:             "GET",
 		PathPattern:        "/payments/{id}/reversals/{reversalId}/admissions/{admissionId}",
@@ -372,7 +406,12 @@ func (a *Client) GetPaymentsIDReversalsReversalIDAdmissionsAdmissionID(params *G
 		Reader:             &GetPaymentsIDReversalsReversalIDAdmissionsAdmissionIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -389,13 +428,12 @@ func (a *Client) GetPaymentsIDReversalsReversalIDAdmissionsAdmissionID(params *G
 /*
   GetPaymentsIDSubmissionsSubmissionID fetches submission
 */
-func (a *Client) GetPaymentsIDSubmissionsSubmissionID(params *GetPaymentsIDSubmissionsSubmissionIDParams) (*GetPaymentsIDSubmissionsSubmissionIDOK, error) {
+func (a *Client) GetPaymentsIDSubmissionsSubmissionID(params *GetPaymentsIDSubmissionsSubmissionIDParams, opts ...ClientOption) (*GetPaymentsIDSubmissionsSubmissionIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetPaymentsIDSubmissionsSubmissionIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetPaymentsIDSubmissionsSubmissionID",
 		Method:             "GET",
 		PathPattern:        "/payments/{id}/submissions/{submissionId}",
@@ -406,7 +444,12 @@ func (a *Client) GetPaymentsIDSubmissionsSubmissionID(params *GetPaymentsIDSubmi
 		Reader:             &GetPaymentsIDSubmissionsSubmissionIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -423,13 +466,12 @@ func (a *Client) GetPaymentsIDSubmissionsSubmissionID(params *GetPaymentsIDSubmi
 /*
   GetPositions lists positions
 */
-func (a *Client) GetPositions(params *GetPositionsParams) (*GetPositionsOK, error) {
+func (a *Client) GetPositions(params *GetPositionsParams, opts ...ClientOption) (*GetPositionsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetPositionsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetPositions",
 		Method:             "GET",
 		PathPattern:        "/positions",
@@ -440,7 +482,12 @@ func (a *Client) GetPositions(params *GetPositionsParams) (*GetPositionsOK, erro
 		Reader:             &GetPositionsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -457,13 +504,12 @@ func (a *Client) GetPositions(params *GetPositionsParams) (*GetPositionsOK, erro
 /*
   PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionID updates return submission
 */
-func (a *Client) PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionID(params *PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams) (*PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDOK, error) {
+func (a *Client) PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionID(params *PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams, opts ...ClientOption) (*PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionID",
 		Method:             "PATCH",
 		PathPattern:        "/payments/{id}/returns/{returnId}/submissions/{submissionId}",
@@ -474,7 +520,12 @@ func (a *Client) PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionID(params *P
 		Reader:             &PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -491,13 +542,12 @@ func (a *Client) PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionID(params *P
 /*
   PatchPaymentsIDSubmissionsSubmissionID updates submission
 */
-func (a *Client) PatchPaymentsIDSubmissionsSubmissionID(params *PatchPaymentsIDSubmissionsSubmissionIDParams) (*PatchPaymentsIDSubmissionsSubmissionIDOK, error) {
+func (a *Client) PatchPaymentsIDSubmissionsSubmissionID(params *PatchPaymentsIDSubmissionsSubmissionIDParams, opts ...ClientOption) (*PatchPaymentsIDSubmissionsSubmissionIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPatchPaymentsIDSubmissionsSubmissionIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PatchPaymentsIDSubmissionsSubmissionID",
 		Method:             "PATCH",
 		PathPattern:        "/payments/{id}/submissions/{submissionId}",
@@ -508,7 +558,12 @@ func (a *Client) PatchPaymentsIDSubmissionsSubmissionID(params *PatchPaymentsIDS
 		Reader:             &PatchPaymentsIDSubmissionsSubmissionIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -525,13 +580,12 @@ func (a *Client) PatchPaymentsIDSubmissionsSubmissionID(params *PatchPaymentsIDS
 /*
   PostPayments creates payment
 */
-func (a *Client) PostPayments(params *PostPaymentsParams) (*PostPaymentsCreated, error) {
+func (a *Client) PostPayments(params *PostPaymentsParams, opts ...ClientOption) (*PostPaymentsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostPaymentsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostPayments",
 		Method:             "POST",
 		PathPattern:        "/payments",
@@ -542,7 +596,12 @@ func (a *Client) PostPayments(params *PostPaymentsParams) (*PostPaymentsCreated,
 		Reader:             &PostPaymentsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -559,13 +618,12 @@ func (a *Client) PostPayments(params *PostPaymentsParams) (*PostPaymentsCreated,
 /*
   PostPaymentsIDAdmissions creates admission
 */
-func (a *Client) PostPaymentsIDAdmissions(params *PostPaymentsIDAdmissionsParams) (*PostPaymentsIDAdmissionsCreated, error) {
+func (a *Client) PostPaymentsIDAdmissions(params *PostPaymentsIDAdmissionsParams, opts ...ClientOption) (*PostPaymentsIDAdmissionsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostPaymentsIDAdmissionsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostPaymentsIDAdmissions",
 		Method:             "POST",
 		PathPattern:        "/payments/{id}/admissions",
@@ -576,7 +634,12 @@ func (a *Client) PostPaymentsIDAdmissions(params *PostPaymentsIDAdmissionsParams
 		Reader:             &PostPaymentsIDAdmissionsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -593,13 +656,12 @@ func (a *Client) PostPaymentsIDAdmissions(params *PostPaymentsIDAdmissionsParams
 /*
   PostPaymentsIDReturns creates return
 */
-func (a *Client) PostPaymentsIDReturns(params *PostPaymentsIDReturnsParams) (*PostPaymentsIDReturnsCreated, error) {
+func (a *Client) PostPaymentsIDReturns(params *PostPaymentsIDReturnsParams, opts ...ClientOption) (*PostPaymentsIDReturnsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostPaymentsIDReturnsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostPaymentsIDReturns",
 		Method:             "POST",
 		PathPattern:        "/payments/{id}/returns",
@@ -610,7 +672,12 @@ func (a *Client) PostPaymentsIDReturns(params *PostPaymentsIDReturnsParams) (*Po
 		Reader:             &PostPaymentsIDReturnsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -627,13 +694,12 @@ func (a *Client) PostPaymentsIDReturns(params *PostPaymentsIDReturnsParams) (*Po
 /*
   PostPaymentsIDReturnsReturnIDAdmissions creates return admission
 */
-func (a *Client) PostPaymentsIDReturnsReturnIDAdmissions(params *PostPaymentsIDReturnsReturnIDAdmissionsParams) (*PostPaymentsIDReturnsReturnIDAdmissionsCreated, error) {
+func (a *Client) PostPaymentsIDReturnsReturnIDAdmissions(params *PostPaymentsIDReturnsReturnIDAdmissionsParams, opts ...ClientOption) (*PostPaymentsIDReturnsReturnIDAdmissionsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostPaymentsIDReturnsReturnIDAdmissionsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostPaymentsIDReturnsReturnIDAdmissions",
 		Method:             "POST",
 		PathPattern:        "/payments/{id}/returns/{returnId}/admissions",
@@ -644,7 +710,12 @@ func (a *Client) PostPaymentsIDReturnsReturnIDAdmissions(params *PostPaymentsIDR
 		Reader:             &PostPaymentsIDReturnsReturnIDAdmissionsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -661,13 +732,12 @@ func (a *Client) PostPaymentsIDReturnsReturnIDAdmissions(params *PostPaymentsIDR
 /*
   PostPaymentsIDReturnsReturnIDReversals creates return reversal
 */
-func (a *Client) PostPaymentsIDReturnsReturnIDReversals(params *PostPaymentsIDReturnsReturnIDReversalsParams) (*PostPaymentsIDReturnsReturnIDReversalsCreated, error) {
+func (a *Client) PostPaymentsIDReturnsReturnIDReversals(params *PostPaymentsIDReturnsReturnIDReversalsParams, opts ...ClientOption) (*PostPaymentsIDReturnsReturnIDReversalsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostPaymentsIDReturnsReturnIDReversalsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostPaymentsIDReturnsReturnIDReversals",
 		Method:             "POST",
 		PathPattern:        "/payments/{id}/returns/{returnId}/reversals",
@@ -678,7 +748,12 @@ func (a *Client) PostPaymentsIDReturnsReturnIDReversals(params *PostPaymentsIDRe
 		Reader:             &PostPaymentsIDReturnsReturnIDReversalsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -695,13 +770,12 @@ func (a *Client) PostPaymentsIDReturnsReturnIDReversals(params *PostPaymentsIDRe
 /*
   PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissions creates return reversal admission
 */
-func (a *Client) PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissions(params *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsParams) (*PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsCreated, error) {
+func (a *Client) PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissions(params *PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsParams, opts ...ClientOption) (*PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissions",
 		Method:             "POST",
 		PathPattern:        "/payments/{id}/returns/{returnId}/reversals/{reversalId}/admissions",
@@ -712,7 +786,12 @@ func (a *Client) PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissions(para
 		Reader:             &PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -729,13 +808,12 @@ func (a *Client) PostPaymentsIDReturnsReturnIDReversalsReversalIDAdmissions(para
 /*
   PostPaymentsIDReturnsReturnIDSubmissions creates return submission
 */
-func (a *Client) PostPaymentsIDReturnsReturnIDSubmissions(params *PostPaymentsIDReturnsReturnIDSubmissionsParams) (*PostPaymentsIDReturnsReturnIDSubmissionsCreated, error) {
+func (a *Client) PostPaymentsIDReturnsReturnIDSubmissions(params *PostPaymentsIDReturnsReturnIDSubmissionsParams, opts ...ClientOption) (*PostPaymentsIDReturnsReturnIDSubmissionsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostPaymentsIDReturnsReturnIDSubmissionsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostPaymentsIDReturnsReturnIDSubmissions",
 		Method:             "POST",
 		PathPattern:        "/payments/{id}/returns/{returnId}/submissions",
@@ -746,7 +824,12 @@ func (a *Client) PostPaymentsIDReturnsReturnIDSubmissions(params *PostPaymentsID
 		Reader:             &PostPaymentsIDReturnsReturnIDSubmissionsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -763,13 +846,12 @@ func (a *Client) PostPaymentsIDReturnsReturnIDSubmissions(params *PostPaymentsID
 /*
   PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidations creates return submission validation
 */
-func (a *Client) PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidations(params *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams) (*PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsCreated, error) {
+func (a *Client) PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidations(params *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams, opts ...ClientOption) (*PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidations",
 		Method:             "POST",
 		PathPattern:        "/payments/{id}/returns/{returnId}/submissions/{returnSubmissionId}/validations",
@@ -780,7 +862,12 @@ func (a *Client) PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValid
 		Reader:             &PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -797,13 +884,12 @@ func (a *Client) PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValid
 /*
   PostPaymentsIDReversals creates reversal
 */
-func (a *Client) PostPaymentsIDReversals(params *PostPaymentsIDReversalsParams) (*PostPaymentsIDReversalsCreated, error) {
+func (a *Client) PostPaymentsIDReversals(params *PostPaymentsIDReversalsParams, opts ...ClientOption) (*PostPaymentsIDReversalsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostPaymentsIDReversalsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostPaymentsIDReversals",
 		Method:             "POST",
 		PathPattern:        "/payments/{id}/reversals",
@@ -814,7 +900,12 @@ func (a *Client) PostPaymentsIDReversals(params *PostPaymentsIDReversalsParams) 
 		Reader:             &PostPaymentsIDReversalsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -831,13 +922,12 @@ func (a *Client) PostPaymentsIDReversals(params *PostPaymentsIDReversalsParams) 
 /*
   PostPaymentsIDReversalsReversalIDAdmissions creates reversal admission
 */
-func (a *Client) PostPaymentsIDReversalsReversalIDAdmissions(params *PostPaymentsIDReversalsReversalIDAdmissionsParams) (*PostPaymentsIDReversalsReversalIDAdmissionsCreated, error) {
+func (a *Client) PostPaymentsIDReversalsReversalIDAdmissions(params *PostPaymentsIDReversalsReversalIDAdmissionsParams, opts ...ClientOption) (*PostPaymentsIDReversalsReversalIDAdmissionsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostPaymentsIDReversalsReversalIDAdmissionsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostPaymentsIDReversalsReversalIDAdmissions",
 		Method:             "POST",
 		PathPattern:        "/payments/{id}/reversals/{reversalId}/admissions",
@@ -848,7 +938,12 @@ func (a *Client) PostPaymentsIDReversalsReversalIDAdmissions(params *PostPayment
 		Reader:             &PostPaymentsIDReversalsReversalIDAdmissionsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -865,13 +960,12 @@ func (a *Client) PostPaymentsIDReversalsReversalIDAdmissions(params *PostPayment
 /*
   PostPaymentsIDSubmissions creates submission
 */
-func (a *Client) PostPaymentsIDSubmissions(params *PostPaymentsIDSubmissionsParams) (*PostPaymentsIDSubmissionsCreated, error) {
+func (a *Client) PostPaymentsIDSubmissions(params *PostPaymentsIDSubmissionsParams, opts ...ClientOption) (*PostPaymentsIDSubmissionsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostPaymentsIDSubmissionsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostPaymentsIDSubmissions",
 		Method:             "POST",
 		PathPattern:        "/payments/{id}/submissions",
@@ -882,7 +976,12 @@ func (a *Client) PostPaymentsIDSubmissions(params *PostPaymentsIDSubmissionsPara
 		Reader:             &PostPaymentsIDSubmissionsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -899,13 +998,12 @@ func (a *Client) PostPaymentsIDSubmissions(params *PostPaymentsIDSubmissionsPara
 /*
   PostPaymentsIDSubmissionsSubmissionIDValidations creates payment submission validation
 */
-func (a *Client) PostPaymentsIDSubmissionsSubmissionIDValidations(params *PostPaymentsIDSubmissionsSubmissionIDValidationsParams) (*PostPaymentsIDSubmissionsSubmissionIDValidationsCreated, error) {
+func (a *Client) PostPaymentsIDSubmissionsSubmissionIDValidations(params *PostPaymentsIDSubmissionsSubmissionIDValidationsParams, opts ...ClientOption) (*PostPaymentsIDSubmissionsSubmissionIDValidationsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostPaymentsIDSubmissionsSubmissionIDValidationsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostPaymentsIDSubmissionsSubmissionIDValidations",
 		Method:             "POST",
 		PathPattern:        "/payments/{id}/submissions/{submissionId}/validations",
@@ -916,7 +1014,12 @@ func (a *Client) PostPaymentsIDSubmissionsSubmissionIDValidations(params *PostPa
 		Reader:             &PostPaymentsIDSubmissionsSubmissionIDValidationsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

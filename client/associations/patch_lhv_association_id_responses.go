@@ -77,7 +77,6 @@ func (o *PatchLhvAssociationIDReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -88,7 +87,7 @@ func NewPatchLhvAssociationIDOK() *PatchLhvAssociationIDOK {
 	return &PatchLhvAssociationIDOK{}
 }
 
-/*PatchLhvAssociationIDOK handles this case with default header values.
+/* PatchLhvAssociationIDOK describes a response with status code 200, with default header values.
 
 Associations details
 */
@@ -99,7 +98,6 @@ type PatchLhvAssociationIDOK struct {
 func (o *PatchLhvAssociationIDOK) Error() string {
 	return fmt.Sprintf("[PATCH /lhv/{associationId}][%d] patchLhvAssociationIdOK  %+v", 200, o.Payload)
 }
-
 func (o *PatchLhvAssociationIDOK) GetPayload() *models.LhvAssociationDetailsResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewPatchLhvAssociationIDBadRequest() *PatchLhvAssociationIDBadRequest {
 	return &PatchLhvAssociationIDBadRequest{}
 }
 
-/*PatchLhvAssociationIDBadRequest handles this case with default header values.
+/* PatchLhvAssociationIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type PatchLhvAssociationIDBadRequest struct {
 func (o *PatchLhvAssociationIDBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /lhv/{associationId}][%d] patchLhvAssociationIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *PatchLhvAssociationIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewPatchLhvAssociationIDUnauthorized() *PatchLhvAssociationIDUnauthorized {
 	return &PatchLhvAssociationIDUnauthorized{}
 }
 
-/*PatchLhvAssociationIDUnauthorized handles this case with default header values.
+/* PatchLhvAssociationIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type PatchLhvAssociationIDUnauthorized struct {
 func (o *PatchLhvAssociationIDUnauthorized) Error() string {
 	return fmt.Sprintf("[PATCH /lhv/{associationId}][%d] patchLhvAssociationIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *PatchLhvAssociationIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewPatchLhvAssociationIDForbidden() *PatchLhvAssociationIDForbidden {
 	return &PatchLhvAssociationIDForbidden{}
 }
 
-/*PatchLhvAssociationIDForbidden handles this case with default header values.
+/* PatchLhvAssociationIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type PatchLhvAssociationIDForbidden struct {
 func (o *PatchLhvAssociationIDForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /lhv/{associationId}][%d] patchLhvAssociationIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *PatchLhvAssociationIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewPatchLhvAssociationIDNotFound() *PatchLhvAssociationIDNotFound {
 	return &PatchLhvAssociationIDNotFound{}
 }
 
-/*PatchLhvAssociationIDNotFound handles this case with default header values.
+/* PatchLhvAssociationIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type PatchLhvAssociationIDNotFound struct {
 func (o *PatchLhvAssociationIDNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /lhv/{associationId}][%d] patchLhvAssociationIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *PatchLhvAssociationIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewPatchLhvAssociationIDConflict() *PatchLhvAssociationIDConflict {
 	return &PatchLhvAssociationIDConflict{}
 }
 
-/*PatchLhvAssociationIDConflict handles this case with default header values.
+/* PatchLhvAssociationIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type PatchLhvAssociationIDConflict struct {
 func (o *PatchLhvAssociationIDConflict) Error() string {
 	return fmt.Sprintf("[PATCH /lhv/{associationId}][%d] patchLhvAssociationIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *PatchLhvAssociationIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewPatchLhvAssociationIDTooManyRequests() *PatchLhvAssociationIDTooManyRequ
 	return &PatchLhvAssociationIDTooManyRequests{}
 }
 
-/*PatchLhvAssociationIDTooManyRequests handles this case with default header values.
+/* PatchLhvAssociationIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type PatchLhvAssociationIDTooManyRequests struct {
 func (o *PatchLhvAssociationIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[PATCH /lhv/{associationId}][%d] patchLhvAssociationIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *PatchLhvAssociationIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewPatchLhvAssociationIDInternalServerError() *PatchLhvAssociationIDInterna
 	return &PatchLhvAssociationIDInternalServerError{}
 }
 
-/*PatchLhvAssociationIDInternalServerError handles this case with default header values.
+/* PatchLhvAssociationIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type PatchLhvAssociationIDInternalServerError struct {
 func (o *PatchLhvAssociationIDInternalServerError) Error() string {
 	return fmt.Sprintf("[PATCH /lhv/{associationId}][%d] patchLhvAssociationIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *PatchLhvAssociationIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewPatchLhvAssociationIDServiceUnavailable() *PatchLhvAssociationIDServiceU
 	return &PatchLhvAssociationIDServiceUnavailable{}
 }
 
-/*PatchLhvAssociationIDServiceUnavailable handles this case with default header values.
+/* PatchLhvAssociationIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type PatchLhvAssociationIDServiceUnavailable struct {
 func (o *PatchLhvAssociationIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[PATCH /lhv/{associationId}][%d] patchLhvAssociationIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *PatchLhvAssociationIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

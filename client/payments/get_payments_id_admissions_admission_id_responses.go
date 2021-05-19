@@ -77,7 +77,6 @@ func (o *GetPaymentsIDAdmissionsAdmissionIDReader) ReadResponse(response runtime
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -88,7 +87,7 @@ func NewGetPaymentsIDAdmissionsAdmissionIDOK() *GetPaymentsIDAdmissionsAdmission
 	return &GetPaymentsIDAdmissionsAdmissionIDOK{}
 }
 
-/*GetPaymentsIDAdmissionsAdmissionIDOK handles this case with default header values.
+/* GetPaymentsIDAdmissionsAdmissionIDOK describes a response with status code 200, with default header values.
 
 Admission details
 */
@@ -99,7 +98,6 @@ type GetPaymentsIDAdmissionsAdmissionIDOK struct {
 func (o *GetPaymentsIDAdmissionsAdmissionIDOK) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/admissions/{admissionId}][%d] getPaymentsIdAdmissionsAdmissionIdOK  %+v", 200, o.Payload)
 }
-
 func (o *GetPaymentsIDAdmissionsAdmissionIDOK) GetPayload() *models.PaymentAdmissionDetailsResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewGetPaymentsIDAdmissionsAdmissionIDBadRequest() *GetPaymentsIDAdmissionsA
 	return &GetPaymentsIDAdmissionsAdmissionIDBadRequest{}
 }
 
-/*GetPaymentsIDAdmissionsAdmissionIDBadRequest handles this case with default header values.
+/* GetPaymentsIDAdmissionsAdmissionIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type GetPaymentsIDAdmissionsAdmissionIDBadRequest struct {
 func (o *GetPaymentsIDAdmissionsAdmissionIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/admissions/{admissionId}][%d] getPaymentsIdAdmissionsAdmissionIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetPaymentsIDAdmissionsAdmissionIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewGetPaymentsIDAdmissionsAdmissionIDUnauthorized() *GetPaymentsIDAdmission
 	return &GetPaymentsIDAdmissionsAdmissionIDUnauthorized{}
 }
 
-/*GetPaymentsIDAdmissionsAdmissionIDUnauthorized handles this case with default header values.
+/* GetPaymentsIDAdmissionsAdmissionIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type GetPaymentsIDAdmissionsAdmissionIDUnauthorized struct {
 func (o *GetPaymentsIDAdmissionsAdmissionIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/admissions/{admissionId}][%d] getPaymentsIdAdmissionsAdmissionIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetPaymentsIDAdmissionsAdmissionIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewGetPaymentsIDAdmissionsAdmissionIDForbidden() *GetPaymentsIDAdmissionsAd
 	return &GetPaymentsIDAdmissionsAdmissionIDForbidden{}
 }
 
-/*GetPaymentsIDAdmissionsAdmissionIDForbidden handles this case with default header values.
+/* GetPaymentsIDAdmissionsAdmissionIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type GetPaymentsIDAdmissionsAdmissionIDForbidden struct {
 func (o *GetPaymentsIDAdmissionsAdmissionIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/admissions/{admissionId}][%d] getPaymentsIdAdmissionsAdmissionIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetPaymentsIDAdmissionsAdmissionIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewGetPaymentsIDAdmissionsAdmissionIDNotFound() *GetPaymentsIDAdmissionsAdm
 	return &GetPaymentsIDAdmissionsAdmissionIDNotFound{}
 }
 
-/*GetPaymentsIDAdmissionsAdmissionIDNotFound handles this case with default header values.
+/* GetPaymentsIDAdmissionsAdmissionIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type GetPaymentsIDAdmissionsAdmissionIDNotFound struct {
 func (o *GetPaymentsIDAdmissionsAdmissionIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/admissions/{admissionId}][%d] getPaymentsIdAdmissionsAdmissionIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetPaymentsIDAdmissionsAdmissionIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewGetPaymentsIDAdmissionsAdmissionIDConflict() *GetPaymentsIDAdmissionsAdm
 	return &GetPaymentsIDAdmissionsAdmissionIDConflict{}
 }
 
-/*GetPaymentsIDAdmissionsAdmissionIDConflict handles this case with default header values.
+/* GetPaymentsIDAdmissionsAdmissionIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type GetPaymentsIDAdmissionsAdmissionIDConflict struct {
 func (o *GetPaymentsIDAdmissionsAdmissionIDConflict) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/admissions/{admissionId}][%d] getPaymentsIdAdmissionsAdmissionIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *GetPaymentsIDAdmissionsAdmissionIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewGetPaymentsIDAdmissionsAdmissionIDTooManyRequests() *GetPaymentsIDAdmiss
 	return &GetPaymentsIDAdmissionsAdmissionIDTooManyRequests{}
 }
 
-/*GetPaymentsIDAdmissionsAdmissionIDTooManyRequests handles this case with default header values.
+/* GetPaymentsIDAdmissionsAdmissionIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type GetPaymentsIDAdmissionsAdmissionIDTooManyRequests struct {
 func (o *GetPaymentsIDAdmissionsAdmissionIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/admissions/{admissionId}][%d] getPaymentsIdAdmissionsAdmissionIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *GetPaymentsIDAdmissionsAdmissionIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewGetPaymentsIDAdmissionsAdmissionIDInternalServerError() *GetPaymentsIDAd
 	return &GetPaymentsIDAdmissionsAdmissionIDInternalServerError{}
 }
 
-/*GetPaymentsIDAdmissionsAdmissionIDInternalServerError handles this case with default header values.
+/* GetPaymentsIDAdmissionsAdmissionIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type GetPaymentsIDAdmissionsAdmissionIDInternalServerError struct {
 func (o *GetPaymentsIDAdmissionsAdmissionIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/admissions/{admissionId}][%d] getPaymentsIdAdmissionsAdmissionIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetPaymentsIDAdmissionsAdmissionIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewGetPaymentsIDAdmissionsAdmissionIDServiceUnavailable() *GetPaymentsIDAdm
 	return &GetPaymentsIDAdmissionsAdmissionIDServiceUnavailable{}
 }
 
-/*GetPaymentsIDAdmissionsAdmissionIDServiceUnavailable handles this case with default header values.
+/* GetPaymentsIDAdmissionsAdmissionIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type GetPaymentsIDAdmissionsAdmissionIDServiceUnavailable struct {
 func (o *GetPaymentsIDAdmissionsAdmissionIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/admissions/{admissionId}][%d] getPaymentsIdAdmissionsAdmissionIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *GetPaymentsIDAdmissionsAdmissionIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

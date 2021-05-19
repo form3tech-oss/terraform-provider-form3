@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -89,7 +90,7 @@ func (m *SepaInstantAssociationReference) validateTypeEnum(path, location string
 
 func (m *SepaInstantAssociationReference) validateType(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("type", "body", string(m.Type)); err != nil {
+	if err := validate.RequiredString("type", "body", m.Type); err != nil {
 		return err
 	}
 
@@ -98,6 +99,11 @@ func (m *SepaInstantAssociationReference) validateType(formats strfmt.Registry) 
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this sepa instant association reference based on context it is used
+func (m *SepaInstantAssociationReference) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

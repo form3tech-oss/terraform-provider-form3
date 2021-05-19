@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -17,6 +18,11 @@ import (
 //
 // swagger:model DirectDebitAdmissionStatusReason
 type DirectDebitAdmissionStatusReason string
+
+func NewDirectDebitAdmissionStatusReason(value DirectDebitAdmissionStatusReason) *DirectDebitAdmissionStatusReason {
+	v := value
+	return &v
+}
 
 const (
 
@@ -65,5 +71,10 @@ func (m DirectDebitAdmissionStatusReason) Validate(formats strfmt.Registry) erro
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+// ContextValidate validates this direct debit admission status reason based on context it is used
+func (m DirectDebitAdmissionStatusReason) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }

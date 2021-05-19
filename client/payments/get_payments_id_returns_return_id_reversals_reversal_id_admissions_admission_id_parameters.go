@@ -16,74 +16,99 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams creates a new GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams object
-// with the default values initialized.
+// NewGetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams creates a new GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams() *GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams {
-	var ()
 	return &GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParamsWithTimeout creates a new GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParamsWithTimeout(timeout time.Duration) *GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams {
-	var ()
 	return &GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParamsWithContext creates a new GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParamsWithContext(ctx context.Context) *GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams {
-	var ()
 	return &GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParamsWithHTTPClient creates a new GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParamsWithHTTPClient(client *http.Client) *GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams {
-	var ()
 	return &GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams contains all the parameters to send to the API endpoint
-for the get payments ID returns return ID reversals reversal ID admissions admission ID operation typically these are written to a http.Request
+/* GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams contains all the parameters to send to the API endpoint
+   for the get payments ID returns return ID reversals reversal ID admissions admission ID operation.
+
+   Typically these are written to a http.Request.
 */
 type GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams struct {
 
-	/*AdmissionID
-	  Admission Id
+	/* AdmissionID.
 
+	   Admission Id
+
+	   Format: uuid
 	*/
 	AdmissionID strfmt.UUID
-	/*ID
-	  Payment Id
 
+	/* ID.
+
+	   Payment Id
+
+	   Format: uuid
 	*/
 	ID strfmt.UUID
-	/*ReturnID
-	  Return Id
 
+	/* ReturnID.
+
+	   Return Id
+
+	   Format: uuid
 	*/
 	ReturnID strfmt.UUID
-	/*ReversalID
-	  Reversal Id
 
+	/* ReversalID.
+
+	   Reversal Id
+
+	   Format: uuid
 	*/
 	ReversalID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get payments ID returns return ID reversals reversal ID admissions admission ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams) WithDefaults() *GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get payments ID returns return ID reversals reversal ID admissions admission ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetPaymentsIDReturnsReturnIDReversalsReversalIDAdmissionsAdmissionIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get payments ID returns return ID reversals reversal ID admissions admission ID params

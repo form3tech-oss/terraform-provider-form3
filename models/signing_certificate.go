@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -38,13 +39,40 @@ func (m *SigningCertificate) Validate(formats strfmt.Registry) error {
 }
 
 func (m *SigningCertificate) validateData(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Data) { // not required
 		return nil
 	}
 
 	if m.Data != nil {
 		if err := m.Data.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("data")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this signing certificate based on the context it is used
+func (m *SigningCertificate) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateData(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *SigningCertificate) contextValidateData(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Data != nil {
+		if err := m.Data.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("data")
 			}
@@ -132,7 +160,6 @@ func (m *SigningCertificateData) validateDn(formats strfmt.Registry) error {
 }
 
 func (m *SigningCertificateData) validateID(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ID) { // not required
 		return nil
 	}
@@ -184,7 +211,6 @@ func (m *SigningCertificateData) validateTypeEnum(path, location string, value s
 }
 
 func (m *SigningCertificateData) validateType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
@@ -194,6 +220,11 @@ func (m *SigningCertificateData) validateType(formats strfmt.Registry) error {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this signing certificate data based on context it is used
+func (m *SigningCertificateData) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

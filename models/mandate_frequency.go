@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -17,6 +18,11 @@ import (
 //
 // swagger:model MandateFrequency
 type MandateFrequency string
+
+func NewMandateFrequency(value MandateFrequency) *MandateFrequency {
+	v := value
+	return &v
+}
 
 const (
 
@@ -74,5 +80,10 @@ func (m MandateFrequency) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+// ContextValidate validates this mandate frequency based on context it is used
+func (m MandateFrequency) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }

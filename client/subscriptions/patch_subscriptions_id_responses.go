@@ -77,7 +77,6 @@ func (o *PatchSubscriptionsIDReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -88,7 +87,7 @@ func NewPatchSubscriptionsIDOK() *PatchSubscriptionsIDOK {
 	return &PatchSubscriptionsIDOK{}
 }
 
-/*PatchSubscriptionsIDOK handles this case with default header values.
+/* PatchSubscriptionsIDOK describes a response with status code 200, with default header values.
 
 Subscription details
 */
@@ -99,7 +98,6 @@ type PatchSubscriptionsIDOK struct {
 func (o *PatchSubscriptionsIDOK) Error() string {
 	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdOK  %+v", 200, o.Payload)
 }
-
 func (o *PatchSubscriptionsIDOK) GetPayload() *models.SubscriptionDetailsResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewPatchSubscriptionsIDBadRequest() *PatchSubscriptionsIDBadRequest {
 	return &PatchSubscriptionsIDBadRequest{}
 }
 
-/*PatchSubscriptionsIDBadRequest handles this case with default header values.
+/* PatchSubscriptionsIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type PatchSubscriptionsIDBadRequest struct {
 func (o *PatchSubscriptionsIDBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *PatchSubscriptionsIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewPatchSubscriptionsIDUnauthorized() *PatchSubscriptionsIDUnauthorized {
 	return &PatchSubscriptionsIDUnauthorized{}
 }
 
-/*PatchSubscriptionsIDUnauthorized handles this case with default header values.
+/* PatchSubscriptionsIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type PatchSubscriptionsIDUnauthorized struct {
 func (o *PatchSubscriptionsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *PatchSubscriptionsIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewPatchSubscriptionsIDForbidden() *PatchSubscriptionsIDForbidden {
 	return &PatchSubscriptionsIDForbidden{}
 }
 
-/*PatchSubscriptionsIDForbidden handles this case with default header values.
+/* PatchSubscriptionsIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type PatchSubscriptionsIDForbidden struct {
 func (o *PatchSubscriptionsIDForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *PatchSubscriptionsIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewPatchSubscriptionsIDNotFound() *PatchSubscriptionsIDNotFound {
 	return &PatchSubscriptionsIDNotFound{}
 }
 
-/*PatchSubscriptionsIDNotFound handles this case with default header values.
+/* PatchSubscriptionsIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type PatchSubscriptionsIDNotFound struct {
 func (o *PatchSubscriptionsIDNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *PatchSubscriptionsIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewPatchSubscriptionsIDConflict() *PatchSubscriptionsIDConflict {
 	return &PatchSubscriptionsIDConflict{}
 }
 
-/*PatchSubscriptionsIDConflict handles this case with default header values.
+/* PatchSubscriptionsIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type PatchSubscriptionsIDConflict struct {
 func (o *PatchSubscriptionsIDConflict) Error() string {
 	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *PatchSubscriptionsIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewPatchSubscriptionsIDTooManyRequests() *PatchSubscriptionsIDTooManyReques
 	return &PatchSubscriptionsIDTooManyRequests{}
 }
 
-/*PatchSubscriptionsIDTooManyRequests handles this case with default header values.
+/* PatchSubscriptionsIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type PatchSubscriptionsIDTooManyRequests struct {
 func (o *PatchSubscriptionsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *PatchSubscriptionsIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewPatchSubscriptionsIDInternalServerError() *PatchSubscriptionsIDInternalS
 	return &PatchSubscriptionsIDInternalServerError{}
 }
 
-/*PatchSubscriptionsIDInternalServerError handles this case with default header values.
+/* PatchSubscriptionsIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type PatchSubscriptionsIDInternalServerError struct {
 func (o *PatchSubscriptionsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *PatchSubscriptionsIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewPatchSubscriptionsIDServiceUnavailable() *PatchSubscriptionsIDServiceUna
 	return &PatchSubscriptionsIDServiceUnavailable{}
 }
 
-/*PatchSubscriptionsIDServiceUnavailable handles this case with default header values.
+/* PatchSubscriptionsIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type PatchSubscriptionsIDServiceUnavailable struct {
 func (o *PatchSubscriptionsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[PATCH /subscriptions/{id}][%d] patchSubscriptionsIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *PatchSubscriptionsIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

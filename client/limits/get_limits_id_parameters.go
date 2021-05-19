@@ -16,59 +16,75 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetLimitsIDParams creates a new GetLimitsIDParams object
-// with the default values initialized.
+// NewGetLimitsIDParams creates a new GetLimitsIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetLimitsIDParams() *GetLimitsIDParams {
-	var ()
 	return &GetLimitsIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetLimitsIDParamsWithTimeout creates a new GetLimitsIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetLimitsIDParamsWithTimeout(timeout time.Duration) *GetLimitsIDParams {
-	var ()
 	return &GetLimitsIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetLimitsIDParamsWithContext creates a new GetLimitsIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetLimitsIDParamsWithContext(ctx context.Context) *GetLimitsIDParams {
-	var ()
 	return &GetLimitsIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetLimitsIDParamsWithHTTPClient creates a new GetLimitsIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetLimitsIDParamsWithHTTPClient(client *http.Client) *GetLimitsIDParams {
-	var ()
 	return &GetLimitsIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetLimitsIDParams contains all the parameters to send to the API endpoint
-for the get limits ID operation typically these are written to a http.Request
+/* GetLimitsIDParams contains all the parameters to send to the API endpoint
+   for the get limits ID operation.
+
+   Typically these are written to a http.Request.
 */
 type GetLimitsIDParams struct {
 
-	/*ID
-	  limit Id
+	/* ID.
 
+	   limit Id
+
+	   Format: uuid
 	*/
 	ID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get limits ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetLimitsIDParams) WithDefaults() *GetLimitsIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get limits ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetLimitsIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get limits ID params

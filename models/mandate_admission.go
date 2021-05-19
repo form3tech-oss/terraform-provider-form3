@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -68,7 +70,6 @@ func (m *MandateAdmission) Validate(formats strfmt.Registry) error {
 }
 
 func (m *MandateAdmission) validateAttributes(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Attributes) { // not required
 		return nil
 	}
@@ -86,7 +87,6 @@ func (m *MandateAdmission) validateAttributes(formats strfmt.Registry) error {
 }
 
 func (m *MandateAdmission) validateID(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ID) { // not required
 		return nil
 	}
@@ -99,7 +99,6 @@ func (m *MandateAdmission) validateID(formats strfmt.Registry) error {
 }
 
 func (m *MandateAdmission) validateOrganisationID(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.OrganisationID) { // not required
 		return nil
 	}
@@ -112,12 +111,11 @@ func (m *MandateAdmission) validateOrganisationID(formats strfmt.Registry) error
 }
 
 func (m *MandateAdmission) validateType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("type", "body", string(m.Type), `^[A-Za-z_]*$`); err != nil {
+	if err := validate.Pattern("type", "body", m.Type, `^[A-Za-z_]*$`); err != nil {
 		return err
 	}
 
@@ -125,13 +123,40 @@ func (m *MandateAdmission) validateType(formats strfmt.Registry) error {
 }
 
 func (m *MandateAdmission) validateVersion(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Version) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
+	if err := validate.MinimumInt("version", "body", *m.Version, 0, false); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this mandate admission based on the context it is used
+func (m *MandateAdmission) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAttributes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *MandateAdmission) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Attributes != nil {
+		if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("attributes")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -201,7 +226,6 @@ func (m *MandateAdmissionAttributes) Validate(formats strfmt.Registry) error {
 }
 
 func (m *MandateAdmissionAttributes) validateAdmissionDatetime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.AdmissionDatetime) { // not required
 		return nil
 	}
@@ -214,7 +238,6 @@ func (m *MandateAdmissionAttributes) validateAdmissionDatetime(formats strfmt.Re
 }
 
 func (m *MandateAdmissionAttributes) validateStatus(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Status) { // not required
 		return nil
 	}
@@ -230,12 +253,66 @@ func (m *MandateAdmissionAttributes) validateStatus(formats strfmt.Registry) err
 }
 
 func (m *MandateAdmissionAttributes) validateStatusReason(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.StatusReason) { // not required
 		return nil
 	}
 
 	if err := m.StatusReason.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("attributes" + "." + "status_reason")
+		}
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this mandate admission attributes based on the context it is used
+func (m *MandateAdmissionAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAdmissionDatetime(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStatus(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStatusReason(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *MandateAdmissionAttributes) contextValidateAdmissionDatetime(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "attributes"+"."+"admission_datetime", "body", strfmt.DateTime(m.AdmissionDatetime)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *MandateAdmissionAttributes) contextValidateStatus(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Status.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("attributes" + "." + "status")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *MandateAdmissionAttributes) contextValidateStatusReason(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.StatusReason.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("attributes" + "." + "status_reason")
 		}

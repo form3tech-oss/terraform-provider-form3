@@ -47,7 +47,6 @@ func (o *PostSwiftReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -58,7 +57,7 @@ func NewPostSwiftCreated() *PostSwiftCreated {
 	return &PostSwiftCreated{}
 }
 
-/*PostSwiftCreated handles this case with default header values.
+/* PostSwiftCreated describes a response with status code 201, with default header values.
 
 creation response
 */
@@ -69,7 +68,6 @@ type PostSwiftCreated struct {
 func (o *PostSwiftCreated) Error() string {
 	return fmt.Sprintf("[POST /swift][%d] postSwiftCreated  %+v", 201, o.Payload)
 }
-
 func (o *PostSwiftCreated) GetPayload() *models.SwiftAssociationCreationResponse {
 	return o.Payload
 }
@@ -91,7 +89,7 @@ func NewPostSwiftBadRequest() *PostSwiftBadRequest {
 	return &PostSwiftBadRequest{}
 }
 
-/*PostSwiftBadRequest handles this case with default header values.
+/* PostSwiftBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -102,7 +100,6 @@ type PostSwiftBadRequest struct {
 func (o *PostSwiftBadRequest) Error() string {
 	return fmt.Sprintf("[POST /swift][%d] postSwiftBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *PostSwiftBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -124,7 +121,7 @@ func NewPostSwiftForbidden() *PostSwiftForbidden {
 	return &PostSwiftForbidden{}
 }
 
-/*PostSwiftForbidden handles this case with default header values.
+/* PostSwiftForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -135,7 +132,6 @@ type PostSwiftForbidden struct {
 func (o *PostSwiftForbidden) Error() string {
 	return fmt.Sprintf("[POST /swift][%d] postSwiftForbidden  %+v", 403, o.Payload)
 }
-
 func (o *PostSwiftForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -157,7 +153,7 @@ func NewPostSwiftConflict() *PostSwiftConflict {
 	return &PostSwiftConflict{}
 }
 
-/*PostSwiftConflict handles this case with default header values.
+/* PostSwiftConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -168,7 +164,6 @@ type PostSwiftConflict struct {
 func (o *PostSwiftConflict) Error() string {
 	return fmt.Sprintf("[POST /swift][%d] postSwiftConflict  %+v", 409, o.Payload)
 }
-
 func (o *PostSwiftConflict) GetPayload() *models.APIError {
 	return o.Payload
 }

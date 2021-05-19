@@ -77,7 +77,6 @@ func (o *PatchLimitsIDReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -88,7 +87,7 @@ func NewPatchLimitsIDOK() *PatchLimitsIDOK {
 	return &PatchLimitsIDOK{}
 }
 
-/*PatchLimitsIDOK handles this case with default header values.
+/* PatchLimitsIDOK describes a response with status code 200, with default header values.
 
 Limit updated
 */
@@ -99,7 +98,6 @@ type PatchLimitsIDOK struct {
 func (o *PatchLimitsIDOK) Error() string {
 	return fmt.Sprintf("[PATCH /limits/{id}][%d] patchLimitsIdOK  %+v", 200, o.Payload)
 }
-
 func (o *PatchLimitsIDOK) GetPayload() *models.LimitDetailsResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewPatchLimitsIDBadRequest() *PatchLimitsIDBadRequest {
 	return &PatchLimitsIDBadRequest{}
 }
 
-/*PatchLimitsIDBadRequest handles this case with default header values.
+/* PatchLimitsIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type PatchLimitsIDBadRequest struct {
 func (o *PatchLimitsIDBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /limits/{id}][%d] patchLimitsIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *PatchLimitsIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewPatchLimitsIDUnauthorized() *PatchLimitsIDUnauthorized {
 	return &PatchLimitsIDUnauthorized{}
 }
 
-/*PatchLimitsIDUnauthorized handles this case with default header values.
+/* PatchLimitsIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type PatchLimitsIDUnauthorized struct {
 func (o *PatchLimitsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[PATCH /limits/{id}][%d] patchLimitsIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *PatchLimitsIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewPatchLimitsIDForbidden() *PatchLimitsIDForbidden {
 	return &PatchLimitsIDForbidden{}
 }
 
-/*PatchLimitsIDForbidden handles this case with default header values.
+/* PatchLimitsIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type PatchLimitsIDForbidden struct {
 func (o *PatchLimitsIDForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /limits/{id}][%d] patchLimitsIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *PatchLimitsIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewPatchLimitsIDNotFound() *PatchLimitsIDNotFound {
 	return &PatchLimitsIDNotFound{}
 }
 
-/*PatchLimitsIDNotFound handles this case with default header values.
+/* PatchLimitsIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type PatchLimitsIDNotFound struct {
 func (o *PatchLimitsIDNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /limits/{id}][%d] patchLimitsIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *PatchLimitsIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewPatchLimitsIDConflict() *PatchLimitsIDConflict {
 	return &PatchLimitsIDConflict{}
 }
 
-/*PatchLimitsIDConflict handles this case with default header values.
+/* PatchLimitsIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type PatchLimitsIDConflict struct {
 func (o *PatchLimitsIDConflict) Error() string {
 	return fmt.Sprintf("[PATCH /limits/{id}][%d] patchLimitsIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *PatchLimitsIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewPatchLimitsIDTooManyRequests() *PatchLimitsIDTooManyRequests {
 	return &PatchLimitsIDTooManyRequests{}
 }
 
-/*PatchLimitsIDTooManyRequests handles this case with default header values.
+/* PatchLimitsIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type PatchLimitsIDTooManyRequests struct {
 func (o *PatchLimitsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[PATCH /limits/{id}][%d] patchLimitsIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *PatchLimitsIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewPatchLimitsIDInternalServerError() *PatchLimitsIDInternalServerError {
 	return &PatchLimitsIDInternalServerError{}
 }
 
-/*PatchLimitsIDInternalServerError handles this case with default header values.
+/* PatchLimitsIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type PatchLimitsIDInternalServerError struct {
 func (o *PatchLimitsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[PATCH /limits/{id}][%d] patchLimitsIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *PatchLimitsIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewPatchLimitsIDServiceUnavailable() *PatchLimitsIDServiceUnavailable {
 	return &PatchLimitsIDServiceUnavailable{}
 }
 
-/*PatchLimitsIDServiceUnavailable handles this case with default header values.
+/* PatchLimitsIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type PatchLimitsIDServiceUnavailable struct {
 func (o *PatchLimitsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[PATCH /limits/{id}][%d] patchLimitsIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *PatchLimitsIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

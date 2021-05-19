@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -112,7 +114,6 @@ func (m *CoPAssociation) validateAttributes(formats strfmt.Registry) error {
 }
 
 func (m *CoPAssociation) validateCreatedOn(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CreatedOn) { // not required
 		return nil
 	}
@@ -138,7 +139,6 @@ func (m *CoPAssociation) validateID(formats strfmt.Registry) error {
 }
 
 func (m *CoPAssociation) validateModifiedOn(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ModifiedOn) { // not required
 		return nil
 	}
@@ -182,7 +182,6 @@ func (m *CoPAssociation) validateRelationships(formats strfmt.Registry) error {
 }
 
 func (m *CoPAssociation) validateType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
@@ -198,12 +197,73 @@ func (m *CoPAssociation) validateType(formats strfmt.Registry) error {
 }
 
 func (m *CoPAssociation) validateVersion(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Version) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
+	if err := validate.MinimumInt("version", "body", *m.Version, 0, false); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this co p association based on the context it is used
+func (m *CoPAssociation) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAttributes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRelationships(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CoPAssociation) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Attributes != nil {
+		if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("attributes")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *CoPAssociation) contextValidateRelationships(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Relationships != nil {
+		if err := m.Relationships.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("relationships")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *CoPAssociation) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Type.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("type")
+		}
 		return err
 	}
 

@@ -17,64 +17,81 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteSepaddIDParams creates a new DeleteSepaddIDParams object
-// with the default values initialized.
+// NewDeleteSepaddIDParams creates a new DeleteSepaddIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteSepaddIDParams() *DeleteSepaddIDParams {
-	var ()
 	return &DeleteSepaddIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteSepaddIDParamsWithTimeout creates a new DeleteSepaddIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteSepaddIDParamsWithTimeout(timeout time.Duration) *DeleteSepaddIDParams {
-	var ()
 	return &DeleteSepaddIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteSepaddIDParamsWithContext creates a new DeleteSepaddIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteSepaddIDParamsWithContext(ctx context.Context) *DeleteSepaddIDParams {
-	var ()
 	return &DeleteSepaddIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteSepaddIDParamsWithHTTPClient creates a new DeleteSepaddIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteSepaddIDParamsWithHTTPClient(client *http.Client) *DeleteSepaddIDParams {
-	var ()
 	return &DeleteSepaddIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteSepaddIDParams contains all the parameters to send to the API endpoint
-for the delete sepadd ID operation typically these are written to a http.Request
+/* DeleteSepaddIDParams contains all the parameters to send to the API endpoint
+   for the delete sepadd ID operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteSepaddIDParams struct {
 
-	/*ID
-	  Association Id
+	/* ID.
 
+	   Association Id
+
+	   Format: uuid
 	*/
 	ID strfmt.UUID
-	/*Version
-	  Version
 
+	/* Version.
+
+	   Version
 	*/
 	Version int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete sepadd ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteSepaddIDParams) WithDefaults() *DeleteSepaddIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete sepadd ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteSepaddIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete sepadd ID params
@@ -149,6 +166,7 @@ func (o *DeleteSepaddIDParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 	qrVersion := o.Version
 	qVersion := swag.FormatInt64(qrVersion)
 	if qVersion != "" {
+
 		if err := r.SetQueryParam("version", qVersion); err != nil {
 			return err
 		}

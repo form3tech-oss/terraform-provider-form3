@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -77,7 +79,6 @@ func (m *ReturnAdmission) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ReturnAdmission) validateAttributes(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Attributes) { // not required
 		return nil
 	}
@@ -121,7 +122,6 @@ func (m *ReturnAdmission) validateOrganisationID(formats strfmt.Registry) error 
 }
 
 func (m *ReturnAdmission) validateRelationships(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Relationships) { // not required
 		return nil
 	}
@@ -139,12 +139,11 @@ func (m *ReturnAdmission) validateRelationships(formats strfmt.Registry) error {
 }
 
 func (m *ReturnAdmission) validateType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("type", "body", string(m.Type), `^[A-Za-z_]*$`); err != nil {
+	if err := validate.Pattern("type", "body", m.Type, `^[A-Za-z_]*$`); err != nil {
 		return err
 	}
 
@@ -152,13 +151,58 @@ func (m *ReturnAdmission) validateType(formats strfmt.Registry) error {
 }
 
 func (m *ReturnAdmission) validateVersion(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Version) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
+	if err := validate.MinimumInt("version", "body", *m.Version, 0, false); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this return admission based on the context it is used
+func (m *ReturnAdmission) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAttributes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRelationships(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ReturnAdmission) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Attributes != nil {
+		if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("attributes")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ReturnAdmission) contextValidateRelationships(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Relationships != nil {
+		if err := m.Relationships.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("relationships")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -237,7 +281,6 @@ func (m *ReturnAdmissionAttributes) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ReturnAdmissionAttributes) validateAdmissionDatetime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.AdmissionDatetime) { // not required
 		return nil
 	}
@@ -250,12 +293,11 @@ func (m *ReturnAdmissionAttributes) validateAdmissionDatetime(formats strfmt.Reg
 }
 
 func (m *ReturnAdmissionAttributes) validateSettlementCycle(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SettlementCycle) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("attributes"+"."+"settlement_cycle", "body", int64(*m.SettlementCycle), 0, false); err != nil {
+	if err := validate.MinimumInt("attributes"+"."+"settlement_cycle", "body", *m.SettlementCycle, 0, false); err != nil {
 		return err
 	}
 
@@ -263,7 +305,6 @@ func (m *ReturnAdmissionAttributes) validateSettlementCycle(formats strfmt.Regis
 }
 
 func (m *ReturnAdmissionAttributes) validateSettlementDate(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SettlementDate) { // not required
 		return nil
 	}
@@ -276,12 +317,50 @@ func (m *ReturnAdmissionAttributes) validateSettlementDate(formats strfmt.Regist
 }
 
 func (m *ReturnAdmissionAttributes) validateStatus(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Status) { // not required
 		return nil
 	}
 
 	if err := m.Status.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("attributes" + "." + "status")
+		}
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this return admission attributes based on the context it is used
+func (m *ReturnAdmissionAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAdmissionDatetime(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStatus(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ReturnAdmissionAttributes) contextValidateAdmissionDatetime(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "attributes"+"."+"admission_datetime", "body", strfmt.DateTime(m.AdmissionDatetime)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ReturnAdmissionAttributes) contextValidateStatus(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Status.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("attributes" + "." + "status")
 		}

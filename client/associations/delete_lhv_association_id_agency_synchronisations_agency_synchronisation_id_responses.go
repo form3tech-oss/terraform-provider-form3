@@ -77,7 +77,6 @@ func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDRead
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -88,7 +87,7 @@ func NewDeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNoCon
 	return &DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNoContent{}
 }
 
-/*DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNoContent handles this case with default header values.
+/* DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNoContent describes a response with status code 204, with default header values.
 
 LHV Association agency synchronisation details deleted
 */
@@ -109,7 +108,7 @@ func NewDeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDBadRe
 	return &DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDBadRequest{}
 }
 
-/*DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDBadRequest handles this case with default header values.
+/* DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -120,7 +119,6 @@ type DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDBadReque
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] deleteLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -142,7 +140,7 @@ func NewDeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDUnaut
 	return &DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDUnauthorized{}
 }
 
-/*DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDUnauthorized handles this case with default header values.
+/* DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -153,7 +151,6 @@ type DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDUnauthor
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] deleteLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -175,7 +172,7 @@ func NewDeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDForbi
 	return &DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDForbidden{}
 }
 
-/*DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDForbidden handles this case with default header values.
+/* DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -186,7 +183,6 @@ type DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDForbidde
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] deleteLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -208,7 +204,7 @@ func NewDeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNotFo
 	return &DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNotFound{}
 }
 
-/*DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNotFound handles this case with default header values.
+/* DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -219,7 +215,6 @@ type DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNotFound
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] deleteLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -241,7 +236,7 @@ func NewDeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDConfl
 	return &DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDConflict{}
 }
 
-/*DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDConflict handles this case with default header values.
+/* DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -252,7 +247,6 @@ type DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDConflict
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] deleteLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -274,7 +268,7 @@ func NewDeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDTooMa
 	return &DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDTooManyRequests{}
 }
 
-/*DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDTooManyRequests handles this case with default header values.
+/* DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -285,7 +279,6 @@ type DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDTooManyR
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] deleteLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -307,7 +300,7 @@ func NewDeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDInter
 	return &DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDInternalServerError{}
 }
 
-/*DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDInternalServerError handles this case with default header values.
+/* DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -318,7 +311,6 @@ type DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDInternal
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] deleteLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -340,7 +332,7 @@ func NewDeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDServi
 	return &DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDServiceUnavailable{}
 }
 
-/*DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDServiceUnavailable handles this case with default header values.
+/* DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -351,7 +343,6 @@ type DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDServiceU
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] deleteLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

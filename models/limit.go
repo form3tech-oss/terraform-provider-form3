@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -68,7 +70,6 @@ func (m *Limit) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Limit) validateAttributes(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Attributes) { // not required
 		return nil
 	}
@@ -86,7 +87,6 @@ func (m *Limit) validateAttributes(formats strfmt.Registry) error {
 }
 
 func (m *Limit) validateID(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ID) { // not required
 		return nil
 	}
@@ -99,7 +99,6 @@ func (m *Limit) validateID(formats strfmt.Registry) error {
 }
 
 func (m *Limit) validateOrganisationID(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.OrganisationID) { // not required
 		return nil
 	}
@@ -112,12 +111,11 @@ func (m *Limit) validateOrganisationID(formats strfmt.Registry) error {
 }
 
 func (m *Limit) validateType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("type", "body", string(m.Type), `^[A-Za-z_]*$`); err != nil {
+	if err := validate.Pattern("type", "body", m.Type, `^[A-Za-z_]*$`); err != nil {
 		return err
 	}
 
@@ -125,13 +123,40 @@ func (m *Limit) validateType(formats strfmt.Registry) error {
 }
 
 func (m *Limit) validateVersion(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Version) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
+	if err := validate.MinimumInt("version", "body", *m.Version, 0, false); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this limit based on the context it is used
+func (m *Limit) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAttributes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Limit) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Attributes != nil {
+		if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("attributes")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -203,12 +228,11 @@ func (m *LimitAttributes) Validate(formats strfmt.Registry) error {
 }
 
 func (m *LimitAttributes) validateAmount(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Amount) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("attributes"+"."+"amount", "body", string(m.Amount), `^[0-9.]{0,20}$`); err != nil {
+	if err := validate.Pattern("attributes"+"."+"amount", "body", m.Amount, `^[0-9.]{0,20}$`); err != nil {
 		return err
 	}
 
@@ -216,12 +240,11 @@ func (m *LimitAttributes) validateAmount(formats strfmt.Registry) error {
 }
 
 func (m *LimitAttributes) validateGateway(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Gateway) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("attributes"+"."+"gateway", "body", string(m.Gateway), `^[A-Za-z_\-]*$`); err != nil {
+	if err := validate.Pattern("attributes"+"."+"gateway", "body", m.Gateway, `^[A-Za-z_\-]*$`); err != nil {
 		return err
 	}
 
@@ -229,12 +252,11 @@ func (m *LimitAttributes) validateGateway(formats strfmt.Registry) error {
 }
 
 func (m *LimitAttributes) validateScheme(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Scheme) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("attributes"+"."+"scheme", "body", string(m.Scheme), `^[A-Za-z_\-]*$`); err != nil {
+	if err := validate.Pattern("attributes"+"."+"scheme", "body", m.Scheme, `^[A-Za-z_\-]*$`); err != nil {
 		return err
 	}
 
@@ -242,12 +264,37 @@ func (m *LimitAttributes) validateScheme(formats strfmt.Registry) error {
 }
 
 func (m *LimitAttributes) validateSettlementCycleType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SettlementCycleType) { // not required
 		return nil
 	}
 
 	if err := m.SettlementCycleType.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("attributes" + "." + "settlement_cycle_type")
+		}
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this limit attributes based on the context it is used
+func (m *LimitAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateSettlementCycleType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *LimitAttributes) contextValidateSettlementCycleType(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.SettlementCycleType.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("attributes" + "." + "settlement_cycle_type")
 		}

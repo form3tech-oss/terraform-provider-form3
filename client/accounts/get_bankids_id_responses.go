@@ -77,7 +77,6 @@ func (o *GetBankidsIDReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -88,7 +87,7 @@ func NewGetBankidsIDOK() *GetBankidsIDOK {
 	return &GetBankidsIDOK{}
 }
 
-/*GetBankidsIDOK handles this case with default header values.
+/* GetBankidsIDOK describes a response with status code 200, with default header values.
 
 BankId details
 */
@@ -99,7 +98,6 @@ type GetBankidsIDOK struct {
 func (o *GetBankidsIDOK) Error() string {
 	return fmt.Sprintf("[GET /bankids/{id}][%d] getBankidsIdOK  %+v", 200, o.Payload)
 }
-
 func (o *GetBankidsIDOK) GetPayload() *models.BankIDDetailsResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewGetBankidsIDBadRequest() *GetBankidsIDBadRequest {
 	return &GetBankidsIDBadRequest{}
 }
 
-/*GetBankidsIDBadRequest handles this case with default header values.
+/* GetBankidsIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type GetBankidsIDBadRequest struct {
 func (o *GetBankidsIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /bankids/{id}][%d] getBankidsIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetBankidsIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewGetBankidsIDUnauthorized() *GetBankidsIDUnauthorized {
 	return &GetBankidsIDUnauthorized{}
 }
 
-/*GetBankidsIDUnauthorized handles this case with default header values.
+/* GetBankidsIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type GetBankidsIDUnauthorized struct {
 func (o *GetBankidsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /bankids/{id}][%d] getBankidsIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetBankidsIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewGetBankidsIDForbidden() *GetBankidsIDForbidden {
 	return &GetBankidsIDForbidden{}
 }
 
-/*GetBankidsIDForbidden handles this case with default header values.
+/* GetBankidsIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type GetBankidsIDForbidden struct {
 func (o *GetBankidsIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /bankids/{id}][%d] getBankidsIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetBankidsIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewGetBankidsIDNotFound() *GetBankidsIDNotFound {
 	return &GetBankidsIDNotFound{}
 }
 
-/*GetBankidsIDNotFound handles this case with default header values.
+/* GetBankidsIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type GetBankidsIDNotFound struct {
 func (o *GetBankidsIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /bankids/{id}][%d] getBankidsIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetBankidsIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewGetBankidsIDConflict() *GetBankidsIDConflict {
 	return &GetBankidsIDConflict{}
 }
 
-/*GetBankidsIDConflict handles this case with default header values.
+/* GetBankidsIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type GetBankidsIDConflict struct {
 func (o *GetBankidsIDConflict) Error() string {
 	return fmt.Sprintf("[GET /bankids/{id}][%d] getBankidsIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *GetBankidsIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewGetBankidsIDTooManyRequests() *GetBankidsIDTooManyRequests {
 	return &GetBankidsIDTooManyRequests{}
 }
 
-/*GetBankidsIDTooManyRequests handles this case with default header values.
+/* GetBankidsIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type GetBankidsIDTooManyRequests struct {
 func (o *GetBankidsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /bankids/{id}][%d] getBankidsIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *GetBankidsIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewGetBankidsIDInternalServerError() *GetBankidsIDInternalServerError {
 	return &GetBankidsIDInternalServerError{}
 }
 
-/*GetBankidsIDInternalServerError handles this case with default header values.
+/* GetBankidsIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type GetBankidsIDInternalServerError struct {
 func (o *GetBankidsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /bankids/{id}][%d] getBankidsIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetBankidsIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewGetBankidsIDServiceUnavailable() *GetBankidsIDServiceUnavailable {
 	return &GetBankidsIDServiceUnavailable{}
 }
 
-/*GetBankidsIDServiceUnavailable handles this case with default header values.
+/* GetBankidsIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type GetBankidsIDServiceUnavailable struct {
 func (o *GetBankidsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /bankids/{id}][%d] getBankidsIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *GetBankidsIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

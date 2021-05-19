@@ -77,7 +77,6 @@ func (o *DeleteConfirmationOfPayeeIDReader) ReadResponse(response runtime.Client
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -88,7 +87,7 @@ func NewDeleteConfirmationOfPayeeIDNoContent() *DeleteConfirmationOfPayeeIDNoCon
 	return &DeleteConfirmationOfPayeeIDNoContent{}
 }
 
-/*DeleteConfirmationOfPayeeIDNoContent handles this case with default header values.
+/* DeleteConfirmationOfPayeeIDNoContent describes a response with status code 204, with default header values.
 
 Association deleted
 */
@@ -109,7 +108,7 @@ func NewDeleteConfirmationOfPayeeIDBadRequest() *DeleteConfirmationOfPayeeIDBadR
 	return &DeleteConfirmationOfPayeeIDBadRequest{}
 }
 
-/*DeleteConfirmationOfPayeeIDBadRequest handles this case with default header values.
+/* DeleteConfirmationOfPayeeIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -120,7 +119,6 @@ type DeleteConfirmationOfPayeeIDBadRequest struct {
 func (o *DeleteConfirmationOfPayeeIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /confirmation-of-payee/{id}][%d] deleteConfirmationOfPayeeIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *DeleteConfirmationOfPayeeIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -142,7 +140,7 @@ func NewDeleteConfirmationOfPayeeIDUnauthorized() *DeleteConfirmationOfPayeeIDUn
 	return &DeleteConfirmationOfPayeeIDUnauthorized{}
 }
 
-/*DeleteConfirmationOfPayeeIDUnauthorized handles this case with default header values.
+/* DeleteConfirmationOfPayeeIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -153,7 +151,6 @@ type DeleteConfirmationOfPayeeIDUnauthorized struct {
 func (o *DeleteConfirmationOfPayeeIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /confirmation-of-payee/{id}][%d] deleteConfirmationOfPayeeIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *DeleteConfirmationOfPayeeIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -175,7 +172,7 @@ func NewDeleteConfirmationOfPayeeIDForbidden() *DeleteConfirmationOfPayeeIDForbi
 	return &DeleteConfirmationOfPayeeIDForbidden{}
 }
 
-/*DeleteConfirmationOfPayeeIDForbidden handles this case with default header values.
+/* DeleteConfirmationOfPayeeIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -186,7 +183,6 @@ type DeleteConfirmationOfPayeeIDForbidden struct {
 func (o *DeleteConfirmationOfPayeeIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /confirmation-of-payee/{id}][%d] deleteConfirmationOfPayeeIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *DeleteConfirmationOfPayeeIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -208,7 +204,7 @@ func NewDeleteConfirmationOfPayeeIDNotFound() *DeleteConfirmationOfPayeeIDNotFou
 	return &DeleteConfirmationOfPayeeIDNotFound{}
 }
 
-/*DeleteConfirmationOfPayeeIDNotFound handles this case with default header values.
+/* DeleteConfirmationOfPayeeIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -219,7 +215,6 @@ type DeleteConfirmationOfPayeeIDNotFound struct {
 func (o *DeleteConfirmationOfPayeeIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /confirmation-of-payee/{id}][%d] deleteConfirmationOfPayeeIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteConfirmationOfPayeeIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -241,7 +236,7 @@ func NewDeleteConfirmationOfPayeeIDConflict() *DeleteConfirmationOfPayeeIDConfli
 	return &DeleteConfirmationOfPayeeIDConflict{}
 }
 
-/*DeleteConfirmationOfPayeeIDConflict handles this case with default header values.
+/* DeleteConfirmationOfPayeeIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -252,7 +247,6 @@ type DeleteConfirmationOfPayeeIDConflict struct {
 func (o *DeleteConfirmationOfPayeeIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /confirmation-of-payee/{id}][%d] deleteConfirmationOfPayeeIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *DeleteConfirmationOfPayeeIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -274,7 +268,7 @@ func NewDeleteConfirmationOfPayeeIDTooManyRequests() *DeleteConfirmationOfPayeeI
 	return &DeleteConfirmationOfPayeeIDTooManyRequests{}
 }
 
-/*DeleteConfirmationOfPayeeIDTooManyRequests handles this case with default header values.
+/* DeleteConfirmationOfPayeeIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -285,7 +279,6 @@ type DeleteConfirmationOfPayeeIDTooManyRequests struct {
 func (o *DeleteConfirmationOfPayeeIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /confirmation-of-payee/{id}][%d] deleteConfirmationOfPayeeIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *DeleteConfirmationOfPayeeIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -307,7 +300,7 @@ func NewDeleteConfirmationOfPayeeIDInternalServerError() *DeleteConfirmationOfPa
 	return &DeleteConfirmationOfPayeeIDInternalServerError{}
 }
 
-/*DeleteConfirmationOfPayeeIDInternalServerError handles this case with default header values.
+/* DeleteConfirmationOfPayeeIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -318,7 +311,6 @@ type DeleteConfirmationOfPayeeIDInternalServerError struct {
 func (o *DeleteConfirmationOfPayeeIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /confirmation-of-payee/{id}][%d] deleteConfirmationOfPayeeIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *DeleteConfirmationOfPayeeIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -340,7 +332,7 @@ func NewDeleteConfirmationOfPayeeIDServiceUnavailable() *DeleteConfirmationOfPay
 	return &DeleteConfirmationOfPayeeIDServiceUnavailable{}
 }
 
-/*DeleteConfirmationOfPayeeIDServiceUnavailable handles this case with default header values.
+/* DeleteConfirmationOfPayeeIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -351,7 +343,6 @@ type DeleteConfirmationOfPayeeIDServiceUnavailable struct {
 func (o *DeleteConfirmationOfPayeeIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /confirmation-of-payee/{id}][%d] deleteConfirmationOfPayeeIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *DeleteConfirmationOfPayeeIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

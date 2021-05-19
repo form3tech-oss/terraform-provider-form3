@@ -77,7 +77,6 @@ func (o *DeleteSepainstantIDReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -88,7 +87,7 @@ func NewDeleteSepainstantIDNoContent() *DeleteSepainstantIDNoContent {
 	return &DeleteSepainstantIDNoContent{}
 }
 
-/*DeleteSepainstantIDNoContent handles this case with default header values.
+/* DeleteSepainstantIDNoContent describes a response with status code 204, with default header values.
 
 Association deleted
 */
@@ -109,7 +108,7 @@ func NewDeleteSepainstantIDBadRequest() *DeleteSepainstantIDBadRequest {
 	return &DeleteSepainstantIDBadRequest{}
 }
 
-/*DeleteSepainstantIDBadRequest handles this case with default header values.
+/* DeleteSepainstantIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -120,7 +119,6 @@ type DeleteSepainstantIDBadRequest struct {
 func (o *DeleteSepainstantIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /sepainstant/{id}][%d] deleteSepainstantIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *DeleteSepainstantIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -142,7 +140,7 @@ func NewDeleteSepainstantIDUnauthorized() *DeleteSepainstantIDUnauthorized {
 	return &DeleteSepainstantIDUnauthorized{}
 }
 
-/*DeleteSepainstantIDUnauthorized handles this case with default header values.
+/* DeleteSepainstantIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -153,7 +151,6 @@ type DeleteSepainstantIDUnauthorized struct {
 func (o *DeleteSepainstantIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /sepainstant/{id}][%d] deleteSepainstantIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *DeleteSepainstantIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -175,7 +172,7 @@ func NewDeleteSepainstantIDForbidden() *DeleteSepainstantIDForbidden {
 	return &DeleteSepainstantIDForbidden{}
 }
 
-/*DeleteSepainstantIDForbidden handles this case with default header values.
+/* DeleteSepainstantIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -186,7 +183,6 @@ type DeleteSepainstantIDForbidden struct {
 func (o *DeleteSepainstantIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /sepainstant/{id}][%d] deleteSepainstantIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *DeleteSepainstantIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -208,7 +204,7 @@ func NewDeleteSepainstantIDNotFound() *DeleteSepainstantIDNotFound {
 	return &DeleteSepainstantIDNotFound{}
 }
 
-/*DeleteSepainstantIDNotFound handles this case with default header values.
+/* DeleteSepainstantIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -219,7 +215,6 @@ type DeleteSepainstantIDNotFound struct {
 func (o *DeleteSepainstantIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /sepainstant/{id}][%d] deleteSepainstantIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteSepainstantIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -241,7 +236,7 @@ func NewDeleteSepainstantIDConflict() *DeleteSepainstantIDConflict {
 	return &DeleteSepainstantIDConflict{}
 }
 
-/*DeleteSepainstantIDConflict handles this case with default header values.
+/* DeleteSepainstantIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -252,7 +247,6 @@ type DeleteSepainstantIDConflict struct {
 func (o *DeleteSepainstantIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /sepainstant/{id}][%d] deleteSepainstantIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *DeleteSepainstantIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -274,7 +268,7 @@ func NewDeleteSepainstantIDTooManyRequests() *DeleteSepainstantIDTooManyRequests
 	return &DeleteSepainstantIDTooManyRequests{}
 }
 
-/*DeleteSepainstantIDTooManyRequests handles this case with default header values.
+/* DeleteSepainstantIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -285,7 +279,6 @@ type DeleteSepainstantIDTooManyRequests struct {
 func (o *DeleteSepainstantIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /sepainstant/{id}][%d] deleteSepainstantIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *DeleteSepainstantIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -307,7 +300,7 @@ func NewDeleteSepainstantIDInternalServerError() *DeleteSepainstantIDInternalSer
 	return &DeleteSepainstantIDInternalServerError{}
 }
 
-/*DeleteSepainstantIDInternalServerError handles this case with default header values.
+/* DeleteSepainstantIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -318,7 +311,6 @@ type DeleteSepainstantIDInternalServerError struct {
 func (o *DeleteSepainstantIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /sepainstant/{id}][%d] deleteSepainstantIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *DeleteSepainstantIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -340,7 +332,7 @@ func NewDeleteSepainstantIDServiceUnavailable() *DeleteSepainstantIDServiceUnava
 	return &DeleteSepainstantIDServiceUnavailable{}
 }
 
-/*DeleteSepainstantIDServiceUnavailable handles this case with default header values.
+/* DeleteSepainstantIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -351,7 +343,6 @@ type DeleteSepainstantIDServiceUnavailable struct {
 func (o *DeleteSepainstantIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /sepainstant/{id}][%d] deleteSepainstantIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *DeleteSepainstantIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

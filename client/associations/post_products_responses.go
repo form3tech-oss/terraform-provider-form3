@@ -77,7 +77,6 @@ func (o *PostProductsReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -88,7 +87,7 @@ func NewPostProductsCreated() *PostProductsCreated {
 	return &PostProductsCreated{}
 }
 
-/*PostProductsCreated handles this case with default header values.
+/* PostProductsCreated describes a response with status code 201, with default header values.
 
 creation response
 */
@@ -99,7 +98,6 @@ type PostProductsCreated struct {
 func (o *PostProductsCreated) Error() string {
 	return fmt.Sprintf("[POST /products][%d] postProductsCreated  %+v", 201, o.Payload)
 }
-
 func (o *PostProductsCreated) GetPayload() *models.ProductsAssociationCreationResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewPostProductsBadRequest() *PostProductsBadRequest {
 	return &PostProductsBadRequest{}
 }
 
-/*PostProductsBadRequest handles this case with default header values.
+/* PostProductsBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type PostProductsBadRequest struct {
 func (o *PostProductsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /products][%d] postProductsBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *PostProductsBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewPostProductsUnauthorized() *PostProductsUnauthorized {
 	return &PostProductsUnauthorized{}
 }
 
-/*PostProductsUnauthorized handles this case with default header values.
+/* PostProductsUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type PostProductsUnauthorized struct {
 func (o *PostProductsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /products][%d] postProductsUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *PostProductsUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewPostProductsForbidden() *PostProductsForbidden {
 	return &PostProductsForbidden{}
 }
 
-/*PostProductsForbidden handles this case with default header values.
+/* PostProductsForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type PostProductsForbidden struct {
 func (o *PostProductsForbidden) Error() string {
 	return fmt.Sprintf("[POST /products][%d] postProductsForbidden  %+v", 403, o.Payload)
 }
-
 func (o *PostProductsForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewPostProductsNotFound() *PostProductsNotFound {
 	return &PostProductsNotFound{}
 }
 
-/*PostProductsNotFound handles this case with default header values.
+/* PostProductsNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type PostProductsNotFound struct {
 func (o *PostProductsNotFound) Error() string {
 	return fmt.Sprintf("[POST /products][%d] postProductsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *PostProductsNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewPostProductsConflict() *PostProductsConflict {
 	return &PostProductsConflict{}
 }
 
-/*PostProductsConflict handles this case with default header values.
+/* PostProductsConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type PostProductsConflict struct {
 func (o *PostProductsConflict) Error() string {
 	return fmt.Sprintf("[POST /products][%d] postProductsConflict  %+v", 409, o.Payload)
 }
-
 func (o *PostProductsConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewPostProductsTooManyRequests() *PostProductsTooManyRequests {
 	return &PostProductsTooManyRequests{}
 }
 
-/*PostProductsTooManyRequests handles this case with default header values.
+/* PostProductsTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type PostProductsTooManyRequests struct {
 func (o *PostProductsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /products][%d] postProductsTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *PostProductsTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewPostProductsInternalServerError() *PostProductsInternalServerError {
 	return &PostProductsInternalServerError{}
 }
 
-/*PostProductsInternalServerError handles this case with default header values.
+/* PostProductsInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type PostProductsInternalServerError struct {
 func (o *PostProductsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /products][%d] postProductsInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *PostProductsInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewPostProductsServiceUnavailable() *PostProductsServiceUnavailable {
 	return &PostProductsServiceUnavailable{}
 }
 
-/*PostProductsServiceUnavailable handles this case with default header values.
+/* PostProductsServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type PostProductsServiceUnavailable struct {
 func (o *PostProductsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /products][%d] postProductsServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *PostProductsServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

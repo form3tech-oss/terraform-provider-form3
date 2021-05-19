@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -63,7 +65,6 @@ func (m *PayportAssociation) Validate(formats strfmt.Registry) error {
 }
 
 func (m *PayportAssociation) validateAttributes(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Attributes) { // not required
 		return nil
 	}
@@ -81,7 +82,6 @@ func (m *PayportAssociation) validateAttributes(formats strfmt.Registry) error {
 }
 
 func (m *PayportAssociation) validateID(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ID) { // not required
 		return nil
 	}
@@ -94,7 +94,6 @@ func (m *PayportAssociation) validateID(formats strfmt.Registry) error {
 }
 
 func (m *PayportAssociation) validateOrganisationID(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.OrganisationID) { // not required
 		return nil
 	}
@@ -107,13 +106,40 @@ func (m *PayportAssociation) validateOrganisationID(formats strfmt.Registry) err
 }
 
 func (m *PayportAssociation) validateVersion(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Version) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
+	if err := validate.MinimumInt("version", "body", *m.Version, 0, false); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this payport association based on the context it is used
+func (m *PayportAssociation) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAttributes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *PayportAssociation) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Attributes != nil {
+		if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("attributes")
+			}
+			return err
+		}
 	}
 
 	return nil

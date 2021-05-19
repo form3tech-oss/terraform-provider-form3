@@ -77,7 +77,6 @@ func (o *PatchGocardlessIDReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -88,7 +87,7 @@ func NewPatchGocardlessIDOK() *PatchGocardlessIDOK {
 	return &PatchGocardlessIDOK{}
 }
 
-/*PatchGocardlessIDOK handles this case with default header values.
+/* PatchGocardlessIDOK describes a response with status code 200, with default header values.
 
 Association updated successfully
 */
@@ -99,7 +98,6 @@ type PatchGocardlessIDOK struct {
 func (o *PatchGocardlessIDOK) Error() string {
 	return fmt.Sprintf("[PATCH /gocardless/{id}][%d] patchGocardlessIdOK  %+v", 200, o.Payload)
 }
-
 func (o *PatchGocardlessIDOK) GetPayload() *models.GocardlessAssociationResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewPatchGocardlessIDBadRequest() *PatchGocardlessIDBadRequest {
 	return &PatchGocardlessIDBadRequest{}
 }
 
-/*PatchGocardlessIDBadRequest handles this case with default header values.
+/* PatchGocardlessIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type PatchGocardlessIDBadRequest struct {
 func (o *PatchGocardlessIDBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /gocardless/{id}][%d] patchGocardlessIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *PatchGocardlessIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewPatchGocardlessIDUnauthorized() *PatchGocardlessIDUnauthorized {
 	return &PatchGocardlessIDUnauthorized{}
 }
 
-/*PatchGocardlessIDUnauthorized handles this case with default header values.
+/* PatchGocardlessIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type PatchGocardlessIDUnauthorized struct {
 func (o *PatchGocardlessIDUnauthorized) Error() string {
 	return fmt.Sprintf("[PATCH /gocardless/{id}][%d] patchGocardlessIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *PatchGocardlessIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewPatchGocardlessIDForbidden() *PatchGocardlessIDForbidden {
 	return &PatchGocardlessIDForbidden{}
 }
 
-/*PatchGocardlessIDForbidden handles this case with default header values.
+/* PatchGocardlessIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type PatchGocardlessIDForbidden struct {
 func (o *PatchGocardlessIDForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /gocardless/{id}][%d] patchGocardlessIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *PatchGocardlessIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewPatchGocardlessIDNotFound() *PatchGocardlessIDNotFound {
 	return &PatchGocardlessIDNotFound{}
 }
 
-/*PatchGocardlessIDNotFound handles this case with default header values.
+/* PatchGocardlessIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type PatchGocardlessIDNotFound struct {
 func (o *PatchGocardlessIDNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /gocardless/{id}][%d] patchGocardlessIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *PatchGocardlessIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewPatchGocardlessIDConflict() *PatchGocardlessIDConflict {
 	return &PatchGocardlessIDConflict{}
 }
 
-/*PatchGocardlessIDConflict handles this case with default header values.
+/* PatchGocardlessIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type PatchGocardlessIDConflict struct {
 func (o *PatchGocardlessIDConflict) Error() string {
 	return fmt.Sprintf("[PATCH /gocardless/{id}][%d] patchGocardlessIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *PatchGocardlessIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewPatchGocardlessIDTooManyRequests() *PatchGocardlessIDTooManyRequests {
 	return &PatchGocardlessIDTooManyRequests{}
 }
 
-/*PatchGocardlessIDTooManyRequests handles this case with default header values.
+/* PatchGocardlessIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type PatchGocardlessIDTooManyRequests struct {
 func (o *PatchGocardlessIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[PATCH /gocardless/{id}][%d] patchGocardlessIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *PatchGocardlessIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewPatchGocardlessIDInternalServerError() *PatchGocardlessIDInternalServerE
 	return &PatchGocardlessIDInternalServerError{}
 }
 
-/*PatchGocardlessIDInternalServerError handles this case with default header values.
+/* PatchGocardlessIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type PatchGocardlessIDInternalServerError struct {
 func (o *PatchGocardlessIDInternalServerError) Error() string {
 	return fmt.Sprintf("[PATCH /gocardless/{id}][%d] patchGocardlessIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *PatchGocardlessIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewPatchGocardlessIDServiceUnavailable() *PatchGocardlessIDServiceUnavailab
 	return &PatchGocardlessIDServiceUnavailable{}
 }
 
-/*PatchGocardlessIDServiceUnavailable handles this case with default header values.
+/* PatchGocardlessIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type PatchGocardlessIDServiceUnavailable struct {
 func (o *PatchGocardlessIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[PATCH /gocardless/{id}][%d] patchGocardlessIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *PatchGocardlessIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

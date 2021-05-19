@@ -18,56 +18,70 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPostAccountRoutingsParams creates a new PostAccountRoutingsParams object
-// with the default values initialized.
+// NewPostAccountRoutingsParams creates a new PostAccountRoutingsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostAccountRoutingsParams() *PostAccountRoutingsParams {
-	var ()
 	return &PostAccountRoutingsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostAccountRoutingsParamsWithTimeout creates a new PostAccountRoutingsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostAccountRoutingsParamsWithTimeout(timeout time.Duration) *PostAccountRoutingsParams {
-	var ()
 	return &PostAccountRoutingsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostAccountRoutingsParamsWithContext creates a new PostAccountRoutingsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostAccountRoutingsParamsWithContext(ctx context.Context) *PostAccountRoutingsParams {
-	var ()
 	return &PostAccountRoutingsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostAccountRoutingsParamsWithHTTPClient creates a new PostAccountRoutingsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostAccountRoutingsParamsWithHTTPClient(client *http.Client) *PostAccountRoutingsParams {
-	var ()
 	return &PostAccountRoutingsParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostAccountRoutingsParams contains all the parameters to send to the API endpoint
-for the post account routings operation typically these are written to a http.Request
+/* PostAccountRoutingsParams contains all the parameters to send to the API endpoint
+   for the post account routings operation.
+
+   Typically these are written to a http.Request.
 */
 type PostAccountRoutingsParams struct {
 
-	/*AccountRoutingCreationRequest*/
+	// AccountRoutingCreationRequest.
 	AccountRoutingCreationRequest *models.AccountRoutingCreation
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post account routings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostAccountRoutingsParams) WithDefaults() *PostAccountRoutingsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post account routings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostAccountRoutingsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post account routings params
@@ -121,7 +135,6 @@ func (o *PostAccountRoutingsParams) WriteToRequest(r runtime.ClientRequest, reg 
 		return err
 	}
 	var res []error
-
 	if o.AccountRoutingCreationRequest != nil {
 		if err := r.SetBodyParam(o.AccountRoutingCreationRequest); err != nil {
 			return err

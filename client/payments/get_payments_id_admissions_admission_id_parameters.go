@@ -16,64 +16,83 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetPaymentsIDAdmissionsAdmissionIDParams creates a new GetPaymentsIDAdmissionsAdmissionIDParams object
-// with the default values initialized.
+// NewGetPaymentsIDAdmissionsAdmissionIDParams creates a new GetPaymentsIDAdmissionsAdmissionIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetPaymentsIDAdmissionsAdmissionIDParams() *GetPaymentsIDAdmissionsAdmissionIDParams {
-	var ()
 	return &GetPaymentsIDAdmissionsAdmissionIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetPaymentsIDAdmissionsAdmissionIDParamsWithTimeout creates a new GetPaymentsIDAdmissionsAdmissionIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetPaymentsIDAdmissionsAdmissionIDParamsWithTimeout(timeout time.Duration) *GetPaymentsIDAdmissionsAdmissionIDParams {
-	var ()
 	return &GetPaymentsIDAdmissionsAdmissionIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetPaymentsIDAdmissionsAdmissionIDParamsWithContext creates a new GetPaymentsIDAdmissionsAdmissionIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetPaymentsIDAdmissionsAdmissionIDParamsWithContext(ctx context.Context) *GetPaymentsIDAdmissionsAdmissionIDParams {
-	var ()
 	return &GetPaymentsIDAdmissionsAdmissionIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetPaymentsIDAdmissionsAdmissionIDParamsWithHTTPClient creates a new GetPaymentsIDAdmissionsAdmissionIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetPaymentsIDAdmissionsAdmissionIDParamsWithHTTPClient(client *http.Client) *GetPaymentsIDAdmissionsAdmissionIDParams {
-	var ()
 	return &GetPaymentsIDAdmissionsAdmissionIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetPaymentsIDAdmissionsAdmissionIDParams contains all the parameters to send to the API endpoint
-for the get payments ID admissions admission ID operation typically these are written to a http.Request
+/* GetPaymentsIDAdmissionsAdmissionIDParams contains all the parameters to send to the API endpoint
+   for the get payments ID admissions admission ID operation.
+
+   Typically these are written to a http.Request.
 */
 type GetPaymentsIDAdmissionsAdmissionIDParams struct {
 
-	/*AdmissionID
-	  Admission Id
+	/* AdmissionID.
 
+	   Admission Id
+
+	   Format: uuid
 	*/
 	AdmissionID strfmt.UUID
-	/*ID
-	  Payment Id
 
+	/* ID.
+
+	   Payment Id
+
+	   Format: uuid
 	*/
 	ID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get payments ID admissions admission ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetPaymentsIDAdmissionsAdmissionIDParams) WithDefaults() *GetPaymentsIDAdmissionsAdmissionIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get payments ID admissions admission ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetPaymentsIDAdmissionsAdmissionIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get payments ID admissions admission ID params

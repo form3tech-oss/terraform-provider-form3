@@ -25,15 +25,18 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	DeleteAccountRoutingsID(params *DeleteAccountRoutingsIDParams) (*DeleteAccountRoutingsIDNoContent, error)
+	DeleteAccountRoutingsID(params *DeleteAccountRoutingsIDParams, opts ...ClientOption) (*DeleteAccountRoutingsIDNoContent, error)
 
-	GetAccountRoutings(params *GetAccountRoutingsParams) (*GetAccountRoutingsOK, error)
+	GetAccountRoutings(params *GetAccountRoutingsParams, opts ...ClientOption) (*GetAccountRoutingsOK, error)
 
-	GetAccountRoutingsID(params *GetAccountRoutingsIDParams) (*GetAccountRoutingsIDOK, error)
+	GetAccountRoutingsID(params *GetAccountRoutingsIDParams, opts ...ClientOption) (*GetAccountRoutingsIDOK, error)
 
-	PostAccountRoutings(params *PostAccountRoutingsParams) (*PostAccountRoutingsCreated, error)
+	PostAccountRoutings(params *PostAccountRoutingsParams, opts ...ClientOption) (*PostAccountRoutingsCreated, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -41,13 +44,12 @@ type ClientService interface {
 /*
   DeleteAccountRoutingsID deletes account routing
 */
-func (a *Client) DeleteAccountRoutingsID(params *DeleteAccountRoutingsIDParams) (*DeleteAccountRoutingsIDNoContent, error) {
+func (a *Client) DeleteAccountRoutingsID(params *DeleteAccountRoutingsIDParams, opts ...ClientOption) (*DeleteAccountRoutingsIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteAccountRoutingsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteAccountRoutingsID",
 		Method:             "DELETE",
 		PathPattern:        "/account_routings/{id}",
@@ -58,7 +60,12 @@ func (a *Client) DeleteAccountRoutingsID(params *DeleteAccountRoutingsIDParams) 
 		Reader:             &DeleteAccountRoutingsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -75,13 +82,12 @@ func (a *Client) DeleteAccountRoutingsID(params *DeleteAccountRoutingsIDParams) 
 /*
   GetAccountRoutings lists account routings
 */
-func (a *Client) GetAccountRoutings(params *GetAccountRoutingsParams) (*GetAccountRoutingsOK, error) {
+func (a *Client) GetAccountRoutings(params *GetAccountRoutingsParams, opts ...ClientOption) (*GetAccountRoutingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetAccountRoutingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetAccountRoutings",
 		Method:             "GET",
 		PathPattern:        "/account_routings",
@@ -92,7 +98,12 @@ func (a *Client) GetAccountRoutings(params *GetAccountRoutingsParams) (*GetAccou
 		Reader:             &GetAccountRoutingsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -109,13 +120,12 @@ func (a *Client) GetAccountRoutings(params *GetAccountRoutingsParams) (*GetAccou
 /*
   GetAccountRoutingsID fetches account routing
 */
-func (a *Client) GetAccountRoutingsID(params *GetAccountRoutingsIDParams) (*GetAccountRoutingsIDOK, error) {
+func (a *Client) GetAccountRoutingsID(params *GetAccountRoutingsIDParams, opts ...ClientOption) (*GetAccountRoutingsIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetAccountRoutingsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetAccountRoutingsID",
 		Method:             "GET",
 		PathPattern:        "/account_routings/{id}",
@@ -126,7 +136,12 @@ func (a *Client) GetAccountRoutingsID(params *GetAccountRoutingsIDParams) (*GetA
 		Reader:             &GetAccountRoutingsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -143,13 +158,12 @@ func (a *Client) GetAccountRoutingsID(params *GetAccountRoutingsIDParams) (*GetA
 /*
   PostAccountRoutings creates an account routing entry
 */
-func (a *Client) PostAccountRoutings(params *PostAccountRoutingsParams) (*PostAccountRoutingsCreated, error) {
+func (a *Client) PostAccountRoutings(params *PostAccountRoutingsParams, opts ...ClientOption) (*PostAccountRoutingsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostAccountRoutingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostAccountRoutings",
 		Method:             "POST",
 		PathPattern:        "/account_routings",
@@ -160,7 +174,12 @@ func (a *Client) PostAccountRoutings(params *PostAccountRoutingsParams) (*PostAc
 		Reader:             &PostAccountRoutingsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

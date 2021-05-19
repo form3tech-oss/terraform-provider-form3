@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -96,7 +97,7 @@ func (m APIError) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 
-	if len(m.APIErrorAdditionalProperties) == 0 {
+	if len(m.APIErrorAdditionalProperties) == 0 { // no additional properties
 		return props, nil
 	}
 
@@ -106,13 +107,12 @@ func (m APIError) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 
-	if len(props) < 3 {
+	if len(props) < 3 { // "{}": only additional properties
 		return additional, nil
 	}
 
 	// concatenate the 2 objects
-	props[len(props)-1] = ','
-	return append(props, additional[1:]...), nil
+	return swag.ConcatJSON(props, additional), nil
 }
 
 // Validate validates this Api error
@@ -130,7 +130,6 @@ func (m *APIError) Validate(formats strfmt.Registry) error {
 }
 
 func (m *APIError) validateErrorCode(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ErrorCode) { // not required
 		return nil
 	}
@@ -139,6 +138,11 @@ func (m *APIError) validateErrorCode(formats strfmt.Registry) error {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this Api error based on context it is used
+func (m *APIError) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

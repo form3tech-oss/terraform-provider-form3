@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -36,13 +38,40 @@ func (m *VocalinkReportAssociationCertificateRelationship) Validate(formats strf
 }
 
 func (m *VocalinkReportAssociationCertificateRelationship) validateData(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Data) { // not required
 		return nil
 	}
 
 	if m.Data != nil {
 		if err := m.Data.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("data")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this vocalink report association certificate relationship based on the context it is used
+func (m *VocalinkReportAssociationCertificateRelationship) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateData(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *VocalinkReportAssociationCertificateRelationship) contextValidateData(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Data != nil {
+		if err := m.Data.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("data")
 			}
@@ -107,7 +136,6 @@ func (m *VocalinkReportAssociationCertificateRelationshipData) Validate(formats 
 }
 
 func (m *VocalinkReportAssociationCertificateRelationshipData) validateCertificateID(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CertificateID) { // not required
 		return nil
 	}
@@ -120,7 +148,6 @@ func (m *VocalinkReportAssociationCertificateRelationshipData) validateCertifica
 }
 
 func (m *VocalinkReportAssociationCertificateRelationshipData) validateKeyID(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.KeyID) { // not required
 		return nil
 	}
@@ -129,6 +156,11 @@ func (m *VocalinkReportAssociationCertificateRelationshipData) validateKeyID(for
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this vocalink report association certificate relationship data based on context it is used
+func (m *VocalinkReportAssociationCertificateRelationshipData) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

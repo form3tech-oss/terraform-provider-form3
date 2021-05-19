@@ -77,7 +77,6 @@ func (o *PostSepaLiquidityReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -88,7 +87,7 @@ func NewPostSepaLiquidityCreated() *PostSepaLiquidityCreated {
 	return &PostSepaLiquidityCreated{}
 }
 
-/*PostSepaLiquidityCreated handles this case with default header values.
+/* PostSepaLiquidityCreated describes a response with status code 201, with default header values.
 
 creation response
 */
@@ -99,7 +98,6 @@ type PostSepaLiquidityCreated struct {
 func (o *PostSepaLiquidityCreated) Error() string {
 	return fmt.Sprintf("[POST /sepa-liquidity][%d] postSepaLiquidityCreated  %+v", 201, o.Payload)
 }
-
 func (o *PostSepaLiquidityCreated) GetPayload() *models.SepaLiquidityAssociationCreationResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewPostSepaLiquidityBadRequest() *PostSepaLiquidityBadRequest {
 	return &PostSepaLiquidityBadRequest{}
 }
 
-/*PostSepaLiquidityBadRequest handles this case with default header values.
+/* PostSepaLiquidityBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type PostSepaLiquidityBadRequest struct {
 func (o *PostSepaLiquidityBadRequest) Error() string {
 	return fmt.Sprintf("[POST /sepa-liquidity][%d] postSepaLiquidityBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *PostSepaLiquidityBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewPostSepaLiquidityUnauthorized() *PostSepaLiquidityUnauthorized {
 	return &PostSepaLiquidityUnauthorized{}
 }
 
-/*PostSepaLiquidityUnauthorized handles this case with default header values.
+/* PostSepaLiquidityUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type PostSepaLiquidityUnauthorized struct {
 func (o *PostSepaLiquidityUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /sepa-liquidity][%d] postSepaLiquidityUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *PostSepaLiquidityUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewPostSepaLiquidityForbidden() *PostSepaLiquidityForbidden {
 	return &PostSepaLiquidityForbidden{}
 }
 
-/*PostSepaLiquidityForbidden handles this case with default header values.
+/* PostSepaLiquidityForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type PostSepaLiquidityForbidden struct {
 func (o *PostSepaLiquidityForbidden) Error() string {
 	return fmt.Sprintf("[POST /sepa-liquidity][%d] postSepaLiquidityForbidden  %+v", 403, o.Payload)
 }
-
 func (o *PostSepaLiquidityForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewPostSepaLiquidityNotFound() *PostSepaLiquidityNotFound {
 	return &PostSepaLiquidityNotFound{}
 }
 
-/*PostSepaLiquidityNotFound handles this case with default header values.
+/* PostSepaLiquidityNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type PostSepaLiquidityNotFound struct {
 func (o *PostSepaLiquidityNotFound) Error() string {
 	return fmt.Sprintf("[POST /sepa-liquidity][%d] postSepaLiquidityNotFound  %+v", 404, o.Payload)
 }
-
 func (o *PostSepaLiquidityNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewPostSepaLiquidityConflict() *PostSepaLiquidityConflict {
 	return &PostSepaLiquidityConflict{}
 }
 
-/*PostSepaLiquidityConflict handles this case with default header values.
+/* PostSepaLiquidityConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type PostSepaLiquidityConflict struct {
 func (o *PostSepaLiquidityConflict) Error() string {
 	return fmt.Sprintf("[POST /sepa-liquidity][%d] postSepaLiquidityConflict  %+v", 409, o.Payload)
 }
-
 func (o *PostSepaLiquidityConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewPostSepaLiquidityTooManyRequests() *PostSepaLiquidityTooManyRequests {
 	return &PostSepaLiquidityTooManyRequests{}
 }
 
-/*PostSepaLiquidityTooManyRequests handles this case with default header values.
+/* PostSepaLiquidityTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type PostSepaLiquidityTooManyRequests struct {
 func (o *PostSepaLiquidityTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /sepa-liquidity][%d] postSepaLiquidityTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *PostSepaLiquidityTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewPostSepaLiquidityInternalServerError() *PostSepaLiquidityInternalServerE
 	return &PostSepaLiquidityInternalServerError{}
 }
 
-/*PostSepaLiquidityInternalServerError handles this case with default header values.
+/* PostSepaLiquidityInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type PostSepaLiquidityInternalServerError struct {
 func (o *PostSepaLiquidityInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /sepa-liquidity][%d] postSepaLiquidityInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *PostSepaLiquidityInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewPostSepaLiquidityServiceUnavailable() *PostSepaLiquidityServiceUnavailab
 	return &PostSepaLiquidityServiceUnavailable{}
 }
 
-/*PostSepaLiquidityServiceUnavailable handles this case with default header values.
+/* PostSepaLiquidityServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type PostSepaLiquidityServiceUnavailable struct {
 func (o *PostSepaLiquidityServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /sepa-liquidity][%d] postSepaLiquidityServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *PostSepaLiquidityServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

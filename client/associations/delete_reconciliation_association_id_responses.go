@@ -77,7 +77,6 @@ func (o *DeleteReconciliationAssociationIDReader) ReadResponse(response runtime.
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -88,7 +87,7 @@ func NewDeleteReconciliationAssociationIDNoContent() *DeleteReconciliationAssoci
 	return &DeleteReconciliationAssociationIDNoContent{}
 }
 
-/*DeleteReconciliationAssociationIDNoContent handles this case with default header values.
+/* DeleteReconciliationAssociationIDNoContent describes a response with status code 204, with default header values.
 
 Association deleted
 */
@@ -109,7 +108,7 @@ func NewDeleteReconciliationAssociationIDBadRequest() *DeleteReconciliationAssoc
 	return &DeleteReconciliationAssociationIDBadRequest{}
 }
 
-/*DeleteReconciliationAssociationIDBadRequest handles this case with default header values.
+/* DeleteReconciliationAssociationIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -120,7 +119,6 @@ type DeleteReconciliationAssociationIDBadRequest struct {
 func (o *DeleteReconciliationAssociationIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /reconciliation/{associationId}][%d] deleteReconciliationAssociationIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *DeleteReconciliationAssociationIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -142,7 +140,7 @@ func NewDeleteReconciliationAssociationIDUnauthorized() *DeleteReconciliationAss
 	return &DeleteReconciliationAssociationIDUnauthorized{}
 }
 
-/*DeleteReconciliationAssociationIDUnauthorized handles this case with default header values.
+/* DeleteReconciliationAssociationIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -153,7 +151,6 @@ type DeleteReconciliationAssociationIDUnauthorized struct {
 func (o *DeleteReconciliationAssociationIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /reconciliation/{associationId}][%d] deleteReconciliationAssociationIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *DeleteReconciliationAssociationIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -175,7 +172,7 @@ func NewDeleteReconciliationAssociationIDForbidden() *DeleteReconciliationAssoci
 	return &DeleteReconciliationAssociationIDForbidden{}
 }
 
-/*DeleteReconciliationAssociationIDForbidden handles this case with default header values.
+/* DeleteReconciliationAssociationIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -186,7 +183,6 @@ type DeleteReconciliationAssociationIDForbidden struct {
 func (o *DeleteReconciliationAssociationIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /reconciliation/{associationId}][%d] deleteReconciliationAssociationIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *DeleteReconciliationAssociationIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -208,7 +204,7 @@ func NewDeleteReconciliationAssociationIDNotFound() *DeleteReconciliationAssocia
 	return &DeleteReconciliationAssociationIDNotFound{}
 }
 
-/*DeleteReconciliationAssociationIDNotFound handles this case with default header values.
+/* DeleteReconciliationAssociationIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -219,7 +215,6 @@ type DeleteReconciliationAssociationIDNotFound struct {
 func (o *DeleteReconciliationAssociationIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /reconciliation/{associationId}][%d] deleteReconciliationAssociationIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteReconciliationAssociationIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -241,7 +236,7 @@ func NewDeleteReconciliationAssociationIDConflict() *DeleteReconciliationAssocia
 	return &DeleteReconciliationAssociationIDConflict{}
 }
 
-/*DeleteReconciliationAssociationIDConflict handles this case with default header values.
+/* DeleteReconciliationAssociationIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -252,7 +247,6 @@ type DeleteReconciliationAssociationIDConflict struct {
 func (o *DeleteReconciliationAssociationIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /reconciliation/{associationId}][%d] deleteReconciliationAssociationIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *DeleteReconciliationAssociationIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -274,7 +268,7 @@ func NewDeleteReconciliationAssociationIDTooManyRequests() *DeleteReconciliation
 	return &DeleteReconciliationAssociationIDTooManyRequests{}
 }
 
-/*DeleteReconciliationAssociationIDTooManyRequests handles this case with default header values.
+/* DeleteReconciliationAssociationIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -285,7 +279,6 @@ type DeleteReconciliationAssociationIDTooManyRequests struct {
 func (o *DeleteReconciliationAssociationIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /reconciliation/{associationId}][%d] deleteReconciliationAssociationIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *DeleteReconciliationAssociationIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -307,7 +300,7 @@ func NewDeleteReconciliationAssociationIDInternalServerError() *DeleteReconcilia
 	return &DeleteReconciliationAssociationIDInternalServerError{}
 }
 
-/*DeleteReconciliationAssociationIDInternalServerError handles this case with default header values.
+/* DeleteReconciliationAssociationIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -318,7 +311,6 @@ type DeleteReconciliationAssociationIDInternalServerError struct {
 func (o *DeleteReconciliationAssociationIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /reconciliation/{associationId}][%d] deleteReconciliationAssociationIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *DeleteReconciliationAssociationIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -340,7 +332,7 @@ func NewDeleteReconciliationAssociationIDServiceUnavailable() *DeleteReconciliat
 	return &DeleteReconciliationAssociationIDServiceUnavailable{}
 }
 
-/*DeleteReconciliationAssociationIDServiceUnavailable handles this case with default header values.
+/* DeleteReconciliationAssociationIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -351,7 +343,6 @@ type DeleteReconciliationAssociationIDServiceUnavailable struct {
 func (o *DeleteReconciliationAssociationIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /reconciliation/{associationId}][%d] deleteReconciliationAssociationIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *DeleteReconciliationAssociationIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

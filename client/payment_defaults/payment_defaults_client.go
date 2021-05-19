@@ -25,17 +25,20 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	DeletePaymentdefaultsID(params *DeletePaymentdefaultsIDParams) (*DeletePaymentdefaultsIDNoContent, error)
+	DeletePaymentdefaultsID(params *DeletePaymentdefaultsIDParams, opts ...ClientOption) (*DeletePaymentdefaultsIDNoContent, error)
 
-	GetPaymentdefaults(params *GetPaymentdefaultsParams) (*GetPaymentdefaultsOK, error)
+	GetPaymentdefaults(params *GetPaymentdefaultsParams, opts ...ClientOption) (*GetPaymentdefaultsOK, error)
 
-	GetPaymentdefaultsID(params *GetPaymentdefaultsIDParams) (*GetPaymentdefaultsIDOK, error)
+	GetPaymentdefaultsID(params *GetPaymentdefaultsIDParams, opts ...ClientOption) (*GetPaymentdefaultsIDOK, error)
 
-	PatchPaymentdefaultsID(params *PatchPaymentdefaultsIDParams) (*PatchPaymentdefaultsIDOK, error)
+	PatchPaymentdefaultsID(params *PatchPaymentdefaultsIDParams, opts ...ClientOption) (*PatchPaymentdefaultsIDOK, error)
 
-	PostPaymentdefaults(params *PostPaymentdefaultsParams) (*PostPaymentdefaultsCreated, error)
+	PostPaymentdefaults(params *PostPaymentdefaultsParams, opts ...ClientOption) (*PostPaymentdefaultsCreated, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -43,13 +46,12 @@ type ClientService interface {
 /*
   DeletePaymentdefaultsID deletes payment defaults
 */
-func (a *Client) DeletePaymentdefaultsID(params *DeletePaymentdefaultsIDParams) (*DeletePaymentdefaultsIDNoContent, error) {
+func (a *Client) DeletePaymentdefaultsID(params *DeletePaymentdefaultsIDParams, opts ...ClientOption) (*DeletePaymentdefaultsIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeletePaymentdefaultsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeletePaymentdefaultsID",
 		Method:             "DELETE",
 		PathPattern:        "/paymentdefaults/{id}",
@@ -60,7 +62,12 @@ func (a *Client) DeletePaymentdefaultsID(params *DeletePaymentdefaultsIDParams) 
 		Reader:             &DeletePaymentdefaultsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -77,13 +84,12 @@ func (a *Client) DeletePaymentdefaultsID(params *DeletePaymentdefaultsIDParams) 
 /*
   GetPaymentdefaults lists default settings for payments
 */
-func (a *Client) GetPaymentdefaults(params *GetPaymentdefaultsParams) (*GetPaymentdefaultsOK, error) {
+func (a *Client) GetPaymentdefaults(params *GetPaymentdefaultsParams, opts ...ClientOption) (*GetPaymentdefaultsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetPaymentdefaultsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetPaymentdefaults",
 		Method:             "GET",
 		PathPattern:        "/paymentdefaults",
@@ -94,7 +100,12 @@ func (a *Client) GetPaymentdefaults(params *GetPaymentdefaultsParams) (*GetPayme
 		Reader:             &GetPaymentdefaultsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -111,13 +122,12 @@ func (a *Client) GetPaymentdefaults(params *GetPaymentdefaultsParams) (*GetPayme
 /*
   GetPaymentdefaultsID fetches payment defaults
 */
-func (a *Client) GetPaymentdefaultsID(params *GetPaymentdefaultsIDParams) (*GetPaymentdefaultsIDOK, error) {
+func (a *Client) GetPaymentdefaultsID(params *GetPaymentdefaultsIDParams, opts ...ClientOption) (*GetPaymentdefaultsIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetPaymentdefaultsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetPaymentdefaultsID",
 		Method:             "GET",
 		PathPattern:        "/paymentdefaults/{id}",
@@ -128,7 +138,12 @@ func (a *Client) GetPaymentdefaultsID(params *GetPaymentdefaultsIDParams) (*GetP
 		Reader:             &GetPaymentdefaultsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -145,13 +160,12 @@ func (a *Client) GetPaymentdefaultsID(params *GetPaymentdefaultsIDParams) (*GetP
 /*
   PatchPaymentdefaultsID updates payment defaults
 */
-func (a *Client) PatchPaymentdefaultsID(params *PatchPaymentdefaultsIDParams) (*PatchPaymentdefaultsIDOK, error) {
+func (a *Client) PatchPaymentdefaultsID(params *PatchPaymentdefaultsIDParams, opts ...ClientOption) (*PatchPaymentdefaultsIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPatchPaymentdefaultsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PatchPaymentdefaultsID",
 		Method:             "PATCH",
 		PathPattern:        "/paymentdefaults/{id}",
@@ -162,7 +176,12 @@ func (a *Client) PatchPaymentdefaultsID(params *PatchPaymentdefaultsIDParams) (*
 		Reader:             &PatchPaymentdefaultsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -179,13 +198,12 @@ func (a *Client) PatchPaymentdefaultsID(params *PatchPaymentdefaultsIDParams) (*
 /*
   PostPaymentdefaults creates the default settings for a payment
 */
-func (a *Client) PostPaymentdefaults(params *PostPaymentdefaultsParams) (*PostPaymentdefaultsCreated, error) {
+func (a *Client) PostPaymentdefaults(params *PostPaymentdefaultsParams, opts ...ClientOption) (*PostPaymentdefaultsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostPaymentdefaultsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostPaymentdefaults",
 		Method:             "POST",
 		PathPattern:        "/paymentdefaults",
@@ -196,7 +214,12 @@ func (a *Client) PostPaymentdefaults(params *PostPaymentdefaultsParams) (*PostPa
 		Reader:             &PostPaymentdefaultsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

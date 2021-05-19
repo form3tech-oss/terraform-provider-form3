@@ -77,7 +77,6 @@ func (o *GetPaymentsIDReversalsReversalIDReader) ReadResponse(response runtime.C
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -88,7 +87,7 @@ func NewGetPaymentsIDReversalsReversalIDOK() *GetPaymentsIDReversalsReversalIDOK
 	return &GetPaymentsIDReversalsReversalIDOK{}
 }
 
-/*GetPaymentsIDReversalsReversalIDOK handles this case with default header values.
+/* GetPaymentsIDReversalsReversalIDOK describes a response with status code 200, with default header values.
 
 Reversal details
 */
@@ -99,7 +98,6 @@ type GetPaymentsIDReversalsReversalIDOK struct {
 func (o *GetPaymentsIDReversalsReversalIDOK) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}][%d] getPaymentsIdReversalsReversalIdOK  %+v", 200, o.Payload)
 }
-
 func (o *GetPaymentsIDReversalsReversalIDOK) GetPayload() *models.ReversalDetailsResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewGetPaymentsIDReversalsReversalIDBadRequest() *GetPaymentsIDReversalsReve
 	return &GetPaymentsIDReversalsReversalIDBadRequest{}
 }
 
-/*GetPaymentsIDReversalsReversalIDBadRequest handles this case with default header values.
+/* GetPaymentsIDReversalsReversalIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type GetPaymentsIDReversalsReversalIDBadRequest struct {
 func (o *GetPaymentsIDReversalsReversalIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}][%d] getPaymentsIdReversalsReversalIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetPaymentsIDReversalsReversalIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewGetPaymentsIDReversalsReversalIDUnauthorized() *GetPaymentsIDReversalsRe
 	return &GetPaymentsIDReversalsReversalIDUnauthorized{}
 }
 
-/*GetPaymentsIDReversalsReversalIDUnauthorized handles this case with default header values.
+/* GetPaymentsIDReversalsReversalIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type GetPaymentsIDReversalsReversalIDUnauthorized struct {
 func (o *GetPaymentsIDReversalsReversalIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}][%d] getPaymentsIdReversalsReversalIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetPaymentsIDReversalsReversalIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewGetPaymentsIDReversalsReversalIDForbidden() *GetPaymentsIDReversalsRever
 	return &GetPaymentsIDReversalsReversalIDForbidden{}
 }
 
-/*GetPaymentsIDReversalsReversalIDForbidden handles this case with default header values.
+/* GetPaymentsIDReversalsReversalIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type GetPaymentsIDReversalsReversalIDForbidden struct {
 func (o *GetPaymentsIDReversalsReversalIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}][%d] getPaymentsIdReversalsReversalIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetPaymentsIDReversalsReversalIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewGetPaymentsIDReversalsReversalIDNotFound() *GetPaymentsIDReversalsRevers
 	return &GetPaymentsIDReversalsReversalIDNotFound{}
 }
 
-/*GetPaymentsIDReversalsReversalIDNotFound handles this case with default header values.
+/* GetPaymentsIDReversalsReversalIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type GetPaymentsIDReversalsReversalIDNotFound struct {
 func (o *GetPaymentsIDReversalsReversalIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}][%d] getPaymentsIdReversalsReversalIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetPaymentsIDReversalsReversalIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewGetPaymentsIDReversalsReversalIDConflict() *GetPaymentsIDReversalsRevers
 	return &GetPaymentsIDReversalsReversalIDConflict{}
 }
 
-/*GetPaymentsIDReversalsReversalIDConflict handles this case with default header values.
+/* GetPaymentsIDReversalsReversalIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type GetPaymentsIDReversalsReversalIDConflict struct {
 func (o *GetPaymentsIDReversalsReversalIDConflict) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}][%d] getPaymentsIdReversalsReversalIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *GetPaymentsIDReversalsReversalIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewGetPaymentsIDReversalsReversalIDTooManyRequests() *GetPaymentsIDReversal
 	return &GetPaymentsIDReversalsReversalIDTooManyRequests{}
 }
 
-/*GetPaymentsIDReversalsReversalIDTooManyRequests handles this case with default header values.
+/* GetPaymentsIDReversalsReversalIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type GetPaymentsIDReversalsReversalIDTooManyRequests struct {
 func (o *GetPaymentsIDReversalsReversalIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}][%d] getPaymentsIdReversalsReversalIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *GetPaymentsIDReversalsReversalIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewGetPaymentsIDReversalsReversalIDInternalServerError() *GetPaymentsIDReve
 	return &GetPaymentsIDReversalsReversalIDInternalServerError{}
 }
 
-/*GetPaymentsIDReversalsReversalIDInternalServerError handles this case with default header values.
+/* GetPaymentsIDReversalsReversalIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type GetPaymentsIDReversalsReversalIDInternalServerError struct {
 func (o *GetPaymentsIDReversalsReversalIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}][%d] getPaymentsIdReversalsReversalIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetPaymentsIDReversalsReversalIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewGetPaymentsIDReversalsReversalIDServiceUnavailable() *GetPaymentsIDRever
 	return &GetPaymentsIDReversalsReversalIDServiceUnavailable{}
 }
 
-/*GetPaymentsIDReversalsReversalIDServiceUnavailable handles this case with default header values.
+/* GetPaymentsIDReversalsReversalIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type GetPaymentsIDReversalsReversalIDServiceUnavailable struct {
 func (o *GetPaymentsIDReversalsReversalIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/reversals/{reversalId}][%d] getPaymentsIdReversalsReversalIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *GetPaymentsIDReversalsReversalIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

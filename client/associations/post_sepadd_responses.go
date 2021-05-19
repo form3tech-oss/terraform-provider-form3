@@ -77,7 +77,6 @@ func (o *PostSepaddReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -88,7 +87,7 @@ func NewPostSepaddCreated() *PostSepaddCreated {
 	return &PostSepaddCreated{}
 }
 
-/*PostSepaddCreated handles this case with default header values.
+/* PostSepaddCreated describes a response with status code 201, with default header values.
 
 creation response
 */
@@ -99,7 +98,6 @@ type PostSepaddCreated struct {
 func (o *PostSepaddCreated) Error() string {
 	return fmt.Sprintf("[POST /sepadd][%d] postSepaddCreated  %+v", 201, o.Payload)
 }
-
 func (o *PostSepaddCreated) GetPayload() *models.SepaDDAssociationCreationResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewPostSepaddBadRequest() *PostSepaddBadRequest {
 	return &PostSepaddBadRequest{}
 }
 
-/*PostSepaddBadRequest handles this case with default header values.
+/* PostSepaddBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type PostSepaddBadRequest struct {
 func (o *PostSepaddBadRequest) Error() string {
 	return fmt.Sprintf("[POST /sepadd][%d] postSepaddBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *PostSepaddBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewPostSepaddUnauthorized() *PostSepaddUnauthorized {
 	return &PostSepaddUnauthorized{}
 }
 
-/*PostSepaddUnauthorized handles this case with default header values.
+/* PostSepaddUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type PostSepaddUnauthorized struct {
 func (o *PostSepaddUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /sepadd][%d] postSepaddUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *PostSepaddUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewPostSepaddForbidden() *PostSepaddForbidden {
 	return &PostSepaddForbidden{}
 }
 
-/*PostSepaddForbidden handles this case with default header values.
+/* PostSepaddForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type PostSepaddForbidden struct {
 func (o *PostSepaddForbidden) Error() string {
 	return fmt.Sprintf("[POST /sepadd][%d] postSepaddForbidden  %+v", 403, o.Payload)
 }
-
 func (o *PostSepaddForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewPostSepaddNotFound() *PostSepaddNotFound {
 	return &PostSepaddNotFound{}
 }
 
-/*PostSepaddNotFound handles this case with default header values.
+/* PostSepaddNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type PostSepaddNotFound struct {
 func (o *PostSepaddNotFound) Error() string {
 	return fmt.Sprintf("[POST /sepadd][%d] postSepaddNotFound  %+v", 404, o.Payload)
 }
-
 func (o *PostSepaddNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewPostSepaddConflict() *PostSepaddConflict {
 	return &PostSepaddConflict{}
 }
 
-/*PostSepaddConflict handles this case with default header values.
+/* PostSepaddConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type PostSepaddConflict struct {
 func (o *PostSepaddConflict) Error() string {
 	return fmt.Sprintf("[POST /sepadd][%d] postSepaddConflict  %+v", 409, o.Payload)
 }
-
 func (o *PostSepaddConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewPostSepaddTooManyRequests() *PostSepaddTooManyRequests {
 	return &PostSepaddTooManyRequests{}
 }
 
-/*PostSepaddTooManyRequests handles this case with default header values.
+/* PostSepaddTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type PostSepaddTooManyRequests struct {
 func (o *PostSepaddTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /sepadd][%d] postSepaddTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *PostSepaddTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewPostSepaddInternalServerError() *PostSepaddInternalServerError {
 	return &PostSepaddInternalServerError{}
 }
 
-/*PostSepaddInternalServerError handles this case with default header values.
+/* PostSepaddInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type PostSepaddInternalServerError struct {
 func (o *PostSepaddInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /sepadd][%d] postSepaddInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *PostSepaddInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewPostSepaddServiceUnavailable() *PostSepaddServiceUnavailable {
 	return &PostSepaddServiceUnavailable{}
 }
 
-/*PostSepaddServiceUnavailable handles this case with default header values.
+/* PostSepaddServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type PostSepaddServiceUnavailable struct {
 func (o *PostSepaddServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /sepadd][%d] postSepaddServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *PostSepaddServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

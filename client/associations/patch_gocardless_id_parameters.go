@@ -19,66 +19,84 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPatchGocardlessIDParams creates a new PatchGocardlessIDParams object
-// with the default values initialized.
+// NewPatchGocardlessIDParams creates a new PatchGocardlessIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPatchGocardlessIDParams() *PatchGocardlessIDParams {
-	var ()
 	return &PatchGocardlessIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPatchGocardlessIDParamsWithTimeout creates a new PatchGocardlessIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPatchGocardlessIDParamsWithTimeout(timeout time.Duration) *PatchGocardlessIDParams {
-	var ()
 	return &PatchGocardlessIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPatchGocardlessIDParamsWithContext creates a new PatchGocardlessIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPatchGocardlessIDParamsWithContext(ctx context.Context) *PatchGocardlessIDParams {
-	var ()
 	return &PatchGocardlessIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPatchGocardlessIDParamsWithHTTPClient creates a new PatchGocardlessIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPatchGocardlessIDParamsWithHTTPClient(client *http.Client) *PatchGocardlessIDParams {
-	var ()
 	return &PatchGocardlessIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*PatchGocardlessIDParams contains all the parameters to send to the API endpoint
-for the patch gocardless ID operation typically these are written to a http.Request
+/* PatchGocardlessIDParams contains all the parameters to send to the API endpoint
+   for the patch gocardless ID operation.
+
+   Typically these are written to a http.Request.
 */
 type PatchGocardlessIDParams struct {
 
-	/*ID
-	  Association Id
+	/* ID.
 
+	   Association Id
+
+	   Format: uuid
 	*/
 	ID strfmt.UUID
-	/*PatchBody*/
-	PatchBody *models.GocardlessAssociationAmendment
-	/*Version
-	  Version
 
+	// PatchBody.
+	PatchBody *models.GocardlessAssociationAmendment
+
+	/* Version.
+
+	   Version
 	*/
 	Version int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the patch gocardless ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PatchGocardlessIDParams) WithDefaults() *PatchGocardlessIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the patch gocardless ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PatchGocardlessIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the patch gocardless ID params
@@ -159,7 +177,6 @@ func (o *PatchGocardlessIDParams) WriteToRequest(r runtime.ClientRequest, reg st
 	if err := r.SetPathParam("id", o.ID.String()); err != nil {
 		return err
 	}
-
 	if o.PatchBody != nil {
 		if err := r.SetBodyParam(o.PatchBody); err != nil {
 			return err
@@ -170,6 +187,7 @@ func (o *PatchGocardlessIDParams) WriteToRequest(r runtime.ClientRequest, reg st
 	qrVersion := o.Version
 	qVersion := swag.FormatInt64(qrVersion)
 	if qVersion != "" {
+
 		if err := r.SetQueryParam("version", qVersion); err != nil {
 			return err
 		}

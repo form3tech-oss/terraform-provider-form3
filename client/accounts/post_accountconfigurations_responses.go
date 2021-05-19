@@ -77,7 +77,6 @@ func (o *PostAccountconfigurationsReader) ReadResponse(response runtime.ClientRe
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -88,7 +87,7 @@ func NewPostAccountconfigurationsCreated() *PostAccountconfigurationsCreated {
 	return &PostAccountconfigurationsCreated{}
 }
 
-/*PostAccountconfigurationsCreated handles this case with default header values.
+/* PostAccountconfigurationsCreated describes a response with status code 201, with default header values.
 
 AccountConfiguration creation response
 */
@@ -99,7 +98,6 @@ type PostAccountconfigurationsCreated struct {
 func (o *PostAccountconfigurationsCreated) Error() string {
 	return fmt.Sprintf("[POST /accountconfigurations][%d] postAccountconfigurationsCreated  %+v", 201, o.Payload)
 }
-
 func (o *PostAccountconfigurationsCreated) GetPayload() *models.AccountConfigurationCreationResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewPostAccountconfigurationsBadRequest() *PostAccountconfigurationsBadReque
 	return &PostAccountconfigurationsBadRequest{}
 }
 
-/*PostAccountconfigurationsBadRequest handles this case with default header values.
+/* PostAccountconfigurationsBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type PostAccountconfigurationsBadRequest struct {
 func (o *PostAccountconfigurationsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /accountconfigurations][%d] postAccountconfigurationsBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *PostAccountconfigurationsBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewPostAccountconfigurationsUnauthorized() *PostAccountconfigurationsUnauth
 	return &PostAccountconfigurationsUnauthorized{}
 }
 
-/*PostAccountconfigurationsUnauthorized handles this case with default header values.
+/* PostAccountconfigurationsUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type PostAccountconfigurationsUnauthorized struct {
 func (o *PostAccountconfigurationsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /accountconfigurations][%d] postAccountconfigurationsUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *PostAccountconfigurationsUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewPostAccountconfigurationsForbidden() *PostAccountconfigurationsForbidden
 	return &PostAccountconfigurationsForbidden{}
 }
 
-/*PostAccountconfigurationsForbidden handles this case with default header values.
+/* PostAccountconfigurationsForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type PostAccountconfigurationsForbidden struct {
 func (o *PostAccountconfigurationsForbidden) Error() string {
 	return fmt.Sprintf("[POST /accountconfigurations][%d] postAccountconfigurationsForbidden  %+v", 403, o.Payload)
 }
-
 func (o *PostAccountconfigurationsForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewPostAccountconfigurationsNotFound() *PostAccountconfigurationsNotFound {
 	return &PostAccountconfigurationsNotFound{}
 }
 
-/*PostAccountconfigurationsNotFound handles this case with default header values.
+/* PostAccountconfigurationsNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type PostAccountconfigurationsNotFound struct {
 func (o *PostAccountconfigurationsNotFound) Error() string {
 	return fmt.Sprintf("[POST /accountconfigurations][%d] postAccountconfigurationsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *PostAccountconfigurationsNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewPostAccountconfigurationsConflict() *PostAccountconfigurationsConflict {
 	return &PostAccountconfigurationsConflict{}
 }
 
-/*PostAccountconfigurationsConflict handles this case with default header values.
+/* PostAccountconfigurationsConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type PostAccountconfigurationsConflict struct {
 func (o *PostAccountconfigurationsConflict) Error() string {
 	return fmt.Sprintf("[POST /accountconfigurations][%d] postAccountconfigurationsConflict  %+v", 409, o.Payload)
 }
-
 func (o *PostAccountconfigurationsConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewPostAccountconfigurationsTooManyRequests() *PostAccountconfigurationsToo
 	return &PostAccountconfigurationsTooManyRequests{}
 }
 
-/*PostAccountconfigurationsTooManyRequests handles this case with default header values.
+/* PostAccountconfigurationsTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type PostAccountconfigurationsTooManyRequests struct {
 func (o *PostAccountconfigurationsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /accountconfigurations][%d] postAccountconfigurationsTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *PostAccountconfigurationsTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewPostAccountconfigurationsInternalServerError() *PostAccountconfiguration
 	return &PostAccountconfigurationsInternalServerError{}
 }
 
-/*PostAccountconfigurationsInternalServerError handles this case with default header values.
+/* PostAccountconfigurationsInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type PostAccountconfigurationsInternalServerError struct {
 func (o *PostAccountconfigurationsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /accountconfigurations][%d] postAccountconfigurationsInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *PostAccountconfigurationsInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewPostAccountconfigurationsServiceUnavailable() *PostAccountconfigurations
 	return &PostAccountconfigurationsServiceUnavailable{}
 }
 
-/*PostAccountconfigurationsServiceUnavailable handles this case with default header values.
+/* PostAccountconfigurationsServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type PostAccountconfigurationsServiceUnavailable struct {
 func (o *PostAccountconfigurationsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /accountconfigurations][%d] postAccountconfigurationsServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *PostAccountconfigurationsServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

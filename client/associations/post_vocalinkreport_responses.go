@@ -77,7 +77,6 @@ func (o *PostVocalinkreportReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -88,7 +87,7 @@ func NewPostVocalinkreportCreated() *PostVocalinkreportCreated {
 	return &PostVocalinkreportCreated{}
 }
 
-/*PostVocalinkreportCreated handles this case with default header values.
+/* PostVocalinkreportCreated describes a response with status code 201, with default header values.
 
 creation response
 */
@@ -99,7 +98,6 @@ type PostVocalinkreportCreated struct {
 func (o *PostVocalinkreportCreated) Error() string {
 	return fmt.Sprintf("[POST /vocalinkreport][%d] postVocalinkreportCreated  %+v", 201, o.Payload)
 }
-
 func (o *PostVocalinkreportCreated) GetPayload() *models.VocalinkReportAssociationCreationResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewPostVocalinkreportBadRequest() *PostVocalinkreportBadRequest {
 	return &PostVocalinkreportBadRequest{}
 }
 
-/*PostVocalinkreportBadRequest handles this case with default header values.
+/* PostVocalinkreportBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type PostVocalinkreportBadRequest struct {
 func (o *PostVocalinkreportBadRequest) Error() string {
 	return fmt.Sprintf("[POST /vocalinkreport][%d] postVocalinkreportBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *PostVocalinkreportBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewPostVocalinkreportUnauthorized() *PostVocalinkreportUnauthorized {
 	return &PostVocalinkreportUnauthorized{}
 }
 
-/*PostVocalinkreportUnauthorized handles this case with default header values.
+/* PostVocalinkreportUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type PostVocalinkreportUnauthorized struct {
 func (o *PostVocalinkreportUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /vocalinkreport][%d] postVocalinkreportUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *PostVocalinkreportUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewPostVocalinkreportForbidden() *PostVocalinkreportForbidden {
 	return &PostVocalinkreportForbidden{}
 }
 
-/*PostVocalinkreportForbidden handles this case with default header values.
+/* PostVocalinkreportForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type PostVocalinkreportForbidden struct {
 func (o *PostVocalinkreportForbidden) Error() string {
 	return fmt.Sprintf("[POST /vocalinkreport][%d] postVocalinkreportForbidden  %+v", 403, o.Payload)
 }
-
 func (o *PostVocalinkreportForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewPostVocalinkreportNotFound() *PostVocalinkreportNotFound {
 	return &PostVocalinkreportNotFound{}
 }
 
-/*PostVocalinkreportNotFound handles this case with default header values.
+/* PostVocalinkreportNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type PostVocalinkreportNotFound struct {
 func (o *PostVocalinkreportNotFound) Error() string {
 	return fmt.Sprintf("[POST /vocalinkreport][%d] postVocalinkreportNotFound  %+v", 404, o.Payload)
 }
-
 func (o *PostVocalinkreportNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewPostVocalinkreportConflict() *PostVocalinkreportConflict {
 	return &PostVocalinkreportConflict{}
 }
 
-/*PostVocalinkreportConflict handles this case with default header values.
+/* PostVocalinkreportConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type PostVocalinkreportConflict struct {
 func (o *PostVocalinkreportConflict) Error() string {
 	return fmt.Sprintf("[POST /vocalinkreport][%d] postVocalinkreportConflict  %+v", 409, o.Payload)
 }
-
 func (o *PostVocalinkreportConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewPostVocalinkreportTooManyRequests() *PostVocalinkreportTooManyRequests {
 	return &PostVocalinkreportTooManyRequests{}
 }
 
-/*PostVocalinkreportTooManyRequests handles this case with default header values.
+/* PostVocalinkreportTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type PostVocalinkreportTooManyRequests struct {
 func (o *PostVocalinkreportTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /vocalinkreport][%d] postVocalinkreportTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *PostVocalinkreportTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewPostVocalinkreportInternalServerError() *PostVocalinkreportInternalServe
 	return &PostVocalinkreportInternalServerError{}
 }
 
-/*PostVocalinkreportInternalServerError handles this case with default header values.
+/* PostVocalinkreportInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type PostVocalinkreportInternalServerError struct {
 func (o *PostVocalinkreportInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /vocalinkreport][%d] postVocalinkreportInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *PostVocalinkreportInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewPostVocalinkreportServiceUnavailable() *PostVocalinkreportServiceUnavail
 	return &PostVocalinkreportServiceUnavailable{}
 }
 
-/*PostVocalinkreportServiceUnavailable handles this case with default header values.
+/* PostVocalinkreportServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type PostVocalinkreportServiceUnavailable struct {
 func (o *PostVocalinkreportServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /vocalinkreport][%d] postVocalinkreportServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *PostVocalinkreportServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

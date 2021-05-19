@@ -18,61 +18,78 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPostPaymentsIDReturnsParams creates a new PostPaymentsIDReturnsParams object
-// with the default values initialized.
+// NewPostPaymentsIDReturnsParams creates a new PostPaymentsIDReturnsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostPaymentsIDReturnsParams() *PostPaymentsIDReturnsParams {
-	var ()
 	return &PostPaymentsIDReturnsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostPaymentsIDReturnsParamsWithTimeout creates a new PostPaymentsIDReturnsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostPaymentsIDReturnsParamsWithTimeout(timeout time.Duration) *PostPaymentsIDReturnsParams {
-	var ()
 	return &PostPaymentsIDReturnsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostPaymentsIDReturnsParamsWithContext creates a new PostPaymentsIDReturnsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostPaymentsIDReturnsParamsWithContext(ctx context.Context) *PostPaymentsIDReturnsParams {
-	var ()
 	return &PostPaymentsIDReturnsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostPaymentsIDReturnsParamsWithHTTPClient creates a new PostPaymentsIDReturnsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostPaymentsIDReturnsParamsWithHTTPClient(client *http.Client) *PostPaymentsIDReturnsParams {
-	var ()
 	return &PostPaymentsIDReturnsParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostPaymentsIDReturnsParams contains all the parameters to send to the API endpoint
-for the post payments ID returns operation typically these are written to a http.Request
+/* PostPaymentsIDReturnsParams contains all the parameters to send to the API endpoint
+   for the post payments ID returns operation.
+
+   Typically these are written to a http.Request.
 */
 type PostPaymentsIDReturnsParams struct {
 
-	/*ReturnCreationRequest*/
+	// ReturnCreationRequest.
 	ReturnCreationRequest *models.ReturnCreation
-	/*ID
-	  Payment Id
 
+	/* ID.
+
+	   Payment Id
+
+	   Format: uuid
 	*/
 	ID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post payments ID returns params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostPaymentsIDReturnsParams) WithDefaults() *PostPaymentsIDReturnsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post payments ID returns params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostPaymentsIDReturnsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post payments ID returns params
@@ -137,7 +154,6 @@ func (o *PostPaymentsIDReturnsParams) WriteToRequest(r runtime.ClientRequest, re
 		return err
 	}
 	var res []error
-
 	if o.ReturnCreationRequest != nil {
 		if err := r.SetBodyParam(o.ReturnCreationRequest); err != nil {
 			return err

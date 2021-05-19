@@ -77,7 +77,6 @@ func (o *PostLhvReader) ReadResponse(response runtime.ClientResponse, consumer r
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -88,7 +87,7 @@ func NewPostLhvCreated() *PostLhvCreated {
 	return &PostLhvCreated{}
 }
 
-/*PostLhvCreated handles this case with default header values.
+/* PostLhvCreated describes a response with status code 201, with default header values.
 
 creation response
 */
@@ -99,7 +98,6 @@ type PostLhvCreated struct {
 func (o *PostLhvCreated) Error() string {
 	return fmt.Sprintf("[POST /lhv][%d] postLhvCreated  %+v", 201, o.Payload)
 }
-
 func (o *PostLhvCreated) GetPayload() *models.LhvAssociationCreationResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewPostLhvBadRequest() *PostLhvBadRequest {
 	return &PostLhvBadRequest{}
 }
 
-/*PostLhvBadRequest handles this case with default header values.
+/* PostLhvBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type PostLhvBadRequest struct {
 func (o *PostLhvBadRequest) Error() string {
 	return fmt.Sprintf("[POST /lhv][%d] postLhvBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *PostLhvBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewPostLhvUnauthorized() *PostLhvUnauthorized {
 	return &PostLhvUnauthorized{}
 }
 
-/*PostLhvUnauthorized handles this case with default header values.
+/* PostLhvUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type PostLhvUnauthorized struct {
 func (o *PostLhvUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /lhv][%d] postLhvUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *PostLhvUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewPostLhvForbidden() *PostLhvForbidden {
 	return &PostLhvForbidden{}
 }
 
-/*PostLhvForbidden handles this case with default header values.
+/* PostLhvForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type PostLhvForbidden struct {
 func (o *PostLhvForbidden) Error() string {
 	return fmt.Sprintf("[POST /lhv][%d] postLhvForbidden  %+v", 403, o.Payload)
 }
-
 func (o *PostLhvForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewPostLhvNotFound() *PostLhvNotFound {
 	return &PostLhvNotFound{}
 }
 
-/*PostLhvNotFound handles this case with default header values.
+/* PostLhvNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type PostLhvNotFound struct {
 func (o *PostLhvNotFound) Error() string {
 	return fmt.Sprintf("[POST /lhv][%d] postLhvNotFound  %+v", 404, o.Payload)
 }
-
 func (o *PostLhvNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewPostLhvConflict() *PostLhvConflict {
 	return &PostLhvConflict{}
 }
 
-/*PostLhvConflict handles this case with default header values.
+/* PostLhvConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type PostLhvConflict struct {
 func (o *PostLhvConflict) Error() string {
 	return fmt.Sprintf("[POST /lhv][%d] postLhvConflict  %+v", 409, o.Payload)
 }
-
 func (o *PostLhvConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewPostLhvTooManyRequests() *PostLhvTooManyRequests {
 	return &PostLhvTooManyRequests{}
 }
 
-/*PostLhvTooManyRequests handles this case with default header values.
+/* PostLhvTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type PostLhvTooManyRequests struct {
 func (o *PostLhvTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /lhv][%d] postLhvTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *PostLhvTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewPostLhvInternalServerError() *PostLhvInternalServerError {
 	return &PostLhvInternalServerError{}
 }
 
-/*PostLhvInternalServerError handles this case with default header values.
+/* PostLhvInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type PostLhvInternalServerError struct {
 func (o *PostLhvInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /lhv][%d] postLhvInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *PostLhvInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewPostLhvServiceUnavailable() *PostLhvServiceUnavailable {
 	return &PostLhvServiceUnavailable{}
 }
 
-/*PostLhvServiceUnavailable handles this case with default header values.
+/* PostLhvServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type PostLhvServiceUnavailable struct {
 func (o *PostLhvServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /lhv][%d] postLhvServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *PostLhvServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

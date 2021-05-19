@@ -77,7 +77,6 @@ func (o *DeleteProductsIDReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -88,7 +87,7 @@ func NewDeleteProductsIDNoContent() *DeleteProductsIDNoContent {
 	return &DeleteProductsIDNoContent{}
 }
 
-/*DeleteProductsIDNoContent handles this case with default header values.
+/* DeleteProductsIDNoContent describes a response with status code 204, with default header values.
 
 Association deleted
 */
@@ -109,7 +108,7 @@ func NewDeleteProductsIDBadRequest() *DeleteProductsIDBadRequest {
 	return &DeleteProductsIDBadRequest{}
 }
 
-/*DeleteProductsIDBadRequest handles this case with default header values.
+/* DeleteProductsIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -120,7 +119,6 @@ type DeleteProductsIDBadRequest struct {
 func (o *DeleteProductsIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /products/{id}][%d] deleteProductsIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *DeleteProductsIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -142,7 +140,7 @@ func NewDeleteProductsIDUnauthorized() *DeleteProductsIDUnauthorized {
 	return &DeleteProductsIDUnauthorized{}
 }
 
-/*DeleteProductsIDUnauthorized handles this case with default header values.
+/* DeleteProductsIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -153,7 +151,6 @@ type DeleteProductsIDUnauthorized struct {
 func (o *DeleteProductsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /products/{id}][%d] deleteProductsIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *DeleteProductsIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -175,7 +172,7 @@ func NewDeleteProductsIDForbidden() *DeleteProductsIDForbidden {
 	return &DeleteProductsIDForbidden{}
 }
 
-/*DeleteProductsIDForbidden handles this case with default header values.
+/* DeleteProductsIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -186,7 +183,6 @@ type DeleteProductsIDForbidden struct {
 func (o *DeleteProductsIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /products/{id}][%d] deleteProductsIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *DeleteProductsIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -208,7 +204,7 @@ func NewDeleteProductsIDNotFound() *DeleteProductsIDNotFound {
 	return &DeleteProductsIDNotFound{}
 }
 
-/*DeleteProductsIDNotFound handles this case with default header values.
+/* DeleteProductsIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -219,7 +215,6 @@ type DeleteProductsIDNotFound struct {
 func (o *DeleteProductsIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /products/{id}][%d] deleteProductsIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteProductsIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -241,7 +236,7 @@ func NewDeleteProductsIDConflict() *DeleteProductsIDConflict {
 	return &DeleteProductsIDConflict{}
 }
 
-/*DeleteProductsIDConflict handles this case with default header values.
+/* DeleteProductsIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -252,7 +247,6 @@ type DeleteProductsIDConflict struct {
 func (o *DeleteProductsIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /products/{id}][%d] deleteProductsIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *DeleteProductsIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -274,7 +268,7 @@ func NewDeleteProductsIDTooManyRequests() *DeleteProductsIDTooManyRequests {
 	return &DeleteProductsIDTooManyRequests{}
 }
 
-/*DeleteProductsIDTooManyRequests handles this case with default header values.
+/* DeleteProductsIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -285,7 +279,6 @@ type DeleteProductsIDTooManyRequests struct {
 func (o *DeleteProductsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /products/{id}][%d] deleteProductsIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *DeleteProductsIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -307,7 +300,7 @@ func NewDeleteProductsIDInternalServerError() *DeleteProductsIDInternalServerErr
 	return &DeleteProductsIDInternalServerError{}
 }
 
-/*DeleteProductsIDInternalServerError handles this case with default header values.
+/* DeleteProductsIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -318,7 +311,6 @@ type DeleteProductsIDInternalServerError struct {
 func (o *DeleteProductsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /products/{id}][%d] deleteProductsIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *DeleteProductsIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -340,7 +332,7 @@ func NewDeleteProductsIDServiceUnavailable() *DeleteProductsIDServiceUnavailable
 	return &DeleteProductsIDServiceUnavailable{}
 }
 
-/*DeleteProductsIDServiceUnavailable handles this case with default header values.
+/* DeleteProductsIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -351,7 +343,6 @@ type DeleteProductsIDServiceUnavailable struct {
 func (o *DeleteProductsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /products/{id}][%d] deleteProductsIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *DeleteProductsIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

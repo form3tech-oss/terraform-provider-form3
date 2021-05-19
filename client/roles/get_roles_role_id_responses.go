@@ -77,7 +77,6 @@ func (o *GetRolesRoleIDReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -88,7 +87,7 @@ func NewGetRolesRoleIDOK() *GetRolesRoleIDOK {
 	return &GetRolesRoleIDOK{}
 }
 
-/*GetRolesRoleIDOK handles this case with default header values.
+/* GetRolesRoleIDOK describes a response with status code 200, with default header values.
 
 Role details
 */
@@ -99,7 +98,6 @@ type GetRolesRoleIDOK struct {
 func (o *GetRolesRoleIDOK) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}][%d] getRolesRoleIdOK  %+v", 200, o.Payload)
 }
-
 func (o *GetRolesRoleIDOK) GetPayload() *models.RoleDetailsResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewGetRolesRoleIDBadRequest() *GetRolesRoleIDBadRequest {
 	return &GetRolesRoleIDBadRequest{}
 }
 
-/*GetRolesRoleIDBadRequest handles this case with default header values.
+/* GetRolesRoleIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type GetRolesRoleIDBadRequest struct {
 func (o *GetRolesRoleIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}][%d] getRolesRoleIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetRolesRoleIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewGetRolesRoleIDUnauthorized() *GetRolesRoleIDUnauthorized {
 	return &GetRolesRoleIDUnauthorized{}
 }
 
-/*GetRolesRoleIDUnauthorized handles this case with default header values.
+/* GetRolesRoleIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type GetRolesRoleIDUnauthorized struct {
 func (o *GetRolesRoleIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}][%d] getRolesRoleIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetRolesRoleIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewGetRolesRoleIDForbidden() *GetRolesRoleIDForbidden {
 	return &GetRolesRoleIDForbidden{}
 }
 
-/*GetRolesRoleIDForbidden handles this case with default header values.
+/* GetRolesRoleIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type GetRolesRoleIDForbidden struct {
 func (o *GetRolesRoleIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}][%d] getRolesRoleIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetRolesRoleIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewGetRolesRoleIDNotFound() *GetRolesRoleIDNotFound {
 	return &GetRolesRoleIDNotFound{}
 }
 
-/*GetRolesRoleIDNotFound handles this case with default header values.
+/* GetRolesRoleIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type GetRolesRoleIDNotFound struct {
 func (o *GetRolesRoleIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}][%d] getRolesRoleIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetRolesRoleIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewGetRolesRoleIDConflict() *GetRolesRoleIDConflict {
 	return &GetRolesRoleIDConflict{}
 }
 
-/*GetRolesRoleIDConflict handles this case with default header values.
+/* GetRolesRoleIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type GetRolesRoleIDConflict struct {
 func (o *GetRolesRoleIDConflict) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}][%d] getRolesRoleIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *GetRolesRoleIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewGetRolesRoleIDTooManyRequests() *GetRolesRoleIDTooManyRequests {
 	return &GetRolesRoleIDTooManyRequests{}
 }
 
-/*GetRolesRoleIDTooManyRequests handles this case with default header values.
+/* GetRolesRoleIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type GetRolesRoleIDTooManyRequests struct {
 func (o *GetRolesRoleIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}][%d] getRolesRoleIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *GetRolesRoleIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewGetRolesRoleIDInternalServerError() *GetRolesRoleIDInternalServerError {
 	return &GetRolesRoleIDInternalServerError{}
 }
 
-/*GetRolesRoleIDInternalServerError handles this case with default header values.
+/* GetRolesRoleIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type GetRolesRoleIDInternalServerError struct {
 func (o *GetRolesRoleIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}][%d] getRolesRoleIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetRolesRoleIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewGetRolesRoleIDServiceUnavailable() *GetRolesRoleIDServiceUnavailable {
 	return &GetRolesRoleIDServiceUnavailable{}
 }
 
-/*GetRolesRoleIDServiceUnavailable handles this case with default header values.
+/* GetRolesRoleIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type GetRolesRoleIDServiceUnavailable struct {
 func (o *GetRolesRoleIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}][%d] getRolesRoleIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *GetRolesRoleIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

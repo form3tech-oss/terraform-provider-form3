@@ -16,64 +16,83 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDParams creates a new GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams object
-// with the default values initialized.
+// NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDParams creates a new GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDParams() *GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams {
-	var ()
 	return &GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDParamsWithTimeout creates a new GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDParamsWithTimeout(timeout time.Duration) *GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams {
-	var ()
 	return &GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDParamsWithContext creates a new GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDParamsWithContext(ctx context.Context) *GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams {
-	var ()
 	return &GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDParamsWithHTTPClient creates a new GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDParamsWithHTTPClient(client *http.Client) *GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams {
-	var ()
 	return &GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams contains all the parameters to send to the API endpoint
-for the get users user ID credentials public key public key ID operation typically these are written to a http.Request
+/* GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams contains all the parameters to send to the API endpoint
+   for the get users user ID credentials public key public key ID operation.
+
+   Typically these are written to a http.Request.
 */
 type GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams struct {
 
-	/*PublicKeyID
-	  public_key_id
+	/* PublicKeyID.
 
+	   public_key_id
+
+	   Format: uuid
 	*/
 	PublicKeyID strfmt.UUID
-	/*UserID
-	  User Id
 
+	/* UserID.
+
+	   User Id
+
+	   Format: uuid
 	*/
 	UserID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get users user ID credentials public key public key ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams) WithDefaults() *GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get users user ID credentials public key public key ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get users user ID credentials public key public key ID params

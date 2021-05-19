@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -52,7 +53,6 @@ func (m *AccountGenerationConfiguration) Validate(formats strfmt.Registry) error
 }
 
 func (m *AccountGenerationConfiguration) validateValidAccountRanges(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ValidAccountRanges) { // not required
 		return nil
 	}
@@ -64,6 +64,38 @@ func (m *AccountGenerationConfiguration) validateValidAccountRanges(formats strf
 
 		if m.ValidAccountRanges[i] != nil {
 			if err := m.ValidAccountRanges[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("valid_account_ranges" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this account generation configuration based on the context it is used
+func (m *AccountGenerationConfiguration) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateValidAccountRanges(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *AccountGenerationConfiguration) contextValidateValidAccountRanges(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.ValidAccountRanges); i++ {
+
+		if m.ValidAccountRanges[i] != nil {
+			if err := m.ValidAccountRanges[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("valid_account_ranges" + "." + strconv.Itoa(i))
 				}

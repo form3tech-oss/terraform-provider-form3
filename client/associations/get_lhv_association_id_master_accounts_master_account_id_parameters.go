@@ -16,64 +16,83 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetLhvAssociationIDMasterAccountsMasterAccountIDParams creates a new GetLhvAssociationIDMasterAccountsMasterAccountIDParams object
-// with the default values initialized.
+// NewGetLhvAssociationIDMasterAccountsMasterAccountIDParams creates a new GetLhvAssociationIDMasterAccountsMasterAccountIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetLhvAssociationIDMasterAccountsMasterAccountIDParams() *GetLhvAssociationIDMasterAccountsMasterAccountIDParams {
-	var ()
 	return &GetLhvAssociationIDMasterAccountsMasterAccountIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetLhvAssociationIDMasterAccountsMasterAccountIDParamsWithTimeout creates a new GetLhvAssociationIDMasterAccountsMasterAccountIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetLhvAssociationIDMasterAccountsMasterAccountIDParamsWithTimeout(timeout time.Duration) *GetLhvAssociationIDMasterAccountsMasterAccountIDParams {
-	var ()
 	return &GetLhvAssociationIDMasterAccountsMasterAccountIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetLhvAssociationIDMasterAccountsMasterAccountIDParamsWithContext creates a new GetLhvAssociationIDMasterAccountsMasterAccountIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetLhvAssociationIDMasterAccountsMasterAccountIDParamsWithContext(ctx context.Context) *GetLhvAssociationIDMasterAccountsMasterAccountIDParams {
-	var ()
 	return &GetLhvAssociationIDMasterAccountsMasterAccountIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetLhvAssociationIDMasterAccountsMasterAccountIDParamsWithHTTPClient creates a new GetLhvAssociationIDMasterAccountsMasterAccountIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetLhvAssociationIDMasterAccountsMasterAccountIDParamsWithHTTPClient(client *http.Client) *GetLhvAssociationIDMasterAccountsMasterAccountIDParams {
-	var ()
 	return &GetLhvAssociationIDMasterAccountsMasterAccountIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetLhvAssociationIDMasterAccountsMasterAccountIDParams contains all the parameters to send to the API endpoint
-for the get lhv association ID master accounts master account ID operation typically these are written to a http.Request
+/* GetLhvAssociationIDMasterAccountsMasterAccountIDParams contains all the parameters to send to the API endpoint
+   for the get lhv association ID master accounts master account ID operation.
+
+   Typically these are written to a http.Request.
 */
 type GetLhvAssociationIDMasterAccountsMasterAccountIDParams struct {
 
-	/*AssociationID
-	  Association Id
+	/* AssociationID.
 
+	   Association Id
+
+	   Format: uuid
 	*/
 	AssociationID strfmt.UUID
-	/*MasterAccountID
-	  Master Account Id
 
+	/* MasterAccountID.
+
+	   Master Account Id
+
+	   Format: uuid
 	*/
 	MasterAccountID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get lhv association ID master accounts master account ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetLhvAssociationIDMasterAccountsMasterAccountIDParams) WithDefaults() *GetLhvAssociationIDMasterAccountsMasterAccountIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get lhv association ID master accounts master account ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetLhvAssociationIDMasterAccountsMasterAccountIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get lhv association ID master accounts master account ID params

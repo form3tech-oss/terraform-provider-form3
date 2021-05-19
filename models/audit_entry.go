@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -68,7 +70,6 @@ func (m *AuditEntry) Validate(formats strfmt.Registry) error {
 }
 
 func (m *AuditEntry) validateAttributes(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Attributes) { // not required
 		return nil
 	}
@@ -86,7 +87,6 @@ func (m *AuditEntry) validateAttributes(formats strfmt.Registry) error {
 }
 
 func (m *AuditEntry) validateID(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ID) { // not required
 		return nil
 	}
@@ -99,7 +99,6 @@ func (m *AuditEntry) validateID(formats strfmt.Registry) error {
 }
 
 func (m *AuditEntry) validateOrganisationID(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.OrganisationID) { // not required
 		return nil
 	}
@@ -112,12 +111,11 @@ func (m *AuditEntry) validateOrganisationID(formats strfmt.Registry) error {
 }
 
 func (m *AuditEntry) validateType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("type", "body", string(m.Type), `^[A-Za-z]*$`); err != nil {
+	if err := validate.Pattern("type", "body", m.Type, `^[A-Za-z]*$`); err != nil {
 		return err
 	}
 
@@ -125,13 +123,40 @@ func (m *AuditEntry) validateType(formats strfmt.Registry) error {
 }
 
 func (m *AuditEntry) validateVersion(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Version) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
+	if err := validate.MinimumInt("version", "body", *m.Version, 0, false); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this audit entry based on the context it is used
+func (m *AuditEntry) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAttributes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *AuditEntry) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Attributes != nil {
+		if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("attributes")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -218,7 +243,6 @@ func (m *AuditEntryAttributes) Validate(formats strfmt.Registry) error {
 }
 
 func (m *AuditEntryAttributes) validateActionTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ActionTime) { // not required
 		return nil
 	}
@@ -231,7 +255,6 @@ func (m *AuditEntryAttributes) validateActionTime(formats strfmt.Registry) error
 }
 
 func (m *AuditEntryAttributes) validateActionedBy(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ActionedBy) { // not required
 		return nil
 	}
@@ -244,12 +267,11 @@ func (m *AuditEntryAttributes) validateActionedBy(formats strfmt.Registry) error
 }
 
 func (m *AuditEntryAttributes) validateDescription(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Description) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("attributes"+"."+"description", "body", string(m.Description), `^[A-Za-z0-9 .,@:]*$`); err != nil {
+	if err := validate.Pattern("attributes"+"."+"description", "body", m.Description, `^[A-Za-z0-9 .,@:]*$`); err != nil {
 		return err
 	}
 
@@ -257,7 +279,6 @@ func (m *AuditEntryAttributes) validateDescription(formats strfmt.Registry) erro
 }
 
 func (m *AuditEntryAttributes) validateRecordID(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.RecordID) { // not required
 		return nil
 	}
@@ -270,15 +291,19 @@ func (m *AuditEntryAttributes) validateRecordID(formats strfmt.Registry) error {
 }
 
 func (m *AuditEntryAttributes) validateRecordType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.RecordType) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("attributes"+"."+"record_type", "body", string(m.RecordType), `^[A-Za-z]*$`); err != nil {
+	if err := validate.Pattern("attributes"+"."+"record_type", "body", m.RecordType, `^[A-Za-z]*$`); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this audit entry attributes based on context it is used
+func (m *AuditEntryAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

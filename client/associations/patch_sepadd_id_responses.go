@@ -77,7 +77,6 @@ func (o *PatchSepaddIDReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -88,7 +87,7 @@ func NewPatchSepaddIDOK() *PatchSepaddIDOK {
 	return &PatchSepaddIDOK{}
 }
 
-/*PatchSepaddIDOK handles this case with default header values.
+/* PatchSepaddIDOK describes a response with status code 200, with default header values.
 
 creation response
 */
@@ -99,7 +98,6 @@ type PatchSepaddIDOK struct {
 func (o *PatchSepaddIDOK) Error() string {
 	return fmt.Sprintf("[PATCH /sepadd/{id}][%d] patchSepaddIdOK  %+v", 200, o.Payload)
 }
-
 func (o *PatchSepaddIDOK) GetPayload() *models.SepaDDAssociationDetailsResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewPatchSepaddIDBadRequest() *PatchSepaddIDBadRequest {
 	return &PatchSepaddIDBadRequest{}
 }
 
-/*PatchSepaddIDBadRequest handles this case with default header values.
+/* PatchSepaddIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type PatchSepaddIDBadRequest struct {
 func (o *PatchSepaddIDBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /sepadd/{id}][%d] patchSepaddIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *PatchSepaddIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewPatchSepaddIDUnauthorized() *PatchSepaddIDUnauthorized {
 	return &PatchSepaddIDUnauthorized{}
 }
 
-/*PatchSepaddIDUnauthorized handles this case with default header values.
+/* PatchSepaddIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type PatchSepaddIDUnauthorized struct {
 func (o *PatchSepaddIDUnauthorized) Error() string {
 	return fmt.Sprintf("[PATCH /sepadd/{id}][%d] patchSepaddIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *PatchSepaddIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewPatchSepaddIDForbidden() *PatchSepaddIDForbidden {
 	return &PatchSepaddIDForbidden{}
 }
 
-/*PatchSepaddIDForbidden handles this case with default header values.
+/* PatchSepaddIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type PatchSepaddIDForbidden struct {
 func (o *PatchSepaddIDForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /sepadd/{id}][%d] patchSepaddIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *PatchSepaddIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewPatchSepaddIDNotFound() *PatchSepaddIDNotFound {
 	return &PatchSepaddIDNotFound{}
 }
 
-/*PatchSepaddIDNotFound handles this case with default header values.
+/* PatchSepaddIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type PatchSepaddIDNotFound struct {
 func (o *PatchSepaddIDNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /sepadd/{id}][%d] patchSepaddIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *PatchSepaddIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewPatchSepaddIDConflict() *PatchSepaddIDConflict {
 	return &PatchSepaddIDConflict{}
 }
 
-/*PatchSepaddIDConflict handles this case with default header values.
+/* PatchSepaddIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type PatchSepaddIDConflict struct {
 func (o *PatchSepaddIDConflict) Error() string {
 	return fmt.Sprintf("[PATCH /sepadd/{id}][%d] patchSepaddIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *PatchSepaddIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewPatchSepaddIDTooManyRequests() *PatchSepaddIDTooManyRequests {
 	return &PatchSepaddIDTooManyRequests{}
 }
 
-/*PatchSepaddIDTooManyRequests handles this case with default header values.
+/* PatchSepaddIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type PatchSepaddIDTooManyRequests struct {
 func (o *PatchSepaddIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[PATCH /sepadd/{id}][%d] patchSepaddIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *PatchSepaddIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewPatchSepaddIDInternalServerError() *PatchSepaddIDInternalServerError {
 	return &PatchSepaddIDInternalServerError{}
 }
 
-/*PatchSepaddIDInternalServerError handles this case with default header values.
+/* PatchSepaddIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type PatchSepaddIDInternalServerError struct {
 func (o *PatchSepaddIDInternalServerError) Error() string {
 	return fmt.Sprintf("[PATCH /sepadd/{id}][%d] patchSepaddIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *PatchSepaddIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewPatchSepaddIDServiceUnavailable() *PatchSepaddIDServiceUnavailable {
 	return &PatchSepaddIDServiceUnavailable{}
 }
 
-/*PatchSepaddIDServiceUnavailable handles this case with default header values.
+/* PatchSepaddIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type PatchSepaddIDServiceUnavailable struct {
 func (o *PatchSepaddIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[PATCH /sepadd/{id}][%d] patchSepaddIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *PatchSepaddIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

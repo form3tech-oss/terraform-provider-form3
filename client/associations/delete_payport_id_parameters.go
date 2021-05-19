@@ -17,64 +17,81 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeletePayportIDParams creates a new DeletePayportIDParams object
-// with the default values initialized.
+// NewDeletePayportIDParams creates a new DeletePayportIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeletePayportIDParams() *DeletePayportIDParams {
-	var ()
 	return &DeletePayportIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeletePayportIDParamsWithTimeout creates a new DeletePayportIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeletePayportIDParamsWithTimeout(timeout time.Duration) *DeletePayportIDParams {
-	var ()
 	return &DeletePayportIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeletePayportIDParamsWithContext creates a new DeletePayportIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeletePayportIDParamsWithContext(ctx context.Context) *DeletePayportIDParams {
-	var ()
 	return &DeletePayportIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeletePayportIDParamsWithHTTPClient creates a new DeletePayportIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeletePayportIDParamsWithHTTPClient(client *http.Client) *DeletePayportIDParams {
-	var ()
 	return &DeletePayportIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeletePayportIDParams contains all the parameters to send to the API endpoint
-for the delete payport ID operation typically these are written to a http.Request
+/* DeletePayportIDParams contains all the parameters to send to the API endpoint
+   for the delete payport ID operation.
+
+   Typically these are written to a http.Request.
 */
 type DeletePayportIDParams struct {
 
-	/*ID
-	  Association Id
+	/* ID.
 
+	   Association Id
+
+	   Format: uuid
 	*/
 	ID strfmt.UUID
-	/*Version
-	  Version
 
+	/* Version.
+
+	   Version
 	*/
 	Version int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete payport ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeletePayportIDParams) WithDefaults() *DeletePayportIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete payport ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeletePayportIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete payport ID params
@@ -149,6 +166,7 @@ func (o *DeletePayportIDParams) WriteToRequest(r runtime.ClientRequest, reg strf
 	qrVersion := o.Version
 	qVersion := swag.FormatInt64(qrVersion)
 	if qVersion != "" {
+
 		if err := r.SetQueryParam("version", qVersion); err != nil {
 			return err
 		}

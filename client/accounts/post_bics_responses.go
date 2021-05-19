@@ -77,7 +77,6 @@ func (o *PostBicsReader) ReadResponse(response runtime.ClientResponse, consumer 
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -88,7 +87,7 @@ func NewPostBicsCreated() *PostBicsCreated {
 	return &PostBicsCreated{}
 }
 
-/*PostBicsCreated handles this case with default header values.
+/* PostBicsCreated describes a response with status code 201, with default header values.
 
 Bic creation response
 */
@@ -99,7 +98,6 @@ type PostBicsCreated struct {
 func (o *PostBicsCreated) Error() string {
 	return fmt.Sprintf("[POST /bics][%d] postBicsCreated  %+v", 201, o.Payload)
 }
-
 func (o *PostBicsCreated) GetPayload() *models.BicCreationResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewPostBicsBadRequest() *PostBicsBadRequest {
 	return &PostBicsBadRequest{}
 }
 
-/*PostBicsBadRequest handles this case with default header values.
+/* PostBicsBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type PostBicsBadRequest struct {
 func (o *PostBicsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /bics][%d] postBicsBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *PostBicsBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewPostBicsUnauthorized() *PostBicsUnauthorized {
 	return &PostBicsUnauthorized{}
 }
 
-/*PostBicsUnauthorized handles this case with default header values.
+/* PostBicsUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type PostBicsUnauthorized struct {
 func (o *PostBicsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /bics][%d] postBicsUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *PostBicsUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewPostBicsForbidden() *PostBicsForbidden {
 	return &PostBicsForbidden{}
 }
 
-/*PostBicsForbidden handles this case with default header values.
+/* PostBicsForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type PostBicsForbidden struct {
 func (o *PostBicsForbidden) Error() string {
 	return fmt.Sprintf("[POST /bics][%d] postBicsForbidden  %+v", 403, o.Payload)
 }
-
 func (o *PostBicsForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewPostBicsNotFound() *PostBicsNotFound {
 	return &PostBicsNotFound{}
 }
 
-/*PostBicsNotFound handles this case with default header values.
+/* PostBicsNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type PostBicsNotFound struct {
 func (o *PostBicsNotFound) Error() string {
 	return fmt.Sprintf("[POST /bics][%d] postBicsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *PostBicsNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewPostBicsConflict() *PostBicsConflict {
 	return &PostBicsConflict{}
 }
 
-/*PostBicsConflict handles this case with default header values.
+/* PostBicsConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type PostBicsConflict struct {
 func (o *PostBicsConflict) Error() string {
 	return fmt.Sprintf("[POST /bics][%d] postBicsConflict  %+v", 409, o.Payload)
 }
-
 func (o *PostBicsConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewPostBicsTooManyRequests() *PostBicsTooManyRequests {
 	return &PostBicsTooManyRequests{}
 }
 
-/*PostBicsTooManyRequests handles this case with default header values.
+/* PostBicsTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type PostBicsTooManyRequests struct {
 func (o *PostBicsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /bics][%d] postBicsTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *PostBicsTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewPostBicsInternalServerError() *PostBicsInternalServerError {
 	return &PostBicsInternalServerError{}
 }
 
-/*PostBicsInternalServerError handles this case with default header values.
+/* PostBicsInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type PostBicsInternalServerError struct {
 func (o *PostBicsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /bics][%d] postBicsInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *PostBicsInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewPostBicsServiceUnavailable() *PostBicsServiceUnavailable {
 	return &PostBicsServiceUnavailable{}
 }
 
-/*PostBicsServiceUnavailable handles this case with default header values.
+/* PostBicsServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type PostBicsServiceUnavailable struct {
 func (o *PostBicsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /bics][%d] postBicsServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *PostBicsServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

@@ -77,7 +77,6 @@ func (o *GetPositionsReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -88,7 +87,7 @@ func NewGetPositionsOK() *GetPositionsOK {
 	return &GetPositionsOK{}
 }
 
-/*GetPositionsOK handles this case with default header values.
+/* GetPositionsOK describes a response with status code 200, with default header values.
 
 List of position details
 */
@@ -99,7 +98,6 @@ type GetPositionsOK struct {
 func (o *GetPositionsOK) Error() string {
 	return fmt.Sprintf("[GET /positions][%d] getPositionsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetPositionsOK) GetPayload() *models.PositionDetailsListResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewGetPositionsBadRequest() *GetPositionsBadRequest {
 	return &GetPositionsBadRequest{}
 }
 
-/*GetPositionsBadRequest handles this case with default header values.
+/* GetPositionsBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type GetPositionsBadRequest struct {
 func (o *GetPositionsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /positions][%d] getPositionsBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetPositionsBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewGetPositionsUnauthorized() *GetPositionsUnauthorized {
 	return &GetPositionsUnauthorized{}
 }
 
-/*GetPositionsUnauthorized handles this case with default header values.
+/* GetPositionsUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type GetPositionsUnauthorized struct {
 func (o *GetPositionsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /positions][%d] getPositionsUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetPositionsUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewGetPositionsForbidden() *GetPositionsForbidden {
 	return &GetPositionsForbidden{}
 }
 
-/*GetPositionsForbidden handles this case with default header values.
+/* GetPositionsForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type GetPositionsForbidden struct {
 func (o *GetPositionsForbidden) Error() string {
 	return fmt.Sprintf("[GET /positions][%d] getPositionsForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetPositionsForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewGetPositionsNotFound() *GetPositionsNotFound {
 	return &GetPositionsNotFound{}
 }
 
-/*GetPositionsNotFound handles this case with default header values.
+/* GetPositionsNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type GetPositionsNotFound struct {
 func (o *GetPositionsNotFound) Error() string {
 	return fmt.Sprintf("[GET /positions][%d] getPositionsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetPositionsNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewGetPositionsConflict() *GetPositionsConflict {
 	return &GetPositionsConflict{}
 }
 
-/*GetPositionsConflict handles this case with default header values.
+/* GetPositionsConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type GetPositionsConflict struct {
 func (o *GetPositionsConflict) Error() string {
 	return fmt.Sprintf("[GET /positions][%d] getPositionsConflict  %+v", 409, o.Payload)
 }
-
 func (o *GetPositionsConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewGetPositionsTooManyRequests() *GetPositionsTooManyRequests {
 	return &GetPositionsTooManyRequests{}
 }
 
-/*GetPositionsTooManyRequests handles this case with default header values.
+/* GetPositionsTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type GetPositionsTooManyRequests struct {
 func (o *GetPositionsTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /positions][%d] getPositionsTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *GetPositionsTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewGetPositionsInternalServerError() *GetPositionsInternalServerError {
 	return &GetPositionsInternalServerError{}
 }
 
-/*GetPositionsInternalServerError handles this case with default header values.
+/* GetPositionsInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type GetPositionsInternalServerError struct {
 func (o *GetPositionsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /positions][%d] getPositionsInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetPositionsInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewGetPositionsServiceUnavailable() *GetPositionsServiceUnavailable {
 	return &GetPositionsServiceUnavailable{}
 }
 
-/*GetPositionsServiceUnavailable handles this case with default header values.
+/* GetPositionsServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type GetPositionsServiceUnavailable struct {
 func (o *GetPositionsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /positions][%d] getPositionsServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *GetPositionsServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

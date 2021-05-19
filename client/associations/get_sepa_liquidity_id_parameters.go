@@ -16,59 +16,75 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetSepaLiquidityIDParams creates a new GetSepaLiquidityIDParams object
-// with the default values initialized.
+// NewGetSepaLiquidityIDParams creates a new GetSepaLiquidityIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetSepaLiquidityIDParams() *GetSepaLiquidityIDParams {
-	var ()
 	return &GetSepaLiquidityIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetSepaLiquidityIDParamsWithTimeout creates a new GetSepaLiquidityIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetSepaLiquidityIDParamsWithTimeout(timeout time.Duration) *GetSepaLiquidityIDParams {
-	var ()
 	return &GetSepaLiquidityIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetSepaLiquidityIDParamsWithContext creates a new GetSepaLiquidityIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetSepaLiquidityIDParamsWithContext(ctx context.Context) *GetSepaLiquidityIDParams {
-	var ()
 	return &GetSepaLiquidityIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetSepaLiquidityIDParamsWithHTTPClient creates a new GetSepaLiquidityIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetSepaLiquidityIDParamsWithHTTPClient(client *http.Client) *GetSepaLiquidityIDParams {
-	var ()
 	return &GetSepaLiquidityIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetSepaLiquidityIDParams contains all the parameters to send to the API endpoint
-for the get sepa liquidity ID operation typically these are written to a http.Request
+/* GetSepaLiquidityIDParams contains all the parameters to send to the API endpoint
+   for the get sepa liquidity ID operation.
+
+   Typically these are written to a http.Request.
 */
 type GetSepaLiquidityIDParams struct {
 
-	/*ID
-	  Association Id
+	/* ID.
 
+	   Association Id
+
+	   Format: uuid
 	*/
 	ID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get sepa liquidity ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetSepaLiquidityIDParams) WithDefaults() *GetSepaLiquidityIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get sepa liquidity ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetSepaLiquidityIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get sepa liquidity ID params

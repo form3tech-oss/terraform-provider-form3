@@ -77,7 +77,6 @@ func (o *PostKeysReader) ReadResponse(response runtime.ClientResponse, consumer 
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -88,7 +87,7 @@ func NewPostKeysCreated() *PostKeysCreated {
 	return &PostKeysCreated{}
 }
 
-/*PostKeysCreated handles this case with default header values.
+/* PostKeysCreated describes a response with status code 201, with default header values.
 
 creation response
 */
@@ -99,7 +98,6 @@ type PostKeysCreated struct {
 func (o *PostKeysCreated) Error() string {
 	return fmt.Sprintf("[POST /keys][%d] postKeysCreated  %+v", 201, o.Payload)
 }
-
 func (o *PostKeysCreated) GetPayload() *models.KeyCreationResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewPostKeysBadRequest() *PostKeysBadRequest {
 	return &PostKeysBadRequest{}
 }
 
-/*PostKeysBadRequest handles this case with default header values.
+/* PostKeysBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type PostKeysBadRequest struct {
 func (o *PostKeysBadRequest) Error() string {
 	return fmt.Sprintf("[POST /keys][%d] postKeysBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *PostKeysBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewPostKeysUnauthorized() *PostKeysUnauthorized {
 	return &PostKeysUnauthorized{}
 }
 
-/*PostKeysUnauthorized handles this case with default header values.
+/* PostKeysUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type PostKeysUnauthorized struct {
 func (o *PostKeysUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /keys][%d] postKeysUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *PostKeysUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewPostKeysForbidden() *PostKeysForbidden {
 	return &PostKeysForbidden{}
 }
 
-/*PostKeysForbidden handles this case with default header values.
+/* PostKeysForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type PostKeysForbidden struct {
 func (o *PostKeysForbidden) Error() string {
 	return fmt.Sprintf("[POST /keys][%d] postKeysForbidden  %+v", 403, o.Payload)
 }
-
 func (o *PostKeysForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewPostKeysNotFound() *PostKeysNotFound {
 	return &PostKeysNotFound{}
 }
 
-/*PostKeysNotFound handles this case with default header values.
+/* PostKeysNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type PostKeysNotFound struct {
 func (o *PostKeysNotFound) Error() string {
 	return fmt.Sprintf("[POST /keys][%d] postKeysNotFound  %+v", 404, o.Payload)
 }
-
 func (o *PostKeysNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewPostKeysConflict() *PostKeysConflict {
 	return &PostKeysConflict{}
 }
 
-/*PostKeysConflict handles this case with default header values.
+/* PostKeysConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type PostKeysConflict struct {
 func (o *PostKeysConflict) Error() string {
 	return fmt.Sprintf("[POST /keys][%d] postKeysConflict  %+v", 409, o.Payload)
 }
-
 func (o *PostKeysConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewPostKeysTooManyRequests() *PostKeysTooManyRequests {
 	return &PostKeysTooManyRequests{}
 }
 
-/*PostKeysTooManyRequests handles this case with default header values.
+/* PostKeysTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type PostKeysTooManyRequests struct {
 func (o *PostKeysTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /keys][%d] postKeysTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *PostKeysTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewPostKeysInternalServerError() *PostKeysInternalServerError {
 	return &PostKeysInternalServerError{}
 }
 
-/*PostKeysInternalServerError handles this case with default header values.
+/* PostKeysInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type PostKeysInternalServerError struct {
 func (o *PostKeysInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /keys][%d] postKeysInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *PostKeysInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewPostKeysServiceUnavailable() *PostKeysServiceUnavailable {
 	return &PostKeysServiceUnavailable{}
 }
 
-/*PostKeysServiceUnavailable handles this case with default header values.
+/* PostKeysServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type PostKeysServiceUnavailable struct {
 func (o *PostKeysServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /keys][%d] postKeysServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *PostKeysServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }
