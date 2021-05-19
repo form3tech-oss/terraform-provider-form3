@@ -47,7 +47,7 @@ func init() {
 }
 
 func (m KeyType) validateKeyTypeEnum(path, location string, value KeyType) error {
-	if err := validate.Enum(path, location, value, keyTypeEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, keyTypeEnum, true); err != nil {
 		return err
 	}
 	return nil

@@ -154,7 +154,7 @@ const (
 
 // prop value enum
 func (m *SepactLiquidityNewAssociation) validateTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, sepactLiquidityNewAssociationTypeTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, sepactLiquidityNewAssociationTypeTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil

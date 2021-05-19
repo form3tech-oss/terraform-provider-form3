@@ -177,7 +177,7 @@ const (
 
 // prop value enum
 func (m *SigningCertificateData) validateTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, signingCertificateDataTypeTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, signingCertificateDataTypeTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil

@@ -176,7 +176,7 @@ const (
 
 // prop value enum
 func (m *LhvAgencySynchronisation) validateTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, lhvAgencySynchronisationTypeTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, lhvAgencySynchronisationTypeTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil

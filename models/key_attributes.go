@@ -90,7 +90,7 @@ const (
 
 // prop value enum
 func (m *KeyAttributes) validateCurveEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, keyAttributesTypeCurvePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, keyAttributesTypeCurvePropEnum, true); err != nil {
 		return err
 	}
 	return nil
@@ -139,7 +139,7 @@ const (
 
 // prop value enum
 func (m *KeyAttributes) validateTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, keyAttributesTypeTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, keyAttributesTypeTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil

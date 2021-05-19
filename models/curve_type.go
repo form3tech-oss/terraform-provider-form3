@@ -47,7 +47,7 @@ func init() {
 }
 
 func (m CurveType) validateCurveTypeEnum(path, location string, value CurveType) error {
-	if err := validate.Enum(path, location, value, curveTypeEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, curveTypeEnum, true); err != nil {
 		return err
 	}
 	return nil

@@ -100,7 +100,7 @@ const (
 
 // prop value enum
 func (m *SubscriptionAttributes) validateCallbackTransportEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, subscriptionAttributesTypeCallbackTransportPropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, subscriptionAttributesTypeCallbackTransportPropEnum, true); err != nil {
 		return err
 	}
 	return nil

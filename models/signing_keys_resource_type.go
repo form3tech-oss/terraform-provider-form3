@@ -38,7 +38,7 @@ func init() {
 }
 
 func (m SigningKeysResourceType) validateSigningKeysResourceTypeEnum(path, location string, value SigningKeysResourceType) error {
-	if err := validate.Enum(path, location, value, signingKeysResourceTypeEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, signingKeysResourceTypeEnum, true); err != nil {
 		return err
 	}
 	return nil

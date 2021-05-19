@@ -137,7 +137,7 @@ const (
 
 // prop value enum
 func (m *UpdateSepaInstantAssociation) validateTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, updateSepaInstantAssociationTypeTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, updateSepaInstantAssociationTypeTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil

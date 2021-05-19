@@ -41,7 +41,7 @@ func init() {
 }
 
 func (m DirectDebitAdmissionStatus) validateDirectDebitAdmissionStatusEnum(path, location string, value DirectDebitAdmissionStatus) error {
-	if err := validate.Enum(path, location, value, directDebitAdmissionStatusEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, directDebitAdmissionStatusEnum, true); err != nil {
 		return err
 	}
 	return nil

@@ -81,7 +81,7 @@ const (
 
 // prop value enum
 func (m *SepaReconciliationRelationshipData) validateTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, sepaReconciliationRelationshipDataTypeTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, sepaReconciliationRelationshipDataTypeTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil

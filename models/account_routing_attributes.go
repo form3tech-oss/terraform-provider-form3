@@ -87,7 +87,7 @@ const (
 
 // prop value enum
 func (m *AccountRoutingAttributes) validateAccountGeneratorEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, accountRoutingAttributesTypeAccountGeneratorPropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, accountRoutingAttributesTypeAccountGeneratorPropEnum, true); err != nil {
 		return err
 	}
 	return nil
@@ -133,7 +133,7 @@ const (
 
 // prop value enum
 func (m *AccountRoutingAttributes) validateAccountProvisionerEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, accountRoutingAttributesTypeAccountProvisionerPropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, accountRoutingAttributesTypeAccountProvisionerPropEnum, true); err != nil {
 		return err
 	}
 	return nil

@@ -53,7 +53,7 @@ func init() {
 }
 
 func (m ResourceType) validateResourceTypeEnum(path, location string, value ResourceType) error {
-	if err := validate.Enum(path, location, value, resourceTypeEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, resourceTypeEnum, true); err != nil {
 		return err
 	}
 	return nil

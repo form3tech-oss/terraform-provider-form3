@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := default
 GOFILES = $(shell go list ./...)
-swagger_codegen_version := "v0.23.0"
+swagger_codegen_version := "v0.25.0"
 
 export GOFLAGS=-mod=vendor
 

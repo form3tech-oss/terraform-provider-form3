@@ -133,7 +133,7 @@ const (
 
 // prop value enum
 func (m *LhvAssociation) validateTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, lhvAssociationTypeTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, lhvAssociationTypeTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil

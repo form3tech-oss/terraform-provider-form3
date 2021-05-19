@@ -56,7 +56,7 @@ func init() {
 }
 
 func (m MandateFrequency) validateMandateFrequencyEnum(path, location string, value MandateFrequency) error {
-	if err := validate.Enum(path, location, value, mandateFrequencyEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, mandateFrequencyEnum, true); err != nil {
 		return err
 	}
 	return nil

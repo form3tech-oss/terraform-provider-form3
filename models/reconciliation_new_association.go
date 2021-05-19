@@ -129,7 +129,7 @@ const (
 
 // prop value enum
 func (m *ReconciliationNewAssociation) validateTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, reconciliationNewAssociationTypeTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, reconciliationNewAssociationTypeTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil
