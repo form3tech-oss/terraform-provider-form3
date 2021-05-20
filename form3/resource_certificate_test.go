@@ -4,9 +4,11 @@ import (
 	"fmt"
 	"os"
 	"regexp"
+	"strings"
 	"testing"
 
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
+	"github.com/form3tech-oss/terraform-provider-form3/api/support"
 	"github.com/form3tech-oss/terraform-provider-form3/client/organisations"
 	"github.com/form3tech-oss/terraform-provider-form3/client/system"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
@@ -81,13 +83,27 @@ func TestAccKey_withCert(t *testing.T) {
 	keyID := uuid.New().String()
 	certificateID := uuid.New().String()
 
+	certificate, err := support.GenerateSelfSignedCert()
+	if err != nil {
+		t.Fail()
+	}
+
+	var issuers []string
+	for i := 0; i < 3; i++ {
+		issuer, err := support.GenerateSelfSignedCert()
+		if err != nil {
+			t.Fail()
+		}
+		issuers = append(issuers, issuer)
+	}
+
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
 		Providers:    testAccProviders,
 		CheckDestroy: testAccCheckKeyDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: getTestForm3KeyConfigWithCert(organisationID, parentOrganisationID, testOrgName, keyID, certificateID),
+				Config: getTestForm3KeyConfigWithCert(organisationID, parentOrganisationID, testOrgName, keyID, certificateID, certificate, issuers),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckKeyExists("form3_key.test_key", &response),
 					resource.TestCheckResourceAttr("form3_key.test_key", "organisation_id", organisationID),
@@ -97,10 +113,11 @@ func TestAccKey_withCert(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_certificate.cert", "organisation_id", organisationID),
 					resource.TestCheckResourceAttr("form3_certificate.cert", "key_id", keyID),
 					resource.TestCheckResourceAttr("form3_certificate.cert", "certificate_id", certificateID),
-					resource.TestMatchResourceAttr("form3_certificate.cert", "certificate", regexp.MustCompile(`.*MIIGZzCCBU\+gAwIBAgIQQAFoVhQdgReBTMSz0Ui/AjANBgkqhkiG9w0BAQsFADCB.*`)),
+					resource.TestCheckResourceAttr("form3_certificate.cert", "certificate", certificate),
 					resource.TestCheckResourceAttr("form3_certificate.cert", "issuing_certificates.#", "3"),
-					resource.TestMatchResourceAttr("form3_certificate.cert", "issuing_certificates.0", regexp.MustCompile(".*My Bank.*")),
-					resource.TestMatchResourceAttr("form3_certificate.cert", "issuing_certificates.2", regexp.MustCompile(".*Root.*")),
+					resource.TestCheckResourceAttr("form3_certificate.cert", "issuing_certificates.0", issuers[0]),
+					resource.TestCheckResourceAttr("form3_certificate.cert", "issuing_certificates.1", issuers[1]),
+					resource.TestCheckResourceAttr("form3_certificate.cert", "issuing_certificates.2", issuers[2]),
 				),
 			},
 		},
@@ -197,6 +214,15 @@ func TestAccKey_importExistingCert(t *testing.T) {
 			t.Fail()
 		}
 
+		newCertificate, err := support.GenerateSelfSignedCert()
+		if err != nil {
+			t.Fail()
+		}
+		issuer, err := support.GenerateSelfSignedCert()
+		if err != nil {
+			t.Fail()
+		}
+
 		_, err = client.SystemClient.System.PostKeysKeyIDCertificates(system.NewPostKeysKeyIDCertificatesParams().
 			WithKeyID(strfmt.UUID(keyID)).
 			WithCertificateCreationRequest(&models.CertificateCreation{
@@ -204,8 +230,8 @@ func TestAccKey_importExistingCert(t *testing.T) {
 					ID:             strfmt.UUID(certificateID),
 					OrganisationID: strfmt.UUID(organisationID),
 					Attributes: &models.CertificateAttributes{
-						Certificate:         ToStringPointer("Existing Certificate"),
-						IssuingCertificates: []string{"Existing Issuing Certificate"},
+						Certificate:         &newCertificate,
+						IssuingCertificates: []string{issuer},
 					},
 				},
 			}))
@@ -264,10 +290,6 @@ func TestAccKey_importExistingCert(t *testing.T) {
 			},
 		},
 	})
-}
-
-func ToStringPointer(s string) *string {
-	return &s
 }
 
 func testAccCheckKeyDestroy(state *terraform.State) error {
@@ -332,14 +354,14 @@ func getTestForm3KeyConfig(orgID, parOrgID, orgName, keyID string) string {
 		parent_organisation_id = "%s"
 		name 		               = "%s"
 	}
-	
+
 	resource "form3_key" "test_key" {
 		organisation_id = "${form3_organisation.organisation.organisation_id}"
 	  subject         = "CN=Terraform-test"
 	  key_id          = "%s"
 	  description     = "test key"
 	}
-	
+
 	output "csr" {
 	  value = "${form3_key.test_key.certificate_signing_request}"
 	}
@@ -354,7 +376,7 @@ func getTestForm3KeyConfigElliptic(orgID, parOrgID, orgName, keyID string) strin
 		parent_organisation_id = "%s"
 		name 		               = "%s"
 	}
-	
+
 	resource "form3_key" "test_key" {
 		organisation_id  = "${form3_organisation.organisation.organisation_id}"
 	  subject          = "CN=Terraform-test"
@@ -363,36 +385,37 @@ func getTestForm3KeyConfigElliptic(orgID, parOrgID, orgName, keyID string) strin
 	  type             = "EC"
 	  curve            = "PRIME256V1"
 	}
-	
+
 	output "csr" {
 	  value = "${form3_key.test_key.certificate_signing_request}"
 	}`, orgID, parOrgID, orgName, keyID)
 }
 
-func getTestForm3KeyConfigWithCert(orgID, parOrgID, orgName, keyID, certID string) string {
+func getTestForm3KeyConfigWithCert(orgID, parOrgID, orgName, keyID, certID, certificate string, issuers []string) string {
+	var certIssuers []string
+	for _, issuer := range issuers {
+		certIssuers = append(certIssuers, getTestForm3CertTerraformFormat(issuer))
+	}
 	return fmt.Sprintf(`
 	resource "form3_organisation" "organisation" {
 		organisation_id        = "%s"
 		parent_organisation_id = "%s"
 		name 		               = "%s"
 	}
-	
+
 	resource "form3_key" "test_key" {
 		organisation_id         = "${form3_organisation.organisation.organisation_id}"
 	  subject                 = "CN=Terraform-test-with-cert"
 	  key_id  = "%s"
 	}
-	
+
 	resource "form3_certificate" "cert" {
 		organisation_id         = "${form3_organisation.organisation.organisation_id}"
 	  key_id  = "${form3_key.test_key.key_id}"
 	  certificate_id          = "%s"
-	  certificate             = "-----BEGIN CERTIFICATE-----\nMIIGZzCCBU+gAwIBAgIQQAFoVhQdgReBTMSz0Ui/AjANBgkqhkiG9w0BAQsFADCB\nqzEnMCUGA1UECgw=\n-----END CERTIFICATE-----"
-	  issuing_certificates    = ["-----BEGIN CERTIFICATE-----\nMy Bank\n-----END CERTIFICATE-----",
-								  "-----BEGIN CERTIFICATE-----\nMy Bank's Bank'\n-----END CERTIFICATE-----",
-								  "-----BEGIN CERTIFICATE-----\nRoot'\n-----END CERTIFICATE-----"
-								]
-	}`, orgID, parOrgID, orgName, keyID, certID)
+	  certificate             =  "%s"
+	  issuing_certificates    = [%s]
+	}`, orgID, parOrgID, orgName, keyID, certID, getTestForm3CertTerraformFormat(certificate), `"`+strings.Join(certIssuers, "\",\n\"")+`"`)
 }
 
 func getTestForm3KeyConfigWithSelfSignedCert(orgID, parOrgID, orgName, keyID, certID string) string {
@@ -402,13 +425,13 @@ func getTestForm3KeyConfigWithSelfSignedCert(orgID, parOrgID, orgName, keyID, ce
 		parent_organisation_id = "%s"
 		name 		               = "%s"
 	}
-	
+
 	resource "form3_key" "test_key" {
 		organisation_id         = "${form3_organisation.organisation.organisation_id}"
 	  subject                 = "CN=Terraform-test-selfsigned"
 	  key_id  = "%s"
 	}
-	
+
 	resource "form3_certificate" "cert" {
 		organisation_id         = "${form3_organisation.organisation.organisation_id}"
 	  key_id  = "${form3_key.test_key.key_id}"
@@ -424,7 +447,7 @@ func getTestForm3KeyConfigExistingKey(orgID, parOrgID, orgName, keyID string) st
 		parent_organisation_id = "%s"
 		name 		               = "%s"
 	}
-	
+
 	resource "form3_key" "test_key" {
 		organisation_id         = "${form3_organisation.organisation.organisation_id}"
 	  subject                 = "CN=Terraform-test-existing"
@@ -442,4 +465,8 @@ func getTestForm3KeyConfigExistingCert(orgID, keyID, certID string) string {
 	  certificate             = "Existing Certificate"
 	  issuing_certificates    = ["Existing Issuing Certificate"]
 	}`, orgID, keyID, certID)
+}
+
+func getTestForm3CertTerraformFormat(cert string) string {
+	return regexp.MustCompile("\n").ReplaceAllString(cert, `\n`)
 }
