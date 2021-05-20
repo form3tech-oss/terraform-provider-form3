@@ -116,6 +116,7 @@ func TestAccKey_withCert(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_certificate.cert", "certificate", certificate),
 					resource.TestCheckResourceAttr("form3_certificate.cert", "issuing_certificates.#", "3"),
 					resource.TestCheckResourceAttr("form3_certificate.cert", "issuing_certificates.0", issuers[0]),
+					resource.TestCheckResourceAttr("form3_certificate.cert", "issuing_certificates.1", issuers[1]),
 					resource.TestCheckResourceAttr("form3_certificate.cert", "issuing_certificates.2", issuers[2]),
 				),
 			},
