@@ -83,10 +83,17 @@ func TestAccKey_withCert(t *testing.T) {
 	keyID := uuid.New().String()
 	certificateID := uuid.New().String()
 
-	certificate, _ := support.GenerateSelfSignedCert()
+	certificate, err := support.GenerateSelfSignedCert()
+	if err != nil {
+		t.Fail()
+	}
+
 	var issuers []string
 	for i := 0; i < 3; i++ {
-		issuer, _ := support.GenerateSelfSignedCert()
+		issuer, err := support.GenerateSelfSignedCert()
+		if err != nil {
+			t.Fail()
+		}
 		issuers = append(issuers, issuer)
 	}
 
