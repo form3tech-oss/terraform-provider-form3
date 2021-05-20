@@ -9,7 +9,7 @@ import (
 	"crypto/x509/pkix"
 	"encoding/pem"
 	"math/big"
-	"net"
+	"regexp"
 	"testing"
 	"time"
 
@@ -177,7 +177,8 @@ func deleteCertificate(keysCreated *system.PostKeysCreated, certCreation *system
 
 func createCertificate(createResponse *system.PostKeysCreated, t *testing.T) *system.PostKeysKeyIDCertificatesCreated {
 	id := uuid.New()
-	certName := "Test Cert"
+	newCertificate, err := generateSelfSignedCert()
+	assertNoErrorOccurred(t, err)
 	createCertResponse, err := auth.SystemClient.System.PostKeysKeyIDCertificates(system.NewPostKeysKeyIDCertificatesParams().
 		WithKeyID(createResponse.Payload.Data.ID).
 		WithCertificateCreationRequest(&models.CertificateCreation{
@@ -185,7 +186,7 @@ func createCertificate(createResponse *system.PostKeysCreated, t *testing.T) *sy
 				ID:             *UUIDtoStrFmtUUID(id),
 				OrganisationID: organisationId,
 				Attributes: &models.CertificateAttributes{
-					Certificate:         &certName,
+					Certificate:         &newCertificate,
 					IssuingCertificates: []string{"Issuing Cert"},
 				},
 			},
@@ -194,7 +195,8 @@ func createCertificate(createResponse *system.PostKeysCreated, t *testing.T) *sy
 	return createCertResponse
 }
 
-func createSelfSignedCert() (string, error) {
+func generateSelfSignedCert() (string, error) {
+	certLength := 2048
 	ca := &x509.Certificate{
 		SerialNumber: big.NewInt(2019),
 		Subject: pkix.Name{
@@ -213,7 +215,7 @@ func createSelfSignedCert() (string, error) {
 		BasicConstraintsValid: true,
 	}
 
-	caPrivateKey, err := rsa.GenerateKey(rand.Reader, 4096)
+	caPrivateKey, err := rsa.GenerateKey(rand.Reader, certLength)
 	if err != nil {
 		return "", err
 	}
@@ -224,28 +226,33 @@ func createSelfSignedCert() (string, error) {
 	}
 
 	caPEM := new(bytes.Buffer)
-	pem.Encode(caPEM, &pem.Block{
+	err = pem.Encode(caPEM, &pem.Block{
 		Type:  "CERTIFICATE",
 		Bytes: caBytes,
 	})
+	if err != nil {
+		return "", err
+	}
 
-	caPrivKeyPEM := new(bytes.Buffer)
-	pem.Encode(caPrivKeyPEM, &pem.Block{
+	caPrivateKeyPEM := new(bytes.Buffer)
+	err = pem.Encode(caPrivateKeyPEM, &pem.Block{
 		Type:  "RSA PRIVATE KEY",
 		Bytes: x509.MarshalPKCS1PrivateKey(caPrivateKey),
 	})
+	if err != nil {
+		return "", err
+	}
 
 	cert := &x509.Certificate{
 		SerialNumber: big.NewInt(1658),
 		Subject: pkix.Name{
-			Organization:  []string{"Company, INC."},
-			Country:       []string{"US"},
+			Organization:  []string{"A Bank"},
+			Country:       []string{"UK"},
 			Province:      []string{""},
-			Locality:      []string{"San Francisco"},
-			StreetAddress: []string{"Golden Gate Bridge"},
-			PostalCode:    []string{"94016"},
+			Locality:      []string{"London"},
+			StreetAddress: []string{"Someaddress"},
+			PostalCode:    []string{"WhoBloodyKnows"},
 		},
-		IPAddresses:  []net.IP{net.IPv4(127, 0, 0, 1), net.IPv6loopback},
 		NotBefore:    time.Now(),
 		NotAfter:     time.Now().AddDate(10, 0, 0),
 		SubjectKeyId: []byte{1, 2, 3, 4, 6},
@@ -253,27 +260,27 @@ func createSelfSignedCert() (string, error) {
 		KeyUsage:     x509.KeyUsageDigitalSignature,
 	}
 
-	certPrivKey, err := rsa.GenerateKey(rand.Reader, 4096)
+	certPrivateKey, err := rsa.GenerateKey(rand.Reader, certLength)
 	if err != nil {
 		return "", err
 	}
 
-	certBytes, err := x509.CreateCertificate(rand.Reader, cert, ca, &certPrivKey.PublicKey, caPrivateKey)
+	certBytes, err := x509.CreateCertificate(rand.Reader, cert, ca, &certPrivateKey.PublicKey, caPrivateKey)
 	if err != nil {
 		return "", err
 	}
 
 	certPEM := new(bytes.Buffer)
-	pem.Encode(certPEM, &pem.Block{
+	err = pem.Encode(certPEM, &pem.Block{
 		Type:  "CERTIFICATE",
 		Bytes: certBytes,
 	})
+	if err != nil {
+		return "", err
+	}
 
-	certPrivKeyPEM := new(bytes.Buffer)
-	pem.Encode(certPrivKeyPEM, &pem.Block{
-		Type:  "RSA PRIVATE KEY",
-		Bytes: x509.MarshalPKCS1PrivateKey(certPrivKey),
-	})
+	re := regexp.MustCompile(`\r?\n`)
+	returnCert := re.ReplaceAllString(certPEM.String(), "\\n")
 
-	return certPEM.String(), nil
+	return returnCert[:len(returnCert)-2], nil
 }
