@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"regexp"
+	"strings"
 	"testing"
 
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
@@ -82,13 +83,20 @@ func TestAccKey_withCert(t *testing.T) {
 	keyID := uuid.New().String()
 	certificateID := uuid.New().String()
 
+	certificate, _ := support.GenerateSelfSignedCert()
+	var issuers []string
+	for i := 0; i < 3; i++ {
+		issuer, _ := support.GenerateSelfSignedCert()
+		issuers = append(issuers, issuer)
+	}
+
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
 		Providers:    testAccProviders,
 		CheckDestroy: testAccCheckKeyDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: getTestForm3KeyConfigWithCert(organisationID, parentOrganisationID, testOrgName, keyID, certificateID),
+				Config: getTestForm3KeyConfigWithCert(organisationID, parentOrganisationID, testOrgName, keyID, certificateID, certificate, issuers),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckKeyExists("form3_key.test_key", &response),
 					resource.TestCheckResourceAttr("form3_key.test_key", "organisation_id", organisationID),
@@ -98,10 +106,10 @@ func TestAccKey_withCert(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_certificate.cert", "organisation_id", organisationID),
 					resource.TestCheckResourceAttr("form3_certificate.cert", "key_id", keyID),
 					resource.TestCheckResourceAttr("form3_certificate.cert", "certificate_id", certificateID),
-					resource.TestMatchResourceAttr("form3_certificate.cert", "certificate", regexp.MustCompile(`.*DTJYYuo47rgUr2szykNbxTdLl0uYbW43DNzy\+q/77\+xg4to/F6rqqrvI6Q\+ETJw6.*`)),
+					resource.TestCheckResourceAttr("form3_certificate.cert", "certificate", certificate),
 					resource.TestCheckResourceAttr("form3_certificate.cert", "issuing_certificates.#", "3"),
-					resource.TestMatchResourceAttr("form3_certificate.cert", "issuing_certificates.0", regexp.MustCompile(`.*b7HnblLHCJu4Se/Tw9S0dvgU6L8oZ9D92\+LXjraph0mmmQ0/Yemt8bDvH9rRAgMB.*`)),
-					resource.TestMatchResourceAttr("form3_certificate.cert", "issuing_certificates.2", regexp.MustCompile(`.*Wc2I/20pb6nXkvP83rXNexHNMYmDarovpAzzNK\+Zu2X3sD93u9iO2jFbjFllAgMB.*`)),
+					resource.TestCheckResourceAttr("form3_certificate.cert", "issuing_certificates.0", issuers[0]),
+					resource.TestCheckResourceAttr("form3_certificate.cert", "issuing_certificates.2", issuers[2]),
 				),
 			},
 		},
@@ -375,7 +383,11 @@ func getTestForm3KeyConfigElliptic(orgID, parOrgID, orgName, keyID string) strin
 	}`, orgID, parOrgID, orgName, keyID)
 }
 
-func getTestForm3KeyConfigWithCert(orgID, parOrgID, orgName, keyID, certID string) string {
+func getTestForm3KeyConfigWithCert(orgID, parOrgID, orgName, keyID, certID, certificate string, issuers []string) string {
+	var certIssuers []string
+	for _, issuer := range issuers {
+		certIssuers = append(certIssuers, getTestForm3CertTerraformFormat(issuer))
+	}
 	return fmt.Sprintf(`
 	resource "form3_organisation" "organisation" {
 		organisation_id        = "%s"
@@ -393,12 +405,9 @@ func getTestForm3KeyConfigWithCert(orgID, parOrgID, orgName, keyID, certID strin
 		organisation_id         = "${form3_organisation.organisation.organisation_id}"
 	  key_id  = "${form3_key.test_key.key_id}"
 	  certificate_id          = "%s"
-	  certificate             =  "-----BEGIN CERTIFICATE-----\nMIICejCCAeOgAwIBAgIUHRbxjJt+4jVXTsla1mO7wUZrZzEwDQYJKoZIhvcNAQEL\nBQAwTzELMAkGA1UEBhMCVUsxDzANBgNVBAgMBkxvbmRvbjEPMA0GA1UEBwwGTG9u\nZG9uMQ4wDAYDVQQKDAVmb3JtMzEOMAwGA1UECwwFZm9ybTMwHhcNMjEwNTIwMDk1\nMzU3WhcNMjIwNTIwMDk1MzU3WjBPMQswCQYDVQQGEwJVSzEPMA0GA1UECAwGTG9u\nZG9uMQ8wDQYDVQQHDAZMb25kb24xDjAMBgNVBAoMBWZvcm0zMQ4wDAYDVQQLDAVm\nb3JtMzCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA9hZxqbnPjoWXAbMuvkll\niQLvARL202q7Wmh5EhWjN7P2A42/7arYbPWbpGg7YFglDgbx9lOp2uyGhZMInrE1\nDTJYYuo47rgUr2szykNbxTdLl0uYbW43DNzy+q/77+xg4to/F6rqqrvI6Q+ETJw6\nimfStsrwaG85U0uLOWBd9t8CAwEAAaNTMFEwHQYDVR0OBBYEFINj9JnsYm+ABL85\nUx0LJFxKGOHaMB8GA1UdIwQYMBaAFINj9JnsYm+ABL85Ux0LJFxKGOHaMA8GA1Ud\nEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQELBQADgYEAPJbkJvjxyVuODFAYuFvwkcCO\nLmPj1AoMtrxi6pCSwEkwzmE/SXsuGxzsJ5W/XM9tJk4xsLmP7zo3HW5LEHjN66kP\nP0eETHy6uAL7mR4+qR3u7V5dZ5ezAD1P03ebQPCwZgshEg0YuuCn9FUGaRKTDZqB\n2e9LzTyGh7HY0P+JOS0=\n-----END CERTIFICATE-----"
-	  issuing_certificates    = ["-----BEGIN CERTIFICATE-----\nMIICZjCCAc+gAwIBAgIUX/NtNTyBvvxcXud8RrYc43AW628wDQYJKoZIhvcNAQEL\nBQAwRTELMAkGA1UEBhMCQVUxEzARBgNVBAgMClNvbWUtU3RhdGUxITAfBgNVBAoM\nGEludGVybmV0IFdpZGdpdHMgUHR5IEx0ZDAeFw0yMTA1MjAwOTU4MzNaFw0yMjA1\nMjAwOTU4MzNaMEUxCzAJBgNVBAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEw\nHwYDVQQKDBhJbnRlcm5ldCBXaWRnaXRzIFB0eSBMdGQwgZ8wDQYJKoZIhvcNAQEB\nBQADgY0AMIGJAoGBAMdiz4nORaGAnjpvJXXEQqtlbXL4VBErY/dIu9WiEa+XohQg\nh8QvYFA88Q6PmyP/7hNUWNG3wVkeLhj/1MB08FuaX4yWKWCp+29y7FVZqbmSAZta\nb7HnblLHCJu4Se/Tw9S0dvgU6L8oZ9D92+LXjraph0mmmQ0/Yemt8bDvH9rRAgMB\nAAGjUzBRMB0GA1UdDgQWBBQdGqdpjO0msCUfTfHEJJpaNRGqOTAfBgNVHSMEGDAW\ngBQdGqdpjO0msCUfTfHEJJpaNRGqOTAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3\nDQEBCwUAA4GBAKoaGZ8I712W1P3o3LKouy3thiQ97hdy0JZmj3xuqcgbyOfeyomM\nHE9YUR54F/EBnf8Xv7aqQUYG0CmAbilmAKmSMzHB4AJri38RWFDlQoyiQKb9Vopb\nXF3j5zElK4KkLn08rK/VChZv9cc/OVRAYql363DQaNc6Wj2A1PQUHNuL\n-----END CERTIFICATE-----",
-								 "-----BEGIN CERTIFICATE-----\nMIICZjCCAc+gAwIBAgIUevd6x+OpPwNPQOdcnBnpw7n3PVIwDQYJKoZIhvcNAQEL\nBQAwRTELMAkGA1UEBhMCQVUxEzARBgNVBAgMClNvbWUtU3RhdGUxITAfBgNVBAoM\nGEludGVybmV0IFdpZGdpdHMgUHR5IEx0ZDAeFw0yMTA1MjAwOTU4NTJaFw0yMjA1\nMjAwOTU4NTJaMEUxCzAJBgNVBAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEw\nHwYDVQQKDBhJbnRlcm5ldCBXaWRnaXRzIFB0eSBMdGQwgZ8wDQYJKoZIhvcNAQEB\nBQADgY0AMIGJAoGBAKrNXcVAHvptcqAulMLrIugvfjhDfpR9FG63XiECkBNHwl/2\nMEYuGjssUQ9vuwM06lRhKnjfzv72M2XfDQyamiU7QJMDDIcBDlNz8LQ0O51peuHy\nz6ynm1RvJuEgXDKZ8DZX9wPGHUg+y+URdPIjdO9Ue1l0nzka3zlz9TZ3jQYxAgMB\nAAGjUzBRMB0GA1UdDgQWBBQJYVHNE2ve/7BI+Sfnriuq2nCjCTAfBgNVHSMEGDAW\ngBQJYVHNE2ve/7BI+Sfnriuq2nCjCTAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3\nDQEBCwUAA4GBAI6h5j8br041yMWAMmrWYSwrb1flcVkZzGeUSqxQrRZXjrTCZ2wm\niXPu/8xz8yd27xQ8Tbi/osUhjX0bLy9KXJTwxdOUVvkCWo7qigyg0TTTZniWCFMl\nqWisoSLErkcw6CgpGRodyZNmitRvpXPKxCv8qoUhpzkg5M6OshR5PrBi\n-----END CERTIFICATE-----",
-								 "-----BEGIN CERTIFICATE-----\nMIICZjCCAc+gAwIBAgIUKmAhNwgZwzXFPBDFzNnrQhYscb4wDQYJKoZIhvcNAQEL\nBQAwRTELMAkGA1UEBhMCQVUxEzARBgNVBAgMClNvbWUtU3RhdGUxITAfBgNVBAoM\nGEludGVybmV0IFdpZGdpdHMgUHR5IEx0ZDAeFw0yMTA1MjAwOTU4NTlaFw0yMjA1\nMjAwOTU4NTlaMEUxCzAJBgNVBAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEw\nHwYDVQQKDBhJbnRlcm5ldCBXaWRnaXRzIFB0eSBMdGQwgZ8wDQYJKoZIhvcNAQEB\nBQADgY0AMIGJAoGBANbse3Sn19sON88LoRuMdLV3+N+Ddn+IreInGXZrm7TRjmkM\nputWs5w4vDzilJunQojfZGxLzo2R7fV2aNO+dC41cINnN3TzMJeW9WN4F24yWk7V\nWc2I/20pb6nXkvP83rXNexHNMYmDarovpAzzNK+Zu2X3sD93u9iO2jFbjFllAgMB\nAAGjUzBRMB0GA1UdDgQWBBQc2Ngkis1BDi7hFf5S1JShjjogljAfBgNVHSMEGDAW\ngBQc2Ngkis1BDi7hFf5S1JShjjogljAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3\nDQEBCwUAA4GBAK/TpNREAIWV/wB3VtMNrCNkWp5w3IVrC3EmitZXWzmT4bxjaI5M\nP0XQtVDJfhig3+8iCftzkFZyP9hVkGyVL2O3UoEl1IYKUTisfzz22cQqu0cFyjlk\n/yxo3rLDoaSVjduX7pfl81BftpY+3Y0cpeTBa4x09JJHYYw2CY7XcHnN\n-----END CERTIFICATE-----"
-								]
-	}`, orgID, parOrgID, orgName, keyID, certID)
+	  certificate             =  "%s"
+	  issuing_certificates    = [%s]
+	}`, orgID, parOrgID, orgName, keyID, certID, getTestForm3CertTerraformFormat(certificate), `"`+strings.Join(certIssuers, "\",\n\"")+`"`)
 }
 
 func getTestForm3KeyConfigWithSelfSignedCert(orgID, parOrgID, orgName, keyID, certID string) string {
@@ -448,4 +457,8 @@ func getTestForm3KeyConfigExistingCert(orgID, keyID, certID string) string {
 	  certificate             = "Existing Certificate"
 	  issuing_certificates    = ["Existing Issuing Certificate"]
 	}`, orgID, keyID, certID)
+}
+
+func getTestForm3CertTerraformFormat(cert string) string {
+	return regexp.MustCompile("\n").ReplaceAllString(cert, `\n`)
 }
