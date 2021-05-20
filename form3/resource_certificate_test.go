@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
+	"github.com/form3tech-oss/terraform-provider-form3/api/support"
 	"github.com/form3tech-oss/terraform-provider-form3/client/organisations"
 	"github.com/form3tech-oss/terraform-provider-form3/client/system"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
@@ -197,6 +198,15 @@ func TestAccKey_importExistingCert(t *testing.T) {
 			t.Fail()
 		}
 
+		newCertificate, err := support.GenerateSelfSignedCert()
+		if err != nil {
+			t.Fail()
+		}
+		issuer, err := support.GenerateSelfSignedCert()
+		if err != nil {
+			t.Fail()
+		}
+
 		_, err = client.SystemClient.System.PostKeysKeyIDCertificates(system.NewPostKeysKeyIDCertificatesParams().
 			WithKeyID(strfmt.UUID(keyID)).
 			WithCertificateCreationRequest(&models.CertificateCreation{
@@ -204,8 +214,8 @@ func TestAccKey_importExistingCert(t *testing.T) {
 					ID:             strfmt.UUID(certificateID),
 					OrganisationID: strfmt.UUID(organisationID),
 					Attributes: &models.CertificateAttributes{
-						Certificate:         ToStringPointer("Existing Certificate"),
-						IssuingCertificates: []string{"Existing Issuing Certificate"},
+						Certificate:         &newCertificate,
+						IssuingCertificates: []string{issuer},
 					},
 				},
 			}))
@@ -264,10 +274,6 @@ func TestAccKey_importExistingCert(t *testing.T) {
 			},
 		},
 	})
-}
-
-func ToStringPointer(s string) *string {
-	return &s
 }
 
 func testAccCheckKeyDestroy(state *terraform.State) error {
