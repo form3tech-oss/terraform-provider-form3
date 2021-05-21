@@ -4,6 +4,7 @@ import (
 	"context"
 	"testing"
 
+	"github.com/form3tech-oss/terraform-provider-form3/api/support"
 	"github.com/form3tech-oss/terraform-provider-form3/client/system"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/swag"
@@ -132,22 +133,22 @@ func TestPostKeyCertificate(t *testing.T) {
 	createResponse := createKey(t)
 	defer deleteKey(createResponse, t)
 
-	createCertificateResponse := createCertificate(createResponse, t)
+	createCertificateResponse, certificate, issuer := createCertificate(createResponse, t)
 	defer deleteCertificate(createResponse, createCertificateResponse, t)
 
-	assert.Equal(t, "Issuing Cert", createCertificateResponse.Payload.Data.Attributes.IssuingCertificates[0])
-	assert.Equal(t, "Test Cert", *createCertificateResponse.Payload.Data.Attributes.Certificate)
+	assert.Equal(t, issuer, createCertificateResponse.Payload.Data.Attributes.IssuingCertificates[0])
+	assert.Equal(t, certificate, *createCertificateResponse.Payload.Data.Attributes.Certificate)
 }
 
 func TestDeleteKeyCertificate(t *testing.T) {
 	createResponse := createKey(t)
 	defer deleteKey(createResponse, t)
 
-	createCertificateResponse := createCertificate(createResponse, t)
+	createCertificateResponse, _, _ := createCertificate(createResponse, t)
 	deleteCertificate(createResponse, createCertificateResponse, t)
 
 	// check that delete worked by creating a new certificate - can only have one certificate per request
-	createCertificateResponse2 := createCertificate(createResponse, t)
+	createCertificateResponse2, _, _ := createCertificate(createResponse, t)
 	defer deleteCertificate(createResponse, createCertificateResponse2, t)
 }
 
@@ -166,9 +167,12 @@ func deleteCertificate(keysCreated *system.PostKeysCreated, certCreation *system
 	assertNoErrorOccurred(t, err)
 }
 
-func createCertificate(createResponse *system.PostKeysCreated, t *testing.T) *system.PostKeysKeyIDCertificatesCreated {
+func createCertificate(createResponse *system.PostKeysCreated, t *testing.T) (*system.PostKeysKeyIDCertificatesCreated, string, string) {
 	id := uuid.New()
-	certName := "Test Cert"
+	newCertificate, err := support.GenerateSelfSignedCert()
+	assertNoErrorOccurred(t, err)
+	issuer, err := support.GenerateSelfSignedCert()
+	assertNoErrorOccurred(t, err)
 	createCertResponse, err := auth.SystemClient.System.PostKeysKeyIDCertificates(system.NewPostKeysKeyIDCertificatesParams().
 		WithKeyID(createResponse.Payload.Data.ID).
 		WithCertificateCreationRequest(&models.CertificateCreation{
@@ -176,11 +180,11 @@ func createCertificate(createResponse *system.PostKeysCreated, t *testing.T) *sy
 				ID:             *UUIDtoStrFmtUUID(id),
 				OrganisationID: organisationId,
 				Attributes: &models.CertificateAttributes{
-					Certificate:         &certName,
-					IssuingCertificates: []string{"Issuing Cert"},
+					Certificate:         &newCertificate,
+					IssuingCertificates: []string{issuer},
 				},
 			},
 		}))
 	assertNoErrorOccurred(t, err)
-	return createCertResponse
+	return createCertResponse, newCertificate, issuer
 }
