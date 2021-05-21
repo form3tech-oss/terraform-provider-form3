@@ -2,9 +2,8 @@ package form3
 
 import (
 	"fmt"
-	"log"
-
 	"github.com/form3tech-oss/terraform-provider-form3/client/platformsecurityapi"
+	"log"
 
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
@@ -68,11 +67,7 @@ func resourceSigningKeyRead(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*form3.AuthenticatedClient)
 
 	key := d.Id()
-	signingKeyId, ok := GetUUIDOK(d, "signing_key_id")
-
-	if !ok {
-		return fmt.Errorf("could not get signing key as UUID")
-	}
+	signingKeyId, _ := GetUUIDOK(d, "signing_key_id")
 
 	if signingKeyId == "" {
 		signingKeyId = strfmt.UUID(key)
