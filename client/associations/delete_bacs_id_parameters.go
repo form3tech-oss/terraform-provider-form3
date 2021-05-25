@@ -17,64 +17,81 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteBacsIDParams creates a new DeleteBacsIDParams object
-// with the default values initialized.
+// NewDeleteBacsIDParams creates a new DeleteBacsIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteBacsIDParams() *DeleteBacsIDParams {
-	var ()
 	return &DeleteBacsIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteBacsIDParamsWithTimeout creates a new DeleteBacsIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteBacsIDParamsWithTimeout(timeout time.Duration) *DeleteBacsIDParams {
-	var ()
 	return &DeleteBacsIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteBacsIDParamsWithContext creates a new DeleteBacsIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteBacsIDParamsWithContext(ctx context.Context) *DeleteBacsIDParams {
-	var ()
 	return &DeleteBacsIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteBacsIDParamsWithHTTPClient creates a new DeleteBacsIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteBacsIDParamsWithHTTPClient(client *http.Client) *DeleteBacsIDParams {
-	var ()
 	return &DeleteBacsIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteBacsIDParams contains all the parameters to send to the API endpoint
-for the delete bacs ID operation typically these are written to a http.Request
+/* DeleteBacsIDParams contains all the parameters to send to the API endpoint
+   for the delete bacs ID operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteBacsIDParams struct {
 
-	/*ID
-	  Association Id
+	/* ID.
 
+	   Association Id
+
+	   Format: uuid
 	*/
 	ID strfmt.UUID
-	/*Version
-	  Version
 
+	/* Version.
+
+	   Version
 	*/
 	Version int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete bacs ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteBacsIDParams) WithDefaults() *DeleteBacsIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete bacs ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteBacsIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete bacs ID params
@@ -149,6 +166,7 @@ func (o *DeleteBacsIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 	qrVersion := o.Version
 	qVersion := swag.FormatInt64(qrVersion)
 	if qVersion != "" {
+
 		if err := r.SetQueryParam("version", qVersion); err != nil {
 			return err
 		}

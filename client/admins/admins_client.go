@@ -25,13 +25,16 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	DeleteAdminsUserIDCredentialsClientID(params *DeleteAdminsUserIDCredentialsClientIDParams) (*DeleteAdminsUserIDCredentialsClientIDNoContent, error)
+	DeleteAdminsUserIDCredentialsClientID(params *DeleteAdminsUserIDCredentialsClientIDParams, opts ...ClientOption) (*DeleteAdminsUserIDCredentialsClientIDNoContent, error)
 
-	GetAdminsUserIDCredentials(params *GetAdminsUserIDCredentialsParams) (*GetAdminsUserIDCredentialsOK, error)
+	GetAdminsUserIDCredentials(params *GetAdminsUserIDCredentialsParams, opts ...ClientOption) (*GetAdminsUserIDCredentialsOK, error)
 
-	PostAdminsUserIDCredentials(params *PostAdminsUserIDCredentialsParams) (*PostAdminsUserIDCredentialsCreated, error)
+	PostAdminsUserIDCredentials(params *PostAdminsUserIDCredentialsParams, opts ...ClientOption) (*PostAdminsUserIDCredentialsCreated, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -39,13 +42,12 @@ type ClientService interface {
 /*
   DeleteAdminsUserIDCredentialsClientID deletes admin credential for user
 */
-func (a *Client) DeleteAdminsUserIDCredentialsClientID(params *DeleteAdminsUserIDCredentialsClientIDParams) (*DeleteAdminsUserIDCredentialsClientIDNoContent, error) {
+func (a *Client) DeleteAdminsUserIDCredentialsClientID(params *DeleteAdminsUserIDCredentialsClientIDParams, opts ...ClientOption) (*DeleteAdminsUserIDCredentialsClientIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteAdminsUserIDCredentialsClientIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteAdminsUserIDCredentialsClientID",
 		Method:             "DELETE",
 		PathPattern:        "/admins/{user_id}/credentials/{client_id}",
@@ -56,7 +58,12 @@ func (a *Client) DeleteAdminsUserIDCredentialsClientID(params *DeleteAdminsUserI
 		Reader:             &DeleteAdminsUserIDCredentialsClientIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -73,13 +80,12 @@ func (a *Client) DeleteAdminsUserIDCredentialsClientID(params *DeleteAdminsUserI
 /*
   GetAdminsUserIDCredentials fetches admin credentials for user
 */
-func (a *Client) GetAdminsUserIDCredentials(params *GetAdminsUserIDCredentialsParams) (*GetAdminsUserIDCredentialsOK, error) {
+func (a *Client) GetAdminsUserIDCredentials(params *GetAdminsUserIDCredentialsParams, opts ...ClientOption) (*GetAdminsUserIDCredentialsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetAdminsUserIDCredentialsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetAdminsUserIDCredentials",
 		Method:             "GET",
 		PathPattern:        "/admins/{user_id}/credentials",
@@ -90,7 +96,12 @@ func (a *Client) GetAdminsUserIDCredentials(params *GetAdminsUserIDCredentialsPa
 		Reader:             &GetAdminsUserIDCredentialsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -107,13 +118,12 @@ func (a *Client) GetAdminsUserIDCredentials(params *GetAdminsUserIDCredentialsPa
 /*
   PostAdminsUserIDCredentials generates new admin credentials for a user
 */
-func (a *Client) PostAdminsUserIDCredentials(params *PostAdminsUserIDCredentialsParams) (*PostAdminsUserIDCredentialsCreated, error) {
+func (a *Client) PostAdminsUserIDCredentials(params *PostAdminsUserIDCredentialsParams, opts ...ClientOption) (*PostAdminsUserIDCredentialsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostAdminsUserIDCredentialsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostAdminsUserIDCredentials",
 		Method:             "POST",
 		PathPattern:        "/admins/{user_id}/credentials",
@@ -124,7 +134,12 @@ func (a *Client) PostAdminsUserIDCredentials(params *PostAdminsUserIDCredentials
 		Reader:             &PostAdminsUserIDCredentialsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

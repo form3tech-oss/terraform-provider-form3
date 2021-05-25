@@ -77,9 +77,8 @@ func (o *GetUsersUserIDCredentialsSsoSsoUserIDReader) ReadResponse(response runt
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewGetUsersUserIDCredentialsSsoSsoUserIDOK() *GetUsersUserIDCredentialsSsoS
 	return &GetUsersUserIDCredentialsSsoSsoUserIDOK{}
 }
 
-/*GetUsersUserIDCredentialsSsoSsoUserIDOK handles this case with default header values.
+/* GetUsersUserIDCredentialsSsoSsoUserIDOK describes a response with status code 200, with default header values.
 
 Sso user data
 */
@@ -99,7 +98,6 @@ type GetUsersUserIDCredentialsSsoSsoUserIDOK struct {
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDOK) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/sso/{sso_user_id}][%d] getUsersUserIdCredentialsSsoSsoUserIdOK  %+v", 200, o.Payload)
 }
-
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDOK) GetPayload() *models.SsoUserDetailsResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewGetUsersUserIDCredentialsSsoSsoUserIDBadRequest() *GetUsersUserIDCredent
 	return &GetUsersUserIDCredentialsSsoSsoUserIDBadRequest{}
 }
 
-/*GetUsersUserIDCredentialsSsoSsoUserIDBadRequest handles this case with default header values.
+/* GetUsersUserIDCredentialsSsoSsoUserIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type GetUsersUserIDCredentialsSsoSsoUserIDBadRequest struct {
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/sso/{sso_user_id}][%d] getUsersUserIdCredentialsSsoSsoUserIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewGetUsersUserIDCredentialsSsoSsoUserIDUnauthorized() *GetUsersUserIDCrede
 	return &GetUsersUserIDCredentialsSsoSsoUserIDUnauthorized{}
 }
 
-/*GetUsersUserIDCredentialsSsoSsoUserIDUnauthorized handles this case with default header values.
+/* GetUsersUserIDCredentialsSsoSsoUserIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type GetUsersUserIDCredentialsSsoSsoUserIDUnauthorized struct {
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/sso/{sso_user_id}][%d] getUsersUserIdCredentialsSsoSsoUserIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewGetUsersUserIDCredentialsSsoSsoUserIDForbidden() *GetUsersUserIDCredenti
 	return &GetUsersUserIDCredentialsSsoSsoUserIDForbidden{}
 }
 
-/*GetUsersUserIDCredentialsSsoSsoUserIDForbidden handles this case with default header values.
+/* GetUsersUserIDCredentialsSsoSsoUserIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type GetUsersUserIDCredentialsSsoSsoUserIDForbidden struct {
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/sso/{sso_user_id}][%d] getUsersUserIdCredentialsSsoSsoUserIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewGetUsersUserIDCredentialsSsoSsoUserIDNotFound() *GetUsersUserIDCredentia
 	return &GetUsersUserIDCredentialsSsoSsoUserIDNotFound{}
 }
 
-/*GetUsersUserIDCredentialsSsoSsoUserIDNotFound handles this case with default header values.
+/* GetUsersUserIDCredentialsSsoSsoUserIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type GetUsersUserIDCredentialsSsoSsoUserIDNotFound struct {
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/sso/{sso_user_id}][%d] getUsersUserIdCredentialsSsoSsoUserIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewGetUsersUserIDCredentialsSsoSsoUserIDConflict() *GetUsersUserIDCredentia
 	return &GetUsersUserIDCredentialsSsoSsoUserIDConflict{}
 }
 
-/*GetUsersUserIDCredentialsSsoSsoUserIDConflict handles this case with default header values.
+/* GetUsersUserIDCredentialsSsoSsoUserIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type GetUsersUserIDCredentialsSsoSsoUserIDConflict struct {
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDConflict) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/sso/{sso_user_id}][%d] getUsersUserIdCredentialsSsoSsoUserIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewGetUsersUserIDCredentialsSsoSsoUserIDTooManyRequests() *GetUsersUserIDCr
 	return &GetUsersUserIDCredentialsSsoSsoUserIDTooManyRequests{}
 }
 
-/*GetUsersUserIDCredentialsSsoSsoUserIDTooManyRequests handles this case with default header values.
+/* GetUsersUserIDCredentialsSsoSsoUserIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type GetUsersUserIDCredentialsSsoSsoUserIDTooManyRequests struct {
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/sso/{sso_user_id}][%d] getUsersUserIdCredentialsSsoSsoUserIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewGetUsersUserIDCredentialsSsoSsoUserIDInternalServerError() *GetUsersUser
 	return &GetUsersUserIDCredentialsSsoSsoUserIDInternalServerError{}
 }
 
-/*GetUsersUserIDCredentialsSsoSsoUserIDInternalServerError handles this case with default header values.
+/* GetUsersUserIDCredentialsSsoSsoUserIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type GetUsersUserIDCredentialsSsoSsoUserIDInternalServerError struct {
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/sso/{sso_user_id}][%d] getUsersUserIdCredentialsSsoSsoUserIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewGetUsersUserIDCredentialsSsoSsoUserIDServiceUnavailable() *GetUsersUserI
 	return &GetUsersUserIDCredentialsSsoSsoUserIDServiceUnavailable{}
 }
 
-/*GetUsersUserIDCredentialsSsoSsoUserIDServiceUnavailable handles this case with default header values.
+/* GetUsersUserIDCredentialsSsoSsoUserIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type GetUsersUserIDCredentialsSsoSsoUserIDServiceUnavailable struct {
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/credentials/sso/{sso_user_id}][%d] getUsersUserIdCredentialsSsoSsoUserIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *GetUsersUserIDCredentialsSsoSsoUserIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

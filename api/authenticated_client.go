@@ -14,13 +14,13 @@ import (
 	"sync"
 	"time"
 
+	"github.com/avast/retry-go"
 	"github.com/form3tech-oss/terraform-provider-form3/api/httputil"
 	"github.com/form3tech-oss/terraform-provider-form3/client"
-	"github.com/giantswarm/retry-go"
 	"github.com/go-openapi/runtime"
 	rc "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/logging"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/logging"
 )
 
 var tokenCache = sync.Map{}
@@ -126,7 +126,6 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 
 	retrySleep := 500 * time.Millisecond
 	retryMax := getEnvIntDefault("MAX_API_RETRIES", 10)
-	retryTimeout := time.Duration(retryMax) * retrySleep * 2
 
 	h := &http.Client{
 		Transport: roundTripperFunc(func(req *http.Request) (*http.Response, error) {
@@ -186,7 +185,8 @@ func NewAuthenticatedClient(config *client.TransportConfig) *AuthenticatedClient
 
 				return nil
 			}
-			err := retry.Do(retryableFunc, retry.MaxTries(retryMax), retry.Sleep(retrySleep), retry.Timeout(retryTimeout))
+
+			err := retry.Do(retryableFunc, retry.Attempts(uint(retryMax)), retry.Delay(retrySleep), retry.DelayType(retry.FixedDelay))
 
 			if logging.IsDebugOrHigher() {
 				if resp != nil {

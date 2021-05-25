@@ -77,9 +77,8 @@ func (o *PostBankidsReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewPostBankidsCreated() *PostBankidsCreated {
 	return &PostBankidsCreated{}
 }
 
-/*PostBankidsCreated handles this case with default header values.
+/* PostBankidsCreated describes a response with status code 201, with default header values.
 
 BankId creation response
 */
@@ -99,7 +98,6 @@ type PostBankidsCreated struct {
 func (o *PostBankidsCreated) Error() string {
 	return fmt.Sprintf("[POST /bankids][%d] postBankidsCreated  %+v", 201, o.Payload)
 }
-
 func (o *PostBankidsCreated) GetPayload() *models.BankIDCreationResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewPostBankidsBadRequest() *PostBankidsBadRequest {
 	return &PostBankidsBadRequest{}
 }
 
-/*PostBankidsBadRequest handles this case with default header values.
+/* PostBankidsBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type PostBankidsBadRequest struct {
 func (o *PostBankidsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /bankids][%d] postBankidsBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *PostBankidsBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewPostBankidsUnauthorized() *PostBankidsUnauthorized {
 	return &PostBankidsUnauthorized{}
 }
 
-/*PostBankidsUnauthorized handles this case with default header values.
+/* PostBankidsUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type PostBankidsUnauthorized struct {
 func (o *PostBankidsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /bankids][%d] postBankidsUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *PostBankidsUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewPostBankidsForbidden() *PostBankidsForbidden {
 	return &PostBankidsForbidden{}
 }
 
-/*PostBankidsForbidden handles this case with default header values.
+/* PostBankidsForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type PostBankidsForbidden struct {
 func (o *PostBankidsForbidden) Error() string {
 	return fmt.Sprintf("[POST /bankids][%d] postBankidsForbidden  %+v", 403, o.Payload)
 }
-
 func (o *PostBankidsForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewPostBankidsNotFound() *PostBankidsNotFound {
 	return &PostBankidsNotFound{}
 }
 
-/*PostBankidsNotFound handles this case with default header values.
+/* PostBankidsNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type PostBankidsNotFound struct {
 func (o *PostBankidsNotFound) Error() string {
 	return fmt.Sprintf("[POST /bankids][%d] postBankidsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *PostBankidsNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewPostBankidsConflict() *PostBankidsConflict {
 	return &PostBankidsConflict{}
 }
 
-/*PostBankidsConflict handles this case with default header values.
+/* PostBankidsConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type PostBankidsConflict struct {
 func (o *PostBankidsConflict) Error() string {
 	return fmt.Sprintf("[POST /bankids][%d] postBankidsConflict  %+v", 409, o.Payload)
 }
-
 func (o *PostBankidsConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewPostBankidsTooManyRequests() *PostBankidsTooManyRequests {
 	return &PostBankidsTooManyRequests{}
 }
 
-/*PostBankidsTooManyRequests handles this case with default header values.
+/* PostBankidsTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type PostBankidsTooManyRequests struct {
 func (o *PostBankidsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /bankids][%d] postBankidsTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *PostBankidsTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewPostBankidsInternalServerError() *PostBankidsInternalServerError {
 	return &PostBankidsInternalServerError{}
 }
 
-/*PostBankidsInternalServerError handles this case with default header values.
+/* PostBankidsInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type PostBankidsInternalServerError struct {
 func (o *PostBankidsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /bankids][%d] postBankidsInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *PostBankidsInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewPostBankidsServiceUnavailable() *PostBankidsServiceUnavailable {
 	return &PostBankidsServiceUnavailable{}
 }
 
-/*PostBankidsServiceUnavailable handles this case with default header values.
+/* PostBankidsServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type PostBankidsServiceUnavailable struct {
 func (o *PostBankidsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /bankids][%d] postBankidsServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *PostBankidsServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

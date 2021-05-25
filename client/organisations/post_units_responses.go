@@ -77,9 +77,8 @@ func (o *PostUnitsReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewPostUnitsCreated() *PostUnitsCreated {
 	return &PostUnitsCreated{}
 }
 
-/*PostUnitsCreated handles this case with default header values.
+/* PostUnitsCreated describes a response with status code 201, with default header values.
 
 Organisation creation response
 */
@@ -99,7 +98,6 @@ type PostUnitsCreated struct {
 func (o *PostUnitsCreated) Error() string {
 	return fmt.Sprintf("[POST /units][%d] postUnitsCreated  %+v", 201, o.Payload)
 }
-
 func (o *PostUnitsCreated) GetPayload() *models.OrganisationCreationResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewPostUnitsBadRequest() *PostUnitsBadRequest {
 	return &PostUnitsBadRequest{}
 }
 
-/*PostUnitsBadRequest handles this case with default header values.
+/* PostUnitsBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type PostUnitsBadRequest struct {
 func (o *PostUnitsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /units][%d] postUnitsBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *PostUnitsBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewPostUnitsUnauthorized() *PostUnitsUnauthorized {
 	return &PostUnitsUnauthorized{}
 }
 
-/*PostUnitsUnauthorized handles this case with default header values.
+/* PostUnitsUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type PostUnitsUnauthorized struct {
 func (o *PostUnitsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /units][%d] postUnitsUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *PostUnitsUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewPostUnitsForbidden() *PostUnitsForbidden {
 	return &PostUnitsForbidden{}
 }
 
-/*PostUnitsForbidden handles this case with default header values.
+/* PostUnitsForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type PostUnitsForbidden struct {
 func (o *PostUnitsForbidden) Error() string {
 	return fmt.Sprintf("[POST /units][%d] postUnitsForbidden  %+v", 403, o.Payload)
 }
-
 func (o *PostUnitsForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewPostUnitsNotFound() *PostUnitsNotFound {
 	return &PostUnitsNotFound{}
 }
 
-/*PostUnitsNotFound handles this case with default header values.
+/* PostUnitsNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type PostUnitsNotFound struct {
 func (o *PostUnitsNotFound) Error() string {
 	return fmt.Sprintf("[POST /units][%d] postUnitsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *PostUnitsNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewPostUnitsConflict() *PostUnitsConflict {
 	return &PostUnitsConflict{}
 }
 
-/*PostUnitsConflict handles this case with default header values.
+/* PostUnitsConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type PostUnitsConflict struct {
 func (o *PostUnitsConflict) Error() string {
 	return fmt.Sprintf("[POST /units][%d] postUnitsConflict  %+v", 409, o.Payload)
 }
-
 func (o *PostUnitsConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewPostUnitsTooManyRequests() *PostUnitsTooManyRequests {
 	return &PostUnitsTooManyRequests{}
 }
 
-/*PostUnitsTooManyRequests handles this case with default header values.
+/* PostUnitsTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type PostUnitsTooManyRequests struct {
 func (o *PostUnitsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /units][%d] postUnitsTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *PostUnitsTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewPostUnitsInternalServerError() *PostUnitsInternalServerError {
 	return &PostUnitsInternalServerError{}
 }
 
-/*PostUnitsInternalServerError handles this case with default header values.
+/* PostUnitsInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type PostUnitsInternalServerError struct {
 func (o *PostUnitsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /units][%d] postUnitsInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *PostUnitsInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewPostUnitsServiceUnavailable() *PostUnitsServiceUnavailable {
 	return &PostUnitsServiceUnavailable{}
 }
 
-/*PostUnitsServiceUnavailable handles this case with default header values.
+/* PostUnitsServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type PostUnitsServiceUnavailable struct {
 func (o *PostUnitsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /units][%d] postUnitsServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *PostUnitsServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

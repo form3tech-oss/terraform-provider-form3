@@ -16,69 +16,87 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetUsersUserIDAcesParams creates a new GetUsersUserIDAcesParams object
-// with the default values initialized.
+// NewGetUsersUserIDAcesParams creates a new GetUsersUserIDAcesParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetUsersUserIDAcesParams() *GetUsersUserIDAcesParams {
-	var ()
 	return &GetUsersUserIDAcesParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetUsersUserIDAcesParamsWithTimeout creates a new GetUsersUserIDAcesParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetUsersUserIDAcesParamsWithTimeout(timeout time.Duration) *GetUsersUserIDAcesParams {
-	var ()
 	return &GetUsersUserIDAcesParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetUsersUserIDAcesParamsWithContext creates a new GetUsersUserIDAcesParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetUsersUserIDAcesParamsWithContext(ctx context.Context) *GetUsersUserIDAcesParams {
-	var ()
 	return &GetUsersUserIDAcesParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetUsersUserIDAcesParamsWithHTTPClient creates a new GetUsersUserIDAcesParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetUsersUserIDAcesParamsWithHTTPClient(client *http.Client) *GetUsersUserIDAcesParams {
-	var ()
 	return &GetUsersUserIDAcesParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetUsersUserIDAcesParams contains all the parameters to send to the API endpoint
-for the get users user ID aces operation typically these are written to a http.Request
+/* GetUsersUserIDAcesParams contains all the parameters to send to the API endpoint
+   for the get users user ID aces operation.
+
+   Typically these are written to a http.Request.
 */
 type GetUsersUserIDAcesParams struct {
 
-	/*FilterAction
-	  Access action
+	/* FilterAction.
 
+	   Access action
 	*/
 	FilterAction *string
-	/*FilterRecordType
-	  Record type
 
+	/* FilterRecordType.
+
+	   Record type
 	*/
 	FilterRecordType *string
-	/*UserID
-	  User Id
 
+	/* UserID.
+
+	   User Id
+
+	   Format: uuid
 	*/
 	UserID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get users user ID aces params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetUsersUserIDAcesParams) WithDefaults() *GetUsersUserIDAcesParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get users user ID aces params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetUsersUserIDAcesParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get users user ID aces params
@@ -159,32 +177,34 @@ func (o *GetUsersUserIDAcesParams) WriteToRequest(r runtime.ClientRequest, reg s
 
 		// query param filter[action]
 		var qrFilterAction string
+
 		if o.FilterAction != nil {
 			qrFilterAction = *o.FilterAction
 		}
 		qFilterAction := qrFilterAction
 		if qFilterAction != "" {
+
 			if err := r.SetQueryParam("filter[action]", qFilterAction); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.FilterRecordType != nil {
 
 		// query param filter[record_type]
 		var qrFilterRecordType string
+
 		if o.FilterRecordType != nil {
 			qrFilterRecordType = *o.FilterRecordType
 		}
 		qFilterRecordType := qrFilterRecordType
 		if qFilterRecordType != "" {
+
 			if err := r.SetQueryParam("filter[record_type]", qFilterRecordType); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param user_id

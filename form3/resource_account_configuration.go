@@ -3,14 +3,14 @@ package form3
 import (
 	"bytes"
 	"fmt"
+	"hash/crc32"
 	"log"
 
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/accounts"
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/strfmt"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/hashcode"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
 func resourceForm3AccountConfiguration() *schema.Resource {
@@ -309,7 +309,21 @@ func validAccountRangeHash(v interface{}) int {
 	m := v.(map[string]int64)
 	buf.WriteString(fmt.Sprintf("%d", m["minimum"]))
 	buf.WriteString(fmt.Sprintf("%d", m["maximum"]))
-	return hashcode.String(buf.String())
+
+	return HashcodeString(buf.String())
+}
+
+// See https://github.com/hashicorp/terraform-plugin-sdk/commit/7c54a15788abb98721ea0f5f2a86d758cc12f24e
+func HashcodeString(s string) int {
+	v := int(crc32.ChecksumIEEE([]byte(s)))
+	if v >= 0 {
+		return v
+	}
+	if -v >= 0 {
+		return -v
+	}
+
+	return 0
 }
 
 func flattenValidAccountRange(value *models.AccountGenerationConfigurationValidAccountRangesItems) map[string]int64 {

@@ -18,64 +18,81 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPatchSwiftIDParams creates a new PatchSwiftIDParams object
-// with the default values initialized.
+// NewPatchSwiftIDParams creates a new PatchSwiftIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPatchSwiftIDParams() *PatchSwiftIDParams {
-	var ()
 	return &PatchSwiftIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPatchSwiftIDParamsWithTimeout creates a new PatchSwiftIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPatchSwiftIDParamsWithTimeout(timeout time.Duration) *PatchSwiftIDParams {
-	var ()
 	return &PatchSwiftIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPatchSwiftIDParamsWithContext creates a new PatchSwiftIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPatchSwiftIDParamsWithContext(ctx context.Context) *PatchSwiftIDParams {
-	var ()
 	return &PatchSwiftIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPatchSwiftIDParamsWithHTTPClient creates a new PatchSwiftIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPatchSwiftIDParamsWithHTTPClient(client *http.Client) *PatchSwiftIDParams {
-	var ()
 	return &PatchSwiftIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*PatchSwiftIDParams contains all the parameters to send to the API endpoint
-for the patch swift ID operation typically these are written to a http.Request
+/* PatchSwiftIDParams contains all the parameters to send to the API endpoint
+   for the patch swift ID operation.
+
+   Typically these are written to a http.Request.
 */
 type PatchSwiftIDParams struct {
 
-	/*ID
-	  Association Id
+	/* ID.
 
+	   Association Id
+
+	   Format: uuid
 	*/
 	ID strfmt.UUID
-	/*Payload
-	  Association Patch payload
 
+	/* Payload.
+
+	   Association Patch payload
 	*/
 	Payload *models.SwiftAssociationPatch
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the patch swift ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PatchSwiftIDParams) WithDefaults() *PatchSwiftIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the patch swift ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PatchSwiftIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the patch swift ID params
@@ -145,7 +162,6 @@ func (o *PatchSwiftIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 	if err := r.SetPathParam("id", o.ID.String()); err != nil {
 		return err
 	}
-
 	if o.Payload != nil {
 		if err := r.SetBodyParam(o.Payload); err != nil {
 			return err

@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -37,13 +38,40 @@ func (m *LhvMasterAccountRelationship) Validate(formats strfmt.Registry) error {
 }
 
 func (m *LhvMasterAccountRelationship) validateMasterAccounts(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.MasterAccounts) { // not required
 		return nil
 	}
 
 	if m.MasterAccounts != nil {
 		if err := m.MasterAccounts.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("master_accounts")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this lhv master account relationship based on the context it is used
+func (m *LhvMasterAccountRelationship) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateMasterAccounts(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *LhvMasterAccountRelationship) contextValidateMasterAccounts(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.MasterAccounts != nil {
+		if err := m.MasterAccounts.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("master_accounts")
 			}
@@ -96,7 +124,6 @@ func (m *LhvMasterAccountRelationshipMasterAccounts) Validate(formats strfmt.Reg
 }
 
 func (m *LhvMasterAccountRelationshipMasterAccounts) validateData(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Data) { // not required
 		return nil
 	}
@@ -108,6 +135,38 @@ func (m *LhvMasterAccountRelationshipMasterAccounts) validateData(formats strfmt
 
 		if m.Data[i] != nil {
 			if err := m.Data[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("master_accounts" + "." + "data" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this lhv master account relationship master accounts based on the context it is used
+func (m *LhvMasterAccountRelationshipMasterAccounts) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateData(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *LhvMasterAccountRelationshipMasterAccounts) contextValidateData(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Data); i++ {
+
+		if m.Data[i] != nil {
+			if err := m.Data[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("master_accounts" + "." + "data" + "." + strconv.Itoa(i))
 				}

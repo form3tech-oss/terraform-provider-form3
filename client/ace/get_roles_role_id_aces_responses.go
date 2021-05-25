@@ -77,9 +77,8 @@ func (o *GetRolesRoleIDAcesReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewGetRolesRoleIDAcesOK() *GetRolesRoleIDAcesOK {
 	return &GetRolesRoleIDAcesOK{}
 }
 
-/*GetRolesRoleIDAcesOK handles this case with default header values.
+/* GetRolesRoleIDAcesOK describes a response with status code 200, with default header values.
 
 List of Ace details
 */
@@ -99,7 +98,6 @@ type GetRolesRoleIDAcesOK struct {
 func (o *GetRolesRoleIDAcesOK) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}/aces][%d] getRolesRoleIdAcesOK  %+v", 200, o.Payload)
 }
-
 func (o *GetRolesRoleIDAcesOK) GetPayload() *models.AceDetailsListResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewGetRolesRoleIDAcesBadRequest() *GetRolesRoleIDAcesBadRequest {
 	return &GetRolesRoleIDAcesBadRequest{}
 }
 
-/*GetRolesRoleIDAcesBadRequest handles this case with default header values.
+/* GetRolesRoleIDAcesBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type GetRolesRoleIDAcesBadRequest struct {
 func (o *GetRolesRoleIDAcesBadRequest) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}/aces][%d] getRolesRoleIdAcesBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetRolesRoleIDAcesBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewGetRolesRoleIDAcesUnauthorized() *GetRolesRoleIDAcesUnauthorized {
 	return &GetRolesRoleIDAcesUnauthorized{}
 }
 
-/*GetRolesRoleIDAcesUnauthorized handles this case with default header values.
+/* GetRolesRoleIDAcesUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type GetRolesRoleIDAcesUnauthorized struct {
 func (o *GetRolesRoleIDAcesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}/aces][%d] getRolesRoleIdAcesUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetRolesRoleIDAcesUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewGetRolesRoleIDAcesForbidden() *GetRolesRoleIDAcesForbidden {
 	return &GetRolesRoleIDAcesForbidden{}
 }
 
-/*GetRolesRoleIDAcesForbidden handles this case with default header values.
+/* GetRolesRoleIDAcesForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type GetRolesRoleIDAcesForbidden struct {
 func (o *GetRolesRoleIDAcesForbidden) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}/aces][%d] getRolesRoleIdAcesForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetRolesRoleIDAcesForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewGetRolesRoleIDAcesNotFound() *GetRolesRoleIDAcesNotFound {
 	return &GetRolesRoleIDAcesNotFound{}
 }
 
-/*GetRolesRoleIDAcesNotFound handles this case with default header values.
+/* GetRolesRoleIDAcesNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type GetRolesRoleIDAcesNotFound struct {
 func (o *GetRolesRoleIDAcesNotFound) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}/aces][%d] getRolesRoleIdAcesNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetRolesRoleIDAcesNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewGetRolesRoleIDAcesConflict() *GetRolesRoleIDAcesConflict {
 	return &GetRolesRoleIDAcesConflict{}
 }
 
-/*GetRolesRoleIDAcesConflict handles this case with default header values.
+/* GetRolesRoleIDAcesConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type GetRolesRoleIDAcesConflict struct {
 func (o *GetRolesRoleIDAcesConflict) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}/aces][%d] getRolesRoleIdAcesConflict  %+v", 409, o.Payload)
 }
-
 func (o *GetRolesRoleIDAcesConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewGetRolesRoleIDAcesTooManyRequests() *GetRolesRoleIDAcesTooManyRequests {
 	return &GetRolesRoleIDAcesTooManyRequests{}
 }
 
-/*GetRolesRoleIDAcesTooManyRequests handles this case with default header values.
+/* GetRolesRoleIDAcesTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type GetRolesRoleIDAcesTooManyRequests struct {
 func (o *GetRolesRoleIDAcesTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}/aces][%d] getRolesRoleIdAcesTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *GetRolesRoleIDAcesTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewGetRolesRoleIDAcesInternalServerError() *GetRolesRoleIDAcesInternalServe
 	return &GetRolesRoleIDAcesInternalServerError{}
 }
 
-/*GetRolesRoleIDAcesInternalServerError handles this case with default header values.
+/* GetRolesRoleIDAcesInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type GetRolesRoleIDAcesInternalServerError struct {
 func (o *GetRolesRoleIDAcesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}/aces][%d] getRolesRoleIdAcesInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetRolesRoleIDAcesInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewGetRolesRoleIDAcesServiceUnavailable() *GetRolesRoleIDAcesServiceUnavail
 	return &GetRolesRoleIDAcesServiceUnavailable{}
 }
 
-/*GetRolesRoleIDAcesServiceUnavailable handles this case with default header values.
+/* GetRolesRoleIDAcesServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type GetRolesRoleIDAcesServiceUnavailable struct {
 func (o *GetRolesRoleIDAcesServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /roles/{role_id}/aces][%d] getRolesRoleIdAcesServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *GetRolesRoleIDAcesServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

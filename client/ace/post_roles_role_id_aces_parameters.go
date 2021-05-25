@@ -18,61 +18,78 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPostRolesRoleIDAcesParams creates a new PostRolesRoleIDAcesParams object
-// with the default values initialized.
+// NewPostRolesRoleIDAcesParams creates a new PostRolesRoleIDAcesParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostRolesRoleIDAcesParams() *PostRolesRoleIDAcesParams {
-	var ()
 	return &PostRolesRoleIDAcesParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostRolesRoleIDAcesParamsWithTimeout creates a new PostRolesRoleIDAcesParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostRolesRoleIDAcesParamsWithTimeout(timeout time.Duration) *PostRolesRoleIDAcesParams {
-	var ()
 	return &PostRolesRoleIDAcesParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostRolesRoleIDAcesParamsWithContext creates a new PostRolesRoleIDAcesParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostRolesRoleIDAcesParamsWithContext(ctx context.Context) *PostRolesRoleIDAcesParams {
-	var ()
 	return &PostRolesRoleIDAcesParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostRolesRoleIDAcesParamsWithHTTPClient creates a new PostRolesRoleIDAcesParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostRolesRoleIDAcesParamsWithHTTPClient(client *http.Client) *PostRolesRoleIDAcesParams {
-	var ()
 	return &PostRolesRoleIDAcesParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostRolesRoleIDAcesParams contains all the parameters to send to the API endpoint
-for the post roles role ID aces operation typically these are written to a http.Request
+/* PostRolesRoleIDAcesParams contains all the parameters to send to the API endpoint
+   for the post roles role ID aces operation.
+
+   Typically these are written to a http.Request.
 */
 type PostRolesRoleIDAcesParams struct {
 
-	/*AceCreationRequest*/
+	// AceCreationRequest.
 	AceCreationRequest *models.AceCreation
-	/*RoleID
-	  Role Id
 
+	/* RoleID.
+
+	   Role Id
+
+	   Format: uuid
 	*/
 	RoleID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post roles role ID aces params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostRolesRoleIDAcesParams) WithDefaults() *PostRolesRoleIDAcesParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post roles role ID aces params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostRolesRoleIDAcesParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post roles role ID aces params
@@ -137,7 +154,6 @@ func (o *PostRolesRoleIDAcesParams) WriteToRequest(r runtime.ClientRequest, reg 
 		return err
 	}
 	var res []error
-
 	if o.AceCreationRequest != nil {
 		if err := r.SetBodyParam(o.AceCreationRequest); err != nil {
 			return err

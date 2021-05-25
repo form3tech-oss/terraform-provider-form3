@@ -16,59 +16,75 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetPayportParams creates a new GetPayportParams object
-// with the default values initialized.
+// NewGetPayportParams creates a new GetPayportParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetPayportParams() *GetPayportParams {
-	var ()
 	return &GetPayportParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetPayportParamsWithTimeout creates a new GetPayportParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetPayportParamsWithTimeout(timeout time.Duration) *GetPayportParams {
-	var ()
 	return &GetPayportParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetPayportParamsWithContext creates a new GetPayportParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetPayportParamsWithContext(ctx context.Context) *GetPayportParams {
-	var ()
 	return &GetPayportParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetPayportParamsWithHTTPClient creates a new GetPayportParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetPayportParamsWithHTTPClient(client *http.Client) *GetPayportParams {
-	var ()
 	return &GetPayportParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetPayportParams contains all the parameters to send to the API endpoint
-for the get payport operation typically these are written to a http.Request
+/* GetPayportParams contains all the parameters to send to the API endpoint
+   for the get payport operation.
+
+   Typically these are written to a http.Request.
 */
 type GetPayportParams struct {
 
-	/*FilterOrganisationID
-	  Organisation id
+	/* FilterOrganisationID.
 
+	   Organisation id
+
+	   Format: uuid
 	*/
 	FilterOrganisationID *strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get payport params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetPayportParams) WithDefaults() *GetPayportParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get payport params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetPayportParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get payport params
@@ -127,16 +143,17 @@ func (o *GetPayportParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 
 		// query param filter[organisation_id]
 		var qrFilterOrganisationID strfmt.UUID
+
 		if o.FilterOrganisationID != nil {
 			qrFilterOrganisationID = *o.FilterOrganisationID
 		}
 		qFilterOrganisationID := qrFilterOrganisationID.String()
 		if qFilterOrganisationID != "" {
+
 			if err := r.SetQueryParam("filter[organisation_id]", qFilterOrganisationID); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

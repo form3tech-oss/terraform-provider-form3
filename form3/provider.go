@@ -4,26 +4,25 @@ import (
 	"os"
 
 	"github.com/go-openapi/strfmt"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/terraform"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-func Provider() terraform.ResourceProvider {
+func Provider() *schema.Provider {
 	return &schema.Provider{
 		Schema: map[string]*schema.Schema{
-			"client_id": &schema.Schema{
+			"client_id": {
 				Type:        schema.TypeString,
 				Required:    true,
 				DefaultFunc: envDefaultFunc("FORM3_CLIENT_ID"),
 				Description: "A form3 client id.",
 			},
-			"client_secret": &schema.Schema{
+			"client_secret": {
 				Type:        schema.TypeString,
 				Required:    true,
 				DefaultFunc: envDefaultFunc("FORM3_CLIENT_SECRET"),
 				Description: "A form3 client secret.",
 			},
-			"api_host": &schema.Schema{
+			"api_host": {
 				Type:        schema.TypeString,
 				Optional:    true,
 				DefaultFunc: envDefaultFuncWithDefault("FORM3_HOST", "api.form3.tech"),
@@ -112,7 +111,8 @@ func providerConfigure(d *schema.ResourceData) (interface{}, error) {
 
 func GetUUIDOK(d *schema.ResourceData, key string) (strfmt.UUID, bool) {
 	if attr, ok := d.GetOk(key); ok {
-		stringUUID := string(attr.(string))
+		stringUUID := attr.(string)
+
 		return strfmt.UUID(stringUUID), true
 	}
 

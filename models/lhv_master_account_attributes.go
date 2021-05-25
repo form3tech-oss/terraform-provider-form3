@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -18,20 +20,24 @@ import (
 type LhvMasterAccountAttributes struct {
 
 	// Local country bank identifier. In the UK this is the sort code.
+	// Example: 400300
 	// Pattern: ^[A-Z0-9]{0,16}$
 	BankID string `json:"bank_id,omitempty"`
 
 	// SWIFT BIC in either 8 or 11 character format
+	// Example: NWBKGB22
 	// Required: true
 	// Pattern: ^([A-Z]{6}[A-Z0-9]{2}|[A-Z]{6}[A-Z0-9]{5})$
 	Bic string `json:"bic"`
 
 	// country
+	// Example: GB
 	// Required: true
 	// Pattern: ^[A-Z]{2}$
 	Country string `json:"country"`
 
 	// master account iban.
+	// Example: GB11NWBK40030041426819
 	// Required: true
 	// Pattern: ^[A-Z]{2}[0-9]{2}[A-Z0-9]{0,64}$
 	Iban string `json:"iban"`
@@ -67,12 +73,11 @@ func (m *LhvMasterAccountAttributes) Validate(formats strfmt.Registry) error {
 }
 
 func (m *LhvMasterAccountAttributes) validateBankID(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.BankID) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("bank_id", "body", string(m.BankID), `^[A-Z0-9]{0,16}$`); err != nil {
+	if err := validate.Pattern("bank_id", "body", m.BankID, `^[A-Z0-9]{0,16}$`); err != nil {
 		return err
 	}
 
@@ -81,11 +86,11 @@ func (m *LhvMasterAccountAttributes) validateBankID(formats strfmt.Registry) err
 
 func (m *LhvMasterAccountAttributes) validateBic(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("bic", "body", string(m.Bic)); err != nil {
+	if err := validate.RequiredString("bic", "body", m.Bic); err != nil {
 		return err
 	}
 
-	if err := validate.Pattern("bic", "body", string(m.Bic), `^([A-Z]{6}[A-Z0-9]{2}|[A-Z]{6}[A-Z0-9]{5})$`); err != nil {
+	if err := validate.Pattern("bic", "body", m.Bic, `^([A-Z]{6}[A-Z0-9]{2}|[A-Z]{6}[A-Z0-9]{5})$`); err != nil {
 		return err
 	}
 
@@ -94,11 +99,11 @@ func (m *LhvMasterAccountAttributes) validateBic(formats strfmt.Registry) error 
 
 func (m *LhvMasterAccountAttributes) validateCountry(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("country", "body", string(m.Country)); err != nil {
+	if err := validate.RequiredString("country", "body", m.Country); err != nil {
 		return err
 	}
 
-	if err := validate.Pattern("country", "body", string(m.Country), `^[A-Z]{2}$`); err != nil {
+	if err := validate.Pattern("country", "body", m.Country, `^[A-Z]{2}$`); err != nil {
 		return err
 	}
 
@@ -107,14 +112,19 @@ func (m *LhvMasterAccountAttributes) validateCountry(formats strfmt.Registry) er
 
 func (m *LhvMasterAccountAttributes) validateIban(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("iban", "body", string(m.Iban)); err != nil {
+	if err := validate.RequiredString("iban", "body", m.Iban); err != nil {
 		return err
 	}
 
-	if err := validate.Pattern("iban", "body", string(m.Iban), `^[A-Z]{2}[0-9]{2}[A-Z0-9]{0,64}$`); err != nil {
+	if err := validate.Pattern("iban", "body", m.Iban, `^[A-Z]{2}[0-9]{2}[A-Z0-9]{0,64}$`); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this lhv master account attributes based on context it is used
+func (m *LhvMasterAccountAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

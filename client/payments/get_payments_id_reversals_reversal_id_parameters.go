@@ -16,64 +16,83 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetPaymentsIDReversalsReversalIDParams creates a new GetPaymentsIDReversalsReversalIDParams object
-// with the default values initialized.
+// NewGetPaymentsIDReversalsReversalIDParams creates a new GetPaymentsIDReversalsReversalIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetPaymentsIDReversalsReversalIDParams() *GetPaymentsIDReversalsReversalIDParams {
-	var ()
 	return &GetPaymentsIDReversalsReversalIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetPaymentsIDReversalsReversalIDParamsWithTimeout creates a new GetPaymentsIDReversalsReversalIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetPaymentsIDReversalsReversalIDParamsWithTimeout(timeout time.Duration) *GetPaymentsIDReversalsReversalIDParams {
-	var ()
 	return &GetPaymentsIDReversalsReversalIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetPaymentsIDReversalsReversalIDParamsWithContext creates a new GetPaymentsIDReversalsReversalIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetPaymentsIDReversalsReversalIDParamsWithContext(ctx context.Context) *GetPaymentsIDReversalsReversalIDParams {
-	var ()
 	return &GetPaymentsIDReversalsReversalIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetPaymentsIDReversalsReversalIDParamsWithHTTPClient creates a new GetPaymentsIDReversalsReversalIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetPaymentsIDReversalsReversalIDParamsWithHTTPClient(client *http.Client) *GetPaymentsIDReversalsReversalIDParams {
-	var ()
 	return &GetPaymentsIDReversalsReversalIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetPaymentsIDReversalsReversalIDParams contains all the parameters to send to the API endpoint
-for the get payments ID reversals reversal ID operation typically these are written to a http.Request
+/* GetPaymentsIDReversalsReversalIDParams contains all the parameters to send to the API endpoint
+   for the get payments ID reversals reversal ID operation.
+
+   Typically these are written to a http.Request.
 */
 type GetPaymentsIDReversalsReversalIDParams struct {
 
-	/*ID
-	  Payment Id
+	/* ID.
 
+	   Payment Id
+
+	   Format: uuid
 	*/
 	ID strfmt.UUID
-	/*ReversalID
-	  Reversal Id
 
+	/* ReversalID.
+
+	   Reversal Id
+
+	   Format: uuid
 	*/
 	ReversalID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get payments ID reversals reversal ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetPaymentsIDReversalsReversalIDParams) WithDefaults() *GetPaymentsIDReversalsReversalIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get payments ID reversals reversal ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetPaymentsIDReversalsReversalIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get payments ID reversals reversal ID params

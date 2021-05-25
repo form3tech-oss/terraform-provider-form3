@@ -9,8 +9,8 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/client/payment_defaults"
 	"github.com/go-openapi/strfmt"
 	"github.com/google/uuid"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
-	"github.com/hashicorp/terraform-plugin-sdk/terraform"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 )
 
 func TestAccPaymentDefaults_basic(t *testing.T) {
@@ -96,7 +96,7 @@ func getTestForm3PaymentDefaultsConfig(orgID, parOrgID, orgName, paymentDefID st
 		parent_organisation_id = "%s"
 		name 		               = "%s"
 	}
-	
+
 	resource "form3_payment_defaults" "payment_defaults" {
 		organisation_id                  = "${form3_organisation.organisation.organisation_id}"
 		payment_defaults_id              = "%s"

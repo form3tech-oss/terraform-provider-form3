@@ -9,8 +9,8 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/client/account_routings"
 	"github.com/go-openapi/strfmt"
 	"github.com/google/uuid"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
-	"github.com/hashicorp/terraform-plugin-sdk/terraform"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 )
 
 func TestAccAccountRouting_basic(t *testing.T) {
@@ -130,7 +130,7 @@ func getTestForm3AccountRoutingTFConfig(organisationID, parentOrganisationID, or
 		parent_organisation_id = "%s"
 		name 		           = "%s"
 	}
-	
+
 	resource "form3_account_routing" "account_routing" {
 		account_routing_id   = "%s"
 		organisation_id      = "${form3_organisation.organisation.organisation_id}"

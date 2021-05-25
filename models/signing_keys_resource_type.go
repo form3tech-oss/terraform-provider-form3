@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -17,6 +18,11 @@ import (
 //
 // swagger:model SigningKeysResourceType
 type SigningKeysResourceType string
+
+func NewSigningKeysResourceType(value SigningKeysResourceType) *SigningKeysResourceType {
+	v := value
+	return &v
+}
 
 const (
 
@@ -38,7 +44,7 @@ func init() {
 }
 
 func (m SigningKeysResourceType) validateSigningKeysResourceTypeEnum(path, location string, value SigningKeysResourceType) error {
-	if err := validate.Enum(path, location, value, signingKeysResourceTypeEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, signingKeysResourceTypeEnum, true); err != nil {
 		return err
 	}
 	return nil
@@ -56,5 +62,10 @@ func (m SigningKeysResourceType) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+// ContextValidate validates this signing keys resource type based on context it is used
+func (m SigningKeysResourceType) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }

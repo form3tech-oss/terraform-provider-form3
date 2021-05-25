@@ -9,8 +9,8 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/go-openapi/strfmt"
 	"github.com/google/uuid"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
-	"github.com/hashicorp/terraform-plugin-sdk/terraform"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 )
 
 func TestAccSepaDDAssociation_basic(t *testing.T) {
@@ -98,7 +98,7 @@ func getTestForm3SepaDDAssociationConfig(orgID, parOrgID, orgName, assocID, bic 
 		parent_organisation_id = "%s"
 		name 		           = "%s"
 	}
-	
+
 	resource "form3_sepadd_association" "association" {
 		organisation_id        = "${form3_organisation.organisation.organisation_id}"
 		association_id         = "%s"

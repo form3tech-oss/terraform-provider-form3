@@ -16,64 +16,81 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteUsersUserIDCredentialsSsoSsoUserIDParams creates a new DeleteUsersUserIDCredentialsSsoSsoUserIDParams object
-// with the default values initialized.
+// NewDeleteUsersUserIDCredentialsSsoSsoUserIDParams creates a new DeleteUsersUserIDCredentialsSsoSsoUserIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteUsersUserIDCredentialsSsoSsoUserIDParams() *DeleteUsersUserIDCredentialsSsoSsoUserIDParams {
-	var ()
 	return &DeleteUsersUserIDCredentialsSsoSsoUserIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteUsersUserIDCredentialsSsoSsoUserIDParamsWithTimeout creates a new DeleteUsersUserIDCredentialsSsoSsoUserIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteUsersUserIDCredentialsSsoSsoUserIDParamsWithTimeout(timeout time.Duration) *DeleteUsersUserIDCredentialsSsoSsoUserIDParams {
-	var ()
 	return &DeleteUsersUserIDCredentialsSsoSsoUserIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteUsersUserIDCredentialsSsoSsoUserIDParamsWithContext creates a new DeleteUsersUserIDCredentialsSsoSsoUserIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteUsersUserIDCredentialsSsoSsoUserIDParamsWithContext(ctx context.Context) *DeleteUsersUserIDCredentialsSsoSsoUserIDParams {
-	var ()
 	return &DeleteUsersUserIDCredentialsSsoSsoUserIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteUsersUserIDCredentialsSsoSsoUserIDParamsWithHTTPClient creates a new DeleteUsersUserIDCredentialsSsoSsoUserIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteUsersUserIDCredentialsSsoSsoUserIDParamsWithHTTPClient(client *http.Client) *DeleteUsersUserIDCredentialsSsoSsoUserIDParams {
-	var ()
 	return &DeleteUsersUserIDCredentialsSsoSsoUserIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteUsersUserIDCredentialsSsoSsoUserIDParams contains all the parameters to send to the API endpoint
-for the delete users user ID credentials sso sso user ID operation typically these are written to a http.Request
+/* DeleteUsersUserIDCredentialsSsoSsoUserIDParams contains all the parameters to send to the API endpoint
+   for the delete users user ID credentials sso sso user ID operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteUsersUserIDCredentialsSsoSsoUserIDParams struct {
 
-	/*SsoUserID
-	  Sso user id
+	/* SsoUserID.
 
+	   Sso user id
 	*/
 	SsoUserID string
-	/*UserID
-	  User Id
 
+	/* UserID.
+
+	   User Id
+
+	   Format: uuid
 	*/
 	UserID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete users user ID credentials sso sso user ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteUsersUserIDCredentialsSsoSsoUserIDParams) WithDefaults() *DeleteUsersUserIDCredentialsSsoSsoUserIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete users user ID credentials sso sso user ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteUsersUserIDCredentialsSsoSsoUserIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete users user ID credentials sso sso user ID params

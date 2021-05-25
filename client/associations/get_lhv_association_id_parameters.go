@@ -16,59 +16,75 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetLhvAssociationIDParams creates a new GetLhvAssociationIDParams object
-// with the default values initialized.
+// NewGetLhvAssociationIDParams creates a new GetLhvAssociationIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetLhvAssociationIDParams() *GetLhvAssociationIDParams {
-	var ()
 	return &GetLhvAssociationIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetLhvAssociationIDParamsWithTimeout creates a new GetLhvAssociationIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetLhvAssociationIDParamsWithTimeout(timeout time.Duration) *GetLhvAssociationIDParams {
-	var ()
 	return &GetLhvAssociationIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetLhvAssociationIDParamsWithContext creates a new GetLhvAssociationIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetLhvAssociationIDParamsWithContext(ctx context.Context) *GetLhvAssociationIDParams {
-	var ()
 	return &GetLhvAssociationIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetLhvAssociationIDParamsWithHTTPClient creates a new GetLhvAssociationIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetLhvAssociationIDParamsWithHTTPClient(client *http.Client) *GetLhvAssociationIDParams {
-	var ()
 	return &GetLhvAssociationIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetLhvAssociationIDParams contains all the parameters to send to the API endpoint
-for the get lhv association ID operation typically these are written to a http.Request
+/* GetLhvAssociationIDParams contains all the parameters to send to the API endpoint
+   for the get lhv association ID operation.
+
+   Typically these are written to a http.Request.
 */
 type GetLhvAssociationIDParams struct {
 
-	/*AssociationID
-	  Association Id
+	/* AssociationID.
 
+	   Association Id
+
+	   Format: uuid
 	*/
 	AssociationID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get lhv association ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetLhvAssociationIDParams) WithDefaults() *GetLhvAssociationIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get lhv association ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetLhvAssociationIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get lhv association ID params

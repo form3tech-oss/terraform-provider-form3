@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -17,6 +18,11 @@ import (
 //
 // swagger:model SettlementCycleType
 type SettlementCycleType string
+
+func NewSettlementCycleType(value SettlementCycleType) *SettlementCycleType {
+	v := value
+	return &v
+}
 
 const (
 
@@ -44,7 +50,7 @@ func init() {
 }
 
 func (m SettlementCycleType) validateSettlementCycleTypeEnum(path, location string, value SettlementCycleType) error {
-	if err := validate.Enum(path, location, value, settlementCycleTypeEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, settlementCycleTypeEnum, true); err != nil {
 		return err
 	}
 	return nil
@@ -62,5 +68,10 @@ func (m SettlementCycleType) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+// ContextValidate validates this settlement cycle type based on context it is used
+func (m SettlementCycleType) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }

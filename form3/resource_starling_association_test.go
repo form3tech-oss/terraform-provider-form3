@@ -8,8 +8,8 @@ import (
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/go-openapi/strfmt"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
-	"github.com/hashicorp/terraform-plugin-sdk/terraform"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 )
 
 func TestAccStarlingAssociation_basic(t *testing.T) {
@@ -95,12 +95,12 @@ func getTestForm3StarlingAssociationConfig(parOrgID, orgName string) string {
 		organisation_id        = "${uuid()}"
 		parent_organisation_id = "%s"
 		name 		           = "%s"
-	
+
 	  lifecycle {
 		ignore_changes = ["organisation_id"]
 	  }
 	}
-	
+
 	resource "form3_starling_association" "association" {
 		organisation_id       = "${form3_organisation.organisation.organisation_id}"
 		association_id        = "0b2fc31e-b778-448b-977d-1e7f828a81eb"

@@ -16,64 +16,83 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetRolesRoleIDAcesAceIDParams creates a new GetRolesRoleIDAcesAceIDParams object
-// with the default values initialized.
+// NewGetRolesRoleIDAcesAceIDParams creates a new GetRolesRoleIDAcesAceIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetRolesRoleIDAcesAceIDParams() *GetRolesRoleIDAcesAceIDParams {
-	var ()
 	return &GetRolesRoleIDAcesAceIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetRolesRoleIDAcesAceIDParamsWithTimeout creates a new GetRolesRoleIDAcesAceIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetRolesRoleIDAcesAceIDParamsWithTimeout(timeout time.Duration) *GetRolesRoleIDAcesAceIDParams {
-	var ()
 	return &GetRolesRoleIDAcesAceIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetRolesRoleIDAcesAceIDParamsWithContext creates a new GetRolesRoleIDAcesAceIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetRolesRoleIDAcesAceIDParamsWithContext(ctx context.Context) *GetRolesRoleIDAcesAceIDParams {
-	var ()
 	return &GetRolesRoleIDAcesAceIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetRolesRoleIDAcesAceIDParamsWithHTTPClient creates a new GetRolesRoleIDAcesAceIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetRolesRoleIDAcesAceIDParamsWithHTTPClient(client *http.Client) *GetRolesRoleIDAcesAceIDParams {
-	var ()
 	return &GetRolesRoleIDAcesAceIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetRolesRoleIDAcesAceIDParams contains all the parameters to send to the API endpoint
-for the get roles role ID aces ace ID operation typically these are written to a http.Request
+/* GetRolesRoleIDAcesAceIDParams contains all the parameters to send to the API endpoint
+   for the get roles role ID aces ace ID operation.
+
+   Typically these are written to a http.Request.
 */
 type GetRolesRoleIDAcesAceIDParams struct {
 
-	/*AceID
-	  Ace Id
+	/* AceID.
 
+	   Ace Id
+
+	   Format: uuid
 	*/
 	AceID strfmt.UUID
-	/*RoleID
-	  Role Id
 
+	/* RoleID.
+
+	   Role Id
+
+	   Format: uuid
 	*/
 	RoleID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get roles role ID aces ace ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetRolesRoleIDAcesAceIDParams) WithDefaults() *GetRolesRoleIDAcesAceIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get roles role ID aces ace ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetRolesRoleIDAcesAceIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get roles role ID aces ace ID params

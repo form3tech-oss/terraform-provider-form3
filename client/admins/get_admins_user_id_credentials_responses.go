@@ -77,9 +77,8 @@ func (o *GetAdminsUserIDCredentialsReader) ReadResponse(response runtime.ClientR
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewGetAdminsUserIDCredentialsOK() *GetAdminsUserIDCredentialsOK {
 	return &GetAdminsUserIDCredentialsOK{}
 }
 
-/*GetAdminsUserIDCredentialsOK handles this case with default header values.
+/* GetAdminsUserIDCredentialsOK describes a response with status code 200, with default header values.
 
 List of admin credentials for user
 */
@@ -99,7 +98,6 @@ type GetAdminsUserIDCredentialsOK struct {
 func (o *GetAdminsUserIDCredentialsOK) Error() string {
 	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetAdminsUserIDCredentialsOK) GetPayload() *models.UserCredentialListResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewGetAdminsUserIDCredentialsBadRequest() *GetAdminsUserIDCredentialsBadReq
 	return &GetAdminsUserIDCredentialsBadRequest{}
 }
 
-/*GetAdminsUserIDCredentialsBadRequest handles this case with default header values.
+/* GetAdminsUserIDCredentialsBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type GetAdminsUserIDCredentialsBadRequest struct {
 func (o *GetAdminsUserIDCredentialsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetAdminsUserIDCredentialsBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewGetAdminsUserIDCredentialsUnauthorized() *GetAdminsUserIDCredentialsUnau
 	return &GetAdminsUserIDCredentialsUnauthorized{}
 }
 
-/*GetAdminsUserIDCredentialsUnauthorized handles this case with default header values.
+/* GetAdminsUserIDCredentialsUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type GetAdminsUserIDCredentialsUnauthorized struct {
 func (o *GetAdminsUserIDCredentialsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetAdminsUserIDCredentialsUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewGetAdminsUserIDCredentialsForbidden() *GetAdminsUserIDCredentialsForbidd
 	return &GetAdminsUserIDCredentialsForbidden{}
 }
 
-/*GetAdminsUserIDCredentialsForbidden handles this case with default header values.
+/* GetAdminsUserIDCredentialsForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type GetAdminsUserIDCredentialsForbidden struct {
 func (o *GetAdminsUserIDCredentialsForbidden) Error() string {
 	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetAdminsUserIDCredentialsForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewGetAdminsUserIDCredentialsNotFound() *GetAdminsUserIDCredentialsNotFound
 	return &GetAdminsUserIDCredentialsNotFound{}
 }
 
-/*GetAdminsUserIDCredentialsNotFound handles this case with default header values.
+/* GetAdminsUserIDCredentialsNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type GetAdminsUserIDCredentialsNotFound struct {
 func (o *GetAdminsUserIDCredentialsNotFound) Error() string {
 	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetAdminsUserIDCredentialsNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewGetAdminsUserIDCredentialsConflict() *GetAdminsUserIDCredentialsConflict
 	return &GetAdminsUserIDCredentialsConflict{}
 }
 
-/*GetAdminsUserIDCredentialsConflict handles this case with default header values.
+/* GetAdminsUserIDCredentialsConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type GetAdminsUserIDCredentialsConflict struct {
 func (o *GetAdminsUserIDCredentialsConflict) Error() string {
 	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsConflict  %+v", 409, o.Payload)
 }
-
 func (o *GetAdminsUserIDCredentialsConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewGetAdminsUserIDCredentialsTooManyRequests() *GetAdminsUserIDCredentialsT
 	return &GetAdminsUserIDCredentialsTooManyRequests{}
 }
 
-/*GetAdminsUserIDCredentialsTooManyRequests handles this case with default header values.
+/* GetAdminsUserIDCredentialsTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type GetAdminsUserIDCredentialsTooManyRequests struct {
 func (o *GetAdminsUserIDCredentialsTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *GetAdminsUserIDCredentialsTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewGetAdminsUserIDCredentialsInternalServerError() *GetAdminsUserIDCredenti
 	return &GetAdminsUserIDCredentialsInternalServerError{}
 }
 
-/*GetAdminsUserIDCredentialsInternalServerError handles this case with default header values.
+/* GetAdminsUserIDCredentialsInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type GetAdminsUserIDCredentialsInternalServerError struct {
 func (o *GetAdminsUserIDCredentialsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetAdminsUserIDCredentialsInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewGetAdminsUserIDCredentialsServiceUnavailable() *GetAdminsUserIDCredentia
 	return &GetAdminsUserIDCredentialsServiceUnavailable{}
 }
 
-/*GetAdminsUserIDCredentialsServiceUnavailable handles this case with default header values.
+/* GetAdminsUserIDCredentialsServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type GetAdminsUserIDCredentialsServiceUnavailable struct {
 func (o *GetAdminsUserIDCredentialsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /admins/{user_id}/credentials][%d] getAdminsUserIdCredentialsServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *GetAdminsUserIDCredentialsServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

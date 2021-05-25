@@ -17,59 +17,73 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetReconciliationParams creates a new GetReconciliationParams object
-// with the default values initialized.
+// NewGetReconciliationParams creates a new GetReconciliationParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetReconciliationParams() *GetReconciliationParams {
-	var ()
 	return &GetReconciliationParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetReconciliationParamsWithTimeout creates a new GetReconciliationParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetReconciliationParamsWithTimeout(timeout time.Duration) *GetReconciliationParams {
-	var ()
 	return &GetReconciliationParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetReconciliationParamsWithContext creates a new GetReconciliationParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetReconciliationParamsWithContext(ctx context.Context) *GetReconciliationParams {
-	var ()
 	return &GetReconciliationParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetReconciliationParamsWithHTTPClient creates a new GetReconciliationParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetReconciliationParamsWithHTTPClient(client *http.Client) *GetReconciliationParams {
-	var ()
 	return &GetReconciliationParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetReconciliationParams contains all the parameters to send to the API endpoint
-for the get reconciliation operation typically these are written to a http.Request
+/* GetReconciliationParams contains all the parameters to send to the API endpoint
+   for the get reconciliation operation.
+
+   Typically these are written to a http.Request.
 */
 type GetReconciliationParams struct {
 
-	/*FilterOrganisationID
-	  Organisation id
+	/* FilterOrganisationID.
 
+	   Organisation id
 	*/
 	FilterOrganisationID []strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get reconciliation params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetReconciliationParams) WithDefaults() *GetReconciliationParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get reconciliation params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetReconciliationParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get reconciliation params
@@ -124,19 +138,36 @@ func (o *GetReconciliationParams) WriteToRequest(r runtime.ClientRequest, reg st
 	}
 	var res []error
 
-	var valuesFilterOrganisationID []string
-	for _, v := range o.FilterOrganisationID {
-		valuesFilterOrganisationID = append(valuesFilterOrganisationID, v.String())
-	}
+	if o.FilterOrganisationID != nil {
 
-	joinedFilterOrganisationID := swag.JoinByFormat(valuesFilterOrganisationID, "")
-	// query array param filter[organisation_id]
-	if err := r.SetQueryParam("filter[organisation_id]", joinedFilterOrganisationID...); err != nil {
-		return err
+		// binding items for filter[organisation_id]
+		joinedFilterOrganisationID := o.bindParamFilterOrganisationID(reg)
+
+		// query array param filter[organisation_id]
+		if err := r.SetQueryParam("filter[organisation_id]", joinedFilterOrganisationID...); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
+}
+
+// bindParamGetReconciliation binds the parameter filter[organisation_id]
+func (o *GetReconciliationParams) bindParamFilterOrganisationID(formats strfmt.Registry) []string {
+	filterOrganisationIDIR := o.FilterOrganisationID
+
+	var filterOrganisationIDIC []string
+	for _, filterOrganisationIDIIR := range filterOrganisationIDIR { // explode []strfmt.UUID
+
+		filterOrganisationIDIIV := filterOrganisationIDIIR.String() // strfmt.UUID as string
+		filterOrganisationIDIC = append(filterOrganisationIDIC, filterOrganisationIDIIV)
+	}
+
+	// items.CollectionFormat: ""
+	filterOrganisationIDIS := swag.JoinByFormat(filterOrganisationIDIC, "")
+
+	return filterOrganisationIDIS
 }

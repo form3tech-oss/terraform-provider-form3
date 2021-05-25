@@ -69,6 +69,6 @@ func TestFailedBacsAssociationWithDebugEnabled(t *testing.T) {
 
 	_, err = authClient.AssociationClient.Associations.GetBacsID(associations.NewGetBacsIDParams().WithID(randomUUID))
 	if err == nil {
-		t.Error("expected eror")
+		t.Error("expected error")
 	}
 }

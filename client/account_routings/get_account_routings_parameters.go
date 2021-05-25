@@ -17,69 +17,85 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetAccountRoutingsParams creates a new GetAccountRoutingsParams object
-// with the default values initialized.
+// NewGetAccountRoutingsParams creates a new GetAccountRoutingsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetAccountRoutingsParams() *GetAccountRoutingsParams {
-	var ()
 	return &GetAccountRoutingsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetAccountRoutingsParamsWithTimeout creates a new GetAccountRoutingsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetAccountRoutingsParamsWithTimeout(timeout time.Duration) *GetAccountRoutingsParams {
-	var ()
 	return &GetAccountRoutingsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetAccountRoutingsParamsWithContext creates a new GetAccountRoutingsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetAccountRoutingsParamsWithContext(ctx context.Context) *GetAccountRoutingsParams {
-	var ()
 	return &GetAccountRoutingsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetAccountRoutingsParamsWithHTTPClient creates a new GetAccountRoutingsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetAccountRoutingsParamsWithHTTPClient(client *http.Client) *GetAccountRoutingsParams {
-	var ()
 	return &GetAccountRoutingsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetAccountRoutingsParams contains all the parameters to send to the API endpoint
-for the get account routings operation typically these are written to a http.Request
+/* GetAccountRoutingsParams contains all the parameters to send to the API endpoint
+   for the get account routings operation.
+
+   Typically these are written to a http.Request.
 */
 type GetAccountRoutingsParams struct {
 
-	/*FilterOrganisationID
-	  Filter by organisation id
+	/* FilterOrganisationID.
 
+	   Filter by organisation id
 	*/
 	FilterOrganisationID []strfmt.UUID
-	/*PageNumber
-	  Which page to select
 
+	/* PageNumber.
+
+	   Which page to select
 	*/
 	PageNumber *string
-	/*PageSize
-	  Number of items to select
 
+	/* PageSize.
+
+	   Number of items to select
 	*/
 	PageSize *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get account routings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetAccountRoutingsParams) WithDefaults() *GetAccountRoutingsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get account routings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetAccountRoutingsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get account routings params
@@ -156,51 +172,70 @@ func (o *GetAccountRoutingsParams) WriteToRequest(r runtime.ClientRequest, reg s
 	}
 	var res []error
 
-	var valuesFilterOrganisationID []string
-	for _, v := range o.FilterOrganisationID {
-		valuesFilterOrganisationID = append(valuesFilterOrganisationID, v.String())
-	}
+	if o.FilterOrganisationID != nil {
 
-	joinedFilterOrganisationID := swag.JoinByFormat(valuesFilterOrganisationID, "csv")
-	// query array param filter[organisation_id]
-	if err := r.SetQueryParam("filter[organisation_id]", joinedFilterOrganisationID...); err != nil {
-		return err
+		// binding items for filter[organisation_id]
+		joinedFilterOrganisationID := o.bindParamFilterOrganisationID(reg)
+
+		// query array param filter[organisation_id]
+		if err := r.SetQueryParam("filter[organisation_id]", joinedFilterOrganisationID...); err != nil {
+			return err
+		}
 	}
 
 	if o.PageNumber != nil {
 
 		// query param page[number]
 		var qrPageNumber string
+
 		if o.PageNumber != nil {
 			qrPageNumber = *o.PageNumber
 		}
 		qPageNumber := qrPageNumber
 		if qPageNumber != "" {
+
 			if err := r.SetQueryParam("page[number]", qPageNumber); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.PageSize != nil {
 
 		// query param page[size]
 		var qrPageSize int64
+
 		if o.PageSize != nil {
 			qrPageSize = *o.PageSize
 		}
 		qPageSize := swag.FormatInt64(qrPageSize)
 		if qPageSize != "" {
+
 			if err := r.SetQueryParam("page[size]", qPageSize); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
+}
+
+// bindParamGetAccountRoutings binds the parameter filter[organisation_id]
+func (o *GetAccountRoutingsParams) bindParamFilterOrganisationID(formats strfmt.Registry) []string {
+	filterOrganisationIDIR := o.FilterOrganisationID
+
+	var filterOrganisationIDIC []string
+	for _, filterOrganisationIDIIR := range filterOrganisationIDIR { // explode []strfmt.UUID
+
+		filterOrganisationIDIIV := filterOrganisationIDIIR.String() // strfmt.UUID as string
+		filterOrganisationIDIC = append(filterOrganisationIDIC, filterOrganisationIDIIV)
+	}
+
+	// items.CollectionFormat: "csv"
+	filterOrganisationIDIS := swag.JoinByFormat(filterOrganisationIDIC, "csv")
+
+	return filterOrganisationIDIS
 }

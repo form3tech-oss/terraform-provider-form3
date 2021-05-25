@@ -77,9 +77,8 @@ func (o *PostConfirmationOfPayeeReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewPostConfirmationOfPayeeCreated() *PostConfirmationOfPayeeCreated {
 	return &PostConfirmationOfPayeeCreated{}
 }
 
-/*PostConfirmationOfPayeeCreated handles this case with default header values.
+/* PostConfirmationOfPayeeCreated describes a response with status code 201, with default header values.
 
 creation response
 */
@@ -99,7 +98,6 @@ type PostConfirmationOfPayeeCreated struct {
 func (o *PostConfirmationOfPayeeCreated) Error() string {
 	return fmt.Sprintf("[POST /confirmation-of-payee][%d] postConfirmationOfPayeeCreated  %+v", 201, o.Payload)
 }
-
 func (o *PostConfirmationOfPayeeCreated) GetPayload() *models.CoPAssociationCreationResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewPostConfirmationOfPayeeBadRequest() *PostConfirmationOfPayeeBadRequest {
 	return &PostConfirmationOfPayeeBadRequest{}
 }
 
-/*PostConfirmationOfPayeeBadRequest handles this case with default header values.
+/* PostConfirmationOfPayeeBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type PostConfirmationOfPayeeBadRequest struct {
 func (o *PostConfirmationOfPayeeBadRequest) Error() string {
 	return fmt.Sprintf("[POST /confirmation-of-payee][%d] postConfirmationOfPayeeBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *PostConfirmationOfPayeeBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewPostConfirmationOfPayeeUnauthorized() *PostConfirmationOfPayeeUnauthoriz
 	return &PostConfirmationOfPayeeUnauthorized{}
 }
 
-/*PostConfirmationOfPayeeUnauthorized handles this case with default header values.
+/* PostConfirmationOfPayeeUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type PostConfirmationOfPayeeUnauthorized struct {
 func (o *PostConfirmationOfPayeeUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /confirmation-of-payee][%d] postConfirmationOfPayeeUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *PostConfirmationOfPayeeUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewPostConfirmationOfPayeeForbidden() *PostConfirmationOfPayeeForbidden {
 	return &PostConfirmationOfPayeeForbidden{}
 }
 
-/*PostConfirmationOfPayeeForbidden handles this case with default header values.
+/* PostConfirmationOfPayeeForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type PostConfirmationOfPayeeForbidden struct {
 func (o *PostConfirmationOfPayeeForbidden) Error() string {
 	return fmt.Sprintf("[POST /confirmation-of-payee][%d] postConfirmationOfPayeeForbidden  %+v", 403, o.Payload)
 }
-
 func (o *PostConfirmationOfPayeeForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewPostConfirmationOfPayeeNotFound() *PostConfirmationOfPayeeNotFound {
 	return &PostConfirmationOfPayeeNotFound{}
 }
 
-/*PostConfirmationOfPayeeNotFound handles this case with default header values.
+/* PostConfirmationOfPayeeNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type PostConfirmationOfPayeeNotFound struct {
 func (o *PostConfirmationOfPayeeNotFound) Error() string {
 	return fmt.Sprintf("[POST /confirmation-of-payee][%d] postConfirmationOfPayeeNotFound  %+v", 404, o.Payload)
 }
-
 func (o *PostConfirmationOfPayeeNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewPostConfirmationOfPayeeConflict() *PostConfirmationOfPayeeConflict {
 	return &PostConfirmationOfPayeeConflict{}
 }
 
-/*PostConfirmationOfPayeeConflict handles this case with default header values.
+/* PostConfirmationOfPayeeConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type PostConfirmationOfPayeeConflict struct {
 func (o *PostConfirmationOfPayeeConflict) Error() string {
 	return fmt.Sprintf("[POST /confirmation-of-payee][%d] postConfirmationOfPayeeConflict  %+v", 409, o.Payload)
 }
-
 func (o *PostConfirmationOfPayeeConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewPostConfirmationOfPayeeTooManyRequests() *PostConfirmationOfPayeeTooMany
 	return &PostConfirmationOfPayeeTooManyRequests{}
 }
 
-/*PostConfirmationOfPayeeTooManyRequests handles this case with default header values.
+/* PostConfirmationOfPayeeTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type PostConfirmationOfPayeeTooManyRequests struct {
 func (o *PostConfirmationOfPayeeTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /confirmation-of-payee][%d] postConfirmationOfPayeeTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *PostConfirmationOfPayeeTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewPostConfirmationOfPayeeInternalServerError() *PostConfirmationOfPayeeInt
 	return &PostConfirmationOfPayeeInternalServerError{}
 }
 
-/*PostConfirmationOfPayeeInternalServerError handles this case with default header values.
+/* PostConfirmationOfPayeeInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type PostConfirmationOfPayeeInternalServerError struct {
 func (o *PostConfirmationOfPayeeInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /confirmation-of-payee][%d] postConfirmationOfPayeeInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *PostConfirmationOfPayeeInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewPostConfirmationOfPayeeServiceUnavailable() *PostConfirmationOfPayeeServ
 	return &PostConfirmationOfPayeeServiceUnavailable{}
 }
 
-/*PostConfirmationOfPayeeServiceUnavailable handles this case with default header values.
+/* PostConfirmationOfPayeeServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type PostConfirmationOfPayeeServiceUnavailable struct {
 func (o *PostConfirmationOfPayeeServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /confirmation-of-payee][%d] postConfirmationOfPayeeServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *PostConfirmationOfPayeeServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

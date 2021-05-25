@@ -9,8 +9,8 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/go-openapi/strfmt"
 	"github.com/google/uuid"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
-	"github.com/hashicorp/terraform-plugin-sdk/terraform"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 )
 
 func TestAccReconciliationAssociation_basic(t *testing.T) {
@@ -22,7 +22,7 @@ func TestAccReconciliationAssociation_basic(t *testing.T) {
 	name := "test organisation"
 
 	// hardcoded value
-	// https://github.com/hashicorp/terraform-plugin-sdk/issues/196
+	// https://github.com/hashicorp/terraform-plugin-sdk/v2/issues/196
 	bankID := "QWKEHG33"
 
 	resource.Test(t, resource.TestCase{
@@ -104,7 +104,7 @@ func getTestForm3ReconciliationAssociationConfig(orgID, parOrgID, orgName, assoc
 		parent_organisation_id = "%s"
 		name 		           = "%s"
 	}
-	
+
 	resource "form3_reconciliation_association" "association" {
 		organisation_id = "${form3_organisation.organisation.organisation_id}"
 		association_id  = "%s"

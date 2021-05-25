@@ -16,59 +16,75 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetSepasctIDParams creates a new GetSepasctIDParams object
-// with the default values initialized.
+// NewGetSepasctIDParams creates a new GetSepasctIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetSepasctIDParams() *GetSepasctIDParams {
-	var ()
 	return &GetSepasctIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetSepasctIDParamsWithTimeout creates a new GetSepasctIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetSepasctIDParamsWithTimeout(timeout time.Duration) *GetSepasctIDParams {
-	var ()
 	return &GetSepasctIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetSepasctIDParamsWithContext creates a new GetSepasctIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetSepasctIDParamsWithContext(ctx context.Context) *GetSepasctIDParams {
-	var ()
 	return &GetSepasctIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetSepasctIDParamsWithHTTPClient creates a new GetSepasctIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetSepasctIDParamsWithHTTPClient(client *http.Client) *GetSepasctIDParams {
-	var ()
 	return &GetSepasctIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetSepasctIDParams contains all the parameters to send to the API endpoint
-for the get sepasct ID operation typically these are written to a http.Request
+/* GetSepasctIDParams contains all the parameters to send to the API endpoint
+   for the get sepasct ID operation.
+
+   Typically these are written to a http.Request.
 */
 type GetSepasctIDParams struct {
 
-	/*ID
-	  Association Id
+	/* ID.
 
+	   Association Id
+
+	   Format: uuid
 	*/
 	ID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get sepasct ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetSepasctIDParams) WithDefaults() *GetSepasctIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get sepasct ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetSepasctIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get sepasct ID params

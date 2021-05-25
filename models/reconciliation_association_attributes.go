@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 	"strconv"
 
@@ -77,7 +78,7 @@ func (m *ReconciliationAssociationAttributes) validateBankIds(formats strfmt.Reg
 
 	for i := 0; i < len(m.BankIds); i++ {
 
-		if err := validate.MinLength("bank_ids"+"."+strconv.Itoa(i), "body", string(m.BankIds[i]), 1); err != nil {
+		if err := validate.MinLength("bank_ids"+"."+strconv.Itoa(i), "body", m.BankIds[i], 1); err != nil {
 			return err
 		}
 
@@ -88,11 +89,11 @@ func (m *ReconciliationAssociationAttributes) validateBankIds(formats strfmt.Reg
 
 func (m *ReconciliationAssociationAttributes) validateName(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("name", "body", string(m.Name)); err != nil {
+	if err := validate.RequiredString("name", "body", m.Name); err != nil {
 		return err
 	}
 
-	if err := validate.MinLength("name", "body", string(m.Name), 1); err != nil {
+	if err := validate.MinLength("name", "body", m.Name, 1); err != nil {
 		return err
 	}
 
@@ -122,7 +123,7 @@ const (
 
 // prop value enum
 func (m *ReconciliationAssociationAttributes) validateSchemeTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, reconciliationAssociationAttributesTypeSchemeTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, reconciliationAssociationAttributesTypeSchemeTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil
@@ -130,7 +131,7 @@ func (m *ReconciliationAssociationAttributes) validateSchemeTypeEnum(path, locat
 
 func (m *ReconciliationAssociationAttributes) validateSchemeType(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("scheme_type", "body", string(m.SchemeType)); err != nil {
+	if err := validate.RequiredString("scheme_type", "body", m.SchemeType); err != nil {
 		return err
 	}
 
@@ -139,6 +140,11 @@ func (m *ReconciliationAssociationAttributes) validateSchemeType(formats strfmt.
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this reconciliation association attributes based on context it is used
+func (m *ReconciliationAssociationAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

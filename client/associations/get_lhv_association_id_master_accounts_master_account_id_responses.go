@@ -77,9 +77,8 @@ func (o *GetLhvAssociationIDMasterAccountsMasterAccountIDReader) ReadResponse(re
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewGetLhvAssociationIDMasterAccountsMasterAccountIDOK() *GetLhvAssociationI
 	return &GetLhvAssociationIDMasterAccountsMasterAccountIDOK{}
 }
 
-/*GetLhvAssociationIDMasterAccountsMasterAccountIDOK handles this case with default header values.
+/* GetLhvAssociationIDMasterAccountsMasterAccountIDOK describes a response with status code 200, with default header values.
 
 Master Account details
 */
@@ -99,7 +98,6 @@ type GetLhvAssociationIDMasterAccountsMasterAccountIDOK struct {
 func (o *GetLhvAssociationIDMasterAccountsMasterAccountIDOK) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/master_accounts/{masterAccountId}][%d] getLhvAssociationIdMasterAccountsMasterAccountIdOK  %+v", 200, o.Payload)
 }
-
 func (o *GetLhvAssociationIDMasterAccountsMasterAccountIDOK) GetPayload() *models.LhvMasterAccountResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewGetLhvAssociationIDMasterAccountsMasterAccountIDBadRequest() *GetLhvAsso
 	return &GetLhvAssociationIDMasterAccountsMasterAccountIDBadRequest{}
 }
 
-/*GetLhvAssociationIDMasterAccountsMasterAccountIDBadRequest handles this case with default header values.
+/* GetLhvAssociationIDMasterAccountsMasterAccountIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type GetLhvAssociationIDMasterAccountsMasterAccountIDBadRequest struct {
 func (o *GetLhvAssociationIDMasterAccountsMasterAccountIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/master_accounts/{masterAccountId}][%d] getLhvAssociationIdMasterAccountsMasterAccountIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetLhvAssociationIDMasterAccountsMasterAccountIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewGetLhvAssociationIDMasterAccountsMasterAccountIDUnauthorized() *GetLhvAs
 	return &GetLhvAssociationIDMasterAccountsMasterAccountIDUnauthorized{}
 }
 
-/*GetLhvAssociationIDMasterAccountsMasterAccountIDUnauthorized handles this case with default header values.
+/* GetLhvAssociationIDMasterAccountsMasterAccountIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type GetLhvAssociationIDMasterAccountsMasterAccountIDUnauthorized struct {
 func (o *GetLhvAssociationIDMasterAccountsMasterAccountIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/master_accounts/{masterAccountId}][%d] getLhvAssociationIdMasterAccountsMasterAccountIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetLhvAssociationIDMasterAccountsMasterAccountIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewGetLhvAssociationIDMasterAccountsMasterAccountIDForbidden() *GetLhvAssoc
 	return &GetLhvAssociationIDMasterAccountsMasterAccountIDForbidden{}
 }
 
-/*GetLhvAssociationIDMasterAccountsMasterAccountIDForbidden handles this case with default header values.
+/* GetLhvAssociationIDMasterAccountsMasterAccountIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type GetLhvAssociationIDMasterAccountsMasterAccountIDForbidden struct {
 func (o *GetLhvAssociationIDMasterAccountsMasterAccountIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/master_accounts/{masterAccountId}][%d] getLhvAssociationIdMasterAccountsMasterAccountIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetLhvAssociationIDMasterAccountsMasterAccountIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewGetLhvAssociationIDMasterAccountsMasterAccountIDNotFound() *GetLhvAssoci
 	return &GetLhvAssociationIDMasterAccountsMasterAccountIDNotFound{}
 }
 
-/*GetLhvAssociationIDMasterAccountsMasterAccountIDNotFound handles this case with default header values.
+/* GetLhvAssociationIDMasterAccountsMasterAccountIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type GetLhvAssociationIDMasterAccountsMasterAccountIDNotFound struct {
 func (o *GetLhvAssociationIDMasterAccountsMasterAccountIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/master_accounts/{masterAccountId}][%d] getLhvAssociationIdMasterAccountsMasterAccountIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetLhvAssociationIDMasterAccountsMasterAccountIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewGetLhvAssociationIDMasterAccountsMasterAccountIDConflict() *GetLhvAssoci
 	return &GetLhvAssociationIDMasterAccountsMasterAccountIDConflict{}
 }
 
-/*GetLhvAssociationIDMasterAccountsMasterAccountIDConflict handles this case with default header values.
+/* GetLhvAssociationIDMasterAccountsMasterAccountIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type GetLhvAssociationIDMasterAccountsMasterAccountIDConflict struct {
 func (o *GetLhvAssociationIDMasterAccountsMasterAccountIDConflict) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/master_accounts/{masterAccountId}][%d] getLhvAssociationIdMasterAccountsMasterAccountIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *GetLhvAssociationIDMasterAccountsMasterAccountIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewGetLhvAssociationIDMasterAccountsMasterAccountIDTooManyRequests() *GetLh
 	return &GetLhvAssociationIDMasterAccountsMasterAccountIDTooManyRequests{}
 }
 
-/*GetLhvAssociationIDMasterAccountsMasterAccountIDTooManyRequests handles this case with default header values.
+/* GetLhvAssociationIDMasterAccountsMasterAccountIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type GetLhvAssociationIDMasterAccountsMasterAccountIDTooManyRequests struct {
 func (o *GetLhvAssociationIDMasterAccountsMasterAccountIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/master_accounts/{masterAccountId}][%d] getLhvAssociationIdMasterAccountsMasterAccountIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *GetLhvAssociationIDMasterAccountsMasterAccountIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewGetLhvAssociationIDMasterAccountsMasterAccountIDInternalServerError() *G
 	return &GetLhvAssociationIDMasterAccountsMasterAccountIDInternalServerError{}
 }
 
-/*GetLhvAssociationIDMasterAccountsMasterAccountIDInternalServerError handles this case with default header values.
+/* GetLhvAssociationIDMasterAccountsMasterAccountIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type GetLhvAssociationIDMasterAccountsMasterAccountIDInternalServerError struct 
 func (o *GetLhvAssociationIDMasterAccountsMasterAccountIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/master_accounts/{masterAccountId}][%d] getLhvAssociationIdMasterAccountsMasterAccountIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetLhvAssociationIDMasterAccountsMasterAccountIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewGetLhvAssociationIDMasterAccountsMasterAccountIDServiceUnavailable() *Ge
 	return &GetLhvAssociationIDMasterAccountsMasterAccountIDServiceUnavailable{}
 }
 
-/*GetLhvAssociationIDMasterAccountsMasterAccountIDServiceUnavailable handles this case with default header values.
+/* GetLhvAssociationIDMasterAccountsMasterAccountIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type GetLhvAssociationIDMasterAccountsMasterAccountIDServiceUnavailable struct {
 func (o *GetLhvAssociationIDMasterAccountsMasterAccountIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/master_accounts/{masterAccountId}][%d] getLhvAssociationIdMasterAccountsMasterAccountIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *GetLhvAssociationIDMasterAccountsMasterAccountIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

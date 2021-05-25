@@ -17,59 +17,73 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetVocalinkreportParams creates a new GetVocalinkreportParams object
-// with the default values initialized.
+// NewGetVocalinkreportParams creates a new GetVocalinkreportParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetVocalinkreportParams() *GetVocalinkreportParams {
-	var ()
 	return &GetVocalinkreportParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetVocalinkreportParamsWithTimeout creates a new GetVocalinkreportParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetVocalinkreportParamsWithTimeout(timeout time.Duration) *GetVocalinkreportParams {
-	var ()
 	return &GetVocalinkreportParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetVocalinkreportParamsWithContext creates a new GetVocalinkreportParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetVocalinkreportParamsWithContext(ctx context.Context) *GetVocalinkreportParams {
-	var ()
 	return &GetVocalinkreportParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetVocalinkreportParamsWithHTTPClient creates a new GetVocalinkreportParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetVocalinkreportParamsWithHTTPClient(client *http.Client) *GetVocalinkreportParams {
-	var ()
 	return &GetVocalinkreportParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetVocalinkreportParams contains all the parameters to send to the API endpoint
-for the get vocalinkreport operation typically these are written to a http.Request
+/* GetVocalinkreportParams contains all the parameters to send to the API endpoint
+   for the get vocalinkreport operation.
+
+   Typically these are written to a http.Request.
 */
 type GetVocalinkreportParams struct {
 
-	/*FilterOrganisationID
-	  Organisation id
+	/* FilterOrganisationID.
 
+	   Organisation id
 	*/
 	FilterOrganisationID []strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get vocalinkreport params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetVocalinkreportParams) WithDefaults() *GetVocalinkreportParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get vocalinkreport params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetVocalinkreportParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get vocalinkreport params
@@ -124,19 +138,36 @@ func (o *GetVocalinkreportParams) WriteToRequest(r runtime.ClientRequest, reg st
 	}
 	var res []error
 
-	var valuesFilterOrganisationID []string
-	for _, v := range o.FilterOrganisationID {
-		valuesFilterOrganisationID = append(valuesFilterOrganisationID, v.String())
-	}
+	if o.FilterOrganisationID != nil {
 
-	joinedFilterOrganisationID := swag.JoinByFormat(valuesFilterOrganisationID, "")
-	// query array param filter[organisation_id]
-	if err := r.SetQueryParam("filter[organisation_id]", joinedFilterOrganisationID...); err != nil {
-		return err
+		// binding items for filter[organisation_id]
+		joinedFilterOrganisationID := o.bindParamFilterOrganisationID(reg)
+
+		// query array param filter[organisation_id]
+		if err := r.SetQueryParam("filter[organisation_id]", joinedFilterOrganisationID...); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
+}
+
+// bindParamGetVocalinkreport binds the parameter filter[organisation_id]
+func (o *GetVocalinkreportParams) bindParamFilterOrganisationID(formats strfmt.Registry) []string {
+	filterOrganisationIDIR := o.FilterOrganisationID
+
+	var filterOrganisationIDIC []string
+	for _, filterOrganisationIDIIR := range filterOrganisationIDIR { // explode []strfmt.UUID
+
+		filterOrganisationIDIIV := filterOrganisationIDIIR.String() // strfmt.UUID as string
+		filterOrganisationIDIC = append(filterOrganisationIDIC, filterOrganisationIDIIV)
+	}
+
+	// items.CollectionFormat: ""
+	filterOrganisationIDIS := swag.JoinByFormat(filterOrganisationIDIC, "")
+
+	return filterOrganisationIDIS
 }

@@ -77,9 +77,8 @@ func (o *GetConfirmationOfPayeeReader) ReadResponse(response runtime.ClientRespo
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewGetConfirmationOfPayeeOK() *GetConfirmationOfPayeeOK {
 	return &GetConfirmationOfPayeeOK{}
 }
 
-/*GetConfirmationOfPayeeOK handles this case with default header values.
+/* GetConfirmationOfPayeeOK describes a response with status code 200, with default header values.
 
 List of associations
 */
@@ -99,7 +98,6 @@ type GetConfirmationOfPayeeOK struct {
 func (o *GetConfirmationOfPayeeOK) Error() string {
 	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeOK  %+v", 200, o.Payload)
 }
-
 func (o *GetConfirmationOfPayeeOK) GetPayload() *models.CoPAssociationDetailsListResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewGetConfirmationOfPayeeBadRequest() *GetConfirmationOfPayeeBadRequest {
 	return &GetConfirmationOfPayeeBadRequest{}
 }
 
-/*GetConfirmationOfPayeeBadRequest handles this case with default header values.
+/* GetConfirmationOfPayeeBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type GetConfirmationOfPayeeBadRequest struct {
 func (o *GetConfirmationOfPayeeBadRequest) Error() string {
 	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetConfirmationOfPayeeBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewGetConfirmationOfPayeeUnauthorized() *GetConfirmationOfPayeeUnauthorized
 	return &GetConfirmationOfPayeeUnauthorized{}
 }
 
-/*GetConfirmationOfPayeeUnauthorized handles this case with default header values.
+/* GetConfirmationOfPayeeUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type GetConfirmationOfPayeeUnauthorized struct {
 func (o *GetConfirmationOfPayeeUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetConfirmationOfPayeeUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewGetConfirmationOfPayeeForbidden() *GetConfirmationOfPayeeForbidden {
 	return &GetConfirmationOfPayeeForbidden{}
 }
 
-/*GetConfirmationOfPayeeForbidden handles this case with default header values.
+/* GetConfirmationOfPayeeForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type GetConfirmationOfPayeeForbidden struct {
 func (o *GetConfirmationOfPayeeForbidden) Error() string {
 	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetConfirmationOfPayeeForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewGetConfirmationOfPayeeNotFound() *GetConfirmationOfPayeeNotFound {
 	return &GetConfirmationOfPayeeNotFound{}
 }
 
-/*GetConfirmationOfPayeeNotFound handles this case with default header values.
+/* GetConfirmationOfPayeeNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type GetConfirmationOfPayeeNotFound struct {
 func (o *GetConfirmationOfPayeeNotFound) Error() string {
 	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetConfirmationOfPayeeNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewGetConfirmationOfPayeeConflict() *GetConfirmationOfPayeeConflict {
 	return &GetConfirmationOfPayeeConflict{}
 }
 
-/*GetConfirmationOfPayeeConflict handles this case with default header values.
+/* GetConfirmationOfPayeeConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type GetConfirmationOfPayeeConflict struct {
 func (o *GetConfirmationOfPayeeConflict) Error() string {
 	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeConflict  %+v", 409, o.Payload)
 }
-
 func (o *GetConfirmationOfPayeeConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewGetConfirmationOfPayeeTooManyRequests() *GetConfirmationOfPayeeTooManyRe
 	return &GetConfirmationOfPayeeTooManyRequests{}
 }
 
-/*GetConfirmationOfPayeeTooManyRequests handles this case with default header values.
+/* GetConfirmationOfPayeeTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type GetConfirmationOfPayeeTooManyRequests struct {
 func (o *GetConfirmationOfPayeeTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *GetConfirmationOfPayeeTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewGetConfirmationOfPayeeInternalServerError() *GetConfirmationOfPayeeInter
 	return &GetConfirmationOfPayeeInternalServerError{}
 }
 
-/*GetConfirmationOfPayeeInternalServerError handles this case with default header values.
+/* GetConfirmationOfPayeeInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type GetConfirmationOfPayeeInternalServerError struct {
 func (o *GetConfirmationOfPayeeInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetConfirmationOfPayeeInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewGetConfirmationOfPayeeServiceUnavailable() *GetConfirmationOfPayeeServic
 	return &GetConfirmationOfPayeeServiceUnavailable{}
 }
 
-/*GetConfirmationOfPayeeServiceUnavailable handles this case with default header values.
+/* GetConfirmationOfPayeeServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type GetConfirmationOfPayeeServiceUnavailable struct {
 func (o *GetConfirmationOfPayeeServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /confirmation-of-payee][%d] getConfirmationOfPayeeServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *GetConfirmationOfPayeeServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

@@ -50,6 +50,7 @@ func TestPostEllipticCurveKey(t *testing.T) {
 }
 
 func deleteKey(createResponse *system.PostKeysCreated, t *testing.T) {
+	t.Helper()
 
 	key, _ := auth.SystemClient.System.GetKeysKeyID(system.NewGetKeysKeyIDParams().WithKeyID(createResponse.Payload.Data.ID))
 
@@ -60,6 +61,8 @@ func deleteKey(createResponse *system.PostKeysCreated, t *testing.T) {
 }
 
 func createKey(t *testing.T) *system.PostKeysCreated {
+	t.Helper()
+
 	id := uuid.New()
 	createResponse, err := auth.SystemClient.System.PostKeys(system.NewPostKeysParams().
 		WithKeyCreationRequest(&models.KeyCreation{
@@ -77,6 +80,8 @@ func createKey(t *testing.T) *system.PostKeysCreated {
 }
 
 func createEcKey(t *testing.T) *system.PostKeysCreated {
+	t.Helper()
+
 	id := uuid.New()
 	createResponse, err := auth.SystemClient.System.PostKeys(system.NewPostKeysParams().
 		WithKeyCreationRequest(&models.KeyCreation{

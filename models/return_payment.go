@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -77,7 +79,6 @@ func (m *ReturnPayment) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ReturnPayment) validateAttributes(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Attributes) { // not required
 		return nil
 	}
@@ -121,7 +122,6 @@ func (m *ReturnPayment) validateOrganisationID(formats strfmt.Registry) error {
 }
 
 func (m *ReturnPayment) validateRelationships(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Relationships) { // not required
 		return nil
 	}
@@ -139,12 +139,11 @@ func (m *ReturnPayment) validateRelationships(formats strfmt.Registry) error {
 }
 
 func (m *ReturnPayment) validateType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("type", "body", string(m.Type), `^[A-Za-z_]*$`); err != nil {
+	if err := validate.Pattern("type", "body", m.Type, `^[A-Za-z_]*$`); err != nil {
 		return err
 	}
 
@@ -152,13 +151,58 @@ func (m *ReturnPayment) validateType(formats strfmt.Registry) error {
 }
 
 func (m *ReturnPayment) validateVersion(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Version) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
+	if err := validate.MinimumInt("version", "body", *m.Version, 0, false); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this return payment based on the context it is used
+func (m *ReturnPayment) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAttributes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRelationships(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ReturnPayment) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Attributes != nil {
+		if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("attributes")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ReturnPayment) contextValidateRelationships(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Relationships != nil {
+		if err := m.Relationships.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("relationships")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -234,12 +278,11 @@ func (m *ReturnPaymentAttributes) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ReturnPaymentAttributes) validateAmount(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Amount) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("attributes"+"."+"amount", "body", string(m.Amount), `^[0-9.]{0,20}$`); err != nil {
+	if err := validate.Pattern("attributes"+"."+"amount", "body", m.Amount, `^[0-9.]{0,20}$`); err != nil {
 		return err
 	}
 
@@ -247,7 +290,6 @@ func (m *ReturnPaymentAttributes) validateAmount(formats strfmt.Registry) error 
 }
 
 func (m *ReturnPaymentAttributes) validateLimitBreachEndDatetime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.LimitBreachEndDatetime) { // not required
 		return nil
 	}
@@ -260,12 +302,47 @@ func (m *ReturnPaymentAttributes) validateLimitBreachEndDatetime(formats strfmt.
 }
 
 func (m *ReturnPaymentAttributes) validateLimitBreachStartDatetime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.LimitBreachStartDatetime) { // not required
 		return nil
 	}
 
 	if err := validate.FormatOf("attributes"+"."+"limit_breach_start_datetime", "body", "date-time", m.LimitBreachStartDatetime.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this return payment attributes based on the context it is used
+func (m *ReturnPaymentAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateLimitBreachEndDatetime(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateLimitBreachStartDatetime(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ReturnPaymentAttributes) contextValidateLimitBreachEndDatetime(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "attributes"+"."+"limit_breach_end_datetime", "body", strfmt.DateTime(m.LimitBreachEndDatetime)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ReturnPaymentAttributes) contextValidateLimitBreachStartDatetime(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "attributes"+"."+"limit_breach_start_datetime", "body", strfmt.DateTime(m.LimitBreachStartDatetime)); err != nil {
 		return err
 	}
 
@@ -328,7 +405,6 @@ func (m *ReturnPaymentRelationships) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ReturnPaymentRelationships) validatePayment(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Payment) { // not required
 		return nil
 	}
@@ -346,7 +422,6 @@ func (m *ReturnPaymentRelationships) validatePayment(formats strfmt.Registry) er
 }
 
 func (m *ReturnPaymentRelationships) validateReturnAdmission(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ReturnAdmission) { // not required
 		return nil
 	}
@@ -364,13 +439,76 @@ func (m *ReturnPaymentRelationships) validateReturnAdmission(formats strfmt.Regi
 }
 
 func (m *ReturnPaymentRelationships) validateReturnSubmission(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ReturnSubmission) { // not required
 		return nil
 	}
 
 	if m.ReturnSubmission != nil {
 		if err := m.ReturnSubmission.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("relationships" + "." + "return_submission")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this return payment relationships based on the context it is used
+func (m *ReturnPaymentRelationships) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidatePayment(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateReturnAdmission(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateReturnSubmission(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ReturnPaymentRelationships) contextValidatePayment(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Payment != nil {
+		if err := m.Payment.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("relationships" + "." + "payment")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ReturnPaymentRelationships) contextValidateReturnAdmission(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ReturnAdmission != nil {
+		if err := m.ReturnAdmission.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("relationships" + "." + "return_admission")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ReturnPaymentRelationships) contextValidateReturnSubmission(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ReturnSubmission != nil {
+		if err := m.ReturnSubmission.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("relationships" + "." + "return_submission")
 			}

@@ -18,56 +18,70 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPostBacsParams creates a new PostBacsParams object
-// with the default values initialized.
+// NewPostBacsParams creates a new PostBacsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostBacsParams() *PostBacsParams {
-	var ()
 	return &PostBacsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostBacsParamsWithTimeout creates a new PostBacsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostBacsParamsWithTimeout(timeout time.Duration) *PostBacsParams {
-	var ()
 	return &PostBacsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostBacsParamsWithContext creates a new PostBacsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostBacsParamsWithContext(ctx context.Context) *PostBacsParams {
-	var ()
 	return &PostBacsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostBacsParamsWithHTTPClient creates a new PostBacsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostBacsParamsWithHTTPClient(client *http.Client) *PostBacsParams {
-	var ()
 	return &PostBacsParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostBacsParams contains all the parameters to send to the API endpoint
-for the post bacs operation typically these are written to a http.Request
+/* PostBacsParams contains all the parameters to send to the API endpoint
+   for the post bacs operation.
+
+   Typically these are written to a http.Request.
 */
 type PostBacsParams struct {
 
-	/*CreationRequest*/
+	// CreationRequest.
 	CreationRequest *models.BacsAssociationCreation
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post bacs params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostBacsParams) WithDefaults() *PostBacsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post bacs params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostBacsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post bacs params
@@ -121,7 +135,6 @@ func (o *PostBacsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 		return err
 	}
 	var res []error
-
 	if o.CreationRequest != nil {
 		if err := r.SetBodyParam(o.CreationRequest); err != nil {
 			return err

@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -90,14 +91,13 @@ const (
 
 // prop value enum
 func (m *KeyAttributes) validateCurveEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, keyAttributesTypeCurvePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, keyAttributesTypeCurvePropEnum, true); err != nil {
 		return err
 	}
 	return nil
 }
 
 func (m *KeyAttributes) validateCurve(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Curve) { // not required
 		return nil
 	}
@@ -139,14 +139,13 @@ const (
 
 // prop value enum
 func (m *KeyAttributes) validateTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, keyAttributesTypeTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, keyAttributesTypeTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil
 }
 
 func (m *KeyAttributes) validateType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
@@ -156,6 +155,11 @@ func (m *KeyAttributes) validateType(formats strfmt.Registry) error {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this key attributes based on context it is used
+func (m *KeyAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

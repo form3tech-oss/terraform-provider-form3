@@ -77,9 +77,8 @@ func (o *GetUsersUserIDAcesReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewGetUsersUserIDAcesOK() *GetUsersUserIDAcesOK {
 	return &GetUsersUserIDAcesOK{}
 }
 
-/*GetUsersUserIDAcesOK handles this case with default header values.
+/* GetUsersUserIDAcesOK describes a response with status code 200, with default header values.
 
 List of access control entries for this user
 */
@@ -99,7 +98,6 @@ type GetUsersUserIDAcesOK struct {
 func (o *GetUsersUserIDAcesOK) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesOK  %+v", 200, o.Payload)
 }
-
 func (o *GetUsersUserIDAcesOK) GetPayload() *models.AceDetailsListResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewGetUsersUserIDAcesBadRequest() *GetUsersUserIDAcesBadRequest {
 	return &GetUsersUserIDAcesBadRequest{}
 }
 
-/*GetUsersUserIDAcesBadRequest handles this case with default header values.
+/* GetUsersUserIDAcesBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type GetUsersUserIDAcesBadRequest struct {
 func (o *GetUsersUserIDAcesBadRequest) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetUsersUserIDAcesBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewGetUsersUserIDAcesUnauthorized() *GetUsersUserIDAcesUnauthorized {
 	return &GetUsersUserIDAcesUnauthorized{}
 }
 
-/*GetUsersUserIDAcesUnauthorized handles this case with default header values.
+/* GetUsersUserIDAcesUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type GetUsersUserIDAcesUnauthorized struct {
 func (o *GetUsersUserIDAcesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetUsersUserIDAcesUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewGetUsersUserIDAcesForbidden() *GetUsersUserIDAcesForbidden {
 	return &GetUsersUserIDAcesForbidden{}
 }
 
-/*GetUsersUserIDAcesForbidden handles this case with default header values.
+/* GetUsersUserIDAcesForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type GetUsersUserIDAcesForbidden struct {
 func (o *GetUsersUserIDAcesForbidden) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetUsersUserIDAcesForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewGetUsersUserIDAcesNotFound() *GetUsersUserIDAcesNotFound {
 	return &GetUsersUserIDAcesNotFound{}
 }
 
-/*GetUsersUserIDAcesNotFound handles this case with default header values.
+/* GetUsersUserIDAcesNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type GetUsersUserIDAcesNotFound struct {
 func (o *GetUsersUserIDAcesNotFound) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetUsersUserIDAcesNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewGetUsersUserIDAcesConflict() *GetUsersUserIDAcesConflict {
 	return &GetUsersUserIDAcesConflict{}
 }
 
-/*GetUsersUserIDAcesConflict handles this case with default header values.
+/* GetUsersUserIDAcesConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type GetUsersUserIDAcesConflict struct {
 func (o *GetUsersUserIDAcesConflict) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesConflict  %+v", 409, o.Payload)
 }
-
 func (o *GetUsersUserIDAcesConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewGetUsersUserIDAcesTooManyRequests() *GetUsersUserIDAcesTooManyRequests {
 	return &GetUsersUserIDAcesTooManyRequests{}
 }
 
-/*GetUsersUserIDAcesTooManyRequests handles this case with default header values.
+/* GetUsersUserIDAcesTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type GetUsersUserIDAcesTooManyRequests struct {
 func (o *GetUsersUserIDAcesTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *GetUsersUserIDAcesTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewGetUsersUserIDAcesInternalServerError() *GetUsersUserIDAcesInternalServe
 	return &GetUsersUserIDAcesInternalServerError{}
 }
 
-/*GetUsersUserIDAcesInternalServerError handles this case with default header values.
+/* GetUsersUserIDAcesInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type GetUsersUserIDAcesInternalServerError struct {
 func (o *GetUsersUserIDAcesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetUsersUserIDAcesInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewGetUsersUserIDAcesServiceUnavailable() *GetUsersUserIDAcesServiceUnavail
 	return &GetUsersUserIDAcesServiceUnavailable{}
 }
 
-/*GetUsersUserIDAcesServiceUnavailable handles this case with default header values.
+/* GetUsersUserIDAcesServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type GetUsersUserIDAcesServiceUnavailable struct {
 func (o *GetUsersUserIDAcesServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/aces][%d] getUsersUserIdAcesServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *GetUsersUserIDAcesServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

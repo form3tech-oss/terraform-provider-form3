@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -83,6 +85,34 @@ func (m *CoPAssociationAttributes) validatePublicKeyID(formats strfmt.Registry) 
 
 	if err := validate.Required("public_key_id", "body", m.PublicKeyID); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this co p association attributes based on the context it is used
+func (m *CoPAssociationAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateMatchingCriteria(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CoPAssociationAttributes) contextValidateMatchingCriteria(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.MatchingCriteria != nil {
+		if err := m.MatchingCriteria.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("matching_criteria")
+			}
+			return err
+		}
 	}
 
 	return nil

@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -22,6 +24,7 @@ type SepactLiquidityAssociationAttributes struct {
 	Address SepactLiquidityAddress `json:"address"`
 
 	// Customer Name
+	// Example: Form3 Customer
 	// Required: true
 	// Min Length: 1
 	Name string `json:"name"`
@@ -34,6 +37,7 @@ type SepactLiquidityAssociationAttributes struct {
 	SettlementBic Bic8 `json:"settlement_bic"`
 
 	// Settlement IBAN
+	// Example: DE84503104000650097602
 	// Required: true
 	SettlementIban string `json:"settlement_iban"`
 }
@@ -82,11 +86,11 @@ func (m *SepactLiquidityAssociationAttributes) validateAddress(formats strfmt.Re
 
 func (m *SepactLiquidityAssociationAttributes) validateName(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("name", "body", string(m.Name)); err != nil {
+	if err := validate.RequiredString("name", "body", m.Name); err != nil {
 		return err
 	}
 
-	if err := validate.MinLength("name", "body", string(m.Name), 1); err != nil {
+	if err := validate.MinLength("name", "body", m.Name, 1); err != nil {
 		return err
 	}
 
@@ -94,7 +98,6 @@ func (m *SepactLiquidityAssociationAttributes) validateName(formats strfmt.Regis
 }
 
 func (m *SepactLiquidityAssociationAttributes) validateReachableBic(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ReachableBic) { // not required
 		return nil
 	}
@@ -111,6 +114,10 @@ func (m *SepactLiquidityAssociationAttributes) validateReachableBic(formats strf
 
 func (m *SepactLiquidityAssociationAttributes) validateSettlementBic(formats strfmt.Registry) error {
 
+	if err := validate.Required("settlement_bic", "body", Bic8(m.SettlementBic)); err != nil {
+		return err
+	}
+
 	if err := m.SettlementBic.Validate(formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("settlement_bic")
@@ -123,7 +130,65 @@ func (m *SepactLiquidityAssociationAttributes) validateSettlementBic(formats str
 
 func (m *SepactLiquidityAssociationAttributes) validateSettlementIban(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("settlement_iban", "body", string(m.SettlementIban)); err != nil {
+	if err := validate.RequiredString("settlement_iban", "body", m.SettlementIban); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this sepact liquidity association attributes based on the context it is used
+func (m *SepactLiquidityAssociationAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAddress(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateReachableBic(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSettlementBic(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *SepactLiquidityAssociationAttributes) contextValidateAddress(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Address.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("address")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *SepactLiquidityAssociationAttributes) contextValidateReachableBic(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.ReachableBic.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("reachable_bic")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *SepactLiquidityAssociationAttributes) contextValidateSettlementBic(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.SettlementBic.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("settlement_bic")
+		}
 		return err
 	}
 

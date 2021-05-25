@@ -77,9 +77,8 @@ func (o *DeleteGocardlessIDReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewDeleteGocardlessIDNoContent() *DeleteGocardlessIDNoContent {
 	return &DeleteGocardlessIDNoContent{}
 }
 
-/*DeleteGocardlessIDNoContent handles this case with default header values.
+/* DeleteGocardlessIDNoContent describes a response with status code 204, with default header values.
 
 association deleted successfully
 */
@@ -109,7 +108,7 @@ func NewDeleteGocardlessIDBadRequest() *DeleteGocardlessIDBadRequest {
 	return &DeleteGocardlessIDBadRequest{}
 }
 
-/*DeleteGocardlessIDBadRequest handles this case with default header values.
+/* DeleteGocardlessIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -120,7 +119,6 @@ type DeleteGocardlessIDBadRequest struct {
 func (o *DeleteGocardlessIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /gocardless/{id}][%d] deleteGocardlessIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *DeleteGocardlessIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -142,7 +140,7 @@ func NewDeleteGocardlessIDUnauthorized() *DeleteGocardlessIDUnauthorized {
 	return &DeleteGocardlessIDUnauthorized{}
 }
 
-/*DeleteGocardlessIDUnauthorized handles this case with default header values.
+/* DeleteGocardlessIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -153,7 +151,6 @@ type DeleteGocardlessIDUnauthorized struct {
 func (o *DeleteGocardlessIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /gocardless/{id}][%d] deleteGocardlessIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *DeleteGocardlessIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -175,7 +172,7 @@ func NewDeleteGocardlessIDForbidden() *DeleteGocardlessIDForbidden {
 	return &DeleteGocardlessIDForbidden{}
 }
 
-/*DeleteGocardlessIDForbidden handles this case with default header values.
+/* DeleteGocardlessIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -186,7 +183,6 @@ type DeleteGocardlessIDForbidden struct {
 func (o *DeleteGocardlessIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /gocardless/{id}][%d] deleteGocardlessIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *DeleteGocardlessIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -208,7 +204,7 @@ func NewDeleteGocardlessIDNotFound() *DeleteGocardlessIDNotFound {
 	return &DeleteGocardlessIDNotFound{}
 }
 
-/*DeleteGocardlessIDNotFound handles this case with default header values.
+/* DeleteGocardlessIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -219,7 +215,6 @@ type DeleteGocardlessIDNotFound struct {
 func (o *DeleteGocardlessIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /gocardless/{id}][%d] deleteGocardlessIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteGocardlessIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -241,7 +236,7 @@ func NewDeleteGocardlessIDConflict() *DeleteGocardlessIDConflict {
 	return &DeleteGocardlessIDConflict{}
 }
 
-/*DeleteGocardlessIDConflict handles this case with default header values.
+/* DeleteGocardlessIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -252,7 +247,6 @@ type DeleteGocardlessIDConflict struct {
 func (o *DeleteGocardlessIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /gocardless/{id}][%d] deleteGocardlessIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *DeleteGocardlessIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -274,7 +268,7 @@ func NewDeleteGocardlessIDTooManyRequests() *DeleteGocardlessIDTooManyRequests {
 	return &DeleteGocardlessIDTooManyRequests{}
 }
 
-/*DeleteGocardlessIDTooManyRequests handles this case with default header values.
+/* DeleteGocardlessIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -285,7 +279,6 @@ type DeleteGocardlessIDTooManyRequests struct {
 func (o *DeleteGocardlessIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /gocardless/{id}][%d] deleteGocardlessIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *DeleteGocardlessIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -307,7 +300,7 @@ func NewDeleteGocardlessIDInternalServerError() *DeleteGocardlessIDInternalServe
 	return &DeleteGocardlessIDInternalServerError{}
 }
 
-/*DeleteGocardlessIDInternalServerError handles this case with default header values.
+/* DeleteGocardlessIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -318,7 +311,6 @@ type DeleteGocardlessIDInternalServerError struct {
 func (o *DeleteGocardlessIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /gocardless/{id}][%d] deleteGocardlessIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *DeleteGocardlessIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -340,7 +332,7 @@ func NewDeleteGocardlessIDServiceUnavailable() *DeleteGocardlessIDServiceUnavail
 	return &DeleteGocardlessIDServiceUnavailable{}
 }
 
-/*DeleteGocardlessIDServiceUnavailable handles this case with default header values.
+/* DeleteGocardlessIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -351,7 +343,6 @@ type DeleteGocardlessIDServiceUnavailable struct {
 func (o *DeleteGocardlessIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /gocardless/{id}][%d] deleteGocardlessIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *DeleteGocardlessIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

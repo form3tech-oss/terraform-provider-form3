@@ -25,41 +25,44 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	DeleteAccountconfigurationsID(params *DeleteAccountconfigurationsIDParams) (*DeleteAccountconfigurationsIDNoContent, error)
+	DeleteAccountconfigurationsID(params *DeleteAccountconfigurationsIDParams, opts ...ClientOption) (*DeleteAccountconfigurationsIDNoContent, error)
 
-	DeleteAccountsID(params *DeleteAccountsIDParams) (*DeleteAccountsIDNoContent, error)
+	DeleteAccountsID(params *DeleteAccountsIDParams, opts ...ClientOption) (*DeleteAccountsIDNoContent, error)
 
-	DeleteBankidsID(params *DeleteBankidsIDParams) (*DeleteBankidsIDNoContent, error)
+	DeleteBankidsID(params *DeleteBankidsIDParams, opts ...ClientOption) (*DeleteBankidsIDNoContent, error)
 
-	DeleteBicsID(params *DeleteBicsIDParams) (*DeleteBicsIDNoContent, error)
+	DeleteBicsID(params *DeleteBicsIDParams, opts ...ClientOption) (*DeleteBicsIDNoContent, error)
 
-	GetAccountconfigurations(params *GetAccountconfigurationsParams) (*GetAccountconfigurationsOK, error)
+	GetAccountconfigurations(params *GetAccountconfigurationsParams, opts ...ClientOption) (*GetAccountconfigurationsOK, error)
 
-	GetAccountconfigurationsID(params *GetAccountconfigurationsIDParams) (*GetAccountconfigurationsIDOK, error)
+	GetAccountconfigurationsID(params *GetAccountconfigurationsIDParams, opts ...ClientOption) (*GetAccountconfigurationsIDOK, error)
 
-	GetAccounts(params *GetAccountsParams) (*GetAccountsOK, error)
+	GetAccounts(params *GetAccountsParams, opts ...ClientOption) (*GetAccountsOK, error)
 
-	GetAccountsID(params *GetAccountsIDParams) (*GetAccountsIDOK, error)
+	GetAccountsID(params *GetAccountsIDParams, opts ...ClientOption) (*GetAccountsIDOK, error)
 
-	GetBankids(params *GetBankidsParams) (*GetBankidsOK, error)
+	GetBankids(params *GetBankidsParams, opts ...ClientOption) (*GetBankidsOK, error)
 
-	GetBankidsID(params *GetBankidsIDParams) (*GetBankidsIDOK, error)
+	GetBankidsID(params *GetBankidsIDParams, opts ...ClientOption) (*GetBankidsIDOK, error)
 
-	GetBics(params *GetBicsParams) (*GetBicsOK, error)
+	GetBics(params *GetBicsParams, opts ...ClientOption) (*GetBicsOK, error)
 
-	GetBicsID(params *GetBicsIDParams) (*GetBicsIDOK, error)
+	GetBicsID(params *GetBicsIDParams, opts ...ClientOption) (*GetBicsIDOK, error)
 
-	PatchAccountconfigurationsID(params *PatchAccountconfigurationsIDParams) (*PatchAccountconfigurationsIDOK, error)
+	PatchAccountconfigurationsID(params *PatchAccountconfigurationsIDParams, opts ...ClientOption) (*PatchAccountconfigurationsIDOK, error)
 
-	PostAccountconfigurations(params *PostAccountconfigurationsParams) (*PostAccountconfigurationsCreated, error)
+	PostAccountconfigurations(params *PostAccountconfigurationsParams, opts ...ClientOption) (*PostAccountconfigurationsCreated, error)
 
-	PostAccounts(params *PostAccountsParams) (*PostAccountsCreated, error)
+	PostAccounts(params *PostAccountsParams, opts ...ClientOption) (*PostAccountsCreated, error)
 
-	PostBankids(params *PostBankidsParams) (*PostBankidsCreated, error)
+	PostBankids(params *PostBankidsParams, opts ...ClientOption) (*PostBankidsCreated, error)
 
-	PostBics(params *PostBicsParams) (*PostBicsCreated, error)
+	PostBics(params *PostBicsParams, opts ...ClientOption) (*PostBicsCreated, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -67,13 +70,12 @@ type ClientService interface {
 /*
   DeleteAccountconfigurationsID deletes config
 */
-func (a *Client) DeleteAccountconfigurationsID(params *DeleteAccountconfigurationsIDParams) (*DeleteAccountconfigurationsIDNoContent, error) {
+func (a *Client) DeleteAccountconfigurationsID(params *DeleteAccountconfigurationsIDParams, opts ...ClientOption) (*DeleteAccountconfigurationsIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteAccountconfigurationsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteAccountconfigurationsID",
 		Method:             "DELETE",
 		PathPattern:        "/accountconfigurations/{id}",
@@ -84,7 +86,12 @@ func (a *Client) DeleteAccountconfigurationsID(params *DeleteAccountconfiguratio
 		Reader:             &DeleteAccountconfigurationsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -101,13 +108,12 @@ func (a *Client) DeleteAccountconfigurationsID(params *DeleteAccountconfiguratio
 /*
   DeleteAccountsID deletes account
 */
-func (a *Client) DeleteAccountsID(params *DeleteAccountsIDParams) (*DeleteAccountsIDNoContent, error) {
+func (a *Client) DeleteAccountsID(params *DeleteAccountsIDParams, opts ...ClientOption) (*DeleteAccountsIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteAccountsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteAccountsID",
 		Method:             "DELETE",
 		PathPattern:        "/accounts/{id}",
@@ -118,7 +124,12 @@ func (a *Client) DeleteAccountsID(params *DeleteAccountsIDParams) (*DeleteAccoun
 		Reader:             &DeleteAccountsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -135,13 +146,12 @@ func (a *Client) DeleteAccountsID(params *DeleteAccountsIDParams) (*DeleteAccoun
 /*
   DeleteBankidsID deletes bank Id
 */
-func (a *Client) DeleteBankidsID(params *DeleteBankidsIDParams) (*DeleteBankidsIDNoContent, error) {
+func (a *Client) DeleteBankidsID(params *DeleteBankidsIDParams, opts ...ClientOption) (*DeleteBankidsIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteBankidsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteBankidsID",
 		Method:             "DELETE",
 		PathPattern:        "/bankids/{id}",
@@ -152,7 +162,12 @@ func (a *Client) DeleteBankidsID(params *DeleteBankidsIDParams) (*DeleteBankidsI
 		Reader:             &DeleteBankidsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -169,13 +184,12 @@ func (a *Client) DeleteBankidsID(params *DeleteBankidsIDParams) (*DeleteBankidsI
 /*
   DeleteBicsID deletes b i c
 */
-func (a *Client) DeleteBicsID(params *DeleteBicsIDParams) (*DeleteBicsIDNoContent, error) {
+func (a *Client) DeleteBicsID(params *DeleteBicsIDParams, opts ...ClientOption) (*DeleteBicsIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteBicsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteBicsID",
 		Method:             "DELETE",
 		PathPattern:        "/bics/{id}",
@@ -186,7 +200,12 @@ func (a *Client) DeleteBicsID(params *DeleteBicsIDParams) (*DeleteBicsIDNoConten
 		Reader:             &DeleteBicsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -203,13 +222,12 @@ func (a *Client) DeleteBicsID(params *DeleteBicsIDParams) (*DeleteBicsIDNoConten
 /*
   GetAccountconfigurations lists configurations
 */
-func (a *Client) GetAccountconfigurations(params *GetAccountconfigurationsParams) (*GetAccountconfigurationsOK, error) {
+func (a *Client) GetAccountconfigurations(params *GetAccountconfigurationsParams, opts ...ClientOption) (*GetAccountconfigurationsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetAccountconfigurationsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetAccountconfigurations",
 		Method:             "GET",
 		PathPattern:        "/accountconfigurations",
@@ -220,7 +238,12 @@ func (a *Client) GetAccountconfigurations(params *GetAccountconfigurationsParams
 		Reader:             &GetAccountconfigurationsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -237,13 +260,12 @@ func (a *Client) GetAccountconfigurations(params *GetAccountconfigurationsParams
 /*
   GetAccountconfigurationsID fetches account configuration
 */
-func (a *Client) GetAccountconfigurationsID(params *GetAccountconfigurationsIDParams) (*GetAccountconfigurationsIDOK, error) {
+func (a *Client) GetAccountconfigurationsID(params *GetAccountconfigurationsIDParams, opts ...ClientOption) (*GetAccountconfigurationsIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetAccountconfigurationsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetAccountconfigurationsID",
 		Method:             "GET",
 		PathPattern:        "/accountconfigurations/{id}",
@@ -254,7 +276,12 @@ func (a *Client) GetAccountconfigurationsID(params *GetAccountconfigurationsIDPa
 		Reader:             &GetAccountconfigurationsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -271,13 +298,12 @@ func (a *Client) GetAccountconfigurationsID(params *GetAccountconfigurationsIDPa
 /*
   GetAccounts lists accounts
 */
-func (a *Client) GetAccounts(params *GetAccountsParams) (*GetAccountsOK, error) {
+func (a *Client) GetAccounts(params *GetAccountsParams, opts ...ClientOption) (*GetAccountsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetAccountsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetAccounts",
 		Method:             "GET",
 		PathPattern:        "/accounts",
@@ -288,7 +314,12 @@ func (a *Client) GetAccounts(params *GetAccountsParams) (*GetAccountsOK, error) 
 		Reader:             &GetAccountsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -305,13 +336,12 @@ func (a *Client) GetAccounts(params *GetAccountsParams) (*GetAccountsOK, error) 
 /*
   GetAccountsID fetches account
 */
-func (a *Client) GetAccountsID(params *GetAccountsIDParams) (*GetAccountsIDOK, error) {
+func (a *Client) GetAccountsID(params *GetAccountsIDParams, opts ...ClientOption) (*GetAccountsIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetAccountsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetAccountsID",
 		Method:             "GET",
 		PathPattern:        "/accounts/{id}",
@@ -322,7 +352,12 @@ func (a *Client) GetAccountsID(params *GetAccountsIDParams) (*GetAccountsIDOK, e
 		Reader:             &GetAccountsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -339,13 +374,12 @@ func (a *Client) GetAccountsID(params *GetAccountsIDParams) (*GetAccountsIDOK, e
 /*
   GetBankids lists bank ids
 */
-func (a *Client) GetBankids(params *GetBankidsParams) (*GetBankidsOK, error) {
+func (a *Client) GetBankids(params *GetBankidsParams, opts ...ClientOption) (*GetBankidsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetBankidsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetBankids",
 		Method:             "GET",
 		PathPattern:        "/bankids",
@@ -356,7 +390,12 @@ func (a *Client) GetBankids(params *GetBankidsParams) (*GetBankidsOK, error) {
 		Reader:             &GetBankidsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -373,13 +412,12 @@ func (a *Client) GetBankids(params *GetBankidsParams) (*GetBankidsOK, error) {
 /*
   GetBankidsID fetches bank Id
 */
-func (a *Client) GetBankidsID(params *GetBankidsIDParams) (*GetBankidsIDOK, error) {
+func (a *Client) GetBankidsID(params *GetBankidsIDParams, opts ...ClientOption) (*GetBankidsIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetBankidsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetBankidsID",
 		Method:             "GET",
 		PathPattern:        "/bankids/{id}",
@@ -390,7 +428,12 @@ func (a *Client) GetBankidsID(params *GetBankidsIDParams) (*GetBankidsIDOK, erro
 		Reader:             &GetBankidsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -407,13 +450,12 @@ func (a *Client) GetBankidsID(params *GetBankidsIDParams) (*GetBankidsIDOK, erro
 /*
   GetBics lists bics
 */
-func (a *Client) GetBics(params *GetBicsParams) (*GetBicsOK, error) {
+func (a *Client) GetBics(params *GetBicsParams, opts ...ClientOption) (*GetBicsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetBicsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetBics",
 		Method:             "GET",
 		PathPattern:        "/bics",
@@ -424,7 +466,12 @@ func (a *Client) GetBics(params *GetBicsParams) (*GetBicsOK, error) {
 		Reader:             &GetBicsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -441,13 +488,12 @@ func (a *Client) GetBics(params *GetBicsParams) (*GetBicsOK, error) {
 /*
   GetBicsID fetches bic
 */
-func (a *Client) GetBicsID(params *GetBicsIDParams) (*GetBicsIDOK, error) {
+func (a *Client) GetBicsID(params *GetBicsIDParams, opts ...ClientOption) (*GetBicsIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetBicsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetBicsID",
 		Method:             "GET",
 		PathPattern:        "/bics/{id}",
@@ -458,7 +504,12 @@ func (a *Client) GetBicsID(params *GetBicsIDParams) (*GetBicsIDOK, error) {
 		Reader:             &GetBicsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -475,13 +526,12 @@ func (a *Client) GetBicsID(params *GetBicsIDParams) (*GetBicsIDOK, error) {
 /*
   PatchAccountconfigurationsID amends config
 */
-func (a *Client) PatchAccountconfigurationsID(params *PatchAccountconfigurationsIDParams) (*PatchAccountconfigurationsIDOK, error) {
+func (a *Client) PatchAccountconfigurationsID(params *PatchAccountconfigurationsIDParams, opts ...ClientOption) (*PatchAccountconfigurationsIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPatchAccountconfigurationsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PatchAccountconfigurationsID",
 		Method:             "PATCH",
 		PathPattern:        "/accountconfigurations/{id}",
@@ -492,7 +542,12 @@ func (a *Client) PatchAccountconfigurationsID(params *PatchAccountconfigurations
 		Reader:             &PatchAccountconfigurationsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -509,13 +564,12 @@ func (a *Client) PatchAccountconfigurationsID(params *PatchAccountconfigurations
 /*
   PostAccountconfigurations creates configuration
 */
-func (a *Client) PostAccountconfigurations(params *PostAccountconfigurationsParams) (*PostAccountconfigurationsCreated, error) {
+func (a *Client) PostAccountconfigurations(params *PostAccountconfigurationsParams, opts ...ClientOption) (*PostAccountconfigurationsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostAccountconfigurationsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostAccountconfigurations",
 		Method:             "POST",
 		PathPattern:        "/accountconfigurations",
@@ -526,7 +580,12 @@ func (a *Client) PostAccountconfigurations(params *PostAccountconfigurationsPara
 		Reader:             &PostAccountconfigurationsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -543,13 +602,12 @@ func (a *Client) PostAccountconfigurations(params *PostAccountconfigurationsPara
 /*
   PostAccounts creates account
 */
-func (a *Client) PostAccounts(params *PostAccountsParams) (*PostAccountsCreated, error) {
+func (a *Client) PostAccounts(params *PostAccountsParams, opts ...ClientOption) (*PostAccountsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostAccountsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostAccounts",
 		Method:             "POST",
 		PathPattern:        "/accounts",
@@ -560,7 +618,12 @@ func (a *Client) PostAccounts(params *PostAccountsParams) (*PostAccountsCreated,
 		Reader:             &PostAccountsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -577,13 +640,12 @@ func (a *Client) PostAccounts(params *PostAccountsParams) (*PostAccountsCreated,
 /*
   PostBankids creates bank id
 */
-func (a *Client) PostBankids(params *PostBankidsParams) (*PostBankidsCreated, error) {
+func (a *Client) PostBankids(params *PostBankidsParams, opts ...ClientOption) (*PostBankidsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostBankidsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostBankids",
 		Method:             "POST",
 		PathPattern:        "/bankids",
@@ -594,7 +656,12 @@ func (a *Client) PostBankids(params *PostBankidsParams) (*PostBankidsCreated, er
 		Reader:             &PostBankidsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -611,13 +678,12 @@ func (a *Client) PostBankids(params *PostBankidsParams) (*PostBankidsCreated, er
 /*
   PostBics creates b i c
 */
-func (a *Client) PostBics(params *PostBicsParams) (*PostBicsCreated, error) {
+func (a *Client) PostBics(params *PostBicsParams, opts ...ClientOption) (*PostBicsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostBicsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostBics",
 		Method:             "POST",
 		PathPattern:        "/bics",
@@ -628,7 +694,12 @@ func (a *Client) PostBics(params *PostBicsParams) (*PostBicsCreated, error) {
 		Reader:             &PostBicsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

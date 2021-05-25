@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -40,7 +41,6 @@ func (m *AccountConfigurationAttributes) Validate(formats strfmt.Registry) error
 }
 
 func (m *AccountConfigurationAttributes) validateAccountGenerationConfiguration(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.AccountGenerationConfiguration) { // not required
 		return nil
 	}
@@ -52,6 +52,38 @@ func (m *AccountConfigurationAttributes) validateAccountGenerationConfiguration(
 
 		if m.AccountGenerationConfiguration[i] != nil {
 			if err := m.AccountGenerationConfiguration[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("account_generation_configuration" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this account configuration attributes based on the context it is used
+func (m *AccountConfigurationAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAccountGenerationConfiguration(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *AccountConfigurationAttributes) contextValidateAccountGenerationConfiguration(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.AccountGenerationConfiguration); i++ {
+
+		if m.AccountGenerationConfiguration[i] != nil {
+			if err := m.AccountGenerationConfiguration[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("account_generation_configuration" + "." + strconv.Itoa(i))
 				}

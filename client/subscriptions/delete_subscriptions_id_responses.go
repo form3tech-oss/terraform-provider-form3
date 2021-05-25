@@ -77,9 +77,8 @@ func (o *DeleteSubscriptionsIDReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewDeleteSubscriptionsIDNoContent() *DeleteSubscriptionsIDNoContent {
 	return &DeleteSubscriptionsIDNoContent{}
 }
 
-/*DeleteSubscriptionsIDNoContent handles this case with default header values.
+/* DeleteSubscriptionsIDNoContent describes a response with status code 204, with default header values.
 
 Subscription deleted OK. No body content will be returned
 */
@@ -109,7 +108,7 @@ func NewDeleteSubscriptionsIDBadRequest() *DeleteSubscriptionsIDBadRequest {
 	return &DeleteSubscriptionsIDBadRequest{}
 }
 
-/*DeleteSubscriptionsIDBadRequest handles this case with default header values.
+/* DeleteSubscriptionsIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -120,7 +119,6 @@ type DeleteSubscriptionsIDBadRequest struct {
 func (o *DeleteSubscriptionsIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /subscriptions/{id}][%d] deleteSubscriptionsIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *DeleteSubscriptionsIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -142,7 +140,7 @@ func NewDeleteSubscriptionsIDUnauthorized() *DeleteSubscriptionsIDUnauthorized {
 	return &DeleteSubscriptionsIDUnauthorized{}
 }
 
-/*DeleteSubscriptionsIDUnauthorized handles this case with default header values.
+/* DeleteSubscriptionsIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -153,7 +151,6 @@ type DeleteSubscriptionsIDUnauthorized struct {
 func (o *DeleteSubscriptionsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /subscriptions/{id}][%d] deleteSubscriptionsIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *DeleteSubscriptionsIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -175,7 +172,7 @@ func NewDeleteSubscriptionsIDForbidden() *DeleteSubscriptionsIDForbidden {
 	return &DeleteSubscriptionsIDForbidden{}
 }
 
-/*DeleteSubscriptionsIDForbidden handles this case with default header values.
+/* DeleteSubscriptionsIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -186,7 +183,6 @@ type DeleteSubscriptionsIDForbidden struct {
 func (o *DeleteSubscriptionsIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /subscriptions/{id}][%d] deleteSubscriptionsIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *DeleteSubscriptionsIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -208,7 +204,7 @@ func NewDeleteSubscriptionsIDNotFound() *DeleteSubscriptionsIDNotFound {
 	return &DeleteSubscriptionsIDNotFound{}
 }
 
-/*DeleteSubscriptionsIDNotFound handles this case with default header values.
+/* DeleteSubscriptionsIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -219,7 +215,6 @@ type DeleteSubscriptionsIDNotFound struct {
 func (o *DeleteSubscriptionsIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /subscriptions/{id}][%d] deleteSubscriptionsIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteSubscriptionsIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -241,7 +236,7 @@ func NewDeleteSubscriptionsIDConflict() *DeleteSubscriptionsIDConflict {
 	return &DeleteSubscriptionsIDConflict{}
 }
 
-/*DeleteSubscriptionsIDConflict handles this case with default header values.
+/* DeleteSubscriptionsIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -252,7 +247,6 @@ type DeleteSubscriptionsIDConflict struct {
 func (o *DeleteSubscriptionsIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /subscriptions/{id}][%d] deleteSubscriptionsIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *DeleteSubscriptionsIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -274,7 +268,7 @@ func NewDeleteSubscriptionsIDTooManyRequests() *DeleteSubscriptionsIDTooManyRequ
 	return &DeleteSubscriptionsIDTooManyRequests{}
 }
 
-/*DeleteSubscriptionsIDTooManyRequests handles this case with default header values.
+/* DeleteSubscriptionsIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -285,7 +279,6 @@ type DeleteSubscriptionsIDTooManyRequests struct {
 func (o *DeleteSubscriptionsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /subscriptions/{id}][%d] deleteSubscriptionsIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *DeleteSubscriptionsIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -307,7 +300,7 @@ func NewDeleteSubscriptionsIDInternalServerError() *DeleteSubscriptionsIDInterna
 	return &DeleteSubscriptionsIDInternalServerError{}
 }
 
-/*DeleteSubscriptionsIDInternalServerError handles this case with default header values.
+/* DeleteSubscriptionsIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -318,7 +311,6 @@ type DeleteSubscriptionsIDInternalServerError struct {
 func (o *DeleteSubscriptionsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /subscriptions/{id}][%d] deleteSubscriptionsIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *DeleteSubscriptionsIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -340,7 +332,7 @@ func NewDeleteSubscriptionsIDServiceUnavailable() *DeleteSubscriptionsIDServiceU
 	return &DeleteSubscriptionsIDServiceUnavailable{}
 }
 
-/*DeleteSubscriptionsIDServiceUnavailable handles this case with default header values.
+/* DeleteSubscriptionsIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -351,7 +343,6 @@ type DeleteSubscriptionsIDServiceUnavailable struct {
 func (o *DeleteSubscriptionsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /subscriptions/{id}][%d] deleteSubscriptionsIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *DeleteSubscriptionsIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

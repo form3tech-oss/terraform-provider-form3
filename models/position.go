@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -109,7 +111,6 @@ func (m *Position) validateID(formats strfmt.Registry) error {
 }
 
 func (m *Position) validateLinks(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Links) { // not required
 		return nil
 	}
@@ -140,12 +141,11 @@ func (m *Position) validateOrganisationID(formats strfmt.Registry) error {
 }
 
 func (m *Position) validateType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("type", "body", string(m.Type), `^[A-Za-z_]*$`); err != nil {
+	if err := validate.Pattern("type", "body", m.Type, `^[A-Za-z_]*$`); err != nil {
 		return err
 	}
 
@@ -153,13 +153,58 @@ func (m *Position) validateType(formats strfmt.Registry) error {
 }
 
 func (m *Position) validateVersion(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Version) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
+	if err := validate.MinimumInt("version", "body", *m.Version, 0, false); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this position based on the context it is used
+func (m *Position) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAttributes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateLinks(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Position) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Attributes != nil {
+		if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("attributes")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Position) contextValidateLinks(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Links != nil {
+		if err := m.Links.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("links")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -224,12 +269,11 @@ func (m *PositionAttributes) Validate(formats strfmt.Registry) error {
 }
 
 func (m *PositionAttributes) validateLimit(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Limit) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("attributes"+"."+"limit", "body", string(m.Limit), `^[0-9.]{0,20}$`); err != nil {
+	if err := validate.Pattern("attributes"+"."+"limit", "body", m.Limit, `^[0-9.]{0,20}$`); err != nil {
 		return err
 	}
 
@@ -237,12 +281,11 @@ func (m *PositionAttributes) validateLimit(formats strfmt.Registry) error {
 }
 
 func (m *PositionAttributes) validatePosition(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Position) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("attributes"+"."+"position", "body", string(m.Position), `^[0-9.]{0,20}$`); err != nil {
+	if err := validate.Pattern("attributes"+"."+"position", "body", m.Position, `^[0-9.]{0,20}$`); err != nil {
 		return err
 	}
 
@@ -250,15 +293,19 @@ func (m *PositionAttributes) validatePosition(formats strfmt.Registry) error {
 }
 
 func (m *PositionAttributes) validateScheme(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Scheme) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("attributes"+"."+"scheme", "body", string(m.Scheme), `^[A-Za-z_\-]*$`); err != nil {
+	if err := validate.Pattern("attributes"+"."+"scheme", "body", m.Scheme, `^[A-Za-z_\-]*$`); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this position attributes based on context it is used
+func (m *PositionAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -105,7 +106,6 @@ func (m *LhvAgencySynchronisation) validateAttributes(formats strfmt.Registry) e
 }
 
 func (m *LhvAgencySynchronisation) validateCreatedOn(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CreatedOn) { // not required
 		return nil
 	}
@@ -131,7 +131,6 @@ func (m *LhvAgencySynchronisation) validateID(formats strfmt.Registry) error {
 }
 
 func (m *LhvAgencySynchronisation) validateModifiedOn(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ModifiedOn) { // not required
 		return nil
 	}
@@ -176,7 +175,7 @@ const (
 
 // prop value enum
 func (m *LhvAgencySynchronisation) validateTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, lhvAgencySynchronisationTypeTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, lhvAgencySynchronisationTypeTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil
@@ -184,7 +183,7 @@ func (m *LhvAgencySynchronisation) validateTypeEnum(path, location string, value
 
 func (m *LhvAgencySynchronisation) validateType(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("type", "body", string(m.Type)); err != nil {
+	if err := validate.RequiredString("type", "body", m.Type); err != nil {
 		return err
 	}
 
@@ -202,7 +201,59 @@ func (m *LhvAgencySynchronisation) validateVersion(formats strfmt.Registry) erro
 		return err
 	}
 
-	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
+	if err := validate.MinimumInt("version", "body", *m.Version, 0, false); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this lhv agency synchronisation based on the context it is used
+func (m *LhvAgencySynchronisation) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAttributes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCreatedOn(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateModifiedOn(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *LhvAgencySynchronisation) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("attributes")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *LhvAgencySynchronisation) contextValidateCreatedOn(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "created_on", "body", strfmt.DateTime(m.CreatedOn)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *LhvAgencySynchronisation) contextValidateModifiedOn(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "modified_on", "body", strfmt.DateTime(m.ModifiedOn)); err != nil {
 		return err
 	}
 

@@ -77,9 +77,8 @@ func (o *DeleteStarlingIDReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewDeleteStarlingIDNoContent() *DeleteStarlingIDNoContent {
 	return &DeleteStarlingIDNoContent{}
 }
 
-/*DeleteStarlingIDNoContent handles this case with default header values.
+/* DeleteStarlingIDNoContent describes a response with status code 204, with default header values.
 
 Association deleted
 */
@@ -109,7 +108,7 @@ func NewDeleteStarlingIDBadRequest() *DeleteStarlingIDBadRequest {
 	return &DeleteStarlingIDBadRequest{}
 }
 
-/*DeleteStarlingIDBadRequest handles this case with default header values.
+/* DeleteStarlingIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -120,7 +119,6 @@ type DeleteStarlingIDBadRequest struct {
 func (o *DeleteStarlingIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /starling/{id}][%d] deleteStarlingIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *DeleteStarlingIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -142,7 +140,7 @@ func NewDeleteStarlingIDUnauthorized() *DeleteStarlingIDUnauthorized {
 	return &DeleteStarlingIDUnauthorized{}
 }
 
-/*DeleteStarlingIDUnauthorized handles this case with default header values.
+/* DeleteStarlingIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -153,7 +151,6 @@ type DeleteStarlingIDUnauthorized struct {
 func (o *DeleteStarlingIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /starling/{id}][%d] deleteStarlingIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *DeleteStarlingIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -175,7 +172,7 @@ func NewDeleteStarlingIDForbidden() *DeleteStarlingIDForbidden {
 	return &DeleteStarlingIDForbidden{}
 }
 
-/*DeleteStarlingIDForbidden handles this case with default header values.
+/* DeleteStarlingIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -186,7 +183,6 @@ type DeleteStarlingIDForbidden struct {
 func (o *DeleteStarlingIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /starling/{id}][%d] deleteStarlingIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *DeleteStarlingIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -208,7 +204,7 @@ func NewDeleteStarlingIDNotFound() *DeleteStarlingIDNotFound {
 	return &DeleteStarlingIDNotFound{}
 }
 
-/*DeleteStarlingIDNotFound handles this case with default header values.
+/* DeleteStarlingIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -219,7 +215,6 @@ type DeleteStarlingIDNotFound struct {
 func (o *DeleteStarlingIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /starling/{id}][%d] deleteStarlingIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteStarlingIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -241,7 +236,7 @@ func NewDeleteStarlingIDConflict() *DeleteStarlingIDConflict {
 	return &DeleteStarlingIDConflict{}
 }
 
-/*DeleteStarlingIDConflict handles this case with default header values.
+/* DeleteStarlingIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -252,7 +247,6 @@ type DeleteStarlingIDConflict struct {
 func (o *DeleteStarlingIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /starling/{id}][%d] deleteStarlingIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *DeleteStarlingIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -274,7 +268,7 @@ func NewDeleteStarlingIDTooManyRequests() *DeleteStarlingIDTooManyRequests {
 	return &DeleteStarlingIDTooManyRequests{}
 }
 
-/*DeleteStarlingIDTooManyRequests handles this case with default header values.
+/* DeleteStarlingIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -285,7 +279,6 @@ type DeleteStarlingIDTooManyRequests struct {
 func (o *DeleteStarlingIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /starling/{id}][%d] deleteStarlingIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *DeleteStarlingIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -307,7 +300,7 @@ func NewDeleteStarlingIDInternalServerError() *DeleteStarlingIDInternalServerErr
 	return &DeleteStarlingIDInternalServerError{}
 }
 
-/*DeleteStarlingIDInternalServerError handles this case with default header values.
+/* DeleteStarlingIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -318,7 +311,6 @@ type DeleteStarlingIDInternalServerError struct {
 func (o *DeleteStarlingIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /starling/{id}][%d] deleteStarlingIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *DeleteStarlingIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -340,7 +332,7 @@ func NewDeleteStarlingIDServiceUnavailable() *DeleteStarlingIDServiceUnavailable
 	return &DeleteStarlingIDServiceUnavailable{}
 }
 
-/*DeleteStarlingIDServiceUnavailable handles this case with default header values.
+/* DeleteStarlingIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -351,7 +343,6 @@ type DeleteStarlingIDServiceUnavailable struct {
 func (o *DeleteStarlingIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /starling/{id}][%d] deleteStarlingIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *DeleteStarlingIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

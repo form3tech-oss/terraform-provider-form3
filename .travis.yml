@@ -1,7 +1,7 @@
 dist: focal
 language: go
 go:
-- 1.14.x
+- 1.16.x
 script:
 - go run scripts/travis-wait.go make
 after_success:

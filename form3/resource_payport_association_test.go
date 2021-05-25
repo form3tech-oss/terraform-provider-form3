@@ -11,8 +11,8 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
 	"github.com/go-openapi/strfmt"
 	"github.com/google/uuid"
-	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
-	"github.com/hashicorp/terraform-plugin-sdk/terraform"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 )
 
 func TestAccPayportAssociation_basic_non_settling(t *testing.T) {
@@ -180,7 +180,7 @@ func getTestForm3PayportAssociationConfigNonSettling(orgID, parOrgID, orgName, p
 		parent_organisation_id = "%s"
 		name 		               = "%s"
 	}
-	
+
 	resource "form3_payport_association" "association" {
 		organisation_id                  = "${form3_organisation.organisation.organisation_id}"
 		payport_association_id           = "%s"
@@ -199,7 +199,7 @@ func getTestForm3PayportAssociationConfigSettling(orgID, parOrgID, orgName, paya
 		parent_organisation_id = "%s"
 		name 		               = "%s"
 	}
-	
+
 	resource "form3_payport_association" "association" {
 		organisation_id                  = "${form3_organisation.organisation.organisation_id}"
 		payport_association_id           = "%s"

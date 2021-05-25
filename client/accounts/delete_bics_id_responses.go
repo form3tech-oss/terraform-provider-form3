@@ -77,9 +77,8 @@ func (o *DeleteBicsIDReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewDeleteBicsIDNoContent() *DeleteBicsIDNoContent {
 	return &DeleteBicsIDNoContent{}
 }
 
-/*DeleteBicsIDNoContent handles this case with default header values.
+/* DeleteBicsIDNoContent describes a response with status code 204, with default header values.
 
 Bic deleted
 */
@@ -109,7 +108,7 @@ func NewDeleteBicsIDBadRequest() *DeleteBicsIDBadRequest {
 	return &DeleteBicsIDBadRequest{}
 }
 
-/*DeleteBicsIDBadRequest handles this case with default header values.
+/* DeleteBicsIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -120,7 +119,6 @@ type DeleteBicsIDBadRequest struct {
 func (o *DeleteBicsIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /bics/{id}][%d] deleteBicsIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *DeleteBicsIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -142,7 +140,7 @@ func NewDeleteBicsIDUnauthorized() *DeleteBicsIDUnauthorized {
 	return &DeleteBicsIDUnauthorized{}
 }
 
-/*DeleteBicsIDUnauthorized handles this case with default header values.
+/* DeleteBicsIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -153,7 +151,6 @@ type DeleteBicsIDUnauthorized struct {
 func (o *DeleteBicsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /bics/{id}][%d] deleteBicsIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *DeleteBicsIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -175,7 +172,7 @@ func NewDeleteBicsIDForbidden() *DeleteBicsIDForbidden {
 	return &DeleteBicsIDForbidden{}
 }
 
-/*DeleteBicsIDForbidden handles this case with default header values.
+/* DeleteBicsIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -186,7 +183,6 @@ type DeleteBicsIDForbidden struct {
 func (o *DeleteBicsIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /bics/{id}][%d] deleteBicsIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *DeleteBicsIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -208,7 +204,7 @@ func NewDeleteBicsIDNotFound() *DeleteBicsIDNotFound {
 	return &DeleteBicsIDNotFound{}
 }
 
-/*DeleteBicsIDNotFound handles this case with default header values.
+/* DeleteBicsIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -219,7 +215,6 @@ type DeleteBicsIDNotFound struct {
 func (o *DeleteBicsIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /bics/{id}][%d] deleteBicsIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteBicsIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -241,7 +236,7 @@ func NewDeleteBicsIDConflict() *DeleteBicsIDConflict {
 	return &DeleteBicsIDConflict{}
 }
 
-/*DeleteBicsIDConflict handles this case with default header values.
+/* DeleteBicsIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -252,7 +247,6 @@ type DeleteBicsIDConflict struct {
 func (o *DeleteBicsIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /bics/{id}][%d] deleteBicsIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *DeleteBicsIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -274,7 +268,7 @@ func NewDeleteBicsIDTooManyRequests() *DeleteBicsIDTooManyRequests {
 	return &DeleteBicsIDTooManyRequests{}
 }
 
-/*DeleteBicsIDTooManyRequests handles this case with default header values.
+/* DeleteBicsIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -285,7 +279,6 @@ type DeleteBicsIDTooManyRequests struct {
 func (o *DeleteBicsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /bics/{id}][%d] deleteBicsIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *DeleteBicsIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -307,7 +300,7 @@ func NewDeleteBicsIDInternalServerError() *DeleteBicsIDInternalServerError {
 	return &DeleteBicsIDInternalServerError{}
 }
 
-/*DeleteBicsIDInternalServerError handles this case with default header values.
+/* DeleteBicsIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -318,7 +311,6 @@ type DeleteBicsIDInternalServerError struct {
 func (o *DeleteBicsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /bics/{id}][%d] deleteBicsIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *DeleteBicsIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -340,7 +332,7 @@ func NewDeleteBicsIDServiceUnavailable() *DeleteBicsIDServiceUnavailable {
 	return &DeleteBicsIDServiceUnavailable{}
 }
 
-/*DeleteBicsIDServiceUnavailable handles this case with default header values.
+/* DeleteBicsIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -351,7 +343,6 @@ type DeleteBicsIDServiceUnavailable struct {
 func (o *DeleteBicsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /bics/{id}][%d] deleteBicsIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *DeleteBicsIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

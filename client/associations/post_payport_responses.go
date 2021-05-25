@@ -77,9 +77,8 @@ func (o *PostPayportReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewPostPayportCreated() *PostPayportCreated {
 	return &PostPayportCreated{}
 }
 
-/*PostPayportCreated handles this case with default header values.
+/* PostPayportCreated describes a response with status code 201, with default header values.
 
 creation response
 */
@@ -99,7 +98,6 @@ type PostPayportCreated struct {
 func (o *PostPayportCreated) Error() string {
 	return fmt.Sprintf("[POST /payport][%d] postPayportCreated  %+v", 201, o.Payload)
 }
-
 func (o *PostPayportCreated) GetPayload() *models.PayportAssociationCreationResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewPostPayportBadRequest() *PostPayportBadRequest {
 	return &PostPayportBadRequest{}
 }
 
-/*PostPayportBadRequest handles this case with default header values.
+/* PostPayportBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type PostPayportBadRequest struct {
 func (o *PostPayportBadRequest) Error() string {
 	return fmt.Sprintf("[POST /payport][%d] postPayportBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *PostPayportBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewPostPayportUnauthorized() *PostPayportUnauthorized {
 	return &PostPayportUnauthorized{}
 }
 
-/*PostPayportUnauthorized handles this case with default header values.
+/* PostPayportUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type PostPayportUnauthorized struct {
 func (o *PostPayportUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /payport][%d] postPayportUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *PostPayportUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewPostPayportForbidden() *PostPayportForbidden {
 	return &PostPayportForbidden{}
 }
 
-/*PostPayportForbidden handles this case with default header values.
+/* PostPayportForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type PostPayportForbidden struct {
 func (o *PostPayportForbidden) Error() string {
 	return fmt.Sprintf("[POST /payport][%d] postPayportForbidden  %+v", 403, o.Payload)
 }
-
 func (o *PostPayportForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewPostPayportNotFound() *PostPayportNotFound {
 	return &PostPayportNotFound{}
 }
 
-/*PostPayportNotFound handles this case with default header values.
+/* PostPayportNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type PostPayportNotFound struct {
 func (o *PostPayportNotFound) Error() string {
 	return fmt.Sprintf("[POST /payport][%d] postPayportNotFound  %+v", 404, o.Payload)
 }
-
 func (o *PostPayportNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewPostPayportConflict() *PostPayportConflict {
 	return &PostPayportConflict{}
 }
 
-/*PostPayportConflict handles this case with default header values.
+/* PostPayportConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type PostPayportConflict struct {
 func (o *PostPayportConflict) Error() string {
 	return fmt.Sprintf("[POST /payport][%d] postPayportConflict  %+v", 409, o.Payload)
 }
-
 func (o *PostPayportConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewPostPayportTooManyRequests() *PostPayportTooManyRequests {
 	return &PostPayportTooManyRequests{}
 }
 
-/*PostPayportTooManyRequests handles this case with default header values.
+/* PostPayportTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type PostPayportTooManyRequests struct {
 func (o *PostPayportTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /payport][%d] postPayportTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *PostPayportTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewPostPayportInternalServerError() *PostPayportInternalServerError {
 	return &PostPayportInternalServerError{}
 }
 
-/*PostPayportInternalServerError handles this case with default header values.
+/* PostPayportInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type PostPayportInternalServerError struct {
 func (o *PostPayportInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /payport][%d] postPayportInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *PostPayportInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewPostPayportServiceUnavailable() *PostPayportServiceUnavailable {
 	return &PostPayportServiceUnavailable{}
 }
 
-/*PostPayportServiceUnavailable handles this case with default header values.
+/* PostPayportServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type PostPayportServiceUnavailable struct {
 func (o *PostPayportServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /payport][%d] postPayportServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *PostPayportServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

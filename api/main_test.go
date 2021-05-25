@@ -99,7 +99,7 @@ func deleteOrganisation() error {
 		return err
 	}
 
-	log.Printf("[INFO] Sucessfuly deleted test organisation %v", testOrganisationId)
+	log.Printf("[INFO] Successfuly deleted test organisation %v", testOrganisationId)
 
 	return nil
 }
@@ -118,12 +118,16 @@ func ensureAuthenticated() error {
 }
 
 func assertNoErrorOccurred(t *testing.T, err error) {
+	t.Helper()
+
 	if err != nil {
 		t.Fatalf(JsonErrorPrettyPrint(err))
 	}
 }
 
 func assertStatusCode(t *testing.T, err error, code int) {
+	t.Helper()
+
 	if err == nil {
 		t.Fatal("No error, expected an api error")
 	}

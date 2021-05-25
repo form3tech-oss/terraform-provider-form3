@@ -18,56 +18,70 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPostVocalinkreportParams creates a new PostVocalinkreportParams object
-// with the default values initialized.
+// NewPostVocalinkreportParams creates a new PostVocalinkreportParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostVocalinkreportParams() *PostVocalinkreportParams {
-	var ()
 	return &PostVocalinkreportParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostVocalinkreportParamsWithTimeout creates a new PostVocalinkreportParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostVocalinkreportParamsWithTimeout(timeout time.Duration) *PostVocalinkreportParams {
-	var ()
 	return &PostVocalinkreportParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostVocalinkreportParamsWithContext creates a new PostVocalinkreportParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostVocalinkreportParamsWithContext(ctx context.Context) *PostVocalinkreportParams {
-	var ()
 	return &PostVocalinkreportParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostVocalinkreportParamsWithHTTPClient creates a new PostVocalinkreportParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostVocalinkreportParamsWithHTTPClient(client *http.Client) *PostVocalinkreportParams {
-	var ()
 	return &PostVocalinkreportParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostVocalinkreportParams contains all the parameters to send to the API endpoint
-for the post vocalinkreport operation typically these are written to a http.Request
+/* PostVocalinkreportParams contains all the parameters to send to the API endpoint
+   for the post vocalinkreport operation.
+
+   Typically these are written to a http.Request.
 */
 type PostVocalinkreportParams struct {
 
-	/*CreationRequest*/
+	// CreationRequest.
 	CreationRequest *models.VocalinkReportAssociationCreation
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post vocalinkreport params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostVocalinkreportParams) WithDefaults() *PostVocalinkreportParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post vocalinkreport params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostVocalinkreportParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post vocalinkreport params
@@ -121,7 +135,6 @@ func (o *PostVocalinkreportParams) WriteToRequest(r runtime.ClientRequest, reg s
 		return err
 	}
 	var res []error
-
 	if o.CreationRequest != nil {
 		if err := r.SetBodyParam(o.CreationRequest); err != nil {
 			return err

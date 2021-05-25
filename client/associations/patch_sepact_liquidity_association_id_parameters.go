@@ -18,61 +18,78 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPatchSepactLiquidityAssociationIDParams creates a new PatchSepactLiquidityAssociationIDParams object
-// with the default values initialized.
+// NewPatchSepactLiquidityAssociationIDParams creates a new PatchSepactLiquidityAssociationIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPatchSepactLiquidityAssociationIDParams() *PatchSepactLiquidityAssociationIDParams {
-	var ()
 	return &PatchSepactLiquidityAssociationIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPatchSepactLiquidityAssociationIDParamsWithTimeout creates a new PatchSepactLiquidityAssociationIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPatchSepactLiquidityAssociationIDParamsWithTimeout(timeout time.Duration) *PatchSepactLiquidityAssociationIDParams {
-	var ()
 	return &PatchSepactLiquidityAssociationIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPatchSepactLiquidityAssociationIDParamsWithContext creates a new PatchSepactLiquidityAssociationIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPatchSepactLiquidityAssociationIDParamsWithContext(ctx context.Context) *PatchSepactLiquidityAssociationIDParams {
-	var ()
 	return &PatchSepactLiquidityAssociationIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPatchSepactLiquidityAssociationIDParamsWithHTTPClient creates a new PatchSepactLiquidityAssociationIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPatchSepactLiquidityAssociationIDParamsWithHTTPClient(client *http.Client) *PatchSepactLiquidityAssociationIDParams {
-	var ()
 	return &PatchSepactLiquidityAssociationIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*PatchSepactLiquidityAssociationIDParams contains all the parameters to send to the API endpoint
-for the patch sepact liquidity association ID operation typically these are written to a http.Request
+/* PatchSepactLiquidityAssociationIDParams contains all the parameters to send to the API endpoint
+   for the patch sepact liquidity association ID operation.
+
+   Typically these are written to a http.Request.
 */
 type PatchSepactLiquidityAssociationIDParams struct {
 
-	/*AssociationID
-	  Association Id
+	/* AssociationID.
 
+	   Association Id
+
+	   Format: uuid
 	*/
 	AssociationID strfmt.UUID
-	/*UpdateRequest*/
+
+	// UpdateRequest.
 	UpdateRequest *models.SepactLiquidityAssociationUpdate
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the patch sepact liquidity association ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PatchSepactLiquidityAssociationIDParams) WithDefaults() *PatchSepactLiquidityAssociationIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the patch sepact liquidity association ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PatchSepactLiquidityAssociationIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the patch sepact liquidity association ID params
@@ -142,7 +159,6 @@ func (o *PatchSepactLiquidityAssociationIDParams) WriteToRequest(r runtime.Clien
 	if err := r.SetPathParam("associationId", o.AssociationID.String()); err != nil {
 		return err
 	}
-
 	if o.UpdateRequest != nil {
 		if err := r.SetBodyParam(o.UpdateRequest); err != nil {
 			return err

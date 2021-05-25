@@ -18,61 +18,78 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPatchUsersUserIDParams creates a new PatchUsersUserIDParams object
-// with the default values initialized.
+// NewPatchUsersUserIDParams creates a new PatchUsersUserIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPatchUsersUserIDParams() *PatchUsersUserIDParams {
-	var ()
 	return &PatchUsersUserIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPatchUsersUserIDParamsWithTimeout creates a new PatchUsersUserIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPatchUsersUserIDParamsWithTimeout(timeout time.Duration) *PatchUsersUserIDParams {
-	var ()
 	return &PatchUsersUserIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPatchUsersUserIDParamsWithContext creates a new PatchUsersUserIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPatchUsersUserIDParamsWithContext(ctx context.Context) *PatchUsersUserIDParams {
-	var ()
 	return &PatchUsersUserIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPatchUsersUserIDParamsWithHTTPClient creates a new PatchUsersUserIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPatchUsersUserIDParamsWithHTTPClient(client *http.Client) *PatchUsersUserIDParams {
-	var ()
 	return &PatchUsersUserIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*PatchUsersUserIDParams contains all the parameters to send to the API endpoint
-for the patch users user ID operation typically these are written to a http.Request
+/* PatchUsersUserIDParams contains all the parameters to send to the API endpoint
+   for the patch users user ID operation.
+
+   Typically these are written to a http.Request.
 */
 type PatchUsersUserIDParams struct {
 
-	/*UserUpdateRequest*/
+	// UserUpdateRequest.
 	UserUpdateRequest *models.UserCreation
-	/*UserID
-	  User Id
 
+	/* UserID.
+
+	   User Id
+
+	   Format: uuid
 	*/
 	UserID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the patch users user ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PatchUsersUserIDParams) WithDefaults() *PatchUsersUserIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the patch users user ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PatchUsersUserIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the patch users user ID params
@@ -137,7 +154,6 @@ func (o *PatchUsersUserIDParams) WriteToRequest(r runtime.ClientRequest, reg str
 		return err
 	}
 	var res []error
-
 	if o.UserUpdateRequest != nil {
 		if err := r.SetBodyParam(o.UserUpdateRequest); err != nil {
 			return err

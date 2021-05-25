@@ -25,9 +25,12 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	GetMandates(params *GetMandatesParams) (*GetMandatesOK, error)
+	GetMandates(params *GetMandatesParams, opts ...ClientOption) (*GetMandatesOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -35,13 +38,12 @@ type ClientService interface {
 /*
   GetMandates lists mandates
 */
-func (a *Client) GetMandates(params *GetMandatesParams) (*GetMandatesOK, error) {
+func (a *Client) GetMandates(params *GetMandatesParams, opts ...ClientOption) (*GetMandatesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetMandatesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetMandates",
 		Method:             "GET",
 		PathPattern:        "/mandates",
@@ -52,7 +54,12 @@ func (a *Client) GetMandates(params *GetMandatesParams) (*GetMandatesOK, error) 
 		Reader:             &GetMandatesReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

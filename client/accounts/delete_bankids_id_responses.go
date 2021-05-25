@@ -77,9 +77,8 @@ func (o *DeleteBankidsIDReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewDeleteBankidsIDNoContent() *DeleteBankidsIDNoContent {
 	return &DeleteBankidsIDNoContent{}
 }
 
-/*DeleteBankidsIDNoContent handles this case with default header values.
+/* DeleteBankidsIDNoContent describes a response with status code 204, with default header values.
 
 BankId deleted
 */
@@ -109,7 +108,7 @@ func NewDeleteBankidsIDBadRequest() *DeleteBankidsIDBadRequest {
 	return &DeleteBankidsIDBadRequest{}
 }
 
-/*DeleteBankidsIDBadRequest handles this case with default header values.
+/* DeleteBankidsIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -120,7 +119,6 @@ type DeleteBankidsIDBadRequest struct {
 func (o *DeleteBankidsIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /bankids/{id}][%d] deleteBankidsIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *DeleteBankidsIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -142,7 +140,7 @@ func NewDeleteBankidsIDUnauthorized() *DeleteBankidsIDUnauthorized {
 	return &DeleteBankidsIDUnauthorized{}
 }
 
-/*DeleteBankidsIDUnauthorized handles this case with default header values.
+/* DeleteBankidsIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -153,7 +151,6 @@ type DeleteBankidsIDUnauthorized struct {
 func (o *DeleteBankidsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /bankids/{id}][%d] deleteBankidsIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *DeleteBankidsIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -175,7 +172,7 @@ func NewDeleteBankidsIDForbidden() *DeleteBankidsIDForbidden {
 	return &DeleteBankidsIDForbidden{}
 }
 
-/*DeleteBankidsIDForbidden handles this case with default header values.
+/* DeleteBankidsIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -186,7 +183,6 @@ type DeleteBankidsIDForbidden struct {
 func (o *DeleteBankidsIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /bankids/{id}][%d] deleteBankidsIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *DeleteBankidsIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -208,7 +204,7 @@ func NewDeleteBankidsIDNotFound() *DeleteBankidsIDNotFound {
 	return &DeleteBankidsIDNotFound{}
 }
 
-/*DeleteBankidsIDNotFound handles this case with default header values.
+/* DeleteBankidsIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -219,7 +215,6 @@ type DeleteBankidsIDNotFound struct {
 func (o *DeleteBankidsIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /bankids/{id}][%d] deleteBankidsIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteBankidsIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -241,7 +236,7 @@ func NewDeleteBankidsIDConflict() *DeleteBankidsIDConflict {
 	return &DeleteBankidsIDConflict{}
 }
 
-/*DeleteBankidsIDConflict handles this case with default header values.
+/* DeleteBankidsIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -252,7 +247,6 @@ type DeleteBankidsIDConflict struct {
 func (o *DeleteBankidsIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /bankids/{id}][%d] deleteBankidsIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *DeleteBankidsIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -274,7 +268,7 @@ func NewDeleteBankidsIDTooManyRequests() *DeleteBankidsIDTooManyRequests {
 	return &DeleteBankidsIDTooManyRequests{}
 }
 
-/*DeleteBankidsIDTooManyRequests handles this case with default header values.
+/* DeleteBankidsIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -285,7 +279,6 @@ type DeleteBankidsIDTooManyRequests struct {
 func (o *DeleteBankidsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /bankids/{id}][%d] deleteBankidsIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *DeleteBankidsIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -307,7 +300,7 @@ func NewDeleteBankidsIDInternalServerError() *DeleteBankidsIDInternalServerError
 	return &DeleteBankidsIDInternalServerError{}
 }
 
-/*DeleteBankidsIDInternalServerError handles this case with default header values.
+/* DeleteBankidsIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -318,7 +311,6 @@ type DeleteBankidsIDInternalServerError struct {
 func (o *DeleteBankidsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /bankids/{id}][%d] deleteBankidsIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *DeleteBankidsIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -340,7 +332,7 @@ func NewDeleteBankidsIDServiceUnavailable() *DeleteBankidsIDServiceUnavailable {
 	return &DeleteBankidsIDServiceUnavailable{}
 }
 
-/*DeleteBankidsIDServiceUnavailable handles this case with default header values.
+/* DeleteBankidsIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -351,7 +343,6 @@ type DeleteBankidsIDServiceUnavailable struct {
 func (o *DeleteBankidsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /bankids/{id}][%d] deleteBankidsIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *DeleteBankidsIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

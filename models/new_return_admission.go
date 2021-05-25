@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -77,7 +79,6 @@ func (m *NewReturnAdmission) Validate(formats strfmt.Registry) error {
 }
 
 func (m *NewReturnAdmission) validateAttributes(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Attributes) { // not required
 		return nil
 	}
@@ -121,7 +122,6 @@ func (m *NewReturnAdmission) validateOrganisationID(formats strfmt.Registry) err
 }
 
 func (m *NewReturnAdmission) validateRelationships(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Relationships) { // not required
 		return nil
 	}
@@ -139,12 +139,11 @@ func (m *NewReturnAdmission) validateRelationships(formats strfmt.Registry) erro
 }
 
 func (m *NewReturnAdmission) validateType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("type", "body", string(m.Type), `^[A-Za-z_]*$`); err != nil {
+	if err := validate.Pattern("type", "body", m.Type, `^[A-Za-z_]*$`); err != nil {
 		return err
 	}
 
@@ -152,13 +151,58 @@ func (m *NewReturnAdmission) validateType(formats strfmt.Registry) error {
 }
 
 func (m *NewReturnAdmission) validateVersion(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Version) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
+	if err := validate.MinimumInt("version", "body", *m.Version, 0, false); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this new return admission based on the context it is used
+func (m *NewReturnAdmission) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAttributes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRelationships(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *NewReturnAdmission) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Attributes != nil {
+		if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("attributes")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *NewReturnAdmission) contextValidateRelationships(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Relationships != nil {
+		if err := m.Relationships.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("relationships")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -224,12 +268,11 @@ func (m *NewReturnAdmissionAttributes) Validate(formats strfmt.Registry) error {
 }
 
 func (m *NewReturnAdmissionAttributes) validateSettlementCycle(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SettlementCycle) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("attributes"+"."+"settlement_cycle", "body", int64(*m.SettlementCycle), 0, false); err != nil {
+	if err := validate.MinimumInt("attributes"+"."+"settlement_cycle", "body", *m.SettlementCycle, 0, false); err != nil {
 		return err
 	}
 
@@ -237,7 +280,6 @@ func (m *NewReturnAdmissionAttributes) validateSettlementCycle(formats strfmt.Re
 }
 
 func (m *NewReturnAdmissionAttributes) validateSettlementDate(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SettlementDate) { // not required
 		return nil
 	}
@@ -246,6 +288,11 @@ func (m *NewReturnAdmissionAttributes) validateSettlementDate(formats strfmt.Reg
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this new return admission attributes based on context it is used
+func (m *NewReturnAdmissionAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
@@ -291,13 +338,40 @@ func (m *NewReturnAdmissionRelationships) Validate(formats strfmt.Registry) erro
 }
 
 func (m *NewReturnAdmissionRelationships) validateValidations(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Validations) { // not required
 		return nil
 	}
 
 	if m.Validations != nil {
 		if err := m.Validations.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("relationships" + "." + "validations")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this new return admission relationships based on the context it is used
+func (m *NewReturnAdmissionRelationships) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateValidations(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *NewReturnAdmissionRelationships) contextValidateValidations(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Validations != nil {
+		if err := m.Validations.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("relationships" + "." + "validations")
 			}

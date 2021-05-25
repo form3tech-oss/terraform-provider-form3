@@ -77,9 +77,8 @@ func (o *DeletePayportIDReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewDeletePayportIDNoContent() *DeletePayportIDNoContent {
 	return &DeletePayportIDNoContent{}
 }
 
-/*DeletePayportIDNoContent handles this case with default header values.
+/* DeletePayportIDNoContent describes a response with status code 204, with default header values.
 
 Association deleted
 */
@@ -109,7 +108,7 @@ func NewDeletePayportIDBadRequest() *DeletePayportIDBadRequest {
 	return &DeletePayportIDBadRequest{}
 }
 
-/*DeletePayportIDBadRequest handles this case with default header values.
+/* DeletePayportIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -120,7 +119,6 @@ type DeletePayportIDBadRequest struct {
 func (o *DeletePayportIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /payport/{id}][%d] deletePayportIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *DeletePayportIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -142,7 +140,7 @@ func NewDeletePayportIDUnauthorized() *DeletePayportIDUnauthorized {
 	return &DeletePayportIDUnauthorized{}
 }
 
-/*DeletePayportIDUnauthorized handles this case with default header values.
+/* DeletePayportIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -153,7 +151,6 @@ type DeletePayportIDUnauthorized struct {
 func (o *DeletePayportIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /payport/{id}][%d] deletePayportIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *DeletePayportIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -175,7 +172,7 @@ func NewDeletePayportIDForbidden() *DeletePayportIDForbidden {
 	return &DeletePayportIDForbidden{}
 }
 
-/*DeletePayportIDForbidden handles this case with default header values.
+/* DeletePayportIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -186,7 +183,6 @@ type DeletePayportIDForbidden struct {
 func (o *DeletePayportIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /payport/{id}][%d] deletePayportIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *DeletePayportIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -208,7 +204,7 @@ func NewDeletePayportIDNotFound() *DeletePayportIDNotFound {
 	return &DeletePayportIDNotFound{}
 }
 
-/*DeletePayportIDNotFound handles this case with default header values.
+/* DeletePayportIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -219,7 +215,6 @@ type DeletePayportIDNotFound struct {
 func (o *DeletePayportIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /payport/{id}][%d] deletePayportIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeletePayportIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -241,7 +236,7 @@ func NewDeletePayportIDConflict() *DeletePayportIDConflict {
 	return &DeletePayportIDConflict{}
 }
 
-/*DeletePayportIDConflict handles this case with default header values.
+/* DeletePayportIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -252,7 +247,6 @@ type DeletePayportIDConflict struct {
 func (o *DeletePayportIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /payport/{id}][%d] deletePayportIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *DeletePayportIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -274,7 +268,7 @@ func NewDeletePayportIDTooManyRequests() *DeletePayportIDTooManyRequests {
 	return &DeletePayportIDTooManyRequests{}
 }
 
-/*DeletePayportIDTooManyRequests handles this case with default header values.
+/* DeletePayportIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -285,7 +279,6 @@ type DeletePayportIDTooManyRequests struct {
 func (o *DeletePayportIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /payport/{id}][%d] deletePayportIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *DeletePayportIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -307,7 +300,7 @@ func NewDeletePayportIDInternalServerError() *DeletePayportIDInternalServerError
 	return &DeletePayportIDInternalServerError{}
 }
 
-/*DeletePayportIDInternalServerError handles this case with default header values.
+/* DeletePayportIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -318,7 +311,6 @@ type DeletePayportIDInternalServerError struct {
 func (o *DeletePayportIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /payport/{id}][%d] deletePayportIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *DeletePayportIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -340,7 +332,7 @@ func NewDeletePayportIDServiceUnavailable() *DeletePayportIDServiceUnavailable {
 	return &DeletePayportIDServiceUnavailable{}
 }
 
-/*DeletePayportIDServiceUnavailable handles this case with default header values.
+/* DeletePayportIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -351,7 +343,6 @@ type DeletePayportIDServiceUnavailable struct {
 func (o *DeletePayportIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /payport/{id}][%d] deletePayportIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *DeletePayportIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

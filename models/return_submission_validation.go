@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -70,7 +72,6 @@ func (m *ReturnSubmissionValidation) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ReturnSubmissionValidation) validateAttributes(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Attributes) { // not required
 		return nil
 	}
@@ -114,12 +115,11 @@ func (m *ReturnSubmissionValidation) validateOrganisationID(formats strfmt.Regis
 }
 
 func (m *ReturnSubmissionValidation) validateType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("type", "body", string(m.Type), `^[A-Za-z_]*$`); err != nil {
+	if err := validate.Pattern("type", "body", m.Type, `^[A-Za-z_]*$`); err != nil {
 		return err
 	}
 
@@ -127,13 +127,40 @@ func (m *ReturnSubmissionValidation) validateType(formats strfmt.Registry) error
 }
 
 func (m *ReturnSubmissionValidation) validateVersion(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Version) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
+	if err := validate.MinimumInt("version", "body", *m.Version, 0, false); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this return submission validation based on the context it is used
+func (m *ReturnSubmissionValidation) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAttributes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ReturnSubmissionValidation) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Attributes != nil {
+		if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("attributes")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -191,7 +218,6 @@ func (m *ReturnSubmissionValidationAttributes) Validate(formats strfmt.Registry)
 }
 
 func (m *ReturnSubmissionValidationAttributes) validateSource(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Source) { // not required
 		return nil
 	}
@@ -207,12 +233,53 @@ func (m *ReturnSubmissionValidationAttributes) validateSource(formats strfmt.Reg
 }
 
 func (m *ReturnSubmissionValidationAttributes) validateStatus(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Status) { // not required
 		return nil
 	}
 
 	if err := m.Status.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("attributes" + "." + "status")
+		}
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this return submission validation attributes based on the context it is used
+func (m *ReturnSubmissionValidationAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateSource(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStatus(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ReturnSubmissionValidationAttributes) contextValidateSource(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Source.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("attributes" + "." + "source")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *ReturnSubmissionValidationAttributes) contextValidateStatus(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Status.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("attributes" + "." + "status")
 		}

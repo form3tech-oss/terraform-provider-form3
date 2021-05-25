@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -53,12 +55,11 @@ func (m *BankIDAttributes) Validate(formats strfmt.Registry) error {
 }
 
 func (m *BankIDAttributes) validateBankID(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.BankID) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("bank_id", "body", string(m.BankID), `^[A-Z0-9]{0,16}$`); err != nil {
+	if err := validate.Pattern("bank_id", "body", m.BankID, `^[A-Z0-9]{0,16}$`); err != nil {
 		return err
 	}
 
@@ -66,12 +67,11 @@ func (m *BankIDAttributes) validateBankID(formats strfmt.Registry) error {
 }
 
 func (m *BankIDAttributes) validateBankIDCode(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.BankIDCode) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("bank_id_code", "body", string(m.BankIDCode), `^[A-Z]{0,16}$`); err != nil {
+	if err := validate.Pattern("bank_id_code", "body", m.BankIDCode, `^[A-Z]{0,16}$`); err != nil {
 		return err
 	}
 
@@ -79,15 +79,19 @@ func (m *BankIDAttributes) validateBankIDCode(formats strfmt.Registry) error {
 }
 
 func (m *BankIDAttributes) validateCountry(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Country) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("country", "body", string(m.Country), `^[A-Z]{2}$`); err != nil {
+	if err := validate.Pattern("country", "body", m.Country, `^[A-Z]{2}$`); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this bank Id attributes based on context it is used
+func (m *BankIDAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

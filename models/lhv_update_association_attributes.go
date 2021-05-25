@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -56,12 +58,11 @@ func (m *LhvUpdateAssociationAttributes) Validate(formats strfmt.Registry) error
 }
 
 func (m *LhvUpdateAssociationAttributes) validateClientCode(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ClientCode) { // not required
 		return nil
 	}
 
-	if err := validate.MinLength("client_code", "body", string(m.ClientCode), 1); err != nil {
+	if err := validate.MinLength("client_code", "body", m.ClientCode, 1); err != nil {
 		return err
 	}
 
@@ -69,12 +70,11 @@ func (m *LhvUpdateAssociationAttributes) validateClientCode(formats strfmt.Regis
 }
 
 func (m *LhvUpdateAssociationAttributes) validateClientCountry(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ClientCountry) { // not required
 		return nil
 	}
 
-	if err := validate.MinLength("client_country", "body", string(m.ClientCountry), 1); err != nil {
+	if err := validate.MinLength("client_country", "body", m.ClientCountry, 1); err != nil {
 		return err
 	}
 
@@ -82,15 +82,19 @@ func (m *LhvUpdateAssociationAttributes) validateClientCountry(formats strfmt.Re
 }
 
 func (m *LhvUpdateAssociationAttributes) validateName(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Name) { // not required
 		return nil
 	}
 
-	if err := validate.MinLength("name", "body", string(m.Name), 1); err != nil {
+	if err := validate.MinLength("name", "body", m.Name, 1); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this lhv update association attributes based on context it is used
+func (m *LhvUpdateAssociationAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

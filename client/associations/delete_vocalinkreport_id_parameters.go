@@ -17,64 +17,81 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteVocalinkreportIDParams creates a new DeleteVocalinkreportIDParams object
-// with the default values initialized.
+// NewDeleteVocalinkreportIDParams creates a new DeleteVocalinkreportIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteVocalinkreportIDParams() *DeleteVocalinkreportIDParams {
-	var ()
 	return &DeleteVocalinkreportIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteVocalinkreportIDParamsWithTimeout creates a new DeleteVocalinkreportIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteVocalinkreportIDParamsWithTimeout(timeout time.Duration) *DeleteVocalinkreportIDParams {
-	var ()
 	return &DeleteVocalinkreportIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteVocalinkreportIDParamsWithContext creates a new DeleteVocalinkreportIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteVocalinkreportIDParamsWithContext(ctx context.Context) *DeleteVocalinkreportIDParams {
-	var ()
 	return &DeleteVocalinkreportIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteVocalinkreportIDParamsWithHTTPClient creates a new DeleteVocalinkreportIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteVocalinkreportIDParamsWithHTTPClient(client *http.Client) *DeleteVocalinkreportIDParams {
-	var ()
 	return &DeleteVocalinkreportIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteVocalinkreportIDParams contains all the parameters to send to the API endpoint
-for the delete vocalinkreport ID operation typically these are written to a http.Request
+/* DeleteVocalinkreportIDParams contains all the parameters to send to the API endpoint
+   for the delete vocalinkreport ID operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteVocalinkreportIDParams struct {
 
-	/*ID
-	  Association Id
+	/* ID.
 
+	   Association Id
+
+	   Format: uuid
 	*/
 	ID strfmt.UUID
-	/*Version
-	  Version
 
+	/* Version.
+
+	   Version
 	*/
 	Version int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete vocalinkreport ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteVocalinkreportIDParams) WithDefaults() *DeleteVocalinkreportIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete vocalinkreport ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteVocalinkreportIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete vocalinkreport ID params
@@ -149,6 +166,7 @@ func (o *DeleteVocalinkreportIDParams) WriteToRequest(r runtime.ClientRequest, r
 	qrVersion := o.Version
 	qVersion := swag.FormatInt64(qrVersion)
 	if qVersion != "" {
+
 		if err := r.SetQueryParam("version", qVersion); err != nil {
 			return err
 		}

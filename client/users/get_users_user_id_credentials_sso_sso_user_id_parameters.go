@@ -16,64 +16,81 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetUsersUserIDCredentialsSsoSsoUserIDParams creates a new GetUsersUserIDCredentialsSsoSsoUserIDParams object
-// with the default values initialized.
+// NewGetUsersUserIDCredentialsSsoSsoUserIDParams creates a new GetUsersUserIDCredentialsSsoSsoUserIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetUsersUserIDCredentialsSsoSsoUserIDParams() *GetUsersUserIDCredentialsSsoSsoUserIDParams {
-	var ()
 	return &GetUsersUserIDCredentialsSsoSsoUserIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetUsersUserIDCredentialsSsoSsoUserIDParamsWithTimeout creates a new GetUsersUserIDCredentialsSsoSsoUserIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetUsersUserIDCredentialsSsoSsoUserIDParamsWithTimeout(timeout time.Duration) *GetUsersUserIDCredentialsSsoSsoUserIDParams {
-	var ()
 	return &GetUsersUserIDCredentialsSsoSsoUserIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetUsersUserIDCredentialsSsoSsoUserIDParamsWithContext creates a new GetUsersUserIDCredentialsSsoSsoUserIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetUsersUserIDCredentialsSsoSsoUserIDParamsWithContext(ctx context.Context) *GetUsersUserIDCredentialsSsoSsoUserIDParams {
-	var ()
 	return &GetUsersUserIDCredentialsSsoSsoUserIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetUsersUserIDCredentialsSsoSsoUserIDParamsWithHTTPClient creates a new GetUsersUserIDCredentialsSsoSsoUserIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetUsersUserIDCredentialsSsoSsoUserIDParamsWithHTTPClient(client *http.Client) *GetUsersUserIDCredentialsSsoSsoUserIDParams {
-	var ()
 	return &GetUsersUserIDCredentialsSsoSsoUserIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetUsersUserIDCredentialsSsoSsoUserIDParams contains all the parameters to send to the API endpoint
-for the get users user ID credentials sso sso user ID operation typically these are written to a http.Request
+/* GetUsersUserIDCredentialsSsoSsoUserIDParams contains all the parameters to send to the API endpoint
+   for the get users user ID credentials sso sso user ID operation.
+
+   Typically these are written to a http.Request.
 */
 type GetUsersUserIDCredentialsSsoSsoUserIDParams struct {
 
-	/*SsoUserID
-	  Sso user id
+	/* SsoUserID.
 
+	   Sso user id
 	*/
 	SsoUserID string
-	/*UserID
-	  User Id
 
+	/* UserID.
+
+	   User Id
+
+	   Format: uuid
 	*/
 	UserID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get users user ID credentials sso sso user ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetUsersUserIDCredentialsSsoSsoUserIDParams) WithDefaults() *GetUsersUserIDCredentialsSsoSsoUserIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get users user ID credentials sso sso user ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetUsersUserIDCredentialsSsoSsoUserIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get users user ID credentials sso sso user ID params

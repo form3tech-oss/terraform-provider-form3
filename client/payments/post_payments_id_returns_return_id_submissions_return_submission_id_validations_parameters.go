@@ -18,71 +18,94 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams creates a new PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams object
-// with the default values initialized.
+// NewPostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams creates a new PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams() *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams {
-	var ()
 	return &PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParamsWithTimeout creates a new PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParamsWithTimeout(timeout time.Duration) *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams {
-	var ()
 	return &PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParamsWithContext creates a new PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParamsWithContext(ctx context.Context) *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams {
-	var ()
 	return &PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParamsWithHTTPClient creates a new PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParamsWithHTTPClient(client *http.Client) *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams {
-	var ()
 	return &PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams contains all the parameters to send to the API endpoint
-for the post payments ID returns return ID submissions return submission ID validations operation typically these are written to a http.Request
+/* PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams contains all the parameters to send to the API endpoint
+   for the post payments ID returns return ID submissions return submission ID validations operation.
+
+   Typically these are written to a http.Request.
 */
 type PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams struct {
 
-	/*ReturnSubmissionValidationRequest*/
+	// ReturnSubmissionValidationRequest.
 	ReturnSubmissionValidationRequest *models.ReturnSubmissionValidationCreation
-	/*ID
-	  Payment Id
 
+	/* ID.
+
+	   Payment Id
+
+	   Format: uuid
 	*/
 	ID strfmt.UUID
-	/*ReturnID
-	  Return Id
 
+	/* ReturnID.
+
+	   Return Id
+
+	   Format: uuid
 	*/
 	ReturnID strfmt.UUID
-	/*ReturnSubmissionID
-	  Return Submission Id
 
+	/* ReturnSubmissionID.
+
+	   Return Submission Id
+
+	   Format: uuid
 	*/
 	ReturnSubmissionID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post payments ID returns return ID submissions return submission ID validations params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams) WithDefaults() *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post payments ID returns return ID submissions return submission ID validations params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post payments ID returns return ID submissions return submission ID validations params
@@ -169,7 +192,6 @@ func (o *PostPaymentsIDReturnsReturnIDSubmissionsReturnSubmissionIDValidationsPa
 		return err
 	}
 	var res []error
-
 	if o.ReturnSubmissionValidationRequest != nil {
 		if err := r.SetBodyParam(o.ReturnSubmissionValidationRequest); err != nil {
 			return err

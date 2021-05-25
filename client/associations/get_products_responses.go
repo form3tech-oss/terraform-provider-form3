@@ -77,9 +77,8 @@ func (o *GetProductsReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewGetProductsOK() *GetProductsOK {
 	return &GetProductsOK{}
 }
 
-/*GetProductsOK handles this case with default header values.
+/* GetProductsOK describes a response with status code 200, with default header values.
 
 List of associations
 */
@@ -99,7 +98,6 @@ type GetProductsOK struct {
 func (o *GetProductsOK) Error() string {
 	return fmt.Sprintf("[GET /products][%d] getProductsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetProductsOK) GetPayload() *models.ProductsAssociationDetailsListResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewGetProductsBadRequest() *GetProductsBadRequest {
 	return &GetProductsBadRequest{}
 }
 
-/*GetProductsBadRequest handles this case with default header values.
+/* GetProductsBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type GetProductsBadRequest struct {
 func (o *GetProductsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /products][%d] getProductsBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetProductsBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewGetProductsUnauthorized() *GetProductsUnauthorized {
 	return &GetProductsUnauthorized{}
 }
 
-/*GetProductsUnauthorized handles this case with default header values.
+/* GetProductsUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type GetProductsUnauthorized struct {
 func (o *GetProductsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /products][%d] getProductsUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetProductsUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewGetProductsForbidden() *GetProductsForbidden {
 	return &GetProductsForbidden{}
 }
 
-/*GetProductsForbidden handles this case with default header values.
+/* GetProductsForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type GetProductsForbidden struct {
 func (o *GetProductsForbidden) Error() string {
 	return fmt.Sprintf("[GET /products][%d] getProductsForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetProductsForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewGetProductsNotFound() *GetProductsNotFound {
 	return &GetProductsNotFound{}
 }
 
-/*GetProductsNotFound handles this case with default header values.
+/* GetProductsNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type GetProductsNotFound struct {
 func (o *GetProductsNotFound) Error() string {
 	return fmt.Sprintf("[GET /products][%d] getProductsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetProductsNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewGetProductsConflict() *GetProductsConflict {
 	return &GetProductsConflict{}
 }
 
-/*GetProductsConflict handles this case with default header values.
+/* GetProductsConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type GetProductsConflict struct {
 func (o *GetProductsConflict) Error() string {
 	return fmt.Sprintf("[GET /products][%d] getProductsConflict  %+v", 409, o.Payload)
 }
-
 func (o *GetProductsConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewGetProductsTooManyRequests() *GetProductsTooManyRequests {
 	return &GetProductsTooManyRequests{}
 }
 
-/*GetProductsTooManyRequests handles this case with default header values.
+/* GetProductsTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type GetProductsTooManyRequests struct {
 func (o *GetProductsTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /products][%d] getProductsTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *GetProductsTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewGetProductsInternalServerError() *GetProductsInternalServerError {
 	return &GetProductsInternalServerError{}
 }
 
-/*GetProductsInternalServerError handles this case with default header values.
+/* GetProductsInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type GetProductsInternalServerError struct {
 func (o *GetProductsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /products][%d] getProductsInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetProductsInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewGetProductsServiceUnavailable() *GetProductsServiceUnavailable {
 	return &GetProductsServiceUnavailable{}
 }
 
-/*GetProductsServiceUnavailable handles this case with default header values.
+/* GetProductsServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type GetProductsServiceUnavailable struct {
 func (o *GetProductsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /products][%d] getProductsServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *GetProductsServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

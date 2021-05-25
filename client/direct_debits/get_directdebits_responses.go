@@ -77,9 +77,8 @@ func (o *GetDirectdebitsReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewGetDirectdebitsOK() *GetDirectdebitsOK {
 	return &GetDirectdebitsOK{}
 }
 
-/*GetDirectdebitsOK handles this case with default header values.
+/* GetDirectdebitsOK describes a response with status code 200, with default header values.
 
 List of direct debit details
 */
@@ -99,7 +98,6 @@ type GetDirectdebitsOK struct {
 func (o *GetDirectdebitsOK) Error() string {
 	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetDirectdebitsOK) GetPayload() *models.DirectDebitDetailsListResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewGetDirectdebitsBadRequest() *GetDirectdebitsBadRequest {
 	return &GetDirectdebitsBadRequest{}
 }
 
-/*GetDirectdebitsBadRequest handles this case with default header values.
+/* GetDirectdebitsBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type GetDirectdebitsBadRequest struct {
 func (o *GetDirectdebitsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetDirectdebitsBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewGetDirectdebitsUnauthorized() *GetDirectdebitsUnauthorized {
 	return &GetDirectdebitsUnauthorized{}
 }
 
-/*GetDirectdebitsUnauthorized handles this case with default header values.
+/* GetDirectdebitsUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type GetDirectdebitsUnauthorized struct {
 func (o *GetDirectdebitsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetDirectdebitsUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewGetDirectdebitsForbidden() *GetDirectdebitsForbidden {
 	return &GetDirectdebitsForbidden{}
 }
 
-/*GetDirectdebitsForbidden handles this case with default header values.
+/* GetDirectdebitsForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type GetDirectdebitsForbidden struct {
 func (o *GetDirectdebitsForbidden) Error() string {
 	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetDirectdebitsForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewGetDirectdebitsNotFound() *GetDirectdebitsNotFound {
 	return &GetDirectdebitsNotFound{}
 }
 
-/*GetDirectdebitsNotFound handles this case with default header values.
+/* GetDirectdebitsNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type GetDirectdebitsNotFound struct {
 func (o *GetDirectdebitsNotFound) Error() string {
 	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetDirectdebitsNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewGetDirectdebitsConflict() *GetDirectdebitsConflict {
 	return &GetDirectdebitsConflict{}
 }
 
-/*GetDirectdebitsConflict handles this case with default header values.
+/* GetDirectdebitsConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type GetDirectdebitsConflict struct {
 func (o *GetDirectdebitsConflict) Error() string {
 	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsConflict  %+v", 409, o.Payload)
 }
-
 func (o *GetDirectdebitsConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewGetDirectdebitsTooManyRequests() *GetDirectdebitsTooManyRequests {
 	return &GetDirectdebitsTooManyRequests{}
 }
 
-/*GetDirectdebitsTooManyRequests handles this case with default header values.
+/* GetDirectdebitsTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type GetDirectdebitsTooManyRequests struct {
 func (o *GetDirectdebitsTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *GetDirectdebitsTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewGetDirectdebitsInternalServerError() *GetDirectdebitsInternalServerError
 	return &GetDirectdebitsInternalServerError{}
 }
 
-/*GetDirectdebitsInternalServerError handles this case with default header values.
+/* GetDirectdebitsInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type GetDirectdebitsInternalServerError struct {
 func (o *GetDirectdebitsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetDirectdebitsInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewGetDirectdebitsServiceUnavailable() *GetDirectdebitsServiceUnavailable {
 	return &GetDirectdebitsServiceUnavailable{}
 }
 
-/*GetDirectdebitsServiceUnavailable handles this case with default header values.
+/* GetDirectdebitsServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type GetDirectdebitsServiceUnavailable struct {
 func (o *GetDirectdebitsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /directdebits][%d] getDirectdebitsServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *GetDirectdebitsServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

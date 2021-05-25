@@ -77,9 +77,8 @@ func (o *DeleteKeysKeyIDReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewDeleteKeysKeyIDNoContent() *DeleteKeysKeyIDNoContent {
 	return &DeleteKeysKeyIDNoContent{}
 }
 
-/*DeleteKeysKeyIDNoContent handles this case with default header values.
+/* DeleteKeysKeyIDNoContent describes a response with status code 204, with default header values.
 
 Key deleted
 */
@@ -109,7 +108,7 @@ func NewDeleteKeysKeyIDBadRequest() *DeleteKeysKeyIDBadRequest {
 	return &DeleteKeysKeyIDBadRequest{}
 }
 
-/*DeleteKeysKeyIDBadRequest handles this case with default header values.
+/* DeleteKeysKeyIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -120,7 +119,6 @@ type DeleteKeysKeyIDBadRequest struct {
 func (o *DeleteKeysKeyIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}][%d] deleteKeysKeyIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *DeleteKeysKeyIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -142,7 +140,7 @@ func NewDeleteKeysKeyIDUnauthorized() *DeleteKeysKeyIDUnauthorized {
 	return &DeleteKeysKeyIDUnauthorized{}
 }
 
-/*DeleteKeysKeyIDUnauthorized handles this case with default header values.
+/* DeleteKeysKeyIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -153,7 +151,6 @@ type DeleteKeysKeyIDUnauthorized struct {
 func (o *DeleteKeysKeyIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}][%d] deleteKeysKeyIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *DeleteKeysKeyIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -175,7 +172,7 @@ func NewDeleteKeysKeyIDForbidden() *DeleteKeysKeyIDForbidden {
 	return &DeleteKeysKeyIDForbidden{}
 }
 
-/*DeleteKeysKeyIDForbidden handles this case with default header values.
+/* DeleteKeysKeyIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -186,7 +183,6 @@ type DeleteKeysKeyIDForbidden struct {
 func (o *DeleteKeysKeyIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}][%d] deleteKeysKeyIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *DeleteKeysKeyIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -208,7 +204,7 @@ func NewDeleteKeysKeyIDNotFound() *DeleteKeysKeyIDNotFound {
 	return &DeleteKeysKeyIDNotFound{}
 }
 
-/*DeleteKeysKeyIDNotFound handles this case with default header values.
+/* DeleteKeysKeyIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -219,7 +215,6 @@ type DeleteKeysKeyIDNotFound struct {
 func (o *DeleteKeysKeyIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}][%d] deleteKeysKeyIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteKeysKeyIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -241,7 +236,7 @@ func NewDeleteKeysKeyIDConflict() *DeleteKeysKeyIDConflict {
 	return &DeleteKeysKeyIDConflict{}
 }
 
-/*DeleteKeysKeyIDConflict handles this case with default header values.
+/* DeleteKeysKeyIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -252,7 +247,6 @@ type DeleteKeysKeyIDConflict struct {
 func (o *DeleteKeysKeyIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}][%d] deleteKeysKeyIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *DeleteKeysKeyIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -274,7 +268,7 @@ func NewDeleteKeysKeyIDTooManyRequests() *DeleteKeysKeyIDTooManyRequests {
 	return &DeleteKeysKeyIDTooManyRequests{}
 }
 
-/*DeleteKeysKeyIDTooManyRequests handles this case with default header values.
+/* DeleteKeysKeyIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -285,7 +279,6 @@ type DeleteKeysKeyIDTooManyRequests struct {
 func (o *DeleteKeysKeyIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}][%d] deleteKeysKeyIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *DeleteKeysKeyIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -307,7 +300,7 @@ func NewDeleteKeysKeyIDInternalServerError() *DeleteKeysKeyIDInternalServerError
 	return &DeleteKeysKeyIDInternalServerError{}
 }
 
-/*DeleteKeysKeyIDInternalServerError handles this case with default header values.
+/* DeleteKeysKeyIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -318,7 +311,6 @@ type DeleteKeysKeyIDInternalServerError struct {
 func (o *DeleteKeysKeyIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}][%d] deleteKeysKeyIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *DeleteKeysKeyIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -340,7 +332,7 @@ func NewDeleteKeysKeyIDServiceUnavailable() *DeleteKeysKeyIDServiceUnavailable {
 	return &DeleteKeysKeyIDServiceUnavailable{}
 }
 
-/*DeleteKeysKeyIDServiceUnavailable handles this case with default header values.
+/* DeleteKeysKeyIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -351,7 +343,6 @@ type DeleteKeysKeyIDServiceUnavailable struct {
 func (o *DeleteKeysKeyIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}][%d] deleteKeysKeyIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *DeleteKeysKeyIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

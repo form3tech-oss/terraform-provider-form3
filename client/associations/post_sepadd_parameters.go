@@ -18,56 +18,70 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPostSepaddParams creates a new PostSepaddParams object
-// with the default values initialized.
+// NewPostSepaddParams creates a new PostSepaddParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostSepaddParams() *PostSepaddParams {
-	var ()
 	return &PostSepaddParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostSepaddParamsWithTimeout creates a new PostSepaddParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostSepaddParamsWithTimeout(timeout time.Duration) *PostSepaddParams {
-	var ()
 	return &PostSepaddParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostSepaddParamsWithContext creates a new PostSepaddParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostSepaddParamsWithContext(ctx context.Context) *PostSepaddParams {
-	var ()
 	return &PostSepaddParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostSepaddParamsWithHTTPClient creates a new PostSepaddParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostSepaddParamsWithHTTPClient(client *http.Client) *PostSepaddParams {
-	var ()
 	return &PostSepaddParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostSepaddParams contains all the parameters to send to the API endpoint
-for the post sepadd operation typically these are written to a http.Request
+/* PostSepaddParams contains all the parameters to send to the API endpoint
+   for the post sepadd operation.
+
+   Typically these are written to a http.Request.
 */
 type PostSepaddParams struct {
 
-	/*CreationRequest*/
+	// CreationRequest.
 	CreationRequest *models.SepaDDAssociationCreation
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post sepadd params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostSepaddParams) WithDefaults() *PostSepaddParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post sepadd params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostSepaddParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post sepadd params
@@ -121,7 +135,6 @@ func (o *PostSepaddParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 		return err
 	}
 	var res []error
-
 	if o.CreationRequest != nil {
 		if err := r.SetBodyParam(o.CreationRequest); err != nil {
 			return err
