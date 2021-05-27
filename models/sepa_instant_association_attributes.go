@@ -27,6 +27,9 @@ type SepaInstantAssociationAttributes struct {
 	// enable customer admission decision
 	EnableCustomerAdmissionDecision *bool `json:"enable_customer_admission_decision,omitempty"`
 
+	// enable customer check
+	EnableCustomerCheck *bool `json:"enable_customer_check,omitempty"`
+
 	// reachable bics
 	ReachableBics []string `json:"reachable_bics"`
 

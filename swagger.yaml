@@ -9000,6 +9000,9 @@ definitions:
       enable_customer_admission_decision:
         x-nullable: true
         type: boolean
+      enable_customer_check:
+        x-nullable: true
+        type: boolean
 
   UpdateSepaInstantAssociationAttributes:
     properties:
@@ -9020,6 +9023,9 @@ definitions:
         items:
           type: string
       enable_customer_admission_decision:
+        x-nullable: true
+        type: boolean
+      enable_customer_check:
         x-nullable: true
         type: boolean
 

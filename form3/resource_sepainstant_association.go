@@ -79,6 +79,12 @@ func resourceForm3SepaInstantAssociation() *schema.Resource {
 				ForceNew: false,
 				Default:  false,
 			},
+			"enable_customer_check": {
+				Type:     schema.TypeBool,
+				Optional: true,
+				ForceNew: false,
+				Default:  false,
+			},
 		},
 	}
 }
@@ -137,6 +143,7 @@ func resourceSepaInstantAssociationRead(d *schema.ResourceData, meta interface{}
 	}
 	d.Set("disable_outbound_payments", sepaInstantAssociation.Payload.Data.Attributes.DisableOutboundPayments)
 	d.Set("enable_customer_admission_decision", sepaInstantAssociation.Payload.Data.Attributes.EnableCustomerAdmissionDecision)
+	d.Set("enable_customer_check", sepaInstantAssociation.Payload.Data.Attributes.EnableCustomerCheck)
 	return nil
 }
 
@@ -195,6 +202,7 @@ func resourceSepaInstantAssociationUpdate(d *schema.ResourceData, meta interface
 					SimulatorOnly:                   association.Attributes.SimulatorOnly,
 					ReachableBics:                   association.Attributes.ReachableBics,
 					EnableCustomerAdmissionDecision: association.Attributes.EnableCustomerAdmissionDecision,
+					EnableCustomerCheck:             association.Attributes.EnableCustomerCheck,
 				},
 			},
 		}))
@@ -238,6 +246,11 @@ func createSepaInstantUpdateAssociationFromResourceData(d *schema.ResourceData) 
 	if attr, ok := d.GetOk("enable_customer_admission_decision"); ok {
 		b := attr.(bool)
 		association.Attributes.EnableCustomerAdmissionDecision = &b
+	}
+
+	if attr, ok := d.GetOk("enable_customer_check"); ok {
+		b := attr.(bool)
+		association.Attributes.EnableCustomerCheck = &b
 	}
 
 	if attr, ok := d.GetOk("simulator_only"); ok {
@@ -295,6 +308,11 @@ func createSepaInstantNewAssociationFromResourceData(d *schema.ResourceData) (*m
 	if attr, ok := d.GetOk("enable_customer_admission_decision"); ok {
 		b := attr.(bool)
 		association.Attributes.EnableCustomerAdmissionDecision = &b
+	}
+
+	if attr, ok := d.GetOk("enable_customer_check"); ok {
+		b := attr.(bool)
+		association.Attributes.EnableCustomerCheck = &b
 	}
 
 	if attr, ok := GetUUIDOK(d, "sponsor_id"); ok {
