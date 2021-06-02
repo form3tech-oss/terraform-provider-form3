@@ -19,7 +19,7 @@ import (
 
 func TestAccSepactLiquidityAssociation_basic(t *testing.T) {
 	directOrgID := uuid.New().String()
-indirectOrgID := uuid.New().String()
+	indirectOrgID := uuid.New().String()
 	verifyOrgDoesNotExist(t, directOrgID)
 	verifyOrgDoesNotExist(t, indirectOrgID)
 

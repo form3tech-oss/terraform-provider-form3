@@ -8877,7 +8877,7 @@ definitions:
       disable_outbound_payments:
         x-nullable: true
         type: boolean
-      reachable_bics:
+    reachable_bics:
         type: array
         items:
           type: string
