@@ -41,8 +41,6 @@ type ClientService interface {
 
 	DeletePayportID(params *DeletePayportIDParams) (*DeletePayportIDNoContent, error)
 
-	DeleteProductsID(params *DeleteProductsIDParams) (*DeleteProductsIDNoContent, error)
-
 	DeleteReconciliationAssociationID(params *DeleteReconciliationAssociationIDParams) (*DeleteReconciliationAssociationIDNoContent, error)
 
 	DeleteSepaLiquidityID(params *DeleteSepaLiquidityIDParams) (*DeleteSepaLiquidityIDNoContent, error)
@@ -88,10 +86,6 @@ type ClientService interface {
 	GetPayport(params *GetPayportParams) (*GetPayportOK, error)
 
 	GetPayportID(params *GetPayportIDParams) (*GetPayportIDOK, error)
-
-	GetProducts(params *GetProductsParams) (*GetProductsOK, error)
-
-	GetProductsID(params *GetProductsIDParams) (*GetProductsIDOK, error)
 
 	GetReconciliation(params *GetReconciliationParams) (*GetReconciliationOK, error)
 
@@ -154,8 +148,6 @@ type ClientService interface {
 	PostLhvAssociationIDMasterAccounts(params *PostLhvAssociationIDMasterAccountsParams) (*PostLhvAssociationIDMasterAccountsCreated, error)
 
 	PostPayport(params *PostPayportParams) (*PostPayportCreated, error)
-
-	PostProducts(params *PostProductsParams) (*PostProductsCreated, error)
 
 	PostReconciliation(params *PostReconciliationParams) (*PostReconciliationCreated, error)
 
@@ -413,40 +405,6 @@ func (a *Client) DeletePayportID(params *DeletePayportIDParams) (*DeletePayportI
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for DeletePayportID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  DeleteProductsID deletes product association
-*/
-func (a *Client) DeleteProductsID(params *DeleteProductsIDParams) (*DeleteProductsIDNoContent, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDeleteProductsIDParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "DeleteProductsID",
-		Method:             "DELETE",
-		PathPattern:        "/products/{id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &DeleteProductsIDReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DeleteProductsIDNoContent)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for DeleteProductsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -1229,74 +1187,6 @@ func (a *Client) GetPayportID(params *GetPayportIDParams) (*GetPayportIDOK, erro
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for GetPayportID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetProducts lists all product associations
-*/
-func (a *Client) GetProducts(params *GetProductsParams) (*GetProductsOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetProductsParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "GetProducts",
-		Method:             "GET",
-		PathPattern:        "/products",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &GetProductsReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetProductsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetProducts: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetProductsID fetches product association
-*/
-func (a *Client) GetProductsID(params *GetProductsIDParams) (*GetProductsIDOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetProductsIDParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "GetProductsID",
-		Method:             "GET",
-		PathPattern:        "/products/{id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &GetProductsIDReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetProductsIDOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for GetProductsID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -2351,40 +2241,6 @@ func (a *Client) PostPayport(params *PostPayportParams) (*PostPayportCreated, er
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for PostPayport: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  PostProducts creates product association
-*/
-func (a *Client) PostProducts(params *PostProductsParams) (*PostProductsCreated, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewPostProductsParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "PostProducts",
-		Method:             "POST",
-		PathPattern:        "/products",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &PostProductsReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*PostProductsCreated)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PostProducts: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
