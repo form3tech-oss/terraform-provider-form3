@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -17,18 +19,22 @@ import (
 type ReimbursementAccountHoldingEntity struct {
 
 	// Third party reimbursement institution address
+	// Example: ["Liverpool Customer Service Centre","Stevenson Way","Wavertree","L13 1NW"]
 	BankAddress []string `json:"bank_address,omitempty"`
 
 	// Identification of third party reimbursement institution
+	// Example: 333333
 	BankID string `json:"bank_id,omitempty"`
 
 	// bank id code
 	BankIDCode BankIDCode `json:"bank_id_code,omitempty"`
 
 	// Third party reimbursement institution name
+	// Example: NATIONAL WESTMINSTER BANK PLC
 	BankName string `json:"bank_name,omitempty"`
 
 	// Third party reimbursement institution identifier
+	// Example: //AT12345
 	BankPartyID string `json:"bank_party_id,omitempty"`
 }
 
@@ -47,12 +53,37 @@ func (m *ReimbursementAccountHoldingEntity) Validate(formats strfmt.Registry) er
 }
 
 func (m *ReimbursementAccountHoldingEntity) validateBankIDCode(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.BankIDCode) { // not required
 		return nil
 	}
 
 	if err := m.BankIDCode.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("bank_id_code")
+		}
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this reimbursement account holding entity based on the context it is used
+func (m *ReimbursementAccountHoldingEntity) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateBankIDCode(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ReimbursementAccountHoldingEntity) contextValidateBankIDCode(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.BankIDCode.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("bank_id_code")
 		}

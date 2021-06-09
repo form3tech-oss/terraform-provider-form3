@@ -77,9 +77,8 @@ func (o *GetAccountRoutingsIDReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewGetAccountRoutingsIDOK() *GetAccountRoutingsIDOK {
 	return &GetAccountRoutingsIDOK{}
 }
 
-/*GetAccountRoutingsIDOK handles this case with default header values.
+/* GetAccountRoutingsIDOK describes a response with status code 200, with default header values.
 
 Account Routing details
 */
@@ -99,7 +98,6 @@ type GetAccountRoutingsIDOK struct {
 func (o *GetAccountRoutingsIDOK) Error() string {
 	return fmt.Sprintf("[GET /account_routings/{id}][%d] getAccountRoutingsIdOK  %+v", 200, o.Payload)
 }
-
 func (o *GetAccountRoutingsIDOK) GetPayload() *models.AccountRoutingDetailsResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewGetAccountRoutingsIDBadRequest() *GetAccountRoutingsIDBadRequest {
 	return &GetAccountRoutingsIDBadRequest{}
 }
 
-/*GetAccountRoutingsIDBadRequest handles this case with default header values.
+/* GetAccountRoutingsIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type GetAccountRoutingsIDBadRequest struct {
 func (o *GetAccountRoutingsIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /account_routings/{id}][%d] getAccountRoutingsIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetAccountRoutingsIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewGetAccountRoutingsIDUnauthorized() *GetAccountRoutingsIDUnauthorized {
 	return &GetAccountRoutingsIDUnauthorized{}
 }
 
-/*GetAccountRoutingsIDUnauthorized handles this case with default header values.
+/* GetAccountRoutingsIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type GetAccountRoutingsIDUnauthorized struct {
 func (o *GetAccountRoutingsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /account_routings/{id}][%d] getAccountRoutingsIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetAccountRoutingsIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewGetAccountRoutingsIDForbidden() *GetAccountRoutingsIDForbidden {
 	return &GetAccountRoutingsIDForbidden{}
 }
 
-/*GetAccountRoutingsIDForbidden handles this case with default header values.
+/* GetAccountRoutingsIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type GetAccountRoutingsIDForbidden struct {
 func (o *GetAccountRoutingsIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /account_routings/{id}][%d] getAccountRoutingsIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetAccountRoutingsIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewGetAccountRoutingsIDNotFound() *GetAccountRoutingsIDNotFound {
 	return &GetAccountRoutingsIDNotFound{}
 }
 
-/*GetAccountRoutingsIDNotFound handles this case with default header values.
+/* GetAccountRoutingsIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type GetAccountRoutingsIDNotFound struct {
 func (o *GetAccountRoutingsIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /account_routings/{id}][%d] getAccountRoutingsIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetAccountRoutingsIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewGetAccountRoutingsIDConflict() *GetAccountRoutingsIDConflict {
 	return &GetAccountRoutingsIDConflict{}
 }
 
-/*GetAccountRoutingsIDConflict handles this case with default header values.
+/* GetAccountRoutingsIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type GetAccountRoutingsIDConflict struct {
 func (o *GetAccountRoutingsIDConflict) Error() string {
 	return fmt.Sprintf("[GET /account_routings/{id}][%d] getAccountRoutingsIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *GetAccountRoutingsIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewGetAccountRoutingsIDTooManyRequests() *GetAccountRoutingsIDTooManyReques
 	return &GetAccountRoutingsIDTooManyRequests{}
 }
 
-/*GetAccountRoutingsIDTooManyRequests handles this case with default header values.
+/* GetAccountRoutingsIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type GetAccountRoutingsIDTooManyRequests struct {
 func (o *GetAccountRoutingsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /account_routings/{id}][%d] getAccountRoutingsIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *GetAccountRoutingsIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewGetAccountRoutingsIDInternalServerError() *GetAccountRoutingsIDInternalS
 	return &GetAccountRoutingsIDInternalServerError{}
 }
 
-/*GetAccountRoutingsIDInternalServerError handles this case with default header values.
+/* GetAccountRoutingsIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type GetAccountRoutingsIDInternalServerError struct {
 func (o *GetAccountRoutingsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /account_routings/{id}][%d] getAccountRoutingsIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetAccountRoutingsIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewGetAccountRoutingsIDServiceUnavailable() *GetAccountRoutingsIDServiceUna
 	return &GetAccountRoutingsIDServiceUnavailable{}
 }
 
-/*GetAccountRoutingsIDServiceUnavailable handles this case with default header values.
+/* GetAccountRoutingsIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type GetAccountRoutingsIDServiceUnavailable struct {
 func (o *GetAccountRoutingsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /account_routings/{id}][%d] getAccountRoutingsIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *GetAccountRoutingsIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

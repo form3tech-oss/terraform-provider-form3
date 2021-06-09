@@ -18,66 +18,86 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPostPaymentsIDReturnsReturnIDSubmissionsParams creates a new PostPaymentsIDReturnsReturnIDSubmissionsParams object
-// with the default values initialized.
+// NewPostPaymentsIDReturnsReturnIDSubmissionsParams creates a new PostPaymentsIDReturnsReturnIDSubmissionsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostPaymentsIDReturnsReturnIDSubmissionsParams() *PostPaymentsIDReturnsReturnIDSubmissionsParams {
-	var ()
 	return &PostPaymentsIDReturnsReturnIDSubmissionsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostPaymentsIDReturnsReturnIDSubmissionsParamsWithTimeout creates a new PostPaymentsIDReturnsReturnIDSubmissionsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostPaymentsIDReturnsReturnIDSubmissionsParamsWithTimeout(timeout time.Duration) *PostPaymentsIDReturnsReturnIDSubmissionsParams {
-	var ()
 	return &PostPaymentsIDReturnsReturnIDSubmissionsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostPaymentsIDReturnsReturnIDSubmissionsParamsWithContext creates a new PostPaymentsIDReturnsReturnIDSubmissionsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostPaymentsIDReturnsReturnIDSubmissionsParamsWithContext(ctx context.Context) *PostPaymentsIDReturnsReturnIDSubmissionsParams {
-	var ()
 	return &PostPaymentsIDReturnsReturnIDSubmissionsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostPaymentsIDReturnsReturnIDSubmissionsParamsWithHTTPClient creates a new PostPaymentsIDReturnsReturnIDSubmissionsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostPaymentsIDReturnsReturnIDSubmissionsParamsWithHTTPClient(client *http.Client) *PostPaymentsIDReturnsReturnIDSubmissionsParams {
-	var ()
 	return &PostPaymentsIDReturnsReturnIDSubmissionsParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostPaymentsIDReturnsReturnIDSubmissionsParams contains all the parameters to send to the API endpoint
-for the post payments ID returns return ID submissions operation typically these are written to a http.Request
+/* PostPaymentsIDReturnsReturnIDSubmissionsParams contains all the parameters to send to the API endpoint
+   for the post payments ID returns return ID submissions operation.
+
+   Typically these are written to a http.Request.
 */
 type PostPaymentsIDReturnsReturnIDSubmissionsParams struct {
 
-	/*ReturnSubmissionCreationRequest*/
+	// ReturnSubmissionCreationRequest.
 	ReturnSubmissionCreationRequest *models.ReturnSubmissionCreation
-	/*ID
-	  Payment Id
 
+	/* ID.
+
+	   Payment Id
+
+	   Format: uuid
 	*/
 	ID strfmt.UUID
-	/*ReturnID
-	  Return Id
 
+	/* ReturnID.
+
+	   Return Id
+
+	   Format: uuid
 	*/
 	ReturnID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post payments ID returns return ID submissions params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostPaymentsIDReturnsReturnIDSubmissionsParams) WithDefaults() *PostPaymentsIDReturnsReturnIDSubmissionsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post payments ID returns return ID submissions params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostPaymentsIDReturnsReturnIDSubmissionsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post payments ID returns return ID submissions params
@@ -153,7 +173,6 @@ func (o *PostPaymentsIDReturnsReturnIDSubmissionsParams) WriteToRequest(r runtim
 		return err
 	}
 	var res []error
-
 	if o.ReturnSubmissionCreationRequest != nil {
 		if err := r.SetBodyParam(o.ReturnSubmissionCreationRequest); err != nil {
 			return err

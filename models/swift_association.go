@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -81,7 +83,6 @@ func (m *SwiftAssociation) Validate(formats strfmt.Registry) error {
 }
 
 func (m *SwiftAssociation) validateAttributes(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Attributes) { // not required
 		return nil
 	}
@@ -99,7 +100,6 @@ func (m *SwiftAssociation) validateAttributes(formats strfmt.Registry) error {
 }
 
 func (m *SwiftAssociation) validateCreatedOn(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CreatedOn) { // not required
 		return nil
 	}
@@ -112,7 +112,6 @@ func (m *SwiftAssociation) validateCreatedOn(formats strfmt.Registry) error {
 }
 
 func (m *SwiftAssociation) validateID(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ID) { // not required
 		return nil
 	}
@@ -125,7 +124,6 @@ func (m *SwiftAssociation) validateID(formats strfmt.Registry) error {
 }
 
 func (m *SwiftAssociation) validateModifiedOn(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ModifiedOn) { // not required
 		return nil
 	}
@@ -138,7 +136,6 @@ func (m *SwiftAssociation) validateModifiedOn(formats strfmt.Registry) error {
 }
 
 func (m *SwiftAssociation) validateOrganisationID(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.OrganisationID) { // not required
 		return nil
 	}
@@ -151,12 +148,65 @@ func (m *SwiftAssociation) validateOrganisationID(formats strfmt.Registry) error
 }
 
 func (m *SwiftAssociation) validateVersion(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Version) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
+	if err := validate.MinimumInt("version", "body", *m.Version, 0, false); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this swift association based on the context it is used
+func (m *SwiftAssociation) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAttributes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCreatedOn(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateModifiedOn(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *SwiftAssociation) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Attributes != nil {
+		if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("attributes")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *SwiftAssociation) contextValidateCreatedOn(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "created_on", "body", strfmt.DateTime(m.CreatedOn)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *SwiftAssociation) contextValidateModifiedOn(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "modified_on", "body", strfmt.DateTime(m.ModifiedOn)); err != nil {
 		return err
 	}
 

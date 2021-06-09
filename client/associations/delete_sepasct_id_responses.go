@@ -77,9 +77,8 @@ func (o *DeleteSepasctIDReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewDeleteSepasctIDNoContent() *DeleteSepasctIDNoContent {
 	return &DeleteSepasctIDNoContent{}
 }
 
-/*DeleteSepasctIDNoContent handles this case with default header values.
+/* DeleteSepasctIDNoContent describes a response with status code 204, with default header values.
 
 Association deleted
 */
@@ -109,7 +108,7 @@ func NewDeleteSepasctIDBadRequest() *DeleteSepasctIDBadRequest {
 	return &DeleteSepasctIDBadRequest{}
 }
 
-/*DeleteSepasctIDBadRequest handles this case with default header values.
+/* DeleteSepasctIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -120,7 +119,6 @@ type DeleteSepasctIDBadRequest struct {
 func (o *DeleteSepasctIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /sepasct/{id}][%d] deleteSepasctIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *DeleteSepasctIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -142,7 +140,7 @@ func NewDeleteSepasctIDUnauthorized() *DeleteSepasctIDUnauthorized {
 	return &DeleteSepasctIDUnauthorized{}
 }
 
-/*DeleteSepasctIDUnauthorized handles this case with default header values.
+/* DeleteSepasctIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -153,7 +151,6 @@ type DeleteSepasctIDUnauthorized struct {
 func (o *DeleteSepasctIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /sepasct/{id}][%d] deleteSepasctIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *DeleteSepasctIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -175,7 +172,7 @@ func NewDeleteSepasctIDForbidden() *DeleteSepasctIDForbidden {
 	return &DeleteSepasctIDForbidden{}
 }
 
-/*DeleteSepasctIDForbidden handles this case with default header values.
+/* DeleteSepasctIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -186,7 +183,6 @@ type DeleteSepasctIDForbidden struct {
 func (o *DeleteSepasctIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /sepasct/{id}][%d] deleteSepasctIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *DeleteSepasctIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -208,7 +204,7 @@ func NewDeleteSepasctIDNotFound() *DeleteSepasctIDNotFound {
 	return &DeleteSepasctIDNotFound{}
 }
 
-/*DeleteSepasctIDNotFound handles this case with default header values.
+/* DeleteSepasctIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -219,7 +215,6 @@ type DeleteSepasctIDNotFound struct {
 func (o *DeleteSepasctIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /sepasct/{id}][%d] deleteSepasctIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteSepasctIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -241,7 +236,7 @@ func NewDeleteSepasctIDConflict() *DeleteSepasctIDConflict {
 	return &DeleteSepasctIDConflict{}
 }
 
-/*DeleteSepasctIDConflict handles this case with default header values.
+/* DeleteSepasctIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -252,7 +247,6 @@ type DeleteSepasctIDConflict struct {
 func (o *DeleteSepasctIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /sepasct/{id}][%d] deleteSepasctIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *DeleteSepasctIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -274,7 +268,7 @@ func NewDeleteSepasctIDTooManyRequests() *DeleteSepasctIDTooManyRequests {
 	return &DeleteSepasctIDTooManyRequests{}
 }
 
-/*DeleteSepasctIDTooManyRequests handles this case with default header values.
+/* DeleteSepasctIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -285,7 +279,6 @@ type DeleteSepasctIDTooManyRequests struct {
 func (o *DeleteSepasctIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /sepasct/{id}][%d] deleteSepasctIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *DeleteSepasctIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -307,7 +300,7 @@ func NewDeleteSepasctIDInternalServerError() *DeleteSepasctIDInternalServerError
 	return &DeleteSepasctIDInternalServerError{}
 }
 
-/*DeleteSepasctIDInternalServerError handles this case with default header values.
+/* DeleteSepasctIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -318,7 +311,6 @@ type DeleteSepasctIDInternalServerError struct {
 func (o *DeleteSepasctIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /sepasct/{id}][%d] deleteSepasctIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *DeleteSepasctIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -340,7 +332,7 @@ func NewDeleteSepasctIDServiceUnavailable() *DeleteSepasctIDServiceUnavailable {
 	return &DeleteSepasctIDServiceUnavailable{}
 }
 
-/*DeleteSepasctIDServiceUnavailable handles this case with default header values.
+/* DeleteSepasctIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -351,7 +343,6 @@ type DeleteSepasctIDServiceUnavailable struct {
 func (o *DeleteSepasctIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /sepasct/{id}][%d] deleteSepasctIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *DeleteSepasctIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

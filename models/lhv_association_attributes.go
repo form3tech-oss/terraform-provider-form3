@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -60,11 +62,11 @@ func (m *LhvAssociationAttributes) Validate(formats strfmt.Registry) error {
 
 func (m *LhvAssociationAttributes) validateClientCode(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("client_code", "body", string(m.ClientCode)); err != nil {
+	if err := validate.RequiredString("client_code", "body", m.ClientCode); err != nil {
 		return err
 	}
 
-	if err := validate.MinLength("client_code", "body", string(m.ClientCode), 1); err != nil {
+	if err := validate.MinLength("client_code", "body", m.ClientCode, 1); err != nil {
 		return err
 	}
 
@@ -73,11 +75,11 @@ func (m *LhvAssociationAttributes) validateClientCode(formats strfmt.Registry) e
 
 func (m *LhvAssociationAttributes) validateClientCountry(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("client_country", "body", string(m.ClientCountry)); err != nil {
+	if err := validate.RequiredString("client_country", "body", m.ClientCountry); err != nil {
 		return err
 	}
 
-	if err := validate.MinLength("client_country", "body", string(m.ClientCountry), 1); err != nil {
+	if err := validate.MinLength("client_country", "body", m.ClientCountry, 1); err != nil {
 		return err
 	}
 
@@ -86,14 +88,19 @@ func (m *LhvAssociationAttributes) validateClientCountry(formats strfmt.Registry
 
 func (m *LhvAssociationAttributes) validateName(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("name", "body", string(m.Name)); err != nil {
+	if err := validate.RequiredString("name", "body", m.Name); err != nil {
 		return err
 	}
 
-	if err := validate.MinLength("name", "body", string(m.Name), 1); err != nil {
+	if err := validate.MinLength("name", "body", m.Name, 1); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this lhv association attributes based on context it is used
+func (m *LhvAssociationAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -81,7 +82,7 @@ const (
 
 // prop value enum
 func (m *SepaReconciliationRelationshipData) validateTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, sepaReconciliationRelationshipDataTypeTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, sepaReconciliationRelationshipDataTypeTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil
@@ -89,7 +90,7 @@ func (m *SepaReconciliationRelationshipData) validateTypeEnum(path, location str
 
 func (m *SepaReconciliationRelationshipData) validateType(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("type", "body", string(m.Type)); err != nil {
+	if err := validate.RequiredString("type", "body", m.Type); err != nil {
 		return err
 	}
 
@@ -98,6 +99,11 @@ func (m *SepaReconciliationRelationshipData) validateType(formats strfmt.Registr
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this sepa reconciliation relationship data based on context it is used
+func (m *SepaReconciliationRelationshipData) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

@@ -25,45 +25,48 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	DeleteUsersUserID(params *DeleteUsersUserIDParams) (*DeleteUsersUserIDNoContent, error)
+	DeleteUsersUserID(params *DeleteUsersUserIDParams, opts ...ClientOption) (*DeleteUsersUserIDNoContent, error)
 
-	DeleteUsersUserIDCredentialsClientID(params *DeleteUsersUserIDCredentialsClientIDParams) (*DeleteUsersUserIDCredentialsClientIDNoContent, error)
+	DeleteUsersUserIDCredentialsClientID(params *DeleteUsersUserIDCredentialsClientIDParams, opts ...ClientOption) (*DeleteUsersUserIDCredentialsClientIDNoContent, error)
 
-	DeleteUsersUserIDCredentialsPublicKeyPublicKeyID(params *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDParams) (*DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDNoContent, error)
+	DeleteUsersUserIDCredentialsPublicKeyPublicKeyID(params *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDParams, opts ...ClientOption) (*DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDNoContent, error)
 
-	DeleteUsersUserIDCredentialsSsoSsoUserID(params *DeleteUsersUserIDCredentialsSsoSsoUserIDParams) (*DeleteUsersUserIDCredentialsSsoSsoUserIDNoContent, error)
+	DeleteUsersUserIDCredentialsSsoSsoUserID(params *DeleteUsersUserIDCredentialsSsoSsoUserIDParams, opts ...ClientOption) (*DeleteUsersUserIDCredentialsSsoSsoUserIDNoContent, error)
 
-	DeleteUsersUserIDRolesRoleID(params *DeleteUsersUserIDRolesRoleIDParams) (*DeleteUsersUserIDRolesRoleIDNoContent, error)
+	DeleteUsersUserIDRolesRoleID(params *DeleteUsersUserIDRolesRoleIDParams, opts ...ClientOption) (*DeleteUsersUserIDRolesRoleIDNoContent, error)
 
-	GetUsers(params *GetUsersParams) (*GetUsersOK, error)
+	GetUsers(params *GetUsersParams, opts ...ClientOption) (*GetUsersOK, error)
 
-	GetUsersUserID(params *GetUsersUserIDParams) (*GetUsersUserIDOK, error)
+	GetUsersUserID(params *GetUsersUserIDParams, opts ...ClientOption) (*GetUsersUserIDOK, error)
 
-	GetUsersUserIDAces(params *GetUsersUserIDAcesParams) (*GetUsersUserIDAcesOK, error)
+	GetUsersUserIDAces(params *GetUsersUserIDAcesParams, opts ...ClientOption) (*GetUsersUserIDAcesOK, error)
 
-	GetUsersUserIDCredentials(params *GetUsersUserIDCredentialsParams) (*GetUsersUserIDCredentialsOK, error)
+	GetUsersUserIDCredentials(params *GetUsersUserIDCredentialsParams, opts ...ClientOption) (*GetUsersUserIDCredentialsOK, error)
 
-	GetUsersUserIDCredentialsPublicKey(params *GetUsersUserIDCredentialsPublicKeyParams) (*GetUsersUserIDCredentialsPublicKeyOK, error)
+	GetUsersUserIDCredentialsPublicKey(params *GetUsersUserIDCredentialsPublicKeyParams, opts ...ClientOption) (*GetUsersUserIDCredentialsPublicKeyOK, error)
 
-	GetUsersUserIDCredentialsPublicKeyPublicKeyID(params *GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams) (*GetUsersUserIDCredentialsPublicKeyPublicKeyIDOK, error)
+	GetUsersUserIDCredentialsPublicKeyPublicKeyID(params *GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams, opts ...ClientOption) (*GetUsersUserIDCredentialsPublicKeyPublicKeyIDOK, error)
 
-	GetUsersUserIDCredentialsSsoSsoUserID(params *GetUsersUserIDCredentialsSsoSsoUserIDParams) (*GetUsersUserIDCredentialsSsoSsoUserIDOK, error)
+	GetUsersUserIDCredentialsSsoSsoUserID(params *GetUsersUserIDCredentialsSsoSsoUserIDParams, opts ...ClientOption) (*GetUsersUserIDCredentialsSsoSsoUserIDOK, error)
 
-	GetUsersUserIDRoles(params *GetUsersUserIDRolesParams) (*GetUsersUserIDRolesOK, error)
+	GetUsersUserIDRoles(params *GetUsersUserIDRolesParams, opts ...ClientOption) (*GetUsersUserIDRolesOK, error)
 
-	PatchUsersUserID(params *PatchUsersUserIDParams) (*PatchUsersUserIDOK, error)
+	PatchUsersUserID(params *PatchUsersUserIDParams, opts ...ClientOption) (*PatchUsersUserIDOK, error)
 
-	PostUsers(params *PostUsersParams) (*PostUsersCreated, error)
+	PostUsers(params *PostUsersParams, opts ...ClientOption) (*PostUsersCreated, error)
 
-	PostUsersUserIDCredentials(params *PostUsersUserIDCredentialsParams) (*PostUsersUserIDCredentialsCreated, error)
+	PostUsersUserIDCredentials(params *PostUsersUserIDCredentialsParams, opts ...ClientOption) (*PostUsersUserIDCredentialsCreated, error)
 
-	PostUsersUserIDCredentialsPublicKey(params *PostUsersUserIDCredentialsPublicKeyParams) (*PostUsersUserIDCredentialsPublicKeyCreated, error)
+	PostUsersUserIDCredentialsPublicKey(params *PostUsersUserIDCredentialsPublicKeyParams, opts ...ClientOption) (*PostUsersUserIDCredentialsPublicKeyCreated, error)
 
-	PostUsersUserIDCredentialsSso(params *PostUsersUserIDCredentialsSsoParams) (*PostUsersUserIDCredentialsSsoCreated, error)
+	PostUsersUserIDCredentialsSso(params *PostUsersUserIDCredentialsSsoParams, opts ...ClientOption) (*PostUsersUserIDCredentialsSsoCreated, error)
 
-	PostUsersUserIDRolesRoleID(params *PostUsersUserIDRolesRoleIDParams) (*PostUsersUserIDRolesRoleIDCreated, error)
+	PostUsersUserIDRolesRoleID(params *PostUsersUserIDRolesRoleIDParams, opts ...ClientOption) (*PostUsersUserIDRolesRoleIDCreated, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -71,13 +74,12 @@ type ClientService interface {
 /*
   DeleteUsersUserID deletes user
 */
-func (a *Client) DeleteUsersUserID(params *DeleteUsersUserIDParams) (*DeleteUsersUserIDNoContent, error) {
+func (a *Client) DeleteUsersUserID(params *DeleteUsersUserIDParams, opts ...ClientOption) (*DeleteUsersUserIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteUsersUserIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteUsersUserID",
 		Method:             "DELETE",
 		PathPattern:        "/users/{user_id}",
@@ -88,7 +90,12 @@ func (a *Client) DeleteUsersUserID(params *DeleteUsersUserIDParams) (*DeleteUser
 		Reader:             &DeleteUsersUserIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -105,13 +112,12 @@ func (a *Client) DeleteUsersUserID(params *DeleteUsersUserIDParams) (*DeleteUser
 /*
   DeleteUsersUserIDCredentialsClientID deletes credential for user
 */
-func (a *Client) DeleteUsersUserIDCredentialsClientID(params *DeleteUsersUserIDCredentialsClientIDParams) (*DeleteUsersUserIDCredentialsClientIDNoContent, error) {
+func (a *Client) DeleteUsersUserIDCredentialsClientID(params *DeleteUsersUserIDCredentialsClientIDParams, opts ...ClientOption) (*DeleteUsersUserIDCredentialsClientIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteUsersUserIDCredentialsClientIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteUsersUserIDCredentialsClientID",
 		Method:             "DELETE",
 		PathPattern:        "/users/{user_id}/credentials/{client_id}",
@@ -122,7 +128,12 @@ func (a *Client) DeleteUsersUserIDCredentialsClientID(params *DeleteUsersUserIDC
 		Reader:             &DeleteUsersUserIDCredentialsClientIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -139,13 +150,12 @@ func (a *Client) DeleteUsersUserIDCredentialsClientID(params *DeleteUsersUserIDC
 /*
   DeleteUsersUserIDCredentialsPublicKeyPublicKeyID deletes public key credential for user
 */
-func (a *Client) DeleteUsersUserIDCredentialsPublicKeyPublicKeyID(params *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDParams) (*DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDNoContent, error) {
+func (a *Client) DeleteUsersUserIDCredentialsPublicKeyPublicKeyID(params *DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDParams, opts ...ClientOption) (*DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteUsersUserIDCredentialsPublicKeyPublicKeyIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteUsersUserIDCredentialsPublicKeyPublicKeyID",
 		Method:             "DELETE",
 		PathPattern:        "/users/{user_id}/credentials/public_key/{public_key_id}",
@@ -156,7 +166,12 @@ func (a *Client) DeleteUsersUserIDCredentialsPublicKeyPublicKeyID(params *Delete
 		Reader:             &DeleteUsersUserIDCredentialsPublicKeyPublicKeyIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -173,13 +188,12 @@ func (a *Client) DeleteUsersUserIDCredentialsPublicKeyPublicKeyID(params *Delete
 /*
   DeleteUsersUserIDCredentialsSsoSsoUserID deletes sso user credential
 */
-func (a *Client) DeleteUsersUserIDCredentialsSsoSsoUserID(params *DeleteUsersUserIDCredentialsSsoSsoUserIDParams) (*DeleteUsersUserIDCredentialsSsoSsoUserIDNoContent, error) {
+func (a *Client) DeleteUsersUserIDCredentialsSsoSsoUserID(params *DeleteUsersUserIDCredentialsSsoSsoUserIDParams, opts ...ClientOption) (*DeleteUsersUserIDCredentialsSsoSsoUserIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteUsersUserIDCredentialsSsoSsoUserIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteUsersUserIDCredentialsSsoSsoUserID",
 		Method:             "DELETE",
 		PathPattern:        "/users/{user_id}/credentials/sso/{sso_user_id}",
@@ -190,7 +204,12 @@ func (a *Client) DeleteUsersUserIDCredentialsSsoSsoUserID(params *DeleteUsersUse
 		Reader:             &DeleteUsersUserIDCredentialsSsoSsoUserIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -207,13 +226,12 @@ func (a *Client) DeleteUsersUserIDCredentialsSsoSsoUserID(params *DeleteUsersUse
 /*
   DeleteUsersUserIDRolesRoleID removes role from user
 */
-func (a *Client) DeleteUsersUserIDRolesRoleID(params *DeleteUsersUserIDRolesRoleIDParams) (*DeleteUsersUserIDRolesRoleIDNoContent, error) {
+func (a *Client) DeleteUsersUserIDRolesRoleID(params *DeleteUsersUserIDRolesRoleIDParams, opts ...ClientOption) (*DeleteUsersUserIDRolesRoleIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteUsersUserIDRolesRoleIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteUsersUserIDRolesRoleID",
 		Method:             "DELETE",
 		PathPattern:        "/users/{user_id}/roles/{role_id}",
@@ -224,7 +242,12 @@ func (a *Client) DeleteUsersUserIDRolesRoleID(params *DeleteUsersUserIDRolesRole
 		Reader:             &DeleteUsersUserIDRolesRoleIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -241,13 +264,12 @@ func (a *Client) DeleteUsersUserIDRolesRoleID(params *DeleteUsersUserIDRolesRole
 /*
   GetUsers lists all users
 */
-func (a *Client) GetUsers(params *GetUsersParams) (*GetUsersOK, error) {
+func (a *Client) GetUsers(params *GetUsersParams, opts ...ClientOption) (*GetUsersOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetUsersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetUsers",
 		Method:             "GET",
 		PathPattern:        "/users",
@@ -258,7 +280,12 @@ func (a *Client) GetUsers(params *GetUsersParams) (*GetUsersOK, error) {
 		Reader:             &GetUsersReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -275,13 +302,12 @@ func (a *Client) GetUsers(params *GetUsersParams) (*GetUsersOK, error) {
 /*
   GetUsersUserID fetches user
 */
-func (a *Client) GetUsersUserID(params *GetUsersUserIDParams) (*GetUsersUserIDOK, error) {
+func (a *Client) GetUsersUserID(params *GetUsersUserIDParams, opts ...ClientOption) (*GetUsersUserIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetUsersUserIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetUsersUserID",
 		Method:             "GET",
 		PathPattern:        "/users/{user_id}",
@@ -292,7 +318,12 @@ func (a *Client) GetUsersUserID(params *GetUsersUserIDParams) (*GetUsersUserIDOK
 		Reader:             &GetUsersUserIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -309,13 +340,12 @@ func (a *Client) GetUsersUserID(params *GetUsersUserIDParams) (*GetUsersUserIDOK
 /*
   GetUsersUserIDAces gets access control list for user
 */
-func (a *Client) GetUsersUserIDAces(params *GetUsersUserIDAcesParams) (*GetUsersUserIDAcesOK, error) {
+func (a *Client) GetUsersUserIDAces(params *GetUsersUserIDAcesParams, opts ...ClientOption) (*GetUsersUserIDAcesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetUsersUserIDAcesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetUsersUserIDAces",
 		Method:             "GET",
 		PathPattern:        "/users/{user_id}/aces",
@@ -326,7 +356,12 @@ func (a *Client) GetUsersUserIDAces(params *GetUsersUserIDAcesParams) (*GetUsers
 		Reader:             &GetUsersUserIDAcesReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -343,13 +378,12 @@ func (a *Client) GetUsersUserIDAces(params *GetUsersUserIDAcesParams) (*GetUsers
 /*
   GetUsersUserIDCredentials gets all credentials for user
 */
-func (a *Client) GetUsersUserIDCredentials(params *GetUsersUserIDCredentialsParams) (*GetUsersUserIDCredentialsOK, error) {
+func (a *Client) GetUsersUserIDCredentials(params *GetUsersUserIDCredentialsParams, opts ...ClientOption) (*GetUsersUserIDCredentialsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetUsersUserIDCredentialsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetUsersUserIDCredentials",
 		Method:             "GET",
 		PathPattern:        "/users/{user_id}/credentials",
@@ -360,7 +394,12 @@ func (a *Client) GetUsersUserIDCredentials(params *GetUsersUserIDCredentialsPara
 		Reader:             &GetUsersUserIDCredentialsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -377,13 +416,12 @@ func (a *Client) GetUsersUserIDCredentials(params *GetUsersUserIDCredentialsPara
 /*
   GetUsersUserIDCredentialsPublicKey fetches public key credentials
 */
-func (a *Client) GetUsersUserIDCredentialsPublicKey(params *GetUsersUserIDCredentialsPublicKeyParams) (*GetUsersUserIDCredentialsPublicKeyOK, error) {
+func (a *Client) GetUsersUserIDCredentialsPublicKey(params *GetUsersUserIDCredentialsPublicKeyParams, opts ...ClientOption) (*GetUsersUserIDCredentialsPublicKeyOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetUsersUserIDCredentialsPublicKeyParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetUsersUserIDCredentialsPublicKey",
 		Method:             "GET",
 		PathPattern:        "/users/{user_id}/credentials/public_key",
@@ -394,7 +432,12 @@ func (a *Client) GetUsersUserIDCredentialsPublicKey(params *GetUsersUserIDCreden
 		Reader:             &GetUsersUserIDCredentialsPublicKeyReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -411,13 +454,12 @@ func (a *Client) GetUsersUserIDCredentialsPublicKey(params *GetUsersUserIDCreden
 /*
   GetUsersUserIDCredentialsPublicKeyPublicKeyID fetches public key credential
 */
-func (a *Client) GetUsersUserIDCredentialsPublicKeyPublicKeyID(params *GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams) (*GetUsersUserIDCredentialsPublicKeyPublicKeyIDOK, error) {
+func (a *Client) GetUsersUserIDCredentialsPublicKeyPublicKeyID(params *GetUsersUserIDCredentialsPublicKeyPublicKeyIDParams, opts ...ClientOption) (*GetUsersUserIDCredentialsPublicKeyPublicKeyIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetUsersUserIDCredentialsPublicKeyPublicKeyIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetUsersUserIDCredentialsPublicKeyPublicKeyID",
 		Method:             "GET",
 		PathPattern:        "/users/{user_id}/credentials/public_key/{public_key_id}",
@@ -428,7 +470,12 @@ func (a *Client) GetUsersUserIDCredentialsPublicKeyPublicKeyID(params *GetUsersU
 		Reader:             &GetUsersUserIDCredentialsPublicKeyPublicKeyIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -445,13 +492,12 @@ func (a *Client) GetUsersUserIDCredentialsPublicKeyPublicKeyID(params *GetUsersU
 /*
   GetUsersUserIDCredentialsSsoSsoUserID fetches sso credential
 */
-func (a *Client) GetUsersUserIDCredentialsSsoSsoUserID(params *GetUsersUserIDCredentialsSsoSsoUserIDParams) (*GetUsersUserIDCredentialsSsoSsoUserIDOK, error) {
+func (a *Client) GetUsersUserIDCredentialsSsoSsoUserID(params *GetUsersUserIDCredentialsSsoSsoUserIDParams, opts ...ClientOption) (*GetUsersUserIDCredentialsSsoSsoUserIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetUsersUserIDCredentialsSsoSsoUserIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetUsersUserIDCredentialsSsoSsoUserID",
 		Method:             "GET",
 		PathPattern:        "/users/{user_id}/credentials/sso/{sso_user_id}",
@@ -462,7 +508,12 @@ func (a *Client) GetUsersUserIDCredentialsSsoSsoUserID(params *GetUsersUserIDCre
 		Reader:             &GetUsersUserIDCredentialsSsoSsoUserIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -479,13 +530,12 @@ func (a *Client) GetUsersUserIDCredentialsSsoSsoUserID(params *GetUsersUserIDCre
 /*
   GetUsersUserIDRoles gets all roles for user
 */
-func (a *Client) GetUsersUserIDRoles(params *GetUsersUserIDRolesParams) (*GetUsersUserIDRolesOK, error) {
+func (a *Client) GetUsersUserIDRoles(params *GetUsersUserIDRolesParams, opts ...ClientOption) (*GetUsersUserIDRolesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetUsersUserIDRolesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetUsersUserIDRoles",
 		Method:             "GET",
 		PathPattern:        "/users/{user_id}/roles",
@@ -496,7 +546,12 @@ func (a *Client) GetUsersUserIDRoles(params *GetUsersUserIDRolesParams) (*GetUse
 		Reader:             &GetUsersUserIDRolesReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -513,13 +568,12 @@ func (a *Client) GetUsersUserIDRoles(params *GetUsersUserIDRolesParams) (*GetUse
 /*
   PatchUsersUserID edits user details
 */
-func (a *Client) PatchUsersUserID(params *PatchUsersUserIDParams) (*PatchUsersUserIDOK, error) {
+func (a *Client) PatchUsersUserID(params *PatchUsersUserIDParams, opts ...ClientOption) (*PatchUsersUserIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPatchUsersUserIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PatchUsersUserID",
 		Method:             "PATCH",
 		PathPattern:        "/users/{user_id}",
@@ -530,7 +584,12 @@ func (a *Client) PatchUsersUserID(params *PatchUsersUserIDParams) (*PatchUsersUs
 		Reader:             &PatchUsersUserIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -547,13 +606,12 @@ func (a *Client) PatchUsersUserID(params *PatchUsersUserIDParams) (*PatchUsersUs
 /*
   PostUsers creates user
 */
-func (a *Client) PostUsers(params *PostUsersParams) (*PostUsersCreated, error) {
+func (a *Client) PostUsers(params *PostUsersParams, opts ...ClientOption) (*PostUsersCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostUsersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostUsers",
 		Method:             "POST",
 		PathPattern:        "/users",
@@ -564,7 +622,12 @@ func (a *Client) PostUsers(params *PostUsersParams) (*PostUsersCreated, error) {
 		Reader:             &PostUsersReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -581,13 +644,12 @@ func (a *Client) PostUsers(params *PostUsersParams) (*PostUsersCreated, error) {
 /*
   PostUsersUserIDCredentials adds credentials to user
 */
-func (a *Client) PostUsersUserIDCredentials(params *PostUsersUserIDCredentialsParams) (*PostUsersUserIDCredentialsCreated, error) {
+func (a *Client) PostUsersUserIDCredentials(params *PostUsersUserIDCredentialsParams, opts ...ClientOption) (*PostUsersUserIDCredentialsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostUsersUserIDCredentialsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostUsersUserIDCredentials",
 		Method:             "POST",
 		PathPattern:        "/users/{user_id}/credentials",
@@ -598,7 +660,12 @@ func (a *Client) PostUsersUserIDCredentials(params *PostUsersUserIDCredentialsPa
 		Reader:             &PostUsersUserIDCredentialsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -615,13 +682,12 @@ func (a *Client) PostUsersUserIDCredentials(params *PostUsersUserIDCredentialsPa
 /*
   PostUsersUserIDCredentialsPublicKey generates new public key credential for a user
 */
-func (a *Client) PostUsersUserIDCredentialsPublicKey(params *PostUsersUserIDCredentialsPublicKeyParams) (*PostUsersUserIDCredentialsPublicKeyCreated, error) {
+func (a *Client) PostUsersUserIDCredentialsPublicKey(params *PostUsersUserIDCredentialsPublicKeyParams, opts ...ClientOption) (*PostUsersUserIDCredentialsPublicKeyCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostUsersUserIDCredentialsPublicKeyParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostUsersUserIDCredentialsPublicKey",
 		Method:             "POST",
 		PathPattern:        "/users/{user_id}/credentials/public_key",
@@ -632,7 +698,12 @@ func (a *Client) PostUsersUserIDCredentialsPublicKey(params *PostUsersUserIDCred
 		Reader:             &PostUsersUserIDCredentialsPublicKeyReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -649,13 +720,12 @@ func (a *Client) PostUsersUserIDCredentialsPublicKey(params *PostUsersUserIDCred
 /*
   PostUsersUserIDCredentialsSso creates new sso credential for a user
 */
-func (a *Client) PostUsersUserIDCredentialsSso(params *PostUsersUserIDCredentialsSsoParams) (*PostUsersUserIDCredentialsSsoCreated, error) {
+func (a *Client) PostUsersUserIDCredentialsSso(params *PostUsersUserIDCredentialsSsoParams, opts ...ClientOption) (*PostUsersUserIDCredentialsSsoCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostUsersUserIDCredentialsSsoParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostUsersUserIDCredentialsSso",
 		Method:             "POST",
 		PathPattern:        "/users/{user_id}/credentials/sso",
@@ -666,7 +736,12 @@ func (a *Client) PostUsersUserIDCredentialsSso(params *PostUsersUserIDCredential
 		Reader:             &PostUsersUserIDCredentialsSsoReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -683,13 +758,12 @@ func (a *Client) PostUsersUserIDCredentialsSso(params *PostUsersUserIDCredential
 /*
   PostUsersUserIDRolesRoleID adds role to user
 */
-func (a *Client) PostUsersUserIDRolesRoleID(params *PostUsersUserIDRolesRoleIDParams) (*PostUsersUserIDRolesRoleIDCreated, error) {
+func (a *Client) PostUsersUserIDRolesRoleID(params *PostUsersUserIDRolesRoleIDParams, opts ...ClientOption) (*PostUsersUserIDRolesRoleIDCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostUsersUserIDRolesRoleIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostUsersUserIDRolesRoleID",
 		Method:             "POST",
 		PathPattern:        "/users/{user_id}/roles/{role_id}",
@@ -700,7 +774,12 @@ func (a *Client) PostUsersUserIDRolesRoleID(params *PostUsersUserIDRolesRoleIDPa
 		Reader:             &PostUsersUserIDRolesRoleIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

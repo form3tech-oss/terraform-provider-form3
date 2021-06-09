@@ -4383,12 +4383,6 @@ paths:
           required: true
           type: string
           format: uuid
-        - name: version
-          in: query
-          description: Version
-          required: true
-          type: integer
-          minimum: 0
         - name: payload
           in: body
           description: Association Patch payload
@@ -8877,7 +8871,7 @@ definitions:
       disable_outbound_payments:
         x-nullable: true
         type: boolean
-    reachable_bics:
+      reachable_bics:
         type: array
         items:
           type: string

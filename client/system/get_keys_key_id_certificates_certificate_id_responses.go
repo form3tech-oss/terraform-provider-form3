@@ -77,9 +77,8 @@ func (o *GetKeysKeyIDCertificatesCertificateIDReader) ReadResponse(response runt
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewGetKeysKeyIDCertificatesCertificateIDOK() *GetKeysKeyIDCertificatesCerti
 	return &GetKeysKeyIDCertificatesCertificateIDOK{}
 }
 
-/*GetKeysKeyIDCertificatesCertificateIDOK handles this case with default header values.
+/* GetKeysKeyIDCertificatesCertificateIDOK describes a response with status code 200, with default header values.
 
 Certificate details
 */
@@ -99,7 +98,6 @@ type GetKeysKeyIDCertificatesCertificateIDOK struct {
 func (o *GetKeysKeyIDCertificatesCertificateIDOK) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}/certificates/{certificate_id}][%d] getKeysKeyIdCertificatesCertificateIdOK  %+v", 200, o.Payload)
 }
-
 func (o *GetKeysKeyIDCertificatesCertificateIDOK) GetPayload() *models.CertificateDetailsResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewGetKeysKeyIDCertificatesCertificateIDBadRequest() *GetKeysKeyIDCertifica
 	return &GetKeysKeyIDCertificatesCertificateIDBadRequest{}
 }
 
-/*GetKeysKeyIDCertificatesCertificateIDBadRequest handles this case with default header values.
+/* GetKeysKeyIDCertificatesCertificateIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type GetKeysKeyIDCertificatesCertificateIDBadRequest struct {
 func (o *GetKeysKeyIDCertificatesCertificateIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}/certificates/{certificate_id}][%d] getKeysKeyIdCertificatesCertificateIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetKeysKeyIDCertificatesCertificateIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewGetKeysKeyIDCertificatesCertificateIDUnauthorized() *GetKeysKeyIDCertifi
 	return &GetKeysKeyIDCertificatesCertificateIDUnauthorized{}
 }
 
-/*GetKeysKeyIDCertificatesCertificateIDUnauthorized handles this case with default header values.
+/* GetKeysKeyIDCertificatesCertificateIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type GetKeysKeyIDCertificatesCertificateIDUnauthorized struct {
 func (o *GetKeysKeyIDCertificatesCertificateIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}/certificates/{certificate_id}][%d] getKeysKeyIdCertificatesCertificateIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetKeysKeyIDCertificatesCertificateIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewGetKeysKeyIDCertificatesCertificateIDForbidden() *GetKeysKeyIDCertificat
 	return &GetKeysKeyIDCertificatesCertificateIDForbidden{}
 }
 
-/*GetKeysKeyIDCertificatesCertificateIDForbidden handles this case with default header values.
+/* GetKeysKeyIDCertificatesCertificateIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type GetKeysKeyIDCertificatesCertificateIDForbidden struct {
 func (o *GetKeysKeyIDCertificatesCertificateIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}/certificates/{certificate_id}][%d] getKeysKeyIdCertificatesCertificateIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetKeysKeyIDCertificatesCertificateIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewGetKeysKeyIDCertificatesCertificateIDNotFound() *GetKeysKeyIDCertificate
 	return &GetKeysKeyIDCertificatesCertificateIDNotFound{}
 }
 
-/*GetKeysKeyIDCertificatesCertificateIDNotFound handles this case with default header values.
+/* GetKeysKeyIDCertificatesCertificateIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type GetKeysKeyIDCertificatesCertificateIDNotFound struct {
 func (o *GetKeysKeyIDCertificatesCertificateIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}/certificates/{certificate_id}][%d] getKeysKeyIdCertificatesCertificateIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetKeysKeyIDCertificatesCertificateIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewGetKeysKeyIDCertificatesCertificateIDConflict() *GetKeysKeyIDCertificate
 	return &GetKeysKeyIDCertificatesCertificateIDConflict{}
 }
 
-/*GetKeysKeyIDCertificatesCertificateIDConflict handles this case with default header values.
+/* GetKeysKeyIDCertificatesCertificateIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type GetKeysKeyIDCertificatesCertificateIDConflict struct {
 func (o *GetKeysKeyIDCertificatesCertificateIDConflict) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}/certificates/{certificate_id}][%d] getKeysKeyIdCertificatesCertificateIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *GetKeysKeyIDCertificatesCertificateIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewGetKeysKeyIDCertificatesCertificateIDTooManyRequests() *GetKeysKeyIDCert
 	return &GetKeysKeyIDCertificatesCertificateIDTooManyRequests{}
 }
 
-/*GetKeysKeyIDCertificatesCertificateIDTooManyRequests handles this case with default header values.
+/* GetKeysKeyIDCertificatesCertificateIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type GetKeysKeyIDCertificatesCertificateIDTooManyRequests struct {
 func (o *GetKeysKeyIDCertificatesCertificateIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}/certificates/{certificate_id}][%d] getKeysKeyIdCertificatesCertificateIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *GetKeysKeyIDCertificatesCertificateIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewGetKeysKeyIDCertificatesCertificateIDInternalServerError() *GetKeysKeyID
 	return &GetKeysKeyIDCertificatesCertificateIDInternalServerError{}
 }
 
-/*GetKeysKeyIDCertificatesCertificateIDInternalServerError handles this case with default header values.
+/* GetKeysKeyIDCertificatesCertificateIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type GetKeysKeyIDCertificatesCertificateIDInternalServerError struct {
 func (o *GetKeysKeyIDCertificatesCertificateIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}/certificates/{certificate_id}][%d] getKeysKeyIdCertificatesCertificateIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetKeysKeyIDCertificatesCertificateIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewGetKeysKeyIDCertificatesCertificateIDServiceUnavailable() *GetKeysKeyIDC
 	return &GetKeysKeyIDCertificatesCertificateIDServiceUnavailable{}
 }
 
-/*GetKeysKeyIDCertificatesCertificateIDServiceUnavailable handles this case with default header values.
+/* GetKeysKeyIDCertificatesCertificateIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type GetKeysKeyIDCertificatesCertificateIDServiceUnavailable struct {
 func (o *GetKeysKeyIDCertificatesCertificateIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}/certificates/{certificate_id}][%d] getKeysKeyIdCertificatesCertificateIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *GetKeysKeyIDCertificatesCertificateIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

@@ -77,9 +77,8 @@ func (o *GetGocardlessReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewGetGocardlessOK() *GetGocardlessOK {
 	return &GetGocardlessOK{}
 }
 
-/*GetGocardlessOK handles this case with default header values.
+/* GetGocardlessOK describes a response with status code 200, with default header values.
 
 List of gocardless associations
 */
@@ -99,7 +98,6 @@ type GetGocardlessOK struct {
 func (o *GetGocardlessOK) Error() string {
 	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessOK  %+v", 200, o.Payload)
 }
-
 func (o *GetGocardlessOK) GetPayload() *models.GocardlessAssociationListResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewGetGocardlessBadRequest() *GetGocardlessBadRequest {
 	return &GetGocardlessBadRequest{}
 }
 
-/*GetGocardlessBadRequest handles this case with default header values.
+/* GetGocardlessBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type GetGocardlessBadRequest struct {
 func (o *GetGocardlessBadRequest) Error() string {
 	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetGocardlessBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewGetGocardlessUnauthorized() *GetGocardlessUnauthorized {
 	return &GetGocardlessUnauthorized{}
 }
 
-/*GetGocardlessUnauthorized handles this case with default header values.
+/* GetGocardlessUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type GetGocardlessUnauthorized struct {
 func (o *GetGocardlessUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetGocardlessUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewGetGocardlessForbidden() *GetGocardlessForbidden {
 	return &GetGocardlessForbidden{}
 }
 
-/*GetGocardlessForbidden handles this case with default header values.
+/* GetGocardlessForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type GetGocardlessForbidden struct {
 func (o *GetGocardlessForbidden) Error() string {
 	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetGocardlessForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewGetGocardlessNotFound() *GetGocardlessNotFound {
 	return &GetGocardlessNotFound{}
 }
 
-/*GetGocardlessNotFound handles this case with default header values.
+/* GetGocardlessNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type GetGocardlessNotFound struct {
 func (o *GetGocardlessNotFound) Error() string {
 	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetGocardlessNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewGetGocardlessConflict() *GetGocardlessConflict {
 	return &GetGocardlessConflict{}
 }
 
-/*GetGocardlessConflict handles this case with default header values.
+/* GetGocardlessConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type GetGocardlessConflict struct {
 func (o *GetGocardlessConflict) Error() string {
 	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessConflict  %+v", 409, o.Payload)
 }
-
 func (o *GetGocardlessConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewGetGocardlessTooManyRequests() *GetGocardlessTooManyRequests {
 	return &GetGocardlessTooManyRequests{}
 }
 
-/*GetGocardlessTooManyRequests handles this case with default header values.
+/* GetGocardlessTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type GetGocardlessTooManyRequests struct {
 func (o *GetGocardlessTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *GetGocardlessTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewGetGocardlessInternalServerError() *GetGocardlessInternalServerError {
 	return &GetGocardlessInternalServerError{}
 }
 
-/*GetGocardlessInternalServerError handles this case with default header values.
+/* GetGocardlessInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type GetGocardlessInternalServerError struct {
 func (o *GetGocardlessInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetGocardlessInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewGetGocardlessServiceUnavailable() *GetGocardlessServiceUnavailable {
 	return &GetGocardlessServiceUnavailable{}
 }
 
-/*GetGocardlessServiceUnavailable handles this case with default header values.
+/* GetGocardlessServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type GetGocardlessServiceUnavailable struct {
 func (o *GetGocardlessServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /gocardless][%d] getGocardlessServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *GetGocardlessServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

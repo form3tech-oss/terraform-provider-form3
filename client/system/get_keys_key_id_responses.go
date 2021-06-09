@@ -77,9 +77,8 @@ func (o *GetKeysKeyIDReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewGetKeysKeyIDOK() *GetKeysKeyIDOK {
 	return &GetKeysKeyIDOK{}
 }
 
-/*GetKeysKeyIDOK handles this case with default header values.
+/* GetKeysKeyIDOK describes a response with status code 200, with default header values.
 
 Key details
 */
@@ -99,7 +98,6 @@ type GetKeysKeyIDOK struct {
 func (o *GetKeysKeyIDOK) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdOK  %+v", 200, o.Payload)
 }
-
 func (o *GetKeysKeyIDOK) GetPayload() *models.KeyDetailsResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewGetKeysKeyIDBadRequest() *GetKeysKeyIDBadRequest {
 	return &GetKeysKeyIDBadRequest{}
 }
 
-/*GetKeysKeyIDBadRequest handles this case with default header values.
+/* GetKeysKeyIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type GetKeysKeyIDBadRequest struct {
 func (o *GetKeysKeyIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetKeysKeyIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewGetKeysKeyIDUnauthorized() *GetKeysKeyIDUnauthorized {
 	return &GetKeysKeyIDUnauthorized{}
 }
 
-/*GetKeysKeyIDUnauthorized handles this case with default header values.
+/* GetKeysKeyIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type GetKeysKeyIDUnauthorized struct {
 func (o *GetKeysKeyIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetKeysKeyIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewGetKeysKeyIDForbidden() *GetKeysKeyIDForbidden {
 	return &GetKeysKeyIDForbidden{}
 }
 
-/*GetKeysKeyIDForbidden handles this case with default header values.
+/* GetKeysKeyIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type GetKeysKeyIDForbidden struct {
 func (o *GetKeysKeyIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetKeysKeyIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewGetKeysKeyIDNotFound() *GetKeysKeyIDNotFound {
 	return &GetKeysKeyIDNotFound{}
 }
 
-/*GetKeysKeyIDNotFound handles this case with default header values.
+/* GetKeysKeyIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type GetKeysKeyIDNotFound struct {
 func (o *GetKeysKeyIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetKeysKeyIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewGetKeysKeyIDConflict() *GetKeysKeyIDConflict {
 	return &GetKeysKeyIDConflict{}
 }
 
-/*GetKeysKeyIDConflict handles this case with default header values.
+/* GetKeysKeyIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type GetKeysKeyIDConflict struct {
 func (o *GetKeysKeyIDConflict) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *GetKeysKeyIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewGetKeysKeyIDTooManyRequests() *GetKeysKeyIDTooManyRequests {
 	return &GetKeysKeyIDTooManyRequests{}
 }
 
-/*GetKeysKeyIDTooManyRequests handles this case with default header values.
+/* GetKeysKeyIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type GetKeysKeyIDTooManyRequests struct {
 func (o *GetKeysKeyIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *GetKeysKeyIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewGetKeysKeyIDInternalServerError() *GetKeysKeyIDInternalServerError {
 	return &GetKeysKeyIDInternalServerError{}
 }
 
-/*GetKeysKeyIDInternalServerError handles this case with default header values.
+/* GetKeysKeyIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type GetKeysKeyIDInternalServerError struct {
 func (o *GetKeysKeyIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetKeysKeyIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewGetKeysKeyIDServiceUnavailable() *GetKeysKeyIDServiceUnavailable {
 	return &GetKeysKeyIDServiceUnavailable{}
 }
 
-/*GetKeysKeyIDServiceUnavailable handles this case with default header values.
+/* GetKeysKeyIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type GetKeysKeyIDServiceUnavailable struct {
 func (o *GetKeysKeyIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /keys/{key_id}][%d] getKeysKeyIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *GetKeysKeyIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

@@ -77,9 +77,8 @@ func (o *PostAdminsUserIDCredentialsReader) ReadResponse(response runtime.Client
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewPostAdminsUserIDCredentialsCreated() *PostAdminsUserIDCredentialsCreated
 	return &PostAdminsUserIDCredentialsCreated{}
 }
 
-/*PostAdminsUserIDCredentialsCreated handles this case with default header values.
+/* PostAdminsUserIDCredentialsCreated describes a response with status code 201, with default header values.
 
 Credential creation response
 */
@@ -99,7 +98,6 @@ type PostAdminsUserIDCredentialsCreated struct {
 func (o *PostAdminsUserIDCredentialsCreated) Error() string {
 	return fmt.Sprintf("[POST /admins/{user_id}/credentials][%d] postAdminsUserIdCredentialsCreated  %+v", 201, o.Payload)
 }
-
 func (o *PostAdminsUserIDCredentialsCreated) GetPayload() *models.CredentialCreationResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewPostAdminsUserIDCredentialsBadRequest() *PostAdminsUserIDCredentialsBadR
 	return &PostAdminsUserIDCredentialsBadRequest{}
 }
 
-/*PostAdminsUserIDCredentialsBadRequest handles this case with default header values.
+/* PostAdminsUserIDCredentialsBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type PostAdminsUserIDCredentialsBadRequest struct {
 func (o *PostAdminsUserIDCredentialsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /admins/{user_id}/credentials][%d] postAdminsUserIdCredentialsBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *PostAdminsUserIDCredentialsBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewPostAdminsUserIDCredentialsUnauthorized() *PostAdminsUserIDCredentialsUn
 	return &PostAdminsUserIDCredentialsUnauthorized{}
 }
 
-/*PostAdminsUserIDCredentialsUnauthorized handles this case with default header values.
+/* PostAdminsUserIDCredentialsUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type PostAdminsUserIDCredentialsUnauthorized struct {
 func (o *PostAdminsUserIDCredentialsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /admins/{user_id}/credentials][%d] postAdminsUserIdCredentialsUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *PostAdminsUserIDCredentialsUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewPostAdminsUserIDCredentialsForbidden() *PostAdminsUserIDCredentialsForbi
 	return &PostAdminsUserIDCredentialsForbidden{}
 }
 
-/*PostAdminsUserIDCredentialsForbidden handles this case with default header values.
+/* PostAdminsUserIDCredentialsForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type PostAdminsUserIDCredentialsForbidden struct {
 func (o *PostAdminsUserIDCredentialsForbidden) Error() string {
 	return fmt.Sprintf("[POST /admins/{user_id}/credentials][%d] postAdminsUserIdCredentialsForbidden  %+v", 403, o.Payload)
 }
-
 func (o *PostAdminsUserIDCredentialsForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewPostAdminsUserIDCredentialsNotFound() *PostAdminsUserIDCredentialsNotFou
 	return &PostAdminsUserIDCredentialsNotFound{}
 }
 
-/*PostAdminsUserIDCredentialsNotFound handles this case with default header values.
+/* PostAdminsUserIDCredentialsNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type PostAdminsUserIDCredentialsNotFound struct {
 func (o *PostAdminsUserIDCredentialsNotFound) Error() string {
 	return fmt.Sprintf("[POST /admins/{user_id}/credentials][%d] postAdminsUserIdCredentialsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *PostAdminsUserIDCredentialsNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewPostAdminsUserIDCredentialsConflict() *PostAdminsUserIDCredentialsConfli
 	return &PostAdminsUserIDCredentialsConflict{}
 }
 
-/*PostAdminsUserIDCredentialsConflict handles this case with default header values.
+/* PostAdminsUserIDCredentialsConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type PostAdminsUserIDCredentialsConflict struct {
 func (o *PostAdminsUserIDCredentialsConflict) Error() string {
 	return fmt.Sprintf("[POST /admins/{user_id}/credentials][%d] postAdminsUserIdCredentialsConflict  %+v", 409, o.Payload)
 }
-
 func (o *PostAdminsUserIDCredentialsConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewPostAdminsUserIDCredentialsTooManyRequests() *PostAdminsUserIDCredential
 	return &PostAdminsUserIDCredentialsTooManyRequests{}
 }
 
-/*PostAdminsUserIDCredentialsTooManyRequests handles this case with default header values.
+/* PostAdminsUserIDCredentialsTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type PostAdminsUserIDCredentialsTooManyRequests struct {
 func (o *PostAdminsUserIDCredentialsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /admins/{user_id}/credentials][%d] postAdminsUserIdCredentialsTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *PostAdminsUserIDCredentialsTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewPostAdminsUserIDCredentialsInternalServerError() *PostAdminsUserIDCreden
 	return &PostAdminsUserIDCredentialsInternalServerError{}
 }
 
-/*PostAdminsUserIDCredentialsInternalServerError handles this case with default header values.
+/* PostAdminsUserIDCredentialsInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type PostAdminsUserIDCredentialsInternalServerError struct {
 func (o *PostAdminsUserIDCredentialsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /admins/{user_id}/credentials][%d] postAdminsUserIdCredentialsInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *PostAdminsUserIDCredentialsInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewPostAdminsUserIDCredentialsServiceUnavailable() *PostAdminsUserIDCredent
 	return &PostAdminsUserIDCredentialsServiceUnavailable{}
 }
 
-/*PostAdminsUserIDCredentialsServiceUnavailable handles this case with default header values.
+/* PostAdminsUserIDCredentialsServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type PostAdminsUserIDCredentialsServiceUnavailable struct {
 func (o *PostAdminsUserIDCredentialsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /admins/{user_id}/credentials][%d] postAdminsUserIdCredentialsServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *PostAdminsUserIDCredentialsServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -17,6 +18,11 @@ import (
 //
 // swagger:model KeyType
 type KeyType string
+
+func NewKeyType(value KeyType) *KeyType {
+	v := value
+	return &v
+}
 
 const (
 
@@ -47,7 +53,7 @@ func init() {
 }
 
 func (m KeyType) validateKeyTypeEnum(path, location string, value KeyType) error {
-	if err := validate.Enum(path, location, value, keyTypeEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, keyTypeEnum, true); err != nil {
 		return err
 	}
 	return nil
@@ -65,5 +71,10 @@ func (m KeyType) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+// ContextValidate validates this key type based on context it is used
+func (m KeyType) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }

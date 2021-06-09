@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -49,7 +51,6 @@ func (m *VocalinkReportAssociationRelationships) Validate(formats strfmt.Registr
 }
 
 func (m *VocalinkReportAssociationRelationships) validateBacsMemberCertificate(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.BacsMemberCertificate) { // not required
 		return nil
 	}
@@ -67,7 +68,6 @@ func (m *VocalinkReportAssociationRelationships) validateBacsMemberCertificate(f
 }
 
 func (m *VocalinkReportAssociationRelationships) validateBacsServiceUserCertificate(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.BacsServiceUserCertificate) { // not required
 		return nil
 	}
@@ -85,13 +85,76 @@ func (m *VocalinkReportAssociationRelationships) validateBacsServiceUserCertific
 }
 
 func (m *VocalinkReportAssociationRelationships) validateFpsMemberCertificate(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.FpsMemberCertificate) { // not required
 		return nil
 	}
 
 	if m.FpsMemberCertificate != nil {
 		if err := m.FpsMemberCertificate.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("fps_member_certificate")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this vocalink report association relationships based on the context it is used
+func (m *VocalinkReportAssociationRelationships) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateBacsMemberCertificate(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateBacsServiceUserCertificate(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateFpsMemberCertificate(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *VocalinkReportAssociationRelationships) contextValidateBacsMemberCertificate(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.BacsMemberCertificate != nil {
+		if err := m.BacsMemberCertificate.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("bacs_member_certificate")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *VocalinkReportAssociationRelationships) contextValidateBacsServiceUserCertificate(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.BacsServiceUserCertificate != nil {
+		if err := m.BacsServiceUserCertificate.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("bacs_service_user_certificate")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *VocalinkReportAssociationRelationships) contextValidateFpsMemberCertificate(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.FpsMemberCertificate != nil {
+		if err := m.FpsMemberCertificate.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("fps_member_certificate")
 			}

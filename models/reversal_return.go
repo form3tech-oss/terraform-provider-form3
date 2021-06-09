@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -99,7 +101,6 @@ func (m *ReversalReturn) validateOrganisationID(formats strfmt.Registry) error {
 }
 
 func (m *ReversalReturn) validateRelationships(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Relationships) { // not required
 		return nil
 	}
@@ -117,12 +118,11 @@ func (m *ReversalReturn) validateRelationships(formats strfmt.Registry) error {
 }
 
 func (m *ReversalReturn) validateType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("type", "body", string(m.Type), `^[A-Za-z_]*$`); err != nil {
+	if err := validate.Pattern("type", "body", m.Type, `^[A-Za-z_]*$`); err != nil {
 		return err
 	}
 
@@ -130,13 +130,40 @@ func (m *ReversalReturn) validateType(formats strfmt.Registry) error {
 }
 
 func (m *ReversalReturn) validateVersion(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Version) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
+	if err := validate.MinimumInt("version", "body", *m.Version, 0, false); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this reversal return based on the context it is used
+func (m *ReversalReturn) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateRelationships(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ReversalReturn) contextValidateRelationships(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Relationships != nil {
+		if err := m.Relationships.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("relationships")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -191,7 +218,6 @@ func (m *ReversalReturnRelationships) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ReversalReturnRelationships) validatePaymentReturn(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.PaymentReturn) { // not required
 		return nil
 	}
@@ -209,13 +235,58 @@ func (m *ReversalReturnRelationships) validatePaymentReturn(formats strfmt.Regis
 }
 
 func (m *ReversalReturnRelationships) validateReturnReversalAdmission(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ReturnReversalAdmission) { // not required
 		return nil
 	}
 
 	if m.ReturnReversalAdmission != nil {
 		if err := m.ReturnReversalAdmission.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("relationships" + "." + "return_reversal_admission")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this reversal return relationships based on the context it is used
+func (m *ReversalReturnRelationships) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidatePaymentReturn(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateReturnReversalAdmission(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ReversalReturnRelationships) contextValidatePaymentReturn(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.PaymentReturn != nil {
+		if err := m.PaymentReturn.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("relationships" + "." + "payment_return")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ReversalReturnRelationships) contextValidateReturnReversalAdmission(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ReturnReversalAdmission != nil {
+		if err := m.ReturnReversalAdmission.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("relationships" + "." + "return_reversal_admission")
 			}

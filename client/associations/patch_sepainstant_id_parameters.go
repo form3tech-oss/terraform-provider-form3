@@ -14,74 +14,85 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPatchSepainstantIDParams creates a new PatchSepainstantIDParams object
-// with the default values initialized.
+// NewPatchSepainstantIDParams creates a new PatchSepainstantIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPatchSepainstantIDParams() *PatchSepainstantIDParams {
-	var ()
 	return &PatchSepainstantIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPatchSepainstantIDParamsWithTimeout creates a new PatchSepainstantIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPatchSepainstantIDParamsWithTimeout(timeout time.Duration) *PatchSepainstantIDParams {
-	var ()
 	return &PatchSepainstantIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPatchSepainstantIDParamsWithContext creates a new PatchSepainstantIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPatchSepainstantIDParamsWithContext(ctx context.Context) *PatchSepainstantIDParams {
-	var ()
 	return &PatchSepainstantIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPatchSepainstantIDParamsWithHTTPClient creates a new PatchSepainstantIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPatchSepainstantIDParamsWithHTTPClient(client *http.Client) *PatchSepainstantIDParams {
-	var ()
 	return &PatchSepainstantIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*PatchSepainstantIDParams contains all the parameters to send to the API endpoint
-for the patch sepainstant ID operation typically these are written to a http.Request
+/* PatchSepainstantIDParams contains all the parameters to send to the API endpoint
+   for the patch sepainstant ID operation.
+
+   Typically these are written to a http.Request.
 */
 type PatchSepainstantIDParams struct {
 
-	/*ID
-	  Association Id
+	/* ID.
 
+	   Association Id
+
+	   Format: uuid
 	*/
 	ID strfmt.UUID
-	/*Payload
-	  Association Patch payload
 
+	/* Payload.
+
+	   Association Patch payload
 	*/
 	Payload *models.SepaInstantAssociationPatch
-	/*Version
-	  Version
-
-	*/
-	Version int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the patch sepainstant ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PatchSepainstantIDParams) WithDefaults() *PatchSepainstantIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the patch sepainstant ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PatchSepainstantIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the patch sepainstant ID params
@@ -139,17 +150,6 @@ func (o *PatchSepainstantIDParams) SetPayload(payload *models.SepaInstantAssocia
 	o.Payload = payload
 }
 
-// WithVersion adds the version to the patch sepainstant ID params
-func (o *PatchSepainstantIDParams) WithVersion(version int64) *PatchSepainstantIDParams {
-	o.SetVersion(version)
-	return o
-}
-
-// SetVersion adds the version to the patch sepainstant ID params
-func (o *PatchSepainstantIDParams) SetVersion(version int64) {
-	o.Version = version
-}
-
 // WriteToRequest writes these params to a swagger request
 func (o *PatchSepainstantIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -162,18 +162,8 @@ func (o *PatchSepainstantIDParams) WriteToRequest(r runtime.ClientRequest, reg s
 	if err := r.SetPathParam("id", o.ID.String()); err != nil {
 		return err
 	}
-
 	if o.Payload != nil {
 		if err := r.SetBodyParam(o.Payload); err != nil {
-			return err
-		}
-	}
-
-	// query param version
-	qrVersion := o.Version
-	qVersion := swag.FormatInt64(qrVersion)
-	if qVersion != "" {
-		if err := r.SetQueryParam("version", qVersion); err != nil {
 			return err
 		}
 	}

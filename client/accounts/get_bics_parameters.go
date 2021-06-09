@@ -17,69 +17,85 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetBicsParams creates a new GetBicsParams object
-// with the default values initialized.
+// NewGetBicsParams creates a new GetBicsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetBicsParams() *GetBicsParams {
-	var ()
 	return &GetBicsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetBicsParamsWithTimeout creates a new GetBicsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetBicsParamsWithTimeout(timeout time.Duration) *GetBicsParams {
-	var ()
 	return &GetBicsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetBicsParamsWithContext creates a new GetBicsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetBicsParamsWithContext(ctx context.Context) *GetBicsParams {
-	var ()
 	return &GetBicsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetBicsParamsWithHTTPClient creates a new GetBicsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetBicsParamsWithHTTPClient(client *http.Client) *GetBicsParams {
-	var ()
 	return &GetBicsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetBicsParams contains all the parameters to send to the API endpoint
-for the get bics operation typically these are written to a http.Request
+/* GetBicsParams contains all the parameters to send to the API endpoint
+   for the get bics operation.
+
+   Typically these are written to a http.Request.
 */
 type GetBicsParams struct {
 
-	/*FilterBic
-	  Filter by specific bic
+	/* FilterBic.
 
+	   Filter by specific bic
 	*/
 	FilterBic *string
-	/*PageNumber
-	  Which page to select
 
+	/* PageNumber.
+
+	   Which page to select
 	*/
 	PageNumber *string
-	/*PageSize
-	  Number of items to select
 
+	/* PageSize.
+
+	   Number of items to select
 	*/
 	PageSize *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get bics params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetBicsParams) WithDefaults() *GetBicsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get bics params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetBicsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get bics params
@@ -160,48 +176,51 @@ func (o *GetBicsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regis
 
 		// query param filter[bic]
 		var qrFilterBic string
+
 		if o.FilterBic != nil {
 			qrFilterBic = *o.FilterBic
 		}
 		qFilterBic := qrFilterBic
 		if qFilterBic != "" {
+
 			if err := r.SetQueryParam("filter[bic]", qFilterBic); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.PageNumber != nil {
 
 		// query param page[number]
 		var qrPageNumber string
+
 		if o.PageNumber != nil {
 			qrPageNumber = *o.PageNumber
 		}
 		qPageNumber := qrPageNumber
 		if qPageNumber != "" {
+
 			if err := r.SetQueryParam("page[number]", qPageNumber); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.PageSize != nil {
 
 		// query param page[size]
 		var qrPageSize int64
+
 		if o.PageSize != nil {
 			qrPageSize = *o.PageSize
 		}
 		qPageSize := swag.FormatInt64(qrPageSize)
 		if qPageSize != "" {
+
 			if err := r.SetQueryParam("page[size]", qPageSize); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

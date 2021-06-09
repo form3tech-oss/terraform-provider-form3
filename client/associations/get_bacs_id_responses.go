@@ -77,9 +77,8 @@ func (o *GetBacsIDReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewGetBacsIDOK() *GetBacsIDOK {
 	return &GetBacsIDOK{}
 }
 
-/*GetBacsIDOK handles this case with default header values.
+/* GetBacsIDOK describes a response with status code 200, with default header values.
 
 Associations details for BACS
 */
@@ -99,7 +98,6 @@ type GetBacsIDOK struct {
 func (o *GetBacsIDOK) Error() string {
 	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdOK  %+v", 200, o.Payload)
 }
-
 func (o *GetBacsIDOK) GetPayload() *models.BacsAssociationDetailsResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewGetBacsIDBadRequest() *GetBacsIDBadRequest {
 	return &GetBacsIDBadRequest{}
 }
 
-/*GetBacsIDBadRequest handles this case with default header values.
+/* GetBacsIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type GetBacsIDBadRequest struct {
 func (o *GetBacsIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetBacsIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewGetBacsIDUnauthorized() *GetBacsIDUnauthorized {
 	return &GetBacsIDUnauthorized{}
 }
 
-/*GetBacsIDUnauthorized handles this case with default header values.
+/* GetBacsIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type GetBacsIDUnauthorized struct {
 func (o *GetBacsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetBacsIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewGetBacsIDForbidden() *GetBacsIDForbidden {
 	return &GetBacsIDForbidden{}
 }
 
-/*GetBacsIDForbidden handles this case with default header values.
+/* GetBacsIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type GetBacsIDForbidden struct {
 func (o *GetBacsIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetBacsIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewGetBacsIDNotFound() *GetBacsIDNotFound {
 	return &GetBacsIDNotFound{}
 }
 
-/*GetBacsIDNotFound handles this case with default header values.
+/* GetBacsIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type GetBacsIDNotFound struct {
 func (o *GetBacsIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetBacsIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewGetBacsIDConflict() *GetBacsIDConflict {
 	return &GetBacsIDConflict{}
 }
 
-/*GetBacsIDConflict handles this case with default header values.
+/* GetBacsIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type GetBacsIDConflict struct {
 func (o *GetBacsIDConflict) Error() string {
 	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *GetBacsIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewGetBacsIDTooManyRequests() *GetBacsIDTooManyRequests {
 	return &GetBacsIDTooManyRequests{}
 }
 
-/*GetBacsIDTooManyRequests handles this case with default header values.
+/* GetBacsIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type GetBacsIDTooManyRequests struct {
 func (o *GetBacsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *GetBacsIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewGetBacsIDInternalServerError() *GetBacsIDInternalServerError {
 	return &GetBacsIDInternalServerError{}
 }
 
-/*GetBacsIDInternalServerError handles this case with default header values.
+/* GetBacsIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type GetBacsIDInternalServerError struct {
 func (o *GetBacsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetBacsIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewGetBacsIDServiceUnavailable() *GetBacsIDServiceUnavailable {
 	return &GetBacsIDServiceUnavailable{}
 }
 
-/*GetBacsIDServiceUnavailable handles this case with default header values.
+/* GetBacsIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type GetBacsIDServiceUnavailable struct {
 func (o *GetBacsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /bacs/{id}][%d] getBacsIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *GetBacsIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

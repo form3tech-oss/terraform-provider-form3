@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -17,6 +18,11 @@ import (
 //
 // swagger:model ResourceType
 type ResourceType string
+
+func NewResourceType(value ResourceType) *ResourceType {
+	v := value
+	return &v
+}
 
 const (
 
@@ -53,7 +59,7 @@ func init() {
 }
 
 func (m ResourceType) validateResourceTypeEnum(path, location string, value ResourceType) error {
-	if err := validate.Enum(path, location, value, resourceTypeEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, resourceTypeEnum, true); err != nil {
 		return err
 	}
 	return nil
@@ -71,5 +77,10 @@ func (m ResourceType) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+// ContextValidate validates this resource type based on context it is used
+func (m ResourceType) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }

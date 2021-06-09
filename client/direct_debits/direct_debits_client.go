@@ -25,9 +25,12 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	GetDirectdebits(params *GetDirectdebitsParams) (*GetDirectdebitsOK, error)
+	GetDirectdebits(params *GetDirectdebitsParams, opts ...ClientOption) (*GetDirectdebitsOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -35,13 +38,12 @@ type ClientService interface {
 /*
   GetDirectdebits lists direct debits
 */
-func (a *Client) GetDirectdebits(params *GetDirectdebitsParams) (*GetDirectdebitsOK, error) {
+func (a *Client) GetDirectdebits(params *GetDirectdebitsParams, opts ...ClientOption) (*GetDirectdebitsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetDirectdebitsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetDirectdebits",
 		Method:             "GET",
 		PathPattern:        "/directdebits",
@@ -52,7 +54,12 @@ func (a *Client) GetDirectdebits(params *GetDirectdebitsParams) (*GetDirectdebit
 		Reader:             &GetDirectdebitsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

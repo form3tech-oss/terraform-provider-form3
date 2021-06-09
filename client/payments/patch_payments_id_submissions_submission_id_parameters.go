@@ -18,66 +18,86 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPatchPaymentsIDSubmissionsSubmissionIDParams creates a new PatchPaymentsIDSubmissionsSubmissionIDParams object
-// with the default values initialized.
+// NewPatchPaymentsIDSubmissionsSubmissionIDParams creates a new PatchPaymentsIDSubmissionsSubmissionIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPatchPaymentsIDSubmissionsSubmissionIDParams() *PatchPaymentsIDSubmissionsSubmissionIDParams {
-	var ()
 	return &PatchPaymentsIDSubmissionsSubmissionIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPatchPaymentsIDSubmissionsSubmissionIDParamsWithTimeout creates a new PatchPaymentsIDSubmissionsSubmissionIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPatchPaymentsIDSubmissionsSubmissionIDParamsWithTimeout(timeout time.Duration) *PatchPaymentsIDSubmissionsSubmissionIDParams {
-	var ()
 	return &PatchPaymentsIDSubmissionsSubmissionIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPatchPaymentsIDSubmissionsSubmissionIDParamsWithContext creates a new PatchPaymentsIDSubmissionsSubmissionIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPatchPaymentsIDSubmissionsSubmissionIDParamsWithContext(ctx context.Context) *PatchPaymentsIDSubmissionsSubmissionIDParams {
-	var ()
 	return &PatchPaymentsIDSubmissionsSubmissionIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPatchPaymentsIDSubmissionsSubmissionIDParamsWithHTTPClient creates a new PatchPaymentsIDSubmissionsSubmissionIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPatchPaymentsIDSubmissionsSubmissionIDParamsWithHTTPClient(client *http.Client) *PatchPaymentsIDSubmissionsSubmissionIDParams {
-	var ()
 	return &PatchPaymentsIDSubmissionsSubmissionIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*PatchPaymentsIDSubmissionsSubmissionIDParams contains all the parameters to send to the API endpoint
-for the patch payments ID submissions submission ID operation typically these are written to a http.Request
+/* PatchPaymentsIDSubmissionsSubmissionIDParams contains all the parameters to send to the API endpoint
+   for the patch payments ID submissions submission ID operation.
+
+   Typically these are written to a http.Request.
 */
 type PatchPaymentsIDSubmissionsSubmissionIDParams struct {
 
-	/*SubmissionUpdateRequest*/
+	// SubmissionUpdateRequest.
 	SubmissionUpdateRequest *models.PaymentSubmissionAmendment
-	/*ID
-	  Payment Id
 
+	/* ID.
+
+	   Payment Id
+
+	   Format: uuid
 	*/
 	ID strfmt.UUID
-	/*SubmissionID
-	  Submission Id
 
+	/* SubmissionID.
+
+	   Submission Id
+
+	   Format: uuid
 	*/
 	SubmissionID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the patch payments ID submissions submission ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PatchPaymentsIDSubmissionsSubmissionIDParams) WithDefaults() *PatchPaymentsIDSubmissionsSubmissionIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the patch payments ID submissions submission ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PatchPaymentsIDSubmissionsSubmissionIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the patch payments ID submissions submission ID params
@@ -153,7 +173,6 @@ func (o *PatchPaymentsIDSubmissionsSubmissionIDParams) WriteToRequest(r runtime.
 		return err
 	}
 	var res []error
-
 	if o.SubmissionUpdateRequest != nil {
 		if err := r.SetBodyParam(o.SubmissionUpdateRequest); err != nil {
 			return err

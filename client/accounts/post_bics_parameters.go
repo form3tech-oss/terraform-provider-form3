@@ -18,56 +18,70 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPostBicsParams creates a new PostBicsParams object
-// with the default values initialized.
+// NewPostBicsParams creates a new PostBicsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostBicsParams() *PostBicsParams {
-	var ()
 	return &PostBicsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostBicsParamsWithTimeout creates a new PostBicsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostBicsParamsWithTimeout(timeout time.Duration) *PostBicsParams {
-	var ()
 	return &PostBicsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostBicsParamsWithContext creates a new PostBicsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostBicsParamsWithContext(ctx context.Context) *PostBicsParams {
-	var ()
 	return &PostBicsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostBicsParamsWithHTTPClient creates a new PostBicsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostBicsParamsWithHTTPClient(client *http.Client) *PostBicsParams {
-	var ()
 	return &PostBicsParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostBicsParams contains all the parameters to send to the API endpoint
-for the post bics operation typically these are written to a http.Request
+/* PostBicsParams contains all the parameters to send to the API endpoint
+   for the post bics operation.
+
+   Typically these are written to a http.Request.
 */
 type PostBicsParams struct {
 
-	/*BicCreationRequest*/
+	// BicCreationRequest.
 	BicCreationRequest *models.BicCreation
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post bics params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostBicsParams) WithDefaults() *PostBicsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post bics params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostBicsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post bics params
@@ -121,7 +135,6 @@ func (o *PostBicsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 		return err
 	}
 	var res []error
-
 	if o.BicCreationRequest != nil {
 		if err := r.SetBodyParam(o.BicCreationRequest); err != nil {
 			return err

@@ -77,9 +77,8 @@ func (o *GetStarlingIDReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewGetStarlingIDOK() *GetStarlingIDOK {
 	return &GetStarlingIDOK{}
 }
 
-/*GetStarlingIDOK handles this case with default header values.
+/* GetStarlingIDOK describes a response with status code 200, with default header values.
 
 Associations details
 */
@@ -99,7 +98,6 @@ type GetStarlingIDOK struct {
 func (o *GetStarlingIDOK) Error() string {
 	return fmt.Sprintf("[GET /starling/{id}][%d] getStarlingIdOK  %+v", 200, o.Payload)
 }
-
 func (o *GetStarlingIDOK) GetPayload() *models.AssociationDetailsResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewGetStarlingIDBadRequest() *GetStarlingIDBadRequest {
 	return &GetStarlingIDBadRequest{}
 }
 
-/*GetStarlingIDBadRequest handles this case with default header values.
+/* GetStarlingIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type GetStarlingIDBadRequest struct {
 func (o *GetStarlingIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /starling/{id}][%d] getStarlingIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetStarlingIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewGetStarlingIDUnauthorized() *GetStarlingIDUnauthorized {
 	return &GetStarlingIDUnauthorized{}
 }
 
-/*GetStarlingIDUnauthorized handles this case with default header values.
+/* GetStarlingIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type GetStarlingIDUnauthorized struct {
 func (o *GetStarlingIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /starling/{id}][%d] getStarlingIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetStarlingIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewGetStarlingIDForbidden() *GetStarlingIDForbidden {
 	return &GetStarlingIDForbidden{}
 }
 
-/*GetStarlingIDForbidden handles this case with default header values.
+/* GetStarlingIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type GetStarlingIDForbidden struct {
 func (o *GetStarlingIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /starling/{id}][%d] getStarlingIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetStarlingIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewGetStarlingIDNotFound() *GetStarlingIDNotFound {
 	return &GetStarlingIDNotFound{}
 }
 
-/*GetStarlingIDNotFound handles this case with default header values.
+/* GetStarlingIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type GetStarlingIDNotFound struct {
 func (o *GetStarlingIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /starling/{id}][%d] getStarlingIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetStarlingIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewGetStarlingIDConflict() *GetStarlingIDConflict {
 	return &GetStarlingIDConflict{}
 }
 
-/*GetStarlingIDConflict handles this case with default header values.
+/* GetStarlingIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type GetStarlingIDConflict struct {
 func (o *GetStarlingIDConflict) Error() string {
 	return fmt.Sprintf("[GET /starling/{id}][%d] getStarlingIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *GetStarlingIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewGetStarlingIDTooManyRequests() *GetStarlingIDTooManyRequests {
 	return &GetStarlingIDTooManyRequests{}
 }
 
-/*GetStarlingIDTooManyRequests handles this case with default header values.
+/* GetStarlingIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type GetStarlingIDTooManyRequests struct {
 func (o *GetStarlingIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /starling/{id}][%d] getStarlingIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *GetStarlingIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewGetStarlingIDInternalServerError() *GetStarlingIDInternalServerError {
 	return &GetStarlingIDInternalServerError{}
 }
 
-/*GetStarlingIDInternalServerError handles this case with default header values.
+/* GetStarlingIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type GetStarlingIDInternalServerError struct {
 func (o *GetStarlingIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /starling/{id}][%d] getStarlingIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetStarlingIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewGetStarlingIDServiceUnavailable() *GetStarlingIDServiceUnavailable {
 	return &GetStarlingIDServiceUnavailable{}
 }
 
-/*GetStarlingIDServiceUnavailable handles this case with default header values.
+/* GetStarlingIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type GetStarlingIDServiceUnavailable struct {
 func (o *GetStarlingIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /starling/{id}][%d] getStarlingIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *GetStarlingIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

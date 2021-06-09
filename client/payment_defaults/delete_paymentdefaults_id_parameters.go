@@ -17,64 +17,81 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeletePaymentdefaultsIDParams creates a new DeletePaymentdefaultsIDParams object
-// with the default values initialized.
+// NewDeletePaymentdefaultsIDParams creates a new DeletePaymentdefaultsIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeletePaymentdefaultsIDParams() *DeletePaymentdefaultsIDParams {
-	var ()
 	return &DeletePaymentdefaultsIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeletePaymentdefaultsIDParamsWithTimeout creates a new DeletePaymentdefaultsIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeletePaymentdefaultsIDParamsWithTimeout(timeout time.Duration) *DeletePaymentdefaultsIDParams {
-	var ()
 	return &DeletePaymentdefaultsIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeletePaymentdefaultsIDParamsWithContext creates a new DeletePaymentdefaultsIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeletePaymentdefaultsIDParamsWithContext(ctx context.Context) *DeletePaymentdefaultsIDParams {
-	var ()
 	return &DeletePaymentdefaultsIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeletePaymentdefaultsIDParamsWithHTTPClient creates a new DeletePaymentdefaultsIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeletePaymentdefaultsIDParamsWithHTTPClient(client *http.Client) *DeletePaymentdefaultsIDParams {
-	var ()
 	return &DeletePaymentdefaultsIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeletePaymentdefaultsIDParams contains all the parameters to send to the API endpoint
-for the delete paymentdefaults ID operation typically these are written to a http.Request
+/* DeletePaymentdefaultsIDParams contains all the parameters to send to the API endpoint
+   for the delete paymentdefaults ID operation.
+
+   Typically these are written to a http.Request.
 */
 type DeletePaymentdefaultsIDParams struct {
 
-	/*ID
-	  Limit Id
+	/* ID.
 
+	   Limit Id
+
+	   Format: uuid
 	*/
 	ID strfmt.UUID
-	/*Version
-	  Version
 
+	/* Version.
+
+	   Version
 	*/
 	Version int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete paymentdefaults ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeletePaymentdefaultsIDParams) WithDefaults() *DeletePaymentdefaultsIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete paymentdefaults ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeletePaymentdefaultsIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete paymentdefaults ID params
@@ -149,6 +166,7 @@ func (o *DeletePaymentdefaultsIDParams) WriteToRequest(r runtime.ClientRequest, 
 	qrVersion := o.Version
 	qVersion := swag.FormatInt64(qrVersion)
 	if qVersion != "" {
+
 		if err := r.SetQueryParam("version", qVersion); err != nil {
 			return err
 		}

@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -58,7 +59,6 @@ func (m *PaymentRelationships) Validate(formats strfmt.Registry) error {
 }
 
 func (m *PaymentRelationships) validatePaymentAdmission(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.PaymentAdmission) { // not required
 		return nil
 	}
@@ -76,7 +76,6 @@ func (m *PaymentRelationships) validatePaymentAdmission(formats strfmt.Registry)
 }
 
 func (m *PaymentRelationships) validatePaymentReturn(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.PaymentReturn) { // not required
 		return nil
 	}
@@ -94,7 +93,6 @@ func (m *PaymentRelationships) validatePaymentReturn(formats strfmt.Registry) er
 }
 
 func (m *PaymentRelationships) validatePaymentReversal(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.PaymentReversal) { // not required
 		return nil
 	}
@@ -112,13 +110,94 @@ func (m *PaymentRelationships) validatePaymentReversal(formats strfmt.Registry) 
 }
 
 func (m *PaymentRelationships) validatePaymentSubmission(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.PaymentSubmission) { // not required
 		return nil
 	}
 
 	if m.PaymentSubmission != nil {
 		if err := m.PaymentSubmission.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("payment_submission")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this payment relationships based on the context it is used
+func (m *PaymentRelationships) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidatePaymentAdmission(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePaymentReturn(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePaymentReversal(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePaymentSubmission(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *PaymentRelationships) contextValidatePaymentAdmission(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.PaymentAdmission != nil {
+		if err := m.PaymentAdmission.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("payment_admission")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *PaymentRelationships) contextValidatePaymentReturn(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.PaymentReturn != nil {
+		if err := m.PaymentReturn.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("payment_return")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *PaymentRelationships) contextValidatePaymentReversal(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.PaymentReversal != nil {
+		if err := m.PaymentReversal.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("payment_reversal")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *PaymentRelationships) contextValidatePaymentSubmission(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.PaymentSubmission != nil {
+		if err := m.PaymentSubmission.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("payment_submission")
 			}
@@ -171,7 +250,6 @@ func (m *PaymentRelationshipsPaymentAdmission) Validate(formats strfmt.Registry)
 }
 
 func (m *PaymentRelationshipsPaymentAdmission) validateData(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Data) { // not required
 		return nil
 	}
@@ -183,6 +261,38 @@ func (m *PaymentRelationshipsPaymentAdmission) validateData(formats strfmt.Regis
 
 		if m.Data[i] != nil {
 			if err := m.Data[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("payment_admission" + "." + "data" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this payment relationships payment admission based on the context it is used
+func (m *PaymentRelationshipsPaymentAdmission) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateData(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *PaymentRelationshipsPaymentAdmission) contextValidateData(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Data); i++ {
+
+		if m.Data[i] != nil {
+			if err := m.Data[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("payment_admission" + "." + "data" + "." + strconv.Itoa(i))
 				}
@@ -237,7 +347,6 @@ func (m *PaymentRelationshipsPaymentReturn) Validate(formats strfmt.Registry) er
 }
 
 func (m *PaymentRelationshipsPaymentReturn) validateData(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Data) { // not required
 		return nil
 	}
@@ -249,6 +358,38 @@ func (m *PaymentRelationshipsPaymentReturn) validateData(formats strfmt.Registry
 
 		if m.Data[i] != nil {
 			if err := m.Data[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("payment_return" + "." + "data" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this payment relationships payment return based on the context it is used
+func (m *PaymentRelationshipsPaymentReturn) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateData(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *PaymentRelationshipsPaymentReturn) contextValidateData(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Data); i++ {
+
+		if m.Data[i] != nil {
+			if err := m.Data[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("payment_return" + "." + "data" + "." + strconv.Itoa(i))
 				}
@@ -303,7 +444,6 @@ func (m *PaymentRelationshipsPaymentReversal) Validate(formats strfmt.Registry) 
 }
 
 func (m *PaymentRelationshipsPaymentReversal) validateData(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Data) { // not required
 		return nil
 	}
@@ -315,6 +455,38 @@ func (m *PaymentRelationshipsPaymentReversal) validateData(formats strfmt.Regist
 
 		if m.Data[i] != nil {
 			if err := m.Data[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("payment_reversal" + "." + "data" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this payment relationships payment reversal based on the context it is used
+func (m *PaymentRelationshipsPaymentReversal) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateData(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *PaymentRelationshipsPaymentReversal) contextValidateData(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Data); i++ {
+
+		if m.Data[i] != nil {
+			if err := m.Data[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("payment_reversal" + "." + "data" + "." + strconv.Itoa(i))
 				}
@@ -369,7 +541,6 @@ func (m *PaymentRelationshipsPaymentSubmission) Validate(formats strfmt.Registry
 }
 
 func (m *PaymentRelationshipsPaymentSubmission) validateData(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Data) { // not required
 		return nil
 	}
@@ -381,6 +552,38 @@ func (m *PaymentRelationshipsPaymentSubmission) validateData(formats strfmt.Regi
 
 		if m.Data[i] != nil {
 			if err := m.Data[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("payment_submission" + "." + "data" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this payment relationships payment submission based on the context it is used
+func (m *PaymentRelationshipsPaymentSubmission) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateData(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *PaymentRelationshipsPaymentSubmission) contextValidateData(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Data); i++ {
+
+		if m.Data[i] != nil {
+			if err := m.Data[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("payment_submission" + "." + "data" + "." + strconv.Itoa(i))
 				}

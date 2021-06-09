@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -39,14 +41,19 @@ func (m *SwiftAssociationAttributes) Validate(formats strfmt.Registry) error {
 
 func (m *SwiftAssociationAttributes) validateBic(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("bic", "body", string(m.Bic)); err != nil {
+	if err := validate.RequiredString("bic", "body", m.Bic); err != nil {
 		return err
 	}
 
-	if err := validate.MinLength("bic", "body", string(m.Bic), 1); err != nil {
+	if err := validate.MinLength("bic", "body", m.Bic, 1); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this swift association attributes based on context it is used
+func (m *SwiftAssociationAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

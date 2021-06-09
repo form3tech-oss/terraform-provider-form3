@@ -16,59 +16,75 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetStarlingIDParams creates a new GetStarlingIDParams object
-// with the default values initialized.
+// NewGetStarlingIDParams creates a new GetStarlingIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetStarlingIDParams() *GetStarlingIDParams {
-	var ()
 	return &GetStarlingIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetStarlingIDParamsWithTimeout creates a new GetStarlingIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetStarlingIDParamsWithTimeout(timeout time.Duration) *GetStarlingIDParams {
-	var ()
 	return &GetStarlingIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetStarlingIDParamsWithContext creates a new GetStarlingIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetStarlingIDParamsWithContext(ctx context.Context) *GetStarlingIDParams {
-	var ()
 	return &GetStarlingIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetStarlingIDParamsWithHTTPClient creates a new GetStarlingIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetStarlingIDParamsWithHTTPClient(client *http.Client) *GetStarlingIDParams {
-	var ()
 	return &GetStarlingIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetStarlingIDParams contains all the parameters to send to the API endpoint
-for the get starling ID operation typically these are written to a http.Request
+/* GetStarlingIDParams contains all the parameters to send to the API endpoint
+   for the get starling ID operation.
+
+   Typically these are written to a http.Request.
 */
 type GetStarlingIDParams struct {
 
-	/*ID
-	  Association Id
+	/* ID.
 
+	   Association Id
+
+	   Format: uuid
 	*/
 	ID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get starling ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetStarlingIDParams) WithDefaults() *GetStarlingIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get starling ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetStarlingIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get starling ID params

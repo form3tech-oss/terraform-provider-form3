@@ -25,17 +25,20 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	DeleteUnitsID(params *DeleteUnitsIDParams) (*DeleteUnitsIDNoContent, error)
+	DeleteUnitsID(params *DeleteUnitsIDParams, opts ...ClientOption) (*DeleteUnitsIDNoContent, error)
 
-	GetUnits(params *GetUnitsParams) (*GetUnitsOK, error)
+	GetUnits(params *GetUnitsParams, opts ...ClientOption) (*GetUnitsOK, error)
 
-	GetUnitsID(params *GetUnitsIDParams) (*GetUnitsIDOK, error)
+	GetUnitsID(params *GetUnitsIDParams, opts ...ClientOption) (*GetUnitsIDOK, error)
 
-	PatchUnitsID(params *PatchUnitsIDParams) (*PatchUnitsIDOK, error)
+	PatchUnitsID(params *PatchUnitsIDParams, opts ...ClientOption) (*PatchUnitsIDOK, error)
 
-	PostUnits(params *PostUnitsParams) (*PostUnitsCreated, error)
+	PostUnits(params *PostUnitsParams, opts ...ClientOption) (*PostUnitsCreated, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -43,13 +46,12 @@ type ClientService interface {
 /*
   DeleteUnitsID deletes organisation
 */
-func (a *Client) DeleteUnitsID(params *DeleteUnitsIDParams) (*DeleteUnitsIDNoContent, error) {
+func (a *Client) DeleteUnitsID(params *DeleteUnitsIDParams, opts ...ClientOption) (*DeleteUnitsIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteUnitsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteUnitsID",
 		Method:             "DELETE",
 		PathPattern:        "/units/{id}",
@@ -60,7 +62,12 @@ func (a *Client) DeleteUnitsID(params *DeleteUnitsIDParams) (*DeleteUnitsIDNoCon
 		Reader:             &DeleteUnitsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -77,13 +84,12 @@ func (a *Client) DeleteUnitsID(params *DeleteUnitsIDParams) (*DeleteUnitsIDNoCon
 /*
   GetUnits lists all organisations
 */
-func (a *Client) GetUnits(params *GetUnitsParams) (*GetUnitsOK, error) {
+func (a *Client) GetUnits(params *GetUnitsParams, opts ...ClientOption) (*GetUnitsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetUnitsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetUnits",
 		Method:             "GET",
 		PathPattern:        "/units",
@@ -94,7 +100,12 @@ func (a *Client) GetUnits(params *GetUnitsParams) (*GetUnitsOK, error) {
 		Reader:             &GetUnitsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -111,13 +122,12 @@ func (a *Client) GetUnits(params *GetUnitsParams) (*GetUnitsOK, error) {
 /*
   GetUnitsID fetches organisation
 */
-func (a *Client) GetUnitsID(params *GetUnitsIDParams) (*GetUnitsIDOK, error) {
+func (a *Client) GetUnitsID(params *GetUnitsIDParams, opts ...ClientOption) (*GetUnitsIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetUnitsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetUnitsID",
 		Method:             "GET",
 		PathPattern:        "/units/{id}",
@@ -128,7 +138,12 @@ func (a *Client) GetUnitsID(params *GetUnitsIDParams) (*GetUnitsIDOK, error) {
 		Reader:             &GetUnitsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -145,13 +160,12 @@ func (a *Client) GetUnitsID(params *GetUnitsIDParams) (*GetUnitsIDOK, error) {
 /*
   PatchUnitsID updates organisation
 */
-func (a *Client) PatchUnitsID(params *PatchUnitsIDParams) (*PatchUnitsIDOK, error) {
+func (a *Client) PatchUnitsID(params *PatchUnitsIDParams, opts ...ClientOption) (*PatchUnitsIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPatchUnitsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PatchUnitsID",
 		Method:             "PATCH",
 		PathPattern:        "/units/{id}",
@@ -162,7 +176,12 @@ func (a *Client) PatchUnitsID(params *PatchUnitsIDParams) (*PatchUnitsIDOK, erro
 		Reader:             &PatchUnitsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -179,13 +198,12 @@ func (a *Client) PatchUnitsID(params *PatchUnitsIDParams) (*PatchUnitsIDOK, erro
 /*
   PostUnits creates organisation
 */
-func (a *Client) PostUnits(params *PostUnitsParams) (*PostUnitsCreated, error) {
+func (a *Client) PostUnits(params *PostUnitsParams, opts ...ClientOption) (*PostUnitsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostUnitsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostUnits",
 		Method:             "POST",
 		PathPattern:        "/units",
@@ -196,7 +214,12 @@ func (a *Client) PostUnits(params *PostUnitsParams) (*PostUnitsCreated, error) {
 		Reader:             &PostUnitsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

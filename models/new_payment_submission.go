@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -96,7 +98,6 @@ func (m *NewPaymentSubmission) validateOrganisationID(formats strfmt.Registry) e
 }
 
 func (m *NewPaymentSubmission) validateRelationships(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Relationships) { // not required
 		return nil
 	}
@@ -114,12 +115,11 @@ func (m *NewPaymentSubmission) validateRelationships(formats strfmt.Registry) er
 }
 
 func (m *NewPaymentSubmission) validateType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("type", "body", string(m.Type), `^[A-Za-z_]*$`); err != nil {
+	if err := validate.Pattern("type", "body", m.Type, `^[A-Za-z_]*$`); err != nil {
 		return err
 	}
 
@@ -127,13 +127,40 @@ func (m *NewPaymentSubmission) validateType(formats strfmt.Registry) error {
 }
 
 func (m *NewPaymentSubmission) validateVersion(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Version) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
+	if err := validate.MinimumInt("version", "body", *m.Version, 0, false); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this new payment submission based on the context it is used
+func (m *NewPaymentSubmission) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateRelationships(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *NewPaymentSubmission) contextValidateRelationships(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Relationships != nil {
+		if err := m.Relationships.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("relationships")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -181,13 +208,40 @@ func (m *NewPaymentSubmissionRelationships) Validate(formats strfmt.Registry) er
 }
 
 func (m *NewPaymentSubmissionRelationships) validateValidations(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Validations) { // not required
 		return nil
 	}
 
 	if m.Validations != nil {
 		if err := m.Validations.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("relationships" + "." + "validations")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this new payment submission relationships based on the context it is used
+func (m *NewPaymentSubmissionRelationships) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateValidations(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *NewPaymentSubmissionRelationships) contextValidateValidations(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Validations != nil {
+		if err := m.Validations.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("relationships" + "." + "validations")
 			}

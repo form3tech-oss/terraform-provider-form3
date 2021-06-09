@@ -17,64 +17,81 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteConfirmationOfPayeeIDParams creates a new DeleteConfirmationOfPayeeIDParams object
-// with the default values initialized.
+// NewDeleteConfirmationOfPayeeIDParams creates a new DeleteConfirmationOfPayeeIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteConfirmationOfPayeeIDParams() *DeleteConfirmationOfPayeeIDParams {
-	var ()
 	return &DeleteConfirmationOfPayeeIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteConfirmationOfPayeeIDParamsWithTimeout creates a new DeleteConfirmationOfPayeeIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteConfirmationOfPayeeIDParamsWithTimeout(timeout time.Duration) *DeleteConfirmationOfPayeeIDParams {
-	var ()
 	return &DeleteConfirmationOfPayeeIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteConfirmationOfPayeeIDParamsWithContext creates a new DeleteConfirmationOfPayeeIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteConfirmationOfPayeeIDParamsWithContext(ctx context.Context) *DeleteConfirmationOfPayeeIDParams {
-	var ()
 	return &DeleteConfirmationOfPayeeIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteConfirmationOfPayeeIDParamsWithHTTPClient creates a new DeleteConfirmationOfPayeeIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteConfirmationOfPayeeIDParamsWithHTTPClient(client *http.Client) *DeleteConfirmationOfPayeeIDParams {
-	var ()
 	return &DeleteConfirmationOfPayeeIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteConfirmationOfPayeeIDParams contains all the parameters to send to the API endpoint
-for the delete confirmation of payee ID operation typically these are written to a http.Request
+/* DeleteConfirmationOfPayeeIDParams contains all the parameters to send to the API endpoint
+   for the delete confirmation of payee ID operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteConfirmationOfPayeeIDParams struct {
 
-	/*ID
-	  Association Id
+	/* ID.
 
+	   Association Id
+
+	   Format: uuid
 	*/
 	ID strfmt.UUID
-	/*Version
-	  Version
 
+	/* Version.
+
+	   Version
 	*/
 	Version int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete confirmation of payee ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteConfirmationOfPayeeIDParams) WithDefaults() *DeleteConfirmationOfPayeeIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete confirmation of payee ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteConfirmationOfPayeeIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete confirmation of payee ID params
@@ -149,6 +166,7 @@ func (o *DeleteConfirmationOfPayeeIDParams) WriteToRequest(r runtime.ClientReque
 	qrVersion := o.Version
 	qVersion := swag.FormatInt64(qrVersion)
 	if qVersion != "" {
+
 		if err := r.SetQueryParam("version", qVersion); err != nil {
 			return err
 		}

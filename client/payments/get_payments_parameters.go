@@ -17,123 +17,172 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetPaymentsParams creates a new GetPaymentsParams object
-// with the default values initialized.
+// NewGetPaymentsParams creates a new GetPaymentsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetPaymentsParams() *GetPaymentsParams {
-	var ()
 	return &GetPaymentsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetPaymentsParamsWithTimeout creates a new GetPaymentsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetPaymentsParamsWithTimeout(timeout time.Duration) *GetPaymentsParams {
-	var ()
 	return &GetPaymentsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetPaymentsParamsWithContext creates a new GetPaymentsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetPaymentsParamsWithContext(ctx context.Context) *GetPaymentsParams {
-	var ()
 	return &GetPaymentsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetPaymentsParamsWithHTTPClient creates a new GetPaymentsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetPaymentsParamsWithHTTPClient(client *http.Client) *GetPaymentsParams {
-	var ()
 	return &GetPaymentsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetPaymentsParams contains all the parameters to send to the API endpoint
-for the get payments operation typically these are written to a http.Request
+/* GetPaymentsParams contains all the parameters to send to the API endpoint
+   for the get payments operation.
+
+   Typically these are written to a http.Request.
 */
 type GetPaymentsParams struct {
 
-	/*FilterAdmissionAdmissionDateFrom*/
+	// FilterAdmissionAdmissionDateFrom.
+	//
+	// Format: date-time
 	FilterAdmissionAdmissionDateFrom *strfmt.DateTime
-	/*FilterAdmissionAdmissionDateTo*/
-	FilterAdmissionAdmissionDateTo *strfmt.DateTime
-	/*FilterAdmissionSchemeStatusCode
-	  Filter by admission scheme status code
 
+	// FilterAdmissionAdmissionDateTo.
+	//
+	// Format: date-time
+	FilterAdmissionAdmissionDateTo *strfmt.DateTime
+
+	/* FilterAdmissionSchemeStatusCode.
+
+	   Filter by admission scheme status code
 	*/
 	FilterAdmissionSchemeStatusCode *string
-	/*FilterAdmissionStatus
-	  Filter by admission status
 
+	/* FilterAdmissionStatus.
+
+	   Filter by admission status
 	*/
 	FilterAdmissionStatus *string
-	/*FilterAmount*/
-	FilterAmount *string
-	/*FilterBeneficiaryPartyAccountNumber*/
-	FilterBeneficiaryPartyAccountNumber *string
-	/*FilterBeneficiaryPartyBankID*/
-	FilterBeneficiaryPartyBankID *string
-	/*FilterCurrency*/
-	FilterCurrency *string
-	/*FilterDebtorPartyAccountNumber*/
-	FilterDebtorPartyAccountNumber *string
-	/*FilterDebtorPartyBankID*/
-	FilterDebtorPartyBankID *string
-	/*FilterOrganisationID
-	  Filter by organisation id
 
+	// FilterAmount.
+	FilterAmount *string
+
+	// FilterBeneficiaryPartyAccountNumber.
+	FilterBeneficiaryPartyAccountNumber *string
+
+	// FilterBeneficiaryPartyBankID.
+	FilterBeneficiaryPartyBankID *string
+
+	// FilterCurrency.
+	FilterCurrency *string
+
+	// FilterDebtorPartyAccountNumber.
+	FilterDebtorPartyAccountNumber *string
+
+	// FilterDebtorPartyBankID.
+	FilterDebtorPartyBankID *string
+
+	/* FilterOrganisationID.
+
+	   Filter by organisation id
 	*/
 	FilterOrganisationID []strfmt.UUID
-	/*FilterPaymentScheme*/
-	FilterPaymentScheme *string
-	/*FilterPaymentType*/
-	FilterPaymentType *string
-	/*FilterProcessingDateFrom*/
-	FilterProcessingDateFrom *strfmt.Date
-	/*FilterProcessingDateTo*/
-	FilterProcessingDateTo *strfmt.Date
-	/*FilterReference*/
-	FilterReference *string
-	/*FilterSchemeTransactionID*/
-	FilterSchemeTransactionID *string
-	/*FilterSubmissionSchemeStatusCode
-	  Filter by submission scheme status code
 
+	// FilterPaymentScheme.
+	FilterPaymentScheme *string
+
+	// FilterPaymentType.
+	FilterPaymentType *string
+
+	// FilterProcessingDateFrom.
+	//
+	// Format: date
+	FilterProcessingDateFrom *strfmt.Date
+
+	// FilterProcessingDateTo.
+	//
+	// Format: date
+	FilterProcessingDateTo *strfmt.Date
+
+	// FilterReference.
+	FilterReference *string
+
+	// FilterSchemeTransactionID.
+	FilterSchemeTransactionID *string
+
+	/* FilterSubmissionSchemeStatusCode.
+
+	   Filter by submission scheme status code
 	*/
 	FilterSubmissionSchemeStatusCode *string
-	/*FilterSubmissionStatus
-	  Filter by submission status
 
+	/* FilterSubmissionStatus.
+
+	   Filter by submission status
 	*/
 	FilterSubmissionStatus *string
-	/*FilterSubmissionSubmissionDateFrom*/
-	FilterSubmissionSubmissionDateFrom *strfmt.DateTime
-	/*FilterSubmissionSubmissionDateTo*/
-	FilterSubmissionSubmissionDateTo *strfmt.DateTime
-	/*FilterUniqueSchemeID*/
-	FilterUniqueSchemeID *string
-	/*PageNumber
-	  Which page to select
 
+	// FilterSubmissionSubmissionDateFrom.
+	//
+	// Format: date-time
+	FilterSubmissionSubmissionDateFrom *strfmt.DateTime
+
+	// FilterSubmissionSubmissionDateTo.
+	//
+	// Format: date-time
+	FilterSubmissionSubmissionDateTo *strfmt.DateTime
+
+	// FilterUniqueSchemeID.
+	FilterUniqueSchemeID *string
+
+	/* PageNumber.
+
+	   Which page to select
 	*/
 	PageNumber *string
-	/*PageSize
-	  Number of items to select
 
+	/* PageSize.
+
+	   Number of items to select
 	*/
 	PageSize *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get payments params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetPaymentsParams) WithDefaults() *GetPaymentsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get payments params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetPaymentsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get payments params
@@ -445,383 +494,423 @@ func (o *GetPaymentsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 
 		// query param filter[admission.admission_date_from]
 		var qrFilterAdmissionAdmissionDateFrom strfmt.DateTime
+
 		if o.FilterAdmissionAdmissionDateFrom != nil {
 			qrFilterAdmissionAdmissionDateFrom = *o.FilterAdmissionAdmissionDateFrom
 		}
 		qFilterAdmissionAdmissionDateFrom := qrFilterAdmissionAdmissionDateFrom.String()
 		if qFilterAdmissionAdmissionDateFrom != "" {
+
 			if err := r.SetQueryParam("filter[admission.admission_date_from]", qFilterAdmissionAdmissionDateFrom); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.FilterAdmissionAdmissionDateTo != nil {
 
 		// query param filter[admission.admission_date_to]
 		var qrFilterAdmissionAdmissionDateTo strfmt.DateTime
+
 		if o.FilterAdmissionAdmissionDateTo != nil {
 			qrFilterAdmissionAdmissionDateTo = *o.FilterAdmissionAdmissionDateTo
 		}
 		qFilterAdmissionAdmissionDateTo := qrFilterAdmissionAdmissionDateTo.String()
 		if qFilterAdmissionAdmissionDateTo != "" {
+
 			if err := r.SetQueryParam("filter[admission.admission_date_to]", qFilterAdmissionAdmissionDateTo); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.FilterAdmissionSchemeStatusCode != nil {
 
 		// query param filter[admission.scheme_status_code]
 		var qrFilterAdmissionSchemeStatusCode string
+
 		if o.FilterAdmissionSchemeStatusCode != nil {
 			qrFilterAdmissionSchemeStatusCode = *o.FilterAdmissionSchemeStatusCode
 		}
 		qFilterAdmissionSchemeStatusCode := qrFilterAdmissionSchemeStatusCode
 		if qFilterAdmissionSchemeStatusCode != "" {
+
 			if err := r.SetQueryParam("filter[admission.scheme_status_code]", qFilterAdmissionSchemeStatusCode); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.FilterAdmissionStatus != nil {
 
 		// query param filter[admission.status]
 		var qrFilterAdmissionStatus string
+
 		if o.FilterAdmissionStatus != nil {
 			qrFilterAdmissionStatus = *o.FilterAdmissionStatus
 		}
 		qFilterAdmissionStatus := qrFilterAdmissionStatus
 		if qFilterAdmissionStatus != "" {
+
 			if err := r.SetQueryParam("filter[admission.status]", qFilterAdmissionStatus); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.FilterAmount != nil {
 
 		// query param filter[amount]
 		var qrFilterAmount string
+
 		if o.FilterAmount != nil {
 			qrFilterAmount = *o.FilterAmount
 		}
 		qFilterAmount := qrFilterAmount
 		if qFilterAmount != "" {
+
 			if err := r.SetQueryParam("filter[amount]", qFilterAmount); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.FilterBeneficiaryPartyAccountNumber != nil {
 
 		// query param filter[beneficiary_party.account_number]
 		var qrFilterBeneficiaryPartyAccountNumber string
+
 		if o.FilterBeneficiaryPartyAccountNumber != nil {
 			qrFilterBeneficiaryPartyAccountNumber = *o.FilterBeneficiaryPartyAccountNumber
 		}
 		qFilterBeneficiaryPartyAccountNumber := qrFilterBeneficiaryPartyAccountNumber
 		if qFilterBeneficiaryPartyAccountNumber != "" {
+
 			if err := r.SetQueryParam("filter[beneficiary_party.account_number]", qFilterBeneficiaryPartyAccountNumber); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.FilterBeneficiaryPartyBankID != nil {
 
 		// query param filter[beneficiary_party.bank_id]
 		var qrFilterBeneficiaryPartyBankID string
+
 		if o.FilterBeneficiaryPartyBankID != nil {
 			qrFilterBeneficiaryPartyBankID = *o.FilterBeneficiaryPartyBankID
 		}
 		qFilterBeneficiaryPartyBankID := qrFilterBeneficiaryPartyBankID
 		if qFilterBeneficiaryPartyBankID != "" {
+
 			if err := r.SetQueryParam("filter[beneficiary_party.bank_id]", qFilterBeneficiaryPartyBankID); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.FilterCurrency != nil {
 
 		// query param filter[currency]
 		var qrFilterCurrency string
+
 		if o.FilterCurrency != nil {
 			qrFilterCurrency = *o.FilterCurrency
 		}
 		qFilterCurrency := qrFilterCurrency
 		if qFilterCurrency != "" {
+
 			if err := r.SetQueryParam("filter[currency]", qFilterCurrency); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.FilterDebtorPartyAccountNumber != nil {
 
 		// query param filter[debtor_party.account_number]
 		var qrFilterDebtorPartyAccountNumber string
+
 		if o.FilterDebtorPartyAccountNumber != nil {
 			qrFilterDebtorPartyAccountNumber = *o.FilterDebtorPartyAccountNumber
 		}
 		qFilterDebtorPartyAccountNumber := qrFilterDebtorPartyAccountNumber
 		if qFilterDebtorPartyAccountNumber != "" {
+
 			if err := r.SetQueryParam("filter[debtor_party.account_number]", qFilterDebtorPartyAccountNumber); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.FilterDebtorPartyBankID != nil {
 
 		// query param filter[debtor_party.bank_id]
 		var qrFilterDebtorPartyBankID string
+
 		if o.FilterDebtorPartyBankID != nil {
 			qrFilterDebtorPartyBankID = *o.FilterDebtorPartyBankID
 		}
 		qFilterDebtorPartyBankID := qrFilterDebtorPartyBankID
 		if qFilterDebtorPartyBankID != "" {
+
 			if err := r.SetQueryParam("filter[debtor_party.bank_id]", qFilterDebtorPartyBankID); err != nil {
 				return err
 			}
 		}
-
 	}
 
-	var valuesFilterOrganisationID []string
-	for _, v := range o.FilterOrganisationID {
-		valuesFilterOrganisationID = append(valuesFilterOrganisationID, v.String())
-	}
+	if o.FilterOrganisationID != nil {
 
-	joinedFilterOrganisationID := swag.JoinByFormat(valuesFilterOrganisationID, "")
-	// query array param filter[organisation_id]
-	if err := r.SetQueryParam("filter[organisation_id]", joinedFilterOrganisationID...); err != nil {
-		return err
+		// binding items for filter[organisation_id]
+		joinedFilterOrganisationID := o.bindParamFilterOrganisationID(reg)
+
+		// query array param filter[organisation_id]
+		if err := r.SetQueryParam("filter[organisation_id]", joinedFilterOrganisationID...); err != nil {
+			return err
+		}
 	}
 
 	if o.FilterPaymentScheme != nil {
 
 		// query param filter[payment_scheme]
 		var qrFilterPaymentScheme string
+
 		if o.FilterPaymentScheme != nil {
 			qrFilterPaymentScheme = *o.FilterPaymentScheme
 		}
 		qFilterPaymentScheme := qrFilterPaymentScheme
 		if qFilterPaymentScheme != "" {
+
 			if err := r.SetQueryParam("filter[payment_scheme]", qFilterPaymentScheme); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.FilterPaymentType != nil {
 
 		// query param filter[payment_type]
 		var qrFilterPaymentType string
+
 		if o.FilterPaymentType != nil {
 			qrFilterPaymentType = *o.FilterPaymentType
 		}
 		qFilterPaymentType := qrFilterPaymentType
 		if qFilterPaymentType != "" {
+
 			if err := r.SetQueryParam("filter[payment_type]", qFilterPaymentType); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.FilterProcessingDateFrom != nil {
 
 		// query param filter[processing_date_from]
 		var qrFilterProcessingDateFrom strfmt.Date
+
 		if o.FilterProcessingDateFrom != nil {
 			qrFilterProcessingDateFrom = *o.FilterProcessingDateFrom
 		}
 		qFilterProcessingDateFrom := qrFilterProcessingDateFrom.String()
 		if qFilterProcessingDateFrom != "" {
+
 			if err := r.SetQueryParam("filter[processing_date_from]", qFilterProcessingDateFrom); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.FilterProcessingDateTo != nil {
 
 		// query param filter[processing_date_to]
 		var qrFilterProcessingDateTo strfmt.Date
+
 		if o.FilterProcessingDateTo != nil {
 			qrFilterProcessingDateTo = *o.FilterProcessingDateTo
 		}
 		qFilterProcessingDateTo := qrFilterProcessingDateTo.String()
 		if qFilterProcessingDateTo != "" {
+
 			if err := r.SetQueryParam("filter[processing_date_to]", qFilterProcessingDateTo); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.FilterReference != nil {
 
 		// query param filter[reference]
 		var qrFilterReference string
+
 		if o.FilterReference != nil {
 			qrFilterReference = *o.FilterReference
 		}
 		qFilterReference := qrFilterReference
 		if qFilterReference != "" {
+
 			if err := r.SetQueryParam("filter[reference]", qFilterReference); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.FilterSchemeTransactionID != nil {
 
 		// query param filter[scheme_transaction_id]
 		var qrFilterSchemeTransactionID string
+
 		if o.FilterSchemeTransactionID != nil {
 			qrFilterSchemeTransactionID = *o.FilterSchemeTransactionID
 		}
 		qFilterSchemeTransactionID := qrFilterSchemeTransactionID
 		if qFilterSchemeTransactionID != "" {
+
 			if err := r.SetQueryParam("filter[scheme_transaction_id]", qFilterSchemeTransactionID); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.FilterSubmissionSchemeStatusCode != nil {
 
 		// query param filter[submission.scheme_status_code]
 		var qrFilterSubmissionSchemeStatusCode string
+
 		if o.FilterSubmissionSchemeStatusCode != nil {
 			qrFilterSubmissionSchemeStatusCode = *o.FilterSubmissionSchemeStatusCode
 		}
 		qFilterSubmissionSchemeStatusCode := qrFilterSubmissionSchemeStatusCode
 		if qFilterSubmissionSchemeStatusCode != "" {
+
 			if err := r.SetQueryParam("filter[submission.scheme_status_code]", qFilterSubmissionSchemeStatusCode); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.FilterSubmissionStatus != nil {
 
 		// query param filter[submission.status]
 		var qrFilterSubmissionStatus string
+
 		if o.FilterSubmissionStatus != nil {
 			qrFilterSubmissionStatus = *o.FilterSubmissionStatus
 		}
 		qFilterSubmissionStatus := qrFilterSubmissionStatus
 		if qFilterSubmissionStatus != "" {
+
 			if err := r.SetQueryParam("filter[submission.status]", qFilterSubmissionStatus); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.FilterSubmissionSubmissionDateFrom != nil {
 
 		// query param filter[submission.submission_date_from]
 		var qrFilterSubmissionSubmissionDateFrom strfmt.DateTime
+
 		if o.FilterSubmissionSubmissionDateFrom != nil {
 			qrFilterSubmissionSubmissionDateFrom = *o.FilterSubmissionSubmissionDateFrom
 		}
 		qFilterSubmissionSubmissionDateFrom := qrFilterSubmissionSubmissionDateFrom.String()
 		if qFilterSubmissionSubmissionDateFrom != "" {
+
 			if err := r.SetQueryParam("filter[submission.submission_date_from]", qFilterSubmissionSubmissionDateFrom); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.FilterSubmissionSubmissionDateTo != nil {
 
 		// query param filter[submission.submission_date_to]
 		var qrFilterSubmissionSubmissionDateTo strfmt.DateTime
+
 		if o.FilterSubmissionSubmissionDateTo != nil {
 			qrFilterSubmissionSubmissionDateTo = *o.FilterSubmissionSubmissionDateTo
 		}
 		qFilterSubmissionSubmissionDateTo := qrFilterSubmissionSubmissionDateTo.String()
 		if qFilterSubmissionSubmissionDateTo != "" {
+
 			if err := r.SetQueryParam("filter[submission.submission_date_to]", qFilterSubmissionSubmissionDateTo); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.FilterUniqueSchemeID != nil {
 
 		// query param filter[unique_scheme_id]
 		var qrFilterUniqueSchemeID string
+
 		if o.FilterUniqueSchemeID != nil {
 			qrFilterUniqueSchemeID = *o.FilterUniqueSchemeID
 		}
 		qFilterUniqueSchemeID := qrFilterUniqueSchemeID
 		if qFilterUniqueSchemeID != "" {
+
 			if err := r.SetQueryParam("filter[unique_scheme_id]", qFilterUniqueSchemeID); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.PageNumber != nil {
 
 		// query param page[number]
 		var qrPageNumber string
+
 		if o.PageNumber != nil {
 			qrPageNumber = *o.PageNumber
 		}
 		qPageNumber := qrPageNumber
 		if qPageNumber != "" {
+
 			if err := r.SetQueryParam("page[number]", qPageNumber); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.PageSize != nil {
 
 		// query param page[size]
 		var qrPageSize int64
+
 		if o.PageSize != nil {
 			qrPageSize = *o.PageSize
 		}
 		qPageSize := swag.FormatInt64(qrPageSize)
 		if qPageSize != "" {
+
 			if err := r.SetQueryParam("page[size]", qPageSize); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
+}
+
+// bindParamGetPayments binds the parameter filter[organisation_id]
+func (o *GetPaymentsParams) bindParamFilterOrganisationID(formats strfmt.Registry) []string {
+	filterOrganisationIDIR := o.FilterOrganisationID
+
+	var filterOrganisationIDIC []string
+	for _, filterOrganisationIDIIR := range filterOrganisationIDIR { // explode []strfmt.UUID
+
+		filterOrganisationIDIIV := filterOrganisationIDIIR.String() // strfmt.UUID as string
+		filterOrganisationIDIC = append(filterOrganisationIDIC, filterOrganisationIDIIV)
+	}
+
+	// items.CollectionFormat: ""
+	filterOrganisationIDIS := swag.JoinByFormat(filterOrganisationIDIC, "")
+
+	return filterOrganisationIDIS
 }

@@ -16,59 +16,75 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetUsersUserIDCredentialsPublicKeyParams creates a new GetUsersUserIDCredentialsPublicKeyParams object
-// with the default values initialized.
+// NewGetUsersUserIDCredentialsPublicKeyParams creates a new GetUsersUserIDCredentialsPublicKeyParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetUsersUserIDCredentialsPublicKeyParams() *GetUsersUserIDCredentialsPublicKeyParams {
-	var ()
 	return &GetUsersUserIDCredentialsPublicKeyParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetUsersUserIDCredentialsPublicKeyParamsWithTimeout creates a new GetUsersUserIDCredentialsPublicKeyParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetUsersUserIDCredentialsPublicKeyParamsWithTimeout(timeout time.Duration) *GetUsersUserIDCredentialsPublicKeyParams {
-	var ()
 	return &GetUsersUserIDCredentialsPublicKeyParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetUsersUserIDCredentialsPublicKeyParamsWithContext creates a new GetUsersUserIDCredentialsPublicKeyParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetUsersUserIDCredentialsPublicKeyParamsWithContext(ctx context.Context) *GetUsersUserIDCredentialsPublicKeyParams {
-	var ()
 	return &GetUsersUserIDCredentialsPublicKeyParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetUsersUserIDCredentialsPublicKeyParamsWithHTTPClient creates a new GetUsersUserIDCredentialsPublicKeyParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetUsersUserIDCredentialsPublicKeyParamsWithHTTPClient(client *http.Client) *GetUsersUserIDCredentialsPublicKeyParams {
-	var ()
 	return &GetUsersUserIDCredentialsPublicKeyParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetUsersUserIDCredentialsPublicKeyParams contains all the parameters to send to the API endpoint
-for the get users user ID credentials public key operation typically these are written to a http.Request
+/* GetUsersUserIDCredentialsPublicKeyParams contains all the parameters to send to the API endpoint
+   for the get users user ID credentials public key operation.
+
+   Typically these are written to a http.Request.
 */
 type GetUsersUserIDCredentialsPublicKeyParams struct {
 
-	/*UserID
-	  User Id
+	/* UserID.
 
+	   User Id
+
+	   Format: uuid
 	*/
 	UserID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get users user ID credentials public key params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetUsersUserIDCredentialsPublicKeyParams) WithDefaults() *GetUsersUserIDCredentialsPublicKeyParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get users user ID credentials public key params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetUsersUserIDCredentialsPublicKeyParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get users user ID credentials public key params

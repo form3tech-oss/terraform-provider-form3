@@ -18,64 +18,81 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPostUsersUserIDCredentialsSsoParams creates a new PostUsersUserIDCredentialsSsoParams object
-// with the default values initialized.
+// NewPostUsersUserIDCredentialsSsoParams creates a new PostUsersUserIDCredentialsSsoParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostUsersUserIDCredentialsSsoParams() *PostUsersUserIDCredentialsSsoParams {
-	var ()
 	return &PostUsersUserIDCredentialsSsoParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostUsersUserIDCredentialsSsoParamsWithTimeout creates a new PostUsersUserIDCredentialsSsoParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostUsersUserIDCredentialsSsoParamsWithTimeout(timeout time.Duration) *PostUsersUserIDCredentialsSsoParams {
-	var ()
 	return &PostUsersUserIDCredentialsSsoParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostUsersUserIDCredentialsSsoParamsWithContext creates a new PostUsersUserIDCredentialsSsoParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostUsersUserIDCredentialsSsoParamsWithContext(ctx context.Context) *PostUsersUserIDCredentialsSsoParams {
-	var ()
 	return &PostUsersUserIDCredentialsSsoParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostUsersUserIDCredentialsSsoParamsWithHTTPClient creates a new PostUsersUserIDCredentialsSsoParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostUsersUserIDCredentialsSsoParamsWithHTTPClient(client *http.Client) *PostUsersUserIDCredentialsSsoParams {
-	var ()
 	return &PostUsersUserIDCredentialsSsoParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostUsersUserIDCredentialsSsoParams contains all the parameters to send to the API endpoint
-for the post users user ID credentials sso operation typically these are written to a http.Request
+/* PostUsersUserIDCredentialsSsoParams contains all the parameters to send to the API endpoint
+   for the post users user ID credentials sso operation.
+
+   Typically these are written to a http.Request.
 */
 type PostUsersUserIDCredentialsSsoParams struct {
 
-	/*SsoUserCreation
-	  The sso user to create.
+	/* SsoUserCreation.
 
+	   The sso user to create.
 	*/
 	SsoUserCreation *models.SsoUserCreation
-	/*UserID
-	  User Id
 
+	/* UserID.
+
+	   User Id
+
+	   Format: uuid
 	*/
 	UserID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post users user ID credentials sso params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostUsersUserIDCredentialsSsoParams) WithDefaults() *PostUsersUserIDCredentialsSsoParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post users user ID credentials sso params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostUsersUserIDCredentialsSsoParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post users user ID credentials sso params
@@ -140,7 +157,6 @@ func (o *PostUsersUserIDCredentialsSsoParams) WriteToRequest(r runtime.ClientReq
 		return err
 	}
 	var res []error
-
 	if o.SsoUserCreation != nil {
 		if err := r.SetBodyParam(o.SsoUserCreation); err != nil {
 			return err

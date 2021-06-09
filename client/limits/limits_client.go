@@ -25,17 +25,20 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	DeleteLimitsID(params *DeleteLimitsIDParams) (*DeleteLimitsIDNoContent, error)
+	DeleteLimitsID(params *DeleteLimitsIDParams, opts ...ClientOption) (*DeleteLimitsIDNoContent, error)
 
-	GetLimits(params *GetLimitsParams) (*GetLimitsOK, error)
+	GetLimits(params *GetLimitsParams, opts ...ClientOption) (*GetLimitsOK, error)
 
-	GetLimitsID(params *GetLimitsIDParams) (*GetLimitsIDOK, error)
+	GetLimitsID(params *GetLimitsIDParams, opts ...ClientOption) (*GetLimitsIDOK, error)
 
-	PatchLimitsID(params *PatchLimitsIDParams) (*PatchLimitsIDOK, error)
+	PatchLimitsID(params *PatchLimitsIDParams, opts ...ClientOption) (*PatchLimitsIDOK, error)
 
-	PostLimits(params *PostLimitsParams) (*PostLimitsCreated, error)
+	PostLimits(params *PostLimitsParams, opts ...ClientOption) (*PostLimitsCreated, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -43,13 +46,12 @@ type ClientService interface {
 /*
   DeleteLimitsID deletes limit
 */
-func (a *Client) DeleteLimitsID(params *DeleteLimitsIDParams) (*DeleteLimitsIDNoContent, error) {
+func (a *Client) DeleteLimitsID(params *DeleteLimitsIDParams, opts ...ClientOption) (*DeleteLimitsIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteLimitsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "DeleteLimitsID",
 		Method:             "DELETE",
 		PathPattern:        "/limits/{id}",
@@ -60,7 +62,12 @@ func (a *Client) DeleteLimitsID(params *DeleteLimitsIDParams) (*DeleteLimitsIDNo
 		Reader:             &DeleteLimitsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -77,13 +84,12 @@ func (a *Client) DeleteLimitsID(params *DeleteLimitsIDParams) (*DeleteLimitsIDNo
 /*
   GetLimits lists limits
 */
-func (a *Client) GetLimits(params *GetLimitsParams) (*GetLimitsOK, error) {
+func (a *Client) GetLimits(params *GetLimitsParams, opts ...ClientOption) (*GetLimitsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetLimitsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetLimits",
 		Method:             "GET",
 		PathPattern:        "/limits",
@@ -94,7 +100,12 @@ func (a *Client) GetLimits(params *GetLimitsParams) (*GetLimitsOK, error) {
 		Reader:             &GetLimitsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -111,13 +122,12 @@ func (a *Client) GetLimits(params *GetLimitsParams) (*GetLimitsOK, error) {
 /*
   GetLimitsID fetches limit
 */
-func (a *Client) GetLimitsID(params *GetLimitsIDParams) (*GetLimitsIDOK, error) {
+func (a *Client) GetLimitsID(params *GetLimitsIDParams, opts ...ClientOption) (*GetLimitsIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetLimitsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "GetLimitsID",
 		Method:             "GET",
 		PathPattern:        "/limits/{id}",
@@ -128,7 +138,12 @@ func (a *Client) GetLimitsID(params *GetLimitsIDParams) (*GetLimitsIDOK, error) 
 		Reader:             &GetLimitsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -145,13 +160,12 @@ func (a *Client) GetLimitsID(params *GetLimitsIDParams) (*GetLimitsIDOK, error) 
 /*
   PatchLimitsID amends limit
 */
-func (a *Client) PatchLimitsID(params *PatchLimitsIDParams) (*PatchLimitsIDOK, error) {
+func (a *Client) PatchLimitsID(params *PatchLimitsIDParams, opts ...ClientOption) (*PatchLimitsIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPatchLimitsIDParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PatchLimitsID",
 		Method:             "PATCH",
 		PathPattern:        "/limits/{id}",
@@ -162,7 +176,12 @@ func (a *Client) PatchLimitsID(params *PatchLimitsIDParams) (*PatchLimitsIDOK, e
 		Reader:             &PatchLimitsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -179,13 +198,12 @@ func (a *Client) PatchLimitsID(params *PatchLimitsIDParams) (*PatchLimitsIDOK, e
 /*
   PostLimits creates a limit
 */
-func (a *Client) PostLimits(params *PostLimitsParams) (*PostLimitsCreated, error) {
+func (a *Client) PostLimits(params *PostLimitsParams, opts ...ClientOption) (*PostLimitsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostLimitsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "PostLimits",
 		Method:             "POST",
 		PathPattern:        "/limits",
@@ -196,7 +214,12 @@ func (a *Client) PostLimits(params *PostLimitsParams) (*PostLimitsCreated, error
 		Reader:             &PostLimitsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

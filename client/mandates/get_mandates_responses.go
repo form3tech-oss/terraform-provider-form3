@@ -77,9 +77,8 @@ func (o *GetMandatesReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewGetMandatesOK() *GetMandatesOK {
 	return &GetMandatesOK{}
 }
 
-/*GetMandatesOK handles this case with default header values.
+/* GetMandatesOK describes a response with status code 200, with default header values.
 
 List of mandates details
 */
@@ -99,7 +98,6 @@ type GetMandatesOK struct {
 func (o *GetMandatesOK) Error() string {
 	return fmt.Sprintf("[GET /mandates][%d] getMandatesOK  %+v", 200, o.Payload)
 }
-
 func (o *GetMandatesOK) GetPayload() *models.MandateDetailsListResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewGetMandatesBadRequest() *GetMandatesBadRequest {
 	return &GetMandatesBadRequest{}
 }
 
-/*GetMandatesBadRequest handles this case with default header values.
+/* GetMandatesBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type GetMandatesBadRequest struct {
 func (o *GetMandatesBadRequest) Error() string {
 	return fmt.Sprintf("[GET /mandates][%d] getMandatesBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetMandatesBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewGetMandatesUnauthorized() *GetMandatesUnauthorized {
 	return &GetMandatesUnauthorized{}
 }
 
-/*GetMandatesUnauthorized handles this case with default header values.
+/* GetMandatesUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type GetMandatesUnauthorized struct {
 func (o *GetMandatesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /mandates][%d] getMandatesUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetMandatesUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewGetMandatesForbidden() *GetMandatesForbidden {
 	return &GetMandatesForbidden{}
 }
 
-/*GetMandatesForbidden handles this case with default header values.
+/* GetMandatesForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type GetMandatesForbidden struct {
 func (o *GetMandatesForbidden) Error() string {
 	return fmt.Sprintf("[GET /mandates][%d] getMandatesForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetMandatesForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewGetMandatesNotFound() *GetMandatesNotFound {
 	return &GetMandatesNotFound{}
 }
 
-/*GetMandatesNotFound handles this case with default header values.
+/* GetMandatesNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type GetMandatesNotFound struct {
 func (o *GetMandatesNotFound) Error() string {
 	return fmt.Sprintf("[GET /mandates][%d] getMandatesNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetMandatesNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewGetMandatesConflict() *GetMandatesConflict {
 	return &GetMandatesConflict{}
 }
 
-/*GetMandatesConflict handles this case with default header values.
+/* GetMandatesConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type GetMandatesConflict struct {
 func (o *GetMandatesConflict) Error() string {
 	return fmt.Sprintf("[GET /mandates][%d] getMandatesConflict  %+v", 409, o.Payload)
 }
-
 func (o *GetMandatesConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewGetMandatesTooManyRequests() *GetMandatesTooManyRequests {
 	return &GetMandatesTooManyRequests{}
 }
 
-/*GetMandatesTooManyRequests handles this case with default header values.
+/* GetMandatesTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type GetMandatesTooManyRequests struct {
 func (o *GetMandatesTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /mandates][%d] getMandatesTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *GetMandatesTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewGetMandatesInternalServerError() *GetMandatesInternalServerError {
 	return &GetMandatesInternalServerError{}
 }
 
-/*GetMandatesInternalServerError handles this case with default header values.
+/* GetMandatesInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type GetMandatesInternalServerError struct {
 func (o *GetMandatesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /mandates][%d] getMandatesInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetMandatesInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewGetMandatesServiceUnavailable() *GetMandatesServiceUnavailable {
 	return &GetMandatesServiceUnavailable{}
 }
 
-/*GetMandatesServiceUnavailable handles this case with default header values.
+/* GetMandatesServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type GetMandatesServiceUnavailable struct {
 func (o *GetMandatesServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /mandates][%d] getMandatesServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *GetMandatesServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

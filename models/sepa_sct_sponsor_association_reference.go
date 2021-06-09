@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -24,6 +26,11 @@ type SepaSctSponsorAssociationReference struct {
 
 // Validate validates this sepa sct sponsor association reference
 func (m *SepaSctSponsorAssociationReference) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this sepa sct sponsor association reference based on context it is used
+func (m *SepaSctSponsorAssociationReference) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

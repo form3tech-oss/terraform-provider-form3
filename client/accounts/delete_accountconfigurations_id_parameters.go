@@ -17,64 +17,81 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteAccountconfigurationsIDParams creates a new DeleteAccountconfigurationsIDParams object
-// with the default values initialized.
+// NewDeleteAccountconfigurationsIDParams creates a new DeleteAccountconfigurationsIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteAccountconfigurationsIDParams() *DeleteAccountconfigurationsIDParams {
-	var ()
 	return &DeleteAccountconfigurationsIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteAccountconfigurationsIDParamsWithTimeout creates a new DeleteAccountconfigurationsIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteAccountconfigurationsIDParamsWithTimeout(timeout time.Duration) *DeleteAccountconfigurationsIDParams {
-	var ()
 	return &DeleteAccountconfigurationsIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteAccountconfigurationsIDParamsWithContext creates a new DeleteAccountconfigurationsIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteAccountconfigurationsIDParamsWithContext(ctx context.Context) *DeleteAccountconfigurationsIDParams {
-	var ()
 	return &DeleteAccountconfigurationsIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteAccountconfigurationsIDParamsWithHTTPClient creates a new DeleteAccountconfigurationsIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteAccountconfigurationsIDParamsWithHTTPClient(client *http.Client) *DeleteAccountconfigurationsIDParams {
-	var ()
 	return &DeleteAccountconfigurationsIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteAccountconfigurationsIDParams contains all the parameters to send to the API endpoint
-for the delete accountconfigurations ID operation typically these are written to a http.Request
+/* DeleteAccountconfigurationsIDParams contains all the parameters to send to the API endpoint
+   for the delete accountconfigurations ID operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteAccountconfigurationsIDParams struct {
 
-	/*ID
-	  AccountConfiguration Id
+	/* ID.
 
+	   AccountConfiguration Id
+
+	   Format: uuid
 	*/
 	ID strfmt.UUID
-	/*Version
-	  Version
 
+	/* Version.
+
+	   Version
 	*/
 	Version int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete accountconfigurations ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteAccountconfigurationsIDParams) WithDefaults() *DeleteAccountconfigurationsIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete accountconfigurations ID params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteAccountconfigurationsIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete accountconfigurations ID params
@@ -149,6 +166,7 @@ func (o *DeleteAccountconfigurationsIDParams) WriteToRequest(r runtime.ClientReq
 	qrVersion := o.Version
 	qVersion := swag.FormatInt64(qrVersion)
 	if qVersion != "" {
+
 		if err := r.SetQueryParam("version", qVersion); err != nil {
 			return err
 		}

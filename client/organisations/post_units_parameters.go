@@ -18,56 +18,70 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPostUnitsParams creates a new PostUnitsParams object
-// with the default values initialized.
+// NewPostUnitsParams creates a new PostUnitsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostUnitsParams() *PostUnitsParams {
-	var ()
 	return &PostUnitsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostUnitsParamsWithTimeout creates a new PostUnitsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostUnitsParamsWithTimeout(timeout time.Duration) *PostUnitsParams {
-	var ()
 	return &PostUnitsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostUnitsParamsWithContext creates a new PostUnitsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostUnitsParamsWithContext(ctx context.Context) *PostUnitsParams {
-	var ()
 	return &PostUnitsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostUnitsParamsWithHTTPClient creates a new PostUnitsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostUnitsParamsWithHTTPClient(client *http.Client) *PostUnitsParams {
-	var ()
 	return &PostUnitsParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostUnitsParams contains all the parameters to send to the API endpoint
-for the post units operation typically these are written to a http.Request
+/* PostUnitsParams contains all the parameters to send to the API endpoint
+   for the post units operation.
+
+   Typically these are written to a http.Request.
 */
 type PostUnitsParams struct {
 
-	/*OrganisationCreationRequest*/
+	// OrganisationCreationRequest.
 	OrganisationCreationRequest *models.OrganisationCreation
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post units params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostUnitsParams) WithDefaults() *PostUnitsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post units params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostUnitsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post units params
@@ -121,7 +135,6 @@ func (o *PostUnitsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 		return err
 	}
 	var res []error
-
 	if o.OrganisationCreationRequest != nil {
 		if err := r.SetBodyParam(o.OrganisationCreationRequest); err != nil {
 			return err

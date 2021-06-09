@@ -77,9 +77,8 @@ func (o *GetPaymentsIDSubmissionsSubmissionIDReader) ReadResponse(response runti
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewGetPaymentsIDSubmissionsSubmissionIDOK() *GetPaymentsIDSubmissionsSubmis
 	return &GetPaymentsIDSubmissionsSubmissionIDOK{}
 }
 
-/*GetPaymentsIDSubmissionsSubmissionIDOK handles this case with default header values.
+/* GetPaymentsIDSubmissionsSubmissionIDOK describes a response with status code 200, with default header values.
 
 Submission details
 */
@@ -99,7 +98,6 @@ type GetPaymentsIDSubmissionsSubmissionIDOK struct {
 func (o *GetPaymentsIDSubmissionsSubmissionIDOK) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/submissions/{submissionId}][%d] getPaymentsIdSubmissionsSubmissionIdOK  %+v", 200, o.Payload)
 }
-
 func (o *GetPaymentsIDSubmissionsSubmissionIDOK) GetPayload() *models.PaymentSubmissionDetailsResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewGetPaymentsIDSubmissionsSubmissionIDBadRequest() *GetPaymentsIDSubmissio
 	return &GetPaymentsIDSubmissionsSubmissionIDBadRequest{}
 }
 
-/*GetPaymentsIDSubmissionsSubmissionIDBadRequest handles this case with default header values.
+/* GetPaymentsIDSubmissionsSubmissionIDBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type GetPaymentsIDSubmissionsSubmissionIDBadRequest struct {
 func (o *GetPaymentsIDSubmissionsSubmissionIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/submissions/{submissionId}][%d] getPaymentsIdSubmissionsSubmissionIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetPaymentsIDSubmissionsSubmissionIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewGetPaymentsIDSubmissionsSubmissionIDUnauthorized() *GetPaymentsIDSubmiss
 	return &GetPaymentsIDSubmissionsSubmissionIDUnauthorized{}
 }
 
-/*GetPaymentsIDSubmissionsSubmissionIDUnauthorized handles this case with default header values.
+/* GetPaymentsIDSubmissionsSubmissionIDUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type GetPaymentsIDSubmissionsSubmissionIDUnauthorized struct {
 func (o *GetPaymentsIDSubmissionsSubmissionIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/submissions/{submissionId}][%d] getPaymentsIdSubmissionsSubmissionIdUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetPaymentsIDSubmissionsSubmissionIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewGetPaymentsIDSubmissionsSubmissionIDForbidden() *GetPaymentsIDSubmission
 	return &GetPaymentsIDSubmissionsSubmissionIDForbidden{}
 }
 
-/*GetPaymentsIDSubmissionsSubmissionIDForbidden handles this case with default header values.
+/* GetPaymentsIDSubmissionsSubmissionIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type GetPaymentsIDSubmissionsSubmissionIDForbidden struct {
 func (o *GetPaymentsIDSubmissionsSubmissionIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/submissions/{submissionId}][%d] getPaymentsIdSubmissionsSubmissionIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetPaymentsIDSubmissionsSubmissionIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewGetPaymentsIDSubmissionsSubmissionIDNotFound() *GetPaymentsIDSubmissions
 	return &GetPaymentsIDSubmissionsSubmissionIDNotFound{}
 }
 
-/*GetPaymentsIDSubmissionsSubmissionIDNotFound handles this case with default header values.
+/* GetPaymentsIDSubmissionsSubmissionIDNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type GetPaymentsIDSubmissionsSubmissionIDNotFound struct {
 func (o *GetPaymentsIDSubmissionsSubmissionIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/submissions/{submissionId}][%d] getPaymentsIdSubmissionsSubmissionIdNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetPaymentsIDSubmissionsSubmissionIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewGetPaymentsIDSubmissionsSubmissionIDConflict() *GetPaymentsIDSubmissions
 	return &GetPaymentsIDSubmissionsSubmissionIDConflict{}
 }
 
-/*GetPaymentsIDSubmissionsSubmissionIDConflict handles this case with default header values.
+/* GetPaymentsIDSubmissionsSubmissionIDConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type GetPaymentsIDSubmissionsSubmissionIDConflict struct {
 func (o *GetPaymentsIDSubmissionsSubmissionIDConflict) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/submissions/{submissionId}][%d] getPaymentsIdSubmissionsSubmissionIdConflict  %+v", 409, o.Payload)
 }
-
 func (o *GetPaymentsIDSubmissionsSubmissionIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewGetPaymentsIDSubmissionsSubmissionIDTooManyRequests() *GetPaymentsIDSubm
 	return &GetPaymentsIDSubmissionsSubmissionIDTooManyRequests{}
 }
 
-/*GetPaymentsIDSubmissionsSubmissionIDTooManyRequests handles this case with default header values.
+/* GetPaymentsIDSubmissionsSubmissionIDTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type GetPaymentsIDSubmissionsSubmissionIDTooManyRequests struct {
 func (o *GetPaymentsIDSubmissionsSubmissionIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/submissions/{submissionId}][%d] getPaymentsIdSubmissionsSubmissionIdTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *GetPaymentsIDSubmissionsSubmissionIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewGetPaymentsIDSubmissionsSubmissionIDInternalServerError() *GetPaymentsID
 	return &GetPaymentsIDSubmissionsSubmissionIDInternalServerError{}
 }
 
-/*GetPaymentsIDSubmissionsSubmissionIDInternalServerError handles this case with default header values.
+/* GetPaymentsIDSubmissionsSubmissionIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type GetPaymentsIDSubmissionsSubmissionIDInternalServerError struct {
 func (o *GetPaymentsIDSubmissionsSubmissionIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/submissions/{submissionId}][%d] getPaymentsIdSubmissionsSubmissionIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetPaymentsIDSubmissionsSubmissionIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewGetPaymentsIDSubmissionsSubmissionIDServiceUnavailable() *GetPaymentsIDS
 	return &GetPaymentsIDSubmissionsSubmissionIDServiceUnavailable{}
 }
 
-/*GetPaymentsIDSubmissionsSubmissionIDServiceUnavailable handles this case with default header values.
+/* GetPaymentsIDSubmissionsSubmissionIDServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type GetPaymentsIDSubmissionsSubmissionIDServiceUnavailable struct {
 func (o *GetPaymentsIDSubmissionsSubmissionIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /payments/{id}/submissions/{submissionId}][%d] getPaymentsIdSubmissionsSubmissionIdServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *GetPaymentsIDSubmissionsSubmissionIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

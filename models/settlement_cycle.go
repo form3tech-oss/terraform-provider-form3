@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -76,6 +78,34 @@ func (m *SettlementCycle) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
+// ContextValidate validate this settlement cycle based on the context it is used
+func (m *SettlementCycle) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAttributes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *SettlementCycle) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Attributes != nil {
+		if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("attributes")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 // MarshalBinary interface implementation
 func (m *SettlementCycle) MarshalBinary() ([]byte, error) {
 	if m == nil {
@@ -135,12 +165,11 @@ func (m *SettlementCycleAttributes) Validate(formats strfmt.Registry) error {
 }
 
 func (m *SettlementCycleAttributes) validateGateway(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Gateway) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("attributes"+"."+"gateway", "body", string(m.Gateway), `^[A-Za-z_\-]*$`); err != nil {
+	if err := validate.Pattern("attributes"+"."+"gateway", "body", m.Gateway, `^[A-Za-z_\-]*$`); err != nil {
 		return err
 	}
 
@@ -148,12 +177,11 @@ func (m *SettlementCycleAttributes) validateGateway(formats strfmt.Registry) err
 }
 
 func (m *SettlementCycleAttributes) validateSettlementCycleNumber(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SettlementCycleNumber) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("attributes"+"."+"settlement_cycle_number", "body", int64(m.SettlementCycleNumber), 1, false); err != nil {
+	if err := validate.MinimumInt("attributes"+"."+"settlement_cycle_number", "body", m.SettlementCycleNumber, 1, false); err != nil {
 		return err
 	}
 
@@ -161,15 +189,19 @@ func (m *SettlementCycleAttributes) validateSettlementCycleNumber(formats strfmt
 }
 
 func (m *SettlementCycleAttributes) validateSettlementCycleType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SettlementCycleType) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("attributes"+"."+"settlement_cycle_type", "body", string(m.SettlementCycleType), `^[A-Za-z_\-]*$`); err != nil {
+	if err := validate.Pattern("attributes"+"."+"settlement_cycle_type", "body", m.SettlementCycleType, `^[A-Za-z_\-]*$`); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this settlement cycle attributes based on context it is used
+func (m *SettlementCycleAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

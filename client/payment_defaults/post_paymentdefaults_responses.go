@@ -77,9 +77,8 @@ func (o *PostPaymentdefaultsReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return nil, result
-
 	default:
-		return nil, runtime.NewAPIError("unknown error", response, response.Code())
+		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
 }
 
@@ -88,7 +87,7 @@ func NewPostPaymentdefaultsCreated() *PostPaymentdefaultsCreated {
 	return &PostPaymentdefaultsCreated{}
 }
 
-/*PostPaymentdefaultsCreated handles this case with default header values.
+/* PostPaymentdefaultsCreated describes a response with status code 201, with default header values.
 
 Default settings created
 */
@@ -99,7 +98,6 @@ type PostPaymentdefaultsCreated struct {
 func (o *PostPaymentdefaultsCreated) Error() string {
 	return fmt.Sprintf("[POST /paymentdefaults][%d] postPaymentdefaultsCreated  %+v", 201, o.Payload)
 }
-
 func (o *PostPaymentdefaultsCreated) GetPayload() *models.PaymentDefaultsCreateResponse {
 	return o.Payload
 }
@@ -121,7 +119,7 @@ func NewPostPaymentdefaultsBadRequest() *PostPaymentdefaultsBadRequest {
 	return &PostPaymentdefaultsBadRequest{}
 }
 
-/*PostPaymentdefaultsBadRequest handles this case with default header values.
+/* PostPaymentdefaultsBadRequest describes a response with status code 400, with default header values.
 
 Bad Request
 */
@@ -132,7 +130,6 @@ type PostPaymentdefaultsBadRequest struct {
 func (o *PostPaymentdefaultsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /paymentdefaults][%d] postPaymentdefaultsBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *PostPaymentdefaultsBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -154,7 +151,7 @@ func NewPostPaymentdefaultsUnauthorized() *PostPaymentdefaultsUnauthorized {
 	return &PostPaymentdefaultsUnauthorized{}
 }
 
-/*PostPaymentdefaultsUnauthorized handles this case with default header values.
+/* PostPaymentdefaultsUnauthorized describes a response with status code 401, with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -165,7 +162,6 @@ type PostPaymentdefaultsUnauthorized struct {
 func (o *PostPaymentdefaultsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /paymentdefaults][%d] postPaymentdefaultsUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *PostPaymentdefaultsUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -187,7 +183,7 @@ func NewPostPaymentdefaultsForbidden() *PostPaymentdefaultsForbidden {
 	return &PostPaymentdefaultsForbidden{}
 }
 
-/*PostPaymentdefaultsForbidden handles this case with default header values.
+/* PostPaymentdefaultsForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
@@ -198,7 +194,6 @@ type PostPaymentdefaultsForbidden struct {
 func (o *PostPaymentdefaultsForbidden) Error() string {
 	return fmt.Sprintf("[POST /paymentdefaults][%d] postPaymentdefaultsForbidden  %+v", 403, o.Payload)
 }
-
 func (o *PostPaymentdefaultsForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -220,7 +215,7 @@ func NewPostPaymentdefaultsNotFound() *PostPaymentdefaultsNotFound {
 	return &PostPaymentdefaultsNotFound{}
 }
 
-/*PostPaymentdefaultsNotFound handles this case with default header values.
+/* PostPaymentdefaultsNotFound describes a response with status code 404, with default header values.
 
 Record not found
 */
@@ -231,7 +226,6 @@ type PostPaymentdefaultsNotFound struct {
 func (o *PostPaymentdefaultsNotFound) Error() string {
 	return fmt.Sprintf("[POST /paymentdefaults][%d] postPaymentdefaultsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *PostPaymentdefaultsNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -253,7 +247,7 @@ func NewPostPaymentdefaultsConflict() *PostPaymentdefaultsConflict {
 	return &PostPaymentdefaultsConflict{}
 }
 
-/*PostPaymentdefaultsConflict handles this case with default header values.
+/* PostPaymentdefaultsConflict describes a response with status code 409, with default header values.
 
 Conflict
 */
@@ -264,7 +258,6 @@ type PostPaymentdefaultsConflict struct {
 func (o *PostPaymentdefaultsConflict) Error() string {
 	return fmt.Sprintf("[POST /paymentdefaults][%d] postPaymentdefaultsConflict  %+v", 409, o.Payload)
 }
-
 func (o *PostPaymentdefaultsConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -286,7 +279,7 @@ func NewPostPaymentdefaultsTooManyRequests() *PostPaymentdefaultsTooManyRequests
 	return &PostPaymentdefaultsTooManyRequests{}
 }
 
-/*PostPaymentdefaultsTooManyRequests handles this case with default header values.
+/* PostPaymentdefaultsTooManyRequests describes a response with status code 429, with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -297,7 +290,6 @@ type PostPaymentdefaultsTooManyRequests struct {
 func (o *PostPaymentdefaultsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /paymentdefaults][%d] postPaymentdefaultsTooManyRequests  %+v", 429, o.Payload)
 }
-
 func (o *PostPaymentdefaultsTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -319,7 +311,7 @@ func NewPostPaymentdefaultsInternalServerError() *PostPaymentdefaultsInternalSer
 	return &PostPaymentdefaultsInternalServerError{}
 }
 
-/*PostPaymentdefaultsInternalServerError handles this case with default header values.
+/* PostPaymentdefaultsInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
@@ -330,7 +322,6 @@ type PostPaymentdefaultsInternalServerError struct {
 func (o *PostPaymentdefaultsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /paymentdefaults][%d] postPaymentdefaultsInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *PostPaymentdefaultsInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -352,7 +343,7 @@ func NewPostPaymentdefaultsServiceUnavailable() *PostPaymentdefaultsServiceUnava
 	return &PostPaymentdefaultsServiceUnavailable{}
 }
 
-/*PostPaymentdefaultsServiceUnavailable handles this case with default header values.
+/* PostPaymentdefaultsServiceUnavailable describes a response with status code 503, with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -363,7 +354,6 @@ type PostPaymentdefaultsServiceUnavailable struct {
 func (o *PostPaymentdefaultsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /paymentdefaults][%d] postPaymentdefaultsServiceUnavailable  %+v", 503, o.Payload)
 }
-
 func (o *PostPaymentdefaultsServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

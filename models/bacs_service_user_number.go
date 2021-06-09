@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -65,12 +67,11 @@ func (m *BacsServiceUserNumber) Validate(formats strfmt.Registry) error {
 }
 
 func (m *BacsServiceUserNumber) validateAutoReturnSortCode(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.AutoReturnSortCode) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("auto_return_sort_code", "body", string(m.AutoReturnSortCode), `^$|^[0-9]{6}$`); err != nil {
+	if err := validate.Pattern("auto_return_sort_code", "body", m.AutoReturnSortCode, `^$|^[0-9]{6}$`); err != nil {
 		return err
 	}
 
@@ -78,12 +79,11 @@ func (m *BacsServiceUserNumber) validateAutoReturnSortCode(formats strfmt.Regist
 }
 
 func (m *BacsServiceUserNumber) validateContraAccountNumber(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ContraAccountNumber) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("contra_account_number", "body", string(m.ContraAccountNumber), `^$|^[0-9]{8}$`); err != nil {
+	if err := validate.Pattern("contra_account_number", "body", m.ContraAccountNumber, `^$|^[0-9]{8}$`); err != nil {
 		return err
 	}
 
@@ -91,12 +91,11 @@ func (m *BacsServiceUserNumber) validateContraAccountNumber(formats strfmt.Regis
 }
 
 func (m *BacsServiceUserNumber) validateContraSortCode(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ContraSortCode) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("contra_sort_code", "body", string(m.ContraSortCode), `^$|^[0-9]{6}$`); err != nil {
+	if err := validate.Pattern("contra_sort_code", "body", m.ContraSortCode, `^$|^[0-9]{6}$`); err != nil {
 		return err
 	}
 
@@ -109,10 +108,15 @@ func (m *BacsServiceUserNumber) validateServiceUserNumber(formats strfmt.Registr
 		return err
 	}
 
-	if err := validate.Pattern("service_user_number", "body", string(*m.ServiceUserNumber), `^$|^[0-9A-Z]{6}$`); err != nil {
+	if err := validate.Pattern("service_user_number", "body", *m.ServiceUserNumber, `^$|^[0-9A-Z]{6}$`); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this bacs service user number based on context it is used
+func (m *BacsServiceUserNumber) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
