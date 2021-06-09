@@ -77,8 +77,9 @@ func (o *GetStarlingReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewGetStarlingOK() *GetStarlingOK {
 	return &GetStarlingOK{}
 }
 
-/* GetStarlingOK describes a response with status code 200, with default header values.
+/*GetStarlingOK handles this case with default header values.
 
 List of associations
 */
@@ -98,6 +99,7 @@ type GetStarlingOK struct {
 func (o *GetStarlingOK) Error() string {
 	return fmt.Sprintf("[GET /starling][%d] getStarlingOK  %+v", 200, o.Payload)
 }
+
 func (o *GetStarlingOK) GetPayload() *models.AssociationDetailsListResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewGetStarlingBadRequest() *GetStarlingBadRequest {
 	return &GetStarlingBadRequest{}
 }
 
-/* GetStarlingBadRequest describes a response with status code 400, with default header values.
+/*GetStarlingBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type GetStarlingBadRequest struct {
 func (o *GetStarlingBadRequest) Error() string {
 	return fmt.Sprintf("[GET /starling][%d] getStarlingBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *GetStarlingBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewGetStarlingUnauthorized() *GetStarlingUnauthorized {
 	return &GetStarlingUnauthorized{}
 }
 
-/* GetStarlingUnauthorized describes a response with status code 401, with default header values.
+/*GetStarlingUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type GetStarlingUnauthorized struct {
 func (o *GetStarlingUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /starling][%d] getStarlingUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetStarlingUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewGetStarlingForbidden() *GetStarlingForbidden {
 	return &GetStarlingForbidden{}
 }
 
-/* GetStarlingForbidden describes a response with status code 403, with default header values.
+/*GetStarlingForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type GetStarlingForbidden struct {
 func (o *GetStarlingForbidden) Error() string {
 	return fmt.Sprintf("[GET /starling][%d] getStarlingForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetStarlingForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewGetStarlingNotFound() *GetStarlingNotFound {
 	return &GetStarlingNotFound{}
 }
 
-/* GetStarlingNotFound describes a response with status code 404, with default header values.
+/*GetStarlingNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type GetStarlingNotFound struct {
 func (o *GetStarlingNotFound) Error() string {
 	return fmt.Sprintf("[GET /starling][%d] getStarlingNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetStarlingNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewGetStarlingConflict() *GetStarlingConflict {
 	return &GetStarlingConflict{}
 }
 
-/* GetStarlingConflict describes a response with status code 409, with default header values.
+/*GetStarlingConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type GetStarlingConflict struct {
 func (o *GetStarlingConflict) Error() string {
 	return fmt.Sprintf("[GET /starling][%d] getStarlingConflict  %+v", 409, o.Payload)
 }
+
 func (o *GetStarlingConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewGetStarlingTooManyRequests() *GetStarlingTooManyRequests {
 	return &GetStarlingTooManyRequests{}
 }
 
-/* GetStarlingTooManyRequests describes a response with status code 429, with default header values.
+/*GetStarlingTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type GetStarlingTooManyRequests struct {
 func (o *GetStarlingTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /starling][%d] getStarlingTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *GetStarlingTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewGetStarlingInternalServerError() *GetStarlingInternalServerError {
 	return &GetStarlingInternalServerError{}
 }
 
-/* GetStarlingInternalServerError describes a response with status code 500, with default header values.
+/*GetStarlingInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type GetStarlingInternalServerError struct {
 func (o *GetStarlingInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /starling][%d] getStarlingInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetStarlingInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewGetStarlingServiceUnavailable() *GetStarlingServiceUnavailable {
 	return &GetStarlingServiceUnavailable{}
 }
 
-/* GetStarlingServiceUnavailable describes a response with status code 503, with default header values.
+/*GetStarlingServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type GetStarlingServiceUnavailable struct {
 func (o *GetStarlingServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /starling][%d] getStarlingServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *GetStarlingServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

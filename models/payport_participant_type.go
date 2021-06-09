@@ -6,7 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -18,11 +17,6 @@ import (
 //
 // swagger:model PayportParticipantType
 type PayportParticipantType string
-
-func NewPayportParticipantType(value PayportParticipantType) *PayportParticipantType {
-	v := value
-	return &v
-}
 
 const (
 
@@ -47,7 +41,7 @@ func init() {
 }
 
 func (m PayportParticipantType) validatePayportParticipantTypeEnum(path, location string, value PayportParticipantType) error {
-	if err := validate.EnumCase(path, location, value, payportParticipantTypeEnum, true); err != nil {
+	if err := validate.Enum(path, location, value, payportParticipantTypeEnum); err != nil {
 		return err
 	}
 	return nil
@@ -65,10 +59,5 @@ func (m PayportParticipantType) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-// ContextValidate validates this payport participant type based on context it is used
-func (m PayportParticipantType) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }

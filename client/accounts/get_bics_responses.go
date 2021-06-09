@@ -77,8 +77,9 @@ func (o *GetBicsReader) ReadResponse(response runtime.ClientResponse, consumer r
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewGetBicsOK() *GetBicsOK {
 	return &GetBicsOK{}
 }
 
-/* GetBicsOK describes a response with status code 200, with default header values.
+/*GetBicsOK handles this case with default header values.
 
 List of bic details
 */
@@ -98,6 +99,7 @@ type GetBicsOK struct {
 func (o *GetBicsOK) Error() string {
 	return fmt.Sprintf("[GET /bics][%d] getBicsOK  %+v", 200, o.Payload)
 }
+
 func (o *GetBicsOK) GetPayload() *models.BicDetailsListResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewGetBicsBadRequest() *GetBicsBadRequest {
 	return &GetBicsBadRequest{}
 }
 
-/* GetBicsBadRequest describes a response with status code 400, with default header values.
+/*GetBicsBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type GetBicsBadRequest struct {
 func (o *GetBicsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /bics][%d] getBicsBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *GetBicsBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewGetBicsUnauthorized() *GetBicsUnauthorized {
 	return &GetBicsUnauthorized{}
 }
 
-/* GetBicsUnauthorized describes a response with status code 401, with default header values.
+/*GetBicsUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type GetBicsUnauthorized struct {
 func (o *GetBicsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /bics][%d] getBicsUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetBicsUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewGetBicsForbidden() *GetBicsForbidden {
 	return &GetBicsForbidden{}
 }
 
-/* GetBicsForbidden describes a response with status code 403, with default header values.
+/*GetBicsForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type GetBicsForbidden struct {
 func (o *GetBicsForbidden) Error() string {
 	return fmt.Sprintf("[GET /bics][%d] getBicsForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetBicsForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewGetBicsNotFound() *GetBicsNotFound {
 	return &GetBicsNotFound{}
 }
 
-/* GetBicsNotFound describes a response with status code 404, with default header values.
+/*GetBicsNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type GetBicsNotFound struct {
 func (o *GetBicsNotFound) Error() string {
 	return fmt.Sprintf("[GET /bics][%d] getBicsNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetBicsNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewGetBicsConflict() *GetBicsConflict {
 	return &GetBicsConflict{}
 }
 
-/* GetBicsConflict describes a response with status code 409, with default header values.
+/*GetBicsConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type GetBicsConflict struct {
 func (o *GetBicsConflict) Error() string {
 	return fmt.Sprintf("[GET /bics][%d] getBicsConflict  %+v", 409, o.Payload)
 }
+
 func (o *GetBicsConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewGetBicsTooManyRequests() *GetBicsTooManyRequests {
 	return &GetBicsTooManyRequests{}
 }
 
-/* GetBicsTooManyRequests describes a response with status code 429, with default header values.
+/*GetBicsTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type GetBicsTooManyRequests struct {
 func (o *GetBicsTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /bics][%d] getBicsTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *GetBicsTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewGetBicsInternalServerError() *GetBicsInternalServerError {
 	return &GetBicsInternalServerError{}
 }
 
-/* GetBicsInternalServerError describes a response with status code 500, with default header values.
+/*GetBicsInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type GetBicsInternalServerError struct {
 func (o *GetBicsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /bics][%d] getBicsInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetBicsInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewGetBicsServiceUnavailable() *GetBicsServiceUnavailable {
 	return &GetBicsServiceUnavailable{}
 }
 
-/* GetBicsServiceUnavailable describes a response with status code 503, with default header values.
+/*GetBicsServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type GetBicsServiceUnavailable struct {
 func (o *GetBicsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /bics][%d] getBicsServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *GetBicsServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

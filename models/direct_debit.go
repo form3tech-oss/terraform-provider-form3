@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -77,6 +75,7 @@ func (m *DirectDebit) Validate(formats strfmt.Registry) error {
 }
 
 func (m *DirectDebit) validateAttributes(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Attributes) { // not required
 		return nil
 	}
@@ -94,6 +93,7 @@ func (m *DirectDebit) validateAttributes(formats strfmt.Registry) error {
 }
 
 func (m *DirectDebit) validateID(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ID) { // not required
 		return nil
 	}
@@ -106,6 +106,7 @@ func (m *DirectDebit) validateID(formats strfmt.Registry) error {
 }
 
 func (m *DirectDebit) validateOrganisationID(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.OrganisationID) { // not required
 		return nil
 	}
@@ -118,6 +119,7 @@ func (m *DirectDebit) validateOrganisationID(formats strfmt.Registry) error {
 }
 
 func (m *DirectDebit) validateRelationships(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Relationships) { // not required
 		return nil
 	}
@@ -135,11 +137,12 @@ func (m *DirectDebit) validateRelationships(formats strfmt.Registry) error {
 }
 
 func (m *DirectDebit) validateType(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("type", "body", m.Type, `^[A-Za-z_]*$`); err != nil {
+	if err := validate.Pattern("type", "body", string(m.Type), `^[A-Za-z_]*$`); err != nil {
 		return err
 	}
 
@@ -147,58 +150,13 @@ func (m *DirectDebit) validateType(formats strfmt.Registry) error {
 }
 
 func (m *DirectDebit) validateVersion(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Version) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("version", "body", *m.Version, 0, false); err != nil {
+	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
 		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this direct debit based on the context it is used
-func (m *DirectDebit) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateAttributes(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateRelationships(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *DirectDebit) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Attributes != nil {
-		if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *DirectDebit) contextValidateRelationships(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Relationships != nil {
-		if err := m.Relationships.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("relationships")
-			}
-			return err
-		}
 	}
 
 	return nil
@@ -298,11 +256,12 @@ func (m *DirectDebitAttributes) Validate(formats strfmt.Registry) error {
 }
 
 func (m *DirectDebitAttributes) validateAmount(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Amount) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("attributes"+"."+"amount", "body", m.Amount, `^[0-9.]{0,20}$`); err != nil {
+	if err := validate.Pattern("attributes"+"."+"amount", "body", string(m.Amount), `^[0-9.]{0,20}$`); err != nil {
 		return err
 	}
 
@@ -310,6 +269,7 @@ func (m *DirectDebitAttributes) validateAmount(formats strfmt.Registry) error {
 }
 
 func (m *DirectDebitAttributes) validateBeneficiaryParty(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.BeneficiaryParty) { // not required
 		return nil
 	}
@@ -327,6 +287,7 @@ func (m *DirectDebitAttributes) validateBeneficiaryParty(formats strfmt.Registry
 }
 
 func (m *DirectDebitAttributes) validateDebtorParty(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.DebtorParty) { // not required
 		return nil
 	}
@@ -344,6 +305,7 @@ func (m *DirectDebitAttributes) validateDebtorParty(formats strfmt.Registry) err
 }
 
 func (m *DirectDebitAttributes) validateProcessingDate(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ProcessingDate) { // not required
 		return nil
 	}
@@ -356,58 +318,13 @@ func (m *DirectDebitAttributes) validateProcessingDate(formats strfmt.Registry) 
 }
 
 func (m *DirectDebitAttributes) validateSchemeProcessingDate(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.SchemeProcessingDate) { // not required
 		return nil
 	}
 
 	if err := validate.FormatOf("attributes"+"."+"scheme_processing_date", "body", "date", m.SchemeProcessingDate.String(), formats); err != nil {
 		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this direct debit attributes based on the context it is used
-func (m *DirectDebitAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateBeneficiaryParty(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateDebtorParty(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *DirectDebitAttributes) contextValidateBeneficiaryParty(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.BeneficiaryParty != nil {
-		if err := m.BeneficiaryParty.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes" + "." + "beneficiary_party")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *DirectDebitAttributes) contextValidateDebtorParty(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.DebtorParty != nil {
-		if err := m.DebtorParty.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes" + "." + "debtor_party")
-			}
-			return err
-		}
 	}
 
 	return nil
@@ -477,6 +394,7 @@ func (m *DirectDebitAttributesBeneficiaryParty) Validate(formats strfmt.Registry
 }
 
 func (m *DirectDebitAttributesBeneficiaryParty) validateAccountNumberCode(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.AccountNumberCode) { // not required
 		return nil
 	}
@@ -492,56 +410,13 @@ func (m *DirectDebitAttributesBeneficiaryParty) validateAccountNumberCode(format
 }
 
 func (m *DirectDebitAttributesBeneficiaryParty) validateAccountWith(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.AccountWith) { // not required
 		return nil
 	}
 
 	if m.AccountWith != nil {
 		if err := m.AccountWith.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes" + "." + "beneficiary_party" + "." + "account_with")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this direct debit attributes beneficiary party based on the context it is used
-func (m *DirectDebitAttributesBeneficiaryParty) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateAccountNumberCode(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateAccountWith(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *DirectDebitAttributesBeneficiaryParty) contextValidateAccountNumberCode(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := m.AccountNumberCode.ContextValidate(ctx, formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("attributes" + "." + "beneficiary_party" + "." + "account_number_code")
-		}
-		return err
-	}
-
-	return nil
-}
-
-func (m *DirectDebitAttributesBeneficiaryParty) contextValidateAccountWith(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.AccountWith != nil {
-		if err := m.AccountWith.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attributes" + "." + "beneficiary_party" + "." + "account_with")
 			}
@@ -613,6 +488,7 @@ func (m *DirectDebitAttributesDebtorParty) Validate(formats strfmt.Registry) err
 }
 
 func (m *DirectDebitAttributesDebtorParty) validateAccountNumberCode(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.AccountNumberCode) { // not required
 		return nil
 	}
@@ -628,56 +504,13 @@ func (m *DirectDebitAttributesDebtorParty) validateAccountNumberCode(formats str
 }
 
 func (m *DirectDebitAttributesDebtorParty) validateAccountWith(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.AccountWith) { // not required
 		return nil
 	}
 
 	if m.AccountWith != nil {
 		if err := m.AccountWith.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes" + "." + "debtor_party" + "." + "account_with")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this direct debit attributes debtor party based on the context it is used
-func (m *DirectDebitAttributesDebtorParty) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateAccountNumberCode(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateAccountWith(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *DirectDebitAttributesDebtorParty) contextValidateAccountNumberCode(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := m.AccountNumberCode.ContextValidate(ctx, formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("attributes" + "." + "debtor_party" + "." + "account_number_code")
-		}
-		return err
-	}
-
-	return nil
-}
-
-func (m *DirectDebitAttributesDebtorParty) contextValidateAccountWith(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.AccountWith != nil {
-		if err := m.AccountWith.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attributes" + "." + "debtor_party" + "." + "account_with")
 			}

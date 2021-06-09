@@ -6,7 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -101,13 +100,14 @@ const (
 
 // prop value enum
 func (m *SubscriptionAttributes) validateCallbackTransportEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, subscriptionAttributesTypeCallbackTransportPropEnum, true); err != nil {
+	if err := validate.Enum(path, location, value, subscriptionAttributesTypeCallbackTransportPropEnum); err != nil {
 		return err
 	}
 	return nil
 }
 
 func (m *SubscriptionAttributes) validateCallbackTransport(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.CallbackTransport) { // not required
 		return nil
 	}
@@ -121,11 +121,12 @@ func (m *SubscriptionAttributes) validateCallbackTransport(formats strfmt.Regist
 }
 
 func (m *SubscriptionAttributes) validateCallbackURI(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.CallbackURI) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("callback_uri", "body", m.CallbackURI, `^[A-Za-z0-9 .,@:\/-_]*$`); err != nil {
+	if err := validate.Pattern("callback_uri", "body", string(m.CallbackURI), `^[A-Za-z0-9 .,@:\/-_]*$`); err != nil {
 		return err
 	}
 
@@ -133,11 +134,12 @@ func (m *SubscriptionAttributes) validateCallbackURI(formats strfmt.Registry) er
 }
 
 func (m *SubscriptionAttributes) validateEventType(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.EventType) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("event_type", "body", m.EventType, `^[A-Za-z_-]*$`); err != nil {
+	if err := validate.Pattern("event_type", "body", string(m.EventType), `^[A-Za-z_-]*$`); err != nil {
 		return err
 	}
 
@@ -145,11 +147,12 @@ func (m *SubscriptionAttributes) validateEventType(formats strfmt.Registry) erro
 }
 
 func (m *SubscriptionAttributes) validateRecordType(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.RecordType) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("record_type", "body", m.RecordType, `^[A-Za-z_-]*$`); err != nil {
+	if err := validate.Pattern("record_type", "body", string(m.RecordType), `^[A-Za-z_-]*$`); err != nil {
 		return err
 	}
 
@@ -157,34 +160,12 @@ func (m *SubscriptionAttributes) validateRecordType(formats strfmt.Registry) err
 }
 
 func (m *SubscriptionAttributes) validateUserID(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.UserID) { // not required
 		return nil
 	}
 
 	if err := validate.FormatOf("user_id", "body", "uuid", m.UserID.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this subscription attributes based on the context it is used
-func (m *SubscriptionAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateUserID(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *SubscriptionAttributes) contextValidateUserID(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "user_id", "body", strfmt.UUID(m.UserID)); err != nil {
 		return err
 	}
 

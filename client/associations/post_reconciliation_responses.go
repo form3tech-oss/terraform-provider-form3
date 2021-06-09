@@ -77,8 +77,9 @@ func (o *PostReconciliationReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewPostReconciliationCreated() *PostReconciliationCreated {
 	return &PostReconciliationCreated{}
 }
 
-/* PostReconciliationCreated describes a response with status code 201, with default header values.
+/*PostReconciliationCreated handles this case with default header values.
 
 creation response
 */
@@ -98,6 +99,7 @@ type PostReconciliationCreated struct {
 func (o *PostReconciliationCreated) Error() string {
 	return fmt.Sprintf("[POST /reconciliation][%d] postReconciliationCreated  %+v", 201, o.Payload)
 }
+
 func (o *PostReconciliationCreated) GetPayload() *models.ReconciliationAssociationDetailsResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewPostReconciliationBadRequest() *PostReconciliationBadRequest {
 	return &PostReconciliationBadRequest{}
 }
 
-/* PostReconciliationBadRequest describes a response with status code 400, with default header values.
+/*PostReconciliationBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type PostReconciliationBadRequest struct {
 func (o *PostReconciliationBadRequest) Error() string {
 	return fmt.Sprintf("[POST /reconciliation][%d] postReconciliationBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *PostReconciliationBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewPostReconciliationUnauthorized() *PostReconciliationUnauthorized {
 	return &PostReconciliationUnauthorized{}
 }
 
-/* PostReconciliationUnauthorized describes a response with status code 401, with default header values.
+/*PostReconciliationUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type PostReconciliationUnauthorized struct {
 func (o *PostReconciliationUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /reconciliation][%d] postReconciliationUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *PostReconciliationUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewPostReconciliationForbidden() *PostReconciliationForbidden {
 	return &PostReconciliationForbidden{}
 }
 
-/* PostReconciliationForbidden describes a response with status code 403, with default header values.
+/*PostReconciliationForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type PostReconciliationForbidden struct {
 func (o *PostReconciliationForbidden) Error() string {
 	return fmt.Sprintf("[POST /reconciliation][%d] postReconciliationForbidden  %+v", 403, o.Payload)
 }
+
 func (o *PostReconciliationForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewPostReconciliationNotFound() *PostReconciliationNotFound {
 	return &PostReconciliationNotFound{}
 }
 
-/* PostReconciliationNotFound describes a response with status code 404, with default header values.
+/*PostReconciliationNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type PostReconciliationNotFound struct {
 func (o *PostReconciliationNotFound) Error() string {
 	return fmt.Sprintf("[POST /reconciliation][%d] postReconciliationNotFound  %+v", 404, o.Payload)
 }
+
 func (o *PostReconciliationNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewPostReconciliationConflict() *PostReconciliationConflict {
 	return &PostReconciliationConflict{}
 }
 
-/* PostReconciliationConflict describes a response with status code 409, with default header values.
+/*PostReconciliationConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type PostReconciliationConflict struct {
 func (o *PostReconciliationConflict) Error() string {
 	return fmt.Sprintf("[POST /reconciliation][%d] postReconciliationConflict  %+v", 409, o.Payload)
 }
+
 func (o *PostReconciliationConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewPostReconciliationTooManyRequests() *PostReconciliationTooManyRequests {
 	return &PostReconciliationTooManyRequests{}
 }
 
-/* PostReconciliationTooManyRequests describes a response with status code 429, with default header values.
+/*PostReconciliationTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type PostReconciliationTooManyRequests struct {
 func (o *PostReconciliationTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /reconciliation][%d] postReconciliationTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *PostReconciliationTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewPostReconciliationInternalServerError() *PostReconciliationInternalServe
 	return &PostReconciliationInternalServerError{}
 }
 
-/* PostReconciliationInternalServerError describes a response with status code 500, with default header values.
+/*PostReconciliationInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type PostReconciliationInternalServerError struct {
 func (o *PostReconciliationInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /reconciliation][%d] postReconciliationInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *PostReconciliationInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewPostReconciliationServiceUnavailable() *PostReconciliationServiceUnavail
 	return &PostReconciliationServiceUnavailable{}
 }
 
-/* PostReconciliationServiceUnavailable describes a response with status code 503, with default header values.
+/*PostReconciliationServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type PostReconciliationServiceUnavailable struct {
 func (o *PostReconciliationServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /reconciliation][%d] postReconciliationServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *PostReconciliationServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

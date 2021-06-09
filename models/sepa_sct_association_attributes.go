@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -35,11 +33,6 @@ type SepaSctAssociationAttributes struct {
 
 // Validate validates this sepa sct association attributes
 func (m *SepaSctAssociationAttributes) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this sepa sct association attributes based on context it is used
-func (m *SepaSctAssociationAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

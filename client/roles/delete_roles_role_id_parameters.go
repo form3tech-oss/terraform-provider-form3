@@ -17,81 +17,64 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteRolesRoleIDParams creates a new DeleteRolesRoleIDParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewDeleteRolesRoleIDParams creates a new DeleteRolesRoleIDParams object
+// with the default values initialized.
 func NewDeleteRolesRoleIDParams() *DeleteRolesRoleIDParams {
+	var ()
 	return &DeleteRolesRoleIDParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteRolesRoleIDParamsWithTimeout creates a new DeleteRolesRoleIDParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewDeleteRolesRoleIDParamsWithTimeout(timeout time.Duration) *DeleteRolesRoleIDParams {
+	var ()
 	return &DeleteRolesRoleIDParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewDeleteRolesRoleIDParamsWithContext creates a new DeleteRolesRoleIDParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewDeleteRolesRoleIDParamsWithContext(ctx context.Context) *DeleteRolesRoleIDParams {
+	var ()
 	return &DeleteRolesRoleIDParams{
+
 		Context: ctx,
 	}
 }
 
 // NewDeleteRolesRoleIDParamsWithHTTPClient creates a new DeleteRolesRoleIDParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewDeleteRolesRoleIDParamsWithHTTPClient(client *http.Client) *DeleteRolesRoleIDParams {
+	var ()
 	return &DeleteRolesRoleIDParams{
 		HTTPClient: client,
 	}
 }
 
-/* DeleteRolesRoleIDParams contains all the parameters to send to the API endpoint
-   for the delete roles role ID operation.
-
-   Typically these are written to a http.Request.
+/*DeleteRolesRoleIDParams contains all the parameters to send to the API endpoint
+for the delete roles role ID operation typically these are written to a http.Request
 */
 type DeleteRolesRoleIDParams struct {
 
-	/* RoleID.
+	/*RoleID
+	  Role Id
 
-	   Role Id
-
-	   Format: uuid
 	*/
 	RoleID strfmt.UUID
+	/*Version
+	  Version
 
-	/* Version.
-
-	   Version
 	*/
 	Version int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the delete roles role ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteRolesRoleIDParams) WithDefaults() *DeleteRolesRoleIDParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the delete roles role ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteRolesRoleIDParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete roles role ID params
@@ -166,7 +149,6 @@ func (o *DeleteRolesRoleIDParams) WriteToRequest(r runtime.ClientRequest, reg st
 	qrVersion := o.Version
 	qVersion := swag.FormatInt64(qrVersion)
 	if qVersion != "" {
-
 		if err := r.SetQueryParam("version", qVersion); err != nil {
 			return err
 		}

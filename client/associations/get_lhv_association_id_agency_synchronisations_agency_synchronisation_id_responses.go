@@ -77,8 +77,9 @@ func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDReader)
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewGetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDOK() *Ge
 	return &GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDOK{}
 }
 
-/* GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDOK describes a response with status code 200, with default header values.
+/*GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDOK handles this case with default header values.
 
 LHV Agency synchronisation details
 */
@@ -98,6 +99,7 @@ type GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDOK struct {
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDOK) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] getLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdOK  %+v", 200, o.Payload)
 }
+
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDOK) GetPayload() *models.LhvAgencySynchronisationResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewGetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDBadReque
 	return &GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDBadRequest{}
 }
 
-/* GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDBadRequest describes a response with status code 400, with default header values.
+/*GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDBadRequest 
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] getLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewGetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDUnauthor
 	return &GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDUnauthorized{}
 }
 
-/* GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDUnauthorized describes a response with status code 401, with default header values.
+/*GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDUnauthorize
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] getLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewGetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDForbidde
 	return &GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDForbidden{}
 }
 
-/* GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDForbidden describes a response with status code 403, with default header values.
+/*GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDForbidden s
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] getLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewGetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNotFound
 	return &GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNotFound{}
 }
 
-/* GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNotFound describes a response with status code 404, with default header values.
+/*GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNotFound st
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] getLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewGetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDConflict
 	return &GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDConflict{}
 }
 
-/* GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDConflict describes a response with status code 409, with default header values.
+/*GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDConflict st
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDConflict) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] getLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewGetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDTooManyR
 	return &GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDTooManyRequests{}
 }
 
-/* GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDTooManyRequests describes a response with status code 429, with default header values.
+/*GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDTooManyRequ
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] getLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewGetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDInternal
 	return &GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDInternalServerError{}
 }
 
-/* GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDInternalServerError describes a response with status code 500, with default header values.
+/*GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDInternalSer
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] getLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewGetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDServiceU
 	return &GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDServiceUnavailable{}
 }
 
-/* GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDServiceUnavailable describes a response with status code 503, with default header values.
+/*GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDServiceUnav
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}][%d] getLhvAssociationIdAgencySynchronisationsAgencySynchronisationIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

@@ -77,8 +77,9 @@ func (o *PostLhvAssociationIDAgencySynchronisationsReader) ReadResponse(response
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewPostLhvAssociationIDAgencySynchronisationsCreated() *PostLhvAssociationI
 	return &PostLhvAssociationIDAgencySynchronisationsCreated{}
 }
 
-/* PostLhvAssociationIDAgencySynchronisationsCreated describes a response with status code 201, with default header values.
+/*PostLhvAssociationIDAgencySynchronisationsCreated handles this case with default header values.
 
 creation response
 */
@@ -98,6 +99,7 @@ type PostLhvAssociationIDAgencySynchronisationsCreated struct {
 func (o *PostLhvAssociationIDAgencySynchronisationsCreated) Error() string {
 	return fmt.Sprintf("[POST /lhv/{associationId}/agency_synchronisations][%d] postLhvAssociationIdAgencySynchronisationsCreated  %+v", 201, o.Payload)
 }
+
 func (o *PostLhvAssociationIDAgencySynchronisationsCreated) GetPayload() *models.LhvAgencySynchronisationResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewPostLhvAssociationIDAgencySynchronisationsBadRequest() *PostLhvAssociati
 	return &PostLhvAssociationIDAgencySynchronisationsBadRequest{}
 }
 
-/* PostLhvAssociationIDAgencySynchronisationsBadRequest describes a response with status code 400, with default header values.
+/*PostLhvAssociationIDAgencySynchronisationsBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type PostLhvAssociationIDAgencySynchronisationsBadRequest struct {
 func (o *PostLhvAssociationIDAgencySynchronisationsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /lhv/{associationId}/agency_synchronisations][%d] postLhvAssociationIdAgencySynchronisationsBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *PostLhvAssociationIDAgencySynchronisationsBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewPostLhvAssociationIDAgencySynchronisationsUnauthorized() *PostLhvAssocia
 	return &PostLhvAssociationIDAgencySynchronisationsUnauthorized{}
 }
 
-/* PostLhvAssociationIDAgencySynchronisationsUnauthorized describes a response with status code 401, with default header values.
+/*PostLhvAssociationIDAgencySynchronisationsUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type PostLhvAssociationIDAgencySynchronisationsUnauthorized struct {
 func (o *PostLhvAssociationIDAgencySynchronisationsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /lhv/{associationId}/agency_synchronisations][%d] postLhvAssociationIdAgencySynchronisationsUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *PostLhvAssociationIDAgencySynchronisationsUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewPostLhvAssociationIDAgencySynchronisationsForbidden() *PostLhvAssociatio
 	return &PostLhvAssociationIDAgencySynchronisationsForbidden{}
 }
 
-/* PostLhvAssociationIDAgencySynchronisationsForbidden describes a response with status code 403, with default header values.
+/*PostLhvAssociationIDAgencySynchronisationsForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type PostLhvAssociationIDAgencySynchronisationsForbidden struct {
 func (o *PostLhvAssociationIDAgencySynchronisationsForbidden) Error() string {
 	return fmt.Sprintf("[POST /lhv/{associationId}/agency_synchronisations][%d] postLhvAssociationIdAgencySynchronisationsForbidden  %+v", 403, o.Payload)
 }
+
 func (o *PostLhvAssociationIDAgencySynchronisationsForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewPostLhvAssociationIDAgencySynchronisationsNotFound() *PostLhvAssociation
 	return &PostLhvAssociationIDAgencySynchronisationsNotFound{}
 }
 
-/* PostLhvAssociationIDAgencySynchronisationsNotFound describes a response with status code 404, with default header values.
+/*PostLhvAssociationIDAgencySynchronisationsNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type PostLhvAssociationIDAgencySynchronisationsNotFound struct {
 func (o *PostLhvAssociationIDAgencySynchronisationsNotFound) Error() string {
 	return fmt.Sprintf("[POST /lhv/{associationId}/agency_synchronisations][%d] postLhvAssociationIdAgencySynchronisationsNotFound  %+v", 404, o.Payload)
 }
+
 func (o *PostLhvAssociationIDAgencySynchronisationsNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewPostLhvAssociationIDAgencySynchronisationsConflict() *PostLhvAssociation
 	return &PostLhvAssociationIDAgencySynchronisationsConflict{}
 }
 
-/* PostLhvAssociationIDAgencySynchronisationsConflict describes a response with status code 409, with default header values.
+/*PostLhvAssociationIDAgencySynchronisationsConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type PostLhvAssociationIDAgencySynchronisationsConflict struct {
 func (o *PostLhvAssociationIDAgencySynchronisationsConflict) Error() string {
 	return fmt.Sprintf("[POST /lhv/{associationId}/agency_synchronisations][%d] postLhvAssociationIdAgencySynchronisationsConflict  %+v", 409, o.Payload)
 }
+
 func (o *PostLhvAssociationIDAgencySynchronisationsConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewPostLhvAssociationIDAgencySynchronisationsTooManyRequests() *PostLhvAsso
 	return &PostLhvAssociationIDAgencySynchronisationsTooManyRequests{}
 }
 
-/* PostLhvAssociationIDAgencySynchronisationsTooManyRequests describes a response with status code 429, with default header values.
+/*PostLhvAssociationIDAgencySynchronisationsTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type PostLhvAssociationIDAgencySynchronisationsTooManyRequests struct {
 func (o *PostLhvAssociationIDAgencySynchronisationsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /lhv/{associationId}/agency_synchronisations][%d] postLhvAssociationIdAgencySynchronisationsTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *PostLhvAssociationIDAgencySynchronisationsTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewPostLhvAssociationIDAgencySynchronisationsInternalServerError() *PostLhv
 	return &PostLhvAssociationIDAgencySynchronisationsInternalServerError{}
 }
 
-/* PostLhvAssociationIDAgencySynchronisationsInternalServerError describes a response with status code 500, with default header values.
+/*PostLhvAssociationIDAgencySynchronisationsInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type PostLhvAssociationIDAgencySynchronisationsInternalServerError struct {
 func (o *PostLhvAssociationIDAgencySynchronisationsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /lhv/{associationId}/agency_synchronisations][%d] postLhvAssociationIdAgencySynchronisationsInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *PostLhvAssociationIDAgencySynchronisationsInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewPostLhvAssociationIDAgencySynchronisationsServiceUnavailable() *PostLhvA
 	return &PostLhvAssociationIDAgencySynchronisationsServiceUnavailable{}
 }
 
-/* PostLhvAssociationIDAgencySynchronisationsServiceUnavailable describes a response with status code 503, with default header values.
+/*PostLhvAssociationIDAgencySynchronisationsServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type PostLhvAssociationIDAgencySynchronisationsServiceUnavailable struct {
 func (o *PostLhvAssociationIDAgencySynchronisationsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /lhv/{associationId}/agency_synchronisations][%d] postLhvAssociationIdAgencySynchronisationsServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *PostLhvAssociationIDAgencySynchronisationsServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

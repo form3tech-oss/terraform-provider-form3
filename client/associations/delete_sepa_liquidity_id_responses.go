@@ -77,8 +77,9 @@ func (o *DeleteSepaLiquidityIDReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewDeleteSepaLiquidityIDNoContent() *DeleteSepaLiquidityIDNoContent {
 	return &DeleteSepaLiquidityIDNoContent{}
 }
 
-/* DeleteSepaLiquidityIDNoContent describes a response with status code 204, with default header values.
+/*DeleteSepaLiquidityIDNoContent handles this case with default header values.
 
 Association deleted
 */
@@ -108,7 +109,7 @@ func NewDeleteSepaLiquidityIDBadRequest() *DeleteSepaLiquidityIDBadRequest {
 	return &DeleteSepaLiquidityIDBadRequest{}
 }
 
-/* DeleteSepaLiquidityIDBadRequest describes a response with status code 400, with default header values.
+/*DeleteSepaLiquidityIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -119,6 +120,7 @@ type DeleteSepaLiquidityIDBadRequest struct {
 func (o *DeleteSepaLiquidityIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /sepa-liquidity/{id}][%d] deleteSepaLiquidityIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *DeleteSepaLiquidityIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -140,7 +142,7 @@ func NewDeleteSepaLiquidityIDUnauthorized() *DeleteSepaLiquidityIDUnauthorized {
 	return &DeleteSepaLiquidityIDUnauthorized{}
 }
 
-/* DeleteSepaLiquidityIDUnauthorized describes a response with status code 401, with default header values.
+/*DeleteSepaLiquidityIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -151,6 +153,7 @@ type DeleteSepaLiquidityIDUnauthorized struct {
 func (o *DeleteSepaLiquidityIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /sepa-liquidity/{id}][%d] deleteSepaLiquidityIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *DeleteSepaLiquidityIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -172,7 +175,7 @@ func NewDeleteSepaLiquidityIDForbidden() *DeleteSepaLiquidityIDForbidden {
 	return &DeleteSepaLiquidityIDForbidden{}
 }
 
-/* DeleteSepaLiquidityIDForbidden describes a response with status code 403, with default header values.
+/*DeleteSepaLiquidityIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -183,6 +186,7 @@ type DeleteSepaLiquidityIDForbidden struct {
 func (o *DeleteSepaLiquidityIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /sepa-liquidity/{id}][%d] deleteSepaLiquidityIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *DeleteSepaLiquidityIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -204,7 +208,7 @@ func NewDeleteSepaLiquidityIDNotFound() *DeleteSepaLiquidityIDNotFound {
 	return &DeleteSepaLiquidityIDNotFound{}
 }
 
-/* DeleteSepaLiquidityIDNotFound describes a response with status code 404, with default header values.
+/*DeleteSepaLiquidityIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -215,6 +219,7 @@ type DeleteSepaLiquidityIDNotFound struct {
 func (o *DeleteSepaLiquidityIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /sepa-liquidity/{id}][%d] deleteSepaLiquidityIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *DeleteSepaLiquidityIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -236,7 +241,7 @@ func NewDeleteSepaLiquidityIDConflict() *DeleteSepaLiquidityIDConflict {
 	return &DeleteSepaLiquidityIDConflict{}
 }
 
-/* DeleteSepaLiquidityIDConflict describes a response with status code 409, with default header values.
+/*DeleteSepaLiquidityIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -247,6 +252,7 @@ type DeleteSepaLiquidityIDConflict struct {
 func (o *DeleteSepaLiquidityIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /sepa-liquidity/{id}][%d] deleteSepaLiquidityIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *DeleteSepaLiquidityIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -268,7 +274,7 @@ func NewDeleteSepaLiquidityIDTooManyRequests() *DeleteSepaLiquidityIDTooManyRequ
 	return &DeleteSepaLiquidityIDTooManyRequests{}
 }
 
-/* DeleteSepaLiquidityIDTooManyRequests describes a response with status code 429, with default header values.
+/*DeleteSepaLiquidityIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -279,6 +285,7 @@ type DeleteSepaLiquidityIDTooManyRequests struct {
 func (o *DeleteSepaLiquidityIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /sepa-liquidity/{id}][%d] deleteSepaLiquidityIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *DeleteSepaLiquidityIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -300,7 +307,7 @@ func NewDeleteSepaLiquidityIDInternalServerError() *DeleteSepaLiquidityIDInterna
 	return &DeleteSepaLiquidityIDInternalServerError{}
 }
 
-/* DeleteSepaLiquidityIDInternalServerError describes a response with status code 500, with default header values.
+/*DeleteSepaLiquidityIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -311,6 +318,7 @@ type DeleteSepaLiquidityIDInternalServerError struct {
 func (o *DeleteSepaLiquidityIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /sepa-liquidity/{id}][%d] deleteSepaLiquidityIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *DeleteSepaLiquidityIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -332,7 +340,7 @@ func NewDeleteSepaLiquidityIDServiceUnavailable() *DeleteSepaLiquidityIDServiceU
 	return &DeleteSepaLiquidityIDServiceUnavailable{}
 }
 
-/* DeleteSepaLiquidityIDServiceUnavailable describes a response with status code 503, with default header values.
+/*DeleteSepaLiquidityIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -343,6 +351,7 @@ type DeleteSepaLiquidityIDServiceUnavailable struct {
 func (o *DeleteSepaLiquidityIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /sepa-liquidity/{id}][%d] deleteSepaLiquidityIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *DeleteSepaLiquidityIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

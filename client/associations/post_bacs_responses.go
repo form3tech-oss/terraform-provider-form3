@@ -77,8 +77,9 @@ func (o *PostBacsReader) ReadResponse(response runtime.ClientResponse, consumer 
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewPostBacsCreated() *PostBacsCreated {
 	return &PostBacsCreated{}
 }
 
-/* PostBacsCreated describes a response with status code 201, with default header values.
+/*PostBacsCreated handles this case with default header values.
 
 creation response
 */
@@ -98,6 +99,7 @@ type PostBacsCreated struct {
 func (o *PostBacsCreated) Error() string {
 	return fmt.Sprintf("[POST /bacs][%d] postBacsCreated  %+v", 201, o.Payload)
 }
+
 func (o *PostBacsCreated) GetPayload() *models.BacsAssociationCreationResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewPostBacsBadRequest() *PostBacsBadRequest {
 	return &PostBacsBadRequest{}
 }
 
-/* PostBacsBadRequest describes a response with status code 400, with default header values.
+/*PostBacsBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type PostBacsBadRequest struct {
 func (o *PostBacsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /bacs][%d] postBacsBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *PostBacsBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewPostBacsUnauthorized() *PostBacsUnauthorized {
 	return &PostBacsUnauthorized{}
 }
 
-/* PostBacsUnauthorized describes a response with status code 401, with default header values.
+/*PostBacsUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type PostBacsUnauthorized struct {
 func (o *PostBacsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /bacs][%d] postBacsUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *PostBacsUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewPostBacsForbidden() *PostBacsForbidden {
 	return &PostBacsForbidden{}
 }
 
-/* PostBacsForbidden describes a response with status code 403, with default header values.
+/*PostBacsForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type PostBacsForbidden struct {
 func (o *PostBacsForbidden) Error() string {
 	return fmt.Sprintf("[POST /bacs][%d] postBacsForbidden  %+v", 403, o.Payload)
 }
+
 func (o *PostBacsForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewPostBacsNotFound() *PostBacsNotFound {
 	return &PostBacsNotFound{}
 }
 
-/* PostBacsNotFound describes a response with status code 404, with default header values.
+/*PostBacsNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type PostBacsNotFound struct {
 func (o *PostBacsNotFound) Error() string {
 	return fmt.Sprintf("[POST /bacs][%d] postBacsNotFound  %+v", 404, o.Payload)
 }
+
 func (o *PostBacsNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewPostBacsConflict() *PostBacsConflict {
 	return &PostBacsConflict{}
 }
 
-/* PostBacsConflict describes a response with status code 409, with default header values.
+/*PostBacsConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type PostBacsConflict struct {
 func (o *PostBacsConflict) Error() string {
 	return fmt.Sprintf("[POST /bacs][%d] postBacsConflict  %+v", 409, o.Payload)
 }
+
 func (o *PostBacsConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewPostBacsTooManyRequests() *PostBacsTooManyRequests {
 	return &PostBacsTooManyRequests{}
 }
 
-/* PostBacsTooManyRequests describes a response with status code 429, with default header values.
+/*PostBacsTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type PostBacsTooManyRequests struct {
 func (o *PostBacsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /bacs][%d] postBacsTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *PostBacsTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewPostBacsInternalServerError() *PostBacsInternalServerError {
 	return &PostBacsInternalServerError{}
 }
 
-/* PostBacsInternalServerError describes a response with status code 500, with default header values.
+/*PostBacsInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type PostBacsInternalServerError struct {
 func (o *PostBacsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /bacs][%d] postBacsInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *PostBacsInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewPostBacsServiceUnavailable() *PostBacsServiceUnavailable {
 	return &PostBacsServiceUnavailable{}
 }
 
-/* PostBacsServiceUnavailable describes a response with status code 503, with default header values.
+/*PostBacsServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type PostBacsServiceUnavailable struct {
 func (o *PostBacsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /bacs][%d] postBacsServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *PostBacsServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

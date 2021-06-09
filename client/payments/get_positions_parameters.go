@@ -16,66 +16,52 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetPositionsParams creates a new GetPositionsParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetPositionsParams creates a new GetPositionsParams object
+// with the default values initialized.
 func NewGetPositionsParams() *GetPositionsParams {
+
 	return &GetPositionsParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetPositionsParamsWithTimeout creates a new GetPositionsParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetPositionsParamsWithTimeout(timeout time.Duration) *GetPositionsParams {
+
 	return &GetPositionsParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetPositionsParamsWithContext creates a new GetPositionsParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetPositionsParamsWithContext(ctx context.Context) *GetPositionsParams {
+
 	return &GetPositionsParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetPositionsParamsWithHTTPClient creates a new GetPositionsParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetPositionsParamsWithHTTPClient(client *http.Client) *GetPositionsParams {
+
 	return &GetPositionsParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetPositionsParams contains all the parameters to send to the API endpoint
-   for the get positions operation.
-
-   Typically these are written to a http.Request.
+/*GetPositionsParams contains all the parameters to send to the API endpoint
+for the get positions operation typically these are written to a http.Request
 */
 type GetPositionsParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get positions params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetPositionsParams) WithDefaults() *GetPositionsParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get positions params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetPositionsParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get positions params

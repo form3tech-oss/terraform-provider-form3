@@ -18,94 +18,71 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams creates a new PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewPatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams creates a new PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams object
+// with the default values initialized.
 func NewPatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams() *PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams {
+	var ()
 	return &PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParamsWithTimeout creates a new PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewPatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParamsWithTimeout(timeout time.Duration) *PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams {
+	var ()
 	return &PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewPatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParamsWithContext creates a new PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewPatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParamsWithContext(ctx context.Context) *PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams {
+	var ()
 	return &PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams{
+
 		Context: ctx,
 	}
 }
 
 // NewPatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParamsWithHTTPClient creates a new PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewPatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParamsWithHTTPClient(client *http.Client) *PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams {
+	var ()
 	return &PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams{
 		HTTPClient: client,
 	}
 }
 
-/* PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams contains all the parameters to send to the API endpoint
-   for the patch payments ID returns return ID submissions submission ID operation.
-
-   Typically these are written to a http.Request.
+/*PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams contains all the parameters to send to the API endpoint
+for the patch payments ID returns return ID submissions submission ID operation typically these are written to a http.Request
 */
 type PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams struct {
 
-	// ReturnSubmissionUpdateRequest.
+	/*ReturnSubmissionUpdateRequest*/
 	ReturnSubmissionUpdateRequest *models.ReturnSubmissionAmendment
+	/*ID
+	  Payment Id
 
-	/* ID.
-
-	   Payment Id
-
-	   Format: uuid
 	*/
 	ID strfmt.UUID
+	/*ReturnID
+	  Return Id
 
-	/* ReturnID.
-
-	   Return Id
-
-	   Format: uuid
 	*/
 	ReturnID strfmt.UUID
+	/*SubmissionID
+	  Submission Id
 
-	/* SubmissionID.
-
-	   Submission Id
-
-	   Format: uuid
 	*/
 	SubmissionID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the patch payments ID returns return ID submissions submission ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams) WithDefaults() *PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the patch payments ID returns return ID submissions submission ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the patch payments ID returns return ID submissions submission ID params
@@ -192,6 +169,7 @@ func (o *PatchPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams) WriteToReq
 		return err
 	}
 	var res []error
+
 	if o.ReturnSubmissionUpdateRequest != nil {
 		if err := r.SetBodyParam(o.ReturnSubmissionUpdateRequest); err != nil {
 			return err

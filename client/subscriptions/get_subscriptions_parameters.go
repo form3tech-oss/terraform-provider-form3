@@ -17,85 +17,69 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetSubscriptionsParams creates a new GetSubscriptionsParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetSubscriptionsParams creates a new GetSubscriptionsParams object
+// with the default values initialized.
 func NewGetSubscriptionsParams() *GetSubscriptionsParams {
+	var ()
 	return &GetSubscriptionsParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetSubscriptionsParamsWithTimeout creates a new GetSubscriptionsParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetSubscriptionsParamsWithTimeout(timeout time.Duration) *GetSubscriptionsParams {
+	var ()
 	return &GetSubscriptionsParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetSubscriptionsParamsWithContext creates a new GetSubscriptionsParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetSubscriptionsParamsWithContext(ctx context.Context) *GetSubscriptionsParams {
+	var ()
 	return &GetSubscriptionsParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetSubscriptionsParamsWithHTTPClient creates a new GetSubscriptionsParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetSubscriptionsParamsWithHTTPClient(client *http.Client) *GetSubscriptionsParams {
+	var ()
 	return &GetSubscriptionsParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetSubscriptionsParams contains all the parameters to send to the API endpoint
-   for the get subscriptions operation.
-
-   Typically these are written to a http.Request.
+/*GetSubscriptionsParams contains all the parameters to send to the API endpoint
+for the get subscriptions operation typically these are written to a http.Request
 */
 type GetSubscriptionsParams struct {
 
-	/* FilterEventType.
+	/*FilterEventType
+	  Filter by event type
 
-	   Filter by event type
 	*/
 	FilterEventType []string
+	/*PageNumber
+	  Which page to select
 
-	/* PageNumber.
-
-	   Which page to select
 	*/
 	PageNumber *int64
+	/*PageSize
+	  Number of items to select
 
-	/* PageSize.
-
-	   Number of items to select
 	*/
 	PageSize *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get subscriptions params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetSubscriptionsParams) WithDefaults() *GetSubscriptionsParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get subscriptions params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetSubscriptionsParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get subscriptions params
@@ -172,70 +156,48 @@ func (o *GetSubscriptionsParams) WriteToRequest(r runtime.ClientRequest, reg str
 	}
 	var res []error
 
-	if o.FilterEventType != nil {
+	valuesFilterEventType := o.FilterEventType
 
-		// binding items for filter[event_type]
-		joinedFilterEventType := o.bindParamFilterEventType(reg)
-
-		// query array param filter[event_type]
-		if err := r.SetQueryParam("filter[event_type]", joinedFilterEventType...); err != nil {
-			return err
-		}
+	joinedFilterEventType := swag.JoinByFormat(valuesFilterEventType, "csv")
+	// query array param filter[event_type]
+	if err := r.SetQueryParam("filter[event_type]", joinedFilterEventType...); err != nil {
+		return err
 	}
 
 	if o.PageNumber != nil {
 
 		// query param page[number]
 		var qrPageNumber int64
-
 		if o.PageNumber != nil {
 			qrPageNumber = *o.PageNumber
 		}
 		qPageNumber := swag.FormatInt64(qrPageNumber)
 		if qPageNumber != "" {
-
 			if err := r.SetQueryParam("page[number]", qPageNumber); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if o.PageSize != nil {
 
 		// query param page[size]
 		var qrPageSize int64
-
 		if o.PageSize != nil {
 			qrPageSize = *o.PageSize
 		}
 		qPageSize := swag.FormatInt64(qrPageSize)
 		if qPageSize != "" {
-
 			if err := r.SetQueryParam("page[size]", qPageSize); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
-}
-
-// bindParamGetSubscriptions binds the parameter filter[event_type]
-func (o *GetSubscriptionsParams) bindParamFilterEventType(formats strfmt.Registry) []string {
-	filterEventTypeIR := o.FilterEventType
-
-	var filterEventTypeIC []string
-	for _, filterEventTypeIIR := range filterEventTypeIR { // explode []string
-
-		filterEventTypeIIV := filterEventTypeIIR // string as string
-		filterEventTypeIC = append(filterEventTypeIC, filterEventTypeIIV)
-	}
-
-	// items.CollectionFormat: "csv"
-	filterEventTypeIS := swag.JoinByFormat(filterEventTypeIC, "csv")
-
-	return filterEventTypeIS
 }

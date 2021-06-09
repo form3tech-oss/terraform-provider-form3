@@ -17,79 +17,64 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetUsersParams creates a new GetUsersParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetUsersParams creates a new GetUsersParams object
+// with the default values initialized.
 func NewGetUsersParams() *GetUsersParams {
+	var ()
 	return &GetUsersParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetUsersParamsWithTimeout creates a new GetUsersParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetUsersParamsWithTimeout(timeout time.Duration) *GetUsersParams {
+	var ()
 	return &GetUsersParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetUsersParamsWithContext creates a new GetUsersParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetUsersParamsWithContext(ctx context.Context) *GetUsersParams {
+	var ()
 	return &GetUsersParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetUsersParamsWithHTTPClient creates a new GetUsersParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetUsersParamsWithHTTPClient(client *http.Client) *GetUsersParams {
+	var ()
 	return &GetUsersParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetUsersParams contains all the parameters to send to the API endpoint
-   for the get users operation.
-
-   Typically these are written to a http.Request.
+/*GetUsersParams contains all the parameters to send to the API endpoint
+for the get users operation typically these are written to a http.Request
 */
 type GetUsersParams struct {
 
-	/* PageNumber.
+	/*PageNumber
+	  Which page to select
 
-	   Which page to select
 	*/
 	PageNumber *int64
+	/*PageSize
+	  Number of items to select
 
-	/* PageSize.
-
-	   Number of items to select
 	*/
 	PageSize *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get users params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetUsersParams) WithDefaults() *GetUsersParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get users params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetUsersParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get users params
@@ -159,34 +144,32 @@ func (o *GetUsersParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 
 		// query param page[number]
 		var qrPageNumber int64
-
 		if o.PageNumber != nil {
 			qrPageNumber = *o.PageNumber
 		}
 		qPageNumber := swag.FormatInt64(qrPageNumber)
 		if qPageNumber != "" {
-
 			if err := r.SetQueryParam("page[number]", qPageNumber); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if o.PageSize != nil {
 
 		// query param page[size]
 		var qrPageSize int64
-
 		if o.PageSize != nil {
 			qrPageSize = *o.PageSize
 		}
 		qPageSize := swag.FormatInt64(qrPageSize)
 		if qPageSize != "" {
-
 			if err := r.SetQueryParam("page[size]", qPageSize); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if len(res) > 0 {

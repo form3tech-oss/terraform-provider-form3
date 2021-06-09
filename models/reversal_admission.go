@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -79,6 +77,7 @@ func (m *ReversalAdmission) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ReversalAdmission) validateAttributes(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Attributes) { // not required
 		return nil
 	}
@@ -122,6 +121,7 @@ func (m *ReversalAdmission) validateOrganisationID(formats strfmt.Registry) erro
 }
 
 func (m *ReversalAdmission) validateRelationships(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Relationships) { // not required
 		return nil
 	}
@@ -139,11 +139,12 @@ func (m *ReversalAdmission) validateRelationships(formats strfmt.Registry) error
 }
 
 func (m *ReversalAdmission) validateType(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("type", "body", m.Type, `^[A-Za-z_]*$`); err != nil {
+	if err := validate.Pattern("type", "body", string(m.Type), `^[A-Za-z_]*$`); err != nil {
 		return err
 	}
 
@@ -151,58 +152,13 @@ func (m *ReversalAdmission) validateType(formats strfmt.Registry) error {
 }
 
 func (m *ReversalAdmission) validateVersion(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Version) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("version", "body", *m.Version, 0, false); err != nil {
+	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
 		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this reversal admission based on the context it is used
-func (m *ReversalAdmission) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateAttributes(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateRelationships(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *ReversalAdmission) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Attributes != nil {
-		if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ReversalAdmission) contextValidateRelationships(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Relationships != nil {
-		if err := m.Relationships.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("relationships")
-			}
-			return err
-		}
 	}
 
 	return nil
@@ -240,11 +196,6 @@ type ReversalAdmissionAttributes struct {
 
 // Validate validates this reversal admission attributes
 func (m *ReversalAdmissionAttributes) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this reversal admission attributes based on context it is used
-func (m *ReversalAdmissionAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
@@ -290,40 +241,13 @@ func (m *ReversalAdmissionRelationships) Validate(formats strfmt.Registry) error
 }
 
 func (m *ReversalAdmissionRelationships) validateReversal(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Reversal) { // not required
 		return nil
 	}
 
 	if m.Reversal != nil {
 		if err := m.Reversal.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("relationships" + "." + "reversal")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this reversal admission relationships based on the context it is used
-func (m *ReversalAdmissionRelationships) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateReversal(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *ReversalAdmissionRelationships) contextValidateReversal(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Reversal != nil {
-		if err := m.Reversal.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("relationships" + "." + "reversal")
 			}

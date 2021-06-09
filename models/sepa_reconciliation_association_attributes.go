@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -88,11 +86,11 @@ func (m *SepaReconciliationAssociationAttributes) validateAddress(formats strfmt
 
 func (m *SepaReconciliationAssociationAttributes) validateName(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("name", "body", m.Name); err != nil {
+	if err := validate.RequiredString("name", "body", string(m.Name)); err != nil {
 		return err
 	}
 
-	if err := validate.MinLength("name", "body", m.Name, 1); err != nil {
+	if err := validate.MinLength("name", "body", string(m.Name), 1); err != nil {
 		return err
 	}
 
@@ -101,11 +99,11 @@ func (m *SepaReconciliationAssociationAttributes) validateName(formats strfmt.Re
 
 func (m *SepaReconciliationAssociationAttributes) validateReconciliationBic(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("reconciliation_bic", "body", m.ReconciliationBic); err != nil {
+	if err := validate.RequiredString("reconciliation_bic", "body", string(m.ReconciliationBic)); err != nil {
 		return err
 	}
 
-	if err := validate.MinLength("reconciliation_bic", "body", m.ReconciliationBic, 1); err != nil {
+	if err := validate.MinLength("reconciliation_bic", "body", string(m.ReconciliationBic), 1); err != nil {
 		return err
 	}
 
@@ -114,11 +112,11 @@ func (m *SepaReconciliationAssociationAttributes) validateReconciliationBic(form
 
 func (m *SepaReconciliationAssociationAttributes) validateReconciliationIban(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("reconciliation_iban", "body", m.ReconciliationIban); err != nil {
+	if err := validate.RequiredString("reconciliation_iban", "body", string(m.ReconciliationIban)); err != nil {
 		return err
 	}
 
-	if err := validate.MinLength("reconciliation_iban", "body", m.ReconciliationIban, 1); err != nil {
+	if err := validate.MinLength("reconciliation_iban", "body", string(m.ReconciliationIban), 1); err != nil {
 		return err
 	}
 
@@ -127,37 +125,11 @@ func (m *SepaReconciliationAssociationAttributes) validateReconciliationIban(for
 
 func (m *SepaReconciliationAssociationAttributes) validateTechnicalBic(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("technical_bic", "body", m.TechnicalBic); err != nil {
+	if err := validate.RequiredString("technical_bic", "body", string(m.TechnicalBic)); err != nil {
 		return err
 	}
 
-	if err := validate.MinLength("technical_bic", "body", m.TechnicalBic, 1); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this sepa reconciliation association attributes based on the context it is used
-func (m *SepaReconciliationAssociationAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateAddress(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *SepaReconciliationAssociationAttributes) contextValidateAddress(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := m.Address.ContextValidate(ctx, formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("address")
-		}
+	if err := validate.MinLength("technical_bic", "body", string(m.TechnicalBic), 1); err != nil {
 		return err
 	}
 
@@ -240,15 +212,15 @@ func (m *SepaReconciliationAssociationAttributesAddress) Validate(formats strfmt
 
 func (m *SepaReconciliationAssociationAttributesAddress) validateBuildingNumber(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("address"+"."+"building_number", "body", m.BuildingNumber); err != nil {
+	if err := validate.RequiredString("address"+"."+"building_number", "body", string(m.BuildingNumber)); err != nil {
 		return err
 	}
 
-	if err := validate.MinLength("address"+"."+"building_number", "body", m.BuildingNumber, 1); err != nil {
+	if err := validate.MinLength("address"+"."+"building_number", "body", string(m.BuildingNumber), 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("address"+"."+"building_number", "body", m.BuildingNumber, 16); err != nil {
+	if err := validate.MaxLength("address"+"."+"building_number", "body", string(m.BuildingNumber), 16); err != nil {
 		return err
 	}
 
@@ -257,15 +229,15 @@ func (m *SepaReconciliationAssociationAttributesAddress) validateBuildingNumber(
 
 func (m *SepaReconciliationAssociationAttributesAddress) validateCity(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("address"+"."+"city", "body", m.City); err != nil {
+	if err := validate.RequiredString("address"+"."+"city", "body", string(m.City)); err != nil {
 		return err
 	}
 
-	if err := validate.MinLength("address"+"."+"city", "body", m.City, 1); err != nil {
+	if err := validate.MinLength("address"+"."+"city", "body", string(m.City), 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("address"+"."+"city", "body", m.City, 35); err != nil {
+	if err := validate.MaxLength("address"+"."+"city", "body", string(m.City), 35); err != nil {
 		return err
 	}
 
@@ -274,15 +246,15 @@ func (m *SepaReconciliationAssociationAttributesAddress) validateCity(formats st
 
 func (m *SepaReconciliationAssociationAttributesAddress) validateCountry(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("address"+"."+"country", "body", m.Country); err != nil {
+	if err := validate.RequiredString("address"+"."+"country", "body", string(m.Country)); err != nil {
 		return err
 	}
 
-	if err := validate.MinLength("address"+"."+"country", "body", m.Country, 1); err != nil {
+	if err := validate.MinLength("address"+"."+"country", "body", string(m.Country), 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("address"+"."+"country", "body", m.Country, 70); err != nil {
+	if err := validate.MaxLength("address"+"."+"country", "body", string(m.Country), 70); err != nil {
 		return err
 	}
 
@@ -291,23 +263,18 @@ func (m *SepaReconciliationAssociationAttributesAddress) validateCountry(formats
 
 func (m *SepaReconciliationAssociationAttributesAddress) validateStreet(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("address"+"."+"street", "body", m.Street); err != nil {
+	if err := validate.RequiredString("address"+"."+"street", "body", string(m.Street)); err != nil {
 		return err
 	}
 
-	if err := validate.MinLength("address"+"."+"street", "body", m.Street, 1); err != nil {
+	if err := validate.MinLength("address"+"."+"street", "body", string(m.Street), 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("address"+"."+"street", "body", m.Street, 70); err != nil {
+	if err := validate.MaxLength("address"+"."+"street", "body", string(m.Street), 70); err != nil {
 		return err
 	}
 
-	return nil
-}
-
-// ContextValidate validates this sepa reconciliation association attributes address based on context it is used
-func (m *SepaReconciliationAssociationAttributesAddress) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

@@ -77,8 +77,9 @@ func (o *DeleteAdminsUserIDCredentialsClientIDReader) ReadResponse(response runt
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewDeleteAdminsUserIDCredentialsClientIDNoContent() *DeleteAdminsUserIDCred
 	return &DeleteAdminsUserIDCredentialsClientIDNoContent{}
 }
 
-/* DeleteAdminsUserIDCredentialsClientIDNoContent describes a response with status code 204, with default header values.
+/*DeleteAdminsUserIDCredentialsClientIDNoContent handles this case with default header values.
 
 Credential deleted
 */
@@ -108,7 +109,7 @@ func NewDeleteAdminsUserIDCredentialsClientIDBadRequest() *DeleteAdminsUserIDCre
 	return &DeleteAdminsUserIDCredentialsClientIDBadRequest{}
 }
 
-/* DeleteAdminsUserIDCredentialsClientIDBadRequest describes a response with status code 400, with default header values.
+/*DeleteAdminsUserIDCredentialsClientIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -119,6 +120,7 @@ type DeleteAdminsUserIDCredentialsClientIDBadRequest struct {
 func (o *DeleteAdminsUserIDCredentialsClientIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /admins/{user_id}/credentials/{client_id}][%d] deleteAdminsUserIdCredentialsClientIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *DeleteAdminsUserIDCredentialsClientIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -140,7 +142,7 @@ func NewDeleteAdminsUserIDCredentialsClientIDUnauthorized() *DeleteAdminsUserIDC
 	return &DeleteAdminsUserIDCredentialsClientIDUnauthorized{}
 }
 
-/* DeleteAdminsUserIDCredentialsClientIDUnauthorized describes a response with status code 401, with default header values.
+/*DeleteAdminsUserIDCredentialsClientIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -151,6 +153,7 @@ type DeleteAdminsUserIDCredentialsClientIDUnauthorized struct {
 func (o *DeleteAdminsUserIDCredentialsClientIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /admins/{user_id}/credentials/{client_id}][%d] deleteAdminsUserIdCredentialsClientIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *DeleteAdminsUserIDCredentialsClientIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -172,7 +175,7 @@ func NewDeleteAdminsUserIDCredentialsClientIDForbidden() *DeleteAdminsUserIDCred
 	return &DeleteAdminsUserIDCredentialsClientIDForbidden{}
 }
 
-/* DeleteAdminsUserIDCredentialsClientIDForbidden describes a response with status code 403, with default header values.
+/*DeleteAdminsUserIDCredentialsClientIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -183,6 +186,7 @@ type DeleteAdminsUserIDCredentialsClientIDForbidden struct {
 func (o *DeleteAdminsUserIDCredentialsClientIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /admins/{user_id}/credentials/{client_id}][%d] deleteAdminsUserIdCredentialsClientIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *DeleteAdminsUserIDCredentialsClientIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -204,7 +208,7 @@ func NewDeleteAdminsUserIDCredentialsClientIDNotFound() *DeleteAdminsUserIDCrede
 	return &DeleteAdminsUserIDCredentialsClientIDNotFound{}
 }
 
-/* DeleteAdminsUserIDCredentialsClientIDNotFound describes a response with status code 404, with default header values.
+/*DeleteAdminsUserIDCredentialsClientIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -215,6 +219,7 @@ type DeleteAdminsUserIDCredentialsClientIDNotFound struct {
 func (o *DeleteAdminsUserIDCredentialsClientIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /admins/{user_id}/credentials/{client_id}][%d] deleteAdminsUserIdCredentialsClientIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *DeleteAdminsUserIDCredentialsClientIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -236,7 +241,7 @@ func NewDeleteAdminsUserIDCredentialsClientIDConflict() *DeleteAdminsUserIDCrede
 	return &DeleteAdminsUserIDCredentialsClientIDConflict{}
 }
 
-/* DeleteAdminsUserIDCredentialsClientIDConflict describes a response with status code 409, with default header values.
+/*DeleteAdminsUserIDCredentialsClientIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -247,6 +252,7 @@ type DeleteAdminsUserIDCredentialsClientIDConflict struct {
 func (o *DeleteAdminsUserIDCredentialsClientIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /admins/{user_id}/credentials/{client_id}][%d] deleteAdminsUserIdCredentialsClientIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *DeleteAdminsUserIDCredentialsClientIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -268,7 +274,7 @@ func NewDeleteAdminsUserIDCredentialsClientIDTooManyRequests() *DeleteAdminsUser
 	return &DeleteAdminsUserIDCredentialsClientIDTooManyRequests{}
 }
 
-/* DeleteAdminsUserIDCredentialsClientIDTooManyRequests describes a response with status code 429, with default header values.
+/*DeleteAdminsUserIDCredentialsClientIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -279,6 +285,7 @@ type DeleteAdminsUserIDCredentialsClientIDTooManyRequests struct {
 func (o *DeleteAdminsUserIDCredentialsClientIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /admins/{user_id}/credentials/{client_id}][%d] deleteAdminsUserIdCredentialsClientIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *DeleteAdminsUserIDCredentialsClientIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -300,7 +307,7 @@ func NewDeleteAdminsUserIDCredentialsClientIDInternalServerError() *DeleteAdmins
 	return &DeleteAdminsUserIDCredentialsClientIDInternalServerError{}
 }
 
-/* DeleteAdminsUserIDCredentialsClientIDInternalServerError describes a response with status code 500, with default header values.
+/*DeleteAdminsUserIDCredentialsClientIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -311,6 +318,7 @@ type DeleteAdminsUserIDCredentialsClientIDInternalServerError struct {
 func (o *DeleteAdminsUserIDCredentialsClientIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /admins/{user_id}/credentials/{client_id}][%d] deleteAdminsUserIdCredentialsClientIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *DeleteAdminsUserIDCredentialsClientIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -332,7 +340,7 @@ func NewDeleteAdminsUserIDCredentialsClientIDServiceUnavailable() *DeleteAdminsU
 	return &DeleteAdminsUserIDCredentialsClientIDServiceUnavailable{}
 }
 
-/* DeleteAdminsUserIDCredentialsClientIDServiceUnavailable describes a response with status code 503, with default header values.
+/*DeleteAdminsUserIDCredentialsClientIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -343,6 +351,7 @@ type DeleteAdminsUserIDCredentialsClientIDServiceUnavailable struct {
 func (o *DeleteAdminsUserIDCredentialsClientIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /admins/{user_id}/credentials/{client_id}][%d] deleteAdminsUserIdCredentialsClientIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *DeleteAdminsUserIDCredentialsClientIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

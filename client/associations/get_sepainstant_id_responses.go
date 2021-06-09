@@ -77,8 +77,9 @@ func (o *GetSepainstantIDReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewGetSepainstantIDOK() *GetSepainstantIDOK {
 	return &GetSepainstantIDOK{}
 }
 
-/* GetSepainstantIDOK describes a response with status code 200, with default header values.
+/*GetSepainstantIDOK handles this case with default header values.
 
 Associations details
 */
@@ -98,6 +99,7 @@ type GetSepainstantIDOK struct {
 func (o *GetSepainstantIDOK) Error() string {
 	return fmt.Sprintf("[GET /sepainstant/{id}][%d] getSepainstantIdOK  %+v", 200, o.Payload)
 }
+
 func (o *GetSepainstantIDOK) GetPayload() *models.SepaInstantAssociationDetailsResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewGetSepainstantIDBadRequest() *GetSepainstantIDBadRequest {
 	return &GetSepainstantIDBadRequest{}
 }
 
-/* GetSepainstantIDBadRequest describes a response with status code 400, with default header values.
+/*GetSepainstantIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type GetSepainstantIDBadRequest struct {
 func (o *GetSepainstantIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /sepainstant/{id}][%d] getSepainstantIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *GetSepainstantIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewGetSepainstantIDUnauthorized() *GetSepainstantIDUnauthorized {
 	return &GetSepainstantIDUnauthorized{}
 }
 
-/* GetSepainstantIDUnauthorized describes a response with status code 401, with default header values.
+/*GetSepainstantIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type GetSepainstantIDUnauthorized struct {
 func (o *GetSepainstantIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /sepainstant/{id}][%d] getSepainstantIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetSepainstantIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewGetSepainstantIDForbidden() *GetSepainstantIDForbidden {
 	return &GetSepainstantIDForbidden{}
 }
 
-/* GetSepainstantIDForbidden describes a response with status code 403, with default header values.
+/*GetSepainstantIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type GetSepainstantIDForbidden struct {
 func (o *GetSepainstantIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /sepainstant/{id}][%d] getSepainstantIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetSepainstantIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewGetSepainstantIDNotFound() *GetSepainstantIDNotFound {
 	return &GetSepainstantIDNotFound{}
 }
 
-/* GetSepainstantIDNotFound describes a response with status code 404, with default header values.
+/*GetSepainstantIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type GetSepainstantIDNotFound struct {
 func (o *GetSepainstantIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /sepainstant/{id}][%d] getSepainstantIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetSepainstantIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewGetSepainstantIDConflict() *GetSepainstantIDConflict {
 	return &GetSepainstantIDConflict{}
 }
 
-/* GetSepainstantIDConflict describes a response with status code 409, with default header values.
+/*GetSepainstantIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type GetSepainstantIDConflict struct {
 func (o *GetSepainstantIDConflict) Error() string {
 	return fmt.Sprintf("[GET /sepainstant/{id}][%d] getSepainstantIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *GetSepainstantIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewGetSepainstantIDTooManyRequests() *GetSepainstantIDTooManyRequests {
 	return &GetSepainstantIDTooManyRequests{}
 }
 
-/* GetSepainstantIDTooManyRequests describes a response with status code 429, with default header values.
+/*GetSepainstantIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type GetSepainstantIDTooManyRequests struct {
 func (o *GetSepainstantIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /sepainstant/{id}][%d] getSepainstantIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *GetSepainstantIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewGetSepainstantIDInternalServerError() *GetSepainstantIDInternalServerErr
 	return &GetSepainstantIDInternalServerError{}
 }
 
-/* GetSepainstantIDInternalServerError describes a response with status code 500, with default header values.
+/*GetSepainstantIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type GetSepainstantIDInternalServerError struct {
 func (o *GetSepainstantIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /sepainstant/{id}][%d] getSepainstantIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetSepainstantIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewGetSepainstantIDServiceUnavailable() *GetSepainstantIDServiceUnavailable
 	return &GetSepainstantIDServiceUnavailable{}
 }
 
-/* GetSepainstantIDServiceUnavailable describes a response with status code 503, with default header values.
+/*GetSepainstantIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type GetSepainstantIDServiceUnavailable struct {
 func (o *GetSepainstantIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /sepainstant/{id}][%d] getSepainstantIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *GetSepainstantIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

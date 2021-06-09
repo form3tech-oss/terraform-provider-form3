@@ -77,8 +77,9 @@ func (o *DeleteAccountconfigurationsIDReader) ReadResponse(response runtime.Clie
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewDeleteAccountconfigurationsIDNoContent() *DeleteAccountconfigurationsIDN
 	return &DeleteAccountconfigurationsIDNoContent{}
 }
 
-/* DeleteAccountconfigurationsIDNoContent describes a response with status code 204, with default header values.
+/*DeleteAccountconfigurationsIDNoContent handles this case with default header values.
 
 AccountConfiguration deleted
 */
@@ -108,7 +109,7 @@ func NewDeleteAccountconfigurationsIDBadRequest() *DeleteAccountconfigurationsID
 	return &DeleteAccountconfigurationsIDBadRequest{}
 }
 
-/* DeleteAccountconfigurationsIDBadRequest describes a response with status code 400, with default header values.
+/*DeleteAccountconfigurationsIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -119,6 +120,7 @@ type DeleteAccountconfigurationsIDBadRequest struct {
 func (o *DeleteAccountconfigurationsIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /accountconfigurations/{id}][%d] deleteAccountconfigurationsIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *DeleteAccountconfigurationsIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -140,7 +142,7 @@ func NewDeleteAccountconfigurationsIDUnauthorized() *DeleteAccountconfigurations
 	return &DeleteAccountconfigurationsIDUnauthorized{}
 }
 
-/* DeleteAccountconfigurationsIDUnauthorized describes a response with status code 401, with default header values.
+/*DeleteAccountconfigurationsIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -151,6 +153,7 @@ type DeleteAccountconfigurationsIDUnauthorized struct {
 func (o *DeleteAccountconfigurationsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /accountconfigurations/{id}][%d] deleteAccountconfigurationsIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *DeleteAccountconfigurationsIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -172,7 +175,7 @@ func NewDeleteAccountconfigurationsIDForbidden() *DeleteAccountconfigurationsIDF
 	return &DeleteAccountconfigurationsIDForbidden{}
 }
 
-/* DeleteAccountconfigurationsIDForbidden describes a response with status code 403, with default header values.
+/*DeleteAccountconfigurationsIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -183,6 +186,7 @@ type DeleteAccountconfigurationsIDForbidden struct {
 func (o *DeleteAccountconfigurationsIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /accountconfigurations/{id}][%d] deleteAccountconfigurationsIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *DeleteAccountconfigurationsIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -204,7 +208,7 @@ func NewDeleteAccountconfigurationsIDNotFound() *DeleteAccountconfigurationsIDNo
 	return &DeleteAccountconfigurationsIDNotFound{}
 }
 
-/* DeleteAccountconfigurationsIDNotFound describes a response with status code 404, with default header values.
+/*DeleteAccountconfigurationsIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -215,6 +219,7 @@ type DeleteAccountconfigurationsIDNotFound struct {
 func (o *DeleteAccountconfigurationsIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /accountconfigurations/{id}][%d] deleteAccountconfigurationsIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *DeleteAccountconfigurationsIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -236,7 +241,7 @@ func NewDeleteAccountconfigurationsIDConflict() *DeleteAccountconfigurationsIDCo
 	return &DeleteAccountconfigurationsIDConflict{}
 }
 
-/* DeleteAccountconfigurationsIDConflict describes a response with status code 409, with default header values.
+/*DeleteAccountconfigurationsIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -247,6 +252,7 @@ type DeleteAccountconfigurationsIDConflict struct {
 func (o *DeleteAccountconfigurationsIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /accountconfigurations/{id}][%d] deleteAccountconfigurationsIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *DeleteAccountconfigurationsIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -268,7 +274,7 @@ func NewDeleteAccountconfigurationsIDTooManyRequests() *DeleteAccountconfigurati
 	return &DeleteAccountconfigurationsIDTooManyRequests{}
 }
 
-/* DeleteAccountconfigurationsIDTooManyRequests describes a response with status code 429, with default header values.
+/*DeleteAccountconfigurationsIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -279,6 +285,7 @@ type DeleteAccountconfigurationsIDTooManyRequests struct {
 func (o *DeleteAccountconfigurationsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /accountconfigurations/{id}][%d] deleteAccountconfigurationsIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *DeleteAccountconfigurationsIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -300,7 +307,7 @@ func NewDeleteAccountconfigurationsIDInternalServerError() *DeleteAccountconfigu
 	return &DeleteAccountconfigurationsIDInternalServerError{}
 }
 
-/* DeleteAccountconfigurationsIDInternalServerError describes a response with status code 500, with default header values.
+/*DeleteAccountconfigurationsIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -311,6 +318,7 @@ type DeleteAccountconfigurationsIDInternalServerError struct {
 func (o *DeleteAccountconfigurationsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /accountconfigurations/{id}][%d] deleteAccountconfigurationsIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *DeleteAccountconfigurationsIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -332,7 +340,7 @@ func NewDeleteAccountconfigurationsIDServiceUnavailable() *DeleteAccountconfigur
 	return &DeleteAccountconfigurationsIDServiceUnavailable{}
 }
 
-/* DeleteAccountconfigurationsIDServiceUnavailable describes a response with status code 503, with default header values.
+/*DeleteAccountconfigurationsIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -343,6 +351,7 @@ type DeleteAccountconfigurationsIDServiceUnavailable struct {
 func (o *DeleteAccountconfigurationsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /accountconfigurations/{id}][%d] deleteAccountconfigurationsIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *DeleteAccountconfigurationsIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

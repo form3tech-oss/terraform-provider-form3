@@ -17,103 +17,84 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetBankidsParams creates a new GetBankidsParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetBankidsParams creates a new GetBankidsParams object
+// with the default values initialized.
 func NewGetBankidsParams() *GetBankidsParams {
+	var ()
 	return &GetBankidsParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetBankidsParamsWithTimeout creates a new GetBankidsParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetBankidsParamsWithTimeout(timeout time.Duration) *GetBankidsParams {
+	var ()
 	return &GetBankidsParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetBankidsParamsWithContext creates a new GetBankidsParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetBankidsParamsWithContext(ctx context.Context) *GetBankidsParams {
+	var ()
 	return &GetBankidsParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetBankidsParamsWithHTTPClient creates a new GetBankidsParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetBankidsParamsWithHTTPClient(client *http.Client) *GetBankidsParams {
+	var ()
 	return &GetBankidsParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetBankidsParams contains all the parameters to send to the API endpoint
-   for the get bankids operation.
-
-   Typically these are written to a http.Request.
+/*GetBankidsParams contains all the parameters to send to the API endpoint
+for the get bankids operation typically these are written to a http.Request
 */
 type GetBankidsParams struct {
 
-	/* FilterBankID.
+	/*FilterBankID
+	  Filter by bank id e.g. sort code or bic
 
-	   Filter by bank id e.g. sort code or bic
 	*/
 	FilterBankID []string
+	/*FilterBankIDCode
+	  Filter by type of bank id e.g. "GBDSC"
 
-	/* FilterBankIDCode.
-
-	   Filter by type of bank id e.g. "GBDSC"
 	*/
 	FilterBankIDCode []string
+	/*FilterCountry
+	  Filter by country e.g. FR,GB
 
-	/* FilterCountry.
-
-	   Filter by country e.g. FR,GB
 	*/
 	FilterCountry []string
+	/*FilterOrganisationID
+	  Filter by organisation id
 
-	/* FilterOrganisationID.
-
-	   Filter by organisation id
 	*/
 	FilterOrganisationID []strfmt.UUID
+	/*PageNumber
+	  Which page to select
 
-	/* PageNumber.
-
-	   Which page to select
 	*/
 	PageNumber *string
+	/*PageSize
+	  Number of items to select
 
-	/* PageSize.
-
-	   Number of items to select
 	*/
 	PageSize *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get bankids params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetBankidsParams) WithDefaults() *GetBankidsParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get bankids params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetBankidsParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get bankids params
@@ -223,154 +204,75 @@ func (o *GetBankidsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 	}
 	var res []error
 
-	if o.FilterBankID != nil {
+	valuesFilterBankID := o.FilterBankID
 
-		// binding items for filter[bank_id]
-		joinedFilterBankID := o.bindParamFilterBankID(reg)
-
-		// query array param filter[bank_id]
-		if err := r.SetQueryParam("filter[bank_id]", joinedFilterBankID...); err != nil {
-			return err
-		}
+	joinedFilterBankID := swag.JoinByFormat(valuesFilterBankID, "csv")
+	// query array param filter[bank_id]
+	if err := r.SetQueryParam("filter[bank_id]", joinedFilterBankID...); err != nil {
+		return err
 	}
 
-	if o.FilterBankIDCode != nil {
+	valuesFilterBankIDCode := o.FilterBankIDCode
 
-		// binding items for filter[bank_id_code]
-		joinedFilterBankIDCode := o.bindParamFilterBankIDCode(reg)
-
-		// query array param filter[bank_id_code]
-		if err := r.SetQueryParam("filter[bank_id_code]", joinedFilterBankIDCode...); err != nil {
-			return err
-		}
+	joinedFilterBankIDCode := swag.JoinByFormat(valuesFilterBankIDCode, "csv")
+	// query array param filter[bank_id_code]
+	if err := r.SetQueryParam("filter[bank_id_code]", joinedFilterBankIDCode...); err != nil {
+		return err
 	}
 
-	if o.FilterCountry != nil {
+	valuesFilterCountry := o.FilterCountry
 
-		// binding items for filter[country]
-		joinedFilterCountry := o.bindParamFilterCountry(reg)
-
-		// query array param filter[country]
-		if err := r.SetQueryParam("filter[country]", joinedFilterCountry...); err != nil {
-			return err
-		}
+	joinedFilterCountry := swag.JoinByFormat(valuesFilterCountry, "csv")
+	// query array param filter[country]
+	if err := r.SetQueryParam("filter[country]", joinedFilterCountry...); err != nil {
+		return err
 	}
 
-	if o.FilterOrganisationID != nil {
+	var valuesFilterOrganisationID []string
+	for _, v := range o.FilterOrganisationID {
+		valuesFilterOrganisationID = append(valuesFilterOrganisationID, v.String())
+	}
 
-		// binding items for filter[organisation_id]
-		joinedFilterOrganisationID := o.bindParamFilterOrganisationID(reg)
-
-		// query array param filter[organisation_id]
-		if err := r.SetQueryParam("filter[organisation_id]", joinedFilterOrganisationID...); err != nil {
-			return err
-		}
+	joinedFilterOrganisationID := swag.JoinByFormat(valuesFilterOrganisationID, "csv")
+	// query array param filter[organisation_id]
+	if err := r.SetQueryParam("filter[organisation_id]", joinedFilterOrganisationID...); err != nil {
+		return err
 	}
 
 	if o.PageNumber != nil {
 
 		// query param page[number]
 		var qrPageNumber string
-
 		if o.PageNumber != nil {
 			qrPageNumber = *o.PageNumber
 		}
 		qPageNumber := qrPageNumber
 		if qPageNumber != "" {
-
 			if err := r.SetQueryParam("page[number]", qPageNumber); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if o.PageSize != nil {
 
 		// query param page[size]
 		var qrPageSize int64
-
 		if o.PageSize != nil {
 			qrPageSize = *o.PageSize
 		}
 		qPageSize := swag.FormatInt64(qrPageSize)
 		if qPageSize != "" {
-
 			if err := r.SetQueryParam("page[size]", qPageSize); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
-}
-
-// bindParamGetBankids binds the parameter filter[bank_id]
-func (o *GetBankidsParams) bindParamFilterBankID(formats strfmt.Registry) []string {
-	filterBankIDIR := o.FilterBankID
-
-	var filterBankIDIC []string
-	for _, filterBankIDIIR := range filterBankIDIR { // explode []string
-
-		filterBankIDIIV := filterBankIDIIR // string as string
-		filterBankIDIC = append(filterBankIDIC, filterBankIDIIV)
-	}
-
-	// items.CollectionFormat: "csv"
-	filterBankIDIS := swag.JoinByFormat(filterBankIDIC, "csv")
-
-	return filterBankIDIS
-}
-
-// bindParamGetBankids binds the parameter filter[bank_id_code]
-func (o *GetBankidsParams) bindParamFilterBankIDCode(formats strfmt.Registry) []string {
-	filterBankIDCodeIR := o.FilterBankIDCode
-
-	var filterBankIDCodeIC []string
-	for _, filterBankIDCodeIIR := range filterBankIDCodeIR { // explode []string
-
-		filterBankIDCodeIIV := filterBankIDCodeIIR // string as string
-		filterBankIDCodeIC = append(filterBankIDCodeIC, filterBankIDCodeIIV)
-	}
-
-	// items.CollectionFormat: "csv"
-	filterBankIDCodeIS := swag.JoinByFormat(filterBankIDCodeIC, "csv")
-
-	return filterBankIDCodeIS
-}
-
-// bindParamGetBankids binds the parameter filter[country]
-func (o *GetBankidsParams) bindParamFilterCountry(formats strfmt.Registry) []string {
-	filterCountryIR := o.FilterCountry
-
-	var filterCountryIC []string
-	for _, filterCountryIIR := range filterCountryIR { // explode []string
-
-		filterCountryIIV := filterCountryIIR // string as string
-		filterCountryIC = append(filterCountryIC, filterCountryIIV)
-	}
-
-	// items.CollectionFormat: "csv"
-	filterCountryIS := swag.JoinByFormat(filterCountryIC, "csv")
-
-	return filterCountryIS
-}
-
-// bindParamGetBankids binds the parameter filter[organisation_id]
-func (o *GetBankidsParams) bindParamFilterOrganisationID(formats strfmt.Registry) []string {
-	filterOrganisationIDIR := o.FilterOrganisationID
-
-	var filterOrganisationIDIC []string
-	for _, filterOrganisationIDIIR := range filterOrganisationIDIR { // explode []strfmt.UUID
-
-		filterOrganisationIDIIV := filterOrganisationIDIIR.String() // strfmt.UUID as string
-		filterOrganisationIDIC = append(filterOrganisationIDIC, filterOrganisationIDIIV)
-	}
-
-	// items.CollectionFormat: "csv"
-	filterOrganisationIDIS := swag.JoinByFormat(filterOrganisationIDIC, "csv")
-
-	return filterOrganisationIDIS
 }

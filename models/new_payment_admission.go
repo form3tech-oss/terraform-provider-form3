@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -72,6 +70,7 @@ func (m *NewPaymentAdmission) Validate(formats strfmt.Registry) error {
 }
 
 func (m *NewPaymentAdmission) validateAttributes(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Attributes) { // not required
 		return nil
 	}
@@ -115,11 +114,12 @@ func (m *NewPaymentAdmission) validateOrganisationID(formats strfmt.Registry) er
 }
 
 func (m *NewPaymentAdmission) validateType(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("type", "body", m.Type, `^[A-Za-z_]*$`); err != nil {
+	if err := validate.Pattern("type", "body", string(m.Type), `^[A-Za-z_]*$`); err != nil {
 		return err
 	}
 
@@ -127,40 +127,13 @@ func (m *NewPaymentAdmission) validateType(formats strfmt.Registry) error {
 }
 
 func (m *NewPaymentAdmission) validateVersion(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Version) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("version", "body", *m.Version, 0, false); err != nil {
+	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
 		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this new payment admission based on the context it is used
-func (m *NewPaymentAdmission) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateAttributes(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *NewPaymentAdmission) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Attributes != nil {
-		if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes")
-			}
-			return err
-		}
 	}
 
 	return nil
@@ -232,6 +205,7 @@ func (m *NewPaymentAdmissionAttributes) Validate(formats strfmt.Registry) error 
 }
 
 func (m *NewPaymentAdmissionAttributes) validateAdmissionDatetime(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.AdmissionDatetime) { // not required
 		return nil
 	}
@@ -244,11 +218,12 @@ func (m *NewPaymentAdmissionAttributes) validateAdmissionDatetime(formats strfmt
 }
 
 func (m *NewPaymentAdmissionAttributes) validateSettlementCycle(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.SettlementCycle) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("attributes"+"."+"settlement_cycle", "body", *m.SettlementCycle, 0, false); err != nil {
+	if err := validate.MinimumInt("attributes"+"."+"settlement_cycle", "body", int64(*m.SettlementCycle), 0, false); err != nil {
 		return err
 	}
 
@@ -256,34 +231,12 @@ func (m *NewPaymentAdmissionAttributes) validateSettlementCycle(formats strfmt.R
 }
 
 func (m *NewPaymentAdmissionAttributes) validateSettlementDate(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.SettlementDate) { // not required
 		return nil
 	}
 
 	if err := validate.FormatOf("attributes"+"."+"settlement_date", "body", "date", m.SettlementDate.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this new payment admission attributes based on the context it is used
-func (m *NewPaymentAdmissionAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateAdmissionDatetime(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *NewPaymentAdmissionAttributes) contextValidateAdmissionDatetime(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "attributes"+"."+"admission_datetime", "body", strfmt.DateTime(m.AdmissionDatetime)); err != nil {
 		return err
 	}
 

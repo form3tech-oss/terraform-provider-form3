@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -97,11 +95,12 @@ func (m *MandateAttributes) Validate(formats strfmt.Registry) error {
 }
 
 func (m *MandateAttributes) validateAmount(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Amount) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("amount", "body", m.Amount, `^[0-9.]{0,20}$`); err != nil {
+	if err := validate.Pattern("amount", "body", string(m.Amount), `^[0-9.]{0,20}$`); err != nil {
 		return err
 	}
 
@@ -109,6 +108,7 @@ func (m *MandateAttributes) validateAmount(formats strfmt.Registry) error {
 }
 
 func (m *MandateAttributes) validateBeneficiaryParty(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.BeneficiaryParty) { // not required
 		return nil
 	}
@@ -126,6 +126,7 @@ func (m *MandateAttributes) validateBeneficiaryParty(formats strfmt.Registry) er
 }
 
 func (m *MandateAttributes) validateDebtorParty(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.DebtorParty) { // not required
 		return nil
 	}
@@ -143,6 +144,7 @@ func (m *MandateAttributes) validateDebtorParty(formats strfmt.Registry) error {
 }
 
 func (m *MandateAttributes) validateFrequency(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Frequency) { // not required
 		return nil
 	}
@@ -158,6 +160,7 @@ func (m *MandateAttributes) validateFrequency(formats strfmt.Registry) error {
 }
 
 func (m *MandateAttributes) validateProcessingDate(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ProcessingDate) { // not required
 		return nil
 	}
@@ -170,73 +173,12 @@ func (m *MandateAttributes) validateProcessingDate(formats strfmt.Registry) erro
 }
 
 func (m *MandateAttributes) validateSchemeProcessingDate(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.SchemeProcessingDate) { // not required
 		return nil
 	}
 
 	if err := validate.FormatOf("scheme_processing_date", "body", "date", m.SchemeProcessingDate.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this mandate attributes based on the context it is used
-func (m *MandateAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateBeneficiaryParty(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateDebtorParty(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateFrequency(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *MandateAttributes) contextValidateBeneficiaryParty(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.BeneficiaryParty != nil {
-		if err := m.BeneficiaryParty.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("beneficiary_party")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *MandateAttributes) contextValidateDebtorParty(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.DebtorParty != nil {
-		if err := m.DebtorParty.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("debtor_party")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *MandateAttributes) contextValidateFrequency(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := m.Frequency.ContextValidate(ctx, formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("frequency")
-		}
 		return err
 	}
 

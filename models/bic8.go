@@ -6,15 +6,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/validate"
 )
 
 // Bic8 Settlement BIC
-// Example: BARCDEFF
 //
 // swagger:model Bic8
 type Bic8 string
@@ -30,10 +27,5 @@ func (m Bic8) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-// ContextValidate validates this bic8 based on context it is used
-func (m Bic8) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }

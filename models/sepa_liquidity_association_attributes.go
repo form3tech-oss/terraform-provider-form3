@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -84,11 +82,11 @@ func (m *SepaLiquidityAssociationAttributes) validateAddress(formats strfmt.Regi
 
 func (m *SepaLiquidityAssociationAttributes) validateName(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("name", "body", m.Name); err != nil {
+	if err := validate.RequiredString("name", "body", string(m.Name)); err != nil {
 		return err
 	}
 
-	if err := validate.MinLength("name", "body", m.Name, 1); err != nil {
+	if err := validate.MinLength("name", "body", string(m.Name), 1); err != nil {
 		return err
 	}
 
@@ -97,11 +95,11 @@ func (m *SepaLiquidityAssociationAttributes) validateName(formats strfmt.Registr
 
 func (m *SepaLiquidityAssociationAttributes) validateSettlementIban(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("settlement_iban", "body", m.SettlementIban); err != nil {
+	if err := validate.RequiredString("settlement_iban", "body", string(m.SettlementIban)); err != nil {
 		return err
 	}
 
-	if err := validate.MinLength("settlement_iban", "body", m.SettlementIban, 1); err != nil {
+	if err := validate.MinLength("settlement_iban", "body", string(m.SettlementIban), 1); err != nil {
 		return err
 	}
 
@@ -109,6 +107,7 @@ func (m *SepaLiquidityAssociationAttributes) validateSettlementIban(formats strf
 }
 
 func (m *SepaLiquidityAssociationAttributes) validateSponsoredBics(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.SponsoredBics) { // not required
 		return nil
 	}
@@ -117,30 +116,8 @@ func (m *SepaLiquidityAssociationAttributes) validateSponsoredBics(formats strfm
 		return err
 	}
 
-	return nil
-}
+	for i := 0; i < len(m.SponsoredBics); i++ {
 
-// ContextValidate validate this sepa liquidity association attributes based on the context it is used
-func (m *SepaLiquidityAssociationAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateAddress(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *SepaLiquidityAssociationAttributes) contextValidateAddress(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := m.Address.ContextValidate(ctx, formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("address")
-		}
-		return err
 	}
 
 	return nil

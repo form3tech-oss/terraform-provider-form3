@@ -18,70 +18,56 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPostLimitsParams creates a new PostLimitsParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewPostLimitsParams creates a new PostLimitsParams object
+// with the default values initialized.
 func NewPostLimitsParams() *PostLimitsParams {
+	var ()
 	return &PostLimitsParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostLimitsParamsWithTimeout creates a new PostLimitsParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewPostLimitsParamsWithTimeout(timeout time.Duration) *PostLimitsParams {
+	var ()
 	return &PostLimitsParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewPostLimitsParamsWithContext creates a new PostLimitsParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewPostLimitsParamsWithContext(ctx context.Context) *PostLimitsParams {
+	var ()
 	return &PostLimitsParams{
+
 		Context: ctx,
 	}
 }
 
 // NewPostLimitsParamsWithHTTPClient creates a new PostLimitsParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewPostLimitsParamsWithHTTPClient(client *http.Client) *PostLimitsParams {
+	var ()
 	return &PostLimitsParams{
 		HTTPClient: client,
 	}
 }
 
-/* PostLimitsParams contains all the parameters to send to the API endpoint
-   for the post limits operation.
-
-   Typically these are written to a http.Request.
+/*PostLimitsParams contains all the parameters to send to the API endpoint
+for the post limits operation typically these are written to a http.Request
 */
 type PostLimitsParams struct {
 
-	// LimitCreationRequest.
+	/*LimitCreationRequest*/
 	LimitCreationRequest *models.LimitCreation
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the post limits params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PostLimitsParams) WithDefaults() *PostLimitsParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the post limits params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PostLimitsParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post limits params
@@ -135,6 +121,7 @@ func (o *PostLimitsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 		return err
 	}
 	var res []error
+
 	if o.LimitCreationRequest != nil {
 		if err := r.SetBodyParam(o.LimitCreationRequest); err != nil {
 			return err

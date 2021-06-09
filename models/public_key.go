@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -23,21 +21,17 @@ type PublicKey struct {
 	Attributes *PublicKeyAttributes `json:"attributes,omitempty"`
 
 	// Unique resource ID
-	// Example: 7826c3cb-d6fd-41d0-b187-dc23ba928772
 	// Format: uuid
 	ID strfmt.UUID `json:"id,omitempty"`
 
 	// Unique ID of the organisation this resource is created by
-	// Example: ee2fb143-6dfe-4787-b183-ca8ddd4164d2
 	// Format: uuid
 	OrganisationID strfmt.UUID `json:"organisation_id,omitempty"`
 
 	// Name of the resource type
-	// Example: PublicKey
 	Type string `json:"type,omitempty"`
 
 	// Version number
-	// Example: 0
 	// Minimum: 0
 	Version *int64 `json:"version,omitempty"`
 }
@@ -69,6 +63,7 @@ func (m *PublicKey) Validate(formats strfmt.Registry) error {
 }
 
 func (m *PublicKey) validateAttributes(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Attributes) { // not required
 		return nil
 	}
@@ -86,6 +81,7 @@ func (m *PublicKey) validateAttributes(formats strfmt.Registry) error {
 }
 
 func (m *PublicKey) validateID(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ID) { // not required
 		return nil
 	}
@@ -98,6 +94,7 @@ func (m *PublicKey) validateID(formats strfmt.Registry) error {
 }
 
 func (m *PublicKey) validateOrganisationID(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.OrganisationID) { // not required
 		return nil
 	}
@@ -110,40 +107,13 @@ func (m *PublicKey) validateOrganisationID(formats strfmt.Registry) error {
 }
 
 func (m *PublicKey) validateVersion(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Version) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("version", "body", *m.Version, 0, false); err != nil {
+	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
 		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this public key based on the context it is used
-func (m *PublicKey) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateAttributes(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *PublicKey) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Attributes != nil {
-		if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes")
-			}
-			return err
-		}
 	}
 
 	return nil
@@ -178,11 +148,6 @@ type PublicKeyAttributes struct {
 
 // Validate validates this public key attributes
 func (m *PublicKeyAttributes) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this public key attributes based on context it is used
-func (m *PublicKeyAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

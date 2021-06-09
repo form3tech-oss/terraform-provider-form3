@@ -77,8 +77,9 @@ func (o *GetAccountconfigurationsIDReader) ReadResponse(response runtime.ClientR
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewGetAccountconfigurationsIDOK() *GetAccountconfigurationsIDOK {
 	return &GetAccountconfigurationsIDOK{}
 }
 
-/* GetAccountconfigurationsIDOK describes a response with status code 200, with default header values.
+/*GetAccountconfigurationsIDOK handles this case with default header values.
 
 AccountConfiguration details
 */
@@ -98,6 +99,7 @@ type GetAccountconfigurationsIDOK struct {
 func (o *GetAccountconfigurationsIDOK) Error() string {
 	return fmt.Sprintf("[GET /accountconfigurations/{id}][%d] getAccountconfigurationsIdOK  %+v", 200, o.Payload)
 }
+
 func (o *GetAccountconfigurationsIDOK) GetPayload() *models.AccountConfigurationDetailsResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewGetAccountconfigurationsIDBadRequest() *GetAccountconfigurationsIDBadReq
 	return &GetAccountconfigurationsIDBadRequest{}
 }
 
-/* GetAccountconfigurationsIDBadRequest describes a response with status code 400, with default header values.
+/*GetAccountconfigurationsIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type GetAccountconfigurationsIDBadRequest struct {
 func (o *GetAccountconfigurationsIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /accountconfigurations/{id}][%d] getAccountconfigurationsIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *GetAccountconfigurationsIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewGetAccountconfigurationsIDUnauthorized() *GetAccountconfigurationsIDUnau
 	return &GetAccountconfigurationsIDUnauthorized{}
 }
 
-/* GetAccountconfigurationsIDUnauthorized describes a response with status code 401, with default header values.
+/*GetAccountconfigurationsIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type GetAccountconfigurationsIDUnauthorized struct {
 func (o *GetAccountconfigurationsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /accountconfigurations/{id}][%d] getAccountconfigurationsIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetAccountconfigurationsIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewGetAccountconfigurationsIDForbidden() *GetAccountconfigurationsIDForbidd
 	return &GetAccountconfigurationsIDForbidden{}
 }
 
-/* GetAccountconfigurationsIDForbidden describes a response with status code 403, with default header values.
+/*GetAccountconfigurationsIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type GetAccountconfigurationsIDForbidden struct {
 func (o *GetAccountconfigurationsIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /accountconfigurations/{id}][%d] getAccountconfigurationsIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetAccountconfigurationsIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewGetAccountconfigurationsIDNotFound() *GetAccountconfigurationsIDNotFound
 	return &GetAccountconfigurationsIDNotFound{}
 }
 
-/* GetAccountconfigurationsIDNotFound describes a response with status code 404, with default header values.
+/*GetAccountconfigurationsIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type GetAccountconfigurationsIDNotFound struct {
 func (o *GetAccountconfigurationsIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /accountconfigurations/{id}][%d] getAccountconfigurationsIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetAccountconfigurationsIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewGetAccountconfigurationsIDConflict() *GetAccountconfigurationsIDConflict
 	return &GetAccountconfigurationsIDConflict{}
 }
 
-/* GetAccountconfigurationsIDConflict describes a response with status code 409, with default header values.
+/*GetAccountconfigurationsIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type GetAccountconfigurationsIDConflict struct {
 func (o *GetAccountconfigurationsIDConflict) Error() string {
 	return fmt.Sprintf("[GET /accountconfigurations/{id}][%d] getAccountconfigurationsIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *GetAccountconfigurationsIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewGetAccountconfigurationsIDTooManyRequests() *GetAccountconfigurationsIDT
 	return &GetAccountconfigurationsIDTooManyRequests{}
 }
 
-/* GetAccountconfigurationsIDTooManyRequests describes a response with status code 429, with default header values.
+/*GetAccountconfigurationsIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type GetAccountconfigurationsIDTooManyRequests struct {
 func (o *GetAccountconfigurationsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /accountconfigurations/{id}][%d] getAccountconfigurationsIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *GetAccountconfigurationsIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewGetAccountconfigurationsIDInternalServerError() *GetAccountconfiguration
 	return &GetAccountconfigurationsIDInternalServerError{}
 }
 
-/* GetAccountconfigurationsIDInternalServerError describes a response with status code 500, with default header values.
+/*GetAccountconfigurationsIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type GetAccountconfigurationsIDInternalServerError struct {
 func (o *GetAccountconfigurationsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /accountconfigurations/{id}][%d] getAccountconfigurationsIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetAccountconfigurationsIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewGetAccountconfigurationsIDServiceUnavailable() *GetAccountconfigurations
 	return &GetAccountconfigurationsIDServiceUnavailable{}
 }
 
-/* GetAccountconfigurationsIDServiceUnavailable describes a response with status code 503, with default header values.
+/*GetAccountconfigurationsIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type GetAccountconfigurationsIDServiceUnavailable struct {
 func (o *GetAccountconfigurationsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /accountconfigurations/{id}][%d] getAccountconfigurationsIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *GetAccountconfigurationsIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

@@ -77,8 +77,9 @@ func (o *GetReconciliationAssociationIDReader) ReadResponse(response runtime.Cli
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewGetReconciliationAssociationIDOK() *GetReconciliationAssociationIDOK {
 	return &GetReconciliationAssociationIDOK{}
 }
 
-/* GetReconciliationAssociationIDOK describes a response with status code 200, with default header values.
+/*GetReconciliationAssociationIDOK handles this case with default header values.
 
 Associations details
 */
@@ -98,6 +99,7 @@ type GetReconciliationAssociationIDOK struct {
 func (o *GetReconciliationAssociationIDOK) Error() string {
 	return fmt.Sprintf("[GET /reconciliation/{associationId}][%d] getReconciliationAssociationIdOK  %+v", 200, o.Payload)
 }
+
 func (o *GetReconciliationAssociationIDOK) GetPayload() *models.ReconciliationAssociationDetailsResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewGetReconciliationAssociationIDBadRequest() *GetReconciliationAssociation
 	return &GetReconciliationAssociationIDBadRequest{}
 }
 
-/* GetReconciliationAssociationIDBadRequest describes a response with status code 400, with default header values.
+/*GetReconciliationAssociationIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type GetReconciliationAssociationIDBadRequest struct {
 func (o *GetReconciliationAssociationIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /reconciliation/{associationId}][%d] getReconciliationAssociationIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *GetReconciliationAssociationIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewGetReconciliationAssociationIDUnauthorized() *GetReconciliationAssociati
 	return &GetReconciliationAssociationIDUnauthorized{}
 }
 
-/* GetReconciliationAssociationIDUnauthorized describes a response with status code 401, with default header values.
+/*GetReconciliationAssociationIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type GetReconciliationAssociationIDUnauthorized struct {
 func (o *GetReconciliationAssociationIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /reconciliation/{associationId}][%d] getReconciliationAssociationIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetReconciliationAssociationIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewGetReconciliationAssociationIDForbidden() *GetReconciliationAssociationI
 	return &GetReconciliationAssociationIDForbidden{}
 }
 
-/* GetReconciliationAssociationIDForbidden describes a response with status code 403, with default header values.
+/*GetReconciliationAssociationIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type GetReconciliationAssociationIDForbidden struct {
 func (o *GetReconciliationAssociationIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /reconciliation/{associationId}][%d] getReconciliationAssociationIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetReconciliationAssociationIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewGetReconciliationAssociationIDNotFound() *GetReconciliationAssociationID
 	return &GetReconciliationAssociationIDNotFound{}
 }
 
-/* GetReconciliationAssociationIDNotFound describes a response with status code 404, with default header values.
+/*GetReconciliationAssociationIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type GetReconciliationAssociationIDNotFound struct {
 func (o *GetReconciliationAssociationIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /reconciliation/{associationId}][%d] getReconciliationAssociationIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetReconciliationAssociationIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewGetReconciliationAssociationIDConflict() *GetReconciliationAssociationID
 	return &GetReconciliationAssociationIDConflict{}
 }
 
-/* GetReconciliationAssociationIDConflict describes a response with status code 409, with default header values.
+/*GetReconciliationAssociationIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type GetReconciliationAssociationIDConflict struct {
 func (o *GetReconciliationAssociationIDConflict) Error() string {
 	return fmt.Sprintf("[GET /reconciliation/{associationId}][%d] getReconciliationAssociationIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *GetReconciliationAssociationIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewGetReconciliationAssociationIDTooManyRequests() *GetReconciliationAssoci
 	return &GetReconciliationAssociationIDTooManyRequests{}
 }
 
-/* GetReconciliationAssociationIDTooManyRequests describes a response with status code 429, with default header values.
+/*GetReconciliationAssociationIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type GetReconciliationAssociationIDTooManyRequests struct {
 func (o *GetReconciliationAssociationIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /reconciliation/{associationId}][%d] getReconciliationAssociationIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *GetReconciliationAssociationIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewGetReconciliationAssociationIDInternalServerError() *GetReconciliationAs
 	return &GetReconciliationAssociationIDInternalServerError{}
 }
 
-/* GetReconciliationAssociationIDInternalServerError describes a response with status code 500, with default header values.
+/*GetReconciliationAssociationIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type GetReconciliationAssociationIDInternalServerError struct {
 func (o *GetReconciliationAssociationIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /reconciliation/{associationId}][%d] getReconciliationAssociationIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetReconciliationAssociationIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewGetReconciliationAssociationIDServiceUnavailable() *GetReconciliationAss
 	return &GetReconciliationAssociationIDServiceUnavailable{}
 }
 
-/* GetReconciliationAssociationIDServiceUnavailable describes a response with status code 503, with default header values.
+/*GetReconciliationAssociationIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type GetReconciliationAssociationIDServiceUnavailable struct {
 func (o *GetReconciliationAssociationIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /reconciliation/{associationId}][%d] getReconciliationAssociationIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *GetReconciliationAssociationIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

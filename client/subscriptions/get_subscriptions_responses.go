@@ -77,8 +77,9 @@ func (o *GetSubscriptionsReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewGetSubscriptionsOK() *GetSubscriptionsOK {
 	return &GetSubscriptionsOK{}
 }
 
-/* GetSubscriptionsOK describes a response with status code 200, with default header values.
+/*GetSubscriptionsOK handles this case with default header values.
 
 List of subscription details
 */
@@ -98,6 +99,7 @@ type GetSubscriptionsOK struct {
 func (o *GetSubscriptionsOK) Error() string {
 	return fmt.Sprintf("[GET /subscriptions][%d] getSubscriptionsOK  %+v", 200, o.Payload)
 }
+
 func (o *GetSubscriptionsOK) GetPayload() *models.SubscriptionDetailsListResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewGetSubscriptionsBadRequest() *GetSubscriptionsBadRequest {
 	return &GetSubscriptionsBadRequest{}
 }
 
-/* GetSubscriptionsBadRequest describes a response with status code 400, with default header values.
+/*GetSubscriptionsBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type GetSubscriptionsBadRequest struct {
 func (o *GetSubscriptionsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /subscriptions][%d] getSubscriptionsBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *GetSubscriptionsBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewGetSubscriptionsUnauthorized() *GetSubscriptionsUnauthorized {
 	return &GetSubscriptionsUnauthorized{}
 }
 
-/* GetSubscriptionsUnauthorized describes a response with status code 401, with default header values.
+/*GetSubscriptionsUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type GetSubscriptionsUnauthorized struct {
 func (o *GetSubscriptionsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /subscriptions][%d] getSubscriptionsUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetSubscriptionsUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewGetSubscriptionsForbidden() *GetSubscriptionsForbidden {
 	return &GetSubscriptionsForbidden{}
 }
 
-/* GetSubscriptionsForbidden describes a response with status code 403, with default header values.
+/*GetSubscriptionsForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type GetSubscriptionsForbidden struct {
 func (o *GetSubscriptionsForbidden) Error() string {
 	return fmt.Sprintf("[GET /subscriptions][%d] getSubscriptionsForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetSubscriptionsForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewGetSubscriptionsNotFound() *GetSubscriptionsNotFound {
 	return &GetSubscriptionsNotFound{}
 }
 
-/* GetSubscriptionsNotFound describes a response with status code 404, with default header values.
+/*GetSubscriptionsNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type GetSubscriptionsNotFound struct {
 func (o *GetSubscriptionsNotFound) Error() string {
 	return fmt.Sprintf("[GET /subscriptions][%d] getSubscriptionsNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetSubscriptionsNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewGetSubscriptionsConflict() *GetSubscriptionsConflict {
 	return &GetSubscriptionsConflict{}
 }
 
-/* GetSubscriptionsConflict describes a response with status code 409, with default header values.
+/*GetSubscriptionsConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type GetSubscriptionsConflict struct {
 func (o *GetSubscriptionsConflict) Error() string {
 	return fmt.Sprintf("[GET /subscriptions][%d] getSubscriptionsConflict  %+v", 409, o.Payload)
 }
+
 func (o *GetSubscriptionsConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewGetSubscriptionsTooManyRequests() *GetSubscriptionsTooManyRequests {
 	return &GetSubscriptionsTooManyRequests{}
 }
 
-/* GetSubscriptionsTooManyRequests describes a response with status code 429, with default header values.
+/*GetSubscriptionsTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type GetSubscriptionsTooManyRequests struct {
 func (o *GetSubscriptionsTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /subscriptions][%d] getSubscriptionsTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *GetSubscriptionsTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewGetSubscriptionsInternalServerError() *GetSubscriptionsInternalServerErr
 	return &GetSubscriptionsInternalServerError{}
 }
 
-/* GetSubscriptionsInternalServerError describes a response with status code 500, with default header values.
+/*GetSubscriptionsInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type GetSubscriptionsInternalServerError struct {
 func (o *GetSubscriptionsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /subscriptions][%d] getSubscriptionsInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetSubscriptionsInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewGetSubscriptionsServiceUnavailable() *GetSubscriptionsServiceUnavailable
 	return &GetSubscriptionsServiceUnavailable{}
 }
 
-/* GetSubscriptionsServiceUnavailable describes a response with status code 503, with default header values.
+/*GetSubscriptionsServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type GetSubscriptionsServiceUnavailable struct {
 func (o *GetSubscriptionsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /subscriptions][%d] getSubscriptionsServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *GetSubscriptionsServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

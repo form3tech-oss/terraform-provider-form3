@@ -6,7 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -18,11 +17,6 @@ import (
 //
 // swagger:model DirectDebitAdmissionStatus
 type DirectDebitAdmissionStatus string
-
-func NewDirectDebitAdmissionStatus(value DirectDebitAdmissionStatus) *DirectDebitAdmissionStatus {
-	v := value
-	return &v
-}
 
 const (
 
@@ -47,7 +41,7 @@ func init() {
 }
 
 func (m DirectDebitAdmissionStatus) validateDirectDebitAdmissionStatusEnum(path, location string, value DirectDebitAdmissionStatus) error {
-	if err := validate.EnumCase(path, location, value, directDebitAdmissionStatusEnum, true); err != nil {
+	if err := validate.Enum(path, location, value, directDebitAdmissionStatusEnum); err != nil {
 		return err
 	}
 	return nil
@@ -65,10 +59,5 @@ func (m DirectDebitAdmissionStatus) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-// ContextValidate validates this direct debit admission status based on context it is used
-func (m DirectDebitAdmissionStatus) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }

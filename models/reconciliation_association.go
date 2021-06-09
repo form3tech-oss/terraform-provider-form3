@@ -6,7 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -89,6 +88,7 @@ func (m *ReconciliationAssociation) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ReconciliationAssociation) validateAttributes(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Attributes) { // not required
 		return nil
 	}
@@ -106,6 +106,7 @@ func (m *ReconciliationAssociation) validateAttributes(formats strfmt.Registry) 
 }
 
 func (m *ReconciliationAssociation) validateCreatedOn(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.CreatedOn) { // not required
 		return nil
 	}
@@ -118,6 +119,7 @@ func (m *ReconciliationAssociation) validateCreatedOn(formats strfmt.Registry) e
 }
 
 func (m *ReconciliationAssociation) validateID(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ID) { // not required
 		return nil
 	}
@@ -130,6 +132,7 @@ func (m *ReconciliationAssociation) validateID(formats strfmt.Registry) error {
 }
 
 func (m *ReconciliationAssociation) validateModifiedOn(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ModifiedOn) { // not required
 		return nil
 	}
@@ -142,6 +145,7 @@ func (m *ReconciliationAssociation) validateModifiedOn(formats strfmt.Registry) 
 }
 
 func (m *ReconciliationAssociation) validateOrganisationID(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.OrganisationID) { // not required
 		return nil
 	}
@@ -173,13 +177,14 @@ const (
 
 // prop value enum
 func (m *ReconciliationAssociation) validateTypeEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, reconciliationAssociationTypeTypePropEnum, true); err != nil {
+	if err := validate.Enum(path, location, value, reconciliationAssociationTypeTypePropEnum); err != nil {
 		return err
 	}
 	return nil
 }
 
 func (m *ReconciliationAssociation) validateType(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
@@ -193,65 +198,12 @@ func (m *ReconciliationAssociation) validateType(formats strfmt.Registry) error 
 }
 
 func (m *ReconciliationAssociation) validateVersion(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Version) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("version", "body", *m.Version, 0, false); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this reconciliation association based on the context it is used
-func (m *ReconciliationAssociation) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateAttributes(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateCreatedOn(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateModifiedOn(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *ReconciliationAssociation) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Attributes != nil {
-		if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ReconciliationAssociation) contextValidateCreatedOn(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "created_on", "body", strfmt.DateTime(m.CreatedOn)); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ReconciliationAssociation) contextValidateModifiedOn(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "modified_on", "body", strfmt.DateTime(m.ModifiedOn)); err != nil {
+	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
 		return err
 	}
 

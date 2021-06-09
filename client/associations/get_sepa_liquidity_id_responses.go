@@ -77,8 +77,9 @@ func (o *GetSepaLiquidityIDReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewGetSepaLiquidityIDOK() *GetSepaLiquidityIDOK {
 	return &GetSepaLiquidityIDOK{}
 }
 
-/* GetSepaLiquidityIDOK describes a response with status code 200, with default header values.
+/*GetSepaLiquidityIDOK handles this case with default header values.
 
 Associations details
 */
@@ -98,6 +99,7 @@ type GetSepaLiquidityIDOK struct {
 func (o *GetSepaLiquidityIDOK) Error() string {
 	return fmt.Sprintf("[GET /sepa-liquidity/{id}][%d] getSepaLiquidityIdOK  %+v", 200, o.Payload)
 }
+
 func (o *GetSepaLiquidityIDOK) GetPayload() *models.SepaLiquidityAssociationDetailsResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewGetSepaLiquidityIDBadRequest() *GetSepaLiquidityIDBadRequest {
 	return &GetSepaLiquidityIDBadRequest{}
 }
 
-/* GetSepaLiquidityIDBadRequest describes a response with status code 400, with default header values.
+/*GetSepaLiquidityIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type GetSepaLiquidityIDBadRequest struct {
 func (o *GetSepaLiquidityIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /sepa-liquidity/{id}][%d] getSepaLiquidityIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *GetSepaLiquidityIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewGetSepaLiquidityIDUnauthorized() *GetSepaLiquidityIDUnauthorized {
 	return &GetSepaLiquidityIDUnauthorized{}
 }
 
-/* GetSepaLiquidityIDUnauthorized describes a response with status code 401, with default header values.
+/*GetSepaLiquidityIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type GetSepaLiquidityIDUnauthorized struct {
 func (o *GetSepaLiquidityIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /sepa-liquidity/{id}][%d] getSepaLiquidityIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetSepaLiquidityIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewGetSepaLiquidityIDForbidden() *GetSepaLiquidityIDForbidden {
 	return &GetSepaLiquidityIDForbidden{}
 }
 
-/* GetSepaLiquidityIDForbidden describes a response with status code 403, with default header values.
+/*GetSepaLiquidityIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type GetSepaLiquidityIDForbidden struct {
 func (o *GetSepaLiquidityIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /sepa-liquidity/{id}][%d] getSepaLiquidityIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetSepaLiquidityIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewGetSepaLiquidityIDNotFound() *GetSepaLiquidityIDNotFound {
 	return &GetSepaLiquidityIDNotFound{}
 }
 
-/* GetSepaLiquidityIDNotFound describes a response with status code 404, with default header values.
+/*GetSepaLiquidityIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type GetSepaLiquidityIDNotFound struct {
 func (o *GetSepaLiquidityIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /sepa-liquidity/{id}][%d] getSepaLiquidityIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetSepaLiquidityIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewGetSepaLiquidityIDConflict() *GetSepaLiquidityIDConflict {
 	return &GetSepaLiquidityIDConflict{}
 }
 
-/* GetSepaLiquidityIDConflict describes a response with status code 409, with default header values.
+/*GetSepaLiquidityIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type GetSepaLiquidityIDConflict struct {
 func (o *GetSepaLiquidityIDConflict) Error() string {
 	return fmt.Sprintf("[GET /sepa-liquidity/{id}][%d] getSepaLiquidityIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *GetSepaLiquidityIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewGetSepaLiquidityIDTooManyRequests() *GetSepaLiquidityIDTooManyRequests {
 	return &GetSepaLiquidityIDTooManyRequests{}
 }
 
-/* GetSepaLiquidityIDTooManyRequests describes a response with status code 429, with default header values.
+/*GetSepaLiquidityIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type GetSepaLiquidityIDTooManyRequests struct {
 func (o *GetSepaLiquidityIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /sepa-liquidity/{id}][%d] getSepaLiquidityIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *GetSepaLiquidityIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewGetSepaLiquidityIDInternalServerError() *GetSepaLiquidityIDInternalServe
 	return &GetSepaLiquidityIDInternalServerError{}
 }
 
-/* GetSepaLiquidityIDInternalServerError describes a response with status code 500, with default header values.
+/*GetSepaLiquidityIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type GetSepaLiquidityIDInternalServerError struct {
 func (o *GetSepaLiquidityIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /sepa-liquidity/{id}][%d] getSepaLiquidityIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetSepaLiquidityIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewGetSepaLiquidityIDServiceUnavailable() *GetSepaLiquidityIDServiceUnavail
 	return &GetSepaLiquidityIDServiceUnavailable{}
 }
 
-/* GetSepaLiquidityIDServiceUnavailable describes a response with status code 503, with default header values.
+/*GetSepaLiquidityIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type GetSepaLiquidityIDServiceUnavailable struct {
 func (o *GetSepaLiquidityIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /sepa-liquidity/{id}][%d] getSepaLiquidityIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *GetSepaLiquidityIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

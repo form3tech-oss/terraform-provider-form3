@@ -18,81 +18,64 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPatchLhvAssociationIDParams creates a new PatchLhvAssociationIDParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewPatchLhvAssociationIDParams creates a new PatchLhvAssociationIDParams object
+// with the default values initialized.
 func NewPatchLhvAssociationIDParams() *PatchLhvAssociationIDParams {
+	var ()
 	return &PatchLhvAssociationIDParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPatchLhvAssociationIDParamsWithTimeout creates a new PatchLhvAssociationIDParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewPatchLhvAssociationIDParamsWithTimeout(timeout time.Duration) *PatchLhvAssociationIDParams {
+	var ()
 	return &PatchLhvAssociationIDParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewPatchLhvAssociationIDParamsWithContext creates a new PatchLhvAssociationIDParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewPatchLhvAssociationIDParamsWithContext(ctx context.Context) *PatchLhvAssociationIDParams {
+	var ()
 	return &PatchLhvAssociationIDParams{
+
 		Context: ctx,
 	}
 }
 
 // NewPatchLhvAssociationIDParamsWithHTTPClient creates a new PatchLhvAssociationIDParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewPatchLhvAssociationIDParamsWithHTTPClient(client *http.Client) *PatchLhvAssociationIDParams {
+	var ()
 	return &PatchLhvAssociationIDParams{
 		HTTPClient: client,
 	}
 }
 
-/* PatchLhvAssociationIDParams contains all the parameters to send to the API endpoint
-   for the patch lhv association ID operation.
-
-   Typically these are written to a http.Request.
+/*PatchLhvAssociationIDParams contains all the parameters to send to the API endpoint
+for the patch lhv association ID operation typically these are written to a http.Request
 */
 type PatchLhvAssociationIDParams struct {
 
-	/* AssociationID.
+	/*AssociationID
+	  Association Id
 
-	   Association Id
-
-	   Format: uuid
 	*/
 	AssociationID strfmt.UUID
+	/*Payload
+	  LHV Association Patch payload
 
-	/* Payload.
-
-	   LHV Association Patch payload
 	*/
 	Payload *models.LhvAssociationPatch
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the patch lhv association ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PatchLhvAssociationIDParams) WithDefaults() *PatchLhvAssociationIDParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the patch lhv association ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PatchLhvAssociationIDParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the patch lhv association ID params
@@ -162,6 +145,7 @@ func (o *PatchLhvAssociationIDParams) WriteToRequest(r runtime.ClientRequest, re
 	if err := r.SetPathParam("associationId", o.AssociationID.String()); err != nil {
 		return err
 	}
+
 	if o.Payload != nil {
 		if err := r.SetBodyParam(o.Payload); err != nil {
 			return err

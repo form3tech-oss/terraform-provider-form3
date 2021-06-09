@@ -77,8 +77,9 @@ func (o *PatchUsersUserIDReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewPatchUsersUserIDOK() *PatchUsersUserIDOK {
 	return &PatchUsersUserIDOK{}
 }
 
-/* PatchUsersUserIDOK describes a response with status code 200, with default header values.
+/*PatchUsersUserIDOK handles this case with default header values.
 
 User details
 */
@@ -98,6 +99,7 @@ type PatchUsersUserIDOK struct {
 func (o *PatchUsersUserIDOK) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_id}][%d] patchUsersUserIdOK  %+v", 200, o.Payload)
 }
+
 func (o *PatchUsersUserIDOK) GetPayload() *models.UserDetailsResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewPatchUsersUserIDBadRequest() *PatchUsersUserIDBadRequest {
 	return &PatchUsersUserIDBadRequest{}
 }
 
-/* PatchUsersUserIDBadRequest describes a response with status code 400, with default header values.
+/*PatchUsersUserIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type PatchUsersUserIDBadRequest struct {
 func (o *PatchUsersUserIDBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_id}][%d] patchUsersUserIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *PatchUsersUserIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewPatchUsersUserIDUnauthorized() *PatchUsersUserIDUnauthorized {
 	return &PatchUsersUserIDUnauthorized{}
 }
 
-/* PatchUsersUserIDUnauthorized describes a response with status code 401, with default header values.
+/*PatchUsersUserIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type PatchUsersUserIDUnauthorized struct {
 func (o *PatchUsersUserIDUnauthorized) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_id}][%d] patchUsersUserIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *PatchUsersUserIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewPatchUsersUserIDForbidden() *PatchUsersUserIDForbidden {
 	return &PatchUsersUserIDForbidden{}
 }
 
-/* PatchUsersUserIDForbidden describes a response with status code 403, with default header values.
+/*PatchUsersUserIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type PatchUsersUserIDForbidden struct {
 func (o *PatchUsersUserIDForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_id}][%d] patchUsersUserIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *PatchUsersUserIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewPatchUsersUserIDNotFound() *PatchUsersUserIDNotFound {
 	return &PatchUsersUserIDNotFound{}
 }
 
-/* PatchUsersUserIDNotFound describes a response with status code 404, with default header values.
+/*PatchUsersUserIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type PatchUsersUserIDNotFound struct {
 func (o *PatchUsersUserIDNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_id}][%d] patchUsersUserIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *PatchUsersUserIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewPatchUsersUserIDConflict() *PatchUsersUserIDConflict {
 	return &PatchUsersUserIDConflict{}
 }
 
-/* PatchUsersUserIDConflict describes a response with status code 409, with default header values.
+/*PatchUsersUserIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type PatchUsersUserIDConflict struct {
 func (o *PatchUsersUserIDConflict) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_id}][%d] patchUsersUserIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *PatchUsersUserIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewPatchUsersUserIDTooManyRequests() *PatchUsersUserIDTooManyRequests {
 	return &PatchUsersUserIDTooManyRequests{}
 }
 
-/* PatchUsersUserIDTooManyRequests describes a response with status code 429, with default header values.
+/*PatchUsersUserIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type PatchUsersUserIDTooManyRequests struct {
 func (o *PatchUsersUserIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_id}][%d] patchUsersUserIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *PatchUsersUserIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewPatchUsersUserIDInternalServerError() *PatchUsersUserIDInternalServerErr
 	return &PatchUsersUserIDInternalServerError{}
 }
 
-/* PatchUsersUserIDInternalServerError describes a response with status code 500, with default header values.
+/*PatchUsersUserIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type PatchUsersUserIDInternalServerError struct {
 func (o *PatchUsersUserIDInternalServerError) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_id}][%d] patchUsersUserIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *PatchUsersUserIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewPatchUsersUserIDServiceUnavailable() *PatchUsersUserIDServiceUnavailable
 	return &PatchUsersUserIDServiceUnavailable{}
 }
 
-/* PatchUsersUserIDServiceUnavailable describes a response with status code 503, with default header values.
+/*PatchUsersUserIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type PatchUsersUserIDServiceUnavailable struct {
 func (o *PatchUsersUserIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_id}][%d] patchUsersUserIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *PatchUsersUserIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

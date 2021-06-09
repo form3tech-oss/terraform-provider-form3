@@ -77,8 +77,9 @@ func (o *GetUnitsIDReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewGetUnitsIDOK() *GetUnitsIDOK {
 	return &GetUnitsIDOK{}
 }
 
-/* GetUnitsIDOK describes a response with status code 200, with default header values.
+/*GetUnitsIDOK handles this case with default header values.
 
 Organisation details
 */
@@ -98,6 +99,7 @@ type GetUnitsIDOK struct {
 func (o *GetUnitsIDOK) Error() string {
 	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdOK  %+v", 200, o.Payload)
 }
+
 func (o *GetUnitsIDOK) GetPayload() *models.OrganisationDetailsResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewGetUnitsIDBadRequest() *GetUnitsIDBadRequest {
 	return &GetUnitsIDBadRequest{}
 }
 
-/* GetUnitsIDBadRequest describes a response with status code 400, with default header values.
+/*GetUnitsIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type GetUnitsIDBadRequest struct {
 func (o *GetUnitsIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *GetUnitsIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewGetUnitsIDUnauthorized() *GetUnitsIDUnauthorized {
 	return &GetUnitsIDUnauthorized{}
 }
 
-/* GetUnitsIDUnauthorized describes a response with status code 401, with default header values.
+/*GetUnitsIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type GetUnitsIDUnauthorized struct {
 func (o *GetUnitsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetUnitsIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewGetUnitsIDForbidden() *GetUnitsIDForbidden {
 	return &GetUnitsIDForbidden{}
 }
 
-/* GetUnitsIDForbidden describes a response with status code 403, with default header values.
+/*GetUnitsIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type GetUnitsIDForbidden struct {
 func (o *GetUnitsIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetUnitsIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewGetUnitsIDNotFound() *GetUnitsIDNotFound {
 	return &GetUnitsIDNotFound{}
 }
 
-/* GetUnitsIDNotFound describes a response with status code 404, with default header values.
+/*GetUnitsIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type GetUnitsIDNotFound struct {
 func (o *GetUnitsIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetUnitsIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewGetUnitsIDConflict() *GetUnitsIDConflict {
 	return &GetUnitsIDConflict{}
 }
 
-/* GetUnitsIDConflict describes a response with status code 409, with default header values.
+/*GetUnitsIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type GetUnitsIDConflict struct {
 func (o *GetUnitsIDConflict) Error() string {
 	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *GetUnitsIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewGetUnitsIDTooManyRequests() *GetUnitsIDTooManyRequests {
 	return &GetUnitsIDTooManyRequests{}
 }
 
-/* GetUnitsIDTooManyRequests describes a response with status code 429, with default header values.
+/*GetUnitsIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type GetUnitsIDTooManyRequests struct {
 func (o *GetUnitsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *GetUnitsIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewGetUnitsIDInternalServerError() *GetUnitsIDInternalServerError {
 	return &GetUnitsIDInternalServerError{}
 }
 
-/* GetUnitsIDInternalServerError describes a response with status code 500, with default header values.
+/*GetUnitsIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type GetUnitsIDInternalServerError struct {
 func (o *GetUnitsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetUnitsIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewGetUnitsIDServiceUnavailable() *GetUnitsIDServiceUnavailable {
 	return &GetUnitsIDServiceUnavailable{}
 }
 
-/* GetUnitsIDServiceUnavailable describes a response with status code 503, with default header values.
+/*GetUnitsIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type GetUnitsIDServiceUnavailable struct {
 func (o *GetUnitsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /units/{id}][%d] getUnitsIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *GetUnitsIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

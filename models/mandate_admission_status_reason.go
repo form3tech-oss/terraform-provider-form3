@@ -6,7 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -18,11 +17,6 @@ import (
 //
 // swagger:model MandateAdmissionStatusReason
 type MandateAdmissionStatusReason string
-
-func NewMandateAdmissionStatusReason(value MandateAdmissionStatusReason) *MandateAdmissionStatusReason {
-	v := value
-	return &v
-}
 
 const (
 
@@ -53,7 +47,7 @@ func init() {
 }
 
 func (m MandateAdmissionStatusReason) validateMandateAdmissionStatusReasonEnum(path, location string, value MandateAdmissionStatusReason) error {
-	if err := validate.EnumCase(path, location, value, mandateAdmissionStatusReasonEnum, true); err != nil {
+	if err := validate.Enum(path, location, value, mandateAdmissionStatusReasonEnum); err != nil {
 		return err
 	}
 	return nil
@@ -71,10 +65,5 @@ func (m MandateAdmissionStatusReason) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-// ContextValidate validates this mandate admission status reason based on context it is used
-func (m MandateAdmissionStatusReason) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }

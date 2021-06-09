@@ -77,8 +77,9 @@ func (o *PostLimitsReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewPostLimitsCreated() *PostLimitsCreated {
 	return &PostLimitsCreated{}
 }
 
-/* PostLimitsCreated describes a response with status code 201, with default header values.
+/*PostLimitsCreated handles this case with default header values.
 
 Limit creation response
 */
@@ -98,6 +99,7 @@ type PostLimitsCreated struct {
 func (o *PostLimitsCreated) Error() string {
 	return fmt.Sprintf("[POST /limits][%d] postLimitsCreated  %+v", 201, o.Payload)
 }
+
 func (o *PostLimitsCreated) GetPayload() *models.LimitCreationResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewPostLimitsBadRequest() *PostLimitsBadRequest {
 	return &PostLimitsBadRequest{}
 }
 
-/* PostLimitsBadRequest describes a response with status code 400, with default header values.
+/*PostLimitsBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type PostLimitsBadRequest struct {
 func (o *PostLimitsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /limits][%d] postLimitsBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *PostLimitsBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewPostLimitsUnauthorized() *PostLimitsUnauthorized {
 	return &PostLimitsUnauthorized{}
 }
 
-/* PostLimitsUnauthorized describes a response with status code 401, with default header values.
+/*PostLimitsUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type PostLimitsUnauthorized struct {
 func (o *PostLimitsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /limits][%d] postLimitsUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *PostLimitsUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewPostLimitsForbidden() *PostLimitsForbidden {
 	return &PostLimitsForbidden{}
 }
 
-/* PostLimitsForbidden describes a response with status code 403, with default header values.
+/*PostLimitsForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type PostLimitsForbidden struct {
 func (o *PostLimitsForbidden) Error() string {
 	return fmt.Sprintf("[POST /limits][%d] postLimitsForbidden  %+v", 403, o.Payload)
 }
+
 func (o *PostLimitsForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewPostLimitsNotFound() *PostLimitsNotFound {
 	return &PostLimitsNotFound{}
 }
 
-/* PostLimitsNotFound describes a response with status code 404, with default header values.
+/*PostLimitsNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type PostLimitsNotFound struct {
 func (o *PostLimitsNotFound) Error() string {
 	return fmt.Sprintf("[POST /limits][%d] postLimitsNotFound  %+v", 404, o.Payload)
 }
+
 func (o *PostLimitsNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewPostLimitsConflict() *PostLimitsConflict {
 	return &PostLimitsConflict{}
 }
 
-/* PostLimitsConflict describes a response with status code 409, with default header values.
+/*PostLimitsConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type PostLimitsConflict struct {
 func (o *PostLimitsConflict) Error() string {
 	return fmt.Sprintf("[POST /limits][%d] postLimitsConflict  %+v", 409, o.Payload)
 }
+
 func (o *PostLimitsConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewPostLimitsTooManyRequests() *PostLimitsTooManyRequests {
 	return &PostLimitsTooManyRequests{}
 }
 
-/* PostLimitsTooManyRequests describes a response with status code 429, with default header values.
+/*PostLimitsTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type PostLimitsTooManyRequests struct {
 func (o *PostLimitsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /limits][%d] postLimitsTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *PostLimitsTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewPostLimitsInternalServerError() *PostLimitsInternalServerError {
 	return &PostLimitsInternalServerError{}
 }
 
-/* PostLimitsInternalServerError describes a response with status code 500, with default header values.
+/*PostLimitsInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type PostLimitsInternalServerError struct {
 func (o *PostLimitsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /limits][%d] postLimitsInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *PostLimitsInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewPostLimitsServiceUnavailable() *PostLimitsServiceUnavailable {
 	return &PostLimitsServiceUnavailable{}
 }
 
-/* PostLimitsServiceUnavailable describes a response with status code 503, with default header values.
+/*PostLimitsServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type PostLimitsServiceUnavailable struct {
 func (o *PostLimitsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /limits][%d] postLimitsServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *PostLimitsServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

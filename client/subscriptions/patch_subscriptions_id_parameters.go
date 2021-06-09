@@ -18,78 +18,61 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPatchSubscriptionsIDParams creates a new PatchSubscriptionsIDParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewPatchSubscriptionsIDParams creates a new PatchSubscriptionsIDParams object
+// with the default values initialized.
 func NewPatchSubscriptionsIDParams() *PatchSubscriptionsIDParams {
+	var ()
 	return &PatchSubscriptionsIDParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPatchSubscriptionsIDParamsWithTimeout creates a new PatchSubscriptionsIDParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewPatchSubscriptionsIDParamsWithTimeout(timeout time.Duration) *PatchSubscriptionsIDParams {
+	var ()
 	return &PatchSubscriptionsIDParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewPatchSubscriptionsIDParamsWithContext creates a new PatchSubscriptionsIDParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewPatchSubscriptionsIDParamsWithContext(ctx context.Context) *PatchSubscriptionsIDParams {
+	var ()
 	return &PatchSubscriptionsIDParams{
+
 		Context: ctx,
 	}
 }
 
 // NewPatchSubscriptionsIDParamsWithHTTPClient creates a new PatchSubscriptionsIDParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewPatchSubscriptionsIDParamsWithHTTPClient(client *http.Client) *PatchSubscriptionsIDParams {
+	var ()
 	return &PatchSubscriptionsIDParams{
 		HTTPClient: client,
 	}
 }
 
-/* PatchSubscriptionsIDParams contains all the parameters to send to the API endpoint
-   for the patch subscriptions ID operation.
-
-   Typically these are written to a http.Request.
+/*PatchSubscriptionsIDParams contains all the parameters to send to the API endpoint
+for the patch subscriptions ID operation typically these are written to a http.Request
 */
 type PatchSubscriptionsIDParams struct {
 
-	// SubscriptionUpdateRequest.
+	/*SubscriptionUpdateRequest*/
 	SubscriptionUpdateRequest *models.SubscriptionCreation
+	/*ID
+	  Subscription Id
 
-	/* ID.
-
-	   Subscription Id
-
-	   Format: uuid
 	*/
 	ID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the patch subscriptions ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PatchSubscriptionsIDParams) WithDefaults() *PatchSubscriptionsIDParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the patch subscriptions ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PatchSubscriptionsIDParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the patch subscriptions ID params
@@ -154,6 +137,7 @@ func (o *PatchSubscriptionsIDParams) WriteToRequest(r runtime.ClientRequest, reg
 		return err
 	}
 	var res []error
+
 	if o.SubscriptionUpdateRequest != nil {
 		if err := r.SetBodyParam(o.SubscriptionUpdateRequest); err != nil {
 			return err

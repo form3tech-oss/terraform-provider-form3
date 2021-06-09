@@ -77,8 +77,9 @@ func (o *PatchPaymentsIDSubmissionsSubmissionIDReader) ReadResponse(response run
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewPatchPaymentsIDSubmissionsSubmissionIDOK() *PatchPaymentsIDSubmissionsSu
 	return &PatchPaymentsIDSubmissionsSubmissionIDOK{}
 }
 
-/* PatchPaymentsIDSubmissionsSubmissionIDOK describes a response with status code 200, with default header values.
+/*PatchPaymentsIDSubmissionsSubmissionIDOK handles this case with default header values.
 
 Submission update response
 */
@@ -98,6 +99,7 @@ type PatchPaymentsIDSubmissionsSubmissionIDOK struct {
 func (o *PatchPaymentsIDSubmissionsSubmissionIDOK) Error() string {
 	return fmt.Sprintf("[PATCH /payments/{id}/submissions/{submissionId}][%d] patchPaymentsIdSubmissionsSubmissionIdOK  %+v", 200, o.Payload)
 }
+
 func (o *PatchPaymentsIDSubmissionsSubmissionIDOK) GetPayload() *models.PaymentSubmissionDetailsResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewPatchPaymentsIDSubmissionsSubmissionIDBadRequest() *PatchPaymentsIDSubmi
 	return &PatchPaymentsIDSubmissionsSubmissionIDBadRequest{}
 }
 
-/* PatchPaymentsIDSubmissionsSubmissionIDBadRequest describes a response with status code 400, with default header values.
+/*PatchPaymentsIDSubmissionsSubmissionIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type PatchPaymentsIDSubmissionsSubmissionIDBadRequest struct {
 func (o *PatchPaymentsIDSubmissionsSubmissionIDBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /payments/{id}/submissions/{submissionId}][%d] patchPaymentsIdSubmissionsSubmissionIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *PatchPaymentsIDSubmissionsSubmissionIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewPatchPaymentsIDSubmissionsSubmissionIDUnauthorized() *PatchPaymentsIDSub
 	return &PatchPaymentsIDSubmissionsSubmissionIDUnauthorized{}
 }
 
-/* PatchPaymentsIDSubmissionsSubmissionIDUnauthorized describes a response with status code 401, with default header values.
+/*PatchPaymentsIDSubmissionsSubmissionIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type PatchPaymentsIDSubmissionsSubmissionIDUnauthorized struct {
 func (o *PatchPaymentsIDSubmissionsSubmissionIDUnauthorized) Error() string {
 	return fmt.Sprintf("[PATCH /payments/{id}/submissions/{submissionId}][%d] patchPaymentsIdSubmissionsSubmissionIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *PatchPaymentsIDSubmissionsSubmissionIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewPatchPaymentsIDSubmissionsSubmissionIDForbidden() *PatchPaymentsIDSubmis
 	return &PatchPaymentsIDSubmissionsSubmissionIDForbidden{}
 }
 
-/* PatchPaymentsIDSubmissionsSubmissionIDForbidden describes a response with status code 403, with default header values.
+/*PatchPaymentsIDSubmissionsSubmissionIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type PatchPaymentsIDSubmissionsSubmissionIDForbidden struct {
 func (o *PatchPaymentsIDSubmissionsSubmissionIDForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /payments/{id}/submissions/{submissionId}][%d] patchPaymentsIdSubmissionsSubmissionIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *PatchPaymentsIDSubmissionsSubmissionIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewPatchPaymentsIDSubmissionsSubmissionIDNotFound() *PatchPaymentsIDSubmiss
 	return &PatchPaymentsIDSubmissionsSubmissionIDNotFound{}
 }
 
-/* PatchPaymentsIDSubmissionsSubmissionIDNotFound describes a response with status code 404, with default header values.
+/*PatchPaymentsIDSubmissionsSubmissionIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type PatchPaymentsIDSubmissionsSubmissionIDNotFound struct {
 func (o *PatchPaymentsIDSubmissionsSubmissionIDNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /payments/{id}/submissions/{submissionId}][%d] patchPaymentsIdSubmissionsSubmissionIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *PatchPaymentsIDSubmissionsSubmissionIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewPatchPaymentsIDSubmissionsSubmissionIDConflict() *PatchPaymentsIDSubmiss
 	return &PatchPaymentsIDSubmissionsSubmissionIDConflict{}
 }
 
-/* PatchPaymentsIDSubmissionsSubmissionIDConflict describes a response with status code 409, with default header values.
+/*PatchPaymentsIDSubmissionsSubmissionIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type PatchPaymentsIDSubmissionsSubmissionIDConflict struct {
 func (o *PatchPaymentsIDSubmissionsSubmissionIDConflict) Error() string {
 	return fmt.Sprintf("[PATCH /payments/{id}/submissions/{submissionId}][%d] patchPaymentsIdSubmissionsSubmissionIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *PatchPaymentsIDSubmissionsSubmissionIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewPatchPaymentsIDSubmissionsSubmissionIDTooManyRequests() *PatchPaymentsID
 	return &PatchPaymentsIDSubmissionsSubmissionIDTooManyRequests{}
 }
 
-/* PatchPaymentsIDSubmissionsSubmissionIDTooManyRequests describes a response with status code 429, with default header values.
+/*PatchPaymentsIDSubmissionsSubmissionIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type PatchPaymentsIDSubmissionsSubmissionIDTooManyRequests struct {
 func (o *PatchPaymentsIDSubmissionsSubmissionIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[PATCH /payments/{id}/submissions/{submissionId}][%d] patchPaymentsIdSubmissionsSubmissionIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *PatchPaymentsIDSubmissionsSubmissionIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewPatchPaymentsIDSubmissionsSubmissionIDInternalServerError() *PatchPaymen
 	return &PatchPaymentsIDSubmissionsSubmissionIDInternalServerError{}
 }
 
-/* PatchPaymentsIDSubmissionsSubmissionIDInternalServerError describes a response with status code 500, with default header values.
+/*PatchPaymentsIDSubmissionsSubmissionIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type PatchPaymentsIDSubmissionsSubmissionIDInternalServerError struct {
 func (o *PatchPaymentsIDSubmissionsSubmissionIDInternalServerError) Error() string {
 	return fmt.Sprintf("[PATCH /payments/{id}/submissions/{submissionId}][%d] patchPaymentsIdSubmissionsSubmissionIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *PatchPaymentsIDSubmissionsSubmissionIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewPatchPaymentsIDSubmissionsSubmissionIDServiceUnavailable() *PatchPayment
 	return &PatchPaymentsIDSubmissionsSubmissionIDServiceUnavailable{}
 }
 
-/* PatchPaymentsIDSubmissionsSubmissionIDServiceUnavailable describes a response with status code 503, with default header values.
+/*PatchPaymentsIDSubmissionsSubmissionIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type PatchPaymentsIDSubmissionsSubmissionIDServiceUnavailable struct {
 func (o *PatchPaymentsIDSubmissionsSubmissionIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[PATCH /payments/{id}/submissions/{submissionId}][%d] patchPaymentsIdSubmissionsSubmissionIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *PatchPaymentsIDSubmissionsSubmissionIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

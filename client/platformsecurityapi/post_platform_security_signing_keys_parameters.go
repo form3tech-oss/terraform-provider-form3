@@ -18,70 +18,56 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPostPlatformSecuritySigningKeysParams creates a new PostPlatformSecuritySigningKeysParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewPostPlatformSecuritySigningKeysParams creates a new PostPlatformSecuritySigningKeysParams object
+// with the default values initialized.
 func NewPostPlatformSecuritySigningKeysParams() *PostPlatformSecuritySigningKeysParams {
+	var ()
 	return &PostPlatformSecuritySigningKeysParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostPlatformSecuritySigningKeysParamsWithTimeout creates a new PostPlatformSecuritySigningKeysParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewPostPlatformSecuritySigningKeysParamsWithTimeout(timeout time.Duration) *PostPlatformSecuritySigningKeysParams {
+	var ()
 	return &PostPlatformSecuritySigningKeysParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewPostPlatformSecuritySigningKeysParamsWithContext creates a new PostPlatformSecuritySigningKeysParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewPostPlatformSecuritySigningKeysParamsWithContext(ctx context.Context) *PostPlatformSecuritySigningKeysParams {
+	var ()
 	return &PostPlatformSecuritySigningKeysParams{
+
 		Context: ctx,
 	}
 }
 
 // NewPostPlatformSecuritySigningKeysParamsWithHTTPClient creates a new PostPlatformSecuritySigningKeysParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewPostPlatformSecuritySigningKeysParamsWithHTTPClient(client *http.Client) *PostPlatformSecuritySigningKeysParams {
+	var ()
 	return &PostPlatformSecuritySigningKeysParams{
 		HTTPClient: client,
 	}
 }
 
-/* PostPlatformSecuritySigningKeysParams contains all the parameters to send to the API endpoint
-   for the post platform security signing keys operation.
-
-   Typically these are written to a http.Request.
+/*PostPlatformSecuritySigningKeysParams contains all the parameters to send to the API endpoint
+for the post platform security signing keys operation typically these are written to a http.Request
 */
 type PostPlatformSecuritySigningKeysParams struct {
 
-	// Data.
+	/*Data*/
 	Data *models.SigningKeysCreation
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the post platform security signing keys params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PostPlatformSecuritySigningKeysParams) WithDefaults() *PostPlatformSecuritySigningKeysParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the post platform security signing keys params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PostPlatformSecuritySigningKeysParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post platform security signing keys params
@@ -135,6 +121,7 @@ func (o *PostPlatformSecuritySigningKeysParams) WriteToRequest(r runtime.ClientR
 		return err
 	}
 	var res []error
+
 	if o.Data != nil {
 		if err := r.SetBodyParam(o.Data); err != nil {
 			return err

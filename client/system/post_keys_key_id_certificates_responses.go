@@ -77,8 +77,9 @@ func (o *PostKeysKeyIDCertificatesReader) ReadResponse(response runtime.ClientRe
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewPostKeysKeyIDCertificatesCreated() *PostKeysKeyIDCertificatesCreated {
 	return &PostKeysKeyIDCertificatesCreated{}
 }
 
-/* PostKeysKeyIDCertificatesCreated describes a response with status code 201, with default header values.
+/*PostKeysKeyIDCertificatesCreated handles this case with default header values.
 
 creation response
 */
@@ -98,6 +99,7 @@ type PostKeysKeyIDCertificatesCreated struct {
 func (o *PostKeysKeyIDCertificatesCreated) Error() string {
 	return fmt.Sprintf("[POST /keys/{key_id}/certificates][%d] postKeysKeyIdCertificatesCreated  %+v", 201, o.Payload)
 }
+
 func (o *PostKeysKeyIDCertificatesCreated) GetPayload() *models.CertificateCreationResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewPostKeysKeyIDCertificatesBadRequest() *PostKeysKeyIDCertificatesBadReque
 	return &PostKeysKeyIDCertificatesBadRequest{}
 }
 
-/* PostKeysKeyIDCertificatesBadRequest describes a response with status code 400, with default header values.
+/*PostKeysKeyIDCertificatesBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type PostKeysKeyIDCertificatesBadRequest struct {
 func (o *PostKeysKeyIDCertificatesBadRequest) Error() string {
 	return fmt.Sprintf("[POST /keys/{key_id}/certificates][%d] postKeysKeyIdCertificatesBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *PostKeysKeyIDCertificatesBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewPostKeysKeyIDCertificatesUnauthorized() *PostKeysKeyIDCertificatesUnauth
 	return &PostKeysKeyIDCertificatesUnauthorized{}
 }
 
-/* PostKeysKeyIDCertificatesUnauthorized describes a response with status code 401, with default header values.
+/*PostKeysKeyIDCertificatesUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type PostKeysKeyIDCertificatesUnauthorized struct {
 func (o *PostKeysKeyIDCertificatesUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /keys/{key_id}/certificates][%d] postKeysKeyIdCertificatesUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *PostKeysKeyIDCertificatesUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewPostKeysKeyIDCertificatesForbidden() *PostKeysKeyIDCertificatesForbidden
 	return &PostKeysKeyIDCertificatesForbidden{}
 }
 
-/* PostKeysKeyIDCertificatesForbidden describes a response with status code 403, with default header values.
+/*PostKeysKeyIDCertificatesForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type PostKeysKeyIDCertificatesForbidden struct {
 func (o *PostKeysKeyIDCertificatesForbidden) Error() string {
 	return fmt.Sprintf("[POST /keys/{key_id}/certificates][%d] postKeysKeyIdCertificatesForbidden  %+v", 403, o.Payload)
 }
+
 func (o *PostKeysKeyIDCertificatesForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewPostKeysKeyIDCertificatesNotFound() *PostKeysKeyIDCertificatesNotFound {
 	return &PostKeysKeyIDCertificatesNotFound{}
 }
 
-/* PostKeysKeyIDCertificatesNotFound describes a response with status code 404, with default header values.
+/*PostKeysKeyIDCertificatesNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type PostKeysKeyIDCertificatesNotFound struct {
 func (o *PostKeysKeyIDCertificatesNotFound) Error() string {
 	return fmt.Sprintf("[POST /keys/{key_id}/certificates][%d] postKeysKeyIdCertificatesNotFound  %+v", 404, o.Payload)
 }
+
 func (o *PostKeysKeyIDCertificatesNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewPostKeysKeyIDCertificatesConflict() *PostKeysKeyIDCertificatesConflict {
 	return &PostKeysKeyIDCertificatesConflict{}
 }
 
-/* PostKeysKeyIDCertificatesConflict describes a response with status code 409, with default header values.
+/*PostKeysKeyIDCertificatesConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type PostKeysKeyIDCertificatesConflict struct {
 func (o *PostKeysKeyIDCertificatesConflict) Error() string {
 	return fmt.Sprintf("[POST /keys/{key_id}/certificates][%d] postKeysKeyIdCertificatesConflict  %+v", 409, o.Payload)
 }
+
 func (o *PostKeysKeyIDCertificatesConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewPostKeysKeyIDCertificatesTooManyRequests() *PostKeysKeyIDCertificatesToo
 	return &PostKeysKeyIDCertificatesTooManyRequests{}
 }
 
-/* PostKeysKeyIDCertificatesTooManyRequests describes a response with status code 429, with default header values.
+/*PostKeysKeyIDCertificatesTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type PostKeysKeyIDCertificatesTooManyRequests struct {
 func (o *PostKeysKeyIDCertificatesTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /keys/{key_id}/certificates][%d] postKeysKeyIdCertificatesTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *PostKeysKeyIDCertificatesTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewPostKeysKeyIDCertificatesInternalServerError() *PostKeysKeyIDCertificate
 	return &PostKeysKeyIDCertificatesInternalServerError{}
 }
 
-/* PostKeysKeyIDCertificatesInternalServerError describes a response with status code 500, with default header values.
+/*PostKeysKeyIDCertificatesInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type PostKeysKeyIDCertificatesInternalServerError struct {
 func (o *PostKeysKeyIDCertificatesInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /keys/{key_id}/certificates][%d] postKeysKeyIdCertificatesInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *PostKeysKeyIDCertificatesInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewPostKeysKeyIDCertificatesServiceUnavailable() *PostKeysKeyIDCertificates
 	return &PostKeysKeyIDCertificatesServiceUnavailable{}
 }
 
-/* PostKeysKeyIDCertificatesServiceUnavailable describes a response with status code 503, with default header values.
+/*PostKeysKeyIDCertificatesServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type PostKeysKeyIDCertificatesServiceUnavailable struct {
 func (o *PostKeysKeyIDCertificatesServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /keys/{key_id}/certificates][%d] postKeysKeyIdCertificatesServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *PostKeysKeyIDCertificatesServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

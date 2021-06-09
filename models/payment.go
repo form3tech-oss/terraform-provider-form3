@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -24,13 +22,11 @@ type Payment struct {
 	Attributes *PaymentAttributes `json:"attributes"`
 
 	// Unique resource ID
-	// Example: 7826c3cb-d6fd-41d0-b187-dc23ba928772
 	// Required: true
 	// Format: uuid
 	ID *strfmt.UUID `json:"id"`
 
 	// Unique ID of the organisation this resource is created by
-	// Example: ee2fb143-6dfe-4787-b183-ca8ddd4164d2
 	// Required: true
 	// Format: uuid
 	OrganisationID *strfmt.UUID `json:"organisation_id"`
@@ -39,12 +35,10 @@ type Payment struct {
 	Relationships *PaymentRelationships `json:"relationships,omitempty"`
 
 	// Name of the resource type
-	// Example: payments
 	// Pattern: ^[A-Za-z_]*$
 	Type string `json:"type,omitempty"`
 
 	// Version number
-	// Example: 0
 	// Minimum: 0
 	Version *int64 `json:"version,omitempty"`
 }
@@ -128,6 +122,7 @@ func (m *Payment) validateOrganisationID(formats strfmt.Registry) error {
 }
 
 func (m *Payment) validateRelationships(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Relationships) { // not required
 		return nil
 	}
@@ -145,11 +140,12 @@ func (m *Payment) validateRelationships(formats strfmt.Registry) error {
 }
 
 func (m *Payment) validateType(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("type", "body", m.Type, `^[A-Za-z_]*$`); err != nil {
+	if err := validate.Pattern("type", "body", string(m.Type), `^[A-Za-z_]*$`); err != nil {
 		return err
 	}
 
@@ -157,58 +153,13 @@ func (m *Payment) validateType(formats strfmt.Registry) error {
 }
 
 func (m *Payment) validateVersion(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Version) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("version", "body", *m.Version, 0, false); err != nil {
+	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
 		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this payment based on the context it is used
-func (m *Payment) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateAttributes(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateRelationships(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *Payment) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Attributes != nil {
-		if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *Payment) contextValidateRelationships(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Relationships != nil {
-		if err := m.Relationships.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("relationships")
-			}
-			return err
-		}
 	}
 
 	return nil
@@ -238,7 +189,6 @@ func (m *Payment) UnmarshalBinary(b []byte) error {
 type PaymentAttributes struct {
 
 	// Amount of money moved between the instructing agent and instructed agent
-	// Example: 10.00
 	// Pattern: ^[0-9.]{0,20}$
 	Amount string `json:"amount,omitempty"`
 
@@ -267,14 +217,12 @@ type PaymentAttributes struct {
 	ClearingID string `json:"clearing_id,omitempty"`
 
 	// Currency of the transaction amount. Currency code as defined in [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm)
-	// Example: EUR
 	Currency string `json:"currency,omitempty"`
 
 	// debtor party
 	DebtorParty *PaymentAttributesDebtorParty `json:"debtor_party,omitempty"`
 
 	// Unique identification, as assigned by the initiating party, to unambiguously identify the transaction. This identification is passed on, unchanged, throughout the entire end-to-end chain.
-	// Example: PAYMENT REF: 20094
 	EndToEndReference string `json:"end_to_end_reference,omitempty"`
 
 	// file number
@@ -284,7 +232,6 @@ type PaymentAttributes struct {
 	Fx *PaymentAttributesFx `json:"fx,omitempty"`
 
 	// Unique identification, as assigned by the initiating party to unambigiously identify the transaction. This identification is an point-to-point reference and is passed on, unchanged, throughout the entire chain. Cannot includ leading, trailing or internal spaces.
-	// Example: ID1245799
 	InstructionID string `json:"instruction_id,omitempty"`
 
 	// intermediary bank
@@ -294,26 +241,22 @@ type PaymentAttributes struct {
 	NumericReference string `json:"numeric_reference,omitempty"`
 
 	// Timestamp of when the payment instruction meets the set processing conditions. Format: YYYY-MM-DDThh:mm:ss:mmm+hh:mm
-	// Example: 2017-09-30T12:36:02.123+01:00
 	// Format: date-time
 	PaymentAcceptanceDatetime *strfmt.DateTime `json:"payment_acceptance_datetime,omitempty"`
 
 	// Purpose of the payment in a proprietary form
-	// Example: X
 	PaymentPurpose string `json:"payment_purpose,omitempty"`
 
 	// Purpose of the payment in a coded form
 	PaymentPurposeCoded string `json:"payment_purpose_coded,omitempty"`
 
 	// Clearing infrastructure through which the payment instruction is to be processed. Default for given organisation ID is used if left empty. Has to be a valid [scheme identifier](http://draft-api-docs.form3.tech/api.html#enumerations-schemes).
-	// Example: FPS
 	PaymentScheme string `json:"payment_scheme,omitempty"`
 
 	// payment type
 	PaymentType string `json:"payment_type,omitempty"`
 
 	// Date on which the payment is to be debited from the debtor account. Formatted according to ISO 8601 format: YYYY-MM-DD.
-	// Example: 2015-02-12
 	// Format: date
 	ProcessingDate strfmt.Date `json:"processing_date,omitempty"`
 
@@ -321,35 +264,28 @@ type PaymentAttributes struct {
 	ReceiversCorrespondent *ReceiversCorrespondentAccountHoldingEntity `json:"receivers_correspondent,omitempty"`
 
 	// Payment reference for beneficiary use
-	// Example: rent for oct
 	Reference string `json:"reference,omitempty"`
 
 	// Regulatory reporting information
-	// Example: May be required for some foreign originated payments
 	RegulatoryReporting string `json:"regulatory_reporting,omitempty"`
 
 	// reimbursement
 	Reimbursement *ReimbursementAccountHoldingEntity `json:"reimbursement,omitempty"`
 
 	// Information supplied to enable the matching of an entry with the items that the transfer is intended to settle, such as commercial invoices in an accounts receivable system provided by the debtor for the beneficiary.
-	// Example: Additional remittance information over and above reference information
 	RemittanceInformation string `json:"remittance_information,omitempty"`
 
 	// The scheme specific payment [sub type](http://api-docs.form3.tech/api.html#enumerations-scheme-specific-payment-sub-types)
-	// Example: TelephoneBanking
 	SchemePaymentSubType string `json:"scheme_payment_sub_type,omitempty"`
 
 	// The [scheme-specific payment type](#enumerations-scheme-payment-types)
-	// Example: ImmediatePayment
 	SchemePaymentType string `json:"scheme_payment_type,omitempty"`
 
 	// Date on which the payment is processed by the scheme. Only used if different from `processing_date`.
-	// Example: 2015-02-12
 	// Format: date
 	SchemeProcessingDate strfmt.Date `json:"scheme_processing_date,omitempty"`
 
 	// Unique identification, as assigned by the first instructing agent, to unambiguously identify the transaction that is passed on, unchanged, throughout the entire interbank chain.
-	// Example: 123456789012345678
 	SchemeTransactionID string `json:"scheme_transaction_id,omitempty"`
 
 	// senders correspondent
@@ -368,7 +304,6 @@ type PaymentAttributes struct {
 	UltimateDebtor *UltimateEntity `json:"ultimate_debtor,omitempty"`
 
 	// The scheme-specific unique transaction ID. Populated by the scheme.
-	// Example: L5W48NDWYW7JV9MRO71020180301826040011
 	UniqueSchemeID string `json:"unique_scheme_id,omitempty"`
 }
 
@@ -447,11 +382,12 @@ func (m *PaymentAttributes) Validate(formats strfmt.Registry) error {
 }
 
 func (m *PaymentAttributes) validateAmount(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Amount) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("attributes"+"."+"amount", "body", m.Amount, `^[0-9.]{0,20}$`); err != nil {
+	if err := validate.Pattern("attributes"+"."+"amount", "body", string(m.Amount), `^[0-9.]{0,20}$`); err != nil {
 		return err
 	}
 
@@ -459,6 +395,7 @@ func (m *PaymentAttributes) validateAmount(formats strfmt.Registry) error {
 }
 
 func (m *PaymentAttributes) validateBeneficiaryParty(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.BeneficiaryParty) { // not required
 		return nil
 	}
@@ -476,6 +413,7 @@ func (m *PaymentAttributes) validateBeneficiaryParty(formats strfmt.Registry) er
 }
 
 func (m *PaymentAttributes) validateChargesInformation(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ChargesInformation) { // not required
 		return nil
 	}
@@ -493,6 +431,7 @@ func (m *PaymentAttributes) validateChargesInformation(formats strfmt.Registry) 
 }
 
 func (m *PaymentAttributes) validateDebtorParty(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.DebtorParty) { // not required
 		return nil
 	}
@@ -510,6 +449,7 @@ func (m *PaymentAttributes) validateDebtorParty(formats strfmt.Registry) error {
 }
 
 func (m *PaymentAttributes) validateFx(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Fx) { // not required
 		return nil
 	}
@@ -527,6 +467,7 @@ func (m *PaymentAttributes) validateFx(formats strfmt.Registry) error {
 }
 
 func (m *PaymentAttributes) validateIntermediaryBank(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.IntermediaryBank) { // not required
 		return nil
 	}
@@ -544,6 +485,7 @@ func (m *PaymentAttributes) validateIntermediaryBank(formats strfmt.Registry) er
 }
 
 func (m *PaymentAttributes) validatePaymentAcceptanceDatetime(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.PaymentAcceptanceDatetime) { // not required
 		return nil
 	}
@@ -556,6 +498,7 @@ func (m *PaymentAttributes) validatePaymentAcceptanceDatetime(formats strfmt.Reg
 }
 
 func (m *PaymentAttributes) validateProcessingDate(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ProcessingDate) { // not required
 		return nil
 	}
@@ -568,6 +511,7 @@ func (m *PaymentAttributes) validateProcessingDate(formats strfmt.Registry) erro
 }
 
 func (m *PaymentAttributes) validateReceiversCorrespondent(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ReceiversCorrespondent) { // not required
 		return nil
 	}
@@ -585,6 +529,7 @@ func (m *PaymentAttributes) validateReceiversCorrespondent(formats strfmt.Regist
 }
 
 func (m *PaymentAttributes) validateReimbursement(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Reimbursement) { // not required
 		return nil
 	}
@@ -602,6 +547,7 @@ func (m *PaymentAttributes) validateReimbursement(formats strfmt.Registry) error
 }
 
 func (m *PaymentAttributes) validateSchemeProcessingDate(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.SchemeProcessingDate) { // not required
 		return nil
 	}
@@ -614,6 +560,7 @@ func (m *PaymentAttributes) validateSchemeProcessingDate(formats strfmt.Registry
 }
 
 func (m *PaymentAttributes) validateSendersCorrespondent(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.SendersCorrespondent) { // not required
 		return nil
 	}
@@ -631,6 +578,7 @@ func (m *PaymentAttributes) validateSendersCorrespondent(formats strfmt.Registry
 }
 
 func (m *PaymentAttributes) validateStructuredReference(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.StructuredReference) { // not required
 		return nil
 	}
@@ -648,6 +596,7 @@ func (m *PaymentAttributes) validateStructuredReference(formats strfmt.Registry)
 }
 
 func (m *PaymentAttributes) validateSwift(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Swift) { // not required
 		return nil
 	}
@@ -665,6 +614,7 @@ func (m *PaymentAttributes) validateSwift(formats strfmt.Registry) error {
 }
 
 func (m *PaymentAttributes) validateUltimateBeneficiary(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.UltimateBeneficiary) { // not required
 		return nil
 	}
@@ -682,238 +632,13 @@ func (m *PaymentAttributes) validateUltimateBeneficiary(formats strfmt.Registry)
 }
 
 func (m *PaymentAttributes) validateUltimateDebtor(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.UltimateDebtor) { // not required
 		return nil
 	}
 
 	if m.UltimateDebtor != nil {
 		if err := m.UltimateDebtor.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes" + "." + "ultimate_debtor")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this payment attributes based on the context it is used
-func (m *PaymentAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateBeneficiaryParty(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateChargesInformation(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateDebtorParty(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateFx(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateIntermediaryBank(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateReceiversCorrespondent(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateReimbursement(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateSendersCorrespondent(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateStructuredReference(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateSwift(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateUltimateBeneficiary(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateUltimateDebtor(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *PaymentAttributes) contextValidateBeneficiaryParty(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.BeneficiaryParty != nil {
-		if err := m.BeneficiaryParty.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes" + "." + "beneficiary_party")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *PaymentAttributes) contextValidateChargesInformation(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.ChargesInformation != nil {
-		if err := m.ChargesInformation.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes" + "." + "charges_information")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *PaymentAttributes) contextValidateDebtorParty(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.DebtorParty != nil {
-		if err := m.DebtorParty.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes" + "." + "debtor_party")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *PaymentAttributes) contextValidateFx(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Fx != nil {
-		if err := m.Fx.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes" + "." + "fx")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *PaymentAttributes) contextValidateIntermediaryBank(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.IntermediaryBank != nil {
-		if err := m.IntermediaryBank.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes" + "." + "intermediary_bank")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *PaymentAttributes) contextValidateReceiversCorrespondent(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.ReceiversCorrespondent != nil {
-		if err := m.ReceiversCorrespondent.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes" + "." + "receivers_correspondent")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *PaymentAttributes) contextValidateReimbursement(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Reimbursement != nil {
-		if err := m.Reimbursement.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes" + "." + "reimbursement")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *PaymentAttributes) contextValidateSendersCorrespondent(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.SendersCorrespondent != nil {
-		if err := m.SendersCorrespondent.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes" + "." + "senders_correspondent")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *PaymentAttributes) contextValidateStructuredReference(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.StructuredReference != nil {
-		if err := m.StructuredReference.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes" + "." + "structured_reference")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *PaymentAttributes) contextValidateSwift(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Swift != nil {
-		if err := m.Swift.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes" + "." + "swift")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *PaymentAttributes) contextValidateUltimateBeneficiary(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.UltimateBeneficiary != nil {
-		if err := m.UltimateBeneficiary.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes" + "." + "ultimate_beneficiary")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *PaymentAttributes) contextValidateUltimateDebtor(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.UltimateDebtor != nil {
-		if err := m.UltimateDebtor.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attributes" + "." + "ultimate_debtor")
 			}
@@ -948,66 +673,52 @@ func (m *PaymentAttributes) UnmarshalBinary(b []byte) error {
 type PaymentAttributesBeneficiaryParty struct {
 
 	// Name of beneficiary as given with account
-	// Example: James Bond
 	AccountName string `json:"account_name,omitempty"`
 
 	// Beneficiary account number
-	// Example: 71268996
 	AccountNumber string `json:"account_number,omitempty"`
 
 	// account number code
 	AccountNumberCode AccountNumberCode `json:"account_number_code,omitempty"`
 
 	// The type of the account given with `beneficiary_party.account_number`. Single digit number. Only required if requested by the beneficiary party. Defaults to 0.
-	// Example: 0
 	AccountType int64 `json:"account_type,omitempty"`
 
 	// account with
 	AccountWith *BeneficiaryDebtorAccountHoldingEntity `json:"account_with,omitempty"`
 
 	// Beneficiary address
-	// Example: ["1 Clarence Mew","Horsforth","Leeds Ls18 4EP"]
 	Address []string `json:"address,omitempty"`
 
 	// Beneficiary birth city
-	// Example: PARIS
 	BirthCity string `json:"birth_city,omitempty"`
 
 	// Beneficiary birth country, ISO 3166 format country code
-	// Example: FR
 	BirthCountry string `json:"birth_country,omitempty"`
 
 	// Beneficiary birth date. Formatted according to ISO 8601 format: YYYY-MM-DD
-	// Example: 1977-02-28
 	// Format: date
 	BirthDate *strfmt.Date `json:"birth_date,omitempty"`
 
 	// Beneficiary birth province
-	// Example: NORTHSIDE
 	BirthProvince string `json:"birth_province,omitempty"`
 
 	// Country of the beneficiary address, ISO 3166 format country code
-	// Example: DE
 	Country string `json:"country,omitempty"`
 
 	// Beneficiary name
-	// Example: James Bond
 	Name string `json:"name,omitempty"`
 
 	// Organisation identification of a beneficiary, used in the case that the beneficiary is an organisation and not a private person
-	// Example: ID1234656
 	OrganisationIdentification string `json:"organisation_identification,omitempty"`
 
 	// The code that specifies the type of `organisation_identification`
-	// Example: BIC
 	OrganisationIdentificationCode string `json:"organisation_identification_code,omitempty"`
 
 	// Issuer of the organisation identification
-	// Example: BANK
 	OrganisationIdentificationIssuer string `json:"organisation_identification_issuer,omitempty"`
 
 	// Beneficiary phone number
-	// Example: +447921123987
 	TelephoneNumber string `json:"telephone_number,omitempty"`
 }
 
@@ -1034,6 +745,7 @@ func (m *PaymentAttributesBeneficiaryParty) Validate(formats strfmt.Registry) er
 }
 
 func (m *PaymentAttributesBeneficiaryParty) validateAccountNumberCode(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.AccountNumberCode) { // not required
 		return nil
 	}
@@ -1049,6 +761,7 @@ func (m *PaymentAttributesBeneficiaryParty) validateAccountNumberCode(formats st
 }
 
 func (m *PaymentAttributesBeneficiaryParty) validateAccountWith(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.AccountWith) { // not required
 		return nil
 	}
@@ -1066,56 +779,13 @@ func (m *PaymentAttributesBeneficiaryParty) validateAccountWith(formats strfmt.R
 }
 
 func (m *PaymentAttributesBeneficiaryParty) validateBirthDate(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.BirthDate) { // not required
 		return nil
 	}
 
 	if err := validate.FormatOf("attributes"+"."+"beneficiary_party"+"."+"birth_date", "body", "date", m.BirthDate.String(), formats); err != nil {
 		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this payment attributes beneficiary party based on the context it is used
-func (m *PaymentAttributesBeneficiaryParty) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateAccountNumberCode(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateAccountWith(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *PaymentAttributesBeneficiaryParty) contextValidateAccountNumberCode(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := m.AccountNumberCode.ContextValidate(ctx, formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("attributes" + "." + "beneficiary_party" + "." + "account_number_code")
-		}
-		return err
-	}
-
-	return nil
-}
-
-func (m *PaymentAttributesBeneficiaryParty) contextValidateAccountWith(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.AccountWith != nil {
-		if err := m.AccountWith.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes" + "." + "beneficiary_party" + "." + "account_with")
-			}
-			return err
-		}
 	}
 
 	return nil
@@ -1145,11 +815,9 @@ func (m *PaymentAttributesBeneficiaryParty) UnmarshalBinary(b []byte) error {
 type PaymentAttributesDebtorParty struct {
 
 	// Name of debtor as given with account
-	// Example: Jane Bond
 	AccountName string `json:"account_name,omitempty"`
 
 	// Debtor account number. Allows upper case and numeric characters.
-	// Example: 12345678
 	AccountNumber string `json:"account_number,omitempty"`
 
 	// account number code
@@ -1159,52 +827,40 @@ type PaymentAttributesDebtorParty struct {
 	AccountWith *BeneficiaryDebtorAccountHoldingEntity `json:"account_with,omitempty"`
 
 	// Debtor address
-	// Example: ["63 St Mary Axe","London","EC3A 8AA"]
 	Address []string `json:"address,omitempty"`
 
 	// Debtor birth city
-	// Example: PARIS
 	BirthCity string `json:"birth_city,omitempty"`
 
 	// Debtor birth country. ISO 3166 format country code
-	// Example: FR
 	BirthCountry string `json:"birth_country,omitempty"`
 
 	// Debtor birth date. Formatted according to ISO 8601 format: YYYY-MM-DD
-	// Example: 1973-01-31
 	// Format: date
 	BirthDate *strfmt.Date `json:"birth_date,omitempty"`
 
 	// Debtor birth province
-	// Example: SOUTH SIDE
 	BirthProvince string `json:"birth_province,omitempty"`
 
 	// Country of debtor address. ISO 3166 format country code"
-	// Example: GB
 	Country string `json:"country,omitempty"`
 
 	// SWIFT BIC for ordering customer, either BIC8 or BIC11
-	// Example: BARCGB22
 	CustomerID string `json:"customer_id,omitempty"`
 
 	// Code for `customer_id`
-	// Example: SWBIC
 	CustomerIDCode string `json:"customer_id_code,omitempty"`
 
 	// Debtor name
-	// Example: Norman Smith
 	Name string `json:"name,omitempty"`
 
 	// Organisation identification of a debtor, in the case that the debtor is an organisation and not a private person
-	// Example: ID1234656
 	OrganisationIdentification string `json:"organisation_identification,omitempty"`
 
 	// The code that specifies the type of `organisation_identification`
-	// Example: BIC
 	OrganisationIdentificationCode string `json:"organisation_identification_code,omitempty"`
 
 	// Issuer of the `organisation_identification`
-	// Example: BANK
 	OrganisationIdentificationIssuer string `json:"organisation_identification_issuer,omitempty"`
 }
 
@@ -1231,6 +887,7 @@ func (m *PaymentAttributesDebtorParty) Validate(formats strfmt.Registry) error {
 }
 
 func (m *PaymentAttributesDebtorParty) validateAccountNumberCode(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.AccountNumberCode) { // not required
 		return nil
 	}
@@ -1246,6 +903,7 @@ func (m *PaymentAttributesDebtorParty) validateAccountNumberCode(formats strfmt.
 }
 
 func (m *PaymentAttributesDebtorParty) validateAccountWith(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.AccountWith) { // not required
 		return nil
 	}
@@ -1263,56 +921,13 @@ func (m *PaymentAttributesDebtorParty) validateAccountWith(formats strfmt.Regist
 }
 
 func (m *PaymentAttributesDebtorParty) validateBirthDate(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.BirthDate) { // not required
 		return nil
 	}
 
 	if err := validate.FormatOf("attributes"+"."+"debtor_party"+"."+"birth_date", "body", "date", m.BirthDate.String(), formats); err != nil {
 		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this payment attributes debtor party based on the context it is used
-func (m *PaymentAttributesDebtorParty) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateAccountNumberCode(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateAccountWith(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *PaymentAttributesDebtorParty) contextValidateAccountNumberCode(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := m.AccountNumberCode.ContextValidate(ctx, formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("attributes" + "." + "debtor_party" + "." + "account_number_code")
-		}
-		return err
-	}
-
-	return nil
-}
-
-func (m *PaymentAttributesDebtorParty) contextValidateAccountWith(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.AccountWith != nil {
-		if err := m.AccountWith.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes" + "." + "debtor_party" + "." + "account_with")
-			}
-			return err
-		}
 	}
 
 	return nil
@@ -1342,29 +957,20 @@ func (m *PaymentAttributesDebtorParty) UnmarshalBinary(b []byte) error {
 type PaymentAttributesFx struct {
 
 	// Reference to the foreign exchange contract associated with the transaction
-	// Example: FXCONTRACT/REF/123567
 	ContractReference string `json:"contract_reference,omitempty"`
 
 	// Factor used to convert an amount from the instructed currency into the transaction currency: i.e. to convert the `fx.original_amount`, expressed in the `fx.original_currency`, to `amount` specified in `currency`. Decimal value, represented as a string, maximum length 12. Must be > 0.
-	// Example: 0.13343
 	ExchangeRate string `json:"exchange_rate,omitempty"`
 
 	// Amount of money to be moved between the debtor and creditor, before deduction of charges, expressed in the currency as instructed by the initiating party. Decimal value. Must be > 0.
-	// Example: 100.00
 	OriginalAmount string `json:"original_amount,omitempty"`
 
 	// Currency of `orginal_amount`. Currency code as defined in ISO 4217.
-	// Example: EUR
 	OriginalCurrency string `json:"original_currency,omitempty"`
 }
 
 // Validate validates this payment attributes fx
 func (m *PaymentAttributesFx) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this payment attributes fx based on context it is used
-func (m *PaymentAttributesFx) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
@@ -1403,11 +1009,6 @@ func (m *PaymentAttributesStructuredReference) Validate(formats strfmt.Registry)
 	return nil
 }
 
-// ContextValidate validates this payment attributes structured reference based on context it is used
-func (m *PaymentAttributesStructuredReference) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	return nil
-}
-
 // MarshalBinary interface implementation
 func (m *PaymentAttributesStructuredReference) MarshalBinary() ([]byte, error) {
 	if m == nil {
@@ -1432,22 +1033,18 @@ func (m *PaymentAttributesStructuredReference) UnmarshalBinary(b []byte) error {
 type PaymentAttributesSwift struct {
 
 	// SWIFT service level
-	// Example: CRED
 	BankOperationCode string `json:"bank_operation_code,omitempty"`
 
 	// header
 	Header *PaymentAttributesSwiftHeader `json:"header,omitempty"`
 
 	// A SWIFT instruction code
-	// Example: INTC
 	InstructionCode string `json:"instruction_code,omitempty"`
 
 	// This field specifies additional information for the Receiver or other party specified.
-	// Example: /INS/ABNANL2A
 	SenderReceiverInformation string `json:"sender_receiver_information,omitempty"`
 
 	// This repetitive field specifies one or several time indication(s) related to the processing of the payment instruction.
-	// Example: /CLSTIME/0915+0200
 	TimeIndication string `json:"time_indication,omitempty"`
 }
 
@@ -1466,40 +1063,13 @@ func (m *PaymentAttributesSwift) Validate(formats strfmt.Registry) error {
 }
 
 func (m *PaymentAttributesSwift) validateHeader(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Header) { // not required
 		return nil
 	}
 
 	if m.Header != nil {
 		if err := m.Header.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes" + "." + "swift" + "." + "header")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this payment attributes swift based on the context it is used
-func (m *PaymentAttributesSwift) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateHeader(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *PaymentAttributesSwift) contextValidateHeader(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Header != nil {
-		if err := m.Header.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attributes" + "." + "swift" + "." + "header")
 			}
@@ -1534,15 +1104,12 @@ func (m *PaymentAttributesSwift) UnmarshalBinary(b []byte) error {
 type PaymentAttributesSwiftHeader struct {
 
 	// Destination SWIFT logical terminal address. Complete 12-character SWIFT destination, including BIC (x8), logical terminal code (x1) and branch code (x).
-	// Example: MIDLGB22XABC
 	Destination string `json:"destination,omitempty"`
 
 	// The message type of the SWIFT payment, has to match `[A-Z]{2}[0-9]{3}`. Currently `MT103` is the only supported value
-	// Example: MT103
 	MessageType string `json:"message_type,omitempty"`
 
 	// SWIFT priority. Either `Normal` or `Priority`.
-	// Example: Priority
 	Priority string `json:"priority,omitempty"`
 
 	// The destination SWIFT BIC for SWIFT MT messages being sent by Form3 client to SWIFT. Formatted as BIC8 or BIC11.
@@ -1557,11 +1124,6 @@ type PaymentAttributesSwiftHeader struct {
 
 // Validate validates this payment attributes swift header
 func (m *PaymentAttributesSwiftHeader) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this payment attributes swift header based on context it is used
-func (m *PaymentAttributesSwiftHeader) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

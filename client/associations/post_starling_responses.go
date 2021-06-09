@@ -77,8 +77,9 @@ func (o *PostStarlingReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewPostStarlingCreated() *PostStarlingCreated {
 	return &PostStarlingCreated{}
 }
 
-/* PostStarlingCreated describes a response with status code 201, with default header values.
+/*PostStarlingCreated handles this case with default header values.
 
 creation response
 */
@@ -98,6 +99,7 @@ type PostStarlingCreated struct {
 func (o *PostStarlingCreated) Error() string {
 	return fmt.Sprintf("[POST /starling][%d] postStarlingCreated  %+v", 201, o.Payload)
 }
+
 func (o *PostStarlingCreated) GetPayload() *models.AssociationCreationResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewPostStarlingBadRequest() *PostStarlingBadRequest {
 	return &PostStarlingBadRequest{}
 }
 
-/* PostStarlingBadRequest describes a response with status code 400, with default header values.
+/*PostStarlingBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type PostStarlingBadRequest struct {
 func (o *PostStarlingBadRequest) Error() string {
 	return fmt.Sprintf("[POST /starling][%d] postStarlingBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *PostStarlingBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewPostStarlingUnauthorized() *PostStarlingUnauthorized {
 	return &PostStarlingUnauthorized{}
 }
 
-/* PostStarlingUnauthorized describes a response with status code 401, with default header values.
+/*PostStarlingUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type PostStarlingUnauthorized struct {
 func (o *PostStarlingUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /starling][%d] postStarlingUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *PostStarlingUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewPostStarlingForbidden() *PostStarlingForbidden {
 	return &PostStarlingForbidden{}
 }
 
-/* PostStarlingForbidden describes a response with status code 403, with default header values.
+/*PostStarlingForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type PostStarlingForbidden struct {
 func (o *PostStarlingForbidden) Error() string {
 	return fmt.Sprintf("[POST /starling][%d] postStarlingForbidden  %+v", 403, o.Payload)
 }
+
 func (o *PostStarlingForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewPostStarlingNotFound() *PostStarlingNotFound {
 	return &PostStarlingNotFound{}
 }
 
-/* PostStarlingNotFound describes a response with status code 404, with default header values.
+/*PostStarlingNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type PostStarlingNotFound struct {
 func (o *PostStarlingNotFound) Error() string {
 	return fmt.Sprintf("[POST /starling][%d] postStarlingNotFound  %+v", 404, o.Payload)
 }
+
 func (o *PostStarlingNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewPostStarlingConflict() *PostStarlingConflict {
 	return &PostStarlingConflict{}
 }
 
-/* PostStarlingConflict describes a response with status code 409, with default header values.
+/*PostStarlingConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type PostStarlingConflict struct {
 func (o *PostStarlingConflict) Error() string {
 	return fmt.Sprintf("[POST /starling][%d] postStarlingConflict  %+v", 409, o.Payload)
 }
+
 func (o *PostStarlingConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewPostStarlingTooManyRequests() *PostStarlingTooManyRequests {
 	return &PostStarlingTooManyRequests{}
 }
 
-/* PostStarlingTooManyRequests describes a response with status code 429, with default header values.
+/*PostStarlingTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type PostStarlingTooManyRequests struct {
 func (o *PostStarlingTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /starling][%d] postStarlingTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *PostStarlingTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewPostStarlingInternalServerError() *PostStarlingInternalServerError {
 	return &PostStarlingInternalServerError{}
 }
 
-/* PostStarlingInternalServerError describes a response with status code 500, with default header values.
+/*PostStarlingInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type PostStarlingInternalServerError struct {
 func (o *PostStarlingInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /starling][%d] postStarlingInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *PostStarlingInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewPostStarlingServiceUnavailable() *PostStarlingServiceUnavailable {
 	return &PostStarlingServiceUnavailable{}
 }
 
-/* PostStarlingServiceUnavailable describes a response with status code 503, with default header values.
+/*PostStarlingServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type PostStarlingServiceUnavailable struct {
 func (o *PostStarlingServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /starling][%d] postStarlingServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *PostStarlingServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

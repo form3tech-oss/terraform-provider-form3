@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -44,11 +42,6 @@ type SepaInstantAssociationAttributes struct {
 
 // Validate validates this sepa instant association attributes
 func (m *SepaInstantAssociationAttributes) Validate(formats strfmt.Registry) error {
-	return nil
-}
-
-// ContextValidate validates this sepa instant association attributes based on context it is used
-func (m *SepaInstantAssociationAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

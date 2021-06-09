@@ -77,8 +77,9 @@ func (o *PostRolesReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewPostRolesCreated() *PostRolesCreated {
 	return &PostRolesCreated{}
 }
 
-/* PostRolesCreated describes a response with status code 201, with default header values.
+/*PostRolesCreated handles this case with default header values.
 
 Role creation response
 */
@@ -98,6 +99,7 @@ type PostRolesCreated struct {
 func (o *PostRolesCreated) Error() string {
 	return fmt.Sprintf("[POST /roles][%d] postRolesCreated  %+v", 201, o.Payload)
 }
+
 func (o *PostRolesCreated) GetPayload() *models.RoleCreationResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewPostRolesBadRequest() *PostRolesBadRequest {
 	return &PostRolesBadRequest{}
 }
 
-/* PostRolesBadRequest describes a response with status code 400, with default header values.
+/*PostRolesBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type PostRolesBadRequest struct {
 func (o *PostRolesBadRequest) Error() string {
 	return fmt.Sprintf("[POST /roles][%d] postRolesBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *PostRolesBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewPostRolesUnauthorized() *PostRolesUnauthorized {
 	return &PostRolesUnauthorized{}
 }
 
-/* PostRolesUnauthorized describes a response with status code 401, with default header values.
+/*PostRolesUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type PostRolesUnauthorized struct {
 func (o *PostRolesUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /roles][%d] postRolesUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *PostRolesUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewPostRolesForbidden() *PostRolesForbidden {
 	return &PostRolesForbidden{}
 }
 
-/* PostRolesForbidden describes a response with status code 403, with default header values.
+/*PostRolesForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type PostRolesForbidden struct {
 func (o *PostRolesForbidden) Error() string {
 	return fmt.Sprintf("[POST /roles][%d] postRolesForbidden  %+v", 403, o.Payload)
 }
+
 func (o *PostRolesForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewPostRolesNotFound() *PostRolesNotFound {
 	return &PostRolesNotFound{}
 }
 
-/* PostRolesNotFound describes a response with status code 404, with default header values.
+/*PostRolesNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type PostRolesNotFound struct {
 func (o *PostRolesNotFound) Error() string {
 	return fmt.Sprintf("[POST /roles][%d] postRolesNotFound  %+v", 404, o.Payload)
 }
+
 func (o *PostRolesNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewPostRolesConflict() *PostRolesConflict {
 	return &PostRolesConflict{}
 }
 
-/* PostRolesConflict describes a response with status code 409, with default header values.
+/*PostRolesConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type PostRolesConflict struct {
 func (o *PostRolesConflict) Error() string {
 	return fmt.Sprintf("[POST /roles][%d] postRolesConflict  %+v", 409, o.Payload)
 }
+
 func (o *PostRolesConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewPostRolesTooManyRequests() *PostRolesTooManyRequests {
 	return &PostRolesTooManyRequests{}
 }
 
-/* PostRolesTooManyRequests describes a response with status code 429, with default header values.
+/*PostRolesTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type PostRolesTooManyRequests struct {
 func (o *PostRolesTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /roles][%d] postRolesTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *PostRolesTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewPostRolesInternalServerError() *PostRolesInternalServerError {
 	return &PostRolesInternalServerError{}
 }
 
-/* PostRolesInternalServerError describes a response with status code 500, with default header values.
+/*PostRolesInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type PostRolesInternalServerError struct {
 func (o *PostRolesInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /roles][%d] postRolesInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *PostRolesInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewPostRolesServiceUnavailable() *PostRolesServiceUnavailable {
 	return &PostRolesServiceUnavailable{}
 }
 
-/* PostRolesServiceUnavailable describes a response with status code 503, with default header values.
+/*PostRolesServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type PostRolesServiceUnavailable struct {
 func (o *PostRolesServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /roles][%d] postRolesServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *PostRolesServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

@@ -77,8 +77,9 @@ func (o *PostGocardlessReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewPostGocardlessCreated() *PostGocardlessCreated {
 	return &PostGocardlessCreated{}
 }
 
-/* PostGocardlessCreated describes a response with status code 201, with default header values.
+/*PostGocardlessCreated handles this case with default header values.
 
 creation response
 */
@@ -98,6 +99,7 @@ type PostGocardlessCreated struct {
 func (o *PostGocardlessCreated) Error() string {
 	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessCreated  %+v", 201, o.Payload)
 }
+
 func (o *PostGocardlessCreated) GetPayload() *models.GocardlessAssociationCreationResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewPostGocardlessBadRequest() *PostGocardlessBadRequest {
 	return &PostGocardlessBadRequest{}
 }
 
-/* PostGocardlessBadRequest describes a response with status code 400, with default header values.
+/*PostGocardlessBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type PostGocardlessBadRequest struct {
 func (o *PostGocardlessBadRequest) Error() string {
 	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *PostGocardlessBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewPostGocardlessUnauthorized() *PostGocardlessUnauthorized {
 	return &PostGocardlessUnauthorized{}
 }
 
-/* PostGocardlessUnauthorized describes a response with status code 401, with default header values.
+/*PostGocardlessUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type PostGocardlessUnauthorized struct {
 func (o *PostGocardlessUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *PostGocardlessUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewPostGocardlessForbidden() *PostGocardlessForbidden {
 	return &PostGocardlessForbidden{}
 }
 
-/* PostGocardlessForbidden describes a response with status code 403, with default header values.
+/*PostGocardlessForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type PostGocardlessForbidden struct {
 func (o *PostGocardlessForbidden) Error() string {
 	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessForbidden  %+v", 403, o.Payload)
 }
+
 func (o *PostGocardlessForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewPostGocardlessNotFound() *PostGocardlessNotFound {
 	return &PostGocardlessNotFound{}
 }
 
-/* PostGocardlessNotFound describes a response with status code 404, with default header values.
+/*PostGocardlessNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type PostGocardlessNotFound struct {
 func (o *PostGocardlessNotFound) Error() string {
 	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessNotFound  %+v", 404, o.Payload)
 }
+
 func (o *PostGocardlessNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewPostGocardlessConflict() *PostGocardlessConflict {
 	return &PostGocardlessConflict{}
 }
 
-/* PostGocardlessConflict describes a response with status code 409, with default header values.
+/*PostGocardlessConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type PostGocardlessConflict struct {
 func (o *PostGocardlessConflict) Error() string {
 	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessConflict  %+v", 409, o.Payload)
 }
+
 func (o *PostGocardlessConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewPostGocardlessTooManyRequests() *PostGocardlessTooManyRequests {
 	return &PostGocardlessTooManyRequests{}
 }
 
-/* PostGocardlessTooManyRequests describes a response with status code 429, with default header values.
+/*PostGocardlessTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type PostGocardlessTooManyRequests struct {
 func (o *PostGocardlessTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *PostGocardlessTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewPostGocardlessInternalServerError() *PostGocardlessInternalServerError {
 	return &PostGocardlessInternalServerError{}
 }
 
-/* PostGocardlessInternalServerError describes a response with status code 500, with default header values.
+/*PostGocardlessInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type PostGocardlessInternalServerError struct {
 func (o *PostGocardlessInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *PostGocardlessInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewPostGocardlessServiceUnavailable() *PostGocardlessServiceUnavailable {
 	return &PostGocardlessServiceUnavailable{}
 }
 
-/* PostGocardlessServiceUnavailable describes a response with status code 503, with default header values.
+/*PostGocardlessServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type PostGocardlessServiceUnavailable struct {
 func (o *PostGocardlessServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /gocardless][%d] postGocardlessServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *PostGocardlessServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

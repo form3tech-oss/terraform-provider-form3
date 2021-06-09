@@ -18,78 +18,61 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPatchLimitsIDParams creates a new PatchLimitsIDParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewPatchLimitsIDParams creates a new PatchLimitsIDParams object
+// with the default values initialized.
 func NewPatchLimitsIDParams() *PatchLimitsIDParams {
+	var ()
 	return &PatchLimitsIDParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPatchLimitsIDParamsWithTimeout creates a new PatchLimitsIDParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewPatchLimitsIDParamsWithTimeout(timeout time.Duration) *PatchLimitsIDParams {
+	var ()
 	return &PatchLimitsIDParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewPatchLimitsIDParamsWithContext creates a new PatchLimitsIDParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewPatchLimitsIDParamsWithContext(ctx context.Context) *PatchLimitsIDParams {
+	var ()
 	return &PatchLimitsIDParams{
+
 		Context: ctx,
 	}
 }
 
 // NewPatchLimitsIDParamsWithHTTPClient creates a new PatchLimitsIDParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewPatchLimitsIDParamsWithHTTPClient(client *http.Client) *PatchLimitsIDParams {
+	var ()
 	return &PatchLimitsIDParams{
 		HTTPClient: client,
 	}
 }
 
-/* PatchLimitsIDParams contains all the parameters to send to the API endpoint
-   for the patch limits ID operation.
-
-   Typically these are written to a http.Request.
+/*PatchLimitsIDParams contains all the parameters to send to the API endpoint
+for the patch limits ID operation typically these are written to a http.Request
 */
 type PatchLimitsIDParams struct {
 
-	// LimitAmendRequest.
+	/*LimitAmendRequest*/
 	LimitAmendRequest *models.LimitAmendment
+	/*ID
+	  Limit Id
 
-	/* ID.
-
-	   Limit Id
-
-	   Format: uuid
 	*/
 	ID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the patch limits ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PatchLimitsIDParams) WithDefaults() *PatchLimitsIDParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the patch limits ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PatchLimitsIDParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the patch limits ID params
@@ -154,6 +137,7 @@ func (o *PatchLimitsIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		return err
 	}
 	var res []error
+
 	if o.LimitAmendRequest != nil {
 		if err := r.SetBodyParam(o.LimitAmendRequest); err != nil {
 			return err

@@ -18,70 +18,56 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPostPaymentsParams creates a new PostPaymentsParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewPostPaymentsParams creates a new PostPaymentsParams object
+// with the default values initialized.
 func NewPostPaymentsParams() *PostPaymentsParams {
+	var ()
 	return &PostPaymentsParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostPaymentsParamsWithTimeout creates a new PostPaymentsParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewPostPaymentsParamsWithTimeout(timeout time.Duration) *PostPaymentsParams {
+	var ()
 	return &PostPaymentsParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewPostPaymentsParamsWithContext creates a new PostPaymentsParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewPostPaymentsParamsWithContext(ctx context.Context) *PostPaymentsParams {
+	var ()
 	return &PostPaymentsParams{
+
 		Context: ctx,
 	}
 }
 
 // NewPostPaymentsParamsWithHTTPClient creates a new PostPaymentsParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewPostPaymentsParamsWithHTTPClient(client *http.Client) *PostPaymentsParams {
+	var ()
 	return &PostPaymentsParams{
 		HTTPClient: client,
 	}
 }
 
-/* PostPaymentsParams contains all the parameters to send to the API endpoint
-   for the post payments operation.
-
-   Typically these are written to a http.Request.
+/*PostPaymentsParams contains all the parameters to send to the API endpoint
+for the post payments operation typically these are written to a http.Request
 */
 type PostPaymentsParams struct {
 
-	// PaymentCreationRequest.
+	/*PaymentCreationRequest*/
 	PaymentCreationRequest *models.PaymentCreation
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the post payments params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PostPaymentsParams) WithDefaults() *PostPaymentsParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the post payments params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PostPaymentsParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post payments params
@@ -135,6 +121,7 @@ func (o *PostPaymentsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		return err
 	}
 	var res []error
+
 	if o.PaymentCreationRequest != nil {
 		if err := r.SetBodyParam(o.PaymentCreationRequest); err != nil {
 			return err

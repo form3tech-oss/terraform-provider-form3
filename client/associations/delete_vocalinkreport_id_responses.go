@@ -77,8 +77,9 @@ func (o *DeleteVocalinkreportIDReader) ReadResponse(response runtime.ClientRespo
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewDeleteVocalinkreportIDNoContent() *DeleteVocalinkreportIDNoContent {
 	return &DeleteVocalinkreportIDNoContent{}
 }
 
-/* DeleteVocalinkreportIDNoContent describes a response with status code 204, with default header values.
+/*DeleteVocalinkreportIDNoContent handles this case with default header values.
 
 Association deleted
 */
@@ -108,7 +109,7 @@ func NewDeleteVocalinkreportIDBadRequest() *DeleteVocalinkreportIDBadRequest {
 	return &DeleteVocalinkreportIDBadRequest{}
 }
 
-/* DeleteVocalinkreportIDBadRequest describes a response with status code 400, with default header values.
+/*DeleteVocalinkreportIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -119,6 +120,7 @@ type DeleteVocalinkreportIDBadRequest struct {
 func (o *DeleteVocalinkreportIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /vocalinkreport/{id}][%d] deleteVocalinkreportIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *DeleteVocalinkreportIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -140,7 +142,7 @@ func NewDeleteVocalinkreportIDUnauthorized() *DeleteVocalinkreportIDUnauthorized
 	return &DeleteVocalinkreportIDUnauthorized{}
 }
 
-/* DeleteVocalinkreportIDUnauthorized describes a response with status code 401, with default header values.
+/*DeleteVocalinkreportIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -151,6 +153,7 @@ type DeleteVocalinkreportIDUnauthorized struct {
 func (o *DeleteVocalinkreportIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /vocalinkreport/{id}][%d] deleteVocalinkreportIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *DeleteVocalinkreportIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -172,7 +175,7 @@ func NewDeleteVocalinkreportIDForbidden() *DeleteVocalinkreportIDForbidden {
 	return &DeleteVocalinkreportIDForbidden{}
 }
 
-/* DeleteVocalinkreportIDForbidden describes a response with status code 403, with default header values.
+/*DeleteVocalinkreportIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -183,6 +186,7 @@ type DeleteVocalinkreportIDForbidden struct {
 func (o *DeleteVocalinkreportIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /vocalinkreport/{id}][%d] deleteVocalinkreportIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *DeleteVocalinkreportIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -204,7 +208,7 @@ func NewDeleteVocalinkreportIDNotFound() *DeleteVocalinkreportIDNotFound {
 	return &DeleteVocalinkreportIDNotFound{}
 }
 
-/* DeleteVocalinkreportIDNotFound describes a response with status code 404, with default header values.
+/*DeleteVocalinkreportIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -215,6 +219,7 @@ type DeleteVocalinkreportIDNotFound struct {
 func (o *DeleteVocalinkreportIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /vocalinkreport/{id}][%d] deleteVocalinkreportIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *DeleteVocalinkreportIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -236,7 +241,7 @@ func NewDeleteVocalinkreportIDConflict() *DeleteVocalinkreportIDConflict {
 	return &DeleteVocalinkreportIDConflict{}
 }
 
-/* DeleteVocalinkreportIDConflict describes a response with status code 409, with default header values.
+/*DeleteVocalinkreportIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -247,6 +252,7 @@ type DeleteVocalinkreportIDConflict struct {
 func (o *DeleteVocalinkreportIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /vocalinkreport/{id}][%d] deleteVocalinkreportIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *DeleteVocalinkreportIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -268,7 +274,7 @@ func NewDeleteVocalinkreportIDTooManyRequests() *DeleteVocalinkreportIDTooManyRe
 	return &DeleteVocalinkreportIDTooManyRequests{}
 }
 
-/* DeleteVocalinkreportIDTooManyRequests describes a response with status code 429, with default header values.
+/*DeleteVocalinkreportIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -279,6 +285,7 @@ type DeleteVocalinkreportIDTooManyRequests struct {
 func (o *DeleteVocalinkreportIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /vocalinkreport/{id}][%d] deleteVocalinkreportIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *DeleteVocalinkreportIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -300,7 +307,7 @@ func NewDeleteVocalinkreportIDInternalServerError() *DeleteVocalinkreportIDInter
 	return &DeleteVocalinkreportIDInternalServerError{}
 }
 
-/* DeleteVocalinkreportIDInternalServerError describes a response with status code 500, with default header values.
+/*DeleteVocalinkreportIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -311,6 +318,7 @@ type DeleteVocalinkreportIDInternalServerError struct {
 func (o *DeleteVocalinkreportIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /vocalinkreport/{id}][%d] deleteVocalinkreportIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *DeleteVocalinkreportIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -332,7 +340,7 @@ func NewDeleteVocalinkreportIDServiceUnavailable() *DeleteVocalinkreportIDServic
 	return &DeleteVocalinkreportIDServiceUnavailable{}
 }
 
-/* DeleteVocalinkreportIDServiceUnavailable describes a response with status code 503, with default header values.
+/*DeleteVocalinkreportIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -343,6 +351,7 @@ type DeleteVocalinkreportIDServiceUnavailable struct {
 func (o *DeleteVocalinkreportIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /vocalinkreport/{id}][%d] deleteVocalinkreportIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *DeleteVocalinkreportIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

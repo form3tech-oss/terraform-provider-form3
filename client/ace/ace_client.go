@@ -25,18 +25,15 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-// ClientOption is the option for Client methods
-type ClientOption func(*runtime.ClientOperation)
-
 // ClientService is the interface for Client methods
 type ClientService interface {
-	DeleteRolesRoleIDAcesAceID(params *DeleteRolesRoleIDAcesAceIDParams, opts ...ClientOption) (*DeleteRolesRoleIDAcesAceIDNoContent, error)
+	DeleteRolesRoleIDAcesAceID(params *DeleteRolesRoleIDAcesAceIDParams) (*DeleteRolesRoleIDAcesAceIDNoContent, error)
 
-	GetRolesRoleIDAces(params *GetRolesRoleIDAcesParams, opts ...ClientOption) (*GetRolesRoleIDAcesOK, error)
+	GetRolesRoleIDAces(params *GetRolesRoleIDAcesParams) (*GetRolesRoleIDAcesOK, error)
 
-	GetRolesRoleIDAcesAceID(params *GetRolesRoleIDAcesAceIDParams, opts ...ClientOption) (*GetRolesRoleIDAcesAceIDOK, error)
+	GetRolesRoleIDAcesAceID(params *GetRolesRoleIDAcesAceIDParams) (*GetRolesRoleIDAcesAceIDOK, error)
 
-	PostRolesRoleIDAces(params *PostRolesRoleIDAcesParams, opts ...ClientOption) (*PostRolesRoleIDAcesCreated, error)
+	PostRolesRoleIDAces(params *PostRolesRoleIDAcesParams) (*PostRolesRoleIDAcesCreated, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -44,12 +41,13 @@ type ClientService interface {
 /*
   DeleteRolesRoleIDAcesAceID deletes access control entry
 */
-func (a *Client) DeleteRolesRoleIDAcesAceID(params *DeleteRolesRoleIDAcesAceIDParams, opts ...ClientOption) (*DeleteRolesRoleIDAcesAceIDNoContent, error) {
+func (a *Client) DeleteRolesRoleIDAcesAceID(params *DeleteRolesRoleIDAcesAceIDParams) (*DeleteRolesRoleIDAcesAceIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteRolesRoleIDAcesAceIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteRolesRoleIDAcesAceID",
 		Method:             "DELETE",
 		PathPattern:        "/roles/{role_id}/aces/{ace_id}",
@@ -60,12 +58,7 @@ func (a *Client) DeleteRolesRoleIDAcesAceID(params *DeleteRolesRoleIDAcesAceIDPa
 		Reader:             &DeleteRolesRoleIDAcesAceIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -82,12 +75,13 @@ func (a *Client) DeleteRolesRoleIDAcesAceID(params *DeleteRolesRoleIDAcesAceIDPa
 /*
   GetRolesRoleIDAces lists all access controls for role
 */
-func (a *Client) GetRolesRoleIDAces(params *GetRolesRoleIDAcesParams, opts ...ClientOption) (*GetRolesRoleIDAcesOK, error) {
+func (a *Client) GetRolesRoleIDAces(params *GetRolesRoleIDAcesParams) (*GetRolesRoleIDAcesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetRolesRoleIDAcesParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetRolesRoleIDAces",
 		Method:             "GET",
 		PathPattern:        "/roles/{role_id}/aces",
@@ -98,12 +92,7 @@ func (a *Client) GetRolesRoleIDAces(params *GetRolesRoleIDAcesParams, opts ...Cl
 		Reader:             &GetRolesRoleIDAcesReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -120,12 +109,13 @@ func (a *Client) GetRolesRoleIDAces(params *GetRolesRoleIDAcesParams, opts ...Cl
 /*
   GetRolesRoleIDAcesAceID fetches access control entry
 */
-func (a *Client) GetRolesRoleIDAcesAceID(params *GetRolesRoleIDAcesAceIDParams, opts ...ClientOption) (*GetRolesRoleIDAcesAceIDOK, error) {
+func (a *Client) GetRolesRoleIDAcesAceID(params *GetRolesRoleIDAcesAceIDParams) (*GetRolesRoleIDAcesAceIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetRolesRoleIDAcesAceIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetRolesRoleIDAcesAceID",
 		Method:             "GET",
 		PathPattern:        "/roles/{role_id}/aces/{ace_id}",
@@ -136,12 +126,7 @@ func (a *Client) GetRolesRoleIDAcesAceID(params *GetRolesRoleIDAcesAceIDParams, 
 		Reader:             &GetRolesRoleIDAcesAceIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -158,12 +143,13 @@ func (a *Client) GetRolesRoleIDAcesAceID(params *GetRolesRoleIDAcesAceIDParams, 
 /*
   PostRolesRoleIDAces creates access control entry
 */
-func (a *Client) PostRolesRoleIDAces(params *PostRolesRoleIDAcesParams, opts ...ClientOption) (*PostRolesRoleIDAcesCreated, error) {
+func (a *Client) PostRolesRoleIDAces(params *PostRolesRoleIDAcesParams) (*PostRolesRoleIDAcesCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostRolesRoleIDAcesParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PostRolesRoleIDAces",
 		Method:             "POST",
 		PathPattern:        "/roles/{role_id}/aces",
@@ -174,12 +160,7 @@ func (a *Client) PostRolesRoleIDAces(params *PostRolesRoleIDAcesParams, opts ...
 		Reader:             &PostRolesRoleIDAcesReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}

@@ -25,14 +25,11 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-// ClientOption is the option for Client methods
-type ClientOption func(*runtime.ClientOperation)
-
 // ClientService is the interface for Client methods
 type ClientService interface {
-	GetPlatformSecuritySigningKeysSigningkeyID(params *GetPlatformSecuritySigningKeysSigningkeyIDParams, opts ...ClientOption) (*GetPlatformSecuritySigningKeysSigningkeyIDOK, error)
+	GetPlatformSecuritySigningKeysSigningkeyID(params *GetPlatformSecuritySigningKeysSigningkeyIDParams) (*GetPlatformSecuritySigningKeysSigningkeyIDOK, error)
 
-	PostPlatformSecuritySigningKeys(params *PostPlatformSecuritySigningKeysParams, opts ...ClientOption) (*PostPlatformSecuritySigningKeysCreated, error)
+	PostPlatformSecuritySigningKeys(params *PostPlatformSecuritySigningKeysParams) (*PostPlatformSecuritySigningKeysCreated, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -40,12 +37,13 @@ type ClientService interface {
 /*
   GetPlatformSecuritySigningKeysSigningkeyID fetches a signing key
 */
-func (a *Client) GetPlatformSecuritySigningKeysSigningkeyID(params *GetPlatformSecuritySigningKeysSigningkeyIDParams, opts ...ClientOption) (*GetPlatformSecuritySigningKeysSigningkeyIDOK, error) {
+func (a *Client) GetPlatformSecuritySigningKeysSigningkeyID(params *GetPlatformSecuritySigningKeysSigningkeyIDParams) (*GetPlatformSecuritySigningKeysSigningkeyIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetPlatformSecuritySigningKeysSigningkeyIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetPlatformSecuritySigningKeysSigningkeyID",
 		Method:             "GET",
 		PathPattern:        "/platform/security/signing_keys/{signingkey_id}",
@@ -56,12 +54,7 @@ func (a *Client) GetPlatformSecuritySigningKeysSigningkeyID(params *GetPlatformS
 		Reader:             &GetPlatformSecuritySigningKeysSigningkeyIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -78,12 +71,13 @@ func (a *Client) GetPlatformSecuritySigningKeysSigningkeyID(params *GetPlatformS
 /*
   PostPlatformSecuritySigningKeys creates a signing key pair
 */
-func (a *Client) PostPlatformSecuritySigningKeys(params *PostPlatformSecuritySigningKeysParams, opts ...ClientOption) (*PostPlatformSecuritySigningKeysCreated, error) {
+func (a *Client) PostPlatformSecuritySigningKeys(params *PostPlatformSecuritySigningKeysParams) (*PostPlatformSecuritySigningKeysCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostPlatformSecuritySigningKeysParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PostPlatformSecuritySigningKeys",
 		Method:             "POST",
 		PathPattern:        "/platform/security/signing_keys",
@@ -94,12 +88,7 @@ func (a *Client) PostPlatformSecuritySigningKeys(params *PostPlatformSecuritySig
 		Reader:             &PostPlatformSecuritySigningKeysReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}

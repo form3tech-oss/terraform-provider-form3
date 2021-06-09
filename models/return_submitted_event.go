@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -51,6 +49,7 @@ func (m *ReturnSubmittedEvent) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ReturnSubmittedEvent) validatePayment(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Payment) { // not required
 		return nil
 	}
@@ -68,6 +67,7 @@ func (m *ReturnSubmittedEvent) validatePayment(formats strfmt.Registry) error {
 }
 
 func (m *ReturnSubmittedEvent) validateReturnPayment(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ReturnPayment) { // not required
 		return nil
 	}
@@ -85,76 +85,13 @@ func (m *ReturnSubmittedEvent) validateReturnPayment(formats strfmt.Registry) er
 }
 
 func (m *ReturnSubmittedEvent) validateReturnSubmission(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ReturnSubmission) { // not required
 		return nil
 	}
 
 	if m.ReturnSubmission != nil {
 		if err := m.ReturnSubmission.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("return_submission")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this return submitted event based on the context it is used
-func (m *ReturnSubmittedEvent) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidatePayment(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateReturnPayment(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateReturnSubmission(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *ReturnSubmittedEvent) contextValidatePayment(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Payment != nil {
-		if err := m.Payment.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("payment")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ReturnSubmittedEvent) contextValidateReturnPayment(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.ReturnPayment != nil {
-		if err := m.ReturnPayment.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("return_payment")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ReturnSubmittedEvent) contextValidateReturnSubmission(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.ReturnSubmission != nil {
-		if err := m.ReturnSubmission.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("return_submission")
 			}

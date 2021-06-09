@@ -77,8 +77,9 @@ func (o *GetUsersUserIDReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewGetUsersUserIDOK() *GetUsersUserIDOK {
 	return &GetUsersUserIDOK{}
 }
 
-/* GetUsersUserIDOK describes a response with status code 200, with default header values.
+/*GetUsersUserIDOK handles this case with default header values.
 
 User details
 */
@@ -98,6 +99,7 @@ type GetUsersUserIDOK struct {
 func (o *GetUsersUserIDOK) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}][%d] getUsersUserIdOK  %+v", 200, o.Payload)
 }
+
 func (o *GetUsersUserIDOK) GetPayload() *models.UserDetailsResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewGetUsersUserIDBadRequest() *GetUsersUserIDBadRequest {
 	return &GetUsersUserIDBadRequest{}
 }
 
-/* GetUsersUserIDBadRequest describes a response with status code 400, with default header values.
+/*GetUsersUserIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type GetUsersUserIDBadRequest struct {
 func (o *GetUsersUserIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}][%d] getUsersUserIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *GetUsersUserIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewGetUsersUserIDUnauthorized() *GetUsersUserIDUnauthorized {
 	return &GetUsersUserIDUnauthorized{}
 }
 
-/* GetUsersUserIDUnauthorized describes a response with status code 401, with default header values.
+/*GetUsersUserIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type GetUsersUserIDUnauthorized struct {
 func (o *GetUsersUserIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}][%d] getUsersUserIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetUsersUserIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewGetUsersUserIDForbidden() *GetUsersUserIDForbidden {
 	return &GetUsersUserIDForbidden{}
 }
 
-/* GetUsersUserIDForbidden describes a response with status code 403, with default header values.
+/*GetUsersUserIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type GetUsersUserIDForbidden struct {
 func (o *GetUsersUserIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}][%d] getUsersUserIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetUsersUserIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewGetUsersUserIDNotFound() *GetUsersUserIDNotFound {
 	return &GetUsersUserIDNotFound{}
 }
 
-/* GetUsersUserIDNotFound describes a response with status code 404, with default header values.
+/*GetUsersUserIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type GetUsersUserIDNotFound struct {
 func (o *GetUsersUserIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}][%d] getUsersUserIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetUsersUserIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewGetUsersUserIDConflict() *GetUsersUserIDConflict {
 	return &GetUsersUserIDConflict{}
 }
 
-/* GetUsersUserIDConflict describes a response with status code 409, with default header values.
+/*GetUsersUserIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type GetUsersUserIDConflict struct {
 func (o *GetUsersUserIDConflict) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}][%d] getUsersUserIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *GetUsersUserIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewGetUsersUserIDTooManyRequests() *GetUsersUserIDTooManyRequests {
 	return &GetUsersUserIDTooManyRequests{}
 }
 
-/* GetUsersUserIDTooManyRequests describes a response with status code 429, with default header values.
+/*GetUsersUserIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type GetUsersUserIDTooManyRequests struct {
 func (o *GetUsersUserIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}][%d] getUsersUserIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *GetUsersUserIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewGetUsersUserIDInternalServerError() *GetUsersUserIDInternalServerError {
 	return &GetUsersUserIDInternalServerError{}
 }
 
-/* GetUsersUserIDInternalServerError describes a response with status code 500, with default header values.
+/*GetUsersUserIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type GetUsersUserIDInternalServerError struct {
 func (o *GetUsersUserIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}][%d] getUsersUserIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetUsersUserIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewGetUsersUserIDServiceUnavailable() *GetUsersUserIDServiceUnavailable {
 	return &GetUsersUserIDServiceUnavailable{}
 }
 
-/* GetUsersUserIDServiceUnavailable describes a response with status code 503, with default header values.
+/*GetUsersUserIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type GetUsersUserIDServiceUnavailable struct {
 func (o *GetUsersUserIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}][%d] getUsersUserIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *GetUsersUserIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

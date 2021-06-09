@@ -18,70 +18,56 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPostAccountconfigurationsParams creates a new PostAccountconfigurationsParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewPostAccountconfigurationsParams creates a new PostAccountconfigurationsParams object
+// with the default values initialized.
 func NewPostAccountconfigurationsParams() *PostAccountconfigurationsParams {
+	var ()
 	return &PostAccountconfigurationsParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostAccountconfigurationsParamsWithTimeout creates a new PostAccountconfigurationsParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewPostAccountconfigurationsParamsWithTimeout(timeout time.Duration) *PostAccountconfigurationsParams {
+	var ()
 	return &PostAccountconfigurationsParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewPostAccountconfigurationsParamsWithContext creates a new PostAccountconfigurationsParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewPostAccountconfigurationsParamsWithContext(ctx context.Context) *PostAccountconfigurationsParams {
+	var ()
 	return &PostAccountconfigurationsParams{
+
 		Context: ctx,
 	}
 }
 
 // NewPostAccountconfigurationsParamsWithHTTPClient creates a new PostAccountconfigurationsParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewPostAccountconfigurationsParamsWithHTTPClient(client *http.Client) *PostAccountconfigurationsParams {
+	var ()
 	return &PostAccountconfigurationsParams{
 		HTTPClient: client,
 	}
 }
 
-/* PostAccountconfigurationsParams contains all the parameters to send to the API endpoint
-   for the post accountconfigurations operation.
-
-   Typically these are written to a http.Request.
+/*PostAccountconfigurationsParams contains all the parameters to send to the API endpoint
+for the post accountconfigurations operation typically these are written to a http.Request
 */
 type PostAccountconfigurationsParams struct {
 
-	// AccountConfigurationCreationRequest.
+	/*AccountConfigurationCreationRequest*/
 	AccountConfigurationCreationRequest *models.AccountConfigurationCreation
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the post accountconfigurations params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PostAccountconfigurationsParams) WithDefaults() *PostAccountconfigurationsParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the post accountconfigurations params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PostAccountconfigurationsParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post accountconfigurations params
@@ -135,6 +121,7 @@ func (o *PostAccountconfigurationsParams) WriteToRequest(r runtime.ClientRequest
 		return err
 	}
 	var res []error
+
 	if o.AccountConfigurationCreationRequest != nil {
 		if err := r.SetBodyParam(o.AccountConfigurationCreationRequest); err != nil {
 			return err

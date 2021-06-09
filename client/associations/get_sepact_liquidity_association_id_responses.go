@@ -77,8 +77,9 @@ func (o *GetSepactLiquidityAssociationIDReader) ReadResponse(response runtime.Cl
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewGetSepactLiquidityAssociationIDOK() *GetSepactLiquidityAssociationIDOK {
 	return &GetSepactLiquidityAssociationIDOK{}
 }
 
-/* GetSepactLiquidityAssociationIDOK describes a response with status code 200, with default header values.
+/*GetSepactLiquidityAssociationIDOK handles this case with default header values.
 
 Associations details
 */
@@ -98,6 +99,7 @@ type GetSepactLiquidityAssociationIDOK struct {
 func (o *GetSepactLiquidityAssociationIDOK) Error() string {
 	return fmt.Sprintf("[GET /sepact-liquidity/{associationId}][%d] getSepactLiquidityAssociationIdOK  %+v", 200, o.Payload)
 }
+
 func (o *GetSepactLiquidityAssociationIDOK) GetPayload() *models.SepactLiquidityAssociationDetailsResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewGetSepactLiquidityAssociationIDBadRequest() *GetSepactLiquidityAssociati
 	return &GetSepactLiquidityAssociationIDBadRequest{}
 }
 
-/* GetSepactLiquidityAssociationIDBadRequest describes a response with status code 400, with default header values.
+/*GetSepactLiquidityAssociationIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type GetSepactLiquidityAssociationIDBadRequest struct {
 func (o *GetSepactLiquidityAssociationIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /sepact-liquidity/{associationId}][%d] getSepactLiquidityAssociationIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *GetSepactLiquidityAssociationIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewGetSepactLiquidityAssociationIDUnauthorized() *GetSepactLiquidityAssocia
 	return &GetSepactLiquidityAssociationIDUnauthorized{}
 }
 
-/* GetSepactLiquidityAssociationIDUnauthorized describes a response with status code 401, with default header values.
+/*GetSepactLiquidityAssociationIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type GetSepactLiquidityAssociationIDUnauthorized struct {
 func (o *GetSepactLiquidityAssociationIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /sepact-liquidity/{associationId}][%d] getSepactLiquidityAssociationIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetSepactLiquidityAssociationIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewGetSepactLiquidityAssociationIDForbidden() *GetSepactLiquidityAssociatio
 	return &GetSepactLiquidityAssociationIDForbidden{}
 }
 
-/* GetSepactLiquidityAssociationIDForbidden describes a response with status code 403, with default header values.
+/*GetSepactLiquidityAssociationIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type GetSepactLiquidityAssociationIDForbidden struct {
 func (o *GetSepactLiquidityAssociationIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /sepact-liquidity/{associationId}][%d] getSepactLiquidityAssociationIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetSepactLiquidityAssociationIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewGetSepactLiquidityAssociationIDNotFound() *GetSepactLiquidityAssociation
 	return &GetSepactLiquidityAssociationIDNotFound{}
 }
 
-/* GetSepactLiquidityAssociationIDNotFound describes a response with status code 404, with default header values.
+/*GetSepactLiquidityAssociationIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type GetSepactLiquidityAssociationIDNotFound struct {
 func (o *GetSepactLiquidityAssociationIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /sepact-liquidity/{associationId}][%d] getSepactLiquidityAssociationIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetSepactLiquidityAssociationIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewGetSepactLiquidityAssociationIDConflict() *GetSepactLiquidityAssociation
 	return &GetSepactLiquidityAssociationIDConflict{}
 }
 
-/* GetSepactLiquidityAssociationIDConflict describes a response with status code 409, with default header values.
+/*GetSepactLiquidityAssociationIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type GetSepactLiquidityAssociationIDConflict struct {
 func (o *GetSepactLiquidityAssociationIDConflict) Error() string {
 	return fmt.Sprintf("[GET /sepact-liquidity/{associationId}][%d] getSepactLiquidityAssociationIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *GetSepactLiquidityAssociationIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewGetSepactLiquidityAssociationIDTooManyRequests() *GetSepactLiquidityAsso
 	return &GetSepactLiquidityAssociationIDTooManyRequests{}
 }
 
-/* GetSepactLiquidityAssociationIDTooManyRequests describes a response with status code 429, with default header values.
+/*GetSepactLiquidityAssociationIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type GetSepactLiquidityAssociationIDTooManyRequests struct {
 func (o *GetSepactLiquidityAssociationIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /sepact-liquidity/{associationId}][%d] getSepactLiquidityAssociationIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *GetSepactLiquidityAssociationIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewGetSepactLiquidityAssociationIDInternalServerError() *GetSepactLiquidity
 	return &GetSepactLiquidityAssociationIDInternalServerError{}
 }
 
-/* GetSepactLiquidityAssociationIDInternalServerError describes a response with status code 500, with default header values.
+/*GetSepactLiquidityAssociationIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type GetSepactLiquidityAssociationIDInternalServerError struct {
 func (o *GetSepactLiquidityAssociationIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /sepact-liquidity/{associationId}][%d] getSepactLiquidityAssociationIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetSepactLiquidityAssociationIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewGetSepactLiquidityAssociationIDServiceUnavailable() *GetSepactLiquidityA
 	return &GetSepactLiquidityAssociationIDServiceUnavailable{}
 }
 
-/* GetSepactLiquidityAssociationIDServiceUnavailable describes a response with status code 503, with default header values.
+/*GetSepactLiquidityAssociationIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type GetSepactLiquidityAssociationIDServiceUnavailable struct {
 func (o *GetSepactLiquidityAssociationIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /sepact-liquidity/{associationId}][%d] getSepactLiquidityAssociationIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *GetSepactLiquidityAssociationIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

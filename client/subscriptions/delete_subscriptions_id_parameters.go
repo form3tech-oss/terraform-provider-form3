@@ -17,81 +17,64 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteSubscriptionsIDParams creates a new DeleteSubscriptionsIDParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewDeleteSubscriptionsIDParams creates a new DeleteSubscriptionsIDParams object
+// with the default values initialized.
 func NewDeleteSubscriptionsIDParams() *DeleteSubscriptionsIDParams {
+	var ()
 	return &DeleteSubscriptionsIDParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteSubscriptionsIDParamsWithTimeout creates a new DeleteSubscriptionsIDParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewDeleteSubscriptionsIDParamsWithTimeout(timeout time.Duration) *DeleteSubscriptionsIDParams {
+	var ()
 	return &DeleteSubscriptionsIDParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewDeleteSubscriptionsIDParamsWithContext creates a new DeleteSubscriptionsIDParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewDeleteSubscriptionsIDParamsWithContext(ctx context.Context) *DeleteSubscriptionsIDParams {
+	var ()
 	return &DeleteSubscriptionsIDParams{
+
 		Context: ctx,
 	}
 }
 
 // NewDeleteSubscriptionsIDParamsWithHTTPClient creates a new DeleteSubscriptionsIDParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewDeleteSubscriptionsIDParamsWithHTTPClient(client *http.Client) *DeleteSubscriptionsIDParams {
+	var ()
 	return &DeleteSubscriptionsIDParams{
 		HTTPClient: client,
 	}
 }
 
-/* DeleteSubscriptionsIDParams contains all the parameters to send to the API endpoint
-   for the delete subscriptions ID operation.
-
-   Typically these are written to a http.Request.
+/*DeleteSubscriptionsIDParams contains all the parameters to send to the API endpoint
+for the delete subscriptions ID operation typically these are written to a http.Request
 */
 type DeleteSubscriptionsIDParams struct {
 
-	/* ID.
+	/*ID
+	  Subscription Id
 
-	   Subscription Id
-
-	   Format: uuid
 	*/
 	ID strfmt.UUID
+	/*Version
+	  Version
 
-	/* Version.
-
-	   Version
 	*/
 	Version int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the delete subscriptions ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteSubscriptionsIDParams) WithDefaults() *DeleteSubscriptionsIDParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the delete subscriptions ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteSubscriptionsIDParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete subscriptions ID params
@@ -166,7 +149,6 @@ func (o *DeleteSubscriptionsIDParams) WriteToRequest(r runtime.ClientRequest, re
 	qrVersion := o.Version
 	qVersion := swag.FormatInt64(qrVersion)
 	if qVersion != "" {
-
 		if err := r.SetQueryParam("version", qVersion); err != nil {
 			return err
 		}

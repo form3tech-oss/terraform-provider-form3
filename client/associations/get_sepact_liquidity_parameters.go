@@ -17,73 +17,59 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetSepactLiquidityParams creates a new GetSepactLiquidityParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetSepactLiquidityParams creates a new GetSepactLiquidityParams object
+// with the default values initialized.
 func NewGetSepactLiquidityParams() *GetSepactLiquidityParams {
+	var ()
 	return &GetSepactLiquidityParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetSepactLiquidityParamsWithTimeout creates a new GetSepactLiquidityParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetSepactLiquidityParamsWithTimeout(timeout time.Duration) *GetSepactLiquidityParams {
+	var ()
 	return &GetSepactLiquidityParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetSepactLiquidityParamsWithContext creates a new GetSepactLiquidityParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetSepactLiquidityParamsWithContext(ctx context.Context) *GetSepactLiquidityParams {
+	var ()
 	return &GetSepactLiquidityParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetSepactLiquidityParamsWithHTTPClient creates a new GetSepactLiquidityParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetSepactLiquidityParamsWithHTTPClient(client *http.Client) *GetSepactLiquidityParams {
+	var ()
 	return &GetSepactLiquidityParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetSepactLiquidityParams contains all the parameters to send to the API endpoint
-   for the get sepact liquidity operation.
-
-   Typically these are written to a http.Request.
+/*GetSepactLiquidityParams contains all the parameters to send to the API endpoint
+for the get sepact liquidity operation typically these are written to a http.Request
 */
 type GetSepactLiquidityParams struct {
 
-	/* FilterOrganisationID.
+	/*FilterOrganisationID
+	  Organisation id
 
-	   Organisation id
 	*/
 	FilterOrganisationID []strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get sepact liquidity params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetSepactLiquidityParams) WithDefaults() *GetSepactLiquidityParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get sepact liquidity params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetSepactLiquidityParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get sepact liquidity params
@@ -138,36 +124,19 @@ func (o *GetSepactLiquidityParams) WriteToRequest(r runtime.ClientRequest, reg s
 	}
 	var res []error
 
-	if o.FilterOrganisationID != nil {
+	var valuesFilterOrganisationID []string
+	for _, v := range o.FilterOrganisationID {
+		valuesFilterOrganisationID = append(valuesFilterOrganisationID, v.String())
+	}
 
-		// binding items for filter[organisation_id]
-		joinedFilterOrganisationID := o.bindParamFilterOrganisationID(reg)
-
-		// query array param filter[organisation_id]
-		if err := r.SetQueryParam("filter[organisation_id]", joinedFilterOrganisationID...); err != nil {
-			return err
-		}
+	joinedFilterOrganisationID := swag.JoinByFormat(valuesFilterOrganisationID, "")
+	// query array param filter[organisation_id]
+	if err := r.SetQueryParam("filter[organisation_id]", joinedFilterOrganisationID...); err != nil {
+		return err
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
-}
-
-// bindParamGetSepactLiquidity binds the parameter filter[organisation_id]
-func (o *GetSepactLiquidityParams) bindParamFilterOrganisationID(formats strfmt.Registry) []string {
-	filterOrganisationIDIR := o.FilterOrganisationID
-
-	var filterOrganisationIDIC []string
-	for _, filterOrganisationIDIIR := range filterOrganisationIDIR { // explode []strfmt.UUID
-
-		filterOrganisationIDIIV := filterOrganisationIDIIR.String() // strfmt.UUID as string
-		filterOrganisationIDIC = append(filterOrganisationIDIC, filterOrganisationIDIIV)
-	}
-
-	// items.CollectionFormat: ""
-	filterOrganisationIDIS := swag.JoinByFormat(filterOrganisationIDIC, "")
-
-	return filterOrganisationIDIS
 }

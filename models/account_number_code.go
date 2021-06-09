@@ -6,7 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -18,11 +17,6 @@ import (
 //
 // swagger:model AccountNumberCode
 type AccountNumberCode string
-
-func NewAccountNumberCode(value AccountNumberCode) *AccountNumberCode {
-	v := value
-	return &v
-}
 
 const (
 
@@ -47,7 +41,7 @@ func init() {
 }
 
 func (m AccountNumberCode) validateAccountNumberCodeEnum(path, location string, value AccountNumberCode) error {
-	if err := validate.EnumCase(path, location, value, accountNumberCodeEnum, true); err != nil {
+	if err := validate.Enum(path, location, value, accountNumberCodeEnum); err != nil {
 		return err
 	}
 	return nil
@@ -65,10 +59,5 @@ func (m AccountNumberCode) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-// ContextValidate validates this account number code based on context it is used
-func (m AccountNumberCode) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }

@@ -77,8 +77,9 @@ func (o *PostAccountRoutingsReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewPostAccountRoutingsCreated() *PostAccountRoutingsCreated {
 	return &PostAccountRoutingsCreated{}
 }
 
-/* PostAccountRoutingsCreated describes a response with status code 201, with default header values.
+/*PostAccountRoutingsCreated handles this case with default header values.
 
 Account routing creation response success
 */
@@ -98,6 +99,7 @@ type PostAccountRoutingsCreated struct {
 func (o *PostAccountRoutingsCreated) Error() string {
 	return fmt.Sprintf("[POST /account_routings][%d] postAccountRoutingsCreated  %+v", 201, o.Payload)
 }
+
 func (o *PostAccountRoutingsCreated) GetPayload() *models.AccountRoutingCreationResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewPostAccountRoutingsBadRequest() *PostAccountRoutingsBadRequest {
 	return &PostAccountRoutingsBadRequest{}
 }
 
-/* PostAccountRoutingsBadRequest describes a response with status code 400, with default header values.
+/*PostAccountRoutingsBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type PostAccountRoutingsBadRequest struct {
 func (o *PostAccountRoutingsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /account_routings][%d] postAccountRoutingsBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *PostAccountRoutingsBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewPostAccountRoutingsUnauthorized() *PostAccountRoutingsUnauthorized {
 	return &PostAccountRoutingsUnauthorized{}
 }
 
-/* PostAccountRoutingsUnauthorized describes a response with status code 401, with default header values.
+/*PostAccountRoutingsUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type PostAccountRoutingsUnauthorized struct {
 func (o *PostAccountRoutingsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /account_routings][%d] postAccountRoutingsUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *PostAccountRoutingsUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewPostAccountRoutingsForbidden() *PostAccountRoutingsForbidden {
 	return &PostAccountRoutingsForbidden{}
 }
 
-/* PostAccountRoutingsForbidden describes a response with status code 403, with default header values.
+/*PostAccountRoutingsForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type PostAccountRoutingsForbidden struct {
 func (o *PostAccountRoutingsForbidden) Error() string {
 	return fmt.Sprintf("[POST /account_routings][%d] postAccountRoutingsForbidden  %+v", 403, o.Payload)
 }
+
 func (o *PostAccountRoutingsForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewPostAccountRoutingsNotFound() *PostAccountRoutingsNotFound {
 	return &PostAccountRoutingsNotFound{}
 }
 
-/* PostAccountRoutingsNotFound describes a response with status code 404, with default header values.
+/*PostAccountRoutingsNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type PostAccountRoutingsNotFound struct {
 func (o *PostAccountRoutingsNotFound) Error() string {
 	return fmt.Sprintf("[POST /account_routings][%d] postAccountRoutingsNotFound  %+v", 404, o.Payload)
 }
+
 func (o *PostAccountRoutingsNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewPostAccountRoutingsConflict() *PostAccountRoutingsConflict {
 	return &PostAccountRoutingsConflict{}
 }
 
-/* PostAccountRoutingsConflict describes a response with status code 409, with default header values.
+/*PostAccountRoutingsConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type PostAccountRoutingsConflict struct {
 func (o *PostAccountRoutingsConflict) Error() string {
 	return fmt.Sprintf("[POST /account_routings][%d] postAccountRoutingsConflict  %+v", 409, o.Payload)
 }
+
 func (o *PostAccountRoutingsConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewPostAccountRoutingsTooManyRequests() *PostAccountRoutingsTooManyRequests
 	return &PostAccountRoutingsTooManyRequests{}
 }
 
-/* PostAccountRoutingsTooManyRequests describes a response with status code 429, with default header values.
+/*PostAccountRoutingsTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type PostAccountRoutingsTooManyRequests struct {
 func (o *PostAccountRoutingsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /account_routings][%d] postAccountRoutingsTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *PostAccountRoutingsTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewPostAccountRoutingsInternalServerError() *PostAccountRoutingsInternalSer
 	return &PostAccountRoutingsInternalServerError{}
 }
 
-/* PostAccountRoutingsInternalServerError describes a response with status code 500, with default header values.
+/*PostAccountRoutingsInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type PostAccountRoutingsInternalServerError struct {
 func (o *PostAccountRoutingsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /account_routings][%d] postAccountRoutingsInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *PostAccountRoutingsInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewPostAccountRoutingsServiceUnavailable() *PostAccountRoutingsServiceUnava
 	return &PostAccountRoutingsServiceUnavailable{}
 }
 
-/* PostAccountRoutingsServiceUnavailable describes a response with status code 503, with default header values.
+/*PostAccountRoutingsServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type PostAccountRoutingsServiceUnavailable struct {
 func (o *PostAccountRoutingsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /account_routings][%d] postAccountRoutingsServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *PostAccountRoutingsServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

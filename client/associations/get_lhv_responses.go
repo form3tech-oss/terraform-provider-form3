@@ -77,8 +77,9 @@ func (o *GetLhvReader) ReadResponse(response runtime.ClientResponse, consumer ru
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewGetLhvOK() *GetLhvOK {
 	return &GetLhvOK{}
 }
 
-/* GetLhvOK describes a response with status code 200, with default header values.
+/*GetLhvOK handles this case with default header values.
 
 List of associations
 */
@@ -98,6 +99,7 @@ type GetLhvOK struct {
 func (o *GetLhvOK) Error() string {
 	return fmt.Sprintf("[GET /lhv][%d] getLhvOK  %+v", 200, o.Payload)
 }
+
 func (o *GetLhvOK) GetPayload() *models.LhvAssociationDetailsListResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewGetLhvBadRequest() *GetLhvBadRequest {
 	return &GetLhvBadRequest{}
 }
 
-/* GetLhvBadRequest describes a response with status code 400, with default header values.
+/*GetLhvBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type GetLhvBadRequest struct {
 func (o *GetLhvBadRequest) Error() string {
 	return fmt.Sprintf("[GET /lhv][%d] getLhvBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *GetLhvBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewGetLhvUnauthorized() *GetLhvUnauthorized {
 	return &GetLhvUnauthorized{}
 }
 
-/* GetLhvUnauthorized describes a response with status code 401, with default header values.
+/*GetLhvUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type GetLhvUnauthorized struct {
 func (o *GetLhvUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /lhv][%d] getLhvUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetLhvUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewGetLhvForbidden() *GetLhvForbidden {
 	return &GetLhvForbidden{}
 }
 
-/* GetLhvForbidden describes a response with status code 403, with default header values.
+/*GetLhvForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type GetLhvForbidden struct {
 func (o *GetLhvForbidden) Error() string {
 	return fmt.Sprintf("[GET /lhv][%d] getLhvForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetLhvForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewGetLhvNotFound() *GetLhvNotFound {
 	return &GetLhvNotFound{}
 }
 
-/* GetLhvNotFound describes a response with status code 404, with default header values.
+/*GetLhvNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type GetLhvNotFound struct {
 func (o *GetLhvNotFound) Error() string {
 	return fmt.Sprintf("[GET /lhv][%d] getLhvNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetLhvNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewGetLhvConflict() *GetLhvConflict {
 	return &GetLhvConflict{}
 }
 
-/* GetLhvConflict describes a response with status code 409, with default header values.
+/*GetLhvConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type GetLhvConflict struct {
 func (o *GetLhvConflict) Error() string {
 	return fmt.Sprintf("[GET /lhv][%d] getLhvConflict  %+v", 409, o.Payload)
 }
+
 func (o *GetLhvConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewGetLhvTooManyRequests() *GetLhvTooManyRequests {
 	return &GetLhvTooManyRequests{}
 }
 
-/* GetLhvTooManyRequests describes a response with status code 429, with default header values.
+/*GetLhvTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type GetLhvTooManyRequests struct {
 func (o *GetLhvTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /lhv][%d] getLhvTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *GetLhvTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewGetLhvInternalServerError() *GetLhvInternalServerError {
 	return &GetLhvInternalServerError{}
 }
 
-/* GetLhvInternalServerError describes a response with status code 500, with default header values.
+/*GetLhvInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type GetLhvInternalServerError struct {
 func (o *GetLhvInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /lhv][%d] getLhvInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetLhvInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewGetLhvServiceUnavailable() *GetLhvServiceUnavailable {
 	return &GetLhvServiceUnavailable{}
 }
 
-/* GetLhvServiceUnavailable describes a response with status code 503, with default header values.
+/*GetLhvServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type GetLhvServiceUnavailable struct {
 func (o *GetLhvServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /lhv][%d] getLhvServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *GetLhvServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

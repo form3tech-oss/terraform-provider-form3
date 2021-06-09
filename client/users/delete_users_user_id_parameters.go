@@ -17,81 +17,64 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteUsersUserIDParams creates a new DeleteUsersUserIDParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewDeleteUsersUserIDParams creates a new DeleteUsersUserIDParams object
+// with the default values initialized.
 func NewDeleteUsersUserIDParams() *DeleteUsersUserIDParams {
+	var ()
 	return &DeleteUsersUserIDParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteUsersUserIDParamsWithTimeout creates a new DeleteUsersUserIDParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewDeleteUsersUserIDParamsWithTimeout(timeout time.Duration) *DeleteUsersUserIDParams {
+	var ()
 	return &DeleteUsersUserIDParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewDeleteUsersUserIDParamsWithContext creates a new DeleteUsersUserIDParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewDeleteUsersUserIDParamsWithContext(ctx context.Context) *DeleteUsersUserIDParams {
+	var ()
 	return &DeleteUsersUserIDParams{
+
 		Context: ctx,
 	}
 }
 
 // NewDeleteUsersUserIDParamsWithHTTPClient creates a new DeleteUsersUserIDParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewDeleteUsersUserIDParamsWithHTTPClient(client *http.Client) *DeleteUsersUserIDParams {
+	var ()
 	return &DeleteUsersUserIDParams{
 		HTTPClient: client,
 	}
 }
 
-/* DeleteUsersUserIDParams contains all the parameters to send to the API endpoint
-   for the delete users user ID operation.
-
-   Typically these are written to a http.Request.
+/*DeleteUsersUserIDParams contains all the parameters to send to the API endpoint
+for the delete users user ID operation typically these are written to a http.Request
 */
 type DeleteUsersUserIDParams struct {
 
-	/* UserID.
+	/*UserID
+	  User Id
 
-	   User Id
-
-	   Format: uuid
 	*/
 	UserID strfmt.UUID
+	/*Version
+	  Version
 
-	/* Version.
-
-	   Version
 	*/
 	Version int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the delete users user ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteUsersUserIDParams) WithDefaults() *DeleteUsersUserIDParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the delete users user ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteUsersUserIDParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete users user ID params
@@ -166,7 +149,6 @@ func (o *DeleteUsersUserIDParams) WriteToRequest(r runtime.ClientRequest, reg st
 	qrVersion := o.Version
 	qVersion := swag.FormatInt64(qrVersion)
 	if qVersion != "" {
-
 		if err := r.SetQueryParam("version", qVersion); err != nil {
 			return err
 		}

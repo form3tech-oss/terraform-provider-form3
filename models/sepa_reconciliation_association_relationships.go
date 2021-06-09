@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -37,37 +35,12 @@ func (m *SepaReconciliationAssociationRelationships) Validate(formats strfmt.Reg
 }
 
 func (m *SepaReconciliationAssociationRelationships) validateSponsor(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Sponsor) { // not required
 		return nil
 	}
 
 	if err := m.Sponsor.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("sponsor")
-		}
-		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this sepa reconciliation association relationships based on the context it is used
-func (m *SepaReconciliationAssociationRelationships) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateSponsor(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *SepaReconciliationAssociationRelationships) contextValidateSponsor(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := m.Sponsor.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("sponsor")
 		}
@@ -122,32 +95,6 @@ func (m *SepaReconciliationAssociationRelationshipsSponsor) Validate(formats str
 func (m *SepaReconciliationAssociationRelationshipsSponsor) validateData(formats strfmt.Registry) error {
 
 	if err := m.Data.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("sponsor" + "." + "data")
-		}
-		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this sepa reconciliation association relationships sponsor based on the context it is used
-func (m *SepaReconciliationAssociationRelationshipsSponsor) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateData(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *SepaReconciliationAssociationRelationshipsSponsor) contextValidateData(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := m.Data.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("sponsor" + "." + "data")
 		}

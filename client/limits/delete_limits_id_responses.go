@@ -77,8 +77,9 @@ func (o *DeleteLimitsIDReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewDeleteLimitsIDNoContent() *DeleteLimitsIDNoContent {
 	return &DeleteLimitsIDNoContent{}
 }
 
-/* DeleteLimitsIDNoContent describes a response with status code 204, with default header values.
+/*DeleteLimitsIDNoContent handles this case with default header values.
 
 Limit deleted
 */
@@ -108,7 +109,7 @@ func NewDeleteLimitsIDBadRequest() *DeleteLimitsIDBadRequest {
 	return &DeleteLimitsIDBadRequest{}
 }
 
-/* DeleteLimitsIDBadRequest describes a response with status code 400, with default header values.
+/*DeleteLimitsIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -119,6 +120,7 @@ type DeleteLimitsIDBadRequest struct {
 func (o *DeleteLimitsIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /limits/{id}][%d] deleteLimitsIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *DeleteLimitsIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -140,7 +142,7 @@ func NewDeleteLimitsIDUnauthorized() *DeleteLimitsIDUnauthorized {
 	return &DeleteLimitsIDUnauthorized{}
 }
 
-/* DeleteLimitsIDUnauthorized describes a response with status code 401, with default header values.
+/*DeleteLimitsIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -151,6 +153,7 @@ type DeleteLimitsIDUnauthorized struct {
 func (o *DeleteLimitsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /limits/{id}][%d] deleteLimitsIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *DeleteLimitsIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -172,7 +175,7 @@ func NewDeleteLimitsIDForbidden() *DeleteLimitsIDForbidden {
 	return &DeleteLimitsIDForbidden{}
 }
 
-/* DeleteLimitsIDForbidden describes a response with status code 403, with default header values.
+/*DeleteLimitsIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -183,6 +186,7 @@ type DeleteLimitsIDForbidden struct {
 func (o *DeleteLimitsIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /limits/{id}][%d] deleteLimitsIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *DeleteLimitsIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -204,7 +208,7 @@ func NewDeleteLimitsIDNotFound() *DeleteLimitsIDNotFound {
 	return &DeleteLimitsIDNotFound{}
 }
 
-/* DeleteLimitsIDNotFound describes a response with status code 404, with default header values.
+/*DeleteLimitsIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -215,6 +219,7 @@ type DeleteLimitsIDNotFound struct {
 func (o *DeleteLimitsIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /limits/{id}][%d] deleteLimitsIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *DeleteLimitsIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -236,7 +241,7 @@ func NewDeleteLimitsIDConflict() *DeleteLimitsIDConflict {
 	return &DeleteLimitsIDConflict{}
 }
 
-/* DeleteLimitsIDConflict describes a response with status code 409, with default header values.
+/*DeleteLimitsIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -247,6 +252,7 @@ type DeleteLimitsIDConflict struct {
 func (o *DeleteLimitsIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /limits/{id}][%d] deleteLimitsIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *DeleteLimitsIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -268,7 +274,7 @@ func NewDeleteLimitsIDTooManyRequests() *DeleteLimitsIDTooManyRequests {
 	return &DeleteLimitsIDTooManyRequests{}
 }
 
-/* DeleteLimitsIDTooManyRequests describes a response with status code 429, with default header values.
+/*DeleteLimitsIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -279,6 +285,7 @@ type DeleteLimitsIDTooManyRequests struct {
 func (o *DeleteLimitsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /limits/{id}][%d] deleteLimitsIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *DeleteLimitsIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -300,7 +307,7 @@ func NewDeleteLimitsIDInternalServerError() *DeleteLimitsIDInternalServerError {
 	return &DeleteLimitsIDInternalServerError{}
 }
 
-/* DeleteLimitsIDInternalServerError describes a response with status code 500, with default header values.
+/*DeleteLimitsIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -311,6 +318,7 @@ type DeleteLimitsIDInternalServerError struct {
 func (o *DeleteLimitsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /limits/{id}][%d] deleteLimitsIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *DeleteLimitsIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -332,7 +340,7 @@ func NewDeleteLimitsIDServiceUnavailable() *DeleteLimitsIDServiceUnavailable {
 	return &DeleteLimitsIDServiceUnavailable{}
 }
 
-/* DeleteLimitsIDServiceUnavailable describes a response with status code 503, with default header values.
+/*DeleteLimitsIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -343,6 +351,7 @@ type DeleteLimitsIDServiceUnavailable struct {
 func (o *DeleteLimitsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /limits/{id}][%d] deleteLimitsIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *DeleteLimitsIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

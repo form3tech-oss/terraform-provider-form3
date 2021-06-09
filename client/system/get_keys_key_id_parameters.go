@@ -16,75 +16,59 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetKeysKeyIDParams creates a new GetKeysKeyIDParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetKeysKeyIDParams creates a new GetKeysKeyIDParams object
+// with the default values initialized.
 func NewGetKeysKeyIDParams() *GetKeysKeyIDParams {
+	var ()
 	return &GetKeysKeyIDParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetKeysKeyIDParamsWithTimeout creates a new GetKeysKeyIDParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetKeysKeyIDParamsWithTimeout(timeout time.Duration) *GetKeysKeyIDParams {
+	var ()
 	return &GetKeysKeyIDParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetKeysKeyIDParamsWithContext creates a new GetKeysKeyIDParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetKeysKeyIDParamsWithContext(ctx context.Context) *GetKeysKeyIDParams {
+	var ()
 	return &GetKeysKeyIDParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetKeysKeyIDParamsWithHTTPClient creates a new GetKeysKeyIDParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetKeysKeyIDParamsWithHTTPClient(client *http.Client) *GetKeysKeyIDParams {
+	var ()
 	return &GetKeysKeyIDParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetKeysKeyIDParams contains all the parameters to send to the API endpoint
-   for the get keys key ID operation.
-
-   Typically these are written to a http.Request.
+/*GetKeysKeyIDParams contains all the parameters to send to the API endpoint
+for the get keys key ID operation typically these are written to a http.Request
 */
 type GetKeysKeyIDParams struct {
 
-	/* KeyID.
+	/*KeyID
+	  Key Id
 
-	   Key Id
-
-	   Format: uuid
 	*/
 	KeyID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get keys key ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetKeysKeyIDParams) WithDefaults() *GetKeysKeyIDParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get keys key ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetKeysKeyIDParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get keys key ID params

@@ -6,7 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -105,6 +104,7 @@ func (m *LhvMasterAccount) validateAttributes(formats strfmt.Registry) error {
 }
 
 func (m *LhvMasterAccount) validateCreatedOn(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.CreatedOn) { // not required
 		return nil
 	}
@@ -130,6 +130,7 @@ func (m *LhvMasterAccount) validateID(formats strfmt.Registry) error {
 }
 
 func (m *LhvMasterAccount) validateModifiedOn(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ModifiedOn) { // not required
 		return nil
 	}
@@ -174,7 +175,7 @@ const (
 
 // prop value enum
 func (m *LhvMasterAccount) validateTypeEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, lhvMasterAccountTypeTypePropEnum, true); err != nil {
+	if err := validate.Enum(path, location, value, lhvMasterAccountTypeTypePropEnum); err != nil {
 		return err
 	}
 	return nil
@@ -182,7 +183,7 @@ func (m *LhvMasterAccount) validateTypeEnum(path, location string, value string)
 
 func (m *LhvMasterAccount) validateType(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("type", "body", m.Type); err != nil {
+	if err := validate.RequiredString("type", "body", string(m.Type)); err != nil {
 		return err
 	}
 
@@ -197,58 +198,6 @@ func (m *LhvMasterAccount) validateType(formats strfmt.Registry) error {
 func (m *LhvMasterAccount) validateVersion(formats strfmt.Registry) error {
 
 	if err := validate.Required("version", "body", int64(m.Version)); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this lhv master account based on the context it is used
-func (m *LhvMasterAccount) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateAttributes(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateCreatedOn(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateModifiedOn(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *LhvMasterAccount) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("attributes")
-		}
-		return err
-	}
-
-	return nil
-}
-
-func (m *LhvMasterAccount) contextValidateCreatedOn(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "created_on", "body", strfmt.DateTime(m.CreatedOn)); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *LhvMasterAccount) contextValidateModifiedOn(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "modified_on", "body", strfmt.DateTime(m.ModifiedOn)); err != nil {
 		return err
 	}
 

@@ -25,26 +25,23 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-// ClientOption is the option for Client methods
-type ClientOption func(*runtime.ClientOperation)
-
 // ClientService is the interface for Client methods
 type ClientService interface {
-	DeleteKeysKeyID(params *DeleteKeysKeyIDParams, opts ...ClientOption) (*DeleteKeysKeyIDNoContent, error)
+	DeleteKeysKeyID(params *DeleteKeysKeyIDParams) (*DeleteKeysKeyIDNoContent, error)
 
-	DeleteKeysKeyIDCertificatesCertificateID(params *DeleteKeysKeyIDCertificatesCertificateIDParams, opts ...ClientOption) (*DeleteKeysKeyIDCertificatesCertificateIDNoContent, error)
+	DeleteKeysKeyIDCertificatesCertificateID(params *DeleteKeysKeyIDCertificatesCertificateIDParams) (*DeleteKeysKeyIDCertificatesCertificateIDNoContent, error)
 
-	GetKeys(params *GetKeysParams, opts ...ClientOption) (*GetKeysOK, error)
+	GetKeys(params *GetKeysParams) (*GetKeysOK, error)
 
-	GetKeysKeyID(params *GetKeysKeyIDParams, opts ...ClientOption) (*GetKeysKeyIDOK, error)
+	GetKeysKeyID(params *GetKeysKeyIDParams) (*GetKeysKeyIDOK, error)
 
-	GetKeysKeyIDCertificates(params *GetKeysKeyIDCertificatesParams, opts ...ClientOption) (*GetKeysKeyIDCertificatesOK, error)
+	GetKeysKeyIDCertificates(params *GetKeysKeyIDCertificatesParams) (*GetKeysKeyIDCertificatesOK, error)
 
-	GetKeysKeyIDCertificatesCertificateID(params *GetKeysKeyIDCertificatesCertificateIDParams, opts ...ClientOption) (*GetKeysKeyIDCertificatesCertificateIDOK, error)
+	GetKeysKeyIDCertificatesCertificateID(params *GetKeysKeyIDCertificatesCertificateIDParams) (*GetKeysKeyIDCertificatesCertificateIDOK, error)
 
-	PostKeys(params *PostKeysParams, opts ...ClientOption) (*PostKeysCreated, error)
+	PostKeys(params *PostKeysParams) (*PostKeysCreated, error)
 
-	PostKeysKeyIDCertificates(params *PostKeysKeyIDCertificatesParams, opts ...ClientOption) (*PostKeysKeyIDCertificatesCreated, error)
+	PostKeysKeyIDCertificates(params *PostKeysKeyIDCertificatesParams) (*PostKeysKeyIDCertificatesCreated, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -52,12 +49,13 @@ type ClientService interface {
 /*
   DeleteKeysKeyID deletes key
 */
-func (a *Client) DeleteKeysKeyID(params *DeleteKeysKeyIDParams, opts ...ClientOption) (*DeleteKeysKeyIDNoContent, error) {
+func (a *Client) DeleteKeysKeyID(params *DeleteKeysKeyIDParams) (*DeleteKeysKeyIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteKeysKeyIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteKeysKeyID",
 		Method:             "DELETE",
 		PathPattern:        "/keys/{key_id}",
@@ -68,12 +66,7 @@ func (a *Client) DeleteKeysKeyID(params *DeleteKeysKeyIDParams, opts ...ClientOp
 		Reader:             &DeleteKeysKeyIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -90,12 +83,13 @@ func (a *Client) DeleteKeysKeyID(params *DeleteKeysKeyIDParams, opts ...ClientOp
 /*
   DeleteKeysKeyIDCertificatesCertificateID deletes certificate
 */
-func (a *Client) DeleteKeysKeyIDCertificatesCertificateID(params *DeleteKeysKeyIDCertificatesCertificateIDParams, opts ...ClientOption) (*DeleteKeysKeyIDCertificatesCertificateIDNoContent, error) {
+func (a *Client) DeleteKeysKeyIDCertificatesCertificateID(params *DeleteKeysKeyIDCertificatesCertificateIDParams) (*DeleteKeysKeyIDCertificatesCertificateIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteKeysKeyIDCertificatesCertificateIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteKeysKeyIDCertificatesCertificateID",
 		Method:             "DELETE",
 		PathPattern:        "/keys/{key_id}/certificates/{certificate_id}",
@@ -106,12 +100,7 @@ func (a *Client) DeleteKeysKeyIDCertificatesCertificateID(params *DeleteKeysKeyI
 		Reader:             &DeleteKeysKeyIDCertificatesCertificateIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -128,12 +117,13 @@ func (a *Client) DeleteKeysKeyIDCertificatesCertificateID(params *DeleteKeysKeyI
 /*
   GetKeys lists all keys
 */
-func (a *Client) GetKeys(params *GetKeysParams, opts ...ClientOption) (*GetKeysOK, error) {
+func (a *Client) GetKeys(params *GetKeysParams) (*GetKeysOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetKeysParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetKeys",
 		Method:             "GET",
 		PathPattern:        "/keys",
@@ -144,12 +134,7 @@ func (a *Client) GetKeys(params *GetKeysParams, opts ...ClientOption) (*GetKeysO
 		Reader:             &GetKeysReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -166,12 +151,13 @@ func (a *Client) GetKeys(params *GetKeysParams, opts ...ClientOption) (*GetKeysO
 /*
   GetKeysKeyID fetches key
 */
-func (a *Client) GetKeysKeyID(params *GetKeysKeyIDParams, opts ...ClientOption) (*GetKeysKeyIDOK, error) {
+func (a *Client) GetKeysKeyID(params *GetKeysKeyIDParams) (*GetKeysKeyIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetKeysKeyIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetKeysKeyID",
 		Method:             "GET",
 		PathPattern:        "/keys/{key_id}",
@@ -182,12 +168,7 @@ func (a *Client) GetKeysKeyID(params *GetKeysKeyIDParams, opts ...ClientOption) 
 		Reader:             &GetKeysKeyIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -204,12 +185,13 @@ func (a *Client) GetKeysKeyID(params *GetKeysKeyIDParams, opts ...ClientOption) 
 /*
   GetKeysKeyIDCertificates lists all certificates
 */
-func (a *Client) GetKeysKeyIDCertificates(params *GetKeysKeyIDCertificatesParams, opts ...ClientOption) (*GetKeysKeyIDCertificatesOK, error) {
+func (a *Client) GetKeysKeyIDCertificates(params *GetKeysKeyIDCertificatesParams) (*GetKeysKeyIDCertificatesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetKeysKeyIDCertificatesParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetKeysKeyIDCertificates",
 		Method:             "GET",
 		PathPattern:        "/keys/{key_id}/certificates",
@@ -220,12 +202,7 @@ func (a *Client) GetKeysKeyIDCertificates(params *GetKeysKeyIDCertificatesParams
 		Reader:             &GetKeysKeyIDCertificatesReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -242,12 +219,13 @@ func (a *Client) GetKeysKeyIDCertificates(params *GetKeysKeyIDCertificatesParams
 /*
   GetKeysKeyIDCertificatesCertificateID fetches certificate
 */
-func (a *Client) GetKeysKeyIDCertificatesCertificateID(params *GetKeysKeyIDCertificatesCertificateIDParams, opts ...ClientOption) (*GetKeysKeyIDCertificatesCertificateIDOK, error) {
+func (a *Client) GetKeysKeyIDCertificatesCertificateID(params *GetKeysKeyIDCertificatesCertificateIDParams) (*GetKeysKeyIDCertificatesCertificateIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetKeysKeyIDCertificatesCertificateIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetKeysKeyIDCertificatesCertificateID",
 		Method:             "GET",
 		PathPattern:        "/keys/{key_id}/certificates/{certificate_id}",
@@ -258,12 +236,7 @@ func (a *Client) GetKeysKeyIDCertificatesCertificateID(params *GetKeysKeyIDCerti
 		Reader:             &GetKeysKeyIDCertificatesCertificateIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -280,12 +253,13 @@ func (a *Client) GetKeysKeyIDCertificatesCertificateID(params *GetKeysKeyIDCerti
 /*
   PostKeys creates key
 */
-func (a *Client) PostKeys(params *PostKeysParams, opts ...ClientOption) (*PostKeysCreated, error) {
+func (a *Client) PostKeys(params *PostKeysParams) (*PostKeysCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostKeysParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PostKeys",
 		Method:             "POST",
 		PathPattern:        "/keys",
@@ -296,12 +270,7 @@ func (a *Client) PostKeys(params *PostKeysParams, opts ...ClientOption) (*PostKe
 		Reader:             &PostKeysReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -318,12 +287,13 @@ func (a *Client) PostKeys(params *PostKeysParams, opts ...ClientOption) (*PostKe
 /*
   PostKeysKeyIDCertificates creates certificate
 */
-func (a *Client) PostKeysKeyIDCertificates(params *PostKeysKeyIDCertificatesParams, opts ...ClientOption) (*PostKeysKeyIDCertificatesCreated, error) {
+func (a *Client) PostKeysKeyIDCertificates(params *PostKeysKeyIDCertificatesParams) (*PostKeysKeyIDCertificatesCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostKeysKeyIDCertificatesParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PostKeysKeyIDCertificates",
 		Method:             "POST",
 		PathPattern:        "/keys/{key_id}/certificates",
@@ -334,12 +304,7 @@ func (a *Client) PostKeysKeyIDCertificates(params *PostKeysKeyIDCertificatesPara
 		Reader:             &PostKeysKeyIDCertificatesReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}

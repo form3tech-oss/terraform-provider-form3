@@ -18,70 +18,56 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPostSepainstantParams creates a new PostSepainstantParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewPostSepainstantParams creates a new PostSepainstantParams object
+// with the default values initialized.
 func NewPostSepainstantParams() *PostSepainstantParams {
+	var ()
 	return &PostSepainstantParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostSepainstantParamsWithTimeout creates a new PostSepainstantParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewPostSepainstantParamsWithTimeout(timeout time.Duration) *PostSepainstantParams {
+	var ()
 	return &PostSepainstantParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewPostSepainstantParamsWithContext creates a new PostSepainstantParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewPostSepainstantParamsWithContext(ctx context.Context) *PostSepainstantParams {
+	var ()
 	return &PostSepainstantParams{
+
 		Context: ctx,
 	}
 }
 
 // NewPostSepainstantParamsWithHTTPClient creates a new PostSepainstantParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewPostSepainstantParamsWithHTTPClient(client *http.Client) *PostSepainstantParams {
+	var ()
 	return &PostSepainstantParams{
 		HTTPClient: client,
 	}
 }
 
-/* PostSepainstantParams contains all the parameters to send to the API endpoint
-   for the post sepainstant operation.
-
-   Typically these are written to a http.Request.
+/*PostSepainstantParams contains all the parameters to send to the API endpoint
+for the post sepainstant operation typically these are written to a http.Request
 */
 type PostSepainstantParams struct {
 
-	// CreationRequest.
+	/*CreationRequest*/
 	CreationRequest *models.SepaInstantAssociationCreation
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the post sepainstant params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PostSepainstantParams) WithDefaults() *PostSepainstantParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the post sepainstant params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PostSepainstantParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post sepainstant params
@@ -135,6 +121,7 @@ func (o *PostSepainstantParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		return err
 	}
 	var res []error
+
 	if o.CreationRequest != nil {
 		if err := r.SetBodyParam(o.CreationRequest); err != nil {
 			return err

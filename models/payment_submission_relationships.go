@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -44,6 +42,7 @@ func (m *PaymentSubmissionRelationships) Validate(formats strfmt.Registry) error
 }
 
 func (m *PaymentSubmissionRelationships) validatePayment(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Payment) { // not required
 		return nil
 	}
@@ -61,58 +60,13 @@ func (m *PaymentSubmissionRelationships) validatePayment(formats strfmt.Registry
 }
 
 func (m *PaymentSubmissionRelationships) validateValidations(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Validations) { // not required
 		return nil
 	}
 
 	if m.Validations != nil {
 		if err := m.Validations.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("validations")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this payment submission relationships based on the context it is used
-func (m *PaymentSubmissionRelationships) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidatePayment(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateValidations(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *PaymentSubmissionRelationships) contextValidatePayment(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Payment != nil {
-		if err := m.Payment.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("payment")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *PaymentSubmissionRelationships) contextValidateValidations(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Validations != nil {
-		if err := m.Validations.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("validations")
 			}

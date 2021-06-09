@@ -17,81 +17,64 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteSwiftIDParams creates a new DeleteSwiftIDParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewDeleteSwiftIDParams creates a new DeleteSwiftIDParams object
+// with the default values initialized.
 func NewDeleteSwiftIDParams() *DeleteSwiftIDParams {
+	var ()
 	return &DeleteSwiftIDParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteSwiftIDParamsWithTimeout creates a new DeleteSwiftIDParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewDeleteSwiftIDParamsWithTimeout(timeout time.Duration) *DeleteSwiftIDParams {
+	var ()
 	return &DeleteSwiftIDParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewDeleteSwiftIDParamsWithContext creates a new DeleteSwiftIDParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewDeleteSwiftIDParamsWithContext(ctx context.Context) *DeleteSwiftIDParams {
+	var ()
 	return &DeleteSwiftIDParams{
+
 		Context: ctx,
 	}
 }
 
 // NewDeleteSwiftIDParamsWithHTTPClient creates a new DeleteSwiftIDParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewDeleteSwiftIDParamsWithHTTPClient(client *http.Client) *DeleteSwiftIDParams {
+	var ()
 	return &DeleteSwiftIDParams{
 		HTTPClient: client,
 	}
 }
 
-/* DeleteSwiftIDParams contains all the parameters to send to the API endpoint
-   for the delete swift ID operation.
-
-   Typically these are written to a http.Request.
+/*DeleteSwiftIDParams contains all the parameters to send to the API endpoint
+for the delete swift ID operation typically these are written to a http.Request
 */
 type DeleteSwiftIDParams struct {
 
-	/* ID.
+	/*ID
+	  Association Id
 
-	   Association Id
-
-	   Format: uuid
 	*/
 	ID strfmt.UUID
+	/*Version
+	  Version
 
-	/* Version.
-
-	   Version
 	*/
 	Version int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the delete swift ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteSwiftIDParams) WithDefaults() *DeleteSwiftIDParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the delete swift ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteSwiftIDParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete swift ID params
@@ -166,7 +149,6 @@ func (o *DeleteSwiftIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 	qrVersion := o.Version
 	qVersion := swag.FormatInt64(qrVersion)
 	if qVersion != "" {
-
 		if err := r.SetQueryParam("version", qVersion); err != nil {
 			return err
 		}

@@ -18,78 +18,61 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPostLhvAssociationIDMasterAccountsParams creates a new PostLhvAssociationIDMasterAccountsParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewPostLhvAssociationIDMasterAccountsParams creates a new PostLhvAssociationIDMasterAccountsParams object
+// with the default values initialized.
 func NewPostLhvAssociationIDMasterAccountsParams() *PostLhvAssociationIDMasterAccountsParams {
+	var ()
 	return &PostLhvAssociationIDMasterAccountsParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostLhvAssociationIDMasterAccountsParamsWithTimeout creates a new PostLhvAssociationIDMasterAccountsParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewPostLhvAssociationIDMasterAccountsParamsWithTimeout(timeout time.Duration) *PostLhvAssociationIDMasterAccountsParams {
+	var ()
 	return &PostLhvAssociationIDMasterAccountsParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewPostLhvAssociationIDMasterAccountsParamsWithContext creates a new PostLhvAssociationIDMasterAccountsParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewPostLhvAssociationIDMasterAccountsParamsWithContext(ctx context.Context) *PostLhvAssociationIDMasterAccountsParams {
+	var ()
 	return &PostLhvAssociationIDMasterAccountsParams{
+
 		Context: ctx,
 	}
 }
 
 // NewPostLhvAssociationIDMasterAccountsParamsWithHTTPClient creates a new PostLhvAssociationIDMasterAccountsParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewPostLhvAssociationIDMasterAccountsParamsWithHTTPClient(client *http.Client) *PostLhvAssociationIDMasterAccountsParams {
+	var ()
 	return &PostLhvAssociationIDMasterAccountsParams{
 		HTTPClient: client,
 	}
 }
 
-/* PostLhvAssociationIDMasterAccountsParams contains all the parameters to send to the API endpoint
-   for the post lhv association ID master accounts operation.
-
-   Typically these are written to a http.Request.
+/*PostLhvAssociationIDMasterAccountsParams contains all the parameters to send to the API endpoint
+for the post lhv association ID master accounts operation typically these are written to a http.Request
 */
 type PostLhvAssociationIDMasterAccountsParams struct {
 
-	/* AssociationID.
+	/*AssociationID
+	  Association Id
 
-	   Association Id
-
-	   Format: uuid
 	*/
 	AssociationID strfmt.UUID
-
-	// CreationRequest.
+	/*CreationRequest*/
 	CreationRequest *models.LhvMasterAccountCreation
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the post lhv association ID master accounts params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PostLhvAssociationIDMasterAccountsParams) WithDefaults() *PostLhvAssociationIDMasterAccountsParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the post lhv association ID master accounts params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PostLhvAssociationIDMasterAccountsParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post lhv association ID master accounts params
@@ -159,6 +142,7 @@ func (o *PostLhvAssociationIDMasterAccountsParams) WriteToRequest(r runtime.Clie
 	if err := r.SetPathParam("associationId", o.AssociationID.String()); err != nil {
 		return err
 	}
+
 	if o.CreationRequest != nil {
 		if err := r.SetBodyParam(o.CreationRequest); err != nil {
 			return err

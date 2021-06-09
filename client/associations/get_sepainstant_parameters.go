@@ -17,73 +17,59 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetSepainstantParams creates a new GetSepainstantParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetSepainstantParams creates a new GetSepainstantParams object
+// with the default values initialized.
 func NewGetSepainstantParams() *GetSepainstantParams {
+	var ()
 	return &GetSepainstantParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetSepainstantParamsWithTimeout creates a new GetSepainstantParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetSepainstantParamsWithTimeout(timeout time.Duration) *GetSepainstantParams {
+	var ()
 	return &GetSepainstantParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetSepainstantParamsWithContext creates a new GetSepainstantParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetSepainstantParamsWithContext(ctx context.Context) *GetSepainstantParams {
+	var ()
 	return &GetSepainstantParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetSepainstantParamsWithHTTPClient creates a new GetSepainstantParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetSepainstantParamsWithHTTPClient(client *http.Client) *GetSepainstantParams {
+	var ()
 	return &GetSepainstantParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetSepainstantParams contains all the parameters to send to the API endpoint
-   for the get sepainstant operation.
-
-   Typically these are written to a http.Request.
+/*GetSepainstantParams contains all the parameters to send to the API endpoint
+for the get sepainstant operation typically these are written to a http.Request
 */
 type GetSepainstantParams struct {
 
-	/* FilterOrganisationID.
+	/*FilterOrganisationID
+	  Organisation id
 
-	   Organisation id
 	*/
 	FilterOrganisationID []strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get sepainstant params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetSepainstantParams) WithDefaults() *GetSepainstantParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get sepainstant params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetSepainstantParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get sepainstant params
@@ -138,36 +124,19 @@ func (o *GetSepainstantParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 	}
 	var res []error
 
-	if o.FilterOrganisationID != nil {
+	var valuesFilterOrganisationID []string
+	for _, v := range o.FilterOrganisationID {
+		valuesFilterOrganisationID = append(valuesFilterOrganisationID, v.String())
+	}
 
-		// binding items for filter[organisation_id]
-		joinedFilterOrganisationID := o.bindParamFilterOrganisationID(reg)
-
-		// query array param filter[organisation_id]
-		if err := r.SetQueryParam("filter[organisation_id]", joinedFilterOrganisationID...); err != nil {
-			return err
-		}
+	joinedFilterOrganisationID := swag.JoinByFormat(valuesFilterOrganisationID, "")
+	// query array param filter[organisation_id]
+	if err := r.SetQueryParam("filter[organisation_id]", joinedFilterOrganisationID...); err != nil {
+		return err
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
-}
-
-// bindParamGetSepainstant binds the parameter filter[organisation_id]
-func (o *GetSepainstantParams) bindParamFilterOrganisationID(formats strfmt.Registry) []string {
-	filterOrganisationIDIR := o.FilterOrganisationID
-
-	var filterOrganisationIDIC []string
-	for _, filterOrganisationIDIIR := range filterOrganisationIDIR { // explode []strfmt.UUID
-
-		filterOrganisationIDIIV := filterOrganisationIDIIR.String() // strfmt.UUID as string
-		filterOrganisationIDIC = append(filterOrganisationIDIC, filterOrganisationIDIIV)
-	}
-
-	// items.CollectionFormat: ""
-	filterOrganisationIDIS := swag.JoinByFormat(filterOrganisationIDIC, "")
-
-	return filterOrganisationIDIS
 }

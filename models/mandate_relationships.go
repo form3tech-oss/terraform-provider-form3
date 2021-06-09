@@ -6,7 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -38,40 +37,13 @@ func (m *MandateRelationships) Validate(formats strfmt.Registry) error {
 }
 
 func (m *MandateRelationships) validateMandateAdmission(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.MandateAdmission) { // not required
 		return nil
 	}
 
 	if m.MandateAdmission != nil {
 		if err := m.MandateAdmission.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("mandate_admission")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this mandate relationships based on the context it is used
-func (m *MandateRelationships) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateMandateAdmission(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *MandateRelationships) contextValidateMandateAdmission(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.MandateAdmission != nil {
-		if err := m.MandateAdmission.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("mandate_admission")
 			}
@@ -124,6 +96,7 @@ func (m *MandateRelationshipsMandateAdmission) Validate(formats strfmt.Registry)
 }
 
 func (m *MandateRelationshipsMandateAdmission) validateData(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Data) { // not required
 		return nil
 	}
@@ -135,38 +108,6 @@ func (m *MandateRelationshipsMandateAdmission) validateData(formats strfmt.Regis
 
 		if m.Data[i] != nil {
 			if err := m.Data[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("mandate_admission" + "." + "data" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-// ContextValidate validate this mandate relationships mandate admission based on the context it is used
-func (m *MandateRelationshipsMandateAdmission) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateData(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *MandateRelationshipsMandateAdmission) contextValidateData(ctx context.Context, formats strfmt.Registry) error {
-
-	for i := 0; i < len(m.Data); i++ {
-
-		if m.Data[i] != nil {
-			if err := m.Data[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("mandate_admission" + "." + "data" + "." + strconv.Itoa(i))
 				}

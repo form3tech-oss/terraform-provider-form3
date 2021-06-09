@@ -77,8 +77,9 @@ func (o *DeleteSepactLiquidityAssociationIDReader) ReadResponse(response runtime
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewDeleteSepactLiquidityAssociationIDNoContent() *DeleteSepactLiquidityAsso
 	return &DeleteSepactLiquidityAssociationIDNoContent{}
 }
 
-/* DeleteSepactLiquidityAssociationIDNoContent describes a response with status code 204, with default header values.
+/*DeleteSepactLiquidityAssociationIDNoContent handles this case with default header values.
 
 Association deleted
 */
@@ -108,7 +109,7 @@ func NewDeleteSepactLiquidityAssociationIDBadRequest() *DeleteSepactLiquidityAss
 	return &DeleteSepactLiquidityAssociationIDBadRequest{}
 }
 
-/* DeleteSepactLiquidityAssociationIDBadRequest describes a response with status code 400, with default header values.
+/*DeleteSepactLiquidityAssociationIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -119,6 +120,7 @@ type DeleteSepactLiquidityAssociationIDBadRequest struct {
 func (o *DeleteSepactLiquidityAssociationIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /sepact-liquidity/{associationId}][%d] deleteSepactLiquidityAssociationIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *DeleteSepactLiquidityAssociationIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -140,7 +142,7 @@ func NewDeleteSepactLiquidityAssociationIDUnauthorized() *DeleteSepactLiquidityA
 	return &DeleteSepactLiquidityAssociationIDUnauthorized{}
 }
 
-/* DeleteSepactLiquidityAssociationIDUnauthorized describes a response with status code 401, with default header values.
+/*DeleteSepactLiquidityAssociationIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -151,6 +153,7 @@ type DeleteSepactLiquidityAssociationIDUnauthorized struct {
 func (o *DeleteSepactLiquidityAssociationIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /sepact-liquidity/{associationId}][%d] deleteSepactLiquidityAssociationIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *DeleteSepactLiquidityAssociationIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -172,7 +175,7 @@ func NewDeleteSepactLiquidityAssociationIDForbidden() *DeleteSepactLiquidityAsso
 	return &DeleteSepactLiquidityAssociationIDForbidden{}
 }
 
-/* DeleteSepactLiquidityAssociationIDForbidden describes a response with status code 403, with default header values.
+/*DeleteSepactLiquidityAssociationIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -183,6 +186,7 @@ type DeleteSepactLiquidityAssociationIDForbidden struct {
 func (o *DeleteSepactLiquidityAssociationIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /sepact-liquidity/{associationId}][%d] deleteSepactLiquidityAssociationIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *DeleteSepactLiquidityAssociationIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -204,7 +208,7 @@ func NewDeleteSepactLiquidityAssociationIDNotFound() *DeleteSepactLiquidityAssoc
 	return &DeleteSepactLiquidityAssociationIDNotFound{}
 }
 
-/* DeleteSepactLiquidityAssociationIDNotFound describes a response with status code 404, with default header values.
+/*DeleteSepactLiquidityAssociationIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -215,6 +219,7 @@ type DeleteSepactLiquidityAssociationIDNotFound struct {
 func (o *DeleteSepactLiquidityAssociationIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /sepact-liquidity/{associationId}][%d] deleteSepactLiquidityAssociationIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *DeleteSepactLiquidityAssociationIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -236,7 +241,7 @@ func NewDeleteSepactLiquidityAssociationIDConflict() *DeleteSepactLiquidityAssoc
 	return &DeleteSepactLiquidityAssociationIDConflict{}
 }
 
-/* DeleteSepactLiquidityAssociationIDConflict describes a response with status code 409, with default header values.
+/*DeleteSepactLiquidityAssociationIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -247,6 +252,7 @@ type DeleteSepactLiquidityAssociationIDConflict struct {
 func (o *DeleteSepactLiquidityAssociationIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /sepact-liquidity/{associationId}][%d] deleteSepactLiquidityAssociationIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *DeleteSepactLiquidityAssociationIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -268,7 +274,7 @@ func NewDeleteSepactLiquidityAssociationIDTooManyRequests() *DeleteSepactLiquidi
 	return &DeleteSepactLiquidityAssociationIDTooManyRequests{}
 }
 
-/* DeleteSepactLiquidityAssociationIDTooManyRequests describes a response with status code 429, with default header values.
+/*DeleteSepactLiquidityAssociationIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -279,6 +285,7 @@ type DeleteSepactLiquidityAssociationIDTooManyRequests struct {
 func (o *DeleteSepactLiquidityAssociationIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /sepact-liquidity/{associationId}][%d] deleteSepactLiquidityAssociationIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *DeleteSepactLiquidityAssociationIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -300,7 +307,7 @@ func NewDeleteSepactLiquidityAssociationIDInternalServerError() *DeleteSepactLiq
 	return &DeleteSepactLiquidityAssociationIDInternalServerError{}
 }
 
-/* DeleteSepactLiquidityAssociationIDInternalServerError describes a response with status code 500, with default header values.
+/*DeleteSepactLiquidityAssociationIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -311,6 +318,7 @@ type DeleteSepactLiquidityAssociationIDInternalServerError struct {
 func (o *DeleteSepactLiquidityAssociationIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /sepact-liquidity/{associationId}][%d] deleteSepactLiquidityAssociationIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *DeleteSepactLiquidityAssociationIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -332,7 +340,7 @@ func NewDeleteSepactLiquidityAssociationIDServiceUnavailable() *DeleteSepactLiqu
 	return &DeleteSepactLiquidityAssociationIDServiceUnavailable{}
 }
 
-/* DeleteSepactLiquidityAssociationIDServiceUnavailable describes a response with status code 503, with default header values.
+/*DeleteSepactLiquidityAssociationIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -343,6 +351,7 @@ type DeleteSepactLiquidityAssociationIDServiceUnavailable struct {
 func (o *DeleteSepactLiquidityAssociationIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /sepact-liquidity/{associationId}][%d] deleteSepactLiquidityAssociationIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *DeleteSepactLiquidityAssociationIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

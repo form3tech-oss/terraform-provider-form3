@@ -77,8 +77,9 @@ func (o *DeleteUsersUserIDReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewDeleteUsersUserIDNoContent() *DeleteUsersUserIDNoContent {
 	return &DeleteUsersUserIDNoContent{}
 }
 
-/* DeleteUsersUserIDNoContent describes a response with status code 204, with default header values.
+/*DeleteUsersUserIDNoContent handles this case with default header values.
 
 User deleted
 */
@@ -108,7 +109,7 @@ func NewDeleteUsersUserIDBadRequest() *DeleteUsersUserIDBadRequest {
 	return &DeleteUsersUserIDBadRequest{}
 }
 
-/* DeleteUsersUserIDBadRequest describes a response with status code 400, with default header values.
+/*DeleteUsersUserIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -119,6 +120,7 @@ type DeleteUsersUserIDBadRequest struct {
 func (o *DeleteUsersUserIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /users/{user_id}][%d] deleteUsersUserIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *DeleteUsersUserIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -140,7 +142,7 @@ func NewDeleteUsersUserIDUnauthorized() *DeleteUsersUserIDUnauthorized {
 	return &DeleteUsersUserIDUnauthorized{}
 }
 
-/* DeleteUsersUserIDUnauthorized describes a response with status code 401, with default header values.
+/*DeleteUsersUserIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -151,6 +153,7 @@ type DeleteUsersUserIDUnauthorized struct {
 func (o *DeleteUsersUserIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /users/{user_id}][%d] deleteUsersUserIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *DeleteUsersUserIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -172,7 +175,7 @@ func NewDeleteUsersUserIDForbidden() *DeleteUsersUserIDForbidden {
 	return &DeleteUsersUserIDForbidden{}
 }
 
-/* DeleteUsersUserIDForbidden describes a response with status code 403, with default header values.
+/*DeleteUsersUserIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -183,6 +186,7 @@ type DeleteUsersUserIDForbidden struct {
 func (o *DeleteUsersUserIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /users/{user_id}][%d] deleteUsersUserIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *DeleteUsersUserIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -204,7 +208,7 @@ func NewDeleteUsersUserIDNotFound() *DeleteUsersUserIDNotFound {
 	return &DeleteUsersUserIDNotFound{}
 }
 
-/* DeleteUsersUserIDNotFound describes a response with status code 404, with default header values.
+/*DeleteUsersUserIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -215,6 +219,7 @@ type DeleteUsersUserIDNotFound struct {
 func (o *DeleteUsersUserIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /users/{user_id}][%d] deleteUsersUserIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *DeleteUsersUserIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -236,7 +241,7 @@ func NewDeleteUsersUserIDConflict() *DeleteUsersUserIDConflict {
 	return &DeleteUsersUserIDConflict{}
 }
 
-/* DeleteUsersUserIDConflict describes a response with status code 409, with default header values.
+/*DeleteUsersUserIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -247,6 +252,7 @@ type DeleteUsersUserIDConflict struct {
 func (o *DeleteUsersUserIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /users/{user_id}][%d] deleteUsersUserIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *DeleteUsersUserIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -268,7 +274,7 @@ func NewDeleteUsersUserIDTooManyRequests() *DeleteUsersUserIDTooManyRequests {
 	return &DeleteUsersUserIDTooManyRequests{}
 }
 
-/* DeleteUsersUserIDTooManyRequests describes a response with status code 429, with default header values.
+/*DeleteUsersUserIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -279,6 +285,7 @@ type DeleteUsersUserIDTooManyRequests struct {
 func (o *DeleteUsersUserIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /users/{user_id}][%d] deleteUsersUserIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *DeleteUsersUserIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -300,7 +307,7 @@ func NewDeleteUsersUserIDInternalServerError() *DeleteUsersUserIDInternalServerE
 	return &DeleteUsersUserIDInternalServerError{}
 }
 
-/* DeleteUsersUserIDInternalServerError describes a response with status code 500, with default header values.
+/*DeleteUsersUserIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -311,6 +318,7 @@ type DeleteUsersUserIDInternalServerError struct {
 func (o *DeleteUsersUserIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /users/{user_id}][%d] deleteUsersUserIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *DeleteUsersUserIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -332,7 +340,7 @@ func NewDeleteUsersUserIDServiceUnavailable() *DeleteUsersUserIDServiceUnavailab
 	return &DeleteUsersUserIDServiceUnavailable{}
 }
 
-/* DeleteUsersUserIDServiceUnavailable describes a response with status code 503, with default header values.
+/*DeleteUsersUserIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -343,6 +351,7 @@ type DeleteUsersUserIDServiceUnavailable struct {
 func (o *DeleteUsersUserIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /users/{user_id}][%d] deleteUsersUserIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *DeleteUsersUserIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

@@ -18,78 +18,61 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPatchUnitsIDParams creates a new PatchUnitsIDParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewPatchUnitsIDParams creates a new PatchUnitsIDParams object
+// with the default values initialized.
 func NewPatchUnitsIDParams() *PatchUnitsIDParams {
+	var ()
 	return &PatchUnitsIDParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPatchUnitsIDParamsWithTimeout creates a new PatchUnitsIDParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewPatchUnitsIDParamsWithTimeout(timeout time.Duration) *PatchUnitsIDParams {
+	var ()
 	return &PatchUnitsIDParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewPatchUnitsIDParamsWithContext creates a new PatchUnitsIDParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewPatchUnitsIDParamsWithContext(ctx context.Context) *PatchUnitsIDParams {
+	var ()
 	return &PatchUnitsIDParams{
+
 		Context: ctx,
 	}
 }
 
 // NewPatchUnitsIDParamsWithHTTPClient creates a new PatchUnitsIDParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewPatchUnitsIDParamsWithHTTPClient(client *http.Client) *PatchUnitsIDParams {
+	var ()
 	return &PatchUnitsIDParams{
 		HTTPClient: client,
 	}
 }
 
-/* PatchUnitsIDParams contains all the parameters to send to the API endpoint
-   for the patch units ID operation.
-
-   Typically these are written to a http.Request.
+/*PatchUnitsIDParams contains all the parameters to send to the API endpoint
+for the patch units ID operation typically these are written to a http.Request
 */
 type PatchUnitsIDParams struct {
 
-	// OrganisationUpdateRequest.
+	/*OrganisationUpdateRequest*/
 	OrganisationUpdateRequest *models.OrganisationUpdate
+	/*ID
+	  Organisation Id
 
-	/* ID.
-
-	   Organisation Id
-
-	   Format: uuid
 	*/
 	ID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the patch units ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PatchUnitsIDParams) WithDefaults() *PatchUnitsIDParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the patch units ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PatchUnitsIDParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the patch units ID params
@@ -154,6 +137,7 @@ func (o *PatchUnitsIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		return err
 	}
 	var res []error
+
 	if o.OrganisationUpdateRequest != nil {
 		if err := r.SetBodyParam(o.OrganisationUpdateRequest); err != nil {
 			return err

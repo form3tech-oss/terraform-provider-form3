@@ -6,7 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -138,7 +137,7 @@ const (
 
 // prop value enum
 func (m *UpdateSepaInstantAssociation) validateTypeEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, updateSepaInstantAssociationTypeTypePropEnum, true); err != nil {
+	if err := validate.Enum(path, location, value, updateSepaInstantAssociationTypeTypePropEnum); err != nil {
 		return err
 	}
 	return nil
@@ -146,7 +145,7 @@ func (m *UpdateSepaInstantAssociation) validateTypeEnum(path, location string, v
 
 func (m *UpdateSepaInstantAssociation) validateType(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("type", "body", m.Type); err != nil {
+	if err := validate.RequiredString("type", "body", string(m.Type)); err != nil {
 		return err
 	}
 
@@ -159,40 +158,13 @@ func (m *UpdateSepaInstantAssociation) validateType(formats strfmt.Registry) err
 }
 
 func (m *UpdateSepaInstantAssociation) validateVersion(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Version) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("version", "body", m.Version, 0, false); err != nil {
+	if err := validate.MinimumInt("version", "body", int64(m.Version), 0, false); err != nil {
 		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this update sepa instant association based on the context it is used
-func (m *UpdateSepaInstantAssociation) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateAttributes(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *UpdateSepaInstantAssociation) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Attributes != nil {
-		if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes")
-			}
-			return err
-		}
 	}
 
 	return nil

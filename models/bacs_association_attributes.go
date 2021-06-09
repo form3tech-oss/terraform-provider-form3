@@ -6,7 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -85,11 +84,12 @@ func (m *BacsAssociationAttributes) Validate(formats strfmt.Registry) error {
 }
 
 func (m *BacsAssociationAttributes) validateAccountNumber(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.AccountNumber) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("account_number", "body", m.AccountNumber, `^[0-9]{8}$`); err != nil {
+	if err := validate.Pattern("account_number", "body", string(m.AccountNumber), `^[0-9]{8}$`); err != nil {
 		return err
 	}
 
@@ -97,11 +97,12 @@ func (m *BacsAssociationAttributes) validateAccountNumber(formats strfmt.Registr
 }
 
 func (m *BacsAssociationAttributes) validateBankCode(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.BankCode) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("bank_code", "body", m.BankCode, `^[0-9A-Z]{4}$`); err != nil {
+	if err := validate.Pattern("bank_code", "body", string(m.BankCode), `^[0-9A-Z]{4}$`); err != nil {
 		return err
 	}
 
@@ -109,11 +110,12 @@ func (m *BacsAssociationAttributes) validateBankCode(formats strfmt.Registry) er
 }
 
 func (m *BacsAssociationAttributes) validateCentreNumber(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.CentreNumber) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("centre_number", "body", m.CentreNumber, `^[0-9A-Z]{2}$`); err != nil {
+	if err := validate.Pattern("centre_number", "body", string(m.CentreNumber), `^[0-9A-Z]{2}$`); err != nil {
 		return err
 	}
 
@@ -121,11 +123,12 @@ func (m *BacsAssociationAttributes) validateCentreNumber(formats strfmt.Registry
 }
 
 func (m *BacsAssociationAttributes) validateServiceUserNumber(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ServiceUserNumber) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("service_user_number", "body", m.ServiceUserNumber, `^[0-9A-Z]{6}$`); err != nil {
+	if err := validate.Pattern("service_user_number", "body", string(m.ServiceUserNumber), `^[0-9A-Z]{6}$`); err != nil {
 		return err
 	}
 
@@ -133,6 +136,7 @@ func (m *BacsAssociationAttributes) validateServiceUserNumber(formats strfmt.Reg
 }
 
 func (m *BacsAssociationAttributes) validateServiceUserNumbersConfig(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ServiceUserNumbersConfig) { // not required
 		return nil
 	}
@@ -157,44 +161,13 @@ func (m *BacsAssociationAttributes) validateServiceUserNumbersConfig(formats str
 }
 
 func (m *BacsAssociationAttributes) validateSortingCode(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.SortingCode) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("sorting_code", "body", m.SortingCode, `^[0-9]{6}$`); err != nil {
+	if err := validate.Pattern("sorting_code", "body", string(m.SortingCode), `^[0-9]{6}$`); err != nil {
 		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this bacs association attributes based on the context it is used
-func (m *BacsAssociationAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateServiceUserNumbersConfig(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *BacsAssociationAttributes) contextValidateServiceUserNumbersConfig(ctx context.Context, formats strfmt.Registry) error {
-
-	for i := 0; i < len(m.ServiceUserNumbersConfig); i++ {
-
-		if m.ServiceUserNumbersConfig[i] != nil {
-			if err := m.ServiceUserNumbersConfig[i].ContextValidate(ctx, formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("service_user_numbers_config" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
 	}
 
 	return nil

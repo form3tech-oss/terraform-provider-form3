@@ -25,20 +25,17 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-// ClientOption is the option for Client methods
-type ClientOption func(*runtime.ClientOperation)
-
 // ClientService is the interface for Client methods
 type ClientService interface {
-	DeleteSubscriptionsID(params *DeleteSubscriptionsIDParams, opts ...ClientOption) (*DeleteSubscriptionsIDNoContent, error)
+	DeleteSubscriptionsID(params *DeleteSubscriptionsIDParams) (*DeleteSubscriptionsIDNoContent, error)
 
-	GetSubscriptions(params *GetSubscriptionsParams, opts ...ClientOption) (*GetSubscriptionsOK, error)
+	GetSubscriptions(params *GetSubscriptionsParams) (*GetSubscriptionsOK, error)
 
-	GetSubscriptionsID(params *GetSubscriptionsIDParams, opts ...ClientOption) (*GetSubscriptionsIDOK, error)
+	GetSubscriptionsID(params *GetSubscriptionsIDParams) (*GetSubscriptionsIDOK, error)
 
-	PatchSubscriptionsID(params *PatchSubscriptionsIDParams, opts ...ClientOption) (*PatchSubscriptionsIDOK, error)
+	PatchSubscriptionsID(params *PatchSubscriptionsIDParams) (*PatchSubscriptionsIDOK, error)
 
-	PostSubscriptions(params *PostSubscriptionsParams, opts ...ClientOption) (*PostSubscriptionsCreated, error)
+	PostSubscriptions(params *PostSubscriptionsParams) (*PostSubscriptionsCreated, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -46,12 +43,13 @@ type ClientService interface {
 /*
   DeleteSubscriptionsID deletes a subscription
 */
-func (a *Client) DeleteSubscriptionsID(params *DeleteSubscriptionsIDParams, opts ...ClientOption) (*DeleteSubscriptionsIDNoContent, error) {
+func (a *Client) DeleteSubscriptionsID(params *DeleteSubscriptionsIDParams) (*DeleteSubscriptionsIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteSubscriptionsIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteSubscriptionsID",
 		Method:             "DELETE",
 		PathPattern:        "/subscriptions/{id}",
@@ -62,12 +60,7 @@ func (a *Client) DeleteSubscriptionsID(params *DeleteSubscriptionsIDParams, opts
 		Reader:             &DeleteSubscriptionsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -84,12 +77,13 @@ func (a *Client) DeleteSubscriptionsID(params *DeleteSubscriptionsIDParams, opts
 /*
   GetSubscriptions lists all subscriptions
 */
-func (a *Client) GetSubscriptions(params *GetSubscriptionsParams, opts ...ClientOption) (*GetSubscriptionsOK, error) {
+func (a *Client) GetSubscriptions(params *GetSubscriptionsParams) (*GetSubscriptionsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSubscriptionsParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetSubscriptions",
 		Method:             "GET",
 		PathPattern:        "/subscriptions",
@@ -100,12 +94,7 @@ func (a *Client) GetSubscriptions(params *GetSubscriptionsParams, opts ...Client
 		Reader:             &GetSubscriptionsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -122,12 +111,13 @@ func (a *Client) GetSubscriptions(params *GetSubscriptionsParams, opts ...Client
 /*
   GetSubscriptionsID fetches subscription
 */
-func (a *Client) GetSubscriptionsID(params *GetSubscriptionsIDParams, opts ...ClientOption) (*GetSubscriptionsIDOK, error) {
+func (a *Client) GetSubscriptionsID(params *GetSubscriptionsIDParams) (*GetSubscriptionsIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSubscriptionsIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetSubscriptionsID",
 		Method:             "GET",
 		PathPattern:        "/subscriptions/{id}",
@@ -138,12 +128,7 @@ func (a *Client) GetSubscriptionsID(params *GetSubscriptionsIDParams, opts ...Cl
 		Reader:             &GetSubscriptionsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -160,12 +145,13 @@ func (a *Client) GetSubscriptionsID(params *GetSubscriptionsIDParams, opts ...Cl
 /*
   PatchSubscriptionsID edits subscription details
 */
-func (a *Client) PatchSubscriptionsID(params *PatchSubscriptionsIDParams, opts ...ClientOption) (*PatchSubscriptionsIDOK, error) {
+func (a *Client) PatchSubscriptionsID(params *PatchSubscriptionsIDParams) (*PatchSubscriptionsIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPatchSubscriptionsIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PatchSubscriptionsID",
 		Method:             "PATCH",
 		PathPattern:        "/subscriptions/{id}",
@@ -176,12 +162,7 @@ func (a *Client) PatchSubscriptionsID(params *PatchSubscriptionsIDParams, opts .
 		Reader:             &PatchSubscriptionsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -198,12 +179,13 @@ func (a *Client) PatchSubscriptionsID(params *PatchSubscriptionsIDParams, opts .
 /*
   PostSubscriptions creates subscription
 */
-func (a *Client) PostSubscriptions(params *PostSubscriptionsParams, opts ...ClientOption) (*PostSubscriptionsCreated, error) {
+func (a *Client) PostSubscriptions(params *PostSubscriptionsParams) (*PostSubscriptionsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostSubscriptionsParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PostSubscriptions",
 		Method:             "POST",
 		PathPattern:        "/subscriptions",
@@ -214,12 +196,7 @@ func (a *Client) PostSubscriptions(params *PostSubscriptionsParams, opts ...Clie
 		Reader:             &PostSubscriptionsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}

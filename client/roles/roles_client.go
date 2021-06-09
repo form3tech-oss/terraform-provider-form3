@@ -25,18 +25,15 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-// ClientOption is the option for Client methods
-type ClientOption func(*runtime.ClientOperation)
-
 // ClientService is the interface for Client methods
 type ClientService interface {
-	DeleteRolesRoleID(params *DeleteRolesRoleIDParams, opts ...ClientOption) (*DeleteRolesRoleIDNoContent, error)
+	DeleteRolesRoleID(params *DeleteRolesRoleIDParams) (*DeleteRolesRoleIDNoContent, error)
 
-	GetRoles(params *GetRolesParams, opts ...ClientOption) (*GetRolesOK, error)
+	GetRoles(params *GetRolesParams) (*GetRolesOK, error)
 
-	GetRolesRoleID(params *GetRolesRoleIDParams, opts ...ClientOption) (*GetRolesRoleIDOK, error)
+	GetRolesRoleID(params *GetRolesRoleIDParams) (*GetRolesRoleIDOK, error)
 
-	PostRoles(params *PostRolesParams, opts ...ClientOption) (*PostRolesCreated, error)
+	PostRoles(params *PostRolesParams) (*PostRolesCreated, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -44,12 +41,13 @@ type ClientService interface {
 /*
   DeleteRolesRoleID deletes role
 */
-func (a *Client) DeleteRolesRoleID(params *DeleteRolesRoleIDParams, opts ...ClientOption) (*DeleteRolesRoleIDNoContent, error) {
+func (a *Client) DeleteRolesRoleID(params *DeleteRolesRoleIDParams) (*DeleteRolesRoleIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteRolesRoleIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteRolesRoleID",
 		Method:             "DELETE",
 		PathPattern:        "/roles/{role_id}",
@@ -60,12 +58,7 @@ func (a *Client) DeleteRolesRoleID(params *DeleteRolesRoleIDParams, opts ...Clie
 		Reader:             &DeleteRolesRoleIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -82,12 +75,13 @@ func (a *Client) DeleteRolesRoleID(params *DeleteRolesRoleIDParams, opts ...Clie
 /*
   GetRoles lists all roles
 */
-func (a *Client) GetRoles(params *GetRolesParams, opts ...ClientOption) (*GetRolesOK, error) {
+func (a *Client) GetRoles(params *GetRolesParams) (*GetRolesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetRolesParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetRoles",
 		Method:             "GET",
 		PathPattern:        "/roles",
@@ -98,12 +92,7 @@ func (a *Client) GetRoles(params *GetRolesParams, opts ...ClientOption) (*GetRol
 		Reader:             &GetRolesReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -120,12 +109,13 @@ func (a *Client) GetRoles(params *GetRolesParams, opts ...ClientOption) (*GetRol
 /*
   GetRolesRoleID fetches role
 */
-func (a *Client) GetRolesRoleID(params *GetRolesRoleIDParams, opts ...ClientOption) (*GetRolesRoleIDOK, error) {
+func (a *Client) GetRolesRoleID(params *GetRolesRoleIDParams) (*GetRolesRoleIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetRolesRoleIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetRolesRoleID",
 		Method:             "GET",
 		PathPattern:        "/roles/{role_id}",
@@ -136,12 +126,7 @@ func (a *Client) GetRolesRoleID(params *GetRolesRoleIDParams, opts ...ClientOpti
 		Reader:             &GetRolesRoleIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -158,12 +143,13 @@ func (a *Client) GetRolesRoleID(params *GetRolesRoleIDParams, opts ...ClientOpti
 /*
   PostRoles creates role
 */
-func (a *Client) PostRoles(params *PostRolesParams, opts ...ClientOption) (*PostRolesCreated, error) {
+func (a *Client) PostRoles(params *PostRolesParams) (*PostRolesCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostRolesParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PostRoles",
 		Method:             "POST",
 		PathPattern:        "/roles",
@@ -174,12 +160,7 @@ func (a *Client) PostRoles(params *PostRolesParams, opts ...ClientOption) (*Post
 		Reader:             &PostRolesReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}

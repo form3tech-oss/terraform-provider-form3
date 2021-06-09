@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -72,15 +70,15 @@ func (m *SepaLiquidityAddress) Validate(formats strfmt.Registry) error {
 
 func (m *SepaLiquidityAddress) validateBuildingNumber(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("building_number", "body", m.BuildingNumber); err != nil {
+	if err := validate.RequiredString("building_number", "body", string(m.BuildingNumber)); err != nil {
 		return err
 	}
 
-	if err := validate.MinLength("building_number", "body", m.BuildingNumber, 1); err != nil {
+	if err := validate.MinLength("building_number", "body", string(m.BuildingNumber), 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("building_number", "body", m.BuildingNumber, 16); err != nil {
+	if err := validate.MaxLength("building_number", "body", string(m.BuildingNumber), 16); err != nil {
 		return err
 	}
 
@@ -89,15 +87,15 @@ func (m *SepaLiquidityAddress) validateBuildingNumber(formats strfmt.Registry) e
 
 func (m *SepaLiquidityAddress) validateCity(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("city", "body", m.City); err != nil {
+	if err := validate.RequiredString("city", "body", string(m.City)); err != nil {
 		return err
 	}
 
-	if err := validate.MinLength("city", "body", m.City, 1); err != nil {
+	if err := validate.MinLength("city", "body", string(m.City), 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("city", "body", m.City, 35); err != nil {
+	if err := validate.MaxLength("city", "body", string(m.City), 35); err != nil {
 		return err
 	}
 
@@ -106,15 +104,15 @@ func (m *SepaLiquidityAddress) validateCity(formats strfmt.Registry) error {
 
 func (m *SepaLiquidityAddress) validateCountry(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("country", "body", m.Country); err != nil {
+	if err := validate.RequiredString("country", "body", string(m.Country)); err != nil {
 		return err
 	}
 
-	if err := validate.MinLength("country", "body", m.Country, 1); err != nil {
+	if err := validate.MinLength("country", "body", string(m.Country), 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("country", "body", m.Country, 70); err != nil {
+	if err := validate.MaxLength("country", "body", string(m.Country), 70); err != nil {
 		return err
 	}
 
@@ -123,23 +121,18 @@ func (m *SepaLiquidityAddress) validateCountry(formats strfmt.Registry) error {
 
 func (m *SepaLiquidityAddress) validateStreet(formats strfmt.Registry) error {
 
-	if err := validate.RequiredString("street", "body", m.Street); err != nil {
+	if err := validate.RequiredString("street", "body", string(m.Street)); err != nil {
 		return err
 	}
 
-	if err := validate.MinLength("street", "body", m.Street, 1); err != nil {
+	if err := validate.MinLength("street", "body", string(m.Street), 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("street", "body", m.Street, 70); err != nil {
+	if err := validate.MaxLength("street", "body", string(m.Street), 70); err != nil {
 		return err
 	}
 
-	return nil
-}
-
-// ContextValidate validates this sepa liquidity address based on context it is used
-func (m *SepaLiquidityAddress) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

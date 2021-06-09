@@ -18,78 +18,61 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPostLhvAssociationIDAgencySynchronisationsParams creates a new PostLhvAssociationIDAgencySynchronisationsParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewPostLhvAssociationIDAgencySynchronisationsParams creates a new PostLhvAssociationIDAgencySynchronisationsParams object
+// with the default values initialized.
 func NewPostLhvAssociationIDAgencySynchronisationsParams() *PostLhvAssociationIDAgencySynchronisationsParams {
+	var ()
 	return &PostLhvAssociationIDAgencySynchronisationsParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostLhvAssociationIDAgencySynchronisationsParamsWithTimeout creates a new PostLhvAssociationIDAgencySynchronisationsParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewPostLhvAssociationIDAgencySynchronisationsParamsWithTimeout(timeout time.Duration) *PostLhvAssociationIDAgencySynchronisationsParams {
+	var ()
 	return &PostLhvAssociationIDAgencySynchronisationsParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewPostLhvAssociationIDAgencySynchronisationsParamsWithContext creates a new PostLhvAssociationIDAgencySynchronisationsParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewPostLhvAssociationIDAgencySynchronisationsParamsWithContext(ctx context.Context) *PostLhvAssociationIDAgencySynchronisationsParams {
+	var ()
 	return &PostLhvAssociationIDAgencySynchronisationsParams{
+
 		Context: ctx,
 	}
 }
 
 // NewPostLhvAssociationIDAgencySynchronisationsParamsWithHTTPClient creates a new PostLhvAssociationIDAgencySynchronisationsParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewPostLhvAssociationIDAgencySynchronisationsParamsWithHTTPClient(client *http.Client) *PostLhvAssociationIDAgencySynchronisationsParams {
+	var ()
 	return &PostLhvAssociationIDAgencySynchronisationsParams{
 		HTTPClient: client,
 	}
 }
 
-/* PostLhvAssociationIDAgencySynchronisationsParams contains all the parameters to send to the API endpoint
-   for the post lhv association ID agency synchronisations operation.
-
-   Typically these are written to a http.Request.
+/*PostLhvAssociationIDAgencySynchronisationsParams contains all the parameters to send to the API endpoint
+for the post lhv association ID agency synchronisations operation typically these are written to a http.Request
 */
 type PostLhvAssociationIDAgencySynchronisationsParams struct {
 
-	/* AssociationID.
+	/*AssociationID
+	  Association Id
 
-	   Association Id
-
-	   Format: uuid
 	*/
 	AssociationID strfmt.UUID
-
-	// CreationRequest.
+	/*CreationRequest*/
 	CreationRequest *models.LhvAgencySynchronisationCreation
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the post lhv association ID agency synchronisations params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PostLhvAssociationIDAgencySynchronisationsParams) WithDefaults() *PostLhvAssociationIDAgencySynchronisationsParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the post lhv association ID agency synchronisations params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PostLhvAssociationIDAgencySynchronisationsParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post lhv association ID agency synchronisations params
@@ -159,6 +142,7 @@ func (o *PostLhvAssociationIDAgencySynchronisationsParams) WriteToRequest(r runt
 	if err := r.SetPathParam("associationId", o.AssociationID.String()); err != nil {
 		return err
 	}
+
 	if o.CreationRequest != nil {
 		if err := r.SetBodyParam(o.CreationRequest); err != nil {
 			return err

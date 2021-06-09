@@ -18,78 +18,61 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPatchSepaddIDParams creates a new PatchSepaddIDParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewPatchSepaddIDParams creates a new PatchSepaddIDParams object
+// with the default values initialized.
 func NewPatchSepaddIDParams() *PatchSepaddIDParams {
+	var ()
 	return &PatchSepaddIDParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPatchSepaddIDParamsWithTimeout creates a new PatchSepaddIDParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewPatchSepaddIDParamsWithTimeout(timeout time.Duration) *PatchSepaddIDParams {
+	var ()
 	return &PatchSepaddIDParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewPatchSepaddIDParamsWithContext creates a new PatchSepaddIDParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewPatchSepaddIDParamsWithContext(ctx context.Context) *PatchSepaddIDParams {
+	var ()
 	return &PatchSepaddIDParams{
+
 		Context: ctx,
 	}
 }
 
 // NewPatchSepaddIDParamsWithHTTPClient creates a new PatchSepaddIDParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewPatchSepaddIDParamsWithHTTPClient(client *http.Client) *PatchSepaddIDParams {
+	var ()
 	return &PatchSepaddIDParams{
 		HTTPClient: client,
 	}
 }
 
-/* PatchSepaddIDParams contains all the parameters to send to the API endpoint
-   for the patch sepadd ID operation.
-
-   Typically these are written to a http.Request.
+/*PatchSepaddIDParams contains all the parameters to send to the API endpoint
+for the patch sepadd ID operation typically these are written to a http.Request
 */
 type PatchSepaddIDParams struct {
 
-	/* ID.
+	/*ID
+	  Association Id
 
-	   Association Id
-
-	   Format: uuid
 	*/
 	ID strfmt.UUID
-
-	// UpdateRequest.
+	/*UpdateRequest*/
 	UpdateRequest *models.SepaDDAssociationPatch
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the patch sepadd ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PatchSepaddIDParams) WithDefaults() *PatchSepaddIDParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the patch sepadd ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PatchSepaddIDParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the patch sepadd ID params
@@ -159,6 +142,7 @@ func (o *PatchSepaddIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 	if err := r.SetPathParam("id", o.ID.String()); err != nil {
 		return err
 	}
+
 	if o.UpdateRequest != nil {
 		if err := r.SetBodyParam(o.UpdateRequest); err != nil {
 			return err

@@ -6,7 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -18,11 +17,6 @@ import (
 //
 // swagger:model CurveType
 type CurveType string
-
-func NewCurveType(value CurveType) *CurveType {
-	v := value
-	return &v
-}
 
 const (
 
@@ -53,7 +47,7 @@ func init() {
 }
 
 func (m CurveType) validateCurveTypeEnum(path, location string, value CurveType) error {
-	if err := validate.EnumCase(path, location, value, curveTypeEnum, true); err != nil {
+	if err := validate.Enum(path, location, value, curveTypeEnum); err != nil {
 		return err
 	}
 	return nil
@@ -71,10 +65,5 @@ func (m CurveType) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-// ContextValidate validates this curve type based on context it is used
-func (m CurveType) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }

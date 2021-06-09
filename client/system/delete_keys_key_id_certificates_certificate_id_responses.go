@@ -77,8 +77,9 @@ func (o *DeleteKeysKeyIDCertificatesCertificateIDReader) ReadResponse(response r
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewDeleteKeysKeyIDCertificatesCertificateIDNoContent() *DeleteKeysKeyIDCert
 	return &DeleteKeysKeyIDCertificatesCertificateIDNoContent{}
 }
 
-/* DeleteKeysKeyIDCertificatesCertificateIDNoContent describes a response with status code 204, with default header values.
+/*DeleteKeysKeyIDCertificatesCertificateIDNoContent handles this case with default header values.
 
 Certificate deleted
 */
@@ -108,7 +109,7 @@ func NewDeleteKeysKeyIDCertificatesCertificateIDBadRequest() *DeleteKeysKeyIDCer
 	return &DeleteKeysKeyIDCertificatesCertificateIDBadRequest{}
 }
 
-/* DeleteKeysKeyIDCertificatesCertificateIDBadRequest describes a response with status code 400, with default header values.
+/*DeleteKeysKeyIDCertificatesCertificateIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -119,6 +120,7 @@ type DeleteKeysKeyIDCertificatesCertificateIDBadRequest struct {
 func (o *DeleteKeysKeyIDCertificatesCertificateIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}/certificates/{certificate_id}][%d] deleteKeysKeyIdCertificatesCertificateIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *DeleteKeysKeyIDCertificatesCertificateIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -140,7 +142,7 @@ func NewDeleteKeysKeyIDCertificatesCertificateIDUnauthorized() *DeleteKeysKeyIDC
 	return &DeleteKeysKeyIDCertificatesCertificateIDUnauthorized{}
 }
 
-/* DeleteKeysKeyIDCertificatesCertificateIDUnauthorized describes a response with status code 401, with default header values.
+/*DeleteKeysKeyIDCertificatesCertificateIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -151,6 +153,7 @@ type DeleteKeysKeyIDCertificatesCertificateIDUnauthorized struct {
 func (o *DeleteKeysKeyIDCertificatesCertificateIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}/certificates/{certificate_id}][%d] deleteKeysKeyIdCertificatesCertificateIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *DeleteKeysKeyIDCertificatesCertificateIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -172,7 +175,7 @@ func NewDeleteKeysKeyIDCertificatesCertificateIDForbidden() *DeleteKeysKeyIDCert
 	return &DeleteKeysKeyIDCertificatesCertificateIDForbidden{}
 }
 
-/* DeleteKeysKeyIDCertificatesCertificateIDForbidden describes a response with status code 403, with default header values.
+/*DeleteKeysKeyIDCertificatesCertificateIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -183,6 +186,7 @@ type DeleteKeysKeyIDCertificatesCertificateIDForbidden struct {
 func (o *DeleteKeysKeyIDCertificatesCertificateIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}/certificates/{certificate_id}][%d] deleteKeysKeyIdCertificatesCertificateIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *DeleteKeysKeyIDCertificatesCertificateIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -204,7 +208,7 @@ func NewDeleteKeysKeyIDCertificatesCertificateIDNotFound() *DeleteKeysKeyIDCerti
 	return &DeleteKeysKeyIDCertificatesCertificateIDNotFound{}
 }
 
-/* DeleteKeysKeyIDCertificatesCertificateIDNotFound describes a response with status code 404, with default header values.
+/*DeleteKeysKeyIDCertificatesCertificateIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -215,6 +219,7 @@ type DeleteKeysKeyIDCertificatesCertificateIDNotFound struct {
 func (o *DeleteKeysKeyIDCertificatesCertificateIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}/certificates/{certificate_id}][%d] deleteKeysKeyIdCertificatesCertificateIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *DeleteKeysKeyIDCertificatesCertificateIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -236,7 +241,7 @@ func NewDeleteKeysKeyIDCertificatesCertificateIDConflict() *DeleteKeysKeyIDCerti
 	return &DeleteKeysKeyIDCertificatesCertificateIDConflict{}
 }
 
-/* DeleteKeysKeyIDCertificatesCertificateIDConflict describes a response with status code 409, with default header values.
+/*DeleteKeysKeyIDCertificatesCertificateIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -247,6 +252,7 @@ type DeleteKeysKeyIDCertificatesCertificateIDConflict struct {
 func (o *DeleteKeysKeyIDCertificatesCertificateIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}/certificates/{certificate_id}][%d] deleteKeysKeyIdCertificatesCertificateIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *DeleteKeysKeyIDCertificatesCertificateIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -268,7 +274,7 @@ func NewDeleteKeysKeyIDCertificatesCertificateIDTooManyRequests() *DeleteKeysKey
 	return &DeleteKeysKeyIDCertificatesCertificateIDTooManyRequests{}
 }
 
-/* DeleteKeysKeyIDCertificatesCertificateIDTooManyRequests describes a response with status code 429, with default header values.
+/*DeleteKeysKeyIDCertificatesCertificateIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -279,6 +285,7 @@ type DeleteKeysKeyIDCertificatesCertificateIDTooManyRequests struct {
 func (o *DeleteKeysKeyIDCertificatesCertificateIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}/certificates/{certificate_id}][%d] deleteKeysKeyIdCertificatesCertificateIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *DeleteKeysKeyIDCertificatesCertificateIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -300,7 +307,7 @@ func NewDeleteKeysKeyIDCertificatesCertificateIDInternalServerError() *DeleteKey
 	return &DeleteKeysKeyIDCertificatesCertificateIDInternalServerError{}
 }
 
-/* DeleteKeysKeyIDCertificatesCertificateIDInternalServerError describes a response with status code 500, with default header values.
+/*DeleteKeysKeyIDCertificatesCertificateIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -311,6 +318,7 @@ type DeleteKeysKeyIDCertificatesCertificateIDInternalServerError struct {
 func (o *DeleteKeysKeyIDCertificatesCertificateIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}/certificates/{certificate_id}][%d] deleteKeysKeyIdCertificatesCertificateIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *DeleteKeysKeyIDCertificatesCertificateIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -332,7 +340,7 @@ func NewDeleteKeysKeyIDCertificatesCertificateIDServiceUnavailable() *DeleteKeys
 	return &DeleteKeysKeyIDCertificatesCertificateIDServiceUnavailable{}
 }
 
-/* DeleteKeysKeyIDCertificatesCertificateIDServiceUnavailable describes a response with status code 503, with default header values.
+/*DeleteKeysKeyIDCertificatesCertificateIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -343,6 +351,7 @@ type DeleteKeysKeyIDCertificatesCertificateIDServiceUnavailable struct {
 func (o *DeleteKeysKeyIDCertificatesCertificateIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /keys/{key_id}/certificates/{certificate_id}][%d] deleteKeysKeyIdCertificatesCertificateIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *DeleteKeysKeyIDCertificatesCertificateIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

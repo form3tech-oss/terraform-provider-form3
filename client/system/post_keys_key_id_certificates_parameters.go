@@ -18,78 +18,61 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPostKeysKeyIDCertificatesParams creates a new PostKeysKeyIDCertificatesParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewPostKeysKeyIDCertificatesParams creates a new PostKeysKeyIDCertificatesParams object
+// with the default values initialized.
 func NewPostKeysKeyIDCertificatesParams() *PostKeysKeyIDCertificatesParams {
+	var ()
 	return &PostKeysKeyIDCertificatesParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostKeysKeyIDCertificatesParamsWithTimeout creates a new PostKeysKeyIDCertificatesParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewPostKeysKeyIDCertificatesParamsWithTimeout(timeout time.Duration) *PostKeysKeyIDCertificatesParams {
+	var ()
 	return &PostKeysKeyIDCertificatesParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewPostKeysKeyIDCertificatesParamsWithContext creates a new PostKeysKeyIDCertificatesParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewPostKeysKeyIDCertificatesParamsWithContext(ctx context.Context) *PostKeysKeyIDCertificatesParams {
+	var ()
 	return &PostKeysKeyIDCertificatesParams{
+
 		Context: ctx,
 	}
 }
 
 // NewPostKeysKeyIDCertificatesParamsWithHTTPClient creates a new PostKeysKeyIDCertificatesParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewPostKeysKeyIDCertificatesParamsWithHTTPClient(client *http.Client) *PostKeysKeyIDCertificatesParams {
+	var ()
 	return &PostKeysKeyIDCertificatesParams{
 		HTTPClient: client,
 	}
 }
 
-/* PostKeysKeyIDCertificatesParams contains all the parameters to send to the API endpoint
-   for the post keys key ID certificates operation.
-
-   Typically these are written to a http.Request.
+/*PostKeysKeyIDCertificatesParams contains all the parameters to send to the API endpoint
+for the post keys key ID certificates operation typically these are written to a http.Request
 */
 type PostKeysKeyIDCertificatesParams struct {
 
-	// CertificateCreationRequest.
+	/*CertificateCreationRequest*/
 	CertificateCreationRequest *models.CertificateCreation
+	/*KeyID
+	  Key Id
 
-	/* KeyID.
-
-	   Key Id
-
-	   Format: uuid
 	*/
 	KeyID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the post keys key ID certificates params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PostKeysKeyIDCertificatesParams) WithDefaults() *PostKeysKeyIDCertificatesParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the post keys key ID certificates params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PostKeysKeyIDCertificatesParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post keys key ID certificates params
@@ -154,6 +137,7 @@ func (o *PostKeysKeyIDCertificatesParams) WriteToRequest(r runtime.ClientRequest
 		return err
 	}
 	var res []error
+
 	if o.CertificateCreationRequest != nil {
 		if err := r.SetBodyParam(o.CertificateCreationRequest); err != nil {
 			return err

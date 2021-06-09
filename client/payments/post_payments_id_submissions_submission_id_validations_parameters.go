@@ -18,86 +18,66 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPostPaymentsIDSubmissionsSubmissionIDValidationsParams creates a new PostPaymentsIDSubmissionsSubmissionIDValidationsParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewPostPaymentsIDSubmissionsSubmissionIDValidationsParams creates a new PostPaymentsIDSubmissionsSubmissionIDValidationsParams object
+// with the default values initialized.
 func NewPostPaymentsIDSubmissionsSubmissionIDValidationsParams() *PostPaymentsIDSubmissionsSubmissionIDValidationsParams {
+	var ()
 	return &PostPaymentsIDSubmissionsSubmissionIDValidationsParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostPaymentsIDSubmissionsSubmissionIDValidationsParamsWithTimeout creates a new PostPaymentsIDSubmissionsSubmissionIDValidationsParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewPostPaymentsIDSubmissionsSubmissionIDValidationsParamsWithTimeout(timeout time.Duration) *PostPaymentsIDSubmissionsSubmissionIDValidationsParams {
+	var ()
 	return &PostPaymentsIDSubmissionsSubmissionIDValidationsParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewPostPaymentsIDSubmissionsSubmissionIDValidationsParamsWithContext creates a new PostPaymentsIDSubmissionsSubmissionIDValidationsParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewPostPaymentsIDSubmissionsSubmissionIDValidationsParamsWithContext(ctx context.Context) *PostPaymentsIDSubmissionsSubmissionIDValidationsParams {
+	var ()
 	return &PostPaymentsIDSubmissionsSubmissionIDValidationsParams{
+
 		Context: ctx,
 	}
 }
 
 // NewPostPaymentsIDSubmissionsSubmissionIDValidationsParamsWithHTTPClient creates a new PostPaymentsIDSubmissionsSubmissionIDValidationsParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewPostPaymentsIDSubmissionsSubmissionIDValidationsParamsWithHTTPClient(client *http.Client) *PostPaymentsIDSubmissionsSubmissionIDValidationsParams {
+	var ()
 	return &PostPaymentsIDSubmissionsSubmissionIDValidationsParams{
 		HTTPClient: client,
 	}
 }
 
-/* PostPaymentsIDSubmissionsSubmissionIDValidationsParams contains all the parameters to send to the API endpoint
-   for the post payments ID submissions submission ID validations operation.
-
-   Typically these are written to a http.Request.
+/*PostPaymentsIDSubmissionsSubmissionIDValidationsParams contains all the parameters to send to the API endpoint
+for the post payments ID submissions submission ID validations operation typically these are written to a http.Request
 */
 type PostPaymentsIDSubmissionsSubmissionIDValidationsParams struct {
 
-	// PaymentSubmissionValidationRequest.
+	/*PaymentSubmissionValidationRequest*/
 	PaymentSubmissionValidationRequest *models.PaymentSubmissionValidationCreation
+	/*ID
+	  Payment Id
 
-	/* ID.
-
-	   Payment Id
-
-	   Format: uuid
 	*/
 	ID strfmt.UUID
+	/*SubmissionID
+	  Submission Id
 
-	/* SubmissionID.
-
-	   Submission Id
-
-	   Format: uuid
 	*/
 	SubmissionID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the post payments ID submissions submission ID validations params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsParams) WithDefaults() *PostPaymentsIDSubmissionsSubmissionIDValidationsParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the post payments ID submissions submission ID validations params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post payments ID submissions submission ID validations params
@@ -173,6 +153,7 @@ func (o *PostPaymentsIDSubmissionsSubmissionIDValidationsParams) WriteToRequest(
 		return err
 	}
 	var res []error
+
 	if o.PaymentSubmissionValidationRequest != nil {
 		if err := r.SetBodyParam(o.PaymentSubmissionValidationRequest); err != nil {
 			return err

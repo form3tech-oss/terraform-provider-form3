@@ -25,150 +25,147 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-// ClientOption is the option for Client methods
-type ClientOption func(*runtime.ClientOperation)
-
 // ClientService is the interface for Client methods
 type ClientService interface {
-	DeleteBacsID(params *DeleteBacsIDParams, opts ...ClientOption) (*DeleteBacsIDNoContent, error)
+	DeleteBacsID(params *DeleteBacsIDParams) (*DeleteBacsIDNoContent, error)
 
-	DeleteConfirmationOfPayeeID(params *DeleteConfirmationOfPayeeIDParams, opts ...ClientOption) (*DeleteConfirmationOfPayeeIDNoContent, error)
+	DeleteConfirmationOfPayeeID(params *DeleteConfirmationOfPayeeIDParams) (*DeleteConfirmationOfPayeeIDNoContent, error)
 
-	DeleteGocardlessID(params *DeleteGocardlessIDParams, opts ...ClientOption) (*DeleteGocardlessIDNoContent, error)
+	DeleteGocardlessID(params *DeleteGocardlessIDParams) (*DeleteGocardlessIDNoContent, error)
 
-	DeleteLhvAssociationID(params *DeleteLhvAssociationIDParams, opts ...ClientOption) (*DeleteLhvAssociationIDNoContent, error)
+	DeleteLhvAssociationID(params *DeleteLhvAssociationIDParams) (*DeleteLhvAssociationIDNoContent, error)
 
-	DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationID(params *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDParams, opts ...ClientOption) (*DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNoContent, error)
+	DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationID(params *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDParams) (*DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNoContent, error)
 
-	DeleteLhvAssociationIDMasterAccountsMasterAccountID(params *DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams, opts ...ClientOption) (*DeleteLhvAssociationIDMasterAccountsMasterAccountIDNoContent, error)
+	DeleteLhvAssociationIDMasterAccountsMasterAccountID(params *DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams) (*DeleteLhvAssociationIDMasterAccountsMasterAccountIDNoContent, error)
 
-	DeletePayportID(params *DeletePayportIDParams, opts ...ClientOption) (*DeletePayportIDNoContent, error)
+	DeletePayportID(params *DeletePayportIDParams) (*DeletePayportIDNoContent, error)
 
-	DeleteReconciliationAssociationID(params *DeleteReconciliationAssociationIDParams, opts ...ClientOption) (*DeleteReconciliationAssociationIDNoContent, error)
+	DeleteReconciliationAssociationID(params *DeleteReconciliationAssociationIDParams) (*DeleteReconciliationAssociationIDNoContent, error)
 
-	DeleteSepaLiquidityID(params *DeleteSepaLiquidityIDParams, opts ...ClientOption) (*DeleteSepaLiquidityIDNoContent, error)
+	DeleteSepaLiquidityID(params *DeleteSepaLiquidityIDParams) (*DeleteSepaLiquidityIDNoContent, error)
 
-	DeleteSepactLiquidityAssociationID(params *DeleteSepactLiquidityAssociationIDParams, opts ...ClientOption) (*DeleteSepactLiquidityAssociationIDNoContent, error)
+	DeleteSepactLiquidityAssociationID(params *DeleteSepactLiquidityAssociationIDParams) (*DeleteSepactLiquidityAssociationIDNoContent, error)
 
-	DeleteSepaddID(params *DeleteSepaddIDParams, opts ...ClientOption) (*DeleteSepaddIDNoContent, error)
+	DeleteSepaddID(params *DeleteSepaddIDParams) (*DeleteSepaddIDNoContent, error)
 
-	DeleteSepainstantID(params *DeleteSepainstantIDParams, opts ...ClientOption) (*DeleteSepainstantIDNoContent, error)
+	DeleteSepainstantID(params *DeleteSepainstantIDParams) (*DeleteSepainstantIDNoContent, error)
 
-	DeleteSepasctID(params *DeleteSepasctIDParams, opts ...ClientOption) (*DeleteSepasctIDNoContent, error)
+	DeleteSepasctID(params *DeleteSepasctIDParams) (*DeleteSepasctIDNoContent, error)
 
-	DeleteStarlingID(params *DeleteStarlingIDParams, opts ...ClientOption) (*DeleteStarlingIDNoContent, error)
+	DeleteStarlingID(params *DeleteStarlingIDParams) (*DeleteStarlingIDNoContent, error)
 
-	DeleteSwiftID(params *DeleteSwiftIDParams, opts ...ClientOption) (*DeleteSwiftIDNoContent, error)
+	DeleteSwiftID(params *DeleteSwiftIDParams) (*DeleteSwiftIDNoContent, error)
 
-	DeleteVocalinkreportID(params *DeleteVocalinkreportIDParams, opts ...ClientOption) (*DeleteVocalinkreportIDNoContent, error)
+	DeleteVocalinkreportID(params *DeleteVocalinkreportIDParams) (*DeleteVocalinkreportIDNoContent, error)
 
-	GetBacs(params *GetBacsParams, opts ...ClientOption) (*GetBacsOK, error)
+	GetBacs(params *GetBacsParams) (*GetBacsOK, error)
 
-	GetBacsID(params *GetBacsIDParams, opts ...ClientOption) (*GetBacsIDOK, error)
+	GetBacsID(params *GetBacsIDParams) (*GetBacsIDOK, error)
 
-	GetConfirmationOfPayee(params *GetConfirmationOfPayeeParams, opts ...ClientOption) (*GetConfirmationOfPayeeOK, error)
+	GetConfirmationOfPayee(params *GetConfirmationOfPayeeParams) (*GetConfirmationOfPayeeOK, error)
 
-	GetConfirmationOfPayeeID(params *GetConfirmationOfPayeeIDParams, opts ...ClientOption) (*GetConfirmationOfPayeeIDOK, error)
+	GetConfirmationOfPayeeID(params *GetConfirmationOfPayeeIDParams) (*GetConfirmationOfPayeeIDOK, error)
 
-	GetGocardless(params *GetGocardlessParams, opts ...ClientOption) (*GetGocardlessOK, error)
+	GetGocardless(params *GetGocardlessParams) (*GetGocardlessOK, error)
 
-	GetGocardlessID(params *GetGocardlessIDParams, opts ...ClientOption) (*GetGocardlessIDOK, error)
+	GetGocardlessID(params *GetGocardlessIDParams) (*GetGocardlessIDOK, error)
 
-	GetLhv(params *GetLhvParams, opts ...ClientOption) (*GetLhvOK, error)
+	GetLhv(params *GetLhvParams) (*GetLhvOK, error)
 
-	GetLhvAssociationID(params *GetLhvAssociationIDParams, opts ...ClientOption) (*GetLhvAssociationIDOK, error)
+	GetLhvAssociationID(params *GetLhvAssociationIDParams) (*GetLhvAssociationIDOK, error)
 
-	GetLhvAssociationIDAgencySynchronisations(params *GetLhvAssociationIDAgencySynchronisationsParams, opts ...ClientOption) (*GetLhvAssociationIDAgencySynchronisationsOK, error)
+	GetLhvAssociationIDAgencySynchronisations(params *GetLhvAssociationIDAgencySynchronisationsParams) (*GetLhvAssociationIDAgencySynchronisationsOK, error)
 
-	GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationID(params *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDParams, opts ...ClientOption) (*GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDOK, error)
+	GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationID(params *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDParams) (*GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDOK, error)
 
-	GetLhvAssociationIDMasterAccounts(params *GetLhvAssociationIDMasterAccountsParams, opts ...ClientOption) (*GetLhvAssociationIDMasterAccountsOK, error)
+	GetLhvAssociationIDMasterAccounts(params *GetLhvAssociationIDMasterAccountsParams) (*GetLhvAssociationIDMasterAccountsOK, error)
 
-	GetLhvAssociationIDMasterAccountsMasterAccountID(params *GetLhvAssociationIDMasterAccountsMasterAccountIDParams, opts ...ClientOption) (*GetLhvAssociationIDMasterAccountsMasterAccountIDOK, error)
+	GetLhvAssociationIDMasterAccountsMasterAccountID(params *GetLhvAssociationIDMasterAccountsMasterAccountIDParams) (*GetLhvAssociationIDMasterAccountsMasterAccountIDOK, error)
 
-	GetPayport(params *GetPayportParams, opts ...ClientOption) (*GetPayportOK, error)
+	GetPayport(params *GetPayportParams) (*GetPayportOK, error)
 
-	GetPayportID(params *GetPayportIDParams, opts ...ClientOption) (*GetPayportIDOK, error)
+	GetPayportID(params *GetPayportIDParams) (*GetPayportIDOK, error)
 
-	GetReconciliation(params *GetReconciliationParams, opts ...ClientOption) (*GetReconciliationOK, error)
+	GetReconciliation(params *GetReconciliationParams) (*GetReconciliationOK, error)
 
-	GetReconciliationAssociationID(params *GetReconciliationAssociationIDParams, opts ...ClientOption) (*GetReconciliationAssociationIDOK, error)
+	GetReconciliationAssociationID(params *GetReconciliationAssociationIDParams) (*GetReconciliationAssociationIDOK, error)
 
-	GetSepaLiquidity(params *GetSepaLiquidityParams, opts ...ClientOption) (*GetSepaLiquidityOK, error)
+	GetSepaLiquidity(params *GetSepaLiquidityParams) (*GetSepaLiquidityOK, error)
 
-	GetSepaLiquidityID(params *GetSepaLiquidityIDParams, opts ...ClientOption) (*GetSepaLiquidityIDOK, error)
+	GetSepaLiquidityID(params *GetSepaLiquidityIDParams) (*GetSepaLiquidityIDOK, error)
 
-	GetSepactLiquidity(params *GetSepactLiquidityParams, opts ...ClientOption) (*GetSepactLiquidityOK, error)
+	GetSepactLiquidity(params *GetSepactLiquidityParams) (*GetSepactLiquidityOK, error)
 
-	GetSepactLiquidityAssociationID(params *GetSepactLiquidityAssociationIDParams, opts ...ClientOption) (*GetSepactLiquidityAssociationIDOK, error)
+	GetSepactLiquidityAssociationID(params *GetSepactLiquidityAssociationIDParams) (*GetSepactLiquidityAssociationIDOK, error)
 
-	GetSepadd(params *GetSepaddParams, opts ...ClientOption) (*GetSepaddOK, error)
+	GetSepadd(params *GetSepaddParams) (*GetSepaddOK, error)
 
-	GetSepaddID(params *GetSepaddIDParams, opts ...ClientOption) (*GetSepaddIDOK, error)
+	GetSepaddID(params *GetSepaddIDParams) (*GetSepaddIDOK, error)
 
-	GetSepainstant(params *GetSepainstantParams, opts ...ClientOption) (*GetSepainstantOK, error)
+	GetSepainstant(params *GetSepainstantParams) (*GetSepainstantOK, error)
 
-	GetSepainstantID(params *GetSepainstantIDParams, opts ...ClientOption) (*GetSepainstantIDOK, error)
+	GetSepainstantID(params *GetSepainstantIDParams) (*GetSepainstantIDOK, error)
 
-	GetSepasct(params *GetSepasctParams, opts ...ClientOption) (*GetSepasctOK, error)
+	GetSepasct(params *GetSepasctParams) (*GetSepasctOK, error)
 
-	GetSepasctID(params *GetSepasctIDParams, opts ...ClientOption) (*GetSepasctIDOK, error)
+	GetSepasctID(params *GetSepasctIDParams) (*GetSepasctIDOK, error)
 
-	GetStarling(params *GetStarlingParams, opts ...ClientOption) (*GetStarlingOK, error)
+	GetStarling(params *GetStarlingParams) (*GetStarlingOK, error)
 
-	GetStarlingID(params *GetStarlingIDParams, opts ...ClientOption) (*GetStarlingIDOK, error)
+	GetStarlingID(params *GetStarlingIDParams) (*GetStarlingIDOK, error)
 
-	GetSwift(params *GetSwiftParams, opts ...ClientOption) (*GetSwiftOK, error)
+	GetSwift(params *GetSwiftParams) (*GetSwiftOK, error)
 
-	GetSwiftID(params *GetSwiftIDParams, opts ...ClientOption) (*GetSwiftIDOK, error)
+	GetSwiftID(params *GetSwiftIDParams) (*GetSwiftIDOK, error)
 
-	GetVocalinkreport(params *GetVocalinkreportParams, opts ...ClientOption) (*GetVocalinkreportOK, error)
+	GetVocalinkreport(params *GetVocalinkreportParams) (*GetVocalinkreportOK, error)
 
-	GetVocalinkreportID(params *GetVocalinkreportIDParams, opts ...ClientOption) (*GetVocalinkreportIDOK, error)
+	GetVocalinkreportID(params *GetVocalinkreportIDParams) (*GetVocalinkreportIDOK, error)
 
-	PatchGocardlessID(params *PatchGocardlessIDParams, opts ...ClientOption) (*PatchGocardlessIDOK, error)
+	PatchGocardlessID(params *PatchGocardlessIDParams) (*PatchGocardlessIDOK, error)
 
-	PatchLhvAssociationID(params *PatchLhvAssociationIDParams, opts ...ClientOption) (*PatchLhvAssociationIDOK, error)
+	PatchLhvAssociationID(params *PatchLhvAssociationIDParams) (*PatchLhvAssociationIDOK, error)
 
-	PatchSepactLiquidityAssociationID(params *PatchSepactLiquidityAssociationIDParams, opts ...ClientOption) (*PatchSepactLiquidityAssociationIDOK, error)
+	PatchSepactLiquidityAssociationID(params *PatchSepactLiquidityAssociationIDParams) (*PatchSepactLiquidityAssociationIDOK, error)
 
-	PatchSepaddID(params *PatchSepaddIDParams, opts ...ClientOption) (*PatchSepaddIDOK, error)
+	PatchSepaddID(params *PatchSepaddIDParams) (*PatchSepaddIDOK, error)
 
-	PatchSepainstantID(params *PatchSepainstantIDParams, opts ...ClientOption) (*PatchSepainstantIDOK, error)
+	PatchSepainstantID(params *PatchSepainstantIDParams) (*PatchSepainstantIDOK, error)
 
-	PatchSwiftID(params *PatchSwiftIDParams, opts ...ClientOption) (*PatchSwiftIDOK, error)
+	PatchSwiftID(params *PatchSwiftIDParams) (*PatchSwiftIDOK, error)
 
-	PostBacs(params *PostBacsParams, opts ...ClientOption) (*PostBacsCreated, error)
+	PostBacs(params *PostBacsParams) (*PostBacsCreated, error)
 
-	PostConfirmationOfPayee(params *PostConfirmationOfPayeeParams, opts ...ClientOption) (*PostConfirmationOfPayeeCreated, error)
+	PostConfirmationOfPayee(params *PostConfirmationOfPayeeParams) (*PostConfirmationOfPayeeCreated, error)
 
-	PostGocardless(params *PostGocardlessParams, opts ...ClientOption) (*PostGocardlessCreated, error)
+	PostGocardless(params *PostGocardlessParams) (*PostGocardlessCreated, error)
 
-	PostLhv(params *PostLhvParams, opts ...ClientOption) (*PostLhvCreated, error)
+	PostLhv(params *PostLhvParams) (*PostLhvCreated, error)
 
-	PostLhvAssociationIDAgencySynchronisations(params *PostLhvAssociationIDAgencySynchronisationsParams, opts ...ClientOption) (*PostLhvAssociationIDAgencySynchronisationsCreated, error)
+	PostLhvAssociationIDAgencySynchronisations(params *PostLhvAssociationIDAgencySynchronisationsParams) (*PostLhvAssociationIDAgencySynchronisationsCreated, error)
 
-	PostLhvAssociationIDMasterAccounts(params *PostLhvAssociationIDMasterAccountsParams, opts ...ClientOption) (*PostLhvAssociationIDMasterAccountsCreated, error)
+	PostLhvAssociationIDMasterAccounts(params *PostLhvAssociationIDMasterAccountsParams) (*PostLhvAssociationIDMasterAccountsCreated, error)
 
-	PostPayport(params *PostPayportParams, opts ...ClientOption) (*PostPayportCreated, error)
+	PostPayport(params *PostPayportParams) (*PostPayportCreated, error)
 
-	PostReconciliation(params *PostReconciliationParams, opts ...ClientOption) (*PostReconciliationCreated, error)
+	PostReconciliation(params *PostReconciliationParams) (*PostReconciliationCreated, error)
 
-	PostSepaLiquidity(params *PostSepaLiquidityParams, opts ...ClientOption) (*PostSepaLiquidityCreated, error)
+	PostSepaLiquidity(params *PostSepaLiquidityParams) (*PostSepaLiquidityCreated, error)
 
-	PostSepactLiquidity(params *PostSepactLiquidityParams, opts ...ClientOption) (*PostSepactLiquidityCreated, error)
+	PostSepactLiquidity(params *PostSepactLiquidityParams) (*PostSepactLiquidityCreated, error)
 
-	PostSepadd(params *PostSepaddParams, opts ...ClientOption) (*PostSepaddCreated, error)
+	PostSepadd(params *PostSepaddParams) (*PostSepaddCreated, error)
 
-	PostSepainstant(params *PostSepainstantParams, opts ...ClientOption) (*PostSepainstantCreated, error)
+	PostSepainstant(params *PostSepainstantParams) (*PostSepainstantCreated, error)
 
-	PostSepasct(params *PostSepasctParams, opts ...ClientOption) (*PostSepasctCreated, error)
+	PostSepasct(params *PostSepasctParams) (*PostSepasctCreated, error)
 
-	PostStarling(params *PostStarlingParams, opts ...ClientOption) (*PostStarlingCreated, error)
+	PostStarling(params *PostStarlingParams) (*PostStarlingCreated, error)
 
-	PostSwift(params *PostSwiftParams, opts ...ClientOption) (*PostSwiftCreated, error)
+	PostSwift(params *PostSwiftParams) (*PostSwiftCreated, error)
 
-	PostVocalinkreport(params *PostVocalinkreportParams, opts ...ClientOption) (*PostVocalinkreportCreated, error)
+	PostVocalinkreport(params *PostVocalinkreportParams) (*PostVocalinkreportCreated, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -176,12 +173,13 @@ type ClientService interface {
 /*
   DeleteBacsID deletes organisation association for b a c s
 */
-func (a *Client) DeleteBacsID(params *DeleteBacsIDParams, opts ...ClientOption) (*DeleteBacsIDNoContent, error) {
+func (a *Client) DeleteBacsID(params *DeleteBacsIDParams) (*DeleteBacsIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteBacsIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteBacsID",
 		Method:             "DELETE",
 		PathPattern:        "/bacs/{id}",
@@ -192,12 +190,7 @@ func (a *Client) DeleteBacsID(params *DeleteBacsIDParams, opts ...ClientOption) 
 		Reader:             &DeleteBacsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -214,12 +207,13 @@ func (a *Client) DeleteBacsID(params *DeleteBacsIDParams, opts ...ClientOption) 
 /*
   DeleteConfirmationOfPayeeID deletes organisation association
 */
-func (a *Client) DeleteConfirmationOfPayeeID(params *DeleteConfirmationOfPayeeIDParams, opts ...ClientOption) (*DeleteConfirmationOfPayeeIDNoContent, error) {
+func (a *Client) DeleteConfirmationOfPayeeID(params *DeleteConfirmationOfPayeeIDParams) (*DeleteConfirmationOfPayeeIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteConfirmationOfPayeeIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteConfirmationOfPayeeID",
 		Method:             "DELETE",
 		PathPattern:        "/confirmation-of-payee/{id}",
@@ -230,12 +224,7 @@ func (a *Client) DeleteConfirmationOfPayeeID(params *DeleteConfirmationOfPayeeID
 		Reader:             &DeleteConfirmationOfPayeeIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -252,12 +241,13 @@ func (a *Client) DeleteConfirmationOfPayeeID(params *DeleteConfirmationOfPayeeID
 /*
   DeleteGocardlessID deletes gocardless gateway association
 */
-func (a *Client) DeleteGocardlessID(params *DeleteGocardlessIDParams, opts ...ClientOption) (*DeleteGocardlessIDNoContent, error) {
+func (a *Client) DeleteGocardlessID(params *DeleteGocardlessIDParams) (*DeleteGocardlessIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteGocardlessIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteGocardlessID",
 		Method:             "DELETE",
 		PathPattern:        "/gocardless/{id}",
@@ -268,12 +258,7 @@ func (a *Client) DeleteGocardlessID(params *DeleteGocardlessIDParams, opts ...Cl
 		Reader:             &DeleteGocardlessIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -290,12 +275,13 @@ func (a *Client) DeleteGocardlessID(params *DeleteGocardlessIDParams, opts ...Cl
 /*
   DeleteLhvAssociationID deletes organisation lhv association
 */
-func (a *Client) DeleteLhvAssociationID(params *DeleteLhvAssociationIDParams, opts ...ClientOption) (*DeleteLhvAssociationIDNoContent, error) {
+func (a *Client) DeleteLhvAssociationID(params *DeleteLhvAssociationIDParams) (*DeleteLhvAssociationIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteLhvAssociationIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteLhvAssociationID",
 		Method:             "DELETE",
 		PathPattern:        "/lhv/{associationId}",
@@ -306,12 +292,7 @@ func (a *Client) DeleteLhvAssociationID(params *DeleteLhvAssociationIDParams, op
 		Reader:             &DeleteLhvAssociationIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -328,12 +309,13 @@ func (a *Client) DeleteLhvAssociationID(params *DeleteLhvAssociationIDParams, op
 /*
   DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationID deletes l h v organisation association agency synchronisation details
 */
-func (a *Client) DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationID(params *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDParams, opts ...ClientOption) (*DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNoContent, error) {
+func (a *Client) DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationID(params *DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDParams) (*DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationID",
 		Method:             "DELETE",
 		PathPattern:        "/lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}",
@@ -344,12 +326,7 @@ func (a *Client) DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisati
 		Reader:             &DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -366,12 +343,13 @@ func (a *Client) DeleteLhvAssociationIDAgencySynchronisationsAgencySynchronisati
 /*
   DeleteLhvAssociationIDMasterAccountsMasterAccountID deletes organisation association master account
 */
-func (a *Client) DeleteLhvAssociationIDMasterAccountsMasterAccountID(params *DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams, opts ...ClientOption) (*DeleteLhvAssociationIDMasterAccountsMasterAccountIDNoContent, error) {
+func (a *Client) DeleteLhvAssociationIDMasterAccountsMasterAccountID(params *DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams) (*DeleteLhvAssociationIDMasterAccountsMasterAccountIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteLhvAssociationIDMasterAccountsMasterAccountID",
 		Method:             "DELETE",
 		PathPattern:        "/lhv/{associationId}/master_accounts/{masterAccountId}",
@@ -382,12 +360,7 @@ func (a *Client) DeleteLhvAssociationIDMasterAccountsMasterAccountID(params *Del
 		Reader:             &DeleteLhvAssociationIDMasterAccountsMasterAccountIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -404,12 +377,13 @@ func (a *Client) DeleteLhvAssociationIDMasterAccountsMasterAccountID(params *Del
 /*
   DeletePayportID deletes service association
 */
-func (a *Client) DeletePayportID(params *DeletePayportIDParams, opts ...ClientOption) (*DeletePayportIDNoContent, error) {
+func (a *Client) DeletePayportID(params *DeletePayportIDParams) (*DeletePayportIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeletePayportIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeletePayportID",
 		Method:             "DELETE",
 		PathPattern:        "/payport/{id}",
@@ -420,12 +394,7 @@ func (a *Client) DeletePayportID(params *DeletePayportIDParams, opts ...ClientOp
 		Reader:             &DeletePayportIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -442,12 +411,13 @@ func (a *Client) DeletePayportID(params *DeletePayportIDParams, opts ...ClientOp
 /*
   DeleteReconciliationAssociationID deletes organisation reconciliation service association
 */
-func (a *Client) DeleteReconciliationAssociationID(params *DeleteReconciliationAssociationIDParams, opts ...ClientOption) (*DeleteReconciliationAssociationIDNoContent, error) {
+func (a *Client) DeleteReconciliationAssociationID(params *DeleteReconciliationAssociationIDParams) (*DeleteReconciliationAssociationIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteReconciliationAssociationIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteReconciliationAssociationID",
 		Method:             "DELETE",
 		PathPattern:        "/reconciliation/{associationId}",
@@ -458,12 +428,7 @@ func (a *Client) DeleteReconciliationAssociationID(params *DeleteReconciliationA
 		Reader:             &DeleteReconciliationAssociationIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -480,12 +445,13 @@ func (a *Client) DeleteReconciliationAssociationID(params *DeleteReconciliationA
 /*
   DeleteSepaLiquidityID deletes organisation sepa liquidity association
 */
-func (a *Client) DeleteSepaLiquidityID(params *DeleteSepaLiquidityIDParams, opts ...ClientOption) (*DeleteSepaLiquidityIDNoContent, error) {
+func (a *Client) DeleteSepaLiquidityID(params *DeleteSepaLiquidityIDParams) (*DeleteSepaLiquidityIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteSepaLiquidityIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteSepaLiquidityID",
 		Method:             "DELETE",
 		PathPattern:        "/sepa-liquidity/{id}",
@@ -496,12 +462,7 @@ func (a *Client) DeleteSepaLiquidityID(params *DeleteSepaLiquidityIDParams, opts
 		Reader:             &DeleteSepaLiquidityIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -518,12 +479,13 @@ func (a *Client) DeleteSepaLiquidityID(params *DeleteSepaLiquidityIDParams, opts
 /*
   DeleteSepactLiquidityAssociationID deletes s c t liquidity service association
 */
-func (a *Client) DeleteSepactLiquidityAssociationID(params *DeleteSepactLiquidityAssociationIDParams, opts ...ClientOption) (*DeleteSepactLiquidityAssociationIDNoContent, error) {
+func (a *Client) DeleteSepactLiquidityAssociationID(params *DeleteSepactLiquidityAssociationIDParams) (*DeleteSepactLiquidityAssociationIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteSepactLiquidityAssociationIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteSepactLiquidityAssociationID",
 		Method:             "DELETE",
 		PathPattern:        "/sepact-liquidity/{associationId}",
@@ -534,12 +496,7 @@ func (a *Client) DeleteSepactLiquidityAssociationID(params *DeleteSepactLiquidit
 		Reader:             &DeleteSepactLiquidityAssociationIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -556,12 +513,13 @@ func (a *Client) DeleteSepactLiquidityAssociationID(params *DeleteSepactLiquidit
 /*
   DeleteSepaddID deletes organisation spea dd association
 */
-func (a *Client) DeleteSepaddID(params *DeleteSepaddIDParams, opts ...ClientOption) (*DeleteSepaddIDNoContent, error) {
+func (a *Client) DeleteSepaddID(params *DeleteSepaddIDParams) (*DeleteSepaddIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteSepaddIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteSepaddID",
 		Method:             "DELETE",
 		PathPattern:        "/sepadd/{id}",
@@ -572,12 +530,7 @@ func (a *Client) DeleteSepaddID(params *DeleteSepaddIDParams, opts ...ClientOpti
 		Reader:             &DeleteSepaddIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -594,12 +547,13 @@ func (a *Client) DeleteSepaddID(params *DeleteSepaddIDParams, opts ...ClientOpti
 /*
   DeleteSepainstantID deletes organisation spea instant association
 */
-func (a *Client) DeleteSepainstantID(params *DeleteSepainstantIDParams, opts ...ClientOption) (*DeleteSepainstantIDNoContent, error) {
+func (a *Client) DeleteSepainstantID(params *DeleteSepainstantIDParams) (*DeleteSepainstantIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteSepainstantIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteSepainstantID",
 		Method:             "DELETE",
 		PathPattern:        "/sepainstant/{id}",
@@ -610,12 +564,7 @@ func (a *Client) DeleteSepainstantID(params *DeleteSepainstantIDParams, opts ...
 		Reader:             &DeleteSepainstantIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -632,12 +581,13 @@ func (a *Client) DeleteSepainstantID(params *DeleteSepainstantIDParams, opts ...
 /*
   DeleteSepasctID deletes organisation spea sct association
 */
-func (a *Client) DeleteSepasctID(params *DeleteSepasctIDParams, opts ...ClientOption) (*DeleteSepasctIDNoContent, error) {
+func (a *Client) DeleteSepasctID(params *DeleteSepasctIDParams) (*DeleteSepasctIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteSepasctIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteSepasctID",
 		Method:             "DELETE",
 		PathPattern:        "/sepasct/{id}",
@@ -648,12 +598,7 @@ func (a *Client) DeleteSepasctID(params *DeleteSepasctIDParams, opts ...ClientOp
 		Reader:             &DeleteSepasctIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -670,12 +615,13 @@ func (a *Client) DeleteSepasctID(params *DeleteSepasctIDParams, opts ...ClientOp
 /*
   DeleteStarlingID deletes organisation association
 */
-func (a *Client) DeleteStarlingID(params *DeleteStarlingIDParams, opts ...ClientOption) (*DeleteStarlingIDNoContent, error) {
+func (a *Client) DeleteStarlingID(params *DeleteStarlingIDParams) (*DeleteStarlingIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteStarlingIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteStarlingID",
 		Method:             "DELETE",
 		PathPattern:        "/starling/{id}",
@@ -686,12 +632,7 @@ func (a *Client) DeleteStarlingID(params *DeleteStarlingIDParams, opts ...Client
 		Reader:             &DeleteStarlingIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -708,12 +649,13 @@ func (a *Client) DeleteStarlingID(params *DeleteStarlingIDParams, opts ...Client
 /*
   DeleteSwiftID deletes organisation s w i f t association
 */
-func (a *Client) DeleteSwiftID(params *DeleteSwiftIDParams, opts ...ClientOption) (*DeleteSwiftIDNoContent, error) {
+func (a *Client) DeleteSwiftID(params *DeleteSwiftIDParams) (*DeleteSwiftIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteSwiftIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteSwiftID",
 		Method:             "DELETE",
 		PathPattern:        "/swift/{id}",
@@ -724,12 +666,7 @@ func (a *Client) DeleteSwiftID(params *DeleteSwiftIDParams, opts ...ClientOption
 		Reader:             &DeleteSwiftIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -746,12 +683,13 @@ func (a *Client) DeleteSwiftID(params *DeleteSwiftIDParams, opts ...ClientOption
 /*
   DeleteVocalinkreportID deletes organisation association
 */
-func (a *Client) DeleteVocalinkreportID(params *DeleteVocalinkreportIDParams, opts ...ClientOption) (*DeleteVocalinkreportIDNoContent, error) {
+func (a *Client) DeleteVocalinkreportID(params *DeleteVocalinkreportIDParams) (*DeleteVocalinkreportIDNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteVocalinkreportIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "DeleteVocalinkreportID",
 		Method:             "DELETE",
 		PathPattern:        "/vocalinkreport/{id}",
@@ -762,12 +700,7 @@ func (a *Client) DeleteVocalinkreportID(params *DeleteVocalinkreportIDParams, op
 		Reader:             &DeleteVocalinkreportIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -784,12 +717,13 @@ func (a *Client) DeleteVocalinkreportID(params *DeleteVocalinkreportIDParams, op
 /*
   GetBacs lists all organisation associations for b a c s
 */
-func (a *Client) GetBacs(params *GetBacsParams, opts ...ClientOption) (*GetBacsOK, error) {
+func (a *Client) GetBacs(params *GetBacsParams) (*GetBacsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetBacsParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetBacs",
 		Method:             "GET",
 		PathPattern:        "/bacs",
@@ -800,12 +734,7 @@ func (a *Client) GetBacs(params *GetBacsParams, opts ...ClientOption) (*GetBacsO
 		Reader:             &GetBacsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -822,12 +751,13 @@ func (a *Client) GetBacs(params *GetBacsParams, opts ...ClientOption) (*GetBacsO
 /*
   GetBacsID fetches organisation association for b a c s
 */
-func (a *Client) GetBacsID(params *GetBacsIDParams, opts ...ClientOption) (*GetBacsIDOK, error) {
+func (a *Client) GetBacsID(params *GetBacsIDParams) (*GetBacsIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetBacsIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetBacsID",
 		Method:             "GET",
 		PathPattern:        "/bacs/{id}",
@@ -838,12 +768,7 @@ func (a *Client) GetBacsID(params *GetBacsIDParams, opts ...ClientOption) (*GetB
 		Reader:             &GetBacsIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -860,12 +785,13 @@ func (a *Client) GetBacsID(params *GetBacsIDParams, opts ...ClientOption) (*GetB
 /*
   GetConfirmationOfPayee lists all organisation associations
 */
-func (a *Client) GetConfirmationOfPayee(params *GetConfirmationOfPayeeParams, opts ...ClientOption) (*GetConfirmationOfPayeeOK, error) {
+func (a *Client) GetConfirmationOfPayee(params *GetConfirmationOfPayeeParams) (*GetConfirmationOfPayeeOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetConfirmationOfPayeeParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetConfirmationOfPayee",
 		Method:             "GET",
 		PathPattern:        "/confirmation-of-payee",
@@ -876,12 +802,7 @@ func (a *Client) GetConfirmationOfPayee(params *GetConfirmationOfPayeeParams, op
 		Reader:             &GetConfirmationOfPayeeReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -898,12 +819,13 @@ func (a *Client) GetConfirmationOfPayee(params *GetConfirmationOfPayeeParams, op
 /*
   GetConfirmationOfPayeeID fetches organisation association
 */
-func (a *Client) GetConfirmationOfPayeeID(params *GetConfirmationOfPayeeIDParams, opts ...ClientOption) (*GetConfirmationOfPayeeIDOK, error) {
+func (a *Client) GetConfirmationOfPayeeID(params *GetConfirmationOfPayeeIDParams) (*GetConfirmationOfPayeeIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetConfirmationOfPayeeIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetConfirmationOfPayeeID",
 		Method:             "GET",
 		PathPattern:        "/confirmation-of-payee/{id}",
@@ -914,12 +836,7 @@ func (a *Client) GetConfirmationOfPayeeID(params *GetConfirmationOfPayeeIDParams
 		Reader:             &GetConfirmationOfPayeeIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -936,12 +853,13 @@ func (a *Client) GetConfirmationOfPayeeID(params *GetConfirmationOfPayeeIDParams
 /*
   GetGocardless lists all organisation gocardless gateway associations
 */
-func (a *Client) GetGocardless(params *GetGocardlessParams, opts ...ClientOption) (*GetGocardlessOK, error) {
+func (a *Client) GetGocardless(params *GetGocardlessParams) (*GetGocardlessOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetGocardlessParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetGocardless",
 		Method:             "GET",
 		PathPattern:        "/gocardless",
@@ -952,12 +870,7 @@ func (a *Client) GetGocardless(params *GetGocardlessParams, opts ...ClientOption
 		Reader:             &GetGocardlessReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -974,12 +887,13 @@ func (a *Client) GetGocardless(params *GetGocardlessParams, opts ...ClientOption
 /*
   GetGocardlessID fetches organisation gocardless gateway association
 */
-func (a *Client) GetGocardlessID(params *GetGocardlessIDParams, opts ...ClientOption) (*GetGocardlessIDOK, error) {
+func (a *Client) GetGocardlessID(params *GetGocardlessIDParams) (*GetGocardlessIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetGocardlessIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetGocardlessID",
 		Method:             "GET",
 		PathPattern:        "/gocardless/{id}",
@@ -990,12 +904,7 @@ func (a *Client) GetGocardlessID(params *GetGocardlessIDParams, opts ...ClientOp
 		Reader:             &GetGocardlessIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1012,12 +921,13 @@ func (a *Client) GetGocardlessID(params *GetGocardlessIDParams, opts ...ClientOp
 /*
   GetLhv lists all organisation lhv associations
 */
-func (a *Client) GetLhv(params *GetLhvParams, opts ...ClientOption) (*GetLhvOK, error) {
+func (a *Client) GetLhv(params *GetLhvParams) (*GetLhvOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetLhvParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetLhv",
 		Method:             "GET",
 		PathPattern:        "/lhv",
@@ -1028,12 +938,7 @@ func (a *Client) GetLhv(params *GetLhvParams, opts ...ClientOption) (*GetLhvOK, 
 		Reader:             &GetLhvReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1050,12 +955,13 @@ func (a *Client) GetLhv(params *GetLhvParams, opts ...ClientOption) (*GetLhvOK, 
 /*
   GetLhvAssociationID fetches organisation lhv association
 */
-func (a *Client) GetLhvAssociationID(params *GetLhvAssociationIDParams, opts ...ClientOption) (*GetLhvAssociationIDOK, error) {
+func (a *Client) GetLhvAssociationID(params *GetLhvAssociationIDParams) (*GetLhvAssociationIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetLhvAssociationIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetLhvAssociationID",
 		Method:             "GET",
 		PathPattern:        "/lhv/{associationId}",
@@ -1066,12 +972,7 @@ func (a *Client) GetLhvAssociationID(params *GetLhvAssociationIDParams, opts ...
 		Reader:             &GetLhvAssociationIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1088,12 +989,13 @@ func (a *Client) GetLhvAssociationID(params *GetLhvAssociationIDParams, opts ...
 /*
   GetLhvAssociationIDAgencySynchronisations lists l h v agency synchronisation details
 */
-func (a *Client) GetLhvAssociationIDAgencySynchronisations(params *GetLhvAssociationIDAgencySynchronisationsParams, opts ...ClientOption) (*GetLhvAssociationIDAgencySynchronisationsOK, error) {
+func (a *Client) GetLhvAssociationIDAgencySynchronisations(params *GetLhvAssociationIDAgencySynchronisationsParams) (*GetLhvAssociationIDAgencySynchronisationsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetLhvAssociationIDAgencySynchronisationsParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetLhvAssociationIDAgencySynchronisations",
 		Method:             "GET",
 		PathPattern:        "/lhv/{associationId}/agency_synchronisations",
@@ -1104,12 +1006,7 @@ func (a *Client) GetLhvAssociationIDAgencySynchronisations(params *GetLhvAssocia
 		Reader:             &GetLhvAssociationIDAgencySynchronisationsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1126,12 +1023,13 @@ func (a *Client) GetLhvAssociationIDAgencySynchronisations(params *GetLhvAssocia
 /*
   GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationID fetches l h v agency synchronisation details
 */
-func (a *Client) GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationID(params *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDParams, opts ...ClientOption) (*GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDOK, error) {
+func (a *Client) GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationID(params *GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDParams) (*GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationID",
 		Method:             "GET",
 		PathPattern:        "/lhv/{associationId}/agency_synchronisations/{agencySynchronisationId}",
@@ -1142,12 +1040,7 @@ func (a *Client) GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationI
 		Reader:             &GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1164,12 +1057,13 @@ func (a *Client) GetLhvAssociationIDAgencySynchronisationsAgencySynchronisationI
 /*
   GetLhvAssociationIDMasterAccounts lists master accounts
 */
-func (a *Client) GetLhvAssociationIDMasterAccounts(params *GetLhvAssociationIDMasterAccountsParams, opts ...ClientOption) (*GetLhvAssociationIDMasterAccountsOK, error) {
+func (a *Client) GetLhvAssociationIDMasterAccounts(params *GetLhvAssociationIDMasterAccountsParams) (*GetLhvAssociationIDMasterAccountsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetLhvAssociationIDMasterAccountsParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetLhvAssociationIDMasterAccounts",
 		Method:             "GET",
 		PathPattern:        "/lhv/{associationId}/master_accounts",
@@ -1180,12 +1074,7 @@ func (a *Client) GetLhvAssociationIDMasterAccounts(params *GetLhvAssociationIDMa
 		Reader:             &GetLhvAssociationIDMasterAccountsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1202,12 +1091,13 @@ func (a *Client) GetLhvAssociationIDMasterAccounts(params *GetLhvAssociationIDMa
 /*
   GetLhvAssociationIDMasterAccountsMasterAccountID fetches master account
 */
-func (a *Client) GetLhvAssociationIDMasterAccountsMasterAccountID(params *GetLhvAssociationIDMasterAccountsMasterAccountIDParams, opts ...ClientOption) (*GetLhvAssociationIDMasterAccountsMasterAccountIDOK, error) {
+func (a *Client) GetLhvAssociationIDMasterAccountsMasterAccountID(params *GetLhvAssociationIDMasterAccountsMasterAccountIDParams) (*GetLhvAssociationIDMasterAccountsMasterAccountIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetLhvAssociationIDMasterAccountsMasterAccountIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetLhvAssociationIDMasterAccountsMasterAccountID",
 		Method:             "GET",
 		PathPattern:        "/lhv/{associationId}/master_accounts/{masterAccountId}",
@@ -1218,12 +1108,7 @@ func (a *Client) GetLhvAssociationIDMasterAccountsMasterAccountID(params *GetLhv
 		Reader:             &GetLhvAssociationIDMasterAccountsMasterAccountIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1240,12 +1125,13 @@ func (a *Client) GetLhvAssociationIDMasterAccountsMasterAccountID(params *GetLhv
 /*
   GetPayport lists all organisation associations
 */
-func (a *Client) GetPayport(params *GetPayportParams, opts ...ClientOption) (*GetPayportOK, error) {
+func (a *Client) GetPayport(params *GetPayportParams) (*GetPayportOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetPayportParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetPayport",
 		Method:             "GET",
 		PathPattern:        "/payport",
@@ -1256,12 +1142,7 @@ func (a *Client) GetPayport(params *GetPayportParams, opts ...ClientOption) (*Ge
 		Reader:             &GetPayportReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1278,12 +1159,13 @@ func (a *Client) GetPayport(params *GetPayportParams, opts ...ClientOption) (*Ge
 /*
   GetPayportID fetches service association
 */
-func (a *Client) GetPayportID(params *GetPayportIDParams, opts ...ClientOption) (*GetPayportIDOK, error) {
+func (a *Client) GetPayportID(params *GetPayportIDParams) (*GetPayportIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetPayportIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetPayportID",
 		Method:             "GET",
 		PathPattern:        "/payport/{id}",
@@ -1294,12 +1176,7 @@ func (a *Client) GetPayportID(params *GetPayportIDParams, opts ...ClientOption) 
 		Reader:             &GetPayportIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1316,12 +1193,13 @@ func (a *Client) GetPayportID(params *GetPayportIDParams, opts ...ClientOption) 
 /*
   GetReconciliation lists all organisation reconcilation service associations
 */
-func (a *Client) GetReconciliation(params *GetReconciliationParams, opts ...ClientOption) (*GetReconciliationOK, error) {
+func (a *Client) GetReconciliation(params *GetReconciliationParams) (*GetReconciliationOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetReconciliationParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetReconciliation",
 		Method:             "GET",
 		PathPattern:        "/reconciliation",
@@ -1332,12 +1210,7 @@ func (a *Client) GetReconciliation(params *GetReconciliationParams, opts ...Clie
 		Reader:             &GetReconciliationReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1354,12 +1227,13 @@ func (a *Client) GetReconciliation(params *GetReconciliationParams, opts ...Clie
 /*
   GetReconciliationAssociationID fetches organisation reconciliation service association
 */
-func (a *Client) GetReconciliationAssociationID(params *GetReconciliationAssociationIDParams, opts ...ClientOption) (*GetReconciliationAssociationIDOK, error) {
+func (a *Client) GetReconciliationAssociationID(params *GetReconciliationAssociationIDParams) (*GetReconciliationAssociationIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetReconciliationAssociationIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetReconciliationAssociationID",
 		Method:             "GET",
 		PathPattern:        "/reconciliation/{associationId}",
@@ -1370,12 +1244,7 @@ func (a *Client) GetReconciliationAssociationID(params *GetReconciliationAssocia
 		Reader:             &GetReconciliationAssociationIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1392,12 +1261,13 @@ func (a *Client) GetReconciliationAssociationID(params *GetReconciliationAssocia
 /*
   GetSepaLiquidity lists all organisation sepa liquidity associations
 */
-func (a *Client) GetSepaLiquidity(params *GetSepaLiquidityParams, opts ...ClientOption) (*GetSepaLiquidityOK, error) {
+func (a *Client) GetSepaLiquidity(params *GetSepaLiquidityParams) (*GetSepaLiquidityOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSepaLiquidityParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetSepaLiquidity",
 		Method:             "GET",
 		PathPattern:        "/sepa-liquidity",
@@ -1408,12 +1278,7 @@ func (a *Client) GetSepaLiquidity(params *GetSepaLiquidityParams, opts ...Client
 		Reader:             &GetSepaLiquidityReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1430,12 +1295,13 @@ func (a *Client) GetSepaLiquidity(params *GetSepaLiquidityParams, opts ...Client
 /*
   GetSepaLiquidityID fetches organisation sepa liquidity association
 */
-func (a *Client) GetSepaLiquidityID(params *GetSepaLiquidityIDParams, opts ...ClientOption) (*GetSepaLiquidityIDOK, error) {
+func (a *Client) GetSepaLiquidityID(params *GetSepaLiquidityIDParams) (*GetSepaLiquidityIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSepaLiquidityIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetSepaLiquidityID",
 		Method:             "GET",
 		PathPattern:        "/sepa-liquidity/{id}",
@@ -1446,12 +1312,7 @@ func (a *Client) GetSepaLiquidityID(params *GetSepaLiquidityIDParams, opts ...Cl
 		Reader:             &GetSepaLiquidityIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1468,12 +1329,13 @@ func (a *Client) GetSepaLiquidityID(params *GetSepaLiquidityIDParams, opts ...Cl
 /*
   GetSepactLiquidity lists all s c t liquidity service associations
 */
-func (a *Client) GetSepactLiquidity(params *GetSepactLiquidityParams, opts ...ClientOption) (*GetSepactLiquidityOK, error) {
+func (a *Client) GetSepactLiquidity(params *GetSepactLiquidityParams) (*GetSepactLiquidityOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSepactLiquidityParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetSepactLiquidity",
 		Method:             "GET",
 		PathPattern:        "/sepact-liquidity",
@@ -1484,12 +1346,7 @@ func (a *Client) GetSepactLiquidity(params *GetSepactLiquidityParams, opts ...Cl
 		Reader:             &GetSepactLiquidityReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1506,12 +1363,13 @@ func (a *Client) GetSepactLiquidity(params *GetSepactLiquidityParams, opts ...Cl
 /*
   GetSepactLiquidityAssociationID fetches s c t liquidity service association
 */
-func (a *Client) GetSepactLiquidityAssociationID(params *GetSepactLiquidityAssociationIDParams, opts ...ClientOption) (*GetSepactLiquidityAssociationIDOK, error) {
+func (a *Client) GetSepactLiquidityAssociationID(params *GetSepactLiquidityAssociationIDParams) (*GetSepactLiquidityAssociationIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSepactLiquidityAssociationIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetSepactLiquidityAssociationID",
 		Method:             "GET",
 		PathPattern:        "/sepact-liquidity/{associationId}",
@@ -1522,12 +1380,7 @@ func (a *Client) GetSepactLiquidityAssociationID(params *GetSepactLiquidityAssoc
 		Reader:             &GetSepactLiquidityAssociationIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1544,12 +1397,13 @@ func (a *Client) GetSepactLiquidityAssociationID(params *GetSepactLiquidityAssoc
 /*
   GetSepadd lists all organisation sepa dd associations
 */
-func (a *Client) GetSepadd(params *GetSepaddParams, opts ...ClientOption) (*GetSepaddOK, error) {
+func (a *Client) GetSepadd(params *GetSepaddParams) (*GetSepaddOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSepaddParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetSepadd",
 		Method:             "GET",
 		PathPattern:        "/sepadd",
@@ -1560,12 +1414,7 @@ func (a *Client) GetSepadd(params *GetSepaddParams, opts ...ClientOption) (*GetS
 		Reader:             &GetSepaddReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1582,12 +1431,13 @@ func (a *Client) GetSepadd(params *GetSepaddParams, opts ...ClientOption) (*GetS
 /*
   GetSepaddID fetches organisation sepa dd association
 */
-func (a *Client) GetSepaddID(params *GetSepaddIDParams, opts ...ClientOption) (*GetSepaddIDOK, error) {
+func (a *Client) GetSepaddID(params *GetSepaddIDParams) (*GetSepaddIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSepaddIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetSepaddID",
 		Method:             "GET",
 		PathPattern:        "/sepadd/{id}",
@@ -1598,12 +1448,7 @@ func (a *Client) GetSepaddID(params *GetSepaddIDParams, opts ...ClientOption) (*
 		Reader:             &GetSepaddIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1620,12 +1465,13 @@ func (a *Client) GetSepaddID(params *GetSepaddIDParams, opts ...ClientOption) (*
 /*
   GetSepainstant lists all organisation sepa instant associations
 */
-func (a *Client) GetSepainstant(params *GetSepainstantParams, opts ...ClientOption) (*GetSepainstantOK, error) {
+func (a *Client) GetSepainstant(params *GetSepainstantParams) (*GetSepainstantOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSepainstantParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetSepainstant",
 		Method:             "GET",
 		PathPattern:        "/sepainstant",
@@ -1636,12 +1482,7 @@ func (a *Client) GetSepainstant(params *GetSepainstantParams, opts ...ClientOpti
 		Reader:             &GetSepainstantReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1658,12 +1499,13 @@ func (a *Client) GetSepainstant(params *GetSepainstantParams, opts ...ClientOpti
 /*
   GetSepainstantID fetches organisation sepa instant association
 */
-func (a *Client) GetSepainstantID(params *GetSepainstantIDParams, opts ...ClientOption) (*GetSepainstantIDOK, error) {
+func (a *Client) GetSepainstantID(params *GetSepainstantIDParams) (*GetSepainstantIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSepainstantIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetSepainstantID",
 		Method:             "GET",
 		PathPattern:        "/sepainstant/{id}",
@@ -1674,12 +1516,7 @@ func (a *Client) GetSepainstantID(params *GetSepainstantIDParams, opts ...Client
 		Reader:             &GetSepainstantIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1696,12 +1533,13 @@ func (a *Client) GetSepainstantID(params *GetSepainstantIDParams, opts ...Client
 /*
   GetSepasct lists all organisation sepa sct associations
 */
-func (a *Client) GetSepasct(params *GetSepasctParams, opts ...ClientOption) (*GetSepasctOK, error) {
+func (a *Client) GetSepasct(params *GetSepasctParams) (*GetSepasctOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSepasctParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetSepasct",
 		Method:             "GET",
 		PathPattern:        "/sepasct",
@@ -1712,12 +1550,7 @@ func (a *Client) GetSepasct(params *GetSepasctParams, opts ...ClientOption) (*Ge
 		Reader:             &GetSepasctReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1734,12 +1567,13 @@ func (a *Client) GetSepasct(params *GetSepasctParams, opts ...ClientOption) (*Ge
 /*
   GetSepasctID fetches organisation sepa sct association
 */
-func (a *Client) GetSepasctID(params *GetSepasctIDParams, opts ...ClientOption) (*GetSepasctIDOK, error) {
+func (a *Client) GetSepasctID(params *GetSepasctIDParams) (*GetSepasctIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSepasctIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetSepasctID",
 		Method:             "GET",
 		PathPattern:        "/sepasct/{id}",
@@ -1750,12 +1584,7 @@ func (a *Client) GetSepasctID(params *GetSepasctIDParams, opts ...ClientOption) 
 		Reader:             &GetSepasctIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1772,12 +1601,13 @@ func (a *Client) GetSepasctID(params *GetSepasctIDParams, opts ...ClientOption) 
 /*
   GetStarling lists all organisation associations
 */
-func (a *Client) GetStarling(params *GetStarlingParams, opts ...ClientOption) (*GetStarlingOK, error) {
+func (a *Client) GetStarling(params *GetStarlingParams) (*GetStarlingOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetStarlingParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetStarling",
 		Method:             "GET",
 		PathPattern:        "/starling",
@@ -1788,12 +1618,7 @@ func (a *Client) GetStarling(params *GetStarlingParams, opts ...ClientOption) (*
 		Reader:             &GetStarlingReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1810,12 +1635,13 @@ func (a *Client) GetStarling(params *GetStarlingParams, opts ...ClientOption) (*
 /*
   GetStarlingID fetches organisation association
 */
-func (a *Client) GetStarlingID(params *GetStarlingIDParams, opts ...ClientOption) (*GetStarlingIDOK, error) {
+func (a *Client) GetStarlingID(params *GetStarlingIDParams) (*GetStarlingIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetStarlingIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetStarlingID",
 		Method:             "GET",
 		PathPattern:        "/starling/{id}",
@@ -1826,12 +1652,7 @@ func (a *Client) GetStarlingID(params *GetStarlingIDParams, opts ...ClientOption
 		Reader:             &GetStarlingIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1848,12 +1669,13 @@ func (a *Client) GetStarlingID(params *GetStarlingIDParams, opts ...ClientOption
 /*
   GetSwift lists all organisation s w i f t associations
 */
-func (a *Client) GetSwift(params *GetSwiftParams, opts ...ClientOption) (*GetSwiftOK, error) {
+func (a *Client) GetSwift(params *GetSwiftParams) (*GetSwiftOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSwiftParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetSwift",
 		Method:             "GET",
 		PathPattern:        "/swift",
@@ -1864,12 +1686,7 @@ func (a *Client) GetSwift(params *GetSwiftParams, opts ...ClientOption) (*GetSwi
 		Reader:             &GetSwiftReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1886,12 +1703,13 @@ func (a *Client) GetSwift(params *GetSwiftParams, opts ...ClientOption) (*GetSwi
 /*
   GetSwiftID fetches organisation s w i f t association
 */
-func (a *Client) GetSwiftID(params *GetSwiftIDParams, opts ...ClientOption) (*GetSwiftIDOK, error) {
+func (a *Client) GetSwiftID(params *GetSwiftIDParams) (*GetSwiftIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSwiftIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetSwiftID",
 		Method:             "GET",
 		PathPattern:        "/swift/{id}",
@@ -1902,12 +1720,7 @@ func (a *Client) GetSwiftID(params *GetSwiftIDParams, opts ...ClientOption) (*Ge
 		Reader:             &GetSwiftIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1924,12 +1737,13 @@ func (a *Client) GetSwiftID(params *GetSwiftIDParams, opts ...ClientOption) (*Ge
 /*
   GetVocalinkreport lists all organisation associations
 */
-func (a *Client) GetVocalinkreport(params *GetVocalinkreportParams, opts ...ClientOption) (*GetVocalinkreportOK, error) {
+func (a *Client) GetVocalinkreport(params *GetVocalinkreportParams) (*GetVocalinkreportOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetVocalinkreportParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetVocalinkreport",
 		Method:             "GET",
 		PathPattern:        "/vocalinkreport",
@@ -1940,12 +1754,7 @@ func (a *Client) GetVocalinkreport(params *GetVocalinkreportParams, opts ...Clie
 		Reader:             &GetVocalinkreportReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -1962,12 +1771,13 @@ func (a *Client) GetVocalinkreport(params *GetVocalinkreportParams, opts ...Clie
 /*
   GetVocalinkreportID fetches organisation association
 */
-func (a *Client) GetVocalinkreportID(params *GetVocalinkreportIDParams, opts ...ClientOption) (*GetVocalinkreportIDOK, error) {
+func (a *Client) GetVocalinkreportID(params *GetVocalinkreportIDParams) (*GetVocalinkreportIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetVocalinkreportIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "GetVocalinkreportID",
 		Method:             "GET",
 		PathPattern:        "/vocalinkreport/{id}",
@@ -1978,12 +1788,7 @@ func (a *Client) GetVocalinkreportID(params *GetVocalinkreportIDParams, opts ...
 		Reader:             &GetVocalinkreportIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -2000,12 +1805,13 @@ func (a *Client) GetVocalinkreportID(params *GetVocalinkreportIDParams, opts ...
 /*
   PatchGocardlessID patches go cardless association by id
 */
-func (a *Client) PatchGocardlessID(params *PatchGocardlessIDParams, opts ...ClientOption) (*PatchGocardlessIDOK, error) {
+func (a *Client) PatchGocardlessID(params *PatchGocardlessIDParams) (*PatchGocardlessIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPatchGocardlessIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PatchGocardlessID",
 		Method:             "PATCH",
 		PathPattern:        "/gocardless/{id}",
@@ -2016,12 +1822,7 @@ func (a *Client) PatchGocardlessID(params *PatchGocardlessIDParams, opts ...Clie
 		Reader:             &PatchGocardlessIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -2038,12 +1839,13 @@ func (a *Client) PatchGocardlessID(params *PatchGocardlessIDParams, opts ...Clie
 /*
   PatchLhvAssociationID patches organisation lhv association
 */
-func (a *Client) PatchLhvAssociationID(params *PatchLhvAssociationIDParams, opts ...ClientOption) (*PatchLhvAssociationIDOK, error) {
+func (a *Client) PatchLhvAssociationID(params *PatchLhvAssociationIDParams) (*PatchLhvAssociationIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPatchLhvAssociationIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PatchLhvAssociationID",
 		Method:             "PATCH",
 		PathPattern:        "/lhv/{associationId}",
@@ -2054,12 +1856,7 @@ func (a *Client) PatchLhvAssociationID(params *PatchLhvAssociationIDParams, opts
 		Reader:             &PatchLhvAssociationIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -2076,12 +1873,13 @@ func (a *Client) PatchLhvAssociationID(params *PatchLhvAssociationIDParams, opts
 /*
   PatchSepactLiquidityAssociationID patches s c t liquidity service association
 */
-func (a *Client) PatchSepactLiquidityAssociationID(params *PatchSepactLiquidityAssociationIDParams, opts ...ClientOption) (*PatchSepactLiquidityAssociationIDOK, error) {
+func (a *Client) PatchSepactLiquidityAssociationID(params *PatchSepactLiquidityAssociationIDParams) (*PatchSepactLiquidityAssociationIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPatchSepactLiquidityAssociationIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PatchSepactLiquidityAssociationID",
 		Method:             "PATCH",
 		PathPattern:        "/sepact-liquidity/{associationId}",
@@ -2092,12 +1890,7 @@ func (a *Client) PatchSepactLiquidityAssociationID(params *PatchSepactLiquidityA
 		Reader:             &PatchSepactLiquidityAssociationIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -2114,12 +1907,13 @@ func (a *Client) PatchSepactLiquidityAssociationID(params *PatchSepactLiquidityA
 /*
   PatchSepaddID updates organisation association for sepa dd
 */
-func (a *Client) PatchSepaddID(params *PatchSepaddIDParams, opts ...ClientOption) (*PatchSepaddIDOK, error) {
+func (a *Client) PatchSepaddID(params *PatchSepaddIDParams) (*PatchSepaddIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPatchSepaddIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PatchSepaddID",
 		Method:             "PATCH",
 		PathPattern:        "/sepadd/{id}",
@@ -2130,12 +1924,7 @@ func (a *Client) PatchSepaddID(params *PatchSepaddIDParams, opts ...ClientOption
 		Reader:             &PatchSepaddIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -2152,12 +1941,13 @@ func (a *Client) PatchSepaddID(params *PatchSepaddIDParams, opts ...ClientOption
 /*
   PatchSepainstantID updates sepa instant association
 */
-func (a *Client) PatchSepainstantID(params *PatchSepainstantIDParams, opts ...ClientOption) (*PatchSepainstantIDOK, error) {
+func (a *Client) PatchSepainstantID(params *PatchSepainstantIDParams) (*PatchSepainstantIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPatchSepainstantIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PatchSepainstantID",
 		Method:             "PATCH",
 		PathPattern:        "/sepainstant/{id}",
@@ -2168,12 +1958,7 @@ func (a *Client) PatchSepainstantID(params *PatchSepainstantIDParams, opts ...Cl
 		Reader:             &PatchSepainstantIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -2190,12 +1975,13 @@ func (a *Client) PatchSepainstantID(params *PatchSepainstantIDParams, opts ...Cl
 /*
   PatchSwiftID patches organisation s w i f t association
 */
-func (a *Client) PatchSwiftID(params *PatchSwiftIDParams, opts ...ClientOption) (*PatchSwiftIDOK, error) {
+func (a *Client) PatchSwiftID(params *PatchSwiftIDParams) (*PatchSwiftIDOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPatchSwiftIDParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PatchSwiftID",
 		Method:             "PATCH",
 		PathPattern:        "/swift/{id}",
@@ -2206,12 +1992,7 @@ func (a *Client) PatchSwiftID(params *PatchSwiftIDParams, opts ...ClientOption) 
 		Reader:             &PatchSwiftIDReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -2228,12 +2009,13 @@ func (a *Client) PatchSwiftID(params *PatchSwiftIDParams, opts ...ClientOption) 
 /*
   PostBacs creates organisation association for b a c s
 */
-func (a *Client) PostBacs(params *PostBacsParams, opts ...ClientOption) (*PostBacsCreated, error) {
+func (a *Client) PostBacs(params *PostBacsParams) (*PostBacsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostBacsParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PostBacs",
 		Method:             "POST",
 		PathPattern:        "/bacs",
@@ -2244,12 +2026,7 @@ func (a *Client) PostBacs(params *PostBacsParams, opts ...ClientOption) (*PostBa
 		Reader:             &PostBacsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -2266,12 +2043,13 @@ func (a *Client) PostBacs(params *PostBacsParams, opts ...ClientOption) (*PostBa
 /*
   PostConfirmationOfPayee creates organisation association with confirmation of payee
 */
-func (a *Client) PostConfirmationOfPayee(params *PostConfirmationOfPayeeParams, opts ...ClientOption) (*PostConfirmationOfPayeeCreated, error) {
+func (a *Client) PostConfirmationOfPayee(params *PostConfirmationOfPayeeParams) (*PostConfirmationOfPayeeCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostConfirmationOfPayeeParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PostConfirmationOfPayee",
 		Method:             "POST",
 		PathPattern:        "/confirmation-of-payee",
@@ -2282,12 +2060,7 @@ func (a *Client) PostConfirmationOfPayee(params *PostConfirmationOfPayeeParams, 
 		Reader:             &PostConfirmationOfPayeeReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -2304,12 +2077,13 @@ func (a *Client) PostConfirmationOfPayee(params *PostConfirmationOfPayeeParams, 
 /*
   PostGocardless creates organisation association for go cardless gateway
 */
-func (a *Client) PostGocardless(params *PostGocardlessParams, opts ...ClientOption) (*PostGocardlessCreated, error) {
+func (a *Client) PostGocardless(params *PostGocardlessParams) (*PostGocardlessCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostGocardlessParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PostGocardless",
 		Method:             "POST",
 		PathPattern:        "/gocardless",
@@ -2320,12 +2094,7 @@ func (a *Client) PostGocardless(params *PostGocardlessParams, opts ...ClientOpti
 		Reader:             &PostGocardlessReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -2342,12 +2111,13 @@ func (a *Client) PostGocardless(params *PostGocardlessParams, opts ...ClientOpti
 /*
   PostLhv creates organisation association for lhv
 */
-func (a *Client) PostLhv(params *PostLhvParams, opts ...ClientOption) (*PostLhvCreated, error) {
+func (a *Client) PostLhv(params *PostLhvParams) (*PostLhvCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostLhvParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PostLhv",
 		Method:             "POST",
 		PathPattern:        "/lhv",
@@ -2358,12 +2128,7 @@ func (a *Client) PostLhv(params *PostLhvParams, opts ...ClientOption) (*PostLhvC
 		Reader:             &PostLhvReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -2380,12 +2145,13 @@ func (a *Client) PostLhv(params *PostLhvParams, opts ...ClientOption) (*PostLhvC
 /*
   PostLhvAssociationIDAgencySynchronisations creates l h v organisation association agency synchronisation details
 */
-func (a *Client) PostLhvAssociationIDAgencySynchronisations(params *PostLhvAssociationIDAgencySynchronisationsParams, opts ...ClientOption) (*PostLhvAssociationIDAgencySynchronisationsCreated, error) {
+func (a *Client) PostLhvAssociationIDAgencySynchronisations(params *PostLhvAssociationIDAgencySynchronisationsParams) (*PostLhvAssociationIDAgencySynchronisationsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostLhvAssociationIDAgencySynchronisationsParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PostLhvAssociationIDAgencySynchronisations",
 		Method:             "POST",
 		PathPattern:        "/lhv/{associationId}/agency_synchronisations",
@@ -2396,12 +2162,7 @@ func (a *Client) PostLhvAssociationIDAgencySynchronisations(params *PostLhvAssoc
 		Reader:             &PostLhvAssociationIDAgencySynchronisationsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -2418,12 +2179,13 @@ func (a *Client) PostLhvAssociationIDAgencySynchronisations(params *PostLhvAssoc
 /*
   PostLhvAssociationIDMasterAccounts creates organisation association master account
 */
-func (a *Client) PostLhvAssociationIDMasterAccounts(params *PostLhvAssociationIDMasterAccountsParams, opts ...ClientOption) (*PostLhvAssociationIDMasterAccountsCreated, error) {
+func (a *Client) PostLhvAssociationIDMasterAccounts(params *PostLhvAssociationIDMasterAccountsParams) (*PostLhvAssociationIDMasterAccountsCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostLhvAssociationIDMasterAccountsParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PostLhvAssociationIDMasterAccounts",
 		Method:             "POST",
 		PathPattern:        "/lhv/{associationId}/master_accounts",
@@ -2434,12 +2196,7 @@ func (a *Client) PostLhvAssociationIDMasterAccounts(params *PostLhvAssociationID
 		Reader:             &PostLhvAssociationIDMasterAccountsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -2456,12 +2213,13 @@ func (a *Client) PostLhvAssociationIDMasterAccounts(params *PostLhvAssociationID
 /*
   PostPayport creates payport service association
 */
-func (a *Client) PostPayport(params *PostPayportParams, opts ...ClientOption) (*PostPayportCreated, error) {
+func (a *Client) PostPayport(params *PostPayportParams) (*PostPayportCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostPayportParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PostPayport",
 		Method:             "POST",
 		PathPattern:        "/payport",
@@ -2472,12 +2230,7 @@ func (a *Client) PostPayport(params *PostPayportParams, opts ...ClientOption) (*
 		Reader:             &PostPayportReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -2494,12 +2247,13 @@ func (a *Client) PostPayport(params *PostPayportParams, opts ...ClientOption) (*
 /*
   PostReconciliation creates organisation association for reconciliation service
 */
-func (a *Client) PostReconciliation(params *PostReconciliationParams, opts ...ClientOption) (*PostReconciliationCreated, error) {
+func (a *Client) PostReconciliation(params *PostReconciliationParams) (*PostReconciliationCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostReconciliationParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PostReconciliation",
 		Method:             "POST",
 		PathPattern:        "/reconciliation",
@@ -2510,12 +2264,7 @@ func (a *Client) PostReconciliation(params *PostReconciliationParams, opts ...Cl
 		Reader:             &PostReconciliationReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -2532,12 +2281,13 @@ func (a *Client) PostReconciliation(params *PostReconciliationParams, opts ...Cl
 /*
   PostSepaLiquidity creates organisation association for sepa liquidity
 */
-func (a *Client) PostSepaLiquidity(params *PostSepaLiquidityParams, opts ...ClientOption) (*PostSepaLiquidityCreated, error) {
+func (a *Client) PostSepaLiquidity(params *PostSepaLiquidityParams) (*PostSepaLiquidityCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostSepaLiquidityParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PostSepaLiquidity",
 		Method:             "POST",
 		PathPattern:        "/sepa-liquidity",
@@ -2548,12 +2298,7 @@ func (a *Client) PostSepaLiquidity(params *PostSepaLiquidityParams, opts ...Clie
 		Reader:             &PostSepaLiquidityReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -2570,12 +2315,13 @@ func (a *Client) PostSepaLiquidity(params *PostSepaLiquidityParams, opts ...Clie
 /*
   PostSepactLiquidity creates association for s c t liquidity service
 */
-func (a *Client) PostSepactLiquidity(params *PostSepactLiquidityParams, opts ...ClientOption) (*PostSepactLiquidityCreated, error) {
+func (a *Client) PostSepactLiquidity(params *PostSepactLiquidityParams) (*PostSepactLiquidityCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostSepactLiquidityParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PostSepactLiquidity",
 		Method:             "POST",
 		PathPattern:        "/sepact-liquidity",
@@ -2586,12 +2332,7 @@ func (a *Client) PostSepactLiquidity(params *PostSepactLiquidityParams, opts ...
 		Reader:             &PostSepactLiquidityReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -2608,12 +2349,13 @@ func (a *Client) PostSepactLiquidity(params *PostSepactLiquidityParams, opts ...
 /*
   PostSepadd creates organisation association for sepa dd
 */
-func (a *Client) PostSepadd(params *PostSepaddParams, opts ...ClientOption) (*PostSepaddCreated, error) {
+func (a *Client) PostSepadd(params *PostSepaddParams) (*PostSepaddCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostSepaddParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PostSepadd",
 		Method:             "POST",
 		PathPattern:        "/sepadd",
@@ -2624,12 +2366,7 @@ func (a *Client) PostSepadd(params *PostSepaddParams, opts ...ClientOption) (*Po
 		Reader:             &PostSepaddReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -2646,12 +2383,13 @@ func (a *Client) PostSepadd(params *PostSepaddParams, opts ...ClientOption) (*Po
 /*
   PostSepainstant creates organisation association for sepa instant
 */
-func (a *Client) PostSepainstant(params *PostSepainstantParams, opts ...ClientOption) (*PostSepainstantCreated, error) {
+func (a *Client) PostSepainstant(params *PostSepainstantParams) (*PostSepainstantCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostSepainstantParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PostSepainstant",
 		Method:             "POST",
 		PathPattern:        "/sepainstant",
@@ -2662,12 +2400,7 @@ func (a *Client) PostSepainstant(params *PostSepainstantParams, opts ...ClientOp
 		Reader:             &PostSepainstantReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -2684,12 +2417,13 @@ func (a *Client) PostSepainstant(params *PostSepainstantParams, opts ...ClientOp
 /*
   PostSepasct creates organisation association for sepa sct
 */
-func (a *Client) PostSepasct(params *PostSepasctParams, opts ...ClientOption) (*PostSepasctCreated, error) {
+func (a *Client) PostSepasct(params *PostSepasctParams) (*PostSepasctCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostSepasctParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PostSepasct",
 		Method:             "POST",
 		PathPattern:        "/sepasct",
@@ -2700,12 +2434,7 @@ func (a *Client) PostSepasct(params *PostSepasctParams, opts ...ClientOption) (*
 		Reader:             &PostSepasctReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -2722,12 +2451,13 @@ func (a *Client) PostSepasct(params *PostSepasctParams, opts ...ClientOption) (*
 /*
   PostStarling creates organisation association
 */
-func (a *Client) PostStarling(params *PostStarlingParams, opts ...ClientOption) (*PostStarlingCreated, error) {
+func (a *Client) PostStarling(params *PostStarlingParams) (*PostStarlingCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostStarlingParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PostStarling",
 		Method:             "POST",
 		PathPattern:        "/starling",
@@ -2738,12 +2468,7 @@ func (a *Client) PostStarling(params *PostStarlingParams, opts ...ClientOption) 
 		Reader:             &PostStarlingReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -2760,12 +2485,13 @@ func (a *Client) PostStarling(params *PostStarlingParams, opts ...ClientOption) 
 /*
   PostSwift creates organisation s w i f t association
 */
-func (a *Client) PostSwift(params *PostSwiftParams, opts ...ClientOption) (*PostSwiftCreated, error) {
+func (a *Client) PostSwift(params *PostSwiftParams) (*PostSwiftCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostSwiftParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PostSwift",
 		Method:             "POST",
 		PathPattern:        "/swift",
@@ -2776,12 +2502,7 @@ func (a *Client) PostSwift(params *PostSwiftParams, opts ...ClientOption) (*Post
 		Reader:             &PostSwiftReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -2798,12 +2519,13 @@ func (a *Client) PostSwift(params *PostSwiftParams, opts ...ClientOption) (*Post
 /*
   PostVocalinkreport creates organisation association
 */
-func (a *Client) PostVocalinkreport(params *PostVocalinkreportParams, opts ...ClientOption) (*PostVocalinkreportCreated, error) {
+func (a *Client) PostVocalinkreport(params *PostVocalinkreportParams) (*PostVocalinkreportCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostVocalinkreportParams()
 	}
-	op := &runtime.ClientOperation{
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "PostVocalinkreport",
 		Method:             "POST",
 		PathPattern:        "/vocalinkreport",
@@ -2814,12 +2536,7 @@ func (a *Client) PostVocalinkreport(params *PostVocalinkreportParams, opts ...Cl
 		Reader:             &PostVocalinkreportReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
+	})
 	if err != nil {
 		return nil, err
 	}

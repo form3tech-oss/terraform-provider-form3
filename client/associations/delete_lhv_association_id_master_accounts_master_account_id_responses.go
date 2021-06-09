@@ -77,8 +77,9 @@ func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDReader) ReadResponse
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDNoContent() *DeleteLh
 	return &DeleteLhvAssociationIDMasterAccountsMasterAccountIDNoContent{}
 }
 
-/* DeleteLhvAssociationIDMasterAccountsMasterAccountIDNoContent describes a response with status code 204, with default header values.
+/*DeleteLhvAssociationIDMasterAccountsMasterAccountIDNoContent handles this case with default header values.
 
 Association master account deleted
 */
@@ -108,7 +109,7 @@ func NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDBadRequest() *DeleteL
 	return &DeleteLhvAssociationIDMasterAccountsMasterAccountIDBadRequest{}
 }
 
-/* DeleteLhvAssociationIDMasterAccountsMasterAccountIDBadRequest describes a response with status code 400, with default header values.
+/*DeleteLhvAssociationIDMasterAccountsMasterAccountIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -119,6 +120,7 @@ type DeleteLhvAssociationIDMasterAccountsMasterAccountIDBadRequest struct {
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/master_accounts/{masterAccountId}][%d] deleteLhvAssociationIdMasterAccountsMasterAccountIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -140,7 +142,7 @@ func NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDUnauthorized() *Delet
 	return &DeleteLhvAssociationIDMasterAccountsMasterAccountIDUnauthorized{}
 }
 
-/* DeleteLhvAssociationIDMasterAccountsMasterAccountIDUnauthorized describes a response with status code 401, with default header values.
+/*DeleteLhvAssociationIDMasterAccountsMasterAccountIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -151,6 +153,7 @@ type DeleteLhvAssociationIDMasterAccountsMasterAccountIDUnauthorized struct {
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/master_accounts/{masterAccountId}][%d] deleteLhvAssociationIdMasterAccountsMasterAccountIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -172,7 +175,7 @@ func NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDForbidden() *DeleteLh
 	return &DeleteLhvAssociationIDMasterAccountsMasterAccountIDForbidden{}
 }
 
-/* DeleteLhvAssociationIDMasterAccountsMasterAccountIDForbidden describes a response with status code 403, with default header values.
+/*DeleteLhvAssociationIDMasterAccountsMasterAccountIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -183,6 +186,7 @@ type DeleteLhvAssociationIDMasterAccountsMasterAccountIDForbidden struct {
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/master_accounts/{masterAccountId}][%d] deleteLhvAssociationIdMasterAccountsMasterAccountIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -204,7 +208,7 @@ func NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDNotFound() *DeleteLhv
 	return &DeleteLhvAssociationIDMasterAccountsMasterAccountIDNotFound{}
 }
 
-/* DeleteLhvAssociationIDMasterAccountsMasterAccountIDNotFound describes a response with status code 404, with default header values.
+/*DeleteLhvAssociationIDMasterAccountsMasterAccountIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -215,6 +219,7 @@ type DeleteLhvAssociationIDMasterAccountsMasterAccountIDNotFound struct {
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/master_accounts/{masterAccountId}][%d] deleteLhvAssociationIdMasterAccountsMasterAccountIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -236,7 +241,7 @@ func NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDConflict() *DeleteLhv
 	return &DeleteLhvAssociationIDMasterAccountsMasterAccountIDConflict{}
 }
 
-/* DeleteLhvAssociationIDMasterAccountsMasterAccountIDConflict describes a response with status code 409, with default header values.
+/*DeleteLhvAssociationIDMasterAccountsMasterAccountIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -247,6 +252,7 @@ type DeleteLhvAssociationIDMasterAccountsMasterAccountIDConflict struct {
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/master_accounts/{masterAccountId}][%d] deleteLhvAssociationIdMasterAccountsMasterAccountIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -268,7 +274,7 @@ func NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDTooManyRequests() *De
 	return &DeleteLhvAssociationIDMasterAccountsMasterAccountIDTooManyRequests{}
 }
 
-/* DeleteLhvAssociationIDMasterAccountsMasterAccountIDTooManyRequests describes a response with status code 429, with default header values.
+/*DeleteLhvAssociationIDMasterAccountsMasterAccountIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -279,6 +285,7 @@ type DeleteLhvAssociationIDMasterAccountsMasterAccountIDTooManyRequests struct {
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/master_accounts/{masterAccountId}][%d] deleteLhvAssociationIdMasterAccountsMasterAccountIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -300,7 +307,7 @@ func NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDInternalServerError()
 	return &DeleteLhvAssociationIDMasterAccountsMasterAccountIDInternalServerError{}
 }
 
-/* DeleteLhvAssociationIDMasterAccountsMasterAccountIDInternalServerError describes a response with status code 500, with default header values.
+/*DeleteLhvAssociationIDMasterAccountsMasterAccountIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -311,6 +318,7 @@ type DeleteLhvAssociationIDMasterAccountsMasterAccountIDInternalServerError stru
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/master_accounts/{masterAccountId}][%d] deleteLhvAssociationIdMasterAccountsMasterAccountIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -332,7 +340,7 @@ func NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDServiceUnavailable() 
 	return &DeleteLhvAssociationIDMasterAccountsMasterAccountIDServiceUnavailable{}
 }
 
-/* DeleteLhvAssociationIDMasterAccountsMasterAccountIDServiceUnavailable describes a response with status code 503, with default header values.
+/*DeleteLhvAssociationIDMasterAccountsMasterAccountIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -343,6 +351,7 @@ type DeleteLhvAssociationIDMasterAccountsMasterAccountIDServiceUnavailable struc
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}/master_accounts/{masterAccountId}][%d] deleteLhvAssociationIdMasterAccountsMasterAccountIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

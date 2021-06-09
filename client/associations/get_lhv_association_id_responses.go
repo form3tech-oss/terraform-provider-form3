@@ -77,8 +77,9 @@ func (o *GetLhvAssociationIDReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewGetLhvAssociationIDOK() *GetLhvAssociationIDOK {
 	return &GetLhvAssociationIDOK{}
 }
 
-/* GetLhvAssociationIDOK describes a response with status code 200, with default header values.
+/*GetLhvAssociationIDOK handles this case with default header values.
 
 Associations details
 */
@@ -98,6 +99,7 @@ type GetLhvAssociationIDOK struct {
 func (o *GetLhvAssociationIDOK) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}][%d] getLhvAssociationIdOK  %+v", 200, o.Payload)
 }
+
 func (o *GetLhvAssociationIDOK) GetPayload() *models.LhvAssociationDetailsResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewGetLhvAssociationIDBadRequest() *GetLhvAssociationIDBadRequest {
 	return &GetLhvAssociationIDBadRequest{}
 }
 
-/* GetLhvAssociationIDBadRequest describes a response with status code 400, with default header values.
+/*GetLhvAssociationIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type GetLhvAssociationIDBadRequest struct {
 func (o *GetLhvAssociationIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}][%d] getLhvAssociationIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *GetLhvAssociationIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewGetLhvAssociationIDUnauthorized() *GetLhvAssociationIDUnauthorized {
 	return &GetLhvAssociationIDUnauthorized{}
 }
 
-/* GetLhvAssociationIDUnauthorized describes a response with status code 401, with default header values.
+/*GetLhvAssociationIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type GetLhvAssociationIDUnauthorized struct {
 func (o *GetLhvAssociationIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}][%d] getLhvAssociationIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetLhvAssociationIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewGetLhvAssociationIDForbidden() *GetLhvAssociationIDForbidden {
 	return &GetLhvAssociationIDForbidden{}
 }
 
-/* GetLhvAssociationIDForbidden describes a response with status code 403, with default header values.
+/*GetLhvAssociationIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type GetLhvAssociationIDForbidden struct {
 func (o *GetLhvAssociationIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}][%d] getLhvAssociationIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetLhvAssociationIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewGetLhvAssociationIDNotFound() *GetLhvAssociationIDNotFound {
 	return &GetLhvAssociationIDNotFound{}
 }
 
-/* GetLhvAssociationIDNotFound describes a response with status code 404, with default header values.
+/*GetLhvAssociationIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type GetLhvAssociationIDNotFound struct {
 func (o *GetLhvAssociationIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}][%d] getLhvAssociationIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetLhvAssociationIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewGetLhvAssociationIDConflict() *GetLhvAssociationIDConflict {
 	return &GetLhvAssociationIDConflict{}
 }
 
-/* GetLhvAssociationIDConflict describes a response with status code 409, with default header values.
+/*GetLhvAssociationIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type GetLhvAssociationIDConflict struct {
 func (o *GetLhvAssociationIDConflict) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}][%d] getLhvAssociationIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *GetLhvAssociationIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewGetLhvAssociationIDTooManyRequests() *GetLhvAssociationIDTooManyRequests
 	return &GetLhvAssociationIDTooManyRequests{}
 }
 
-/* GetLhvAssociationIDTooManyRequests describes a response with status code 429, with default header values.
+/*GetLhvAssociationIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type GetLhvAssociationIDTooManyRequests struct {
 func (o *GetLhvAssociationIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}][%d] getLhvAssociationIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *GetLhvAssociationIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewGetLhvAssociationIDInternalServerError() *GetLhvAssociationIDInternalSer
 	return &GetLhvAssociationIDInternalServerError{}
 }
 
-/* GetLhvAssociationIDInternalServerError describes a response with status code 500, with default header values.
+/*GetLhvAssociationIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type GetLhvAssociationIDInternalServerError struct {
 func (o *GetLhvAssociationIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}][%d] getLhvAssociationIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetLhvAssociationIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewGetLhvAssociationIDServiceUnavailable() *GetLhvAssociationIDServiceUnava
 	return &GetLhvAssociationIDServiceUnavailable{}
 }
 
-/* GetLhvAssociationIDServiceUnavailable describes a response with status code 503, with default header values.
+/*GetLhvAssociationIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type GetLhvAssociationIDServiceUnavailable struct {
 func (o *GetLhvAssociationIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /lhv/{associationId}][%d] getLhvAssociationIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *GetLhvAssociationIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

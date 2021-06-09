@@ -77,8 +77,9 @@ func (o *GetReconciliationReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewGetReconciliationOK() *GetReconciliationOK {
 	return &GetReconciliationOK{}
 }
 
-/* GetReconciliationOK describes a response with status code 200, with default header values.
+/*GetReconciliationOK handles this case with default header values.
 
 List of associations
 */
@@ -98,6 +99,7 @@ type GetReconciliationOK struct {
 func (o *GetReconciliationOK) Error() string {
 	return fmt.Sprintf("[GET /reconciliation][%d] getReconciliationOK  %+v", 200, o.Payload)
 }
+
 func (o *GetReconciliationOK) GetPayload() *models.ReconciliationAssociationDetailsListResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewGetReconciliationBadRequest() *GetReconciliationBadRequest {
 	return &GetReconciliationBadRequest{}
 }
 
-/* GetReconciliationBadRequest describes a response with status code 400, with default header values.
+/*GetReconciliationBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type GetReconciliationBadRequest struct {
 func (o *GetReconciliationBadRequest) Error() string {
 	return fmt.Sprintf("[GET /reconciliation][%d] getReconciliationBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *GetReconciliationBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewGetReconciliationUnauthorized() *GetReconciliationUnauthorized {
 	return &GetReconciliationUnauthorized{}
 }
 
-/* GetReconciliationUnauthorized describes a response with status code 401, with default header values.
+/*GetReconciliationUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type GetReconciliationUnauthorized struct {
 func (o *GetReconciliationUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /reconciliation][%d] getReconciliationUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetReconciliationUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewGetReconciliationForbidden() *GetReconciliationForbidden {
 	return &GetReconciliationForbidden{}
 }
 
-/* GetReconciliationForbidden describes a response with status code 403, with default header values.
+/*GetReconciliationForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type GetReconciliationForbidden struct {
 func (o *GetReconciliationForbidden) Error() string {
 	return fmt.Sprintf("[GET /reconciliation][%d] getReconciliationForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetReconciliationForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewGetReconciliationNotFound() *GetReconciliationNotFound {
 	return &GetReconciliationNotFound{}
 }
 
-/* GetReconciliationNotFound describes a response with status code 404, with default header values.
+/*GetReconciliationNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type GetReconciliationNotFound struct {
 func (o *GetReconciliationNotFound) Error() string {
 	return fmt.Sprintf("[GET /reconciliation][%d] getReconciliationNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetReconciliationNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewGetReconciliationConflict() *GetReconciliationConflict {
 	return &GetReconciliationConflict{}
 }
 
-/* GetReconciliationConflict describes a response with status code 409, with default header values.
+/*GetReconciliationConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type GetReconciliationConflict struct {
 func (o *GetReconciliationConflict) Error() string {
 	return fmt.Sprintf("[GET /reconciliation][%d] getReconciliationConflict  %+v", 409, o.Payload)
 }
+
 func (o *GetReconciliationConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewGetReconciliationTooManyRequests() *GetReconciliationTooManyRequests {
 	return &GetReconciliationTooManyRequests{}
 }
 
-/* GetReconciliationTooManyRequests describes a response with status code 429, with default header values.
+/*GetReconciliationTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type GetReconciliationTooManyRequests struct {
 func (o *GetReconciliationTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /reconciliation][%d] getReconciliationTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *GetReconciliationTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewGetReconciliationInternalServerError() *GetReconciliationInternalServerE
 	return &GetReconciliationInternalServerError{}
 }
 
-/* GetReconciliationInternalServerError describes a response with status code 500, with default header values.
+/*GetReconciliationInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type GetReconciliationInternalServerError struct {
 func (o *GetReconciliationInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /reconciliation][%d] getReconciliationInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetReconciliationInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewGetReconciliationServiceUnavailable() *GetReconciliationServiceUnavailab
 	return &GetReconciliationServiceUnavailable{}
 }
 
-/* GetReconciliationServiceUnavailable describes a response with status code 503, with default header values.
+/*GetReconciliationServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type GetReconciliationServiceUnavailable struct {
 func (o *GetReconciliationServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /reconciliation][%d] getReconciliationServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *GetReconciliationServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

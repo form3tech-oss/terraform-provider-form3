@@ -77,8 +77,9 @@ func (o *GetPaymentdefaultsIDReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewGetPaymentdefaultsIDOK() *GetPaymentdefaultsIDOK {
 	return &GetPaymentdefaultsIDOK{}
 }
 
-/* GetPaymentdefaultsIDOK describes a response with status code 200, with default header values.
+/*GetPaymentdefaultsIDOK handles this case with default header values.
 
 Payment default details
 */
@@ -98,6 +99,7 @@ type GetPaymentdefaultsIDOK struct {
 func (o *GetPaymentdefaultsIDOK) Error() string {
 	return fmt.Sprintf("[GET /paymentdefaults/{id}][%d] getPaymentdefaultsIdOK  %+v", 200, o.Payload)
 }
+
 func (o *GetPaymentdefaultsIDOK) GetPayload() *models.PaymentDefaultsResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewGetPaymentdefaultsIDBadRequest() *GetPaymentdefaultsIDBadRequest {
 	return &GetPaymentdefaultsIDBadRequest{}
 }
 
-/* GetPaymentdefaultsIDBadRequest describes a response with status code 400, with default header values.
+/*GetPaymentdefaultsIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type GetPaymentdefaultsIDBadRequest struct {
 func (o *GetPaymentdefaultsIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /paymentdefaults/{id}][%d] getPaymentdefaultsIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *GetPaymentdefaultsIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewGetPaymentdefaultsIDUnauthorized() *GetPaymentdefaultsIDUnauthorized {
 	return &GetPaymentdefaultsIDUnauthorized{}
 }
 
-/* GetPaymentdefaultsIDUnauthorized describes a response with status code 401, with default header values.
+/*GetPaymentdefaultsIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type GetPaymentdefaultsIDUnauthorized struct {
 func (o *GetPaymentdefaultsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /paymentdefaults/{id}][%d] getPaymentdefaultsIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetPaymentdefaultsIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewGetPaymentdefaultsIDForbidden() *GetPaymentdefaultsIDForbidden {
 	return &GetPaymentdefaultsIDForbidden{}
 }
 
-/* GetPaymentdefaultsIDForbidden describes a response with status code 403, with default header values.
+/*GetPaymentdefaultsIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type GetPaymentdefaultsIDForbidden struct {
 func (o *GetPaymentdefaultsIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /paymentdefaults/{id}][%d] getPaymentdefaultsIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetPaymentdefaultsIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewGetPaymentdefaultsIDNotFound() *GetPaymentdefaultsIDNotFound {
 	return &GetPaymentdefaultsIDNotFound{}
 }
 
-/* GetPaymentdefaultsIDNotFound describes a response with status code 404, with default header values.
+/*GetPaymentdefaultsIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type GetPaymentdefaultsIDNotFound struct {
 func (o *GetPaymentdefaultsIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /paymentdefaults/{id}][%d] getPaymentdefaultsIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetPaymentdefaultsIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewGetPaymentdefaultsIDConflict() *GetPaymentdefaultsIDConflict {
 	return &GetPaymentdefaultsIDConflict{}
 }
 
-/* GetPaymentdefaultsIDConflict describes a response with status code 409, with default header values.
+/*GetPaymentdefaultsIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type GetPaymentdefaultsIDConflict struct {
 func (o *GetPaymentdefaultsIDConflict) Error() string {
 	return fmt.Sprintf("[GET /paymentdefaults/{id}][%d] getPaymentdefaultsIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *GetPaymentdefaultsIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewGetPaymentdefaultsIDTooManyRequests() *GetPaymentdefaultsIDTooManyReques
 	return &GetPaymentdefaultsIDTooManyRequests{}
 }
 
-/* GetPaymentdefaultsIDTooManyRequests describes a response with status code 429, with default header values.
+/*GetPaymentdefaultsIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type GetPaymentdefaultsIDTooManyRequests struct {
 func (o *GetPaymentdefaultsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /paymentdefaults/{id}][%d] getPaymentdefaultsIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *GetPaymentdefaultsIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewGetPaymentdefaultsIDInternalServerError() *GetPaymentdefaultsIDInternalS
 	return &GetPaymentdefaultsIDInternalServerError{}
 }
 
-/* GetPaymentdefaultsIDInternalServerError describes a response with status code 500, with default header values.
+/*GetPaymentdefaultsIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type GetPaymentdefaultsIDInternalServerError struct {
 func (o *GetPaymentdefaultsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /paymentdefaults/{id}][%d] getPaymentdefaultsIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetPaymentdefaultsIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewGetPaymentdefaultsIDServiceUnavailable() *GetPaymentdefaultsIDServiceUna
 	return &GetPaymentdefaultsIDServiceUnavailable{}
 }
 
-/* GetPaymentdefaultsIDServiceUnavailable describes a response with status code 503, with default header values.
+/*GetPaymentdefaultsIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type GetPaymentdefaultsIDServiceUnavailable struct {
 func (o *GetPaymentdefaultsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /paymentdefaults/{id}][%d] getPaymentdefaultsIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *GetPaymentdefaultsIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

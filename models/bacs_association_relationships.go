@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -51,6 +49,7 @@ func (m *BacsAssociationRelationships) Validate(formats strfmt.Registry) error {
 }
 
 func (m *BacsAssociationRelationships) validateInputCertificate(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.InputCertificate) { // not required
 		return nil
 	}
@@ -68,6 +67,7 @@ func (m *BacsAssociationRelationships) validateInputCertificate(formats strfmt.R
 }
 
 func (m *BacsAssociationRelationships) validateMessagingCertificate(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.MessagingCertificate) { // not required
 		return nil
 	}
@@ -85,76 +85,13 @@ func (m *BacsAssociationRelationships) validateMessagingCertificate(formats strf
 }
 
 func (m *BacsAssociationRelationships) validateOutputCertificate(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.OutputCertificate) { // not required
 		return nil
 	}
 
 	if m.OutputCertificate != nil {
 		if err := m.OutputCertificate.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("output_certificate")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this bacs association relationships based on the context it is used
-func (m *BacsAssociationRelationships) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateInputCertificate(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateMessagingCertificate(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateOutputCertificate(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *BacsAssociationRelationships) contextValidateInputCertificate(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.InputCertificate != nil {
-		if err := m.InputCertificate.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("input_certificate")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *BacsAssociationRelationships) contextValidateMessagingCertificate(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.MessagingCertificate != nil {
-		if err := m.MessagingCertificate.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("messaging_certificate")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *BacsAssociationRelationships) contextValidateOutputCertificate(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.OutputCertificate != nil {
-		if err := m.OutputCertificate.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("output_certificate")
 			}

@@ -16,83 +16,64 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetPaymentsIDReturnsReturnIDParams creates a new GetPaymentsIDReturnsReturnIDParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetPaymentsIDReturnsReturnIDParams creates a new GetPaymentsIDReturnsReturnIDParams object
+// with the default values initialized.
 func NewGetPaymentsIDReturnsReturnIDParams() *GetPaymentsIDReturnsReturnIDParams {
+	var ()
 	return &GetPaymentsIDReturnsReturnIDParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetPaymentsIDReturnsReturnIDParamsWithTimeout creates a new GetPaymentsIDReturnsReturnIDParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetPaymentsIDReturnsReturnIDParamsWithTimeout(timeout time.Duration) *GetPaymentsIDReturnsReturnIDParams {
+	var ()
 	return &GetPaymentsIDReturnsReturnIDParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetPaymentsIDReturnsReturnIDParamsWithContext creates a new GetPaymentsIDReturnsReturnIDParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetPaymentsIDReturnsReturnIDParamsWithContext(ctx context.Context) *GetPaymentsIDReturnsReturnIDParams {
+	var ()
 	return &GetPaymentsIDReturnsReturnIDParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetPaymentsIDReturnsReturnIDParamsWithHTTPClient creates a new GetPaymentsIDReturnsReturnIDParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetPaymentsIDReturnsReturnIDParamsWithHTTPClient(client *http.Client) *GetPaymentsIDReturnsReturnIDParams {
+	var ()
 	return &GetPaymentsIDReturnsReturnIDParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetPaymentsIDReturnsReturnIDParams contains all the parameters to send to the API endpoint
-   for the get payments ID returns return ID operation.
-
-   Typically these are written to a http.Request.
+/*GetPaymentsIDReturnsReturnIDParams contains all the parameters to send to the API endpoint
+for the get payments ID returns return ID operation typically these are written to a http.Request
 */
 type GetPaymentsIDReturnsReturnIDParams struct {
 
-	/* ID.
+	/*ID
+	  Payment Id
 
-	   Payment Id
-
-	   Format: uuid
 	*/
 	ID strfmt.UUID
+	/*ReturnID
+	  Return Id
 
-	/* ReturnID.
-
-	   Return Id
-
-	   Format: uuid
 	*/
 	ReturnID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get payments ID returns return ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetPaymentsIDReturnsReturnIDParams) WithDefaults() *GetPaymentsIDReturnsReturnIDParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get payments ID returns return ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetPaymentsIDReturnsReturnIDParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get payments ID returns return ID params

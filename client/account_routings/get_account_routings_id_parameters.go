@@ -16,75 +16,59 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetAccountRoutingsIDParams creates a new GetAccountRoutingsIDParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetAccountRoutingsIDParams creates a new GetAccountRoutingsIDParams object
+// with the default values initialized.
 func NewGetAccountRoutingsIDParams() *GetAccountRoutingsIDParams {
+	var ()
 	return &GetAccountRoutingsIDParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetAccountRoutingsIDParamsWithTimeout creates a new GetAccountRoutingsIDParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetAccountRoutingsIDParamsWithTimeout(timeout time.Duration) *GetAccountRoutingsIDParams {
+	var ()
 	return &GetAccountRoutingsIDParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetAccountRoutingsIDParamsWithContext creates a new GetAccountRoutingsIDParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetAccountRoutingsIDParamsWithContext(ctx context.Context) *GetAccountRoutingsIDParams {
+	var ()
 	return &GetAccountRoutingsIDParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetAccountRoutingsIDParamsWithHTTPClient creates a new GetAccountRoutingsIDParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetAccountRoutingsIDParamsWithHTTPClient(client *http.Client) *GetAccountRoutingsIDParams {
+	var ()
 	return &GetAccountRoutingsIDParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetAccountRoutingsIDParams contains all the parameters to send to the API endpoint
-   for the get account routings ID operation.
-
-   Typically these are written to a http.Request.
+/*GetAccountRoutingsIDParams contains all the parameters to send to the API endpoint
+for the get account routings ID operation typically these are written to a http.Request
 */
 type GetAccountRoutingsIDParams struct {
 
-	/* ID.
+	/*ID
+	  Account Routing Id
 
-	   Account Routing Id
-
-	   Format: uuid
 	*/
 	ID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get account routings ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetAccountRoutingsIDParams) WithDefaults() *GetAccountRoutingsIDParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get account routings ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetAccountRoutingsIDParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get account routings ID params

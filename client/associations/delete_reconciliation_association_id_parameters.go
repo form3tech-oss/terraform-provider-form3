@@ -17,81 +17,64 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteReconciliationAssociationIDParams creates a new DeleteReconciliationAssociationIDParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewDeleteReconciliationAssociationIDParams creates a new DeleteReconciliationAssociationIDParams object
+// with the default values initialized.
 func NewDeleteReconciliationAssociationIDParams() *DeleteReconciliationAssociationIDParams {
+	var ()
 	return &DeleteReconciliationAssociationIDParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteReconciliationAssociationIDParamsWithTimeout creates a new DeleteReconciliationAssociationIDParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewDeleteReconciliationAssociationIDParamsWithTimeout(timeout time.Duration) *DeleteReconciliationAssociationIDParams {
+	var ()
 	return &DeleteReconciliationAssociationIDParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewDeleteReconciliationAssociationIDParamsWithContext creates a new DeleteReconciliationAssociationIDParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewDeleteReconciliationAssociationIDParamsWithContext(ctx context.Context) *DeleteReconciliationAssociationIDParams {
+	var ()
 	return &DeleteReconciliationAssociationIDParams{
+
 		Context: ctx,
 	}
 }
 
 // NewDeleteReconciliationAssociationIDParamsWithHTTPClient creates a new DeleteReconciliationAssociationIDParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewDeleteReconciliationAssociationIDParamsWithHTTPClient(client *http.Client) *DeleteReconciliationAssociationIDParams {
+	var ()
 	return &DeleteReconciliationAssociationIDParams{
 		HTTPClient: client,
 	}
 }
 
-/* DeleteReconciliationAssociationIDParams contains all the parameters to send to the API endpoint
-   for the delete reconciliation association ID operation.
-
-   Typically these are written to a http.Request.
+/*DeleteReconciliationAssociationIDParams contains all the parameters to send to the API endpoint
+for the delete reconciliation association ID operation typically these are written to a http.Request
 */
 type DeleteReconciliationAssociationIDParams struct {
 
-	/* AssociationID.
+	/*AssociationID
+	  Association id
 
-	   Association id
-
-	   Format: uuid
 	*/
 	AssociationID strfmt.UUID
+	/*Version
+	  Version
 
-	/* Version.
-
-	   Version
 	*/
 	Version int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the delete reconciliation association ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteReconciliationAssociationIDParams) WithDefaults() *DeleteReconciliationAssociationIDParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the delete reconciliation association ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteReconciliationAssociationIDParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete reconciliation association ID params
@@ -166,7 +149,6 @@ func (o *DeleteReconciliationAssociationIDParams) WriteToRequest(r runtime.Clien
 	qrVersion := o.Version
 	qVersion := swag.FormatInt64(qrVersion)
 	if qVersion != "" {
-
 		if err := r.SetQueryParam("version", qVersion); err != nil {
 			return err
 		}

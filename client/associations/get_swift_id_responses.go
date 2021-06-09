@@ -47,8 +47,9 @@ func (o *GetSwiftIDReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -57,7 +58,7 @@ func NewGetSwiftIDOK() *GetSwiftIDOK {
 	return &GetSwiftIDOK{}
 }
 
-/* GetSwiftIDOK describes a response with status code 200, with default header values.
+/*GetSwiftIDOK handles this case with default header values.
 
 Associations details
 */
@@ -68,6 +69,7 @@ type GetSwiftIDOK struct {
 func (o *GetSwiftIDOK) Error() string {
 	return fmt.Sprintf("[GET /swift/{id}][%d] getSwiftIdOK  %+v", 200, o.Payload)
 }
+
 func (o *GetSwiftIDOK) GetPayload() *models.SwiftAssociationDetailsResponse {
 	return o.Payload
 }
@@ -89,7 +91,7 @@ func NewGetSwiftIDBadRequest() *GetSwiftIDBadRequest {
 	return &GetSwiftIDBadRequest{}
 }
 
-/* GetSwiftIDBadRequest describes a response with status code 400, with default header values.
+/*GetSwiftIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -100,6 +102,7 @@ type GetSwiftIDBadRequest struct {
 func (o *GetSwiftIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /swift/{id}][%d] getSwiftIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *GetSwiftIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -121,7 +124,7 @@ func NewGetSwiftIDForbidden() *GetSwiftIDForbidden {
 	return &GetSwiftIDForbidden{}
 }
 
-/* GetSwiftIDForbidden describes a response with status code 403, with default header values.
+/*GetSwiftIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -132,6 +135,7 @@ type GetSwiftIDForbidden struct {
 func (o *GetSwiftIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /swift/{id}][%d] getSwiftIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetSwiftIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -153,7 +157,7 @@ func NewGetSwiftIDNotFound() *GetSwiftIDNotFound {
 	return &GetSwiftIDNotFound{}
 }
 
-/* GetSwiftIDNotFound describes a response with status code 404, with default header values.
+/*GetSwiftIDNotFound handles this case with default header values.
 
 Not Found
 */
@@ -164,6 +168,7 @@ type GetSwiftIDNotFound struct {
 func (o *GetSwiftIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /swift/{id}][%d] getSwiftIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetSwiftIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }

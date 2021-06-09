@@ -77,8 +77,9 @@ func (o *PatchAccountconfigurationsIDReader) ReadResponse(response runtime.Clien
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewPatchAccountconfigurationsIDOK() *PatchAccountconfigurationsIDOK {
 	return &PatchAccountconfigurationsIDOK{}
 }
 
-/* PatchAccountconfigurationsIDOK describes a response with status code 200, with default header values.
+/*PatchAccountconfigurationsIDOK handles this case with default header values.
 
 Configuration updated
 */
@@ -98,6 +99,7 @@ type PatchAccountconfigurationsIDOK struct {
 func (o *PatchAccountconfigurationsIDOK) Error() string {
 	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdOK  %+v", 200, o.Payload)
 }
+
 func (o *PatchAccountconfigurationsIDOK) GetPayload() *models.AccountConfigurationDetailsResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewPatchAccountconfigurationsIDBadRequest() *PatchAccountconfigurationsIDBa
 	return &PatchAccountconfigurationsIDBadRequest{}
 }
 
-/* PatchAccountconfigurationsIDBadRequest describes a response with status code 400, with default header values.
+/*PatchAccountconfigurationsIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type PatchAccountconfigurationsIDBadRequest struct {
 func (o *PatchAccountconfigurationsIDBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *PatchAccountconfigurationsIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewPatchAccountconfigurationsIDUnauthorized() *PatchAccountconfigurationsID
 	return &PatchAccountconfigurationsIDUnauthorized{}
 }
 
-/* PatchAccountconfigurationsIDUnauthorized describes a response with status code 401, with default header values.
+/*PatchAccountconfigurationsIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type PatchAccountconfigurationsIDUnauthorized struct {
 func (o *PatchAccountconfigurationsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *PatchAccountconfigurationsIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewPatchAccountconfigurationsIDForbidden() *PatchAccountconfigurationsIDFor
 	return &PatchAccountconfigurationsIDForbidden{}
 }
 
-/* PatchAccountconfigurationsIDForbidden describes a response with status code 403, with default header values.
+/*PatchAccountconfigurationsIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type PatchAccountconfigurationsIDForbidden struct {
 func (o *PatchAccountconfigurationsIDForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *PatchAccountconfigurationsIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewPatchAccountconfigurationsIDNotFound() *PatchAccountconfigurationsIDNotF
 	return &PatchAccountconfigurationsIDNotFound{}
 }
 
-/* PatchAccountconfigurationsIDNotFound describes a response with status code 404, with default header values.
+/*PatchAccountconfigurationsIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type PatchAccountconfigurationsIDNotFound struct {
 func (o *PatchAccountconfigurationsIDNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *PatchAccountconfigurationsIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewPatchAccountconfigurationsIDConflict() *PatchAccountconfigurationsIDConf
 	return &PatchAccountconfigurationsIDConflict{}
 }
 
-/* PatchAccountconfigurationsIDConflict describes a response with status code 409, with default header values.
+/*PatchAccountconfigurationsIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type PatchAccountconfigurationsIDConflict struct {
 func (o *PatchAccountconfigurationsIDConflict) Error() string {
 	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *PatchAccountconfigurationsIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewPatchAccountconfigurationsIDTooManyRequests() *PatchAccountconfiguration
 	return &PatchAccountconfigurationsIDTooManyRequests{}
 }
 
-/* PatchAccountconfigurationsIDTooManyRequests describes a response with status code 429, with default header values.
+/*PatchAccountconfigurationsIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type PatchAccountconfigurationsIDTooManyRequests struct {
 func (o *PatchAccountconfigurationsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *PatchAccountconfigurationsIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewPatchAccountconfigurationsIDInternalServerError() *PatchAccountconfigura
 	return &PatchAccountconfigurationsIDInternalServerError{}
 }
 
-/* PatchAccountconfigurationsIDInternalServerError describes a response with status code 500, with default header values.
+/*PatchAccountconfigurationsIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type PatchAccountconfigurationsIDInternalServerError struct {
 func (o *PatchAccountconfigurationsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *PatchAccountconfigurationsIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewPatchAccountconfigurationsIDServiceUnavailable() *PatchAccountconfigurat
 	return &PatchAccountconfigurationsIDServiceUnavailable{}
 }
 
-/* PatchAccountconfigurationsIDServiceUnavailable describes a response with status code 503, with default header values.
+/*PatchAccountconfigurationsIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type PatchAccountconfigurationsIDServiceUnavailable struct {
 func (o *PatchAccountconfigurationsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[PATCH /accountconfigurations/{id}][%d] patchAccountconfigurationsIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *PatchAccountconfigurationsIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

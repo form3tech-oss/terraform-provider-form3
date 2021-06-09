@@ -6,7 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -96,6 +95,7 @@ func (m *SepactLiquidityAssociation) Validate(formats strfmt.Registry) error {
 }
 
 func (m *SepactLiquidityAssociation) validateAttributes(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Attributes) { // not required
 		return nil
 	}
@@ -113,6 +113,7 @@ func (m *SepactLiquidityAssociation) validateAttributes(formats strfmt.Registry)
 }
 
 func (m *SepactLiquidityAssociation) validateCreatedOn(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.CreatedOn) { // not required
 		return nil
 	}
@@ -125,6 +126,7 @@ func (m *SepactLiquidityAssociation) validateCreatedOn(formats strfmt.Registry) 
 }
 
 func (m *SepactLiquidityAssociation) validateID(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ID) { // not required
 		return nil
 	}
@@ -137,6 +139,7 @@ func (m *SepactLiquidityAssociation) validateID(formats strfmt.Registry) error {
 }
 
 func (m *SepactLiquidityAssociation) validateModifiedOn(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ModifiedOn) { // not required
 		return nil
 	}
@@ -149,6 +152,7 @@ func (m *SepactLiquidityAssociation) validateModifiedOn(formats strfmt.Registry)
 }
 
 func (m *SepactLiquidityAssociation) validateOrganisationID(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.OrganisationID) { // not required
 		return nil
 	}
@@ -161,6 +165,7 @@ func (m *SepactLiquidityAssociation) validateOrganisationID(formats strfmt.Regis
 }
 
 func (m *SepactLiquidityAssociation) validateRelationships(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Relationships) { // not required
 		return nil
 	}
@@ -197,13 +202,14 @@ const (
 
 // prop value enum
 func (m *SepactLiquidityAssociation) validateTypeEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, sepactLiquidityAssociationTypeTypePropEnum, true); err != nil {
+	if err := validate.Enum(path, location, value, sepactLiquidityAssociationTypeTypePropEnum); err != nil {
 		return err
 	}
 	return nil
 }
 
 func (m *SepactLiquidityAssociation) validateType(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
@@ -217,84 +223,13 @@ func (m *SepactLiquidityAssociation) validateType(formats strfmt.Registry) error
 }
 
 func (m *SepactLiquidityAssociation) validateVersion(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Version) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("version", "body", *m.Version, 0, false); err != nil {
+	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
 		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this sepact liquidity association based on the context it is used
-func (m *SepactLiquidityAssociation) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateAttributes(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateCreatedOn(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateModifiedOn(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateRelationships(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *SepactLiquidityAssociation) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Attributes != nil {
-		if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *SepactLiquidityAssociation) contextValidateCreatedOn(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "created_on", "body", strfmt.DateTime(m.CreatedOn)); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *SepactLiquidityAssociation) contextValidateModifiedOn(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := validate.ReadOnly(ctx, "modified_on", "body", strfmt.DateTime(m.ModifiedOn)); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *SepactLiquidityAssociation) contextValidateRelationships(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Relationships != nil {
-		if err := m.Relationships.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("relationships")
-			}
-			return err
-		}
 	}
 
 	return nil

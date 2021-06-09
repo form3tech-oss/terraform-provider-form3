@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -37,37 +35,12 @@ func (m *SepactLiquidityAssociationRelationships) Validate(formats strfmt.Regist
 }
 
 func (m *SepactLiquidityAssociationRelationships) validateDirectParticipant(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.DirectParticipant) { // not required
 		return nil
 	}
 
 	if err := m.DirectParticipant.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("direct_participant")
-		}
-		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this sepact liquidity association relationships based on the context it is used
-func (m *SepactLiquidityAssociationRelationships) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateDirectParticipant(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *SepactLiquidityAssociationRelationships) contextValidateDirectParticipant(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := m.DirectParticipant.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("direct_participant")
 		}
@@ -122,32 +95,6 @@ func (m *SepactLiquidityAssociationRelationshipsDirectParticipant) Validate(form
 func (m *SepactLiquidityAssociationRelationshipsDirectParticipant) validateData(formats strfmt.Registry) error {
 
 	if err := m.Data.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("direct_participant" + "." + "data")
-		}
-		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this sepact liquidity association relationships direct participant based on the context it is used
-func (m *SepactLiquidityAssociationRelationshipsDirectParticipant) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateData(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *SepactLiquidityAssociationRelationshipsDirectParticipant) contextValidateData(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := m.Data.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("direct_participant" + "." + "data")
 		}

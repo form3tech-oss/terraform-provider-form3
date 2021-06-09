@@ -17,85 +17,69 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetSwiftParams creates a new GetSwiftParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetSwiftParams creates a new GetSwiftParams object
+// with the default values initialized.
 func NewGetSwiftParams() *GetSwiftParams {
+	var ()
 	return &GetSwiftParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetSwiftParamsWithTimeout creates a new GetSwiftParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetSwiftParamsWithTimeout(timeout time.Duration) *GetSwiftParams {
+	var ()
 	return &GetSwiftParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetSwiftParamsWithContext creates a new GetSwiftParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetSwiftParamsWithContext(ctx context.Context) *GetSwiftParams {
+	var ()
 	return &GetSwiftParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetSwiftParamsWithHTTPClient creates a new GetSwiftParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetSwiftParamsWithHTTPClient(client *http.Client) *GetSwiftParams {
+	var ()
 	return &GetSwiftParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetSwiftParams contains all the parameters to send to the API endpoint
-   for the get swift operation.
-
-   Typically these are written to a http.Request.
+/*GetSwiftParams contains all the parameters to send to the API endpoint
+for the get swift operation typically these are written to a http.Request
 */
 type GetSwiftParams struct {
 
-	/* FilterOrganisationID.
+	/*FilterOrganisationID
+	  Organisation id
 
-	   Organisation id
 	*/
 	FilterOrganisationID []strfmt.UUID
+	/*PageNumber
+	  Which page to select
 
-	/* PageNumber.
-
-	   Which page to select
 	*/
 	PageNumber *string
+	/*PageSize
+	  Number of items to select
 
-	/* PageSize.
-
-	   Number of items to select
 	*/
 	PageSize *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get swift params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetSwiftParams) WithDefaults() *GetSwiftParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get swift params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetSwiftParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get swift params
@@ -172,70 +156,51 @@ func (o *GetSwiftParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 	}
 	var res []error
 
-	if o.FilterOrganisationID != nil {
+	var valuesFilterOrganisationID []string
+	for _, v := range o.FilterOrganisationID {
+		valuesFilterOrganisationID = append(valuesFilterOrganisationID, v.String())
+	}
 
-		// binding items for filter[organisation_id]
-		joinedFilterOrganisationID := o.bindParamFilterOrganisationID(reg)
-
-		// query array param filter[organisation_id]
-		if err := r.SetQueryParam("filter[organisation_id]", joinedFilterOrganisationID...); err != nil {
-			return err
-		}
+	joinedFilterOrganisationID := swag.JoinByFormat(valuesFilterOrganisationID, "")
+	// query array param filter[organisation_id]
+	if err := r.SetQueryParam("filter[organisation_id]", joinedFilterOrganisationID...); err != nil {
+		return err
 	}
 
 	if o.PageNumber != nil {
 
 		// query param page[number]
 		var qrPageNumber string
-
 		if o.PageNumber != nil {
 			qrPageNumber = *o.PageNumber
 		}
 		qPageNumber := qrPageNumber
 		if qPageNumber != "" {
-
 			if err := r.SetQueryParam("page[number]", qPageNumber); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if o.PageSize != nil {
 
 		// query param page[size]
 		var qrPageSize int64
-
 		if o.PageSize != nil {
 			qrPageSize = *o.PageSize
 		}
 		qPageSize := swag.FormatInt64(qrPageSize)
 		if qPageSize != "" {
-
 			if err := r.SetQueryParam("page[size]", qPageSize); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
-}
-
-// bindParamGetSwift binds the parameter filter[organisation_id]
-func (o *GetSwiftParams) bindParamFilterOrganisationID(formats strfmt.Registry) []string {
-	filterOrganisationIDIR := o.FilterOrganisationID
-
-	var filterOrganisationIDIC []string
-	for _, filterOrganisationIDIIR := range filterOrganisationIDIR { // explode []strfmt.UUID
-
-		filterOrganisationIDIIV := filterOrganisationIDIIR.String() // strfmt.UUID as string
-		filterOrganisationIDIC = append(filterOrganisationIDIC, filterOrganisationIDIIV)
-	}
-
-	// items.CollectionFormat: ""
-	filterOrganisationIDIS := swag.JoinByFormat(filterOrganisationIDIC, "")
-
-	return filterOrganisationIDIS
 }

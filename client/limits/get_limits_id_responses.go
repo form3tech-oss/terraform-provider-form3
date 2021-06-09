@@ -77,8 +77,9 @@ func (o *GetLimitsIDReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewGetLimitsIDOK() *GetLimitsIDOK {
 	return &GetLimitsIDOK{}
 }
 
-/* GetLimitsIDOK describes a response with status code 200, with default header values.
+/*GetLimitsIDOK handles this case with default header values.
 
 Limit details
 */
@@ -98,6 +99,7 @@ type GetLimitsIDOK struct {
 func (o *GetLimitsIDOK) Error() string {
 	return fmt.Sprintf("[GET /limits/{id}][%d] getLimitsIdOK  %+v", 200, o.Payload)
 }
+
 func (o *GetLimitsIDOK) GetPayload() *models.LimitDetailsResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewGetLimitsIDBadRequest() *GetLimitsIDBadRequest {
 	return &GetLimitsIDBadRequest{}
 }
 
-/* GetLimitsIDBadRequest describes a response with status code 400, with default header values.
+/*GetLimitsIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type GetLimitsIDBadRequest struct {
 func (o *GetLimitsIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /limits/{id}][%d] getLimitsIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *GetLimitsIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewGetLimitsIDUnauthorized() *GetLimitsIDUnauthorized {
 	return &GetLimitsIDUnauthorized{}
 }
 
-/* GetLimitsIDUnauthorized describes a response with status code 401, with default header values.
+/*GetLimitsIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type GetLimitsIDUnauthorized struct {
 func (o *GetLimitsIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /limits/{id}][%d] getLimitsIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetLimitsIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewGetLimitsIDForbidden() *GetLimitsIDForbidden {
 	return &GetLimitsIDForbidden{}
 }
 
-/* GetLimitsIDForbidden describes a response with status code 403, with default header values.
+/*GetLimitsIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type GetLimitsIDForbidden struct {
 func (o *GetLimitsIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /limits/{id}][%d] getLimitsIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetLimitsIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewGetLimitsIDNotFound() *GetLimitsIDNotFound {
 	return &GetLimitsIDNotFound{}
 }
 
-/* GetLimitsIDNotFound describes a response with status code 404, with default header values.
+/*GetLimitsIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type GetLimitsIDNotFound struct {
 func (o *GetLimitsIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /limits/{id}][%d] getLimitsIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetLimitsIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewGetLimitsIDConflict() *GetLimitsIDConflict {
 	return &GetLimitsIDConflict{}
 }
 
-/* GetLimitsIDConflict describes a response with status code 409, with default header values.
+/*GetLimitsIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type GetLimitsIDConflict struct {
 func (o *GetLimitsIDConflict) Error() string {
 	return fmt.Sprintf("[GET /limits/{id}][%d] getLimitsIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *GetLimitsIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewGetLimitsIDTooManyRequests() *GetLimitsIDTooManyRequests {
 	return &GetLimitsIDTooManyRequests{}
 }
 
-/* GetLimitsIDTooManyRequests describes a response with status code 429, with default header values.
+/*GetLimitsIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type GetLimitsIDTooManyRequests struct {
 func (o *GetLimitsIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /limits/{id}][%d] getLimitsIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *GetLimitsIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewGetLimitsIDInternalServerError() *GetLimitsIDInternalServerError {
 	return &GetLimitsIDInternalServerError{}
 }
 
-/* GetLimitsIDInternalServerError describes a response with status code 500, with default header values.
+/*GetLimitsIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type GetLimitsIDInternalServerError struct {
 func (o *GetLimitsIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /limits/{id}][%d] getLimitsIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetLimitsIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewGetLimitsIDServiceUnavailable() *GetLimitsIDServiceUnavailable {
 	return &GetLimitsIDServiceUnavailable{}
 }
 
-/* GetLimitsIDServiceUnavailable describes a response with status code 503, with default header values.
+/*GetLimitsIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type GetLimitsIDServiceUnavailable struct {
 func (o *GetLimitsIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /limits/{id}][%d] getLimitsIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *GetLimitsIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

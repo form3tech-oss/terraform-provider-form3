@@ -77,8 +77,9 @@ func (o *DeleteLhvAssociationIDReader) ReadResponse(response runtime.ClientRespo
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewDeleteLhvAssociationIDNoContent() *DeleteLhvAssociationIDNoContent {
 	return &DeleteLhvAssociationIDNoContent{}
 }
 
-/* DeleteLhvAssociationIDNoContent describes a response with status code 204, with default header values.
+/*DeleteLhvAssociationIDNoContent handles this case with default header values.
 
 Association deleted
 */
@@ -108,7 +109,7 @@ func NewDeleteLhvAssociationIDBadRequest() *DeleteLhvAssociationIDBadRequest {
 	return &DeleteLhvAssociationIDBadRequest{}
 }
 
-/* DeleteLhvAssociationIDBadRequest describes a response with status code 400, with default header values.
+/*DeleteLhvAssociationIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -119,6 +120,7 @@ type DeleteLhvAssociationIDBadRequest struct {
 func (o *DeleteLhvAssociationIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}][%d] deleteLhvAssociationIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *DeleteLhvAssociationIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -140,7 +142,7 @@ func NewDeleteLhvAssociationIDUnauthorized() *DeleteLhvAssociationIDUnauthorized
 	return &DeleteLhvAssociationIDUnauthorized{}
 }
 
-/* DeleteLhvAssociationIDUnauthorized describes a response with status code 401, with default header values.
+/*DeleteLhvAssociationIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -151,6 +153,7 @@ type DeleteLhvAssociationIDUnauthorized struct {
 func (o *DeleteLhvAssociationIDUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}][%d] deleteLhvAssociationIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *DeleteLhvAssociationIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -172,7 +175,7 @@ func NewDeleteLhvAssociationIDForbidden() *DeleteLhvAssociationIDForbidden {
 	return &DeleteLhvAssociationIDForbidden{}
 }
 
-/* DeleteLhvAssociationIDForbidden describes a response with status code 403, with default header values.
+/*DeleteLhvAssociationIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -183,6 +186,7 @@ type DeleteLhvAssociationIDForbidden struct {
 func (o *DeleteLhvAssociationIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}][%d] deleteLhvAssociationIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *DeleteLhvAssociationIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -204,7 +208,7 @@ func NewDeleteLhvAssociationIDNotFound() *DeleteLhvAssociationIDNotFound {
 	return &DeleteLhvAssociationIDNotFound{}
 }
 
-/* DeleteLhvAssociationIDNotFound describes a response with status code 404, with default header values.
+/*DeleteLhvAssociationIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -215,6 +219,7 @@ type DeleteLhvAssociationIDNotFound struct {
 func (o *DeleteLhvAssociationIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}][%d] deleteLhvAssociationIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *DeleteLhvAssociationIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -236,7 +241,7 @@ func NewDeleteLhvAssociationIDConflict() *DeleteLhvAssociationIDConflict {
 	return &DeleteLhvAssociationIDConflict{}
 }
 
-/* DeleteLhvAssociationIDConflict describes a response with status code 409, with default header values.
+/*DeleteLhvAssociationIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -247,6 +252,7 @@ type DeleteLhvAssociationIDConflict struct {
 func (o *DeleteLhvAssociationIDConflict) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}][%d] deleteLhvAssociationIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *DeleteLhvAssociationIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -268,7 +274,7 @@ func NewDeleteLhvAssociationIDTooManyRequests() *DeleteLhvAssociationIDTooManyRe
 	return &DeleteLhvAssociationIDTooManyRequests{}
 }
 
-/* DeleteLhvAssociationIDTooManyRequests describes a response with status code 429, with default header values.
+/*DeleteLhvAssociationIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -279,6 +285,7 @@ type DeleteLhvAssociationIDTooManyRequests struct {
 func (o *DeleteLhvAssociationIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}][%d] deleteLhvAssociationIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *DeleteLhvAssociationIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -300,7 +307,7 @@ func NewDeleteLhvAssociationIDInternalServerError() *DeleteLhvAssociationIDInter
 	return &DeleteLhvAssociationIDInternalServerError{}
 }
 
-/* DeleteLhvAssociationIDInternalServerError describes a response with status code 500, with default header values.
+/*DeleteLhvAssociationIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -311,6 +318,7 @@ type DeleteLhvAssociationIDInternalServerError struct {
 func (o *DeleteLhvAssociationIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}][%d] deleteLhvAssociationIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *DeleteLhvAssociationIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -332,7 +340,7 @@ func NewDeleteLhvAssociationIDServiceUnavailable() *DeleteLhvAssociationIDServic
 	return &DeleteLhvAssociationIDServiceUnavailable{}
 }
 
-/* DeleteLhvAssociationIDServiceUnavailable describes a response with status code 503, with default header values.
+/*DeleteLhvAssociationIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -343,6 +351,7 @@ type DeleteLhvAssociationIDServiceUnavailable struct {
 func (o *DeleteLhvAssociationIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[DELETE /lhv/{associationId}][%d] deleteLhvAssociationIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *DeleteLhvAssociationIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

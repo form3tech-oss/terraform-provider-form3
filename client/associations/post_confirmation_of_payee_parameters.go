@@ -18,70 +18,56 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPostConfirmationOfPayeeParams creates a new PostConfirmationOfPayeeParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewPostConfirmationOfPayeeParams creates a new PostConfirmationOfPayeeParams object
+// with the default values initialized.
 func NewPostConfirmationOfPayeeParams() *PostConfirmationOfPayeeParams {
+	var ()
 	return &PostConfirmationOfPayeeParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostConfirmationOfPayeeParamsWithTimeout creates a new PostConfirmationOfPayeeParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewPostConfirmationOfPayeeParamsWithTimeout(timeout time.Duration) *PostConfirmationOfPayeeParams {
+	var ()
 	return &PostConfirmationOfPayeeParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewPostConfirmationOfPayeeParamsWithContext creates a new PostConfirmationOfPayeeParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewPostConfirmationOfPayeeParamsWithContext(ctx context.Context) *PostConfirmationOfPayeeParams {
+	var ()
 	return &PostConfirmationOfPayeeParams{
+
 		Context: ctx,
 	}
 }
 
 // NewPostConfirmationOfPayeeParamsWithHTTPClient creates a new PostConfirmationOfPayeeParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewPostConfirmationOfPayeeParamsWithHTTPClient(client *http.Client) *PostConfirmationOfPayeeParams {
+	var ()
 	return &PostConfirmationOfPayeeParams{
 		HTTPClient: client,
 	}
 }
 
-/* PostConfirmationOfPayeeParams contains all the parameters to send to the API endpoint
-   for the post confirmation of payee operation.
-
-   Typically these are written to a http.Request.
+/*PostConfirmationOfPayeeParams contains all the parameters to send to the API endpoint
+for the post confirmation of payee operation typically these are written to a http.Request
 */
 type PostConfirmationOfPayeeParams struct {
 
-	// CreationRequest.
+	/*CreationRequest*/
 	CreationRequest *models.CoPAssociationCreation
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the post confirmation of payee params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PostConfirmationOfPayeeParams) WithDefaults() *PostConfirmationOfPayeeParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the post confirmation of payee params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PostConfirmationOfPayeeParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post confirmation of payee params
@@ -135,6 +121,7 @@ func (o *PostConfirmationOfPayeeParams) WriteToRequest(r runtime.ClientRequest, 
 		return err
 	}
 	var res []error
+
 	if o.CreationRequest != nil {
 		if err := r.SetBodyParam(o.CreationRequest); err != nil {
 			return err

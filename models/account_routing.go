@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -24,24 +22,20 @@ type AccountRouting struct {
 	Attributes *AccountRoutingAttributes `json:"attributes"`
 
 	// Unique resource ID
-	// Example: 7826c3cb-d6fd-41d0-b187-dc23ba928772
 	// Required: true
 	// Format: uuid
 	ID *strfmt.UUID `json:"id"`
 
 	// Unique ID of the organisation this resource is created by
-	// Example: ee2fb143-6dfe-4787-b183-ca8ddd4164d2
 	// Required: true
 	// Format: uuid
 	OrganisationID *strfmt.UUID `json:"organisation_id"`
 
 	// Name of the resource type
-	// Example: account_routings
 	// Pattern: ^[A-Za-z_]*$
 	Type string `json:"type,omitempty"`
 
 	// Version number
-	// Example: 0
 	// Minimum: 0
 	Version *int64 `json:"version,omitempty"`
 }
@@ -121,11 +115,12 @@ func (m *AccountRouting) validateOrganisationID(formats strfmt.Registry) error {
 }
 
 func (m *AccountRouting) validateType(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("type", "body", m.Type, `^[A-Za-z_]*$`); err != nil {
+	if err := validate.Pattern("type", "body", string(m.Type), `^[A-Za-z_]*$`); err != nil {
 		return err
 	}
 
@@ -133,40 +128,13 @@ func (m *AccountRouting) validateType(formats strfmt.Registry) error {
 }
 
 func (m *AccountRouting) validateVersion(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Version) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("version", "body", *m.Version, 0, false); err != nil {
+	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
 		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this account routing based on the context it is used
-func (m *AccountRouting) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateAttributes(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *AccountRouting) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Attributes != nil {
-		if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes")
-			}
-			return err
-		}
 	}
 
 	return nil

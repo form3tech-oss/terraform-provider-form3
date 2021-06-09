@@ -77,8 +77,9 @@ func (o *GetPlatformSecuritySigningKeysSigningkeyIDReader) ReadResponse(response
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewGetPlatformSecuritySigningKeysSigningkeyIDOK() *GetPlatformSecuritySigni
 	return &GetPlatformSecuritySigningKeysSigningkeyIDOK{}
 }
 
-/* GetPlatformSecuritySigningKeysSigningkeyIDOK describes a response with status code 200, with default header values.
+/*GetPlatformSecuritySigningKeysSigningkeyIDOK handles this case with default header values.
 
 signing key response
 */
@@ -98,6 +99,7 @@ type GetPlatformSecuritySigningKeysSigningkeyIDOK struct {
 func (o *GetPlatformSecuritySigningKeysSigningkeyIDOK) Error() string {
 	return fmt.Sprintf("[GET /platform/security/signing_keys/{signingkey_id}][%d] getPlatformSecuritySigningKeysSigningkeyIdOK  %+v", 200, o.Payload)
 }
+
 func (o *GetPlatformSecuritySigningKeysSigningkeyIDOK) GetPayload() *models.SigningKeysResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewGetPlatformSecuritySigningKeysSigningkeyIDBadRequest() *GetPlatformSecur
 	return &GetPlatformSecuritySigningKeysSigningkeyIDBadRequest{}
 }
 
-/* GetPlatformSecuritySigningKeysSigningkeyIDBadRequest describes a response with status code 400, with default header values.
+/*GetPlatformSecuritySigningKeysSigningkeyIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type GetPlatformSecuritySigningKeysSigningkeyIDBadRequest struct {
 func (o *GetPlatformSecuritySigningKeysSigningkeyIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /platform/security/signing_keys/{signingkey_id}][%d] getPlatformSecuritySigningKeysSigningkeyIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *GetPlatformSecuritySigningKeysSigningkeyIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewGetPlatformSecuritySigningKeysSigningkeyIDUnauthorized() *GetPlatformSec
 	return &GetPlatformSecuritySigningKeysSigningkeyIDUnauthorized{}
 }
 
-/* GetPlatformSecuritySigningKeysSigningkeyIDUnauthorized describes a response with status code 401, with default header values.
+/*GetPlatformSecuritySigningKeysSigningkeyIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type GetPlatformSecuritySigningKeysSigningkeyIDUnauthorized struct {
 func (o *GetPlatformSecuritySigningKeysSigningkeyIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /platform/security/signing_keys/{signingkey_id}][%d] getPlatformSecuritySigningKeysSigningkeyIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetPlatformSecuritySigningKeysSigningkeyIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewGetPlatformSecuritySigningKeysSigningkeyIDForbidden() *GetPlatformSecuri
 	return &GetPlatformSecuritySigningKeysSigningkeyIDForbidden{}
 }
 
-/* GetPlatformSecuritySigningKeysSigningkeyIDForbidden describes a response with status code 403, with default header values.
+/*GetPlatformSecuritySigningKeysSigningkeyIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type GetPlatformSecuritySigningKeysSigningkeyIDForbidden struct {
 func (o *GetPlatformSecuritySigningKeysSigningkeyIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /platform/security/signing_keys/{signingkey_id}][%d] getPlatformSecuritySigningKeysSigningkeyIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetPlatformSecuritySigningKeysSigningkeyIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewGetPlatformSecuritySigningKeysSigningkeyIDNotFound() *GetPlatformSecurit
 	return &GetPlatformSecuritySigningKeysSigningkeyIDNotFound{}
 }
 
-/* GetPlatformSecuritySigningKeysSigningkeyIDNotFound describes a response with status code 404, with default header values.
+/*GetPlatformSecuritySigningKeysSigningkeyIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type GetPlatformSecuritySigningKeysSigningkeyIDNotFound struct {
 func (o *GetPlatformSecuritySigningKeysSigningkeyIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/security/signing_keys/{signingkey_id}][%d] getPlatformSecuritySigningKeysSigningkeyIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetPlatformSecuritySigningKeysSigningkeyIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewGetPlatformSecuritySigningKeysSigningkeyIDConflict() *GetPlatformSecurit
 	return &GetPlatformSecuritySigningKeysSigningkeyIDConflict{}
 }
 
-/* GetPlatformSecuritySigningKeysSigningkeyIDConflict describes a response with status code 409, with default header values.
+/*GetPlatformSecuritySigningKeysSigningkeyIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type GetPlatformSecuritySigningKeysSigningkeyIDConflict struct {
 func (o *GetPlatformSecuritySigningKeysSigningkeyIDConflict) Error() string {
 	return fmt.Sprintf("[GET /platform/security/signing_keys/{signingkey_id}][%d] getPlatformSecuritySigningKeysSigningkeyIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *GetPlatformSecuritySigningKeysSigningkeyIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewGetPlatformSecuritySigningKeysSigningkeyIDTooManyRequests() *GetPlatform
 	return &GetPlatformSecuritySigningKeysSigningkeyIDTooManyRequests{}
 }
 
-/* GetPlatformSecuritySigningKeysSigningkeyIDTooManyRequests describes a response with status code 429, with default header values.
+/*GetPlatformSecuritySigningKeysSigningkeyIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type GetPlatformSecuritySigningKeysSigningkeyIDTooManyRequests struct {
 func (o *GetPlatformSecuritySigningKeysSigningkeyIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /platform/security/signing_keys/{signingkey_id}][%d] getPlatformSecuritySigningKeysSigningkeyIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *GetPlatformSecuritySigningKeysSigningkeyIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewGetPlatformSecuritySigningKeysSigningkeyIDInternalServerError() *GetPlat
 	return &GetPlatformSecuritySigningKeysSigningkeyIDInternalServerError{}
 }
 
-/* GetPlatformSecuritySigningKeysSigningkeyIDInternalServerError describes a response with status code 500, with default header values.
+/*GetPlatformSecuritySigningKeysSigningkeyIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type GetPlatformSecuritySigningKeysSigningkeyIDInternalServerError struct {
 func (o *GetPlatformSecuritySigningKeysSigningkeyIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /platform/security/signing_keys/{signingkey_id}][%d] getPlatformSecuritySigningKeysSigningkeyIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetPlatformSecuritySigningKeysSigningkeyIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewGetPlatformSecuritySigningKeysSigningkeyIDServiceUnavailable() *GetPlatf
 	return &GetPlatformSecuritySigningKeysSigningkeyIDServiceUnavailable{}
 }
 
-/* GetPlatformSecuritySigningKeysSigningkeyIDServiceUnavailable describes a response with status code 503, with default header values.
+/*GetPlatformSecuritySigningKeysSigningkeyIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type GetPlatformSecuritySigningKeysSigningkeyIDServiceUnavailable struct {
 func (o *GetPlatformSecuritySigningKeysSigningkeyIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /platform/security/signing_keys/{signingkey_id}][%d] getPlatformSecuritySigningKeysSigningkeyIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *GetPlatformSecuritySigningKeysSigningkeyIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

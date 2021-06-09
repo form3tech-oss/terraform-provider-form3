@@ -18,70 +18,56 @@ import (
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
 
-// NewPostGocardlessParams creates a new PostGocardlessParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewPostGocardlessParams creates a new PostGocardlessParams object
+// with the default values initialized.
 func NewPostGocardlessParams() *PostGocardlessParams {
+	var ()
 	return &PostGocardlessParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostGocardlessParamsWithTimeout creates a new PostGocardlessParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewPostGocardlessParamsWithTimeout(timeout time.Duration) *PostGocardlessParams {
+	var ()
 	return &PostGocardlessParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewPostGocardlessParamsWithContext creates a new PostGocardlessParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewPostGocardlessParamsWithContext(ctx context.Context) *PostGocardlessParams {
+	var ()
 	return &PostGocardlessParams{
+
 		Context: ctx,
 	}
 }
 
 // NewPostGocardlessParamsWithHTTPClient creates a new PostGocardlessParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewPostGocardlessParamsWithHTTPClient(client *http.Client) *PostGocardlessParams {
+	var ()
 	return &PostGocardlessParams{
 		HTTPClient: client,
 	}
 }
 
-/* PostGocardlessParams contains all the parameters to send to the API endpoint
-   for the post gocardless operation.
-
-   Typically these are written to a http.Request.
+/*PostGocardlessParams contains all the parameters to send to the API endpoint
+for the post gocardless operation typically these are written to a http.Request
 */
 type PostGocardlessParams struct {
 
-	// CreationRequest.
+	/*CreationRequest*/
 	CreationRequest *models.GocardlessAssociationCreation
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the post gocardless params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PostGocardlessParams) WithDefaults() *PostGocardlessParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the post gocardless params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *PostGocardlessParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post gocardless params
@@ -135,6 +121,7 @@ func (o *PostGocardlessParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		return err
 	}
 	var res []error
+
 	if o.CreationRequest != nil {
 		if err := r.SetBodyParam(o.CreationRequest); err != nil {
 			return err

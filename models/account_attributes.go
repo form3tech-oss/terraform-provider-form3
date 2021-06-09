@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -96,11 +94,12 @@ func (m *AccountAttributes) Validate(formats strfmt.Registry) error {
 }
 
 func (m *AccountAttributes) validateAccountNumber(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.AccountNumber) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("account_number", "body", m.AccountNumber, `^[A-Z0-9]{0,64}$`); err != nil {
+	if err := validate.Pattern("account_number", "body", string(m.AccountNumber), `^[A-Z0-9]{0,64}$`); err != nil {
 		return err
 	}
 
@@ -108,11 +107,12 @@ func (m *AccountAttributes) validateAccountNumber(formats strfmt.Registry) error
 }
 
 func (m *AccountAttributes) validateBankID(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.BankID) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("bank_id", "body", m.BankID, `^[A-Z0-9]{0,16}$`); err != nil {
+	if err := validate.Pattern("bank_id", "body", string(m.BankID), `^[A-Z0-9]{0,16}$`); err != nil {
 		return err
 	}
 
@@ -120,11 +120,12 @@ func (m *AccountAttributes) validateBankID(formats strfmt.Registry) error {
 }
 
 func (m *AccountAttributes) validateBankIDCode(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.BankIDCode) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("bank_id_code", "body", m.BankIDCode, `^[A-Z]{0,16}$`); err != nil {
+	if err := validate.Pattern("bank_id_code", "body", string(m.BankIDCode), `^[A-Z]{0,16}$`); err != nil {
 		return err
 	}
 
@@ -132,11 +133,12 @@ func (m *AccountAttributes) validateBankIDCode(formats strfmt.Registry) error {
 }
 
 func (m *AccountAttributes) validateBaseCurrency(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.BaseCurrency) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("base_currency", "body", m.BaseCurrency, `^[A-Z]{3}$`); err != nil {
+	if err := validate.Pattern("base_currency", "body", string(m.BaseCurrency), `^[A-Z]{3}$`); err != nil {
 		return err
 	}
 
@@ -144,11 +146,12 @@ func (m *AccountAttributes) validateBaseCurrency(formats strfmt.Registry) error 
 }
 
 func (m *AccountAttributes) validateBic(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Bic) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("bic", "body", m.Bic, `^([A-Z]{6}[A-Z0-9]{2}|[A-Z]{6}[A-Z0-9]{5})$`); err != nil {
+	if err := validate.Pattern("bic", "body", string(m.Bic), `^([A-Z]{6}[A-Z0-9]{2}|[A-Z]{6}[A-Z0-9]{5})$`); err != nil {
 		return err
 	}
 
@@ -161,7 +164,7 @@ func (m *AccountAttributes) validateCountry(formats strfmt.Registry) error {
 		return err
 	}
 
-	if err := validate.Pattern("country", "body", *m.Country, `^[A-Z]{2}$`); err != nil {
+	if err := validate.Pattern("country", "body", string(*m.Country), `^[A-Z]{2}$`); err != nil {
 		return err
 	}
 
@@ -169,11 +172,12 @@ func (m *AccountAttributes) validateCountry(formats strfmt.Registry) error {
 }
 
 func (m *AccountAttributes) validateCustomerID(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.CustomerID) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("customer_id", "body", m.CustomerID, `^[a-zA-Z0-9-$@., ]{0,256}$`); err != nil {
+	if err := validate.Pattern("customer_id", "body", string(m.CustomerID), `^[a-zA-Z0-9-$@., ]{0,256}$`); err != nil {
 		return err
 	}
 
@@ -181,19 +185,15 @@ func (m *AccountAttributes) validateCustomerID(formats strfmt.Registry) error {
 }
 
 func (m *AccountAttributes) validateIban(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Iban) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("iban", "body", m.Iban, `^[A-Z]{2}[0-9]{2}[A-Z0-9]{0,64}$`); err != nil {
+	if err := validate.Pattern("iban", "body", string(m.Iban), `^[A-Z]{2}[0-9]{2}[A-Z0-9]{0,64}$`); err != nil {
 		return err
 	}
 
-	return nil
-}
-
-// ContextValidate validates this account attributes based on context it is used
-func (m *AccountAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

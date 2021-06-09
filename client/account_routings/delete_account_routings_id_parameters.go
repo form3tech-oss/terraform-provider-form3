@@ -17,81 +17,64 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteAccountRoutingsIDParams creates a new DeleteAccountRoutingsIDParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewDeleteAccountRoutingsIDParams creates a new DeleteAccountRoutingsIDParams object
+// with the default values initialized.
 func NewDeleteAccountRoutingsIDParams() *DeleteAccountRoutingsIDParams {
+	var ()
 	return &DeleteAccountRoutingsIDParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteAccountRoutingsIDParamsWithTimeout creates a new DeleteAccountRoutingsIDParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewDeleteAccountRoutingsIDParamsWithTimeout(timeout time.Duration) *DeleteAccountRoutingsIDParams {
+	var ()
 	return &DeleteAccountRoutingsIDParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewDeleteAccountRoutingsIDParamsWithContext creates a new DeleteAccountRoutingsIDParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewDeleteAccountRoutingsIDParamsWithContext(ctx context.Context) *DeleteAccountRoutingsIDParams {
+	var ()
 	return &DeleteAccountRoutingsIDParams{
+
 		Context: ctx,
 	}
 }
 
 // NewDeleteAccountRoutingsIDParamsWithHTTPClient creates a new DeleteAccountRoutingsIDParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewDeleteAccountRoutingsIDParamsWithHTTPClient(client *http.Client) *DeleteAccountRoutingsIDParams {
+	var ()
 	return &DeleteAccountRoutingsIDParams{
 		HTTPClient: client,
 	}
 }
 
-/* DeleteAccountRoutingsIDParams contains all the parameters to send to the API endpoint
-   for the delete account routings ID operation.
-
-   Typically these are written to a http.Request.
+/*DeleteAccountRoutingsIDParams contains all the parameters to send to the API endpoint
+for the delete account routings ID operation typically these are written to a http.Request
 */
 type DeleteAccountRoutingsIDParams struct {
 
-	/* ID.
+	/*ID
+	  Account Routing Id
 
-	   Account Routing Id
-
-	   Format: uuid
 	*/
 	ID strfmt.UUID
+	/*Version
+	  Version
 
-	/* Version.
-
-	   Version
 	*/
 	Version int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the delete account routings ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteAccountRoutingsIDParams) WithDefaults() *DeleteAccountRoutingsIDParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the delete account routings ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteAccountRoutingsIDParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete account routings ID params
@@ -166,7 +149,6 @@ func (o *DeleteAccountRoutingsIDParams) WriteToRequest(r runtime.ClientRequest, 
 	qrVersion := o.Version
 	qVersion := swag.FormatInt64(qrVersion)
 	if qVersion != "" {
-
 		if err := r.SetQueryParam("version", qVersion); err != nil {
 			return err
 		}

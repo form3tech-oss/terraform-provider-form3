@@ -16,75 +16,59 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetPayportIDParams creates a new GetPayportIDParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetPayportIDParams creates a new GetPayportIDParams object
+// with the default values initialized.
 func NewGetPayportIDParams() *GetPayportIDParams {
+	var ()
 	return &GetPayportIDParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetPayportIDParamsWithTimeout creates a new GetPayportIDParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetPayportIDParamsWithTimeout(timeout time.Duration) *GetPayportIDParams {
+	var ()
 	return &GetPayportIDParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetPayportIDParamsWithContext creates a new GetPayportIDParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetPayportIDParamsWithContext(ctx context.Context) *GetPayportIDParams {
+	var ()
 	return &GetPayportIDParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetPayportIDParamsWithHTTPClient creates a new GetPayportIDParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetPayportIDParamsWithHTTPClient(client *http.Client) *GetPayportIDParams {
+	var ()
 	return &GetPayportIDParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetPayportIDParams contains all the parameters to send to the API endpoint
-   for the get payport ID operation.
-
-   Typically these are written to a http.Request.
+/*GetPayportIDParams contains all the parameters to send to the API endpoint
+for the get payport ID operation typically these are written to a http.Request
 */
 type GetPayportIDParams struct {
 
-	/* ID.
+	/*ID
+	  Association Id
 
-	   Association Id
-
-	   Format: uuid
 	*/
 	ID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get payport ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetPayportIDParams) WithDefaults() *GetPayportIDParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get payport ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetPayportIDParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get payport ID params

@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -95,39 +93,6 @@ func (m *LhvAssociationWithRelationships) validateRelationships(formats strfmt.R
 
 	if m.Relationships != nil {
 		if err := m.Relationships.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("relationships")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this lhv association with relationships based on the context it is used
-func (m *LhvAssociationWithRelationships) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	// validation for a type composition with LhvAssociation
-	if err := m.LhvAssociation.ContextValidate(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateRelationships(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *LhvAssociationWithRelationships) contextValidateRelationships(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Relationships != nil {
-		if err := m.Relationships.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("relationships")
 			}

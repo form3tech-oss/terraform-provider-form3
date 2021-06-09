@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -67,11 +65,12 @@ func (m *MandateAttributesDebtorParty) Validate(formats strfmt.Registry) error {
 }
 
 func (m *MandateAttributesDebtorParty) validateAccountName(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.AccountName) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("account_name", "body", m.AccountName, `^[A-Za-z0-9 \/\-?:\(\)\.,’\+\#\=\!\"%&\*\<\>;\{@\r\n]*$`); err != nil {
+	if err := validate.Pattern("account_name", "body", string(m.AccountName), `^[A-Za-z0-9 \/\-?:\(\)\.,’\+\#\=\!\"%&\*\<\>;\{@\r\n]*$`); err != nil {
 		return err
 	}
 
@@ -79,11 +78,12 @@ func (m *MandateAttributesDebtorParty) validateAccountName(formats strfmt.Regist
 }
 
 func (m *MandateAttributesDebtorParty) validateAccountNumber(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.AccountNumber) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("account_number", "body", m.AccountNumber, `^[A-Z0-9]{6,34}$`); err != nil {
+	if err := validate.Pattern("account_number", "body", string(m.AccountNumber), `^[A-Z0-9]{6,34}$`); err != nil {
 		return err
 	}
 
@@ -91,6 +91,7 @@ func (m *MandateAttributesDebtorParty) validateAccountNumber(formats strfmt.Regi
 }
 
 func (m *MandateAttributesDebtorParty) validateAccountNumberCode(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.AccountNumberCode) { // not required
 		return nil
 	}
@@ -106,56 +107,13 @@ func (m *MandateAttributesDebtorParty) validateAccountNumberCode(formats strfmt.
 }
 
 func (m *MandateAttributesDebtorParty) validateAccountWith(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.AccountWith) { // not required
 		return nil
 	}
 
 	if m.AccountWith != nil {
 		if err := m.AccountWith.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("account_with")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this mandate attributes debtor party based on the context it is used
-func (m *MandateAttributesDebtorParty) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateAccountNumberCode(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateAccountWith(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *MandateAttributesDebtorParty) contextValidateAccountNumberCode(ctx context.Context, formats strfmt.Registry) error {
-
-	if err := m.AccountNumberCode.ContextValidate(ctx, formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("account_number_code")
-		}
-		return err
-	}
-
-	return nil
-}
-
-func (m *MandateAttributesDebtorParty) contextValidateAccountWith(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.AccountWith != nil {
-		if err := m.AccountWith.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("account_with")
 			}

@@ -77,8 +77,9 @@ func (o *GetSepasctIDReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewGetSepasctIDOK() *GetSepasctIDOK {
 	return &GetSepasctIDOK{}
 }
 
-/* GetSepasctIDOK describes a response with status code 200, with default header values.
+/*GetSepasctIDOK handles this case with default header values.
 
 Associations details
 */
@@ -98,6 +99,7 @@ type GetSepasctIDOK struct {
 func (o *GetSepasctIDOK) Error() string {
 	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdOK  %+v", 200, o.Payload)
 }
+
 func (o *GetSepasctIDOK) GetPayload() *models.SepaSctAssociationDetailsResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewGetSepasctIDBadRequest() *GetSepasctIDBadRequest {
 	return &GetSepasctIDBadRequest{}
 }
 
-/* GetSepasctIDBadRequest describes a response with status code 400, with default header values.
+/*GetSepasctIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type GetSepasctIDBadRequest struct {
 func (o *GetSepasctIDBadRequest) Error() string {
 	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *GetSepasctIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewGetSepasctIDUnauthorized() *GetSepasctIDUnauthorized {
 	return &GetSepasctIDUnauthorized{}
 }
 
-/* GetSepasctIDUnauthorized describes a response with status code 401, with default header values.
+/*GetSepasctIDUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type GetSepasctIDUnauthorized struct {
 func (o *GetSepasctIDUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *GetSepasctIDUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewGetSepasctIDForbidden() *GetSepasctIDForbidden {
 	return &GetSepasctIDForbidden{}
 }
 
-/* GetSepasctIDForbidden describes a response with status code 403, with default header values.
+/*GetSepasctIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type GetSepasctIDForbidden struct {
 func (o *GetSepasctIDForbidden) Error() string {
 	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *GetSepasctIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewGetSepasctIDNotFound() *GetSepasctIDNotFound {
 	return &GetSepasctIDNotFound{}
 }
 
-/* GetSepasctIDNotFound describes a response with status code 404, with default header values.
+/*GetSepasctIDNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type GetSepasctIDNotFound struct {
 func (o *GetSepasctIDNotFound) Error() string {
 	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *GetSepasctIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewGetSepasctIDConflict() *GetSepasctIDConflict {
 	return &GetSepasctIDConflict{}
 }
 
-/* GetSepasctIDConflict describes a response with status code 409, with default header values.
+/*GetSepasctIDConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type GetSepasctIDConflict struct {
 func (o *GetSepasctIDConflict) Error() string {
 	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdConflict  %+v", 409, o.Payload)
 }
+
 func (o *GetSepasctIDConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewGetSepasctIDTooManyRequests() *GetSepasctIDTooManyRequests {
 	return &GetSepasctIDTooManyRequests{}
 }
 
-/* GetSepasctIDTooManyRequests describes a response with status code 429, with default header values.
+/*GetSepasctIDTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type GetSepasctIDTooManyRequests struct {
 func (o *GetSepasctIDTooManyRequests) Error() string {
 	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *GetSepasctIDTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewGetSepasctIDInternalServerError() *GetSepasctIDInternalServerError {
 	return &GetSepasctIDInternalServerError{}
 }
 
-/* GetSepasctIDInternalServerError describes a response with status code 500, with default header values.
+/*GetSepasctIDInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type GetSepasctIDInternalServerError struct {
 func (o *GetSepasctIDInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *GetSepasctIDInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewGetSepasctIDServiceUnavailable() *GetSepasctIDServiceUnavailable {
 	return &GetSepasctIDServiceUnavailable{}
 }
 
-/* GetSepasctIDServiceUnavailable describes a response with status code 503, with default header values.
+/*GetSepasctIDServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type GetSepasctIDServiceUnavailable struct {
 func (o *GetSepasctIDServiceUnavailable) Error() string {
 	return fmt.Sprintf("[GET /sepasct/{id}][%d] getSepasctIdServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *GetSepasctIDServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

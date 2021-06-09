@@ -6,7 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -66,6 +65,7 @@ func (m *User) Validate(formats strfmt.Registry) error {
 }
 
 func (m *User) validateAttributes(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Attributes) { // not required
 		return nil
 	}
@@ -83,6 +83,7 @@ func (m *User) validateAttributes(formats strfmt.Registry) error {
 }
 
 func (m *User) validateID(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.ID) { // not required
 		return nil
 	}
@@ -95,6 +96,7 @@ func (m *User) validateID(formats strfmt.Registry) error {
 }
 
 func (m *User) validateOrganisationID(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.OrganisationID) { // not required
 		return nil
 	}
@@ -107,40 +109,13 @@ func (m *User) validateOrganisationID(formats strfmt.Registry) error {
 }
 
 func (m *User) validateVersion(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Version) { // not required
 		return nil
 	}
 
-	if err := validate.MinimumInt("version", "body", *m.Version, 0, false); err != nil {
+	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
 		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this user based on the context it is used
-func (m *User) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.contextValidateAttributes(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *User) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Attributes != nil {
-		if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("attributes")
-			}
-			return err
-		}
 	}
 
 	return nil
@@ -204,11 +179,12 @@ func (m *UserAttributes) Validate(formats strfmt.Registry) error {
 }
 
 func (m *UserAttributes) validateEmail(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Email) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("attributes"+"."+"email", "body", m.Email, `^[A-Za-z0-9-+@.]*$`); err != nil {
+	if err := validate.Pattern("attributes"+"."+"email", "body", string(m.Email), `^[A-Za-z0-9-+@.]*$`); err != nil {
 		return err
 	}
 
@@ -216,6 +192,7 @@ func (m *UserAttributes) validateEmail(formats strfmt.Registry) error {
 }
 
 func (m *UserAttributes) validateRoleIds(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.RoleIds) { // not required
 		return nil
 	}
@@ -232,19 +209,15 @@ func (m *UserAttributes) validateRoleIds(formats strfmt.Registry) error {
 }
 
 func (m *UserAttributes) validateUsername(formats strfmt.Registry) error {
+
 	if swag.IsZero(m.Username) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("attributes"+"."+"username", "body", m.Username, `^[A-Za-z0-9-+@.]*$`); err != nil {
+	if err := validate.Pattern("attributes"+"."+"username", "body", string(m.Username), `^[A-Za-z0-9-+@.]*$`); err != nil {
 		return err
 	}
 
-	return nil
-}
-
-// ContextValidate validates this user attributes based on context it is used
-func (m *UserAttributes) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

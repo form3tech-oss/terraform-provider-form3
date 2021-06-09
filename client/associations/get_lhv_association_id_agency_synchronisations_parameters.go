@@ -16,75 +16,59 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetLhvAssociationIDAgencySynchronisationsParams creates a new GetLhvAssociationIDAgencySynchronisationsParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetLhvAssociationIDAgencySynchronisationsParams creates a new GetLhvAssociationIDAgencySynchronisationsParams object
+// with the default values initialized.
 func NewGetLhvAssociationIDAgencySynchronisationsParams() *GetLhvAssociationIDAgencySynchronisationsParams {
+	var ()
 	return &GetLhvAssociationIDAgencySynchronisationsParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetLhvAssociationIDAgencySynchronisationsParamsWithTimeout creates a new GetLhvAssociationIDAgencySynchronisationsParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetLhvAssociationIDAgencySynchronisationsParamsWithTimeout(timeout time.Duration) *GetLhvAssociationIDAgencySynchronisationsParams {
+	var ()
 	return &GetLhvAssociationIDAgencySynchronisationsParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetLhvAssociationIDAgencySynchronisationsParamsWithContext creates a new GetLhvAssociationIDAgencySynchronisationsParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetLhvAssociationIDAgencySynchronisationsParamsWithContext(ctx context.Context) *GetLhvAssociationIDAgencySynchronisationsParams {
+	var ()
 	return &GetLhvAssociationIDAgencySynchronisationsParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetLhvAssociationIDAgencySynchronisationsParamsWithHTTPClient creates a new GetLhvAssociationIDAgencySynchronisationsParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetLhvAssociationIDAgencySynchronisationsParamsWithHTTPClient(client *http.Client) *GetLhvAssociationIDAgencySynchronisationsParams {
+	var ()
 	return &GetLhvAssociationIDAgencySynchronisationsParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetLhvAssociationIDAgencySynchronisationsParams contains all the parameters to send to the API endpoint
-   for the get lhv association ID agency synchronisations operation.
-
-   Typically these are written to a http.Request.
+/*GetLhvAssociationIDAgencySynchronisationsParams contains all the parameters to send to the API endpoint
+for the get lhv association ID agency synchronisations operation typically these are written to a http.Request
 */
 type GetLhvAssociationIDAgencySynchronisationsParams struct {
 
-	/* AssociationID.
+	/*AssociationID
+	  Association Id
 
-	   Association Id
-
-	   Format: uuid
 	*/
 	AssociationID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get lhv association ID agency synchronisations params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetLhvAssociationIDAgencySynchronisationsParams) WithDefaults() *GetLhvAssociationIDAgencySynchronisationsParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get lhv association ID agency synchronisations params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetLhvAssociationIDAgencySynchronisationsParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get lhv association ID agency synchronisations params

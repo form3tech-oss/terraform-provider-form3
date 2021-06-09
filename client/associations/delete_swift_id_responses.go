@@ -47,8 +47,9 @@ func (o *DeleteSwiftIDReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -57,7 +58,7 @@ func NewDeleteSwiftIDNoContent() *DeleteSwiftIDNoContent {
 	return &DeleteSwiftIDNoContent{}
 }
 
-/* DeleteSwiftIDNoContent describes a response with status code 204, with default header values.
+/*DeleteSwiftIDNoContent handles this case with default header values.
 
 Association deleted
 */
@@ -78,7 +79,7 @@ func NewDeleteSwiftIDBadRequest() *DeleteSwiftIDBadRequest {
 	return &DeleteSwiftIDBadRequest{}
 }
 
-/* DeleteSwiftIDBadRequest describes a response with status code 400, with default header values.
+/*DeleteSwiftIDBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -89,6 +90,7 @@ type DeleteSwiftIDBadRequest struct {
 func (o *DeleteSwiftIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /swift/{id}][%d] deleteSwiftIdBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *DeleteSwiftIDBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -110,7 +112,7 @@ func NewDeleteSwiftIDForbidden() *DeleteSwiftIDForbidden {
 	return &DeleteSwiftIDForbidden{}
 }
 
-/* DeleteSwiftIDForbidden describes a response with status code 403, with default header values.
+/*DeleteSwiftIDForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -121,6 +123,7 @@ type DeleteSwiftIDForbidden struct {
 func (o *DeleteSwiftIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /swift/{id}][%d] deleteSwiftIdForbidden  %+v", 403, o.Payload)
 }
+
 func (o *DeleteSwiftIDForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -142,7 +145,7 @@ func NewDeleteSwiftIDNotFound() *DeleteSwiftIDNotFound {
 	return &DeleteSwiftIDNotFound{}
 }
 
-/* DeleteSwiftIDNotFound describes a response with status code 404, with default header values.
+/*DeleteSwiftIDNotFound handles this case with default header values.
 
 Not Found
 */
@@ -153,6 +156,7 @@ type DeleteSwiftIDNotFound struct {
 func (o *DeleteSwiftIDNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /swift/{id}][%d] deleteSwiftIdNotFound  %+v", 404, o.Payload)
 }
+
 func (o *DeleteSwiftIDNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }

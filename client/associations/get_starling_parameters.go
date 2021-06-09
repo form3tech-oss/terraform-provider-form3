@@ -16,75 +16,59 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetStarlingParams creates a new GetStarlingParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetStarlingParams creates a new GetStarlingParams object
+// with the default values initialized.
 func NewGetStarlingParams() *GetStarlingParams {
+	var ()
 	return &GetStarlingParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetStarlingParamsWithTimeout creates a new GetStarlingParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetStarlingParamsWithTimeout(timeout time.Duration) *GetStarlingParams {
+	var ()
 	return &GetStarlingParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetStarlingParamsWithContext creates a new GetStarlingParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetStarlingParamsWithContext(ctx context.Context) *GetStarlingParams {
+	var ()
 	return &GetStarlingParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetStarlingParamsWithHTTPClient creates a new GetStarlingParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetStarlingParamsWithHTTPClient(client *http.Client) *GetStarlingParams {
+	var ()
 	return &GetStarlingParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetStarlingParams contains all the parameters to send to the API endpoint
-   for the get starling operation.
-
-   Typically these are written to a http.Request.
+/*GetStarlingParams contains all the parameters to send to the API endpoint
+for the get starling operation typically these are written to a http.Request
 */
 type GetStarlingParams struct {
 
-	/* FilterOrganisationID.
+	/*FilterOrganisationID
+	  Organisation id
 
-	   Organisation id
-
-	   Format: uuid
 	*/
 	FilterOrganisationID *strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get starling params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetStarlingParams) WithDefaults() *GetStarlingParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get starling params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetStarlingParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get starling params
@@ -143,17 +127,16 @@ func (o *GetStarlingParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 
 		// query param filter[organisation_id]
 		var qrFilterOrganisationID strfmt.UUID
-
 		if o.FilterOrganisationID != nil {
 			qrFilterOrganisationID = *o.FilterOrganisationID
 		}
 		qFilterOrganisationID := qrFilterOrganisationID.String()
 		if qFilterOrganisationID != "" {
-
 			if err := r.SetQueryParam("filter[organisation_id]", qFilterOrganisationID); err != nil {
 				return err
 			}
 		}
+
 	}
 
 	if len(res) > 0 {

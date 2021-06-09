@@ -17,89 +17,69 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDParams creates a new DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDParams creates a new DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams object
+// with the default values initialized.
 func NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDParams() *DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams {
+	var ()
 	return &DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDParamsWithTimeout creates a new DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDParamsWithTimeout(timeout time.Duration) *DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams {
+	var ()
 	return &DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDParamsWithContext creates a new DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDParamsWithContext(ctx context.Context) *DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams {
+	var ()
 	return &DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams{
+
 		Context: ctx,
 	}
 }
 
 // NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDParamsWithHTTPClient creates a new DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewDeleteLhvAssociationIDMasterAccountsMasterAccountIDParamsWithHTTPClient(client *http.Client) *DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams {
+	var ()
 	return &DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams{
 		HTTPClient: client,
 	}
 }
 
-/* DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams contains all the parameters to send to the API endpoint
-   for the delete lhv association ID master accounts master account ID operation.
-
-   Typically these are written to a http.Request.
+/*DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams contains all the parameters to send to the API endpoint
+for the delete lhv association ID master accounts master account ID operation typically these are written to a http.Request
 */
 type DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams struct {
 
-	/* AssociationID.
+	/*AssociationID
+	  Association Id
 
-	   Association Id
-
-	   Format: uuid
 	*/
 	AssociationID strfmt.UUID
+	/*MasterAccountID
+	  Master Account Id
 
-	/* MasterAccountID.
-
-	   Master Account Id
-
-	   Format: uuid
 	*/
 	MasterAccountID strfmt.UUID
+	/*Version
+	  Version
 
-	/* Version.
-
-	   Version
 	*/
 	Version int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the delete lhv association ID master accounts master account ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams) WithDefaults() *DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the delete lhv association ID master accounts master account ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete lhv association ID master accounts master account ID params
@@ -190,7 +170,6 @@ func (o *DeleteLhvAssociationIDMasterAccountsMasterAccountIDParams) WriteToReque
 	qrVersion := o.Version
 	qVersion := swag.FormatInt64(qrVersion)
 	if qVersion != "" {
-
 		if err := r.SetQueryParam("version", qVersion); err != nil {
 			return err
 		}

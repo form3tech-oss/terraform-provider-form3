@@ -77,8 +77,9 @@ func (o *PostAccountsReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewPostAccountsCreated() *PostAccountsCreated {
 	return &PostAccountsCreated{}
 }
 
-/* PostAccountsCreated describes a response with status code 201, with default header values.
+/*PostAccountsCreated handles this case with default header values.
 
 Account creation response
 */
@@ -98,6 +99,7 @@ type PostAccountsCreated struct {
 func (o *PostAccountsCreated) Error() string {
 	return fmt.Sprintf("[POST /accounts][%d] postAccountsCreated  %+v", 201, o.Payload)
 }
+
 func (o *PostAccountsCreated) GetPayload() *models.AccountCreationResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewPostAccountsBadRequest() *PostAccountsBadRequest {
 	return &PostAccountsBadRequest{}
 }
 
-/* PostAccountsBadRequest describes a response with status code 400, with default header values.
+/*PostAccountsBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type PostAccountsBadRequest struct {
 func (o *PostAccountsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /accounts][%d] postAccountsBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *PostAccountsBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewPostAccountsUnauthorized() *PostAccountsUnauthorized {
 	return &PostAccountsUnauthorized{}
 }
 
-/* PostAccountsUnauthorized describes a response with status code 401, with default header values.
+/*PostAccountsUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type PostAccountsUnauthorized struct {
 func (o *PostAccountsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /accounts][%d] postAccountsUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *PostAccountsUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewPostAccountsForbidden() *PostAccountsForbidden {
 	return &PostAccountsForbidden{}
 }
 
-/* PostAccountsForbidden describes a response with status code 403, with default header values.
+/*PostAccountsForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type PostAccountsForbidden struct {
 func (o *PostAccountsForbidden) Error() string {
 	return fmt.Sprintf("[POST /accounts][%d] postAccountsForbidden  %+v", 403, o.Payload)
 }
+
 func (o *PostAccountsForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewPostAccountsNotFound() *PostAccountsNotFound {
 	return &PostAccountsNotFound{}
 }
 
-/* PostAccountsNotFound describes a response with status code 404, with default header values.
+/*PostAccountsNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type PostAccountsNotFound struct {
 func (o *PostAccountsNotFound) Error() string {
 	return fmt.Sprintf("[POST /accounts][%d] postAccountsNotFound  %+v", 404, o.Payload)
 }
+
 func (o *PostAccountsNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewPostAccountsConflict() *PostAccountsConflict {
 	return &PostAccountsConflict{}
 }
 
-/* PostAccountsConflict describes a response with status code 409, with default header values.
+/*PostAccountsConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type PostAccountsConflict struct {
 func (o *PostAccountsConflict) Error() string {
 	return fmt.Sprintf("[POST /accounts][%d] postAccountsConflict  %+v", 409, o.Payload)
 }
+
 func (o *PostAccountsConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewPostAccountsTooManyRequests() *PostAccountsTooManyRequests {
 	return &PostAccountsTooManyRequests{}
 }
 
-/* PostAccountsTooManyRequests describes a response with status code 429, with default header values.
+/*PostAccountsTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type PostAccountsTooManyRequests struct {
 func (o *PostAccountsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /accounts][%d] postAccountsTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *PostAccountsTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewPostAccountsInternalServerError() *PostAccountsInternalServerError {
 	return &PostAccountsInternalServerError{}
 }
 
-/* PostAccountsInternalServerError describes a response with status code 500, with default header values.
+/*PostAccountsInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type PostAccountsInternalServerError struct {
 func (o *PostAccountsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /accounts][%d] postAccountsInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *PostAccountsInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewPostAccountsServiceUnavailable() *PostAccountsServiceUnavailable {
 	return &PostAccountsServiceUnavailable{}
 }
 
-/* PostAccountsServiceUnavailable describes a response with status code 503, with default header values.
+/*PostAccountsServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type PostAccountsServiceUnavailable struct {
 func (o *PostAccountsServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /accounts][%d] postAccountsServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *PostAccountsServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

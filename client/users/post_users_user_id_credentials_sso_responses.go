@@ -77,8 +77,9 @@ func (o *PostUsersUserIDCredentialsSsoReader) ReadResponse(response runtime.Clie
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewPostUsersUserIDCredentialsSsoCreated() *PostUsersUserIDCredentialsSsoCre
 	return &PostUsersUserIDCredentialsSsoCreated{}
 }
 
-/* PostUsersUserIDCredentialsSsoCreated describes a response with status code 201, with default header values.
+/*PostUsersUserIDCredentialsSsoCreated handles this case with default header values.
 
 Sso user created
 */
@@ -98,6 +99,7 @@ type PostUsersUserIDCredentialsSsoCreated struct {
 func (o *PostUsersUserIDCredentialsSsoCreated) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/sso][%d] postUsersUserIdCredentialsSsoCreated  %+v", 201, o.Payload)
 }
+
 func (o *PostUsersUserIDCredentialsSsoCreated) GetPayload() *models.SsoUserCreationResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewPostUsersUserIDCredentialsSsoBadRequest() *PostUsersUserIDCredentialsSso
 	return &PostUsersUserIDCredentialsSsoBadRequest{}
 }
 
-/* PostUsersUserIDCredentialsSsoBadRequest describes a response with status code 400, with default header values.
+/*PostUsersUserIDCredentialsSsoBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type PostUsersUserIDCredentialsSsoBadRequest struct {
 func (o *PostUsersUserIDCredentialsSsoBadRequest) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/sso][%d] postUsersUserIdCredentialsSsoBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *PostUsersUserIDCredentialsSsoBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewPostUsersUserIDCredentialsSsoUnauthorized() *PostUsersUserIDCredentialsS
 	return &PostUsersUserIDCredentialsSsoUnauthorized{}
 }
 
-/* PostUsersUserIDCredentialsSsoUnauthorized describes a response with status code 401, with default header values.
+/*PostUsersUserIDCredentialsSsoUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type PostUsersUserIDCredentialsSsoUnauthorized struct {
 func (o *PostUsersUserIDCredentialsSsoUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/sso][%d] postUsersUserIdCredentialsSsoUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *PostUsersUserIDCredentialsSsoUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewPostUsersUserIDCredentialsSsoForbidden() *PostUsersUserIDCredentialsSsoF
 	return &PostUsersUserIDCredentialsSsoForbidden{}
 }
 
-/* PostUsersUserIDCredentialsSsoForbidden describes a response with status code 403, with default header values.
+/*PostUsersUserIDCredentialsSsoForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type PostUsersUserIDCredentialsSsoForbidden struct {
 func (o *PostUsersUserIDCredentialsSsoForbidden) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/sso][%d] postUsersUserIdCredentialsSsoForbidden  %+v", 403, o.Payload)
 }
+
 func (o *PostUsersUserIDCredentialsSsoForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewPostUsersUserIDCredentialsSsoNotFound() *PostUsersUserIDCredentialsSsoNo
 	return &PostUsersUserIDCredentialsSsoNotFound{}
 }
 
-/* PostUsersUserIDCredentialsSsoNotFound describes a response with status code 404, with default header values.
+/*PostUsersUserIDCredentialsSsoNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type PostUsersUserIDCredentialsSsoNotFound struct {
 func (o *PostUsersUserIDCredentialsSsoNotFound) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/sso][%d] postUsersUserIdCredentialsSsoNotFound  %+v", 404, o.Payload)
 }
+
 func (o *PostUsersUserIDCredentialsSsoNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewPostUsersUserIDCredentialsSsoConflict() *PostUsersUserIDCredentialsSsoCo
 	return &PostUsersUserIDCredentialsSsoConflict{}
 }
 
-/* PostUsersUserIDCredentialsSsoConflict describes a response with status code 409, with default header values.
+/*PostUsersUserIDCredentialsSsoConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type PostUsersUserIDCredentialsSsoConflict struct {
 func (o *PostUsersUserIDCredentialsSsoConflict) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/sso][%d] postUsersUserIdCredentialsSsoConflict  %+v", 409, o.Payload)
 }
+
 func (o *PostUsersUserIDCredentialsSsoConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewPostUsersUserIDCredentialsSsoTooManyRequests() *PostUsersUserIDCredentia
 	return &PostUsersUserIDCredentialsSsoTooManyRequests{}
 }
 
-/* PostUsersUserIDCredentialsSsoTooManyRequests describes a response with status code 429, with default header values.
+/*PostUsersUserIDCredentialsSsoTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type PostUsersUserIDCredentialsSsoTooManyRequests struct {
 func (o *PostUsersUserIDCredentialsSsoTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/sso][%d] postUsersUserIdCredentialsSsoTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *PostUsersUserIDCredentialsSsoTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewPostUsersUserIDCredentialsSsoInternalServerError() *PostUsersUserIDCrede
 	return &PostUsersUserIDCredentialsSsoInternalServerError{}
 }
 
-/* PostUsersUserIDCredentialsSsoInternalServerError describes a response with status code 500, with default header values.
+/*PostUsersUserIDCredentialsSsoInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type PostUsersUserIDCredentialsSsoInternalServerError struct {
 func (o *PostUsersUserIDCredentialsSsoInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/sso][%d] postUsersUserIdCredentialsSsoInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *PostUsersUserIDCredentialsSsoInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewPostUsersUserIDCredentialsSsoServiceUnavailable() *PostUsersUserIDCreden
 	return &PostUsersUserIDCredentialsSsoServiceUnavailable{}
 }
 
-/* PostUsersUserIDCredentialsSsoServiceUnavailable describes a response with status code 503, with default header values.
+/*PostUsersUserIDCredentialsSsoServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type PostUsersUserIDCredentialsSsoServiceUnavailable struct {
 func (o *PostUsersUserIDCredentialsSsoServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/sso][%d] postUsersUserIdCredentialsSsoServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *PostUsersUserIDCredentialsSsoServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

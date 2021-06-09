@@ -16,75 +16,59 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetKeysKeyIDCertificatesParams creates a new GetKeysKeyIDCertificatesParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetKeysKeyIDCertificatesParams creates a new GetKeysKeyIDCertificatesParams object
+// with the default values initialized.
 func NewGetKeysKeyIDCertificatesParams() *GetKeysKeyIDCertificatesParams {
+	var ()
 	return &GetKeysKeyIDCertificatesParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetKeysKeyIDCertificatesParamsWithTimeout creates a new GetKeysKeyIDCertificatesParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetKeysKeyIDCertificatesParamsWithTimeout(timeout time.Duration) *GetKeysKeyIDCertificatesParams {
+	var ()
 	return &GetKeysKeyIDCertificatesParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetKeysKeyIDCertificatesParamsWithContext creates a new GetKeysKeyIDCertificatesParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetKeysKeyIDCertificatesParamsWithContext(ctx context.Context) *GetKeysKeyIDCertificatesParams {
+	var ()
 	return &GetKeysKeyIDCertificatesParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetKeysKeyIDCertificatesParamsWithHTTPClient creates a new GetKeysKeyIDCertificatesParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetKeysKeyIDCertificatesParamsWithHTTPClient(client *http.Client) *GetKeysKeyIDCertificatesParams {
+	var ()
 	return &GetKeysKeyIDCertificatesParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetKeysKeyIDCertificatesParams contains all the parameters to send to the API endpoint
-   for the get keys key ID certificates operation.
-
-   Typically these are written to a http.Request.
+/*GetKeysKeyIDCertificatesParams contains all the parameters to send to the API endpoint
+for the get keys key ID certificates operation typically these are written to a http.Request
 */
 type GetKeysKeyIDCertificatesParams struct {
 
-	/* KeyID.
+	/*KeyID
+	  Key Id
 
-	   Key Id
-
-	   Format: uuid
 	*/
 	KeyID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get keys key ID certificates params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetKeysKeyIDCertificatesParams) WithDefaults() *GetKeysKeyIDCertificatesParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get keys key ID certificates params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetKeysKeyIDCertificatesParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get keys key ID certificates params

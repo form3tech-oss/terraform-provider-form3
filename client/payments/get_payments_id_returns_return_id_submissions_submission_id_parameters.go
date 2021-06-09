@@ -16,91 +16,69 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams creates a new GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewGetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams creates a new GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams object
+// with the default values initialized.
 func NewGetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams() *GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams {
+	var ()
 	return &GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParamsWithTimeout creates a new GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewGetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParamsWithTimeout(timeout time.Duration) *GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams {
+	var ()
 	return &GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewGetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParamsWithContext creates a new GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewGetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParamsWithContext(ctx context.Context) *GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams {
+	var ()
 	return &GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams{
+
 		Context: ctx,
 	}
 }
 
 // NewGetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParamsWithHTTPClient creates a new GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParamsWithHTTPClient(client *http.Client) *GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams {
+	var ()
 	return &GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams{
 		HTTPClient: client,
 	}
 }
 
-/* GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams contains all the parameters to send to the API endpoint
-   for the get payments ID returns return ID submissions submission ID operation.
-
-   Typically these are written to a http.Request.
+/*GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams contains all the parameters to send to the API endpoint
+for the get payments ID returns return ID submissions submission ID operation typically these are written to a http.Request
 */
 type GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams struct {
 
-	/* ID.
+	/*ID
+	  Payment Id
 
-	   Payment Id
-
-	   Format: uuid
 	*/
 	ID strfmt.UUID
+	/*ReturnID
+	  Return Id
 
-	/* ReturnID.
-
-	   Return Id
-
-	   Format: uuid
 	*/
 	ReturnID strfmt.UUID
+	/*SubmissionID
+	  Submission Id
 
-	/* SubmissionID.
-
-	   Submission Id
-
-	   Format: uuid
 	*/
 	SubmissionID strfmt.UUID
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the get payments ID returns return ID submissions submission ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams) WithDefaults() *GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the get payments ID returns return ID submissions submission ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *GetPaymentsIDReturnsReturnIDSubmissionsSubmissionIDParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get payments ID returns return ID submissions submission ID params

@@ -17,81 +17,64 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteSepactLiquidityAssociationIDParams creates a new DeleteSepactLiquidityAssociationIDParams object,
-// with the default timeout for this client.
-//
-// Default values are not hydrated, since defaults are normally applied by the API server side.
-//
-// To enforce default values in parameter, use SetDefaults or WithDefaults.
+// NewDeleteSepactLiquidityAssociationIDParams creates a new DeleteSepactLiquidityAssociationIDParams object
+// with the default values initialized.
 func NewDeleteSepactLiquidityAssociationIDParams() *DeleteSepactLiquidityAssociationIDParams {
+	var ()
 	return &DeleteSepactLiquidityAssociationIDParams{
+
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteSepactLiquidityAssociationIDParamsWithTimeout creates a new DeleteSepactLiquidityAssociationIDParams object
-// with the ability to set a timeout on a request.
+// with the default values initialized, and the ability to set a timeout on a request
 func NewDeleteSepactLiquidityAssociationIDParamsWithTimeout(timeout time.Duration) *DeleteSepactLiquidityAssociationIDParams {
+	var ()
 	return &DeleteSepactLiquidityAssociationIDParams{
+
 		timeout: timeout,
 	}
 }
 
 // NewDeleteSepactLiquidityAssociationIDParamsWithContext creates a new DeleteSepactLiquidityAssociationIDParams object
-// with the ability to set a context for a request.
+// with the default values initialized, and the ability to set a context for a request
 func NewDeleteSepactLiquidityAssociationIDParamsWithContext(ctx context.Context) *DeleteSepactLiquidityAssociationIDParams {
+	var ()
 	return &DeleteSepactLiquidityAssociationIDParams{
+
 		Context: ctx,
 	}
 }
 
 // NewDeleteSepactLiquidityAssociationIDParamsWithHTTPClient creates a new DeleteSepactLiquidityAssociationIDParams object
-// with the ability to set a custom HTTPClient for a request.
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewDeleteSepactLiquidityAssociationIDParamsWithHTTPClient(client *http.Client) *DeleteSepactLiquidityAssociationIDParams {
+	var ()
 	return &DeleteSepactLiquidityAssociationIDParams{
 		HTTPClient: client,
 	}
 }
 
-/* DeleteSepactLiquidityAssociationIDParams contains all the parameters to send to the API endpoint
-   for the delete sepact liquidity association ID operation.
-
-   Typically these are written to a http.Request.
+/*DeleteSepactLiquidityAssociationIDParams contains all the parameters to send to the API endpoint
+for the delete sepact liquidity association ID operation typically these are written to a http.Request
 */
 type DeleteSepactLiquidityAssociationIDParams struct {
 
-	/* AssociationID.
+	/*AssociationID
+	  Association id
 
-	   Association id
-
-	   Format: uuid
 	*/
 	AssociationID strfmt.UUID
+	/*Version
+	  Version
 
-	/* Version.
-
-	   Version
 	*/
 	Version int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
-}
-
-// WithDefaults hydrates default values in the delete sepact liquidity association ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteSepactLiquidityAssociationIDParams) WithDefaults() *DeleteSepactLiquidityAssociationIDParams {
-	o.SetDefaults()
-	return o
-}
-
-// SetDefaults hydrates default values in the delete sepact liquidity association ID params (not the query body).
-//
-// All values with no default are reset to their zero value.
-func (o *DeleteSepactLiquidityAssociationIDParams) SetDefaults() {
-	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete sepact liquidity association ID params
@@ -166,7 +149,6 @@ func (o *DeleteSepactLiquidityAssociationIDParams) WriteToRequest(r runtime.Clie
 	qrVersion := o.Version
 	qVersion := swag.FormatInt64(qrVersion)
 	if qVersion != "" {
-
 		if err := r.SetQueryParam("version", qVersion); err != nil {
 			return err
 		}

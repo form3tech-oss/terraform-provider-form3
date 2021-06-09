@@ -77,8 +77,9 @@ func (o *PostPlatformSecuritySigningKeysReader) ReadResponse(response runtime.Cl
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewPostPlatformSecuritySigningKeysCreated() *PostPlatformSecuritySigningKey
 	return &PostPlatformSecuritySigningKeysCreated{}
 }
 
-/* PostPlatformSecuritySigningKeysCreated describes a response with status code 201, with default header values.
+/*PostPlatformSecuritySigningKeysCreated handles this case with default header values.
 
 creation response
 */
@@ -98,6 +99,7 @@ type PostPlatformSecuritySigningKeysCreated struct {
 func (o *PostPlatformSecuritySigningKeysCreated) Error() string {
 	return fmt.Sprintf("[POST /platform/security/signing_keys][%d] postPlatformSecuritySigningKeysCreated  %+v", 201, o.Payload)
 }
+
 func (o *PostPlatformSecuritySigningKeysCreated) GetPayload() *models.SigningKeysResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewPostPlatformSecuritySigningKeysBadRequest() *PostPlatformSecuritySigning
 	return &PostPlatformSecuritySigningKeysBadRequest{}
 }
 
-/* PostPlatformSecuritySigningKeysBadRequest describes a response with status code 400, with default header values.
+/*PostPlatformSecuritySigningKeysBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type PostPlatformSecuritySigningKeysBadRequest struct {
 func (o *PostPlatformSecuritySigningKeysBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/security/signing_keys][%d] postPlatformSecuritySigningKeysBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *PostPlatformSecuritySigningKeysBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewPostPlatformSecuritySigningKeysUnauthorized() *PostPlatformSecuritySigni
 	return &PostPlatformSecuritySigningKeysUnauthorized{}
 }
 
-/* PostPlatformSecuritySigningKeysUnauthorized describes a response with status code 401, with default header values.
+/*PostPlatformSecuritySigningKeysUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type PostPlatformSecuritySigningKeysUnauthorized struct {
 func (o *PostPlatformSecuritySigningKeysUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /platform/security/signing_keys][%d] postPlatformSecuritySigningKeysUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *PostPlatformSecuritySigningKeysUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewPostPlatformSecuritySigningKeysForbidden() *PostPlatformSecuritySigningK
 	return &PostPlatformSecuritySigningKeysForbidden{}
 }
 
-/* PostPlatformSecuritySigningKeysForbidden describes a response with status code 403, with default header values.
+/*PostPlatformSecuritySigningKeysForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type PostPlatformSecuritySigningKeysForbidden struct {
 func (o *PostPlatformSecuritySigningKeysForbidden) Error() string {
 	return fmt.Sprintf("[POST /platform/security/signing_keys][%d] postPlatformSecuritySigningKeysForbidden  %+v", 403, o.Payload)
 }
+
 func (o *PostPlatformSecuritySigningKeysForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewPostPlatformSecuritySigningKeysNotFound() *PostPlatformSecuritySigningKe
 	return &PostPlatformSecuritySigningKeysNotFound{}
 }
 
-/* PostPlatformSecuritySigningKeysNotFound describes a response with status code 404, with default header values.
+/*PostPlatformSecuritySigningKeysNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type PostPlatformSecuritySigningKeysNotFound struct {
 func (o *PostPlatformSecuritySigningKeysNotFound) Error() string {
 	return fmt.Sprintf("[POST /platform/security/signing_keys][%d] postPlatformSecuritySigningKeysNotFound  %+v", 404, o.Payload)
 }
+
 func (o *PostPlatformSecuritySigningKeysNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewPostPlatformSecuritySigningKeysConflict() *PostPlatformSecuritySigningKe
 	return &PostPlatformSecuritySigningKeysConflict{}
 }
 
-/* PostPlatformSecuritySigningKeysConflict describes a response with status code 409, with default header values.
+/*PostPlatformSecuritySigningKeysConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type PostPlatformSecuritySigningKeysConflict struct {
 func (o *PostPlatformSecuritySigningKeysConflict) Error() string {
 	return fmt.Sprintf("[POST /platform/security/signing_keys][%d] postPlatformSecuritySigningKeysConflict  %+v", 409, o.Payload)
 }
+
 func (o *PostPlatformSecuritySigningKeysConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewPostPlatformSecuritySigningKeysTooManyRequests() *PostPlatformSecuritySi
 	return &PostPlatformSecuritySigningKeysTooManyRequests{}
 }
 
-/* PostPlatformSecuritySigningKeysTooManyRequests describes a response with status code 429, with default header values.
+/*PostPlatformSecuritySigningKeysTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type PostPlatformSecuritySigningKeysTooManyRequests struct {
 func (o *PostPlatformSecuritySigningKeysTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /platform/security/signing_keys][%d] postPlatformSecuritySigningKeysTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *PostPlatformSecuritySigningKeysTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewPostPlatformSecuritySigningKeysInternalServerError() *PostPlatformSecuri
 	return &PostPlatformSecuritySigningKeysInternalServerError{}
 }
 
-/* PostPlatformSecuritySigningKeysInternalServerError describes a response with status code 500, with default header values.
+/*PostPlatformSecuritySigningKeysInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type PostPlatformSecuritySigningKeysInternalServerError struct {
 func (o *PostPlatformSecuritySigningKeysInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /platform/security/signing_keys][%d] postPlatformSecuritySigningKeysInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *PostPlatformSecuritySigningKeysInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewPostPlatformSecuritySigningKeysServiceUnavailable() *PostPlatformSecurit
 	return &PostPlatformSecuritySigningKeysServiceUnavailable{}
 }
 
-/* PostPlatformSecuritySigningKeysServiceUnavailable describes a response with status code 503, with default header values.
+/*PostPlatformSecuritySigningKeysServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type PostPlatformSecuritySigningKeysServiceUnavailable struct {
 func (o *PostPlatformSecuritySigningKeysServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /platform/security/signing_keys][%d] postPlatformSecuritySigningKeysServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *PostPlatformSecuritySigningKeysServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }

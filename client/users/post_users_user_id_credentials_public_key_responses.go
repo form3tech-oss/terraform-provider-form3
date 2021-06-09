@@ -77,8 +77,9 @@ func (o *PostUsersUserIDCredentialsPublicKeyReader) ReadResponse(response runtim
 			return nil, err
 		}
 		return nil, result
+
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
 }
 
@@ -87,7 +88,7 @@ func NewPostUsersUserIDCredentialsPublicKeyCreated() *PostUsersUserIDCredentials
 	return &PostUsersUserIDCredentialsPublicKeyCreated{}
 }
 
-/* PostUsersUserIDCredentialsPublicKeyCreated describes a response with status code 201, with default header values.
+/*PostUsersUserIDCredentialsPublicKeyCreated handles this case with default header values.
 
 Signature Credential creation response
 */
@@ -98,6 +99,7 @@ type PostUsersUserIDCredentialsPublicKeyCreated struct {
 func (o *PostUsersUserIDCredentialsPublicKeyCreated) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/public_key][%d] postUsersUserIdCredentialsPublicKeyCreated  %+v", 201, o.Payload)
 }
+
 func (o *PostUsersUserIDCredentialsPublicKeyCreated) GetPayload() *models.PublicKeyCreationResponse {
 	return o.Payload
 }
@@ -119,7 +121,7 @@ func NewPostUsersUserIDCredentialsPublicKeyBadRequest() *PostUsersUserIDCredenti
 	return &PostUsersUserIDCredentialsPublicKeyBadRequest{}
 }
 
-/* PostUsersUserIDCredentialsPublicKeyBadRequest describes a response with status code 400, with default header values.
+/*PostUsersUserIDCredentialsPublicKeyBadRequest handles this case with default header values.
 
 Bad Request
 */
@@ -130,6 +132,7 @@ type PostUsersUserIDCredentialsPublicKeyBadRequest struct {
 func (o *PostUsersUserIDCredentialsPublicKeyBadRequest) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/public_key][%d] postUsersUserIdCredentialsPublicKeyBadRequest  %+v", 400, o.Payload)
 }
+
 func (o *PostUsersUserIDCredentialsPublicKeyBadRequest) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -151,7 +154,7 @@ func NewPostUsersUserIDCredentialsPublicKeyUnauthorized() *PostUsersUserIDCreden
 	return &PostUsersUserIDCredentialsPublicKeyUnauthorized{}
 }
 
-/* PostUsersUserIDCredentialsPublicKeyUnauthorized describes a response with status code 401, with default header values.
+/*PostUsersUserIDCredentialsPublicKeyUnauthorized handles this case with default header values.
 
 Authentication credentials were missing or incorrect
 */
@@ -162,6 +165,7 @@ type PostUsersUserIDCredentialsPublicKeyUnauthorized struct {
 func (o *PostUsersUserIDCredentialsPublicKeyUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/public_key][%d] postUsersUserIdCredentialsPublicKeyUnauthorized  %+v", 401, o.Payload)
 }
+
 func (o *PostUsersUserIDCredentialsPublicKeyUnauthorized) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -183,7 +187,7 @@ func NewPostUsersUserIDCredentialsPublicKeyForbidden() *PostUsersUserIDCredentia
 	return &PostUsersUserIDCredentialsPublicKeyForbidden{}
 }
 
-/* PostUsersUserIDCredentialsPublicKeyForbidden describes a response with status code 403, with default header values.
+/*PostUsersUserIDCredentialsPublicKeyForbidden handles this case with default header values.
 
 Forbidden
 */
@@ -194,6 +198,7 @@ type PostUsersUserIDCredentialsPublicKeyForbidden struct {
 func (o *PostUsersUserIDCredentialsPublicKeyForbidden) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/public_key][%d] postUsersUserIdCredentialsPublicKeyForbidden  %+v", 403, o.Payload)
 }
+
 func (o *PostUsersUserIDCredentialsPublicKeyForbidden) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -215,7 +220,7 @@ func NewPostUsersUserIDCredentialsPublicKeyNotFound() *PostUsersUserIDCredential
 	return &PostUsersUserIDCredentialsPublicKeyNotFound{}
 }
 
-/* PostUsersUserIDCredentialsPublicKeyNotFound describes a response with status code 404, with default header values.
+/*PostUsersUserIDCredentialsPublicKeyNotFound handles this case with default header values.
 
 Record not found
 */
@@ -226,6 +231,7 @@ type PostUsersUserIDCredentialsPublicKeyNotFound struct {
 func (o *PostUsersUserIDCredentialsPublicKeyNotFound) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/public_key][%d] postUsersUserIdCredentialsPublicKeyNotFound  %+v", 404, o.Payload)
 }
+
 func (o *PostUsersUserIDCredentialsPublicKeyNotFound) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -247,7 +253,7 @@ func NewPostUsersUserIDCredentialsPublicKeyConflict() *PostUsersUserIDCredential
 	return &PostUsersUserIDCredentialsPublicKeyConflict{}
 }
 
-/* PostUsersUserIDCredentialsPublicKeyConflict describes a response with status code 409, with default header values.
+/*PostUsersUserIDCredentialsPublicKeyConflict handles this case with default header values.
 
 Conflict
 */
@@ -258,6 +264,7 @@ type PostUsersUserIDCredentialsPublicKeyConflict struct {
 func (o *PostUsersUserIDCredentialsPublicKeyConflict) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/public_key][%d] postUsersUserIdCredentialsPublicKeyConflict  %+v", 409, o.Payload)
 }
+
 func (o *PostUsersUserIDCredentialsPublicKeyConflict) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -279,7 +286,7 @@ func NewPostUsersUserIDCredentialsPublicKeyTooManyRequests() *PostUsersUserIDCre
 	return &PostUsersUserIDCredentialsPublicKeyTooManyRequests{}
 }
 
-/* PostUsersUserIDCredentialsPublicKeyTooManyRequests describes a response with status code 429, with default header values.
+/*PostUsersUserIDCredentialsPublicKeyTooManyRequests handles this case with default header values.
 
 The request cannot be served due to the application’s rate limit
 */
@@ -290,6 +297,7 @@ type PostUsersUserIDCredentialsPublicKeyTooManyRequests struct {
 func (o *PostUsersUserIDCredentialsPublicKeyTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/public_key][%d] postUsersUserIdCredentialsPublicKeyTooManyRequests  %+v", 429, o.Payload)
 }
+
 func (o *PostUsersUserIDCredentialsPublicKeyTooManyRequests) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -311,7 +319,7 @@ func NewPostUsersUserIDCredentialsPublicKeyInternalServerError() *PostUsersUserI
 	return &PostUsersUserIDCredentialsPublicKeyInternalServerError{}
 }
 
-/* PostUsersUserIDCredentialsPublicKeyInternalServerError describes a response with status code 500, with default header values.
+/*PostUsersUserIDCredentialsPublicKeyInternalServerError handles this case with default header values.
 
 Internal Server Error
 */
@@ -322,6 +330,7 @@ type PostUsersUserIDCredentialsPublicKeyInternalServerError struct {
 func (o *PostUsersUserIDCredentialsPublicKeyInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/public_key][%d] postUsersUserIdCredentialsPublicKeyInternalServerError  %+v", 500, o.Payload)
 }
+
 func (o *PostUsersUserIDCredentialsPublicKeyInternalServerError) GetPayload() *models.APIError {
 	return o.Payload
 }
@@ -343,7 +352,7 @@ func NewPostUsersUserIDCredentialsPublicKeyServiceUnavailable() *PostUsersUserID
 	return &PostUsersUserIDCredentialsPublicKeyServiceUnavailable{}
 }
 
-/* PostUsersUserIDCredentialsPublicKeyServiceUnavailable describes a response with status code 503, with default header values.
+/*PostUsersUserIDCredentialsPublicKeyServiceUnavailable handles this case with default header values.
 
 The server is up, but overloaded with requests. Try again later.
 */
@@ -354,6 +363,7 @@ type PostUsersUserIDCredentialsPublicKeyServiceUnavailable struct {
 func (o *PostUsersUserIDCredentialsPublicKeyServiceUnavailable) Error() string {
 	return fmt.Sprintf("[POST /users/{user_id}/credentials/public_key][%d] postUsersUserIdCredentialsPublicKeyServiceUnavailable  %+v", 503, o.Payload)
 }
+
 func (o *PostUsersUserIDCredentialsPublicKeyServiceUnavailable) GetPayload() *models.APIError {
 	return o.Payload
 }
