@@ -188,11 +188,11 @@ func resourceSepaInstantAssociationUpdate(d *schema.ResourceData, meta interface
 
 	_, err = client.AssociationClient.Associations.PatchSepainstantID(
 		associations.NewPatchSepainstantIDParams().
-			WithVersion(*existingAssociation.Payload.Data.Version).
 			WithID(association.ID).WithPayload(&models.SepaInstantAssociationPatch{
 			Data: &models.UpdateSepaInstantAssociation{
 				ID:             association.ID,
 				OrganisationID: association.OrganisationID,
+				Version:        *existingAssociation.Payload.Data.Version,
 				Type:           models.SepaInstantAssociationReferenceTypeSepainstantAssociations,
 				Attributes: &models.UpdateSepaInstantAssociationAttributes{
 					Bic:                             association.Attributes.Bic,
