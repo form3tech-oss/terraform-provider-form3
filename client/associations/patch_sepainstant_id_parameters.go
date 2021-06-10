@@ -14,7 +14,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
 	"github.com/form3tech-oss/terraform-provider-form3/models"
 )
@@ -73,11 +72,6 @@ type PatchSepainstantIDParams struct {
 
 	*/
 	Payload *models.SepaInstantAssociationPatch
-	/*Version
-	  Version
-
-	*/
-	Version int64
 
 	timeout    time.Duration
 	Context    context.Context
@@ -139,17 +133,6 @@ func (o *PatchSepainstantIDParams) SetPayload(payload *models.SepaInstantAssocia
 	o.Payload = payload
 }
 
-// WithVersion adds the version to the patch sepainstant ID params
-func (o *PatchSepainstantIDParams) WithVersion(version int64) *PatchSepainstantIDParams {
-	o.SetVersion(version)
-	return o
-}
-
-// SetVersion adds the version to the patch sepainstant ID params
-func (o *PatchSepainstantIDParams) SetVersion(version int64) {
-	o.Version = version
-}
-
 // WriteToRequest writes these params to a swagger request
 func (o *PatchSepainstantIDParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -165,15 +148,6 @@ func (o *PatchSepainstantIDParams) WriteToRequest(r runtime.ClientRequest, reg s
 
 	if o.Payload != nil {
 		if err := r.SetBodyParam(o.Payload); err != nil {
-			return err
-		}
-	}
-
-	// query param version
-	qrVersion := o.Version
-	qVersion := swag.FormatInt64(qrVersion)
-	if qVersion != "" {
-		if err := r.SetQueryParam("version", qVersion); err != nil {
 			return err
 		}
 	}
