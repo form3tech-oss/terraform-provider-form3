@@ -8862,6 +8862,9 @@ definitions:
       enable_customer_check:
         x-nullable: true
         type: boolean
+      clearing_system:
+        x-nullable: true
+        type: string
 
   UpdateSepaInstantAssociationAttributes:
     properties:
@@ -8877,7 +8880,7 @@ definitions:
       disable_outbound_payments:
         x-nullable: true
         type: boolean
-    reachable_bics:
+      reachable_bics:
         type: array
         items:
           type: string
@@ -8887,6 +8890,9 @@ definitions:
       enable_customer_check:
         x-nullable: true
         type: boolean
+      clearing_system:
+        x-nullable: true
+        type: string
 
 
   SepaInstantAssociationRelationships:
