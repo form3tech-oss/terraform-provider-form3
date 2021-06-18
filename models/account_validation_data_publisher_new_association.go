@@ -31,7 +31,7 @@ type AccountValidationDataPublisherNewAssociation struct {
 
 	// type
 	// Required: true
-	// Enum: [account_vaidation_data_publisher_associations]
+	// Enum: [account_validation_data_publisher_associations]
 	Type string `json:"type"`
 }
 
@@ -87,7 +87,7 @@ var accountValidationDataPublisherNewAssociationTypeTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["account_vaidation_data_publisher_associations"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["account_validation_data_publisher_associations"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -97,8 +97,8 @@ func init() {
 
 const (
 
-	// AccountValidationDataPublisherNewAssociationTypeAccountVaidationDataPublisherAssociations captures enum value "account_vaidation_data_publisher_associations"
-	AccountValidationDataPublisherNewAssociationTypeAccountVaidationDataPublisherAssociations string = "account_vaidation_data_publisher_associations"
+	// AccountValidationDataPublisherNewAssociationTypeAccountValidationDataPublisherAssociations captures enum value "account_validation_data_publisher_associations"
+	AccountValidationDataPublisherNewAssociationTypeAccountValidationDataPublisherAssociations string = "account_validation_data_publisher_associations"
 )
 
 // prop value enum
