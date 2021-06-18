@@ -27,6 +27,8 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	DeleteAccountValidationDataPublisherID(params *DeleteAccountValidationDataPublisherIDParams) (*DeleteAccountValidationDataPublisherIDNoContent, error)
+
 	DeleteBacsID(params *DeleteBacsIDParams) (*DeleteBacsIDNoContent, error)
 
 	DeleteConfirmationOfPayeeID(params *DeleteConfirmationOfPayeeIDParams) (*DeleteConfirmationOfPayeeIDNoContent, error)
@@ -58,6 +60,10 @@ type ClientService interface {
 	DeleteSwiftID(params *DeleteSwiftIDParams) (*DeleteSwiftIDNoContent, error)
 
 	DeleteVocalinkreportID(params *DeleteVocalinkreportIDParams) (*DeleteVocalinkreportIDNoContent, error)
+
+	GetAccountValidationDataPublisher(params *GetAccountValidationDataPublisherParams) (*GetAccountValidationDataPublisherOK, error)
+
+	GetAccountValidationDataPublisherID(params *GetAccountValidationDataPublisherIDParams) (*GetAccountValidationDataPublisherIDOK, error)
 
 	GetBacs(params *GetBacsParams) (*GetBacsOK, error)
 
@@ -135,6 +141,8 @@ type ClientService interface {
 
 	PatchSwiftID(params *PatchSwiftIDParams) (*PatchSwiftIDOK, error)
 
+	PostAccountValidationDataPublisher(params *PostAccountValidationDataPublisherParams) (*PostAccountValidationDataPublisherCreated, error)
+
 	PostBacs(params *PostBacsParams) (*PostBacsCreated, error)
 
 	PostConfirmationOfPayee(params *PostConfirmationOfPayeeParams) (*PostConfirmationOfPayeeCreated, error)
@@ -168,6 +176,40 @@ type ClientService interface {
 	PostVocalinkreport(params *PostVocalinkreportParams) (*PostVocalinkreportCreated, error)
 
 	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+  DeleteAccountValidationDataPublisherID deletes organisation account validation data publisher association
+*/
+func (a *Client) DeleteAccountValidationDataPublisherID(params *DeleteAccountValidationDataPublisherIDParams) (*DeleteAccountValidationDataPublisherIDNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteAccountValidationDataPublisherIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteAccountValidationDataPublisherID",
+		Method:             "DELETE",
+		PathPattern:        "/account-validation-data-publisher/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteAccountValidationDataPublisherIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteAccountValidationDataPublisherIDNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteAccountValidationDataPublisherID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -711,6 +753,74 @@ func (a *Client) DeleteVocalinkreportID(params *DeleteVocalinkreportIDParams) (*
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for DeleteVocalinkreportID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetAccountValidationDataPublisher lists all organisation account validation data publisher associations
+*/
+func (a *Client) GetAccountValidationDataPublisher(params *GetAccountValidationDataPublisherParams) (*GetAccountValidationDataPublisherOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetAccountValidationDataPublisherParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetAccountValidationDataPublisher",
+		Method:             "GET",
+		PathPattern:        "/account-validation-data-publisher",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetAccountValidationDataPublisherReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetAccountValidationDataPublisherOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetAccountValidationDataPublisher: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetAccountValidationDataPublisherID fetches organisation account validation data publisher association
+*/
+func (a *Client) GetAccountValidationDataPublisherID(params *GetAccountValidationDataPublisherIDParams) (*GetAccountValidationDataPublisherIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetAccountValidationDataPublisherIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetAccountValidationDataPublisherID",
+		Method:             "GET",
+		PathPattern:        "/account-validation-data-publisher/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetAccountValidationDataPublisherIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetAccountValidationDataPublisherIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetAccountValidationDataPublisherID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -2003,6 +2113,40 @@ func (a *Client) PatchSwiftID(params *PatchSwiftIDParams) (*PatchSwiftIDOK, erro
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for PatchSwiftID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  PostAccountValidationDataPublisher creates organisation account validation data publisher association
+*/
+func (a *Client) PostAccountValidationDataPublisher(params *PostAccountValidationDataPublisherParams) (*PostAccountValidationDataPublisherCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostAccountValidationDataPublisherParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostAccountValidationDataPublisher",
+		Method:             "POST",
+		PathPattern:        "/account-validation-data-publisher",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PostAccountValidationDataPublisherReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PostAccountValidationDataPublisherCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostAccountValidationDataPublisher: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

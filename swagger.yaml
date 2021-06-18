@@ -6833,6 +6833,142 @@ paths:
           schema:
             $ref: "#/definitions/ApiError"
 
+  /account-validation-data-publisher:
+    post:
+      summary: Create organisation Account Validation Data Publisher association
+      tags:
+        - Associations
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: creation request
+          in: body
+          schema:
+            $ref: "#/definitions/AccountValidationDataPublisherAssociationCreation"
+      responses:
+        201:
+          description: creation response
+          schema:
+            $ref: "#/definitions/AccountValidationDataPublisherAssociationCreationResponse"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ApiError"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/ApiError"
+        409:
+          description: Conflict
+          schema:
+            $ref: "#/definitions/ApiError"
+
+    get:
+      summary: List all organisation Account Validation Data Publisher associations
+      tags:
+        - Associations
+      parameters:
+        - name: filter[organisation_id]
+          in: query
+          description: Organisation id
+          required: false
+          type: array
+          items:
+            type: string
+            format: uuid
+        - name: page[number]
+          in: query
+          description: Which page to select
+          required: false
+          type: string
+          minimum: 0
+          pattern: "$[A-z0-9]{4}^"
+        - name: page[size]
+          in: query
+          description: Number of items to select
+          required: false
+          type: integer
+          minimum: 0
+          maximum: 1000
+
+      responses:
+        200:
+          description: List of associations
+          schema:
+            $ref: "#/definitions/AccountValidationDataPublisherAssociationDetailsListResponse"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ApiError"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/ApiError"
+
+  /account-validation-data-publisher/{id}:
+    get:
+      summary: Fetch organisation Account Validation Data Publisher association
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Associations details
+          schema:
+            $ref: "#/definitions/AccountValidationDataPublisherAssociationDetailsResponse"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ApiError"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/ApiError"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/ApiError"
+
+    delete:
+      summary: Delete organisation Account Validation Data Publisher association
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Association Id
+          required: true
+          type: string
+          format: uuid
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+      responses:
+        204:
+          description: Association deleted
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/ApiError"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/ApiError"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/ApiError"
+
   /sepadd:
     post:
       summary: Create organisation association for sepa dd
@@ -13312,6 +13448,82 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/SwiftAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+  AccountValidationDataPublisherAssociation:
+    type: object
+    properties:
+      type:
+        type: string
+      id:
+        type: string
+        format: uuid
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+      created_on:
+        type: string
+        format: date-time
+        readOnly: true
+      modified_on:
+        type: string
+        format: date-time
+        readOnly: true
+
+  AccountValidationDataPublisherNewAssociation:
+    type: object
+    required:
+      - id
+      - organisation_id
+      - type
+    properties:
+      type:
+        type: string
+        enum:
+          - account_vaidation_data_publisher_associations
+        x-nullable: false
+      id:
+        type: string
+        format: uuid
+        x-nullable: false
+      organisation_id:
+        type: string
+        format: uuid
+        x-nullable: false
+
+  AccountValidationDataPublisherAssociationCreation:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/AccountValidationDataPublisherNewAssociation'
+
+  AccountValidationDataPublisherAssociationCreationResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/AccountValidationDataPublisherAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+  AccountValidationDataPublisherAssociationDetailsResponse:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/AccountValidationDataPublisherAssociation'
+      links:
+        $ref: '#/definitions/Links'
+
+  AccountValidationDataPublisherAssociationDetailsListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/AccountValidationDataPublisherAssociation'
       links:
         $ref: '#/definitions/Links'
 
