@@ -17,7 +17,7 @@ import (
 type AccountValidationDataPublisherAssociationCreation struct {
 
 	// data
-	Data *AccountValidationDataPublisherNewAssociation `json:"data,omitempty"`
+	Data *AccountValidationDataPublisherAssociation `json:"data,omitempty"`
 }
 
 // Validate validates this account validation data publisher association creation

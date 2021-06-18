@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -17,45 +19,27 @@ import (
 // swagger:model AccountValidationDataPublisherAssociation
 type AccountValidationDataPublisherAssociation struct {
 
-	// created on
-	// Read Only: true
-	// Format: date-time
-	CreatedOn strfmt.DateTime `json:"created_on,omitempty"`
-
 	// id
+	// Required: true
 	// Format: uuid
-	ID strfmt.UUID `json:"id,omitempty"`
-
-	// modified on
-	// Read Only: true
-	// Format: date-time
-	ModifiedOn strfmt.DateTime `json:"modified_on,omitempty"`
+	ID strfmt.UUID `json:"id"`
 
 	// organisation id
+	// Required: true
 	// Format: uuid
-	OrganisationID strfmt.UUID `json:"organisation_id,omitempty"`
+	OrganisationID strfmt.UUID `json:"organisation_id"`
 
 	// type
-	Type string `json:"type,omitempty"`
-
-	// version
-	// Minimum: 0
-	Version *int64 `json:"version,omitempty"`
+	// Required: true
+	// Enum: [account_validation_data_publisher_associations]
+	Type string `json:"type"`
 }
 
 // Validate validates this account validation data publisher association
 func (m *AccountValidationDataPublisherAssociation) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateCreatedOn(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateID(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateModifiedOn(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -63,7 +47,7 @@ func (m *AccountValidationDataPublisherAssociation) Validate(formats strfmt.Regi
 		res = append(res, err)
 	}
 
-	if err := m.validateVersion(formats); err != nil {
+	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -73,23 +57,10 @@ func (m *AccountValidationDataPublisherAssociation) Validate(formats strfmt.Regi
 	return nil
 }
 
-func (m *AccountValidationDataPublisherAssociation) validateCreatedOn(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.CreatedOn) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("created_on", "body", "date-time", m.CreatedOn.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *AccountValidationDataPublisherAssociation) validateID(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.ID) { // not required
-		return nil
+	if err := validate.Required("id", "body", strfmt.UUID(m.ID)); err != nil {
+		return err
 	}
 
 	if err := validate.FormatOf("id", "body", "uuid", m.ID.String(), formats); err != nil {
@@ -99,23 +70,10 @@ func (m *AccountValidationDataPublisherAssociation) validateID(formats strfmt.Re
 	return nil
 }
 
-func (m *AccountValidationDataPublisherAssociation) validateModifiedOn(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.ModifiedOn) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("modified_on", "body", "date-time", m.ModifiedOn.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *AccountValidationDataPublisherAssociation) validateOrganisationID(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.OrganisationID) { // not required
-		return nil
+	if err := validate.Required("organisation_id", "body", strfmt.UUID(m.OrganisationID)); err != nil {
+		return err
 	}
 
 	if err := validate.FormatOf("organisation_id", "body", "uuid", m.OrganisationID.String(), formats); err != nil {
@@ -125,13 +83,40 @@ func (m *AccountValidationDataPublisherAssociation) validateOrganisationID(forma
 	return nil
 }
 
-func (m *AccountValidationDataPublisherAssociation) validateVersion(formats strfmt.Registry) error {
+var accountValidationDataPublisherAssociationTypeTypePropEnum []interface{}
 
-	if swag.IsZero(m.Version) { // not required
-		return nil
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["account_validation_data_publisher_associations"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		accountValidationDataPublisherAssociationTypeTypePropEnum = append(accountValidationDataPublisherAssociationTypeTypePropEnum, v)
+	}
+}
+
+const (
+
+	// AccountValidationDataPublisherAssociationTypeAccountValidationDataPublisherAssociations captures enum value "account_validation_data_publisher_associations"
+	AccountValidationDataPublisherAssociationTypeAccountValidationDataPublisherAssociations string = "account_validation_data_publisher_associations"
+)
+
+// prop value enum
+func (m *AccountValidationDataPublisherAssociation) validateTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, accountValidationDataPublisherAssociationTypeTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *AccountValidationDataPublisherAssociation) validateType(formats strfmt.Registry) error {
+
+	if err := validate.RequiredString("type", "body", string(m.Type)); err != nil {
+		return err
 	}
 
-	if err := validate.MinimumInt("version", "body", int64(*m.Version), 0, false); err != nil {
+	// value enum
+	if err := m.validateTypeEnum("type", "body", m.Type); err != nil {
 		return err
 	}
 
