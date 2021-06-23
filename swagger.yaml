@@ -8992,6 +8992,9 @@ definitions:
       enable_customer_check:
         x-nullable: true
         type: boolean
+      clearing_system:
+        x-nullable: true
+        type: string
 
   UpdateSepaInstantAssociationAttributes:
     properties:
@@ -9017,6 +9020,9 @@ definitions:
       enable_customer_check:
         x-nullable: true
         type: boolean
+      clearing_system:
+        x-nullable: true
+        type: string
 
 
   SepaInstantAssociationRelationships:

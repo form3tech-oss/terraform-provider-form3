@@ -21,6 +21,9 @@ type UpdateSepaInstantAssociationAttributes struct {
 	// business user dn
 	BusinessUserDn string `json:"business_user_dn,omitempty"`
 
+	// clearing system
+	ClearingSystem *string `json:"clearing_system,omitempty"`
+
 	// disable outbound payments
 	DisableOutboundPayments *bool `json:"disable_outbound_payments,omitempty"`
 
