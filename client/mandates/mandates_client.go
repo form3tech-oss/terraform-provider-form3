@@ -27,9 +27,83 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	DeleteMandatemanagementID(params *DeleteMandatemanagementIDParams) (*DeleteMandatemanagementIDNoContent, error)
+
+	GetMandatemanagementID(params *GetMandatemanagementIDParams) (*GetMandatemanagementIDOK, error)
+
 	GetMandates(params *GetMandatesParams) (*GetMandatesOK, error)
 
+	PostMandatemanagement(params *PostMandatemanagementParams) (*PostMandatemanagementCreated, error)
+
 	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+  DeleteMandatemanagementID deletes mandate management
+*/
+func (a *Client) DeleteMandatemanagementID(params *DeleteMandatemanagementIDParams) (*DeleteMandatemanagementIDNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteMandatemanagementIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "DeleteMandatemanagementID",
+		Method:             "DELETE",
+		PathPattern:        "/mandatemanagement/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteMandatemanagementIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteMandatemanagementIDNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for DeleteMandatemanagementID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetMandatemanagementID fetches mandate management
+*/
+func (a *Client) GetMandatemanagementID(params *GetMandatemanagementIDParams) (*GetMandatemanagementIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetMandatemanagementIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "GetMandatemanagementID",
+		Method:             "GET",
+		PathPattern:        "/mandatemanagement/{id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetMandatemanagementIDReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetMandatemanagementIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for GetMandatemanagementID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
@@ -63,6 +137,40 @@ func (a *Client) GetMandates(params *GetMandatesParams) (*GetMandatesOK, error) 
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for GetMandates: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  PostMandatemanagement creates mandate management for organisation
+*/
+func (a *Client) PostMandatemanagement(params *PostMandatemanagementParams) (*PostMandatemanagementCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostMandatemanagementParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "PostMandatemanagement",
+		Method:             "POST",
+		PathPattern:        "/mandatemanagement",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json", "application/vnd.api+json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PostMandatemanagementReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PostMandatemanagementCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for PostMandatemanagement: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
