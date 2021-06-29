@@ -17,7 +17,7 @@ func TestAccPostMandateManagement(t *testing.T) {
 		WithMandateManagementCreationRequest(&models.MandateManagementAssociationCreation{
 			Data: &models.MandateManagementAssociation{
 				OrganisationID: testOrganisationId,
-				ID: strfmt.UUID(randomUid.String()),
+				ID:             strfmt.UUID(randomUid.String()),
 				Attributes: &models.MandateManagementAssociationAttributes{
 					PaymentScheme: models.PaymentSchemeBACS,
 				},
