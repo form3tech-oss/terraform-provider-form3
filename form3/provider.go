@@ -66,6 +66,7 @@ func Provider() terraform.ResourceProvider {
 			"form3_sepadd_association":                resourceForm3SepaDDAssociation(),
 			"form3_swift_association":                 resourceForm3SwiftAssociation(),
 			"form3_sepact_liquidity_association":      resourceForm3SepactLiquidityAssociation(),
+			"form3_mandate_management_association":    resourceForm3MandateManagementAssociation(),
 		},
 
 		ConfigureFunc: providerConfigure,

@@ -6148,6 +6148,118 @@ paths:
           $ref: "#/responses/500InternalServerError"
         503:
           $ref: "#/responses/503ServiceUnavailable"
+
+  /mandatemanagement:
+    post:
+      summary: Create mandate management association for organisation
+      x-access:
+        - Private
+      tags:
+        - Associations
+      consumes:
+        - application/vnd.api+json
+        - application/json
+      parameters:
+        - name: Mandate management creation request
+          in: body
+          schema:
+            $ref: "#/definitions/MandateManagementAssociationCreation"
+      responses:
+        201:
+          description: Mandate management configuration creation response
+          schema:
+            $ref: "#/definitions/MandateManagementAssociationDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
+  /mandatemanagement/{id}:
+    get:
+      summary: Fetch mandate management association
+      x-access:
+        - Private
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: Mandate Management Id
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Mandate Management details
+          schema:
+            $ref: "#/definitions/MandateManagementAssociationDetailsResponse"
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
+
+    delete:
+      summary: Delete mandate management association
+      x-access:
+        - Private
+      tags:
+        - Associations
+      parameters:
+        - name: id
+          in: path
+          description: mandate management id
+          required: true
+          type: string
+          format: uuid
+        - name: version
+          in: query
+          description: Version
+          required: true
+          type: integer
+          minimum: 0
+      responses:
+        204:
+          description: Mandate management deleted
+        400:
+          $ref: "#/responses/400BadRequest"
+        401:
+          $ref: "#/responses/401Unauthorized"
+        403:
+          $ref: "#/responses/403Forbidden"
+        404:
+          $ref: "#/responses/404NotFound"
+        409:
+          $ref: "#/responses/409Conflict"
+        429:
+          $ref: "#/responses/429TooManyRequests"
+        500:
+          $ref: "#/responses/500InternalServerError"
+        503:
+          $ref: "#/responses/503ServiceUnavailable"
   #mandate-api - end
 
   #public-key - start
@@ -13665,6 +13777,71 @@ definitions:
         format: "^[A-Z]{2}$"
         description: "Street Country Address"
         example: "DE"
+
+  MandateManagementAssociationCreation:
+    type: object
+    x-access:
+      - Private
+    properties:
+      data:
+        $ref: '#/definitions/MandateManagementAssociation'
+
+  MandateManagementAssociation:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+        x-nullable: false
+      type:
+        type: string
+        enum:
+          - mandate_managements
+        x-nullable: false
+      version:
+        type: integer
+        minimum: 0
+      organisation_id:
+        type: string
+        format: uuid
+        x-nullable: false
+      created_on:
+        type: string
+        format: 'date-time'
+        x-nullable: true
+        readOnly: true
+      modified_on:
+        type: string
+        format: 'date-time'
+        x-nullable: true
+        readOnly: true
+      attributes:
+        $ref: '#/definitions/MandateManagementAssociationAttributes'
+
+  MandateManagementAssociationAttributes:
+    type: object
+    required:
+      - payment_scheme
+    x-access:
+      - Public
+    properties:
+      payment_scheme:
+        $ref: '#/definitions/PaymentScheme'
+
+  MandateManagementAssociationDetailsResponse:
+    type: object
+    x-access:
+      - Public
+    properties:
+      data:
+        $ref: '#/definitions/MandateManagementAssociation'
+
+  PaymentScheme:
+    type: string
+    x-access:
+      - Public
+    enum:
+      - BACS
 
 responses:
   400BadRequest:
