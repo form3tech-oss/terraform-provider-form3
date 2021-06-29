@@ -11,18 +11,18 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// MandateManagementAttributes mandate management attributes
+// MandateManagementAssociationAttributes mandate management association attributes
 //
-// swagger:model MandateManagementAttributes
-type MandateManagementAttributes struct {
+// swagger:model MandateManagementAssociationAttributes
+type MandateManagementAssociationAttributes struct {
 
 	// payment scheme
 	// Required: true
 	PaymentScheme PaymentScheme `json:"payment_scheme"`
 }
 
-// Validate validates this mandate management attributes
-func (m *MandateManagementAttributes) Validate(formats strfmt.Registry) error {
+// Validate validates this mandate management association attributes
+func (m *MandateManagementAssociationAttributes) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validatePaymentScheme(formats); err != nil {
@@ -35,7 +35,7 @@ func (m *MandateManagementAttributes) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *MandateManagementAttributes) validatePaymentScheme(formats strfmt.Registry) error {
+func (m *MandateManagementAssociationAttributes) validatePaymentScheme(formats strfmt.Registry) error {
 
 	if err := m.PaymentScheme.Validate(formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
@@ -48,7 +48,7 @@ func (m *MandateManagementAttributes) validatePaymentScheme(formats strfmt.Regis
 }
 
 // MarshalBinary interface implementation
-func (m *MandateManagementAttributes) MarshalBinary() ([]byte, error) {
+func (m *MandateManagementAssociationAttributes) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -56,8 +56,8 @@ func (m *MandateManagementAttributes) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *MandateManagementAttributes) UnmarshalBinary(b []byte) error {
-	var res MandateManagementAttributes
+func (m *MandateManagementAssociationAttributes) UnmarshalBinary(b []byte) error {
+	var res MandateManagementAssociationAttributes
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

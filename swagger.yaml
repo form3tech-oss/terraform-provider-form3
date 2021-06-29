@@ -6151,11 +6151,11 @@ paths:
 
   /mandatemanagement:
     post:
-      summary: Create mandate management for organisation
-      tags:
-        - Mandates
+      summary: Create mandate management association for organisation
       x-access:
-        - Public
+        - Private
+      tags:
+        - Associations
       consumes:
         - application/vnd.api+json
         - application/json
@@ -6163,12 +6163,12 @@ paths:
         - name: Mandate management creation request
           in: body
           schema:
-            $ref: "#/definitions/MandateManagementCreation"
+            $ref: "#/definitions/MandateManagementAssociationCreation"
       responses:
         201:
           description: Mandate management configuration creation response
           schema:
-            $ref: "#/definitions/MandateManagementDetailsResponse"
+            $ref: "#/definitions/MandateManagementAssociationDetailsResponse"
         400:
           $ref: "#/responses/400BadRequest"
         401:
@@ -6188,11 +6188,11 @@ paths:
 
   /mandatemanagement/{id}:
     get:
-      summary: Fetch mandate management
-      tags:
-        - Mandates
+      summary: Fetch mandate management association
       x-access:
-        - Public
+        - Private
+      tags:
+        - Associations
       parameters:
         - name: id
           in: path
@@ -6204,7 +6204,7 @@ paths:
         200:
           description: Mandate Management details
           schema:
-            $ref: "#/definitions/MandateManagementDetailsResponse"
+            $ref: "#/definitions/MandateManagementAssociationDetailsResponse"
         400:
           $ref: "#/responses/400BadRequest"
         401:
@@ -6223,13 +6223,15 @@ paths:
           $ref: "#/responses/503ServiceUnavailable"
 
     delete:
-      summary: Delete mandate management
+      summary: Delete mandate management association
+      x-access:
+        - Private
       tags:
-        - Mandates
+        - Associations
       parameters:
         - name: id
           in: path
-          description: Limit Id
+          description: mandate management id
           required: true
           type: string
           format: uuid
@@ -13776,29 +13778,33 @@ definitions:
         description: "Street Country Address"
         example: "DE"
 
-  MandateManagementCreation:
+  MandateManagementAssociationCreation:
     type: object
     x-access:
-      - Public
+      - Private
     properties:
       data:
-        $ref: '#/definitions/MandateManagement'
+        $ref: '#/definitions/MandateManagementAssociation'
 
-  MandateManagement:
+  MandateManagementAssociation:
     type: object
     properties:
       id:
         type: string
         format: uuid
+        x-nullable: false
       type:
         type: string
-        pattern: ^[A-Za-z_]*$
+        enum:
+          - mandate_managements
+        x-nullable: false
       version:
         type: integer
         minimum: 0
       organisation_id:
         type: string
         format: uuid
+        x-nullable: false
       created_on:
         type: string
         format: 'date-time'
@@ -13810,9 +13816,9 @@ definitions:
         x-nullable: true
         readOnly: true
       attributes:
-        $ref: '#/definitions/MandateManagementAttributes'
+        $ref: '#/definitions/MandateManagementAssociationAttributes'
 
-  MandateManagementAttributes:
+  MandateManagementAssociationAttributes:
     type: object
     required:
       - payment_scheme
@@ -13822,13 +13828,13 @@ definitions:
       payment_scheme:
         $ref: '#/definitions/PaymentScheme'
 
-  MandateManagementDetailsResponse:
+  MandateManagementAssociationDetailsResponse:
     type: object
     x-access:
       - Public
     properties:
       data:
-        $ref: '#/definitions/MandateManagement'
+        $ref: '#/definitions/MandateManagementAssociation'
 
   PaymentScheme:
     type: string

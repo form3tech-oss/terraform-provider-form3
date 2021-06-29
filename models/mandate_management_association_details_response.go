@@ -11,17 +11,17 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// MandateManagementCreation mandate management creation
+// MandateManagementAssociationDetailsResponse mandate management association details response
 //
-// swagger:model MandateManagementCreation
-type MandateManagementCreation struct {
+// swagger:model MandateManagementAssociationDetailsResponse
+type MandateManagementAssociationDetailsResponse struct {
 
 	// data
-	Data *MandateManagement `json:"data,omitempty"`
+	Data *MandateManagementAssociation `json:"data,omitempty"`
 }
 
-// Validate validates this mandate management creation
-func (m *MandateManagementCreation) Validate(formats strfmt.Registry) error {
+// Validate validates this mandate management association details response
+func (m *MandateManagementAssociationDetailsResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateData(formats); err != nil {
@@ -34,7 +34,7 @@ func (m *MandateManagementCreation) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *MandateManagementCreation) validateData(formats strfmt.Registry) error {
+func (m *MandateManagementAssociationDetailsResponse) validateData(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Data) { // not required
 		return nil
@@ -53,7 +53,7 @@ func (m *MandateManagementCreation) validateData(formats strfmt.Registry) error 
 }
 
 // MarshalBinary interface implementation
-func (m *MandateManagementCreation) MarshalBinary() ([]byte, error) {
+func (m *MandateManagementAssociationDetailsResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -61,8 +61,8 @@ func (m *MandateManagementCreation) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *MandateManagementCreation) UnmarshalBinary(b []byte) error {
-	var res MandateManagementCreation
+func (m *MandateManagementAssociationDetailsResponse) UnmarshalBinary(b []byte) error {
+	var res MandateManagementAssociationDetailsResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

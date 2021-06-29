@@ -6,19 +6,21 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
-// MandateManagement mandate management
+// MandateManagementAssociation mandate management association
 //
-// swagger:model MandateManagement
-type MandateManagement struct {
+// swagger:model MandateManagementAssociation
+type MandateManagementAssociation struct {
 
 	// attributes
-	Attributes *MandateManagementAttributes `json:"attributes,omitempty"`
+	Attributes *MandateManagementAssociationAttributes `json:"attributes,omitempty"`
 
 	// created on
 	// Read Only: true
@@ -39,7 +41,7 @@ type MandateManagement struct {
 	OrganisationID strfmt.UUID `json:"organisation_id,omitempty"`
 
 	// type
-	// Pattern: ^[A-Za-z_]*$
+	// Enum: [mandate_managements]
 	Type string `json:"type,omitempty"`
 
 	// version
@@ -47,8 +49,8 @@ type MandateManagement struct {
 	Version *int64 `json:"version,omitempty"`
 }
 
-// Validate validates this mandate management
-func (m *MandateManagement) Validate(formats strfmt.Registry) error {
+// Validate validates this mandate management association
+func (m *MandateManagementAssociation) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAttributes(formats); err != nil {
@@ -85,7 +87,7 @@ func (m *MandateManagement) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *MandateManagement) validateAttributes(formats strfmt.Registry) error {
+func (m *MandateManagementAssociation) validateAttributes(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Attributes) { // not required
 		return nil
@@ -103,7 +105,7 @@ func (m *MandateManagement) validateAttributes(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *MandateManagement) validateCreatedOn(formats strfmt.Registry) error {
+func (m *MandateManagementAssociation) validateCreatedOn(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.CreatedOn) { // not required
 		return nil
@@ -116,7 +118,7 @@ func (m *MandateManagement) validateCreatedOn(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *MandateManagement) validateID(formats strfmt.Registry) error {
+func (m *MandateManagementAssociation) validateID(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.ID) { // not required
 		return nil
@@ -129,7 +131,7 @@ func (m *MandateManagement) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *MandateManagement) validateModifiedOn(formats strfmt.Registry) error {
+func (m *MandateManagementAssociation) validateModifiedOn(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.ModifiedOn) { // not required
 		return nil
@@ -142,7 +144,7 @@ func (m *MandateManagement) validateModifiedOn(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *MandateManagement) validateOrganisationID(formats strfmt.Registry) error {
+func (m *MandateManagementAssociation) validateOrganisationID(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.OrganisationID) { // not required
 		return nil
@@ -155,20 +157,47 @@ func (m *MandateManagement) validateOrganisationID(formats strfmt.Registry) erro
 	return nil
 }
 
-func (m *MandateManagement) validateType(formats strfmt.Registry) error {
+var mandateManagementAssociationTypeTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["mandate_managements"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		mandateManagementAssociationTypeTypePropEnum = append(mandateManagementAssociationTypeTypePropEnum, v)
+	}
+}
+
+const (
+
+	// MandateManagementAssociationTypeMandateManagements captures enum value "mandate_managements"
+	MandateManagementAssociationTypeMandateManagements string = "mandate_managements"
+)
+
+// prop value enum
+func (m *MandateManagementAssociation) validateTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, mandateManagementAssociationTypeTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *MandateManagementAssociation) validateType(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("type", "body", string(m.Type), `^[A-Za-z_]*$`); err != nil {
+	// value enum
+	if err := m.validateTypeEnum("type", "body", m.Type); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *MandateManagement) validateVersion(formats strfmt.Registry) error {
+func (m *MandateManagementAssociation) validateVersion(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Version) { // not required
 		return nil
@@ -182,7 +211,7 @@ func (m *MandateManagement) validateVersion(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *MandateManagement) MarshalBinary() ([]byte, error) {
+func (m *MandateManagementAssociation) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -190,8 +219,8 @@ func (m *MandateManagement) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *MandateManagement) UnmarshalBinary(b []byte) error {
-	var res MandateManagement
+func (m *MandateManagementAssociation) UnmarshalBinary(b []byte) error {
+	var res MandateManagementAssociation
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

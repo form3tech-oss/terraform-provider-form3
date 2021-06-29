@@ -3,7 +3,8 @@ package form3
 import (
 	"fmt"
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
-	"github.com/form3tech-oss/terraform-provider-form3/client/mandates"
+	"github.com/form3tech-oss/terraform-provider-form3/client/associations"
+	"github.com/form3tech-oss/terraform-provider-form3/models"
 	"github.com/go-openapi/strfmt"
 	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
@@ -13,7 +14,7 @@ import (
 )
 
 func TestAccMandateManagement_basic(t *testing.T) {
-	var mandateManagementResponse mandates.GetMandatemanagementIDOK
+	var mandateManagementResponse associations.GetMandatemanagementIDOK
 	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
 	organisationID := uuid.New().String()
 	defer verifyOrgDoesNotExist(t, organisationID)
@@ -28,15 +29,41 @@ func TestAccMandateManagement_basic(t *testing.T) {
 			{
 				Config: getTestForm3MandateManagementConfig(organisationID, parentOrganisationID, testOrgName, mandateManagementId),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckMandateManagementExists("form3_mandate_management.mandate_management", &mandateManagementResponse),
-					resource.TestCheckResourceAttr("mandate_management.mandate_management", "payment_scheme", "BACS"),
+					testAccCheckMandateManagementExists("form3_mandate_management_association.mandate_management", &mandateManagementResponse),
+					resource.TestCheckResourceAttr("form3_mandate_management_association.mandate_management", "payment_scheme", string(models.PaymentSchemeBACS)),
 				),
 			},
 		},
 	})
 }
 
-func testAccCheckMandateManagementExists(resourceKey string, mandateManagement *mandates.GetMandatemanagementIDOK) resource.TestCheckFunc {
+func TestAccMandateManagement_importBasic(t *testing.T) {
+	parentOrganisationID := os.Getenv("FORM3_ORGANISATION_ID")
+	organisationID := uuid.New().String()
+	defer verifyOrgDoesNotExist(t, organisationID)
+
+	mandateManagementId := uuid.New().String()
+
+	resourceName := "form3_mandate_management_association.mandate_management"
+
+	resource.Test(t, resource.TestCase{
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
+		CheckDestroy: testAccCheckLimitDestroy,
+		Steps: []resource.TestStep{
+			{
+				Config: getTestForm3MandateManagementConfig(organisationID, parentOrganisationID, testOrgName, mandateManagementId),
+			},
+			{
+				ResourceName:      resourceName,
+				ImportState:       true,
+				ImportStateVerify: true,
+			},
+		},
+	})
+}
+
+func testAccCheckMandateManagementExists(resourceKey string, mandateManagement *associations.GetMandatemanagementIDOK) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceKey]
 
@@ -50,7 +77,7 @@ func testAccCheckMandateManagementExists(resourceKey string, mandateManagement *
 
 		client := testAccProvider.Meta().(*form3.AuthenticatedClient)
 
-		foundRecord, err := client.AssociationClient.Mandates.GetMandatemanagementID(mandates.NewGetMandatemanagementIDParams().WithID(strfmt.UUID(rs.Primary.ID)))
+		foundRecord, err := client.AssociationClient.Associations.GetMandatemanagementID(associations.NewGetMandatemanagementIDParams().WithID(strfmt.UUID(rs.Primary.ID)))
 		if err != nil {
 			return err
 		}
@@ -68,10 +95,10 @@ func testAccCheckMandateManagementExists(resourceKey string, mandateManagement *
 func testMandateManagementDestroy(state *terraform.State) error {
 	client := testAccProvider.Meta().(*form3.AuthenticatedClient)
 	for _, rs := range state.RootModule().Resources {
-		if rs.Type != "form3_mandate_management" {
+		if rs.Type != "form3_mandate_management_association" {
 			continue
 		}
-		response, err := client.AssociationClient.Mandates.GetMandatemanagementID(mandates.NewGetMandatemanagementIDParams().WithID(strfmt.UUID(rs.Primary.ID)))
+		response, err := client.AssociationClient.Associations.GetMandatemanagementID(associations.NewGetMandatemanagementIDParams().WithID(strfmt.UUID(rs.Primary.ID)))
 
 		if err == nil {
 			return fmt.Errorf("record %s still exists, %+v", rs.Primary.ID, response)
@@ -88,9 +115,9 @@ func getTestForm3MandateManagementConfig(orgID, parOrgID, orgName, mandateManage
 		name 		           = "%s"
 	}
 
-	resource "form3_mandate_management" "mandate_management" {
+	resource "form3_mandate_management_association" "mandate_management" {
 		organisation_id       	= "${form3_organisation.organisation.organisation_id}"
-		mandate_management_id   = "%s"
-		payment_scheme    	    = "BACS"
-	}`, orgID, parOrgID, orgName, mandateManagementID)
+		association_id		    = "%s"
+		payment_scheme    	    = "%s"
+	}`, orgID, parOrgID, orgName, mandateManagementID, models.PaymentSchemeBACS)
 }
