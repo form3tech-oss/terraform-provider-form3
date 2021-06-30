@@ -50,7 +50,7 @@ func TestAccSepaInstantAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "transport_profile_id", "TEST_PROFILE_1"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "bic", bic),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "simulator_only", "true"),
-					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "disable_outbound_payments", "false"),
+					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "disable_outbound_payments", "true"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "enable_customer_admission_decision", "false"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "enable_customer_check", "false"),
 					resource.TestCheckResourceAttr("form3_sepainstant_association.association", "clearing_system", "auto"),
@@ -163,6 +163,7 @@ resource "form3_sepainstant_association" "association" {
   	transport_profile_id = "TEST_PROFILE_1"
 	bic                  = "${local.bic}"
 	simulator_only       = true
+    disable_outbound_payments = true
 }
 
 resource "form3_organisation" "organisation_sponsored" {
