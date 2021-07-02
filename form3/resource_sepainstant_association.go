@@ -235,16 +235,26 @@ func createSepaInstantUpdateAssociationFromResourceData(d *schema.ResourceData) 
 		association.OrganisationID = attr
 	}
 
-	if attr, ok := d.GetOk("bic"); ok {
-		association.Attributes.Bic = attr.(string)
+	// the following are optional parameters that do not
+	// have to be included in the patch, hence being wrapped
+	// with `HasChange`
+
+	if d.HasChange("bic") {
+		if attr, ok := d.GetOk("bic"); ok {
+			association.Attributes.Bic = attr.(string)
+		}
 	}
 
-	if attr, ok := d.GetOk("business_user_dn"); ok {
-		association.Attributes.BusinessUserDn = attr.(string)
+	if d.HasChange("business_user_dn") {
+		if attr, ok := d.GetOk("business_user_dn"); ok {
+			association.Attributes.BusinessUserDn = attr.(string)
+		}
 	}
 
-	if attr, ok := d.GetOk("transport_profile_id"); ok {
-		association.Attributes.TransportProfileID = attr.(string)
+	if d.HasChange("transport_profile_id") {
+		if attr, ok := d.GetOk("transport_profile_id"); ok {
+			association.Attributes.TransportProfileID = attr.(string)
+		}
 	}
 
 	if d.HasChange("disable_outbound_payments") {
@@ -272,19 +282,22 @@ func createSepaInstantUpdateAssociationFromResourceData(d *schema.ResourceData) 
 	}
 
 	if d.HasChange("clearing_system") {
-		attr := d.Get("clearing_system")
-		s := attr.(string)
-		association.Attributes.ClearingSystem = &s
+		if attr, ok := d.GetOk("clearing_system"); ok {
+			s := attr.(string)
+			association.Attributes.ClearingSystem = &s
+		}
 	}
 
-	if attr, ok := d.GetOk("reachable_bics"); ok {
-		rawList := attr.([]interface{})
-		bicList := make([]string, 0, len(rawList))
-		for _, e := range rawList {
-			bicList = append(bicList, e.(string))
-		}
+	if d.HasChange("reachable_bics") {
+		if attr, ok := d.GetOk("reachable_bics"); ok {
+			rawList := attr.([]interface{})
+			bicList := make([]string, 0, len(rawList))
+			for _, e := range rawList {
+				bicList = append(bicList, e.(string))
+			}
 
-		association.Attributes.ReachableBics = bicList
+			association.Attributes.ReachableBics = bicList
+		}
 	}
 
 	return &association, nil
