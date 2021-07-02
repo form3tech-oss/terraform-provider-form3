@@ -247,29 +247,34 @@ func createSepaInstantUpdateAssociationFromResourceData(d *schema.ResourceData) 
 		association.Attributes.TransportProfileID = attr.(string)
 	}
 
-	if attr, ok := d.GetOk("disable_outbound_payments"); ok {
+	if d.HasChange("disable_outbound_payments") {
+		attr := d.Get("disable_outbound_payments")
 		b := attr.(bool)
 		association.Attributes.DisableOutboundPayments = &b
 	}
 
-	if attr, ok := d.GetOk("enable_customer_admission_decision"); ok {
+	if d.HasChange("enable_customer_admission_decision") {
+		attr := d.Get("enable_customer_admission_decision")
 		b := attr.(bool)
 		association.Attributes.EnableCustomerAdmissionDecision = &b
 	}
 
-	if attr, ok := d.GetOk("enable_customer_check"); ok {
+	if d.HasChange("enable_customer_check") {
+		attr := d.Get("enable_customer_check")
 		b := attr.(bool)
 		association.Attributes.EnableCustomerCheck = &b
 	}
 
-	if attr, ok := d.GetOk("clearing_system"); ok {
-		s := attr.(string)
-		association.Attributes.ClearingSystem = &s
-	}
-
-	if attr, ok := d.GetOk("simulator_only"); ok {
+	if d.HasChange("simulator_only") {
+		attr := d.Get("simulator_only")
 		b := attr.(bool)
 		association.Attributes.SimulatorOnly = &b
+	}
+
+	if d.HasChange("clearing_system") {
+		attr := d.Get("clearing_system")
+		s := attr.(string)
+		association.Attributes.ClearingSystem = &s
 	}
 
 	if attr, ok := d.GetOk("reachable_bics"); ok {
