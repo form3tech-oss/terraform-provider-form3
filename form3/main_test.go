@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -115,4 +116,44 @@ func getLeakedTestOrgs(c *api.AuthenticatedClient, initialOrgs []*models.Organis
 	}
 
 	return nil
+}
+
+// testTFFile represents the data to be included in a test tf file
+// It has a collection of resources which must provide a means to represent
+// themselves as a string in tf format
+type testTFFile struct {
+	resources []fmt.Stringer
+}
+
+// String produces a string of all the resources contained in the testTFFile
+// in tf format
+func (r testTFFile) String() string {
+	var sb strings.Builder
+	sb.WriteString("\n")
+	for _, r := range r.resources {
+		sb.WriteString(fmt.Sprintf("%s\n\n", r.String()))
+	}
+	return sb.String()
+}
+
+func addTestResourceStringArgument(argumentName string, value *string, sb *strings.Builder) {
+	if value != nil {
+		sb.WriteString(fmt.Sprintf("    %s = \"%s\"\n", argumentName, *value))
+	}
+}
+
+func addTestResourceStringSliceArgument(argumentName string, value []string, sb *strings.Builder) {
+	if value != nil {
+		items := make([]string, len(value))
+		for i, v := range value {
+			items[i] = fmt.Sprintf("\"%s\"", v)
+		}
+		sb.WriteString(fmt.Sprintf("    %s = [%s]\n", argumentName, strings.Join(items, ",")))
+	}
+}
+
+func addTestResourceBoolArgument(argumentName string, value *bool, sb *strings.Builder) {
+	if value != nil {
+		sb.WriteString(fmt.Sprintf("    %s = %s\n", argumentName, strconv.FormatBool(*value)))
+	}
 }

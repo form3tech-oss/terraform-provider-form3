@@ -40,9 +40,9 @@ func TestAccSepaInstantAssociation_CreateAndPatch(t *testing.T) {
 		CheckDestroy: testAccCheckSepaInstantAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: tf_file{
-					[]string{
-						organisation_resource("organisation", organisationId, parentOrganisationId, testOrgName),
+				Config: testTFFile{
+					[]fmt.Stringer{
+						organisation_resource{resource_name: "organisation", organisation_id: organisationId, parent_organisation_id: parentOrganisationId, name: testOrgName},
 						sepainstant_association_resource{
 							resource_name:               "association",
 							dependant_organisation_name: "organisation",
@@ -50,7 +50,7 @@ func TestAccSepaInstantAssociation_CreateAndPatch(t *testing.T) {
 							business_user_dn:            &businessUserDN,
 							transport_profile_id:        &testProfile1,
 							bic:                         &bic,
-						}.String(),
+						},
 					},
 				}.String(),
 				Check: resource.ComposeTestCheckFunc(
@@ -70,9 +70,9 @@ func TestAccSepaInstantAssociation_CreateAndPatch(t *testing.T) {
 				),
 			},
 			{
-				Config: tf_file{
-					[]string{
-						organisation_resource("organisation", organisationId, parentOrganisationId, testOrgName),
+				Config: testTFFile{
+					[]fmt.Stringer{
+						organisation_resource{resource_name: "organisation", organisation_id: organisationId, parent_organisation_id: parentOrganisationId, name: testOrgName},
 						sepainstant_association_resource{
 							resource_name:               "association",
 							dependant_organisation_name: "organisation",
@@ -85,7 +85,7 @@ func TestAccSepaInstantAssociation_CreateAndPatch(t *testing.T) {
 							//simulator_only:                     &bTrue,
 							enable_customer_admission_decision: &bTrue,
 							enable_customer_check:              &bTrue,
-						}.String(),
+						},
 					},
 				}.String(),
 				Check: resource.ComposeTestCheckFunc(
@@ -105,9 +105,9 @@ func TestAccSepaInstantAssociation_CreateAndPatch(t *testing.T) {
 				),
 			},
 			{
-				Config: tf_file{
-					[]string{
-						organisation_resource("organisation", organisationId, parentOrganisationId, testOrgName),
+				Config: testTFFile{
+					[]fmt.Stringer{
+						organisation_resource{resource_name: "organisation", organisation_id: organisationId, parent_organisation_id: parentOrganisationId, name: testOrgName},
 						sepainstant_association_resource{
 							resource_name:               "association",
 							dependant_organisation_name: "organisation",
@@ -115,7 +115,7 @@ func TestAccSepaInstantAssociation_CreateAndPatch(t *testing.T) {
 							business_user_dn:            &businessUserDN,
 							transport_profile_id:        &testProfile1,
 							bic:                         &bic,
-						}.String(),
+						},
 					},
 				}.String(),
 				Check: resource.ComposeTestCheckFunc(
@@ -168,10 +168,10 @@ func TestAccSepaInstantAssociation_SponsoredAssociation_CreateAndPatchReachableB
 		CheckDestroy: testAccCheckSepaInstantAssociationDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: tf_file{
-					[]string{
-						organisation_resource("organisation", organisationId, parentOrganisationId, testOrgName),
-						organisation_resource("organisation_sponsored", sponsoredOrganisationId, parentOrganisationId, testOrgName),
+				Config: testTFFile{
+					[]fmt.Stringer{
+						organisation_resource{resource_name: "organisation", organisation_id: organisationId, parent_organisation_id: parentOrganisationId, name: testOrgName},
+						organisation_resource{resource_name: "organisation_sponsored", organisation_id: sponsoredOrganisationId, parent_organisation_id: parentOrganisationId, name: testOrgName},
 						sepainstant_association_resource{
 							resource_name:               "association",
 							dependant_organisation_name: "organisation",
@@ -179,7 +179,7 @@ func TestAccSepaInstantAssociation_SponsoredAssociation_CreateAndPatchReachableB
 							business_user_dn:            &businessUserDN,
 							transport_profile_id:        &testProfile1,
 							bic:                         &bic,
-						}.String(),
+						},
 						sepainstant_association_resource{
 							resource_name:               "association_sponsored",
 							dependant_organisation_name: "organisation_sponsored",
@@ -190,7 +190,7 @@ func TestAccSepaInstantAssociation_SponsoredAssociation_CreateAndPatchReachableB
 							reachable_bics:              reachableBics,
 							sponsor_id:                  &sponsorId,
 							depends_on:                  []string{"form3_sepainstant_association.association"},
-						}.String(),
+						},
 					},
 				}.String(),
 				Check: resource.ComposeTestCheckFunc(
@@ -206,10 +206,10 @@ func TestAccSepaInstantAssociation_SponsoredAssociation_CreateAndPatchReachableB
 				),
 			},
 			{
-				Config: tf_file{
-					[]string{
-						organisation_resource("organisation", organisationId, parentOrganisationId, testOrgName),
-						organisation_resource("organisation_sponsored", sponsoredOrganisationId, parentOrganisationId, testOrgName),
+				Config: testTFFile{
+					[]fmt.Stringer{
+						organisation_resource{resource_name: "organisation", organisation_id: organisationId, parent_organisation_id: parentOrganisationId, name: testOrgName},
+						organisation_resource{resource_name: "organisation_sponsored", organisation_id: sponsoredOrganisationId, parent_organisation_id: parentOrganisationId, name: testOrgName},
 						sepainstant_association_resource{
 							resource_name:               "association",
 							dependant_organisation_name: "organisation",
@@ -217,7 +217,7 @@ func TestAccSepaInstantAssociation_SponsoredAssociation_CreateAndPatchReachableB
 							business_user_dn:            &businessUserDN,
 							transport_profile_id:        &testProfile1,
 							bic:                         &bic,
-						}.String(),
+						},
 						sepainstant_association_resource{
 							resource_name:               "association_sponsored",
 							dependant_organisation_name: "organisation_sponsored",
@@ -228,7 +228,7 @@ func TestAccSepaInstantAssociation_SponsoredAssociation_CreateAndPatchReachableB
 							reachable_bics:              patchedReachableBics,
 							sponsor_id:                  &sponsorId,
 							depends_on:                  []string{"form3_sepainstant_association.association"},
-						}.String(),
+						},
 					},
 				}.String(),
 				Check: resource.ComposeTestCheckFunc(
@@ -295,19 +295,6 @@ func testAccCheckSepaInstantAssociationExists(resourceKey string) resource.TestC
 	}
 }
 
-type tf_file struct {
-	resources []string
-}
-
-func (r tf_file) String() string {
-	var sb strings.Builder
-	sb.WriteString("\n")
-	for _, r := range r.resources {
-		sb.WriteString(fmt.Sprintf("%s\n\n", r))
-	}
-	return sb.String()
-}
-
 type sepainstant_association_resource struct {
 	resource_name               string
 	dependant_organisation_name string
@@ -336,58 +323,28 @@ func (s sepainstant_association_resource) String() string {
 
 	var sb strings.Builder
 	sb.WriteString(fmt.Sprintf("resource \"%s\" \"%s\" {\n", "form3_sepainstant_association", s.resource_name))
-	addStringArgument("organisation_id", &dependent_org_id, &sb)
+	addTestResourceStringArgument("organisation_id", &dependent_org_id, &sb)
 
-	addStringArgument("association_id", s.association_id, &sb)
-	addStringArgument("parent_organisation_id", s.parent_organisation_id, &sb)
-	addStringArgument("organisation_sponsor_id", s.organisation_sponsor_id, &sb)
-	addStringArgument("sponsored_association_id", s.sponsored_association_id, &sb)
-	addStringArgument("bic", s.bic, &sb)
-	addStringArgument("business_user_dn", s.business_user_dn, &sb)
-	addStringArgument("transport_profile_id", s.transport_profile_id, &sb)
-	addStringArgument("sponsor_id", s.sponsor_id, &sb)
+	addTestResourceStringArgument("association_id", s.association_id, &sb)
+	addTestResourceStringArgument("parent_organisation_id", s.parent_organisation_id, &sb)
+	addTestResourceStringArgument("organisation_sponsor_id", s.organisation_sponsor_id, &sb)
+	addTestResourceStringArgument("sponsored_association_id", s.sponsored_association_id, &sb)
+	addTestResourceStringArgument("bic", s.bic, &sb)
+	addTestResourceStringArgument("business_user_dn", s.business_user_dn, &sb)
+	addTestResourceStringArgument("transport_profile_id", s.transport_profile_id, &sb)
+	addTestResourceStringArgument("sponsor_id", s.sponsor_id, &sb)
 
-	addStringArgument("clearing_system", s.clearing_system, &sb)
-	addBoolArgument("enable_customer_check", s.enable_customer_check, &sb)
-	addBoolArgument("enable_customer_admission_decision", s.enable_customer_admission_decision, &sb)
-	addBoolArgument("simulator_only", s.simulator_only, &sb)
-	addBoolArgument("disable_outbound_payments", s.disable_outbound_payments, &sb)
+	addTestResourceStringArgument("clearing_system", s.clearing_system, &sb)
+	addTestResourceBoolArgument("enable_customer_check", s.enable_customer_check, &sb)
+	addTestResourceBoolArgument("enable_customer_admission_decision", s.enable_customer_admission_decision, &sb)
+	addTestResourceBoolArgument("simulator_only", s.simulator_only, &sb)
+	addTestResourceBoolArgument("disable_outbound_payments", s.disable_outbound_payments, &sb)
 
-	addStringSliceArgument("reachable_bics", s.reachable_bics, &sb)
-	addStringSliceArgument("depends_on", s.depends_on, &sb)
+	addTestResourceStringSliceArgument("reachable_bics", s.reachable_bics, &sb)
+	addTestResourceStringSliceArgument("depends_on", s.depends_on, &sb)
 
 	sb.WriteString("}")
 	return sb.String()
 }
 
-func addStringArgument(argumentName string, value *string, sb *strings.Builder) {
-	if value != nil {
-		sb.WriteString(fmt.Sprintf("    %s = \"%s\"\n", argumentName, *value))
-	}
-}
 
-func addStringSliceArgument(argumentName string, value []string, sb *strings.Builder) {
-	if value != nil {
-		items := make([]string, len(value))
-		for i, v := range value {
-			items[i] = fmt.Sprintf("\"%s\"", v)
-		}
-		sb.WriteString(fmt.Sprintf("    %s = [%s]\n", argumentName, strings.Join(items, ",")))
-	}
-}
-
-func addBoolArgument(argumentName string, value *bool, sb *strings.Builder) {
-	if value != nil {
-		sb.WriteString(fmt.Sprintf("    %s = %s\n", argumentName, strconv.FormatBool(*value)))
-	}
-}
-
-func organisation_resource(resource_name, organisation_id, parent_organisation_id, name string) string {
-	var sb strings.Builder
-	sb.WriteString(fmt.Sprintf("resource \"form3_organisation\" \"%s\" {\n", resource_name))
-	addStringArgument("organisation_id", &organisation_id, &sb)
-	addStringArgument("parent_organisation_id", &parent_organisation_id, &sb)
-	addStringArgument("name", &name, &sb)
-	sb.WriteString("}")
-	return sb.String()
-}

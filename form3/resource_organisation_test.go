@@ -3,6 +3,7 @@ package form3
 import (
 	"fmt"
 	"os"
+	"strings"
 	"testing"
 
 	form3 "github.com/form3tech-oss/terraform-provider-form3/api"
@@ -144,3 +145,21 @@ func getTestForm3OrganisationConfigUpdate(orgID, parOrgID, orgName string) strin
 		name 		               = "%s-updated"
 	}`, orgID, parOrgID, orgName)
 }
+
+type organisation_resource struct {
+	resource_name string
+	organisation_id string
+	parent_organisation_id string
+	name string
+}
+
+func (o organisation_resource) String() string {
+	var sb strings.Builder
+	sb.WriteString(fmt.Sprintf("resource \"form3_organisation\" \"%s\" {\n", o.resource_name))
+	addTestResourceStringArgument("organisation_id", &o.organisation_id, &sb)
+	addTestResourceStringArgument("parent_organisation_id", &o.parent_organisation_id, &sb)
+	addTestResourceStringArgument("name", &o.name, &sb)
+	sb.WriteString("}")
+	return sb.String()
+}
+
