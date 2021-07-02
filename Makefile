@@ -70,7 +70,7 @@ test-compile:
 	go test -c $(TEST) $(TESTARGS)
 
 release:
-	@curl -sL http://git.io/goreleaser | bash
+	@$(CURDIR)/scripts/goreleaser.sh
 
 .PHONY: build test testacc vet fmt fmtcheck errcheck vendor-status test-compile release
 
